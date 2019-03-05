@@ -1,0 +1,59 @@
+{
+	"name" : "baiyuan/yii2-starter-kit",
+	"description" : "yii2快速开发模板",
+	"keywords" : [
+		"baiyuan",
+		"yii2",
+		"fast develop template"
+	],
+	"homepage" : "http://www.baiyuan-teck.com/",
+	"type" : "project",
+	"minimum-stability" : "stable",
+	"require" : {
+		"php" : ">=5.4.0",
+		"yiisoft/yii2" : "~2.0",
+		"yiisoft/yii2-bootstrap" : "~2.0",
+		"yiisoft/yii2-swiftmailer" : "~2",
+		"yiisoft/yii2-httpclient" : "~2.0"
+	},
+	"require-dev" : {
+		"yiisoft/yii2-debug" : "~2.0",
+		"yiisoft/yii2-gii" : "~2.0"
+	},
+	"config" : {
+		"process-timeout" : 1800,
+		"fxp-asset" : {
+			"installer-paths" : {
+				"npm-asset-library" : "vendor/npm",
+				"bower-asset-library" : "vendor/bower"
+			}
+		}
+	},
+	"scripts" : {
+		"post-install-cmd" : "yii\\composer\\Installer::postInstall",
+		"post-create-project-cmd" : [
+			"yii\\composer\\Installer::postCreateProject",
+			"yii\\composer\\Installer::postInstall"
+		]
+	},
+	"extra" : {
+		"yii\\composer\\Installer::postCreateProject" : {
+			"setPermission" : [{
+					"runtime" : "0777",
+					"public/assets" : "0777",
+					"yii" : "0755"
+				}
+			]
+		},
+		"yii\\composer\\Installer::postInstall" : {
+			"generateCookieValidationKey" : [
+				"config/common.php"
+			]
+		}
+	},
+	"repositories" : [{
+			"type" : "composer",
+			"url" : "https://asset-packagist.org"
+		}
+	]
+}
