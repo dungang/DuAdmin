@@ -31,19 +31,22 @@ if (YII_ENV_DEV) {
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
-        'class' => 'yii\gii\Module',
+        'class' => 'app\generators\Module',
         'generators' => [
             'crud' => [
-                'class' => 'yii\gii\generators\crud\Generator',
+                'class' => 'app\generators\crud\Generator',
                 'templates' => [
                     'geetask' => dirname(dirname(__FILE__)) . '/generators/crud/default'
                 ]
             ],
             'model' => [
-                'class' => 'yii\gii\generators\model\Generator',
+                'class' => 'app\generators\model\Generator',
                 'baseClass' => 'app\kit\core\BaseModel',
                 'ns' => 'app\kit\models',
                 'queryNs' => 'app\kit\models'
+            ],
+            'addons' => [
+                'class' => 'app\generators\addons\Generator',
             ]
         ]
         // uncomment the following to add your IP if you are not connecting from localhost.

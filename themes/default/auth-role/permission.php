@@ -1,12 +1,13 @@
 <?php
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-use app\kit\grid\TreeGrid;
+use app\kit\grids\TreeGrid;
 use app\kit\models\AuthItem;
 
 /* @var $this yii\web\View */
 /* @var $model app\kit\models\AuthRole */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $rights array*/
 
 $this->title = '角色授权: ' . $model->name;
 $this->params['breadcrumbs'][] = [
