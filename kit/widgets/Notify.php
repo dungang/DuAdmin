@@ -56,7 +56,7 @@ class Notify extends Widget
                 continue;
             }
             
-            foreach (\array_values($flash) as $message) {
+            foreach (array_values((array)$flash) as $message) {
                 $this->renderNotify($message);
             }
             

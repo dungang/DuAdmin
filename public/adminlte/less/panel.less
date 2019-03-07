@@ -1,0 +1,38 @@
+/*
+ * Component: panel
+ * ----------------
+ */
+
+.panel {
+  margin-bottom: @line-height-computed;
+  background-color: @panel-bg;
+  border: 0;
+  border-radius: @panel-border-radius;
+  .box-shadow(0 1px 1px rgba(0,0,0,.05));
+}
+
+.panel-adminlte {
+
+	.panel-heading {
+	  background-color: #d2d6de; //#c6cbd0;
+	  padding: @panel-heading-padding;
+	  border: 0;
+	  .border-top-radius((@panel-border-radius - 1));
+
+	  > .dropdown .dropdown-toggle {
+		color: inherit;
+	  }
+	}
+	.panel-footer {
+		border-top: 0;
+		padding: 10px;
+		.pagination {
+			margin: 0px;
+		}
+		
+    }
+	
+	.table {
+		margin:0px;
+	}
+}

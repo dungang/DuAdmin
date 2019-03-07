@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-$asset = app\generators\GiiAsset::register($this);
+app\generators\GiiAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -24,6 +24,7 @@ $asset = app\generators\GiiAsset::register($this);
         <?php $this->beginBody() ?>
         <?php
         NavBar::begin([
+            'brandLabel' => Yii::$app->name . ' <font class="h6">' . Yii::$app->version . '</font>',
             'brandUrl' => ['default/index'],
             'options' => ['class' => 'navbar-inverse navbar-fixed-top'],
         ]);

@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $content string */
 
 $generators = Yii::$app->controller->module->generators;
-$this->title = 'Welcome to Gii';
+$this->title = '生成器-高效快捷代码生成器';
 ?>
 <div class="default-index">
     <div class="page-header">

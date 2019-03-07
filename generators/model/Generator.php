@@ -13,7 +13,7 @@ use yii\db\ActiveRecord;
 use yii\db\Connection;
 use yii\db\Schema;
 use yii\db\TableSchema;
-use yii\gii\CodeFile;
+use app\generators\CodeFile;
 use yii\helpers\Inflector;
 use yii\base\NotSupportedException;
 
@@ -855,6 +855,7 @@ class Generator extends \app\generators\Generator
         }
 
         $db = $this->getDbConnection();
+        $matches = [];
         if (preg_match("/^{$db->tablePrefix}(.*?)$/", $tableName, $matches)) {
             $tableName = '{{%' . $matches[1] . '}}';
         } elseif (preg_match("/^(.*?){$db->tablePrefix}$/", $tableName, $matches)) {
@@ -897,6 +898,7 @@ class Generator extends \app\generators\Generator
         }
         $className = $tableName;
         foreach ($patterns as $pattern) {
+            $matches=[];
             if (preg_match($pattern, $tableName, $matches)) {
                 $className = $matches[1];
                 break;

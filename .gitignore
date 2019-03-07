@@ -34,3 +34,4 @@ tests/_support/_generated
 public/uploads
 public/assets
 runtime
+node_modules

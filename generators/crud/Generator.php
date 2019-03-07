@@ -11,7 +11,7 @@ use Yii;
 use yii\db\ActiveRecord;
 use yii\db\BaseActiveRecord;
 use yii\db\Schema;
-use yii\gii\CodeFile;
+use app\generators\CodeFile;
 use yii\helpers\Inflector;
 use yii\helpers\VarDumper;
 use yii\web\Controller;
@@ -43,11 +43,6 @@ class Generator extends \app\generators\Generator
      * @since 2.0.5
      */
     public $enablePjax = false;
-    
-    public function init(){
-        parent::init();
-        $this->baseControllerClass = '\app\kit\core\BaseController';
-    }
 
 
     /**

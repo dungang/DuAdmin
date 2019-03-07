@@ -9,6 +9,7 @@ class BackendModule extends Module
         parent::init();
         $this->controllerNamespace = 'app\backend\controllers';
         $this->viewPath = '@app/themes/backend';
+        $this->layout = 'backend';
     }
 }
 

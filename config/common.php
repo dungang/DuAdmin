@@ -16,6 +16,7 @@ $config = [
     'modules'=>[
         'backend'=>'app\backend\BackendModule'
     ],
+    'homeUrl'=>['/backend'],
     'components' => [
         'request' => [
             'cookieValidationKey' => 'kdyagjkuduebfdglsgdls'
@@ -25,7 +26,8 @@ $config = [
         ],
         'user' => [
             'identityClass' => 'app\kit\models\User',
-            'enableAutoLogin' => true
+            'enableAutoLogin' => true,
+            'loginUrl'=>['backend/login'],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

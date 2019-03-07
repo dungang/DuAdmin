@@ -37,11 +37,6 @@ body {
     padding: 14px 24px;
 }
 
-.navbar-brand {
-    padding: 0;
-    margin: 0;
-}
-
 .default-index .generator {
     min-height: 200px;
     margin-bottom: 20px;

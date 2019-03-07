@@ -34,7 +34,7 @@ AppAsset::register($this);
         'brandLabel' => Yii::$app->name . ' <font class="h6">' . Yii::$app->version . '</font>',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-default navbar-fixed-top'
+            'class' => 'navbar-default'
         ]
     ]);
     $menus = [

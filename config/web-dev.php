@@ -8,11 +8,18 @@ $config = [
         ],
         'assetManager' => [
             'bundles' => [
+                'yii\bootstrap\BootstrapPluginAsset' => [
+                    'baseUrl' => '@web',
+                    'js' => [
+                        'js/bootstrap.min.js',
+                    ],
+                    'sourcePath' => null // 防止在 frontend/web/asset 下生产文件
+                ],
                 'yii\bootstrap\BootstrapAsset' => [
-                    'baseUrl' => '@web/css/',
+                    'baseUrl' => '@web',
                     'css' => [
-                        'bootstrap-cosmo.min.css'
-                    ], // 去除 bootstrap.css
+                        'css/bootstrap.min.css',
+                    ],
                     'sourcePath' => null // 防止在 frontend/web/asset 下生产文件
                 ]
             ]
@@ -35,9 +42,6 @@ if (YII_ENV_DEV) {
         'generators' => [
             'crud' => [
                 'class' => 'app\generators\crud\Generator',
-                'templates' => [
-                    'geetask' => dirname(dirname(__FILE__)) . '/generators/crud/default'
-                ]
             ],
             'model' => [
                 'class' => 'app\generators\model\Generator',
