@@ -1,5 +1,5 @@
 <?php
-use yii\helpers\Html;
+use app\kit\widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
 /* @var $model app\kit\models\Menu */
@@ -7,14 +7,8 @@ use yii\helpers\Html;
 $this->title = '添加 Menu';
 $this->params['breadcrumbs'][] = ['label' => 'Menus', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-?>
-<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal"
-		aria-hidden="true">&times;</button>
-		<h4 class="modal-title"><?= Html::encode($this->title) ?></h4>
-</div>
-<div class="modal-body">
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
-</div>
+echo AjaxModalOrNormalPanelContent::widget([
+    'title'=>$this->title,
+    'summary'=>'信息',
+    'content'=>$this->render('_form', ['model' => $model])
+])?>

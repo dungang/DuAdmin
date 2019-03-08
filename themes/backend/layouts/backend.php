@@ -12,6 +12,7 @@ use app\kit\models\Menu;
 use app\kit\assets\BackendAsset;
 use app\kit\widgets\AdminlteNavBar;
 use app\kit\widgets\AdminlteSideBar;
+use app\kit\widgets\AdminlteSideBarMenu;
 
 BackendAsset::register($this);
 ?>
@@ -49,7 +50,7 @@ BackendAsset::register($this);
  * |---------------------------------------------------------|
  */
 ?>
-<body class="skin-green-light fixed sidebar-mini">
+<body class="skin-green fixed sidebar-mini">
 <?php $this->beginBody() ?>
 <div class="wrapper">
 
@@ -124,19 +125,10 @@ BackendAsset::register($this);
 				<i class="fa fa-circle text-success"></i> 在线
 			</div>
 		</div>
-
-		<!-- search form (Optional) -->
-		<form action="#" method="get" class="sidebar-form">
-			<div class="input-group">
-				<input type="text" name="q" class="form-control" placeholder="Search...">
-				<span class="input-group-btn">
-					<button type="submit" name="search" id="search-btn" class="btn btn-flat">
-						<i class="fa fa-search"></i>
-					</button>
-				</span>
-			</div>
-		</form>
-		<!-- /.search form -->
+		<?= AdminlteSideBarMenu::widget([
+		    'headerLabel'=>'导航',
+		    'items'=>Menu::getBackMenus()
+		])?>
 
   <?php AdminlteSideBar::end();?>
 

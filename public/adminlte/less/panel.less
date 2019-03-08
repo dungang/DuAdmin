@@ -23,6 +23,22 @@
 		color: inherit;
 	  }
 	}
+
+	.panel-title {
+		margin-top: 0;
+		margin-bottom: 0;
+		font-size: 12px;// ceil((@font-size-base * 1.125));
+		color: inherit;
+		font-style: normal;
+		> a,
+		> small,
+		> .small,
+		> small > a,
+		> .small > a {
+			color: inherit;
+		}
+	}
+
 	.panel-footer {
 		border-top: 0;
 		padding: 10px;
@@ -34,5 +50,15 @@
 	
 	.table {
 		margin:0px;
+	}
+
+	/* NAV TABS */
+	.nav-tabs-custom {
+		margin-bottom: 5px;
+		background: #fff;
+		box-shadow:  0 0 0;
+		border-radius: @box-border-radius;
+		border:0px;
+		
 	}
 }

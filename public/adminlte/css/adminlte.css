@@ -3109,6 +3109,9 @@ table.text-center th {
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 }
+.panel-adminlte {
+  /* NAV TABS */
+}
 .panel-adminlte .panel-heading {
   background-color: #d2d6de;
   padding: 10px 15px;
@@ -3117,6 +3120,20 @@ table.text-center th {
   border-top-left-radius: 3px;
 }
 .panel-adminlte .panel-heading > .dropdown .dropdown-toggle {
+  color: inherit;
+}
+.panel-adminlte .panel-title {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 12px;
+  color: inherit;
+  font-style: normal;
+}
+.panel-adminlte .panel-title > a,
+.panel-adminlte .panel-title > small,
+.panel-adminlte .panel-title > .small,
+.panel-adminlte .panel-title > small > a,
+.panel-adminlte .panel-title > .small > a {
   color: inherit;
 }
 .panel-adminlte .panel-footer {
@@ -3128,6 +3145,13 @@ table.text-center th {
 }
 .panel-adminlte .table {
   margin: 0px;
+}
+.panel-adminlte .nav-tabs-custom {
+  margin-bottom: 5px;
+  background: #fff;
+  box-shadow: 0 0 0;
+  border-radius: 3px;
+  border: 0px;
 }
 /*
  * Page: Mailbox

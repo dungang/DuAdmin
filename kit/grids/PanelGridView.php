@@ -57,7 +57,7 @@ class PanelGridView extends GridView
     public function renderSummary()
     {
         $summary =  parent::renderSummary();
-        return Html::tag('div', $summary? $summary:'无数据', [
+        return Html::tag('div', $summary? $summary:Html::tag('div','无数据',['class'=>$this->panelTitleClass]), [
             'class' => $this->panelHeadingClass
         ]);
     }

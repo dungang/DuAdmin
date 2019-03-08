@@ -1,3 +1,9 @@
+html,
+body,
+.wrapper {
+  height: 100%;
+  font-weight: normal;
+}
 .not-set {
   color: #c55;
   font-style: italic;
@@ -76,7 +82,13 @@ a.desc:after {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+#modal-dailog .modal-content {
+  border-radius: 3px;
+}
 #modal-dailog .modal-header {
   background-color: #e5e5e5;
   border: 0px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  padding: 10px 15px;
 }

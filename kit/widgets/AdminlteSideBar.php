@@ -2,7 +2,6 @@
 namespace app\kit\widgets;
 
 use yii\bootstrap\Widget;
-use yii\bootstrap\Html;
 
 /**
  * adminlte侧边导航菜单
@@ -11,8 +10,6 @@ use yii\bootstrap\Html;
  */
 class AdminlteSideBar extends Widget
 {
-    public $headerLabel = 'MAIN NAVIGATION';
-    
     public $items;
     
     public function init()
@@ -29,10 +26,8 @@ class AdminlteSideBar extends Widget
         $this->view->registerJs("$('[data-toggle=\"push-menu\"]').pushMenu()");
         $content =  ob_get_clean();
         $start = '<aside class="main-sidebar"><section class="sidebar">';
-        $startMenu = '<ul class="sidebar-menu" data-widget="tree">' . Html::tag('li',$this->headerLabel,['class'=>'header']);
-        $endMenu = '</ul>';
         $end = '</aside></section>';
-        return $start  . $content . $startMenu . $endMenu .$end;
+        return $start  . $content  .$end;
     }
 }
 

@@ -1,6 +1,7 @@
-//html, body,.wrapper {
-//	height: 100%;
-//}
+html, body,.wrapper {
+	height: 100%;
+	font-weight: normal;
+}
 
 
 .not-set {
@@ -99,8 +100,17 @@ a.desc:after {
 // --- #modal-dailog ---
 
 #modal-dailog  {
+	.modal-content {
+		border-radius: 3px;
+		.control-label {
+			//font-weight: normal;
+		}
+	}
 	.modal-header {
 		background-color: #e5e5e5;//#d2d6de;
 		border: 0px;
+		border-top-left-radius: 3px;
+		border-top-right-radius: 3px;
+		padding:10px 15px;
 	}
 }

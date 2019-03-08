@@ -117,7 +117,7 @@ class Menu extends \app\kit\core\BaseModel
     public static function getFrontMenus()
     {
         if (! ($vars = \Yii::$app->cache->get(self::CacheKeyFront))) {
-            $vars = self::find()->select('id,pid,name as label,url')->where([
+            $vars = self::find()->select('id,pid,name as label,url,icon')->where([
                 'is_front' => 1
             ])
                 ->indexBy('id')
@@ -135,16 +135,16 @@ class Menu extends \app\kit\core\BaseModel
     public static function getBackMenus()
     {
         if (! ($vars = \Yii::$app->cache->get(self::CacheKeyBack))) {
-            $vars = self::find()->select('id,pid,name as label,url')->where([
+            $vars = self::find()->select('id,pid,name label,url,icon')->where([
                 'is_front' => 0
             ])
                 ->indexBy('id')
                 ->asArray()
                 ->orderBy('sort asc')
                 ->all();
-            if ($vars) {
-                $vars = MiscHelper::listToTree($vars);
-            }
+//             if ($vars) {
+//                 $vars = MiscHelper::listToTree($vars);
+//             }
             \Yii::$app->cache->set(self::CacheKeyBack, $vars);
         }
         return $vars;

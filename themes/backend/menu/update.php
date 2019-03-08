@@ -1,23 +1,28 @@
 <?php
-
-use yii\helpers\Html;
+use app\kit\widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
 /* @var $model app\kit\models\Menu */
 
 $this->title = 'Update Menu: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Menus', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = [
+    'label' => 'Menus',
+    'url' => [
+        'index'
+    ]
+];
+$this->params['breadcrumbs'][] = [
+    'label' => $model->name,
+    'url' => [
+        'view',
+        'id' => $model->id
+    ]
+];
 $this->params['breadcrumbs'][] = '更新';
-?>
-<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal"
-		aria-hidden="true">&times;</button>
-		<h4 class="modal-title"><?= Html::encode($this->title) ?></h4>
-</div>
-<div class="modal-body">
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
-
-</div>
+echo AjaxModalOrNormalPanelContent::widget([
+    'title' => $this->title,
+    'summary' => $model->name,
+    'content' => $this->render('_form', [
+        'model' => $model
+    ])
+])?>
