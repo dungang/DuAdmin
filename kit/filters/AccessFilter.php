@@ -9,6 +9,7 @@ use app\kit\models\AcRoute;
 
 /**
  * 替代默认的ACF
+ *
  * @author dungang
  *        
  */
@@ -16,6 +17,8 @@ class AccessFilter extends ActionFilter
 {
 
     const ID = 'access-filter';
+
+    public $is_backend = false;
 
     /**
      *
@@ -63,6 +66,9 @@ class AccessFilter extends ActionFilter
                 Yii::$app->getSession()->destroy();
                 $this->denyAccess();
 
+            //如果是后台控制器，必须是管理者属性的用户
+            } else if ($this->is_backend && $user->is_admin != 1) {
+                return false;
                 // step3. 如果是超级管理员
             } else if ($user->is_super) {
                 return true;

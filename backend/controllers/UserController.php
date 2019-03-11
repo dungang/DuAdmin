@@ -7,7 +7,7 @@ use app\kit\models\User;
 use app\backend\forms\UserForm;
 use Yii;
 
-class MemberController extends BackendController
+class UserController extends BackendController
 {
     public function actions()
     {

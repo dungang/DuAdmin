@@ -7,6 +7,9 @@ namespace app\kit\models;
  * @property string $name 名称
  * @property string $title 标题
  * @property string $value 值
+ * @property string $hint 提示
+ * @property string $val_type 值类型
+ * @property string $category 参数分类 
  */
 class Setting extends \app\kit\core\BaseModel
 {
@@ -41,33 +44,11 @@ class Setting extends \app\kit\core\BaseModel
     public function rules()
     {
         return [
-            [
-                [
-                    'name',
-                    'title'
-                ],
-                'required'
-            ],
-            [
-                [
-                    'value'
-                ],
-                'string'
-            ],
-            [
-                [
-                    'name',
-                    'title'
-                ],
-                'string',
-                'max' => 64
-            ],
-            [
-                [
-                    'name'
-                ],
-                'unique'
-            ]
+            [['name', 'title'], 'required'],
+            [['value', 'val_type'], 'string'],
+            [['name', 'title', 'category'], 'string', 'max' => 64],
+            [['hint'], 'string', 'max' => 255],
+            [['name'], 'unique'],
         ];
     }
 
@@ -80,7 +61,10 @@ class Setting extends \app\kit\core\BaseModel
         return [
             'name' => '名称',
             'title' => '标题',
-            'value' => '值'
+            'value' => '值',
+            'hint' => '提示',
+            'val_type' => '值类型',
+            'category' => '参数分类', 
         ];
     }
 
@@ -92,6 +76,21 @@ class Setting extends \app\kit\core\BaseModel
     public static function find()
     {
         return new SettingQuery(get_called_class());
+    }
+    
+    
+    public static function getSettingCatetory(){
+        $categories = [];
+        if($setting = self::findOne(['name'=>'setting.category'])){
+            if(!empty($setting->value)) {
+                $items = \explode("\n", trim($setting->value));
+               foreach($items as $item) {
+                   $kv = explode(':',$item);
+                   $categories[$kv[0]] = $kv[1];
+               }
+            }
+        }
+        return $categories;
     }
     
     public static function getCacheSettings(){

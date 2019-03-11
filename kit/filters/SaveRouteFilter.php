@@ -45,7 +45,7 @@ class SaveRouteFilter extends Behavior
         $action = $event->action;
 
         // 添加模块
-        $module = str_replace("/", "-", $controller->uniqueId);
+        $module = $controller->uniqueId;
         $moduleObj = AppModule::findOne([
             'name' => $module,
             'type' => AppModule::TYPE_MODULE
@@ -54,7 +54,7 @@ class SaveRouteFilter extends Behavior
         if ($moduleObj === null) {
             $moduleObj = new AppModule();
             $moduleObj->name = $module;
-            $moduleObj->description = str_replace("-", " ", $module);
+            $moduleObj->description = str_replace(['-','/'], " ", $module);
             $moduleObj->save(FALSE);
         }
 

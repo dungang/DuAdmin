@@ -2,7 +2,6 @@ html,
 body,
 .wrapper {
   height: 100%;
-  font-weight: normal;
 }
 .not-set {
   color: #c55;
@@ -85,10 +84,22 @@ a.desc:after {
 #modal-dailog .modal-content {
   border-radius: 3px;
 }
+#modal-dailog .modal-content .control-label,
+#modal-dailog .modal-content th {
+  font-weight: 100;
+}
 #modal-dailog .modal-header {
-  background-color: #e5e5e5;
+  background-color: #fcf8e3;
+  color: #8a6d3b;
   border: 0px;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
   padding: 10px 15px;
+}
+#modal-dailog .modal-header .modal-title {
+  font-weight: bold;
+  font-size: 14px;
+}
+#modal-dailog .table {
+  margin-bottom: 0;
 }

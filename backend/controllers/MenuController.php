@@ -16,7 +16,8 @@ class MenuController extends BackendController
             'index' => [
                 'class' => 'app\kit\core\ListModelsAction',
                 'modelClass' => [
-                    'class' => 'app\kit\models\MenuSearch'
+                    'class' => 'app\kit\models\MenuSearch',
+                    'is_front'=>1,
                 ]
             ],
             'create' => [

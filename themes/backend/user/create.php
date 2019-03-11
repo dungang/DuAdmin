@@ -13,7 +13,6 @@ $this->params['breadcrumbs'][] = [
 ];
 $this->params['breadcrumbs'][] = $this->title;
 echo AjaxModalOrNormalPanelContent::widget([
-    'title'=>$this->title,
-    'summary'=>'信息',
+    'intro'=>'添加用户信息',
     'content'=>$this->render('_form', ['model' => $model])
 ])?>

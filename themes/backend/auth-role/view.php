@@ -1,26 +1,28 @@
 <?php
-use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\kit\widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
 /* @var $model app\kit\models\Role */
 
-$this->title = $model->name;
+$this->title = '查看';
 $this->params['breadcrumbs'][] = [
-    'label' => 'Roles',
+    'label' => '角色',
     'url' => [
         'index'
     ]
 ];
-$this->params['breadcrumbs'][] = $this->title;
-?>
-<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal"
-		aria-hidden="true">&times;</button>
-	<h4 class="modal-title"><?= Html::encode($this->title) ?></h4>
-</div>
-<div class="modal-body">
+$this->params['breadcrumbs'][] = $model->name;
 
-    <?=DetailView::widget(['model' => $model,'attributes' => ['id','name','scope','description']])?>
-
-</div>
+echo AjaxModalOrNormalPanelContent::widget([
+    'intro' => '查看角色的信息：' . $model->name,
+    'content' => DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            'id',
+            'name',
+            'scope',
+            'description'
+        ]
+    ])
+])?>

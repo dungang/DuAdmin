@@ -1,6 +1,10 @@
+@import "../adminlte/bootstrap-less/variables.less";
+@import "../adminlte/less/variables.less";
 html, body,.wrapper {
 	height: 100%;
-	font-weight: normal;
+	//font-weight: normal;
+	//line-height: 1;
+	//font-size: 13px;
 }
 
 
@@ -102,15 +106,30 @@ a.desc:after {
 #modal-dailog  {
 	.modal-content {
 		border-radius: 3px;
-		.control-label {
-			//font-weight: normal;
+		.control-label,th {
+			font-weight: 100;
 		}
 	}
 	.modal-header {
-		background-color: #e5e5e5;//#d2d6de;
+		//background-color: #e5e5e5;//#d2d6de;
+		background-color: @alert-warning-bg;//@state-warning-bg;//@state-info-bg;#d2d6de; //#d2d6de;//#c6cbd0;
+		color: @alert-warning-text;//@gray;
 		border: 0px;
 		border-top-left-radius: 3px;
 		border-top-right-radius: 3px;
 		padding:10px 15px;
+		.modal-title {
+			font-weight: bold;
+			font-size: @font-size-h5;
+		}
+	}
+
+	.table {
+		margin-bottom: 0;
 	}
 }
+
+
+//--adminlte
+
+// bootstrap button

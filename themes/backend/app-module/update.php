@@ -1,10 +1,10 @@
 <?php
-use yii\helpers\Html;
+use app\kit\widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
 /* @var $model app\kit\models\AppModule */
 
-$this->title = '更新模块: ' . $model->description;
+$this->title = '更新';
 $this->params['breadcrumbs'][] = [
     'label' => '系统模块',
     'url' => [
@@ -18,15 +18,8 @@ $this->params['breadcrumbs'][] = [
         'id' => $model->name
     ]
 ];
-$this->params['breadcrumbs'][] = '更新';
-?>
-<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal"
-		aria-hidden="true">&times;</button>
-	<h4 class="modal-title"><?= Html::encode($this->title) ?></h4>
-</div>
-<div class="modal-body">
-
-    <?=$this->render('_form', ['model' => $model])?>
-
-</div>
+$this->params['breadcrumbs'][] = $this->title;
+echo AjaxModalOrNormalPanelContent::widget([
+    'intro'=>'编辑模块的基本信息',
+    'content'=>$this->render('_form', ['model' => $model])
+])?>

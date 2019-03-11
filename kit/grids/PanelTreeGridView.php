@@ -6,7 +6,9 @@ use yii\helpers\Html;
 class PanelTreeGridView extends TreeGrid
 {
 
-    public $panelTitle = '';
+    public $title = '功能说明';
+    
+    public $intro;
 
     public $panelClass = 'panel panel-adminlte';
 
@@ -33,17 +35,24 @@ class PanelTreeGridView extends TreeGrid
     public function run()
     {
         $this->_body_content = ob_get_clean();
-        $panelHeading = Html::tag('div', Html::tag('div', $this->panelTitle, [
-            'class' => $this->panelTitleClass
-        ]), [
-            'class' => $this->panelHeadingClass
-        ]);
+        $panelHeading = $this->renderPanelHeading();
         $panelBody = Html::tag('div', $this->_body_content . parent::run(), [
             'class' => $this->panelBodyClass
         ]);
         return Html::tag('div', $panelHeading . $panelBody, [
             'class' => $this->panelClass
         ]);
+    }
+    
+    protected function renderPanelHeading(){
+        $header = '';
+        if($this->intro) {
+            if($this->title) {
+                $header .= Html::tag('div',$this->title,['class'=>$this->panelTitleClass]);
+            }
+            $header .= Html::tag('p',$this->intro);
+        }
+        return $header ? Html::tag('div',$header,['class'=>$this->panelHeadingClass]):'';
     }
 }
 

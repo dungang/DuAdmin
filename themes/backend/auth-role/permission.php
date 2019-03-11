@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	<?php ActiveForm::begin(); ?>
     <?php
     PanelTreeGridView::begin([
-        'panelTitle' => $model->name,
+        'intro' => '给角色<strong>'.$model->name.'</strong>分配权限标识',
         'dataProvider' => $dataProvider,
         'keyColumnName' => 'name',
         'parentColumnName' => 'parent',
@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ]);
     ?>
     <p>
-        <?= Html::submitButton('保存', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('<i class="fa fa-save"></i> 保存', ['class' => 'btn btn-sm btn-default']) ?>
     </p>
     
     <?php PanelTreeGridView::end()?>

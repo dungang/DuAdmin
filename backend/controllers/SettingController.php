@@ -10,11 +10,13 @@ use app\kit\core\BackendController;
 class SettingController extends BackendController
 {
 	public function actions(){
+	    
 		return [
             'index' => [
                 'class' => 'app\kit\core\ListModelsAction',
                 'modelClass' => [
-                    'class' => 'app\kit\models\SettingSearch'
+                    'class' => 'app\kit\models\SettingSearch',
+                    'category'=>'base'
                 ]
             ],
             'create' => [
@@ -43,4 +45,5 @@ class SettingController extends BackendController
             ],
 		];
 	}
+	
 }

@@ -1,26 +1,28 @@
 <?php
-use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\kit\widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
 /* @var $model app\kit\models\AuthRule */
 
-$this->title = $model->name;
+$this->title = '查看';
 $this->params['breadcrumbs'][] = [
-    'label' => '规则',
+    'label' => '验证规则',
     'url' => [
         'index'
     ]
 ];
-$this->params['breadcrumbs'][] = $this->title;
-?>
-<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal"
-		aria-hidden="true">&times;</button>
-	<h4 class="modal-title"><?= Html::encode($this->title) ?></h4>
-</div>
-<div class="modal-body">
+$this->params['breadcrumbs'][] = $model->name;
 
-    <?=DetailView::widget(['model' => $model,'attributes' => ['name','data','created_at','updated_at']])?>
-
-</div>
+echo AjaxModalOrNormalPanelContent::widget([
+    'intro' => '查看验证规则信息：' . $model->name,
+    'content' => DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            'name',
+            'data',
+            'created_at',
+            'updated_at'
+        ]
+    ])
+])?>

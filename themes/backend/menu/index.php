@@ -10,7 +10,7 @@ use app\kit\widgets\PanelNavTabs;
 $this->title = '导航';
 $this->params['breadcrumbs'][] = $this->title;
 PanelTreeGridView::begin([
-    'panelTitle'=>'维护导航菜单',
+    'intro'=>'维护导航菜单，分前后端的菜单，目前只支持2级菜单。',
     'dataProvider' => $dataProvider,
     'keyColumnName' => 'id',
     'parentColumnName' => 'pid',

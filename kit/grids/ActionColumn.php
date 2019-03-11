@@ -154,9 +154,9 @@ class ActionColumn extends Column
      */
     protected function initDefaultButtons()
     {
-        $this->initDefaultButton('view', 'eye-open');
-        $this->initDefaultButton('update', 'pencil');
-        $this->initDefaultButton('delete', 'trash', [
+        $this->initDefaultButton('view', 'eye','btn-default');
+        $this->initDefaultButton('update', 'edit','btn-success');
+        $this->initDefaultButton('delete', 'trash','btn-danger', [
             'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
             'data-method' => 'post'
         ]);
@@ -173,10 +173,10 @@ class ActionColumn extends Column
      *            Array of additional options
      * @since 2.0.11
      */
-    protected function initDefaultButton($name, $iconName, $additionalOptions = [])
+    protected function initDefaultButton($name, $iconName,$btnClass, $additionalOptions = [])
     {
         if (! isset($this->buttons[$name]) && strpos($this->template, '{' . $name . '}') !== false) {
-            $this->buttons[$name] = function ($url, $model, $key) use ($name, $iconName, $additionalOptions) {
+            $this->buttons[$name] = function ($url, $model, $key) use ($name, $iconName, $btnClass, $additionalOptions) {
                 switch ($name) {
                     case 'view':
                         $title = Yii::t('yii', 'View');
@@ -194,10 +194,11 @@ class ActionColumn extends Column
                 $options = array_merge([
                     'title' => $title,
                     'aria-label' => $title,
-                    'data-pjax' => '0'
+                    'data-pjax' => '0',
+                    'class'=>'btn btn-xs '.$btnClass,
                 ], $additionalOptions, $this->buttonOptions, $buttonOptions);
                 $icon = Html::tag('span', '', [
-                    'class' => "glyphicon glyphicon-$iconName"
+                    'class' => "fa fa-$iconName"
                 ]);
                 return Html::a($icon, $url, $options);
             };

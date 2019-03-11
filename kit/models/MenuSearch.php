@@ -17,7 +17,7 @@ class MenuSearch extends Menu
     {
         return [
             [['id', 'pid', 'sort'], 'integer'],
-            [['name', 'url', 'icon'], 'safe'],
+            [['name', 'url','icon'], 'safe'],
             [['is_front'], 'boolean'],
         ];
     }
@@ -46,6 +46,11 @@ class MenuSearch extends Menu
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder' => [
+                    'sort' => SORT_ASC,
+                ]
+            ],
         ]);
 
         $this->load($params);

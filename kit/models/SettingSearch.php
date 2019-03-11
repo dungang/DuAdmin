@@ -16,7 +16,7 @@ class SettingSearch extends Setting
     public function rules()
     {
         return [
-            [['name', 'title', 'value'], 'safe'],
+            [['name', 'title', 'value','hint','category','val_type', ], 'safe'],
         ];
     }
 
@@ -53,7 +53,12 @@ class SettingSearch extends Setting
             // $query->where('0=1');
             return $dataProvider;
         }
-
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'category' => $this->category,
+            'val_type' => $this->val_type,
+        ]);
+        
         // grid filtering conditions
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'title', $this->title])

@@ -54,6 +54,9 @@ class AdminlteSideBarMenu extends Widget
     {
         $host = \Yii::$app->request->getHostName();
         $path = \Yii::$app->request->getPathInfo();
+        $moduleId = (\Yii::$app->controller->module->id == \Yii::$app->id) ? '' : \Yii::$app->controller->module->id;
+        $routePrefix = $moduleId ? $moduleId . '/' . \Yii::$app->controller->id : \Yii::$app->controller->id;
+
         $params = [];
         parse_str(str_replace([
             '[',
@@ -68,16 +71,18 @@ class AdminlteSideBarMenu extends Widget
                 $urlInfo = parse_url($url);
                 if (empty($urlInfo['host']) || $host == $urlInfo['host']) {
                     $counters[$i] = 1;
-
                     if (empty($urlInfo['path']) || $path == $urlInfo['path']) {
                         $counters[$i] += 1;
-
                         if (isset($urlInfo['query'])) {
                             $checkParams = [];
                             \parse_str(\str_replace([
                                 '[',
                                 ']'
                             ], '___', $urlInfo['query']), $checkParams);
+                            //检查路由前缀加分
+                            if (isset($checkParams['r'])) {
+                                $counters[$i] +=\stripos(\ltrim($checkParams['r'],'/') , $routePrefix)===0?1:0;
+                            }
                             $counters[$i] += count(array_intersect_assoc($checkParams, $params));
                         }
                     }

@@ -2,14 +2,16 @@
 use yii\helpers\Html;
 use app\kit\models\Role;
 use app\kit\grids\PanelGridView;
+use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel app\kit\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '用户';
 $this->params['breadcrumbs'][] = $this->title;
-
+Pjax::begin(['id'=>'user-index']);
 PanelGridView::begin([
+    'intro'=>'用户信息维护。根据是否是管理者区分是<strong>后台管理员</strong>或者是<strong>前台会员</strong>',
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
     'columns' => [
@@ -89,15 +91,6 @@ PanelGridView::begin([
     ]
 ]);
 ?>
-<p>
-    <?php
-
-echo Html::a('添加', [
-        'create'
-    ], [
-        'class' => 'btn btn-success',
-        'data-toggle' => 'modal',
-        'data-target' => '#modal-dailog',
-    ])?>
-</p>
+<?= Html::a('<i class="fa fa-plus"></i> 添加', ['create'], ['class' => 'btn btn-sm btn-default','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
 <?php PanelGridView::end()?>
+<?php Pjax::end()?>

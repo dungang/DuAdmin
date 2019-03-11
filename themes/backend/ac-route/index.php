@@ -1,14 +1,16 @@
 <?php
 use yii\helpers\Html;
 use app\kit\grids\PanelGridView;
+use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel app\kit\models\AcRouteSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '系统路由';
+$this->title = '路由';
 $this->params['breadcrumbs'][] = $this->title;
-
+Pjax::begin(['id'=>'route-index']);
 PanelGridView::begin([
+    'intro'=>'路由是指的系统可以访问的资源（空制器和执行动作）。配合授权标识使用，一般一个授权标识对应一个或者多个路由资源。',
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
     'columns' => [
@@ -34,7 +36,6 @@ PanelGridView::begin([
     ]
 ]);
 ?>
-<p>
-    <?= Html::a('添加路由', ['create'], ['class' => 'btn btn-success','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
-</p>
+<?= Html::a('<i class="fa fa-plus"></i> 添加', ['create'], ['class' => 'btn btn-sm btn-default','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
 <?php PanelGridView::end()?>
+<?php Pjax::end()?>

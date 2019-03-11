@@ -6,12 +6,11 @@ use app\kit\widgets\AjaxModalOrNormalPanelContent;
 /* @var $this yii\web\View */
 /* @var $model app\kit\models\Menu */
 
-$this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Menus', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = '查看';
+$this->params['breadcrumbs'][] = ['label' => '菜单', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $model->name;
 echo AjaxModalOrNormalPanelContent::widget([
-    'title' => $this->title,
-    'summary' => $model->name,
+    'intro' => '查看信息：'  . $model->name,
     'content' => DetailView::widget([
         'model' => $model,
         'attributes' => [

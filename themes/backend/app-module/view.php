@@ -1,26 +1,28 @@
 <?php
-use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\kit\widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
 /* @var $model app\kit\models\AppModule */
 
-$this->title = $model->description;
+$this->title = '查看';
 $this->params['breadcrumbs'][] = [
-    'label' => '系统模块',
+    'label' => '模块',
     'url' => [
         'index'
     ]
 ];
-$this->params['breadcrumbs'][] = $this->title;
-?>
-<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal"
-		aria-hidden="true">&times;</button>
-	<h4 class="modal-title"><?= Html::encode($this->title) ?></h4>
-</div>
-<div class="modal-body">
+$this->params['breadcrumbs'][] = $model->description;
 
-    <?=DetailView::widget(['model' => $model,'attributes' => ['name','description:ntext','created_at:date','updated_at:date']])?>
-
-</div>
+echo AjaxModalOrNormalPanelContent::widget([
+    'intro' => '查看模块的信息：' . $model->description,
+    'content' => DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            'name',
+            'description:ntext',
+            'created_at:date',
+            'updated_at:date'
+        ]
+    ])
+])?>

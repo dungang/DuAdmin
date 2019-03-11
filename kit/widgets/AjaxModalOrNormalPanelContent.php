@@ -7,11 +7,19 @@ use yii\helpers\Html;
 class AjaxModalOrNormalPanelContent extends Widget
 {
 
-    public $title = '';
+    public $title = '功能说明';
 
-    public $summary = '';
+    public $intro = '';
 
     public $content = '';
+    
+    public $panelClass = 'panel panel-adminlte';
+    
+    public $panelHeadingClass = 'panel-heading clearfix';
+    
+    public $panelTitleClass = 'panel-title';
+    
+    public $panelBodyClass = 'panel-body clearfix';
 
     public function run()
     {
@@ -28,7 +36,7 @@ class AjaxModalOrNormalPanelContent extends Widget
                 'data-dismiss' => 'modal',
                 'aria-hidden' => true
             ]);
-            $header = Html::tag('h4', Html::encode($this->title), [
+            $header = Html::tag('h4', Html::encode($this->view->title), [
                 'class' => 'modal-title'
             ]);
             return Html::tag('div', $btn . $header, [
@@ -36,6 +44,21 @@ class AjaxModalOrNormalPanelContent extends Widget
             ]);
         }
         return null;
+    }
+    
+    protected function renderPanelHeading(){
+        $header = '';
+        if($this->intro) {
+            if($this->title) {
+                $header .= Html::tag('div',$this->title,['class'=>$this->panelTitleClass]);
+            }
+            $header .= Html::tag('p',$this->intro);
+        }
+        return $header ? Html::tag('div',$header,['class'=>$this->panelHeadingClass]):'';
+    }
+    
+    protected function renderBody(){
+        return Html::tag('div',$this->content,['class'=>$this->panelBodyClass]);
     }
 
     protected function renderContent()
@@ -45,10 +68,7 @@ class AjaxModalOrNormalPanelContent extends Widget
                 'class' => 'modal-body'
             ]);
         } else {
-            return Panel::widget([
-                'title' => $this->summary,
-                'content' => $this->content
-            ]);
+            return Html::tag('div',$this->renderPanelHeading() . $this->renderBody(),['class'=>$this->panelClass]);
         }
     }
 }

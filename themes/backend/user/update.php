@@ -4,7 +4,7 @@ use app\kit\widgets\AjaxModalOrNormalPanelContent;
 /* @var $this yii\web\View */
 /* @var $model app\kit\models\User */
 
-$this->title = '更新用户' ;
+$this->title = '更新';
 $this->params['breadcrumbs'][] = [
     'label' => '用户',
     'url' => [
@@ -18,10 +18,10 @@ $this->params['breadcrumbs'][] = [
         'id' => $model->id
     ]
 ];
-$this->params['breadcrumbs'][] = '更新';
-
+$this->params['breadcrumbs'][] = $this->title;
 echo AjaxModalOrNormalPanelContent::widget([
-    'title'=>$this->title,
-    'summary'=>$model->username,
-    'content'=>$this->render('_form', ['model' => $model])
+    'intro' => '编辑用户的基本信息',
+    'content' => $this->render('_form', [
+        'model' => $model
+    ])
 ])?>

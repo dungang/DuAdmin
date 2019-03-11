@@ -1,23 +1,16 @@
 <?php
 
-use yii\helpers\Html;
+use app\kit\widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
 /* @var $model app\kit\models\Setting */
 
-$this->title = 'Update Setting: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Settings', 'url' => ['index']];
+$this->title = '更新';
+$this->params['breadcrumbs'][] = ['label' => '设置', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->name]];
-$this->params['breadcrumbs'][] = '更新';
-?>
-<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal"
-		aria-hidden="true">&times;</button>
-		<h4 class="modal-title"><?= Html::encode($this->title) ?></h4>
-</div>
-<div class="modal-body">
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+$this->params['breadcrumbs'][] = $this->title;
 
-</div>
+echo AjaxModalOrNormalPanelContent::widget([
+    'intro'=>'编辑参数的基本信息',
+    'content'=>$this->render('_form', ['model' => $model])
+])?>

@@ -1,19 +1,15 @@
 <?php
-
 use yii\helpers\Inflector;
 use yii\helpers\StringHelper;
 
 /* @var $this yii\web\View */
-/* @var $generator yii\gii\generators\crud\Generator */
-
-$urlParams = $generator->generateUrlParams();
-$nameAttribute = $generator->getNameAttribute();
+/* @var $generator app\generators\crud\Generator */
 
 echo "<?php\n";
 ?>
 
 use yii\helpers\Html;
-use <?= $generator->indexWidgetType === 'grid' ? "yii\\grid\\GridView" : "yii\\widgets\\ListView" ?>;
+use app\kit\grids\PanelGridView;
 <?= $generator->enablePjax ? 'use yii\widgets\Pjax;' : '' ?>
 
 /* @var $this yii\web\View */
@@ -23,17 +19,8 @@ use <?= $generator->indexWidgetType === 'grid' ? "yii\\grid\\GridView" : "yii\\w
 $this->title = <?= $generator->generateString(Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass)))) ?>;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-index">
-
-    <h1><?= "<?= " ?>Html::encode($this->title) ?></h1>
 <?= $generator->enablePjax ? "    <?php Pjax::begin(); ?>\n" : '' ?>
-
-    <p>
-        <?= "<?= " ?>Html::a(<?= $generator->generateString('添加 ' . Inflector::camel2words(StringHelper::basename($generator->modelClass))) ?>, ['create'], ['class' => 'btn btn-success','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
-    </p>
-
-<?php if ($generator->indexWidgetType === 'grid'): ?>
-    <?= "<?php echo " ?>GridView::widget([
+    <?= "<?php echo " ?>PanelGridView::begin([
         'dataProvider' => $dataProvider,
         <?= !empty($generator->searchModelClass) ? "'filterModel' => \$searchModel,\n        'columns' => [\n" : "'columns' => [\n"; ?>
 <?php
@@ -51,7 +38,6 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
                 }
         	],\n
 AAA;
-     
             } else 
             echo "            '" . $name . "',\n";
         } else {
@@ -81,7 +67,6 @@ AAA;
     }
 }
 ?>
-
             [
                 'class' => '\app\kit\grid\ActionColumn',
                 'buttonsOptions'=>[
@@ -97,17 +82,9 @@ AAA;
         	]
        ]
     ]); ?>
-<?php else: ?>
-    <?= "<?php echo " ?>ListView::widget([
-        'dataProvider' => $dataProvider,
-        'itemOptions' => ['class' => 'item'],
-        'itemView' => function ($model, $key, $index, $widget) {
-            return Html::a(Html::encode($model-><?= $nameAttribute ?>), ['view', <?= $urlParams ?>],[
-                'data-toggle'=>'modal',
-                'data-target'=>'#modal-dailog',
-            ]);
-        },
-    ]) ?>
-<?php endif; ?>
+<p>
+    <?= "<?= " ?>Html::a(<?= $generator->generateString('添加', ['create'], ['class' => 'btn btn-success','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
+</p>
+<?= "<?php PanelGridView::end() ?>\n"?>
 <?= $generator->enablePjax ? "    <?php Pjax::end(); ?>\n" : '' ?>
-</div>
+

@@ -4,9 +4,9 @@ use app\kit\widgets\AjaxModalOrNormalPanelContent;
 /* @var $this yii\web\View */
 /* @var $model app\kit\models\Menu */
 
-$this->title = 'Update Menu: ' . $model->name;
+$this->title = '更新';
 $this->params['breadcrumbs'][] = [
-    'label' => 'Menus',
+    'label' => '菜单',
     'url' => [
         'index'
     ]
@@ -18,11 +18,8 @@ $this->params['breadcrumbs'][] = [
         'id' => $model->id
     ]
 ];
-$this->params['breadcrumbs'][] = '更新';
+$this->params['breadcrumbs'][] = $this->title;
 echo AjaxModalOrNormalPanelContent::widget([
-    'title' => $this->title,
-    'summary' => $model->name,
-    'content' => $this->render('_form', [
-        'model' => $model
-    ])
+    'intro'=>'编辑菜单的基本信息',
+    'content'=>$this->render('_form', ['model' => $model])
 ])?>

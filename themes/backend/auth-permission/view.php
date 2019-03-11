@@ -1,26 +1,31 @@
 <?php
-use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\kit\widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
 /* @var $model app\kit\models\AuthPermission */
 
-$this->title = $model->description;
+$this->title = '查看';
 $this->params['breadcrumbs'][] = [
     'label' => '权限',
     'url' => [
         'index'
     ]
 ];
-$this->params['breadcrumbs'][] = $this->title;
-?>
-<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal"
-		aria-hidden="true">&times;</button>
-	<h4 class="modal-title"><?= Html::encode($this->title) ?></h4>
-</div>
-<div class="modal-body">
+$this->params['breadcrumbs'][] = $model->description;
 
-    <?=DetailView::widget(['model' => $model,'attributes' => ['name','type','description:ntext','rule_name','data','created_at','updated_at']])?>
-
-</div>
+echo AjaxModalOrNormalPanelContent::widget([
+    'intro' => '查看权限的信息：' . $model->description,
+    'content' => DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            'name',
+            'type',
+            'description:ntext',
+            'rule_name',
+            'data',
+            'created_at',
+            'updated_at'
+        ]
+    ])
+])?>
