@@ -9,8 +9,8 @@ use yii\helpers\StringHelper;
 echo "<?php\n";
 ?>
 
-use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\kit\widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
 /* @var $model <?= ltrim($generator->modelClass, '\\') ?> */
@@ -18,10 +18,12 @@ use yii\widgets\DetailView;
 $this->title = $model-><?= $generator->getNameAttribute() ?>;
 $this->params['breadcrumbs'][] = ['label' => <?= $generator->generateString(Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass)))) ?>, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = $model-><?= $generator->getNameAttribute()?>;
+
 echo AjaxModalOrNormalPanelContent::widget([
-    'title' => $this->title,
-    'summary' => $model-><?= $generator->getNameAttribute()?>,
+    'intro' => '查看信息：' . $model-><?= $generator->getNameAttribute()?>,
     'content' => DetailView::widget([
+        	'options'=>['class' => 'table table-bordered'],
             'model' => $model,
             'attributes' => [
     <?php

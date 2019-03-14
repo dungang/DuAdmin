@@ -36,6 +36,6 @@ PanelGridView::begin([
     ]
 ]);
 ?>
-<?= Html::a('<i class="fa fa-plus"></i> 添加', ['create'], ['class' => 'btn btn-sm btn-default','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
+<?= Html::a('<i class="fa fa-plus"></i> 添加', ['create'], ['class'=>'btn btn-sm btn-link','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
 <?php PanelGridView::end()?>
 <?php Pjax::end()?>

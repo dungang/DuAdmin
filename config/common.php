@@ -4,7 +4,6 @@ $config = [
     'name' => 'Yii2',
     'version' => 'beta',
     'basePath' => dirname(__DIR__),
-    'viewPath' => dirname(__DIR__) . '/themes/default',
     'bootstrap' => [
         'log'
     ],

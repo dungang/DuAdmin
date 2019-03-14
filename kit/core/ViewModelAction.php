@@ -6,7 +6,7 @@ class ViewModelAction extends BaseAction
 
     public function run()
     {
-        return $this->controller->render($this->id, [
+        return $this->controller->render($this->viewName, [
             'model' => $this->findModel()
         ]);
     }

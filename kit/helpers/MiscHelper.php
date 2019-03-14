@@ -36,14 +36,6 @@ class MiscHelper
     {
         return \Yii::$app->user->identity->is_admin;
     }
-
-    public static function goBackButton()
-    {
-        return Html::button('<i class="glyphicon glyphicon-chevron-left"></i> 返回', [
-            'class' => 'btn btn-warning',
-            'onclick' => 'window.history.back()'
-        ]);
-    }
     
     public function to1Array($root_key,$array,&$one,$is_root=true){
         foreach($array as $key => $val) {
@@ -73,7 +65,11 @@ class MiscHelper
         foreach($items as $i => $item) {
             if(is_array($item['url'])) {
                 $checkRoute = \array_shift($item['url']);
-                if($checkRoute == '/' .$route) {
+                if(\strpos($checkRoute, '/') == 0) {
+                    $checkRoute = \Yii::$app->controller->uniqueId . '/' . $checkRoute;
+                }
+                $checkRoute = \ltrim($checkRoute,'/');
+                if($checkRoute ==  $route) {
                     $counters[$i]=1;
                     if(is_array( $item['url']) && \is_array($params)){
                         $counters[$i] += count(array_intersect_assoc( $item['url'],$params));

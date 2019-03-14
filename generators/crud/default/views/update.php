@@ -21,7 +21,6 @@ $this->params['breadcrumbs'][] = ['label' => <?= $generator->generateString(Infl
 $this->params['breadcrumbs'][] = ['label' => $model-><?= $generator->getNameAttribute() ?>, 'url' => ['view', <?= $urlParams ?>]];
 $this->params['breadcrumbs'][] = $this->title;
 echo AjaxModalOrNormalPanelContent::widget([
-    'title'=>$this->title,
-    'summary'=>$model-><?= $generator->getNameAttribute()?>,
+    'intro'=>'编辑信息',
     'content'=>$this->render('_form', ['model' => $model])
 ])?>

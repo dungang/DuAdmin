@@ -20,9 +20,17 @@ class AjaxModalOrNormalPanelContent extends Widget
     public $panelTitleClass = 'panel-title';
     
     public $panelBodyClass = 'panel-body clearfix';
+    
+    public function init(){
+        parent::init();
+        ob_start();
+        ob_implicit_flush(false);
+    }
 
     public function run()
     {
+        $content = ob_get_clean();
+        $this->content = $content . $this->content;
         return $this->renderHeader() . $this->renderContent();
     }
 

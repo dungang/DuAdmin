@@ -1,6 +1,9 @@
 <?php
 $db = require __DIR__ . '/db-dev.php';
 $config = [
+    'modules'=>[
+        'taobaoke'=>'\app\addons\taobaoke\TaobaokeModule',
+    ],
     'components' => [
         'db' => $db,
         'errorHandler' => [

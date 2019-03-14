@@ -97,6 +97,7 @@ class UserForm extends Model
         $this->mobile = $model->mobile;
         $this->status = $model->status;
         $this->role = $model->role;
+        
     }
 
     /**

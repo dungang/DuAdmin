@@ -33,12 +33,12 @@ class CreateModelAction extends BaseAction
 
         if (\Yii::$app->request->isPost) {
             if ($loaded === false) {
-                return $this->controller->renderOnFail($this->id, $data, '可能表达的字段更服务端不一致');
+                return $this->controller->renderOnFail($this->viewName, $data, '可能表达的字段更服务端不一致');
             }
-            return $this->controller->renderOnFail($this->id, $data, $model->firstErrors);
+            return $this->controller->renderOnFail($this->viewName, $data, $model->firstErrors);
         }
 
-        return $this->controller->render($this->id, $data);
+        return $this->controller->render($this->viewName, $data);
     }
 }
 

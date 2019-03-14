@@ -12,7 +12,7 @@ use app\kit\models\Setting;
 $this->title = '系统设置';
 $this->params['breadcrumbs'][] = $this->title;
 Pjax::begin([
-    'id' => 'menu-index'
+    'id' => 'setting-index'
 ]);
 PanelGridView::begin([
     'intro' => '设置功能提高了系统的适应性，根据不同的场景和环境配置不同的变量值。',

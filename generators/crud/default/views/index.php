@@ -6,6 +6,7 @@ use yii\helpers\StringHelper;
 /* @var $generator app\generators\crud\Generator */
 
 echo "<?php\n";
+$labelNames = Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass)));
 ?>
 
 use yii\helpers\Html;
@@ -16,11 +17,12 @@ use app\kit\grids\PanelGridView;
 <?= !empty($generator->searchModelClass) ? "/* @var \$searchModel " . ltrim($generator->searchModelClass, '\\') . " */\n" : '' ?>
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = <?= $generator->generateString(Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass)))) ?>;
+$this->title = <?= $generator->generateString($labelNames) ?>;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<?= $generator->enablePjax ? "    <?php Pjax::begin(); ?>\n" : '' ?>
-    <?= "<?php echo " ?>PanelGridView::begin([
+<?= $generator->enablePjax ? "<?php Pjax::begin(['id'=>'".Inflector::camel2id(StringHelper::basename($generator->modelClass))."-index']); ?>\n" : '' ?>
+<?= "<?php  " ?>PanelGridView::begin([
+    	'intro' => '<?= $labelNames  ?>信息管理',
         'dataProvider' => $dataProvider,
         <?= !empty($generator->searchModelClass) ? "'filterModel' => \$searchModel,\n        'columns' => [\n" : "'columns' => [\n"; ?>
 <?php
@@ -68,7 +70,7 @@ AAA;
 }
 ?>
             [
-                'class' => '\app\kit\grid\ActionColumn',
+                'class' => '\app\kit\grids\ActionColumn',
                 'buttonsOptions'=>[
                     'update'=>[
                         'data-toggle'=>'modal',
@@ -82,9 +84,7 @@ AAA;
         	]
        ]
     ]); ?>
-<p>
-    <?= "<?= " ?>Html::a(<?= $generator->generateString('添加', ['create'], ['class' => 'btn btn-success','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
-</p>
+<?="<?= " ?>Html::a('<i class="fa fa-plus"></i> 添加', ['create'], ['data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
 <?= "<?php PanelGridView::end() ?>\n"?>
-<?= $generator->enablePjax ? "    <?php Pjax::end(); ?>\n" : '' ?>
+<?= $generator->enablePjax ? "<?php Pjax::end(); ?>\n" : '' ?>
 

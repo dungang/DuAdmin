@@ -15,6 +15,12 @@ class BaseAction extends Action
 {
 
     const EVENT_BEFORE_RUN = 'beforeRun';
+    
+    /**
+     * view 文件的名称
+     * @var string
+     */
+    public $viewName;
 
     /**
      * 附件的行为
@@ -44,6 +50,12 @@ class BaseAction extends Action
      * @var string
      */
     public $successRediretUrl = false;
+    
+    public function init(){
+        if(empty($this->viewName)) {
+            $this->viewName = $this->id;
+        }
+    }
 
     /**
      * 获取模型的主键，并自动装配了关系数组

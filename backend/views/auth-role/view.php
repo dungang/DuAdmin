@@ -17,6 +17,7 @@ $this->params['breadcrumbs'][] = $model->name;
 echo AjaxModalOrNormalPanelContent::widget([
     'intro' => '查看角色的信息：' . $model->name,
     'content' => DetailView::widget([
+        'options'=>['class' => 'table table-bordered'],
         'model' => $model,
         'attributes' => [
             'id',

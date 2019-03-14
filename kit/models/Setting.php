@@ -9,7 +9,7 @@ namespace app\kit\models;
  * @property string $value 值
  * @property string $hint 提示
  * @property string $val_type 值类型
- * @property string $category 参数分类 
+ * @property string $category 参数分类
  */
 class Setting extends \app\kit\core\BaseModel
 {
@@ -44,11 +44,42 @@ class Setting extends \app\kit\core\BaseModel
     public function rules()
     {
         return [
-            [['name', 'title'], 'required'],
-            [['value', 'val_type'], 'string'],
-            [['name', 'title', 'category'], 'string', 'max' => 64],
-            [['hint'], 'string', 'max' => 255],
-            [['name'], 'unique'],
+            [
+                [
+                    'name',
+                    'title'
+                ],
+                'required'
+            ],
+            [
+                [
+                    'value',
+                    'val_type'
+                ],
+                'string'
+            ],
+            [
+                [
+                    'name',
+                    'title',
+                    'category'
+                ],
+                'string',
+                'max' => 64
+            ],
+            [
+                [
+                    'hint'
+                ],
+                'string',
+                'max' => 255
+            ],
+            [
+                [
+                    'name'
+                ],
+                'unique'
+            ]
         ];
     }
 
@@ -64,7 +95,7 @@ class Setting extends \app\kit\core\BaseModel
             'value' => '值',
             'hint' => '提示',
             'val_type' => '值类型',
-            'category' => '参数分类', 
+            'category' => '参数分类'
         ];
     }
 
@@ -77,27 +108,58 @@ class Setting extends \app\kit\core\BaseModel
     {
         return new SettingQuery(get_called_class());
     }
-    
-    
-    public static function getSettingCatetory(){
+
+    public static function getSettingCatetory()
+    {
         $categories = [];
-        if($setting = self::findOne(['name'=>'setting.category'])){
-            if(!empty($setting->value)) {
+        if ($setting = self::findOne([
+            'name' => 'setting.category'
+        ])) {
+            if (! empty($setting->value)) {
                 $items = \explode("\n", trim($setting->value));
-               foreach($items as $item) {
-                   $kv = explode(':',$item);
-                   $categories[$kv[0]] = $kv[1];
-               }
+                foreach ($items as $item) {
+                    $kv = explode(':', $item);
+                    $categories[$kv[0]] = $kv[1];
+                }
             }
         }
         return $categories;
     }
+
+    /**
+     * 以关联数组形式的返回参数值
+     * @param string $name
+     * @return mixed[]
+     */
+    public static function getSettingAssoc($name)
+    {
+        $assoc = [];
+        $val = self::getSettings($name);
+        $items = \explode("\n", trim($val));
+        foreach ($items as $item) {
+            $kv = explode(':', $item);
+            $assoc[$kv[0]] = $kv[1];
+        }
+        return $assoc;
+    }
     
-    public static function getCacheSettings(){
+    /**
+     * 数组形式的返回参数值
+     * @param string $name
+     * @return array
+     */
+    public static function getSettingAry($name)
+    {
+        $val = self::getSettings($name);
+        return \explode("\n", trim($val));
+    }
+
+    public static function getCacheSettings()
+    {
         if (! ($vars = \Yii::$app->cache->get(self::CacheKey))) {
             $vars = self::find()->indexBy('name')
-            ->asArray()
-            ->all();
+                ->asArray()
+                ->all();
             \Yii::$app->cache->set(self::CacheKey, $vars);
         }
         return $vars;
@@ -108,7 +170,7 @@ class Setting extends \app\kit\core\BaseModel
         if (! self::$settings) {
             self::$settings = self::getCacheSettings();
         }
-        if(self::$settings && isset(self::$settings[$name])) {
+        if (self::$settings && isset(self::$settings[$name])) {
             return self::$settings[$name]['value'];
         }
         return null;

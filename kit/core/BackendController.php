@@ -6,6 +6,14 @@ use app\kit\filters\SaveRouteFilter;
 
 abstract class BackendController extends BaseController
 {
+
+    public function init()
+    {
+        parent::init();
+        $this->module->layoutPath = '@app/backend/views/layouts';
+        $this->layout = 'main';
+    }
+
     public function behaviors()
     {
         $behaviors = parent::behaviors();

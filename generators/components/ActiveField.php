@@ -7,7 +7,7 @@
 
 namespace app\generators\components;
 
-use yii\gii\Generator;
+use app\generators\Generator;
 use yii\helpers\Json;
 
 /**
