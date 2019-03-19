@@ -4,7 +4,8 @@
 	"description": "simplify adminlte",
 	"main": "gulpfile.js",
 	"scripts": {
-		"start": "./node_modules/.bin/gulp default"
+		"start": "./node_modules/.bin/gulp default",
+		"tbk": "./node_modules/.bin/gulp tbk-less"
 	},
 	"repository": {
 		"type": "git",

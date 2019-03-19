@@ -10,16 +10,17 @@ $config = [
             'errorAction' => 'site/error'
         ],
         'assetManager' => [
+            'basePath'=>'@app/public/assets',
             'bundles' => [
                 'yii\bootstrap\BootstrapPluginAsset' => [
-                    'baseUrl' => '@web',
+                    'baseUrl' => 'https://cdn.bootcss.com/twitter-bootstrap/3.4.1/',
                     'js' => [
                         'js/bootstrap.min.js',
                     ],
                     'sourcePath' => null // 防止在 frontend/web/asset 下生产文件
                 ],
                 'yii\bootstrap\BootstrapAsset' => [
-                    'baseUrl' => '@web',
+                    'baseUrl' => 'https://cdn.bootcss.com/twitter-bootstrap/3.4.1/',
                     'css' => [
                         'css/bootstrap.min.css',
                     ],

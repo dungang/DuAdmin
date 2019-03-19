@@ -1,18 +1,16 @@
 <?php
 namespace app\kit\settings;
 
-use app\kit\core\UpdateModelAction;
+use app\kit\core\ViewModelAction;
 
-/**
- *
+/** 
  * @author dungang
- *        
+ * 
  */
-class UpdateAction extends UpdateModelAction
+class ViewAction extends ViewModelAction
 {
-
     public $settingCategory = 'base';
-
+    
     public function init()
     {
         parent::init();

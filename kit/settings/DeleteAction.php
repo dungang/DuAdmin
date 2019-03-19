@@ -1,14 +1,13 @@
 <?php
 namespace app\kit\settings;
 
-use app\kit\core\UpdateModelAction;
+use app\kit\core\DeleteModelAction;
 
-/**
- *
+/** 
  * @author dungang
- *        
+ * 
  */
-class UpdateAction extends UpdateModelAction
+class DeleteAction extends DeleteModelAction
 {
 
     public $settingCategory = 'base';

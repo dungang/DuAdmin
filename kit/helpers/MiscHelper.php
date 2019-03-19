@@ -15,6 +15,9 @@ use app\kit\models\User;
  */
 class MiscHelper
 {
+    public static function img($src,$options){
+        return Html::img(\Yii::getAlias('@web') . '/' . ltrim($src,'/'),$options);
+    }
 
     public static function powered()
     {

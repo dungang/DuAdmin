@@ -12,10 +12,12 @@ class ListAction extends ListModelsAction
 {
 
     public $settingCategory = 'base';
-    public function init(){
+
+    public function init()
+    {
         parent::init();
         $this->modelClass = [
-            'class'=>'\app\kit\models\SettingSearch',
+            'class' => '\app\kit\models\SettingSearch',
             'category' => $this->settingCategory
         ];
     }

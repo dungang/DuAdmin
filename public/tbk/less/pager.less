@@ -1,0 +1,52 @@
+//--index
+.tbk-block {
+    background-color: #fff;
+    display: flex;
+    .hot-cat,
+    .hot-flash,
+    .hot-adv {
+        border: 0;
+        margin: 0;
+    }
+    .hot-cat {
+        vertical-align: top;
+        padding-top: 15px;
+        padding-left: 5px;
+        width: 220px;
+
+        dl>dt,
+        dl>dd {
+            font-weight: normal;
+            line-height: @line-height-base;
+        }
+
+        dt {
+            margin-bottom: 5px;
+        }
+
+        dd {
+            padding-left: 20px;
+            padding-bottom: 15px;
+
+            &,
+            a {
+                color: @gray-light;
+            }
+        }
+    }
+
+    .hot-flash {
+        vertical-align: top;
+        width: 670px;
+        img {
+            width: inherit;
+        }
+    }
+    .hot-adv {
+        vertical-align: top;
+        width: 280px;
+        img {
+            width: inherit;
+        }
+    }
+}

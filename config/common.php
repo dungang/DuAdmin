@@ -5,7 +5,8 @@ $config = [
     'version' => 'beta',
     'basePath' => dirname(__DIR__),
     'bootstrap' => [
-        'log'
+        'log',
+        'app\kit\components\Bootstrap',
     ],
     'language' => 'zh-CN',
     'aliases' => [

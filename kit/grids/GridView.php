@@ -51,7 +51,7 @@ class GridView extends BaseListView
      * @see \yii\helpers\Html::renderTagAttributes() for details on how attributes are being rendered.
      */
     public $tableOptions = [
-        'class' => 'table table-bordered'
+        'class' => 'table table-hover table-bordered'
     ];
 
     /**

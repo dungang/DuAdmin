@@ -10,12 +10,15 @@ use app\kit\core\CreateModelAction;
  */
 class CreateAction extends CreateModelAction
 {
+
     public $settingCategory = 'base';
-    public function init(){
+
+    public function init()
+    {
         parent::init();
         $this->modelClass = [
-            'class'=>'app\kit\models\Setting',
-            'category'=>$this->settingCategory
+            'class' => 'app\kit\models\Setting',
+            'category' => $this->settingCategory
         ];
     }
 }

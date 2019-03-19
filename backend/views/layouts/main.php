@@ -87,7 +87,7 @@ BackendAsset::register($this);
 				<li class="dropdown user user-menu">
 					<!-- Menu Toggle Button --> <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						<!-- The user image in the navbar-->
-						<img src="images/user2-160x160.jpg" class="user-image" alt="User Image">
+						<?=MiscHelper::img('images/user2-160x160.jpg',['class'=>'user-image'])?>
 						<!-- hidden-xs hides the username on small devices so only the image appears. -->
 						<span class="hidden-xs"><?=Yii::$app->user->identity->nick_name?></span>
 					</a>
@@ -117,7 +117,7 @@ BackendAsset::register($this);
       <!-- Sidebar user panel (optional) -->
 		<div class="user-panel">
 			<div class="pull-left image">
-				<img src="images/user2-160x160.jpg" class="img-circle" alt="User Image">
+				<?=MiscHelper::img('images/user2-160x160.jpg',['class'=>'img-circle'])?>
 			</div>
 			<div class="pull-left info">
 				<p><?=Yii::$app->user->identity->nick_name?></p>

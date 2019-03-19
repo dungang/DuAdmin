@@ -58,12 +58,30 @@ gulp.task('adminlte-less', (done) => {
 	  done();
 	});
 	
+	gulp.task('tbk-less', (done) => {
+	  gulp.src('public/tbk/tbk-theme.less')
+	    .pipe(plumber({
+	      errorHandler: notify.onError('Error: <%= error.message %>')
+	    }))
+	    .pipe(less())
+	    .pipe(gulp.dest('./public/tbk/css'))
+	    .pipe(minify({
+	      compatibility: 'ie7'
+	    }))
+	    .pipe(rename({
+	    	suffix: '.min'
+	    }))
+	    .pipe(gulp.dest('./public/tbk/css'));
+	  done();
+	});
 
 gulp.task('watch', (done) => {
     gulp.watch([
 		'./public/adminlte/less/*',
-		'./public/css/*.less'
-	], gulp.series('app-less','backend-less','adminlte-less'));
+		'./public/css/*.less',
+		'./public/tbk/*.less',
+		'./public/tbk/less/*.less',
+	], gulp.series('app-less','backend-less','adminlte-less','tbk-less'));
     return done();
 });
 
