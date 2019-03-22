@@ -13,14 +13,16 @@ $config = [
             'basePath'=>'@app/public/assets',
             'bundles' => [
                 'yii\bootstrap\BootstrapPluginAsset' => [
-                    'baseUrl' => 'https://cdn.bootcss.com/twitter-bootstrap/3.4.1/',
+                    //'baseUrl' => 'https://cdn.bootcss.com/twitter-bootstrap/3.4.1/',
+                    'baseUrl' => '@web',
                     'js' => [
                         'js/bootstrap.min.js',
                     ],
                     'sourcePath' => null // 防止在 frontend/web/asset 下生产文件
                 ],
                 'yii\bootstrap\BootstrapAsset' => [
-                    'baseUrl' => 'https://cdn.bootcss.com/twitter-bootstrap/3.4.1/',
+                    //'baseUrl' => 'https://cdn.bootcss.com/twitter-bootstrap/3.4.1/',
+                    'baseUrl' => '@web',
                     'css' => [
                         'css/bootstrap.min.css',
                     ],

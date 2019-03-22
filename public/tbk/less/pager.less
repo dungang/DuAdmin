@@ -1,13 +1,17 @@
 //--index
-.tbk-block {
+@container-base-width: 1200px;
+
+.tbk-index-banner {
     background-color: #fff;
     display: flex;
+
     .hot-cat,
     .hot-flash,
     .hot-adv {
         border: 0;
         margin: 0;
     }
+
     .hot-cat {
         vertical-align: top;
         padding-top: 15px;
@@ -38,15 +42,204 @@
     .hot-flash {
         vertical-align: top;
         width: 670px;
+
         img {
             width: inherit;
         }
     }
+
     .hot-adv {
         vertical-align: top;
-        width: 280px;
+        width: 320px;
+
         img {
             width: inherit;
         }
     }
+}
+
+.hot-toutiao {
+    .hot-toutiao-items {
+
+        ul,
+        li {
+            padding: 0;
+            margin: 0;
+        }
+
+        list-style-type: none;
+
+        li {
+            margin-bottom: 10px;
+            display: block;
+
+            a {
+                margin-left: 3px;
+                color: @gray-light;
+            }
+
+            .badge {
+                margin-left: 0;
+                padding-left: 0;
+                background-color: #fff;
+                border: 0;
+                font-size: 14px;
+                color: @brand-primary;
+                font-weight: normal;
+            }
+        }
+
+        margin-bottom: -15px;
+    }
+}
+
+.box {
+    background-color: #fff;
+
+    .box-header {
+        padding-top: 15px;
+        padding-left: 15px;
+        padding-bottom: 15px;
+
+        .box-title {
+            border-left: 5px solid @brand-primary;
+            padding-left: 10px;
+            margin: 0px;
+        }
+
+        &.width-border {
+            border-bottom: 1px solid @gray-lighter;
+        }
+    }
+
+    .box-body {
+        padding-left: 15px;
+
+    }
+}
+
+.index-content {
+    margin-top: 15px;
+    display: flex;
+
+    .content-left {
+        width: 880px;
+        margin-right: 20px;
+    }
+
+    .content-right {
+        width: 300px;
+    }
+
+    .content {
+        width: 100%;
+    }
+}
+
+.product-grid-lg {
+
+    display: flex;
+    padding: 15px;
+    background-color: #fff;
+
+    .image {
+        width: 120px;
+        height: 120px;
+
+        img {
+            width: inherit;
+            height: inherit;
+        }
+    }
+
+    .info {
+        width: 320px;
+
+    }
+}
+
+.prod-container {
+    margin-top: 15px;
+    width: @container-base-width;
+    min-width: @container-base-width;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 0;
+
+    .clearfix();
+
+    .prod-lists {
+        margin-right: -15px;
+
+        .prod-grid {
+            background-color: #fff;
+            width: 228px;
+            float: left;
+            position: relative;
+            min-height: 1px;
+            padding: 10px;
+            border: 0;
+            margin-bottom: 15px;
+            margin-right: 15px;
+            &:hover {
+                text-decoration: none;
+            }
+            color: @gray;
+
+            img {
+                display: block;
+                width: 208px;
+                height: 258px;
+            }
+
+            &:hover {
+                @shadow: 0px 0px 5px 3px rgba(0, 0, 0, .1);
+                .box-shadow(@shadow);
+            }
+
+            .prod-title {
+                .text-overflow();
+                padding-top: 15px;
+                padding-bottom: 5px;
+                font-size: 14px;
+            }
+
+            p {
+                font-size: 12px;
+                vertical-align: baseline;
+                margin-top: 10px;
+                margin-bottom: 0px;
+            }
+            .prod-quan-price {
+                font-weight: 400;
+                strong {
+                    font-size: 20px;
+                }
+            }
+
+            .prod-quan {
+                background-color: @brand-primary;
+                color: #fff;
+                font-size: 14px;
+                padding: 2px 4px;
+                border-radius: 2px;
+                display: inline;
+            }
+        }
+    }
+}
+
+.index-broadcast {
+    width: @container-base-width;
+    min-width: @container-base-width;
+    padding: 10px;
+    margin-top: 15px;
+    border: 1px solid lighten(@brand-primary,20%);
+    border-radius: 3px;
+    background-color: lighten(@brand-primary,35%);
+    color: @gray;
+}
+
+.index-block-title {
+    margin:30px;
 }

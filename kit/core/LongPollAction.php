@@ -6,6 +6,8 @@ use yii\base\Action;
 class LongPollAction extends Action
 {
 
+    public $debug = false;
+
     /**
      * 服务端循环间隔时间
      *
@@ -36,7 +38,10 @@ class LongPollAction extends Action
 
     public function init()
     {
-        $this->handler = \Yii::createObject($this->longPollingHandlerClass);
+        $this->handler = \Yii::createObject([
+            'class' => $this->longPollingHandlerClass,
+            'debug' => $this->debug
+        ]);
     }
 
     public function run()

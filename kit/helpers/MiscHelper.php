@@ -192,5 +192,23 @@ class MiscHelper
         }
         return $tree;
     }
+    
+    /**
+     * 以关联数组形式的返回参数值
+     * @param string $text
+     * @return mixed[]
+     */
+    public static function parseText2Assoc($text)
+    {
+        $assoc = [];
+        $lines = \explode("\n", trim($text));
+        foreach ($lines as $line) {
+            if($line = trim($line,'\n\r\s')){
+                $kv = explode(':', $line);
+                $assoc[$kv[0]] = $kv[1];
+            }
+        }
+        return $assoc;
+    }
 }
 

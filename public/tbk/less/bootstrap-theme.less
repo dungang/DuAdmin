@@ -11,8 +11,13 @@
 @import "vars.less";
 @import "../../adminlte/bootstrap-less/mixins.less";
 body {
-  background-color: #F6F6F6;
+  background-color: #F6F6F6;//#f0f3ef;//
 }
+.container {
+  width: 1200px !important;
+  max-width: none !important;
+}
+
 // Contextual colors
 .text-muted {
   color: @text-muted;
@@ -173,7 +178,12 @@ body {
 //
 // Navbar
 // --------------------------------------------------
-
+.navbar-nav {
+  float: left;
+}
+.nav > li {
+  float: left;
+}
 // Default navbar
 .navbar-default {
   min-height: 35px;
@@ -193,6 +203,8 @@ body {
   }
 
   .navbar-nav>li {
+    // min-width: 86px;
+    // text-align: center;
     &:hover {
       background-color: darken(@navbar-default-bg, 10%);
 

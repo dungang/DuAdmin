@@ -5,6 +5,7 @@
 use yii\helpers\Html;
 use app\kit\models\Setting;
 use app\kit\assets\BackendAsset;
+use app\backend\widgets\StartCron;
 BackendAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -22,6 +23,7 @@ BackendAsset::register($this);
 <body class="hold-transition login-page">
 <?php $this->beginBody() ?>
 	<?=$content?>
+	<?= StartCron::widget()?>
 <?php $this->endBody() ?>
 </body>
 </html>

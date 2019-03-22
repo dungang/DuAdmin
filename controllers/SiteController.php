@@ -2,6 +2,7 @@
 namespace app\controllers;
 
 use app\kit\core\FrontendController;
+use app\kit\components\Crontab;
 
 /**
  * Site controller
@@ -52,7 +53,9 @@ class SiteController extends FrontendController
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        return \function_exists('stream_socket_client');
+        //return date('Y-m-d H:i:s',Crontab::parse('12 * * * 1-5')) . '=' .date('Y-m-d H:i:s');
+        //return $this->render('index');
     }
 
     /**

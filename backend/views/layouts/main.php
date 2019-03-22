@@ -13,6 +13,7 @@ use app\kit\assets\BackendAsset;
 use app\kit\widgets\AdminlteNavBar;
 use app\kit\widgets\AdminlteSideBar;
 use app\kit\widgets\AdminlteSideBarMenu;
+use app\backend\widgets\StartCron;
 
 BackendAsset::register($this);
 ?>
@@ -180,6 +181,7 @@ echo "没有记录";
 SimpleModal::end();
 ?>
 <?= Notify::widget() ?>
+<?= StartCron::widget()?>
 <?php $this->endBody() ?>
 </body>
 </html>
