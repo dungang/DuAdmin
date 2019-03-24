@@ -45,9 +45,10 @@ class CronHandler extends ILongPollHandler
                 try {
                     $time = Crontab::parse($task->mhdmd);
                 } catch (\InvalidArgumentException $e) {
-                    Yii::warning('任务的cron表达式格式不正确', __METHOD__);
+                    Yii::warning('任务的cron表达式格式不正确,' . $e->getMessage(), __METHOD__);
+                    Yii::warning($e->getTraceAsString(), __METHOD__);
                     //更新任务为is_ok=0;
-                    $task->goBad();
+                    $this->debug || $task->goBad($e->getMessage());
                     continue;
                 }
                 $cur = time();
@@ -63,6 +64,7 @@ class CronHandler extends ILongPollHandler
                         'token' => $task->token
                     ]);
                     Yii::info('Starting One Task : ' . $task->task . ': ' . $url, __METHOD__);
+                    //echo $url;die;
                     $this->_httpClient->get($url)->send();
                 }
             }

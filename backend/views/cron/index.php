@@ -26,6 +26,7 @@ PanelGridView::begin(
                         'view',
                         'id' => $model['id']
                     ], [
+                        'title'=>$model['error_msg'],
                         'data-toggle' => 'modal',
                         'data-target' => '#modal-dailog'
                     ]);

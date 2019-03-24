@@ -11,12 +11,13 @@ use app\kit\models\User;
  * 系统工具类
  *
  * @author dungang
- *        
  */
 class MiscHelper
 {
-    public static function img($src,$options){
-        return Html::img(\Yii::getAlias('@web') . '/' . ltrim($src,'/'),$options);
+
+    public static function img($src, $options)
+    {
+        return Html::img(\Yii::getAlias('@web') . '/' . ltrim($src, '/'), $options);
     }
 
     public static function powered()
@@ -39,51 +40,54 @@ class MiscHelper
     {
         return \Yii::$app->user->identity->is_admin;
     }
-    
-    public function to1Array($root_key,$array,&$one,$is_root=true){
-        foreach($array as $key => $val) {
-            if($is_root) {
+
+    public function to1Array($root_key, $array, &$one, $is_root = true)
+    {
+        foreach ($array as $key => $val) {
+            if ($is_root) {
                 $key = $root_key . $key;
             } else {
-                $key = $root_key . '[' . $key.']';
+                $key = $root_key . '[' . $key . ']';
             }
-            if(\is_array($val)) {
+            if (\is_array($val)) {
                 self::to1Array($key, $val, $one, false);
             } else {
                 $one[$key] = $val;
             }
         }
     }
-    
+
     /**
      * 验证是否是同一个链接
-     * @param array $items 
+     *
+     * @param array $items
      * @return array
      */
-    public static function reActiveItem($items){
+    public static function reActiveItem($items)
+    {
         $route = \Yii::$app->requestedRoute;
         $params = [];
         self::to1Array('', \Yii::$app->request->get(), $params);
-        $counters=[];
-        foreach($items as $i => $item) {
-            if(is_array($item['url'])) {
+        $counters = [];
+        foreach ($items as $i => $item) {
+            if (is_array($item['url'])) {
                 $checkRoute = \array_shift($item['url']);
-                if(\strpos($checkRoute, '/') == 0) {
+                if (\strpos($checkRoute, '/') == 0) {
                     $checkRoute = \Yii::$app->controller->uniqueId . '/' . $checkRoute;
                 }
-                $checkRoute = \ltrim($checkRoute,'/');
-                if($checkRoute ==  $route) {
-                    $counters[$i]=1;
-                    if(is_array( $item['url']) && \is_array($params)){
-                        $counters[$i] += count(array_intersect_assoc( $item['url'],$params));
+                $checkRoute = \ltrim($checkRoute, '/');
+                if ($checkRoute == $route) {
+                    $counters[$i] = 1;
+                    if (is_array($item['url']) && \is_array($params)) {
+                        $counters[$i] += count(array_intersect_assoc($item['url'], $params));
                     }
                 }
-                
             }
         }
-        $max = 0; $idx = 0;
-        foreach($counters as $i => $count) {
-            if($count>$max) {
+        $max = 0;
+        $idx = 0;
+        foreach ($counters as $i => $count) {
+            if ($count > $max) {
                 $max = $count;
                 $idx = $i;
             }
@@ -91,7 +95,6 @@ class MiscHelper
         $items[$idx]['isActive'] = true;
         return $items;
     }
-
 
     public static function betweenDayWithTimestamp($field, $date)
     {
@@ -192,9 +195,10 @@ class MiscHelper
         }
         return $tree;
     }
-    
+
     /**
      * 以关联数组形式的返回参数值
+     *
      * @param string $text
      * @return mixed[]
      */
@@ -203,12 +207,28 @@ class MiscHelper
         $assoc = [];
         $lines = \explode("\n", trim($text));
         foreach ($lines as $line) {
-            if($line = trim($line,'\n\r\s')){
+            if ($line = trim($line, '\n\r\s')) {
                 $kv = explode(':', $line);
                 $assoc[$kv[0]] = $kv[1];
             }
         }
         return $assoc;
+    }
+
+    /**
+     * 批量执行replace into
+     *
+     * @param string $table
+     * @param array $columns
+     * @param array $rows
+     * @return number
+     */
+    public static function batchReplaceInto($table, $columns, $rows)
+    {
+        $command = \Yii::$app->db->createCommand()->batchInsert($table, $columns, $rows);
+        $command->setRawSql('REPLACE' . \substr($command->getRawSql(), 6));
+        //echo $command->getRawSql();die;
+        return $command->execute();
     }
 }
 

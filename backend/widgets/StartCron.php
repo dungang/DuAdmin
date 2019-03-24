@@ -11,7 +11,7 @@ use yii\helpers\Url;
 class StartCron extends Widget
 {
     public function run(){
-        $url = Url::to(['/backend/crons/run']);
+        $url = Url::to(['/backend/cron/run']);
         $this->view->registerJs("$.get('${url}')");
     }
 }

@@ -11,6 +11,7 @@ namespace app\kit\models;
  * @property string $param 参数
  * @property string $intro 介绍
  * @property string $token 安全key
+ * @property string $error_msg 错误信息
  * @property bool $is_ok 正常
  * @property bool $is_active 激活
  * @property int $run_at 执行时刻
@@ -75,7 +76,8 @@ class Cron extends \app\kit\core\BaseModel
                 [
                     'job_script',
                     'param',
-                    'intro'
+                    'intro',
+                    'error_msg'
                 ],
                 'string',
                 'max' => 255
@@ -104,6 +106,7 @@ class Cron extends \app\kit\core\BaseModel
             'param' => '参数',
             'intro' => '介绍',
             'token' => '安全key',
+            'error_msg' => '错误信息',
             'is_ok' => '正常',
             'is_active' => '激活',
             'run_at' => '执行时刻',
@@ -144,12 +147,13 @@ class Cron extends \app\kit\core\BaseModel
 
     /**
      * 更新任务is_ok false
-     *
+     * @param string $msg 错误信息
      * @return boolean
      */
-    public function goBad()
+    public function goBad($msg)
     {
         $this->is_ok = false;
+        $this->error_msg = $msg;
         return $this->save(false);
     }
 

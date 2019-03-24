@@ -5,9 +5,9 @@ use app\kit\core\BackendController;
 use app\kit\models\Setting;
 
 /**
- * CronsController implements the CRUD actions for Cron model.
+ * CronController implements the CRUD actions for Cron model.
  */
-class CronsController extends BackendController
+class CronController extends BackendController
 {
 
     public function init()
@@ -61,6 +61,10 @@ class CronsController extends BackendController
         ];
     }
 
+    /**
+     * 处理定时器的可执行状态
+     * @return callable
+     */
     public function checkCronTabLoop()
     {
         return function () {
