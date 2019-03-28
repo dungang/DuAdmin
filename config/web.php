@@ -1,6 +1,10 @@
 <?php
 $db = require __DIR__ . '/db.php';
 $config = [
+    'modules'=>[
+        'cms'=>'\app\addons\cms\CmsModule',
+        'travel'=>'\app\addons\travel\TravelModule',
+    ],
     'components' => [
         'db' => $db,
         'errorHandler' => [
@@ -9,13 +13,13 @@ $config = [
         'assetManager' => [
             'bundles' => [
                 'yii\bootstrap\BootstrapAsset' => [
+                    //'baseUrl' => 'https://cdn.bootcss.com/twitter-bootstrap/3.4.1/',
                     'baseUrl' => '@web',
                     'css' => [
-                        'css/bootstrap.min.css',
-                    ], // 去除 bootstrap.css
+                        'css/bootstrap-flatly.min.css',
+                    ],
                     'sourcePath' => null // 防止在 frontend/web/asset 下生产文件
                 ],
-                
                 'yii\bootstrap\BootstrapPluginAsset' => [
                     'baseUrl' => '@web',
                     'js' => [

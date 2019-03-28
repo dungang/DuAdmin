@@ -1,7 +1,7 @@
 <?php
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=softmanage',
+    'dsn' => 'mysql:host=localhost;dbname=woniu-cms',
     'username' => 'root',
     'password' => 'root',
     'charset' => 'utf8mb4',

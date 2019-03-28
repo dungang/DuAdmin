@@ -1,7 +1,7 @@
 <?php
 namespace app\kit\models;
 
-use app\kit\helpers\MiscHelper;
+use app\kit\helpers\KitHelper;
 
 /**
  * This is the model class for table "gt_menu".
@@ -125,7 +125,7 @@ class Menu extends \app\kit\core\BaseModel
                 ->orderBy('sort asc')
                 ->all();
             if ($vars) {
-                $vars = MiscHelper::listToTree($vars);
+                $vars = KitHelper::listToTree($vars);
             }
             \Yii::$app->cache->set(self::CacheKeyFront, $vars);
         }
@@ -143,7 +143,7 @@ class Menu extends \app\kit\core\BaseModel
                 ->orderBy('sort asc')
                 ->all();
 //             if ($vars) {
-//                 $vars = MiscHelper::listToTree($vars);
+//                 $vars = KitHelper::listToTree($vars);
 //             }
             \Yii::$app->cache->set(self::CacheKeyBack, $vars);
         }

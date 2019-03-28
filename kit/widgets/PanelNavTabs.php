@@ -3,7 +3,7 @@ namespace app\kit\widgets;
 
 use yii\base\Widget;
 use yii\helpers\Html;
-use app\kit\helpers\MiscHelper;
+use app\kit\helpers\KitHelper;
 
 /**
  *
@@ -27,7 +27,7 @@ class PanelNavTabs extends Widget
     {
         if (! is_array($this->tabs))
             return '';
-        $this->tabs = MiscHelper::reActiveItem($this->tabs);
+        $this->tabs = KitHelper::reActiveItem($this->tabs);
         if ($this->wrapper) {
             return Html::tag($this->wrapperTag, $this->renderTabs(), [
                 'class' => $this->wrapperClass

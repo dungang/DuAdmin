@@ -9,7 +9,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\kit\widgets\Notify;
 use app\kit\widgets\SimpleModal;
-use app\kit\helpers\MiscHelper;
+use app\kit\helpers\KitHelper;
 use app\kit\models\Setting;
 
 AppAsset::register($this);
@@ -53,7 +53,7 @@ AppAsset::register($this);
             ]
         ];
     }
-    if (! \Yii::$app->user->isGuest && MiscHelper::isAdmin()) {
+    if (! \Yii::$app->user->isGuest && KitHelper::isAdmin()) {
         $menus[] = [
             'label' => '软件',
             'url' => [
@@ -213,7 +213,7 @@ AppAsset::register($this);
 		<div class="container">
 			<p class="pull-left"><?=Setting::getSettings('site.beian')?> &copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
 
-			<p class="pull-right"><?= MiscHelper::powered() ?></p>
+			<p class="pull-right"><?= KitHelper::powered() ?></p>
 		</div>
 	</footer>
 <?php $this->endBody() ?>

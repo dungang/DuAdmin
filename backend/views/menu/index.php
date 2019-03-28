@@ -16,7 +16,7 @@ PanelTreeGridView::begin([
     'parentColumnName' => 'pid',
     'columns' => [
         [
-            'attribute' => 'id',
+            'attribute' => 'name',
             'format' => 'raw',
             'value' => function ($model, $key, $index, $column) {
                 return Html::a('<i class="'. $model['icon'].'"></i> ' . $model['name'], [

@@ -225,7 +225,7 @@ class ActionColumn extends Column
             if (is_callable($this->actionPrefix)) {
                 $action = call_user_func($this->actionPrefix, $model) . '-' . $action;
             } else if (is_string($this->actionPrefix)) {
-                $action = $this->actionPrefix . '-' . $action;
+                $action = $this->actionPrefix . $action;
             }
         }
 
@@ -233,7 +233,7 @@ class ActionColumn extends Column
             if (is_callable($this->actionSuffix)) {
                 $action = $action . '-' . call_user_func($this->actionSuffix, $model);
             } else if (is_string($this->actionSuffix)) {
-                $action = $action . '-' . $this->actionSuffix;
+                $action = $action . $this->actionSuffix;
             }
         }
 

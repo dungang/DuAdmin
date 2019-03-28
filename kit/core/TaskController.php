@@ -3,7 +3,7 @@ namespace app\kit\core;
 
 use Yii;
 use app\kit\models\Cron;
-use app\kit\helpers\MiscHelper;
+use app\kit\helpers\KitHelper; 
 use yii\web\Controller;
 
 /**
@@ -52,7 +52,7 @@ abstract class TaskController extends Controller
         ])) {
             if ($this->debug || $cron->token == $token) {
                 try {
-                    $this->execJob(MiscHelper::parseText2Assoc($cron->param), $cron);
+                    $this->execJob(KitHelper::parseText2Assoc($cron->param), $cron);
                 } catch (\Exception $e) {
                     Yii::warning('定时任务执行异常：' . $cron->task . ',' . $e->getMessage(), __METHOD__);
                     Yii::warning($e->getTraceAsString(), __METHOD__);

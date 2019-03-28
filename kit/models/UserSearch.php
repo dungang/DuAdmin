@@ -3,7 +3,7 @@ namespace app\kit\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\kit\helpers\MiscHelper;
+use app\kit\helpers\KitHelper;
 
 /**
  * UserSearch represents the model behind the search form of `app\kit\models\User`.
@@ -105,8 +105,8 @@ class UserSearch extends User
             'mobile',
             $this->mobile
         ])
-            ->andFilterWhere(MiscHelper::betweenDayWithTimestamp('updated_at', $this->updated_at))
-            ->andFilterWhere(MiscHelper::betweenDayWithTimestamp('created_at', $this->created_at));
+            ->andFilterWhere(KitHelper::betweenDayWithTimestamp('updated_at', $this->updated_at))
+            ->andFilterWhere(KitHelper::betweenDayWithTimestamp('created_at', $this->created_at));
 
         return $dataProvider;
     }

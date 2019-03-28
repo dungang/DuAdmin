@@ -6,7 +6,7 @@ use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use app\kit\widgets\Notify;
 use app\kit\widgets\SimpleModal;
-use app\kit\helpers\MiscHelper;
+use app\kit\helpers\KitHelper;
 use app\kit\models\Setting;
 use app\kit\models\Menu;
 use app\kit\assets\BackendAsset;
@@ -88,7 +88,7 @@ BackendAsset::register($this);
 				<li class="dropdown user user-menu">
 					<!-- Menu Toggle Button --> <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						<!-- The user image in the navbar-->
-						<?=MiscHelper::img('images/user2-160x160.jpg',['class'=>'user-image'])?>
+						<?=KitHelper::img('images/user2-160x160.jpg',['class'=>'user-image'])?>
 						<!-- hidden-xs hides the username on small devices so only the image appears. -->
 						<span class="hidden-xs"><?=Yii::$app->user->identity->nick_name?></span>
 					</a>
@@ -118,7 +118,7 @@ BackendAsset::register($this);
       <!-- Sidebar user panel (optional) -->
 		<div class="user-panel">
 			<div class="pull-left image">
-				<?=MiscHelper::img('images/user2-160x160.jpg',['class'=>'img-circle'])?>
+				<?=KitHelper::img('images/user2-160x160.jpg',['class'=>'img-circle'])?>
 			</div>
 			<div class="pull-left info">
 				<p><?=Yii::$app->user->identity->nick_name?></p>
@@ -163,10 +163,10 @@ BackendAsset::register($this);
 		<footer class="main-footer">
 			<!-- To the right -->
 			<div class="pull-right hidden-xs">
-      <?= MiscHelper::powered() ?>
+      蜗牛CMS
     </div>
 			<!-- Default to the left -->
-			<strong>Copyright &copy; <?= date('Y') ?> <a href="#"><?= Html::encode(Yii::$app->name) ?></a>.
+			<strong>Copyright &copy; <?= date('Y') ?> <a href="#"><?= Html::encode(Setting::getSettings('site.name')) ?></a>.
 			</strong> All rights reserved.
 		</footer>
 	</div>
@@ -174,6 +174,8 @@ BackendAsset::register($this);
 SimpleModal::begin([
     'header' => '对话框',
     'options' => [
+        'data-backdrop' => 'static',
+        'data-keyboard' => 'false',
         'id' => 'modal-dailog'
     ]
 ]);

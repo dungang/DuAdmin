@@ -2,7 +2,7 @@
 namespace app\kit\widgets;
 
 use yii\base\Widget;
-use app\kit\helpers\MiscHelper;
+use app\kit\helpers\KitHelper;
 use yii\helpers\Html;
 
 /**
@@ -33,7 +33,7 @@ class AdminlteSideBarMenu extends Widget
     public function run()
     {
         $this->normalizeItems();
-        $this->items = MiscHelper::listToTree($this->items, $this->idKey, $this->pidKey);
+        $this->items = KitHelper::listToTree($this->items, $this->idKey, $this->pidKey);
         $html = $this->enableHeader ? Html::tag('li', $this->headerLabel, [
             'class' => 'header'
         ]) : '';

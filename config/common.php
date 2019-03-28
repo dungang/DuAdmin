@@ -16,7 +16,7 @@ $config = [
     'modules'=>[
         'backend'=>'app\backend\BackendModule'
     ],
-    'homeUrl'=>['/backend'],
+    //'homeUrl'=>['/backend'],
     'components' => [
         'request' => [
             'cookieValidationKey' => 'kdyagjkuduebfdglsgdls'

@@ -4,10 +4,12 @@ namespace app\kit\core;
 use Yii;
 use yii\bootstrap\ActiveForm;
 use yii\web\Response;
+use app\kit\events\CoreEvent;
 
 class CreateModelAction extends BaseAction
 {
-
+    const EVENT_CREATE_SUCCESS = 'createSuccess';
+    
     public function run()
     {
         /* @var $model \yii\db\ActiveRecord */
@@ -25,10 +27,14 @@ class CreateModelAction extends BaseAction
         $model->attachBehaviors($this->modelBehaviors);
         // 执行表单提交
         if (($loaded = $model->load(\Yii::$app->request->post())) && $model->save()) {
+            
+            $this->trigger(self::EVENT_CREATE_SUCCESS,new CoreEvent([
+                'payload'=>$model,
+            ]));
             if (! $this->successRediretUrl) {
                 $this->successRediretUrl = \Yii::$app->request->referrer;
             }
-            return $this->controller->redirectOnSuccess($this->successRediretUrl, "添加成功");
+            return $this->controller->redirectOnSuccess($this->getSuccessRediretUrlWidthModel($model), "添加成功");
         }
 
         if (\Yii::$app->request->isPost) {

@@ -9,15 +9,12 @@ use app\kit\behaviors\OperatorBehavior;
 class BaseModel extends ActiveRecord
 {
 
-    private $__has_del = false;
-
     protected $_map_cache_key = false;
 
     public function init()
     {
         parent::init();
-        if ($this->hasProperty("is_del")) {
-            $this->__has_del = true;
+        if ($this->hasDeleteProperty()) {
             $this->is_del = 0;
         }
     }
@@ -31,30 +28,30 @@ class BaseModel extends ActiveRecord
     }
 
     /**
+     * 不是物理删除，而是状态删除
+     * 通知is_del字段来标记
+     *
+     * @return boolean
+     */
+    protected function hasDeleteProperty()
+    {
+        return $this->hasProperty("is_del");
+    }
+
+    /**
      *
      * {@inheritdoc}
      * @see \yii\db\ActiveRecord::delete()
      */
     public function delete()
     {
-        if ($this->__has_del) {
+        if ($this->hasDeleteProperty()) {
             $this->is_del = 1;
             return $this->update(false);
         }
         return parent::delete();
     }
 
-    // /**
-    // * {@inheritDoc}
-    // * @see \yii\db\ActiveRecord::deleteAll()
-    // */
-    // public static function deleteAll($condition = null, $params = array())
-    // {
-    // if(property_exists(self,"is_del")) {
-    // return parent::updateAll(['is_del'=>1],$condition,$params);
-    // }
-    // return parent::deleteAll($condition,$params);
-    // }
     public static function allIdToName($key = 'id', $val = 'name', $where = null, $orderBy = null)
     {
         $models = self::find()->select("$key,$val")

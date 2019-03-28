@@ -8,22 +8,32 @@ use yii\base\InvalidConfigException;
 /**
  *
  * @author dungang
- *        
  * @property BaseController $controller 控制器
  */
 class BaseAction extends Action
 {
 
-    const EVENT_BEFORE_RUN = 'beforeRun';
-    
+    const EVENT_BEFORE_RUN = 'actionBeforeRun';
+
+    const EVENT_AFTER_RUN = 'actionAfterRun';
+
     /**
      * view 文件的名称
+     *
      * @var string
      */
     public $viewName;
 
     /**
-     * 附件的行为
+     * action的行为
+     *
+     * @var string
+     */
+    public $actionBehaviors = [];
+
+    /**
+     * 模型的行为
+     *
      * @var array
      */
     public $modelBehaviors = [];
@@ -50,15 +60,54 @@ class BaseAction extends Action
      * @var string
      */
     public $successRediretUrl = false;
-    
-    public function init(){
-        if(empty($this->viewName)) {
+
+    /**
+     *
+     * {@inheritdoc}
+     * @see \yii\base\Action::afterRun()
+     */
+    protected function afterRun()
+    {
+        $this->trigger(self::EVENT_AFTER_RUN);
+    }
+
+    /**
+     *
+     * {@inheritdoc}
+     * @see \yii\base\Action::beforeRun()
+     */
+    protected function beforeRun()
+    {
+        $this->trigger(self::EVENT_BEFORE_RUN);
+        return parent::beforeRun();
+    }
+
+    public function init()
+    {
+        if (empty($this->viewName)) {
             $this->viewName = $this->id;
         }
+        if (! empty($this->actionBehaviors)) {
+            $this->attachBehaviors($this->actionBehaviors);
+        }
+    }
+
+    protected function getSuccessRediretUrlWidthModel($model)
+    {
+        if (is_array($this->successRediretUrl)) {
+            $url = [];
+            $url[] = \array_shift($this->successRediretUrl);
+            foreach ($this->successRediretUrl as $p => $f) {
+                $url[$p] = $model[$f];
+            }
+            return $url;
+        }
+        return $this->successRediretUrl;
     }
 
     /**
      * 获取模型的主键，并自动装配了关系数组
+     *
      * @param \yii\db\ActiveRecordInterface $class
      * @throws InvalidConfigException
      * @return mixed|bool

@@ -293,7 +293,6 @@ var App = {
 	            $(e.target).data('bs.modal',null);
 	        });
 			modal.on('show.bs.modal',function(e){
-				console.log(e);
 				var size = $(e.relatedTarget).data('modal-size');
 	            $(e.target).find('.modal-dialog')
 					.removeClass('modal-sm modal-lg')
