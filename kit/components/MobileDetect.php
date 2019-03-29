@@ -1298,6 +1298,7 @@ class MobileDetect
      */
     public function match($regex, $userAgent = null)
     {
+        $matches = [];
         $match = (bool) preg_match(sprintf('#%s#is', $regex), (false === empty($userAgent) ? $userAgent : $this->userAgent), $matches);
         // If positive match is found, store the results for debug.
         if ($match) {
@@ -1380,6 +1381,7 @@ class MobileDetect
 
                 $propertyPattern = str_replace('[VER]', self::VER, $propertyMatchString);
 
+                $match = [];
                 // Identify and extract the version.
                 preg_match(sprintf('#%s#is', $propertyPattern), $this->userAgent, $match);
 

@@ -16,7 +16,6 @@ use app\kit\models\AuthItemChild;
  * 避免手工录入遗漏
  *
  * @author dungang
- *        
  */
 class SaveRouteFilter extends Behavior
 {
@@ -44,6 +43,13 @@ class SaveRouteFilter extends Behavior
         $controller = $this->owner;
         $action = $event->action;
 
+        //只保存需要权限验证的控制器和action
+        if (\in_array($action->id, $controller->guestActions)) {
+            return true;
+        } else if (\in_array($action->id, $controller->userActions)) {
+            return true;
+        }
+
         // 添加模块
         $module = $controller->uniqueId;
         $moduleObj = AppModule::findOne([
@@ -54,7 +60,10 @@ class SaveRouteFilter extends Behavior
         if ($moduleObj === null) {
             $moduleObj = new AppModule();
             $moduleObj->name = $module;
-            $moduleObj->description = str_replace(['-','/'], " ", $module);
+            $moduleObj->description = str_replace([
+                '-',
+                '/'
+            ], " ", $module);
             $moduleObj->save(FALSE);
         }
 

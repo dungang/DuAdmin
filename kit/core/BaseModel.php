@@ -3,8 +3,7 @@ namespace app\kit\core;
 
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
-use app\kit\behaviors\TimestampBehavior;
-use app\kit\behaviors\OperatorBehavior;
+use app\kit\behaviors\PropertyBehavior;
 
 class BaseModel extends ActiveRecord
 {
@@ -22,8 +21,7 @@ class BaseModel extends ActiveRecord
     public function behaviors()
     {
         return [
-            TimestampBehavior::className(),
-            OperatorBehavior::className()
+            PropertyBehavior::className()
         ];
     }
 
