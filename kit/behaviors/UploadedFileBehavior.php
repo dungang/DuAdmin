@@ -3,8 +3,9 @@ namespace app\kit\behaviors;
 
 use yii\base\Behavior;
 use yii\db\ActiveRecord;
-use app\kit\helpers\KitHelper;
 use yii\web\UploadedFile;
+use app\kit\components\FileUploader;
+use yii\helpers\ArrayHelper;
 
 /**
  * 图片上传行为
@@ -17,19 +18,13 @@ class UploadedFileBehavior extends Behavior
     /**
      * 上传图片的字段
      *
-     * @var string
+     * @var string|array
      */
-    public $field = 'pic';
-
-    public $fileType = 'image';
-
-    public $thumbnail = false;
-
-    public $thumb_width = null;
-
-    public $thumb_height = null;
-    
-    public $thumb_mode = 'outbound';
+    public $fields = [
+        'pic' => [
+            'file_type' => 'image'
+        ]
+    ];
 
     /**
      * 调整默认的绑定事件的逻辑，只有是POST请求的时候才绑定
@@ -57,12 +52,14 @@ class UploadedFileBehavior extends Behavior
 
     public function beforeValidate($event)
     {
-        /* @var $model ActiveRecord  */
-        $model = $this->owner;
-        if ($file = UploadedFile::getInstance($model, $this->field)) {
-            $model->{$this->field} = $file;
-        } else {
-            $model->{$this->field} = $model->getOldAttribute($this->field);
+        foreach (array_keys($this->fields) as $field) {
+            /* @var $model ActiveRecord  */
+            $model = $this->owner;
+            if ($file = UploadedFile::getInstance($model, $field)) {
+                $model->{$field} = $file;
+            } else {
+                $model->{$field} = $model->getOldAttribute($field);
+            }
         }
     }
 
@@ -70,11 +67,27 @@ class UploadedFileBehavior extends Behavior
     {
         /* @var $model ActiveRecord  */
         $model = $this->owner;
-        if ($model->{$this->field} instanceof UploadedFile) {
-            if ($file = KitHelper::saveModelAttachment($model->{$this->field}, $this->fileType, $this->thumbnail, $this->thumb_width, $this->thumb_height,$this->thumb_mode)) {
-                $model->{$this->field} = $file['url'];
+        foreach ($this->fields as $field => $config) {
+            if ($model->{$field} instanceof UploadedFile) {
+                $fileUploader = $this->getFileUploader($model, $field, $config);
+                if ($file = $fileUploader->uploadFile($model->{$field})) {
+                    $model->{$field} = $file['url'];
+                }
             }
         }
+    }
+
+    protected function getFileUploader($model, $field, $config)
+    {
+        return new FileUploader(ArrayHelper::merge([
+            'model' => $model,
+            'file_type' => 'image',
+            'field' => $field,
+            'thumbnail' => false,
+            'thumb_width' => null,
+            'thumb_height' => null,
+            'thumb_mode' => 'outbound'
+        ], $config));
     }
 }
 

@@ -2,7 +2,7 @@
 namespace app\backend\controllers;
 
 use app\kit\core\BackendController;
-use app\kit\helpers\KitHelper;
+use app\kit\components\FileUploader;
 
 /**
  * 后台默认支持的文件和图片上传的功能
@@ -29,6 +29,18 @@ class AttachmentController extends BackendController
         ];
     }
 
+    public function getFileUploader()
+    {
+        return new FileUploader([
+            'file_type' => 'image',
+            'field' => 'file'
+            //             'thumbnail' => false,
+            //             'thumb_width' => null,
+            //             'thumb_height' => null,
+            //             'thumb_mode' => 'outbound'
+        ]);
+    }
+
     /**
      * inline uploader
      *
@@ -38,7 +50,7 @@ class AttachmentController extends BackendController
     public function actionInline($fileType = 'image')
     {
         try {
-            $rst = KitHelper::saveAttachment($fileType, 'file');
+            $rst = $this->getFileUploader()->upload();
             return $this->asJson([
                 'filename' => $rst['url']
             ]);
@@ -57,7 +69,7 @@ class AttachmentController extends BackendController
     public function actionWangEditor()
     {
         try {
-            $rst = KitHelper::saveAttachment('image', 'file');
+            $rst = $this->getFileUploader()->upload();
             return $this->asJson([
                 'errno' => 0,
                 'data' => [

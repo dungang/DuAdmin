@@ -101,9 +101,10 @@ abstract class IDriver extends BaseObject
      *
      * @param \yii\web\UploadedFile $file
      * @param string $fileType
+     * @param string|null $filePath 如果不为空则保存文件在该路径
      * @return string 返回 文件存储的相对路径
      */
-    public abstract function write($file, $fileType);
+    public abstract function write($file, $fileType,$filePath=null);
 
     /**
      * 缩略图

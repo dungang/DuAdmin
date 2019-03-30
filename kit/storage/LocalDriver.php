@@ -39,9 +39,11 @@ class LocalDriver extends IDriver
      * @param \yii\web\UploadedFile $file
      * @see \app\kit\storage\IDriver::write()
      */
-    public function write($file, $fileType)
+    public function write($file, $fileType, $filePath = NULL)
     {
-        $filePath = $this->getWriteFilePath($file, $fileType);
+        if ($filePath == null) {
+            $filePath = $this->getWriteFilePath($file, $fileType);
+        }
         $targetFile = $this->webroot . '/' . $filePath;
         //不立刻删除临时文件，方便后面的程序还可以使用临时文件
         $file->saveAs($targetFile, false);
@@ -58,7 +60,7 @@ class LocalDriver extends IDriver
         $targetFile = $this->webroot . '/' . $filePath;
         $thumbnail = BaseImage::thumbnail($file->tempName, $width, $height, $mode);
         $thumbPath = $targetFile . $suffix;
-        $thumbnail->save($thumbPath,$this->getImageQualities());
+        $thumbnail->save($thumbPath, $this->getImageQualities());
         return $thumbPath;
     }
 

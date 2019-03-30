@@ -63,11 +63,20 @@ class OssDriver extends IDriver
      * @param \yii\web\UploadedFile $file
      * @see \app\kit\storage\IDriver::write()
      */
-    public function write($file, $fileType)
+    public function write($file, $fileType, $filePath = NULL)
     {
-        $filePath = $this->getWriteFilePath($file, $fileType);
+        if ($filePath == NULL) {
+            $filePath = $this->getWriteFilePath($file, $fileType);
+        } else {
+            $filePath = $this->parseFilePath($filePath);
+        }
         $this->ossClient->uploadFile($this->bucket, $filePath, $file->tempName);
         return $filePath;
+    }
+
+    protected function parseFilePath($ossUrl)
+    {
+        return trim(\str_replace($this->baseUrl, '', $ossUrl), '/');
     }
 
     /**
