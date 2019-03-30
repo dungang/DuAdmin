@@ -53,7 +53,7 @@ class OssDriver extends IDriver
     {
         $thumbnail = BaseImage::thumbnail($file->tempName, $width, $height, $mode);
         $thumbPath = $filePath . $suffix;
-        $this->ossClient->putObject($this->bucket, $thumbPath, $thumbnail->__toString());
+        $this->ossClient->putObject($this->bucket, $thumbPath, $thumbnail->get('png', $this->getImageQualities()));
         return $thumbPath;
     }
 

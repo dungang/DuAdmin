@@ -43,6 +43,26 @@ abstract class IDriver extends BaseObject
 {
 
     /**
+     * from 0 to 100
+     * @var int
+     */
+    public $quality_jpeg = 100;
+    
+    /**
+     * form 0 to 9
+     * @var int
+     */
+    public $quality_png = 9;
+    
+    
+    public function getImageQualities(){
+        return [
+            'jpeg_quality' => $this->quality_jpeg,
+            'png_compression_level' => $this->quality_png,
+        ];
+    }
+    
+    /**
      * 获取url地址
      * @param string $filePath
      * @return string

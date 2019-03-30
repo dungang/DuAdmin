@@ -58,7 +58,7 @@ class LocalDriver extends IDriver
         $targetFile = $this->webroot . '/' . $filePath;
         $thumbnail = BaseImage::thumbnail($file->tempName, $width, $height, $mode);
         $thumbPath = $targetFile . $suffix;
-        $thumbnail->save($thumbPath);
+        $thumbnail->save($thumbPath,$this->getImageQualities());
         return $thumbPath;
     }
 
