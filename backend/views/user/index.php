@@ -34,13 +34,13 @@ PanelGridView::begin([
             ]),
             'class' => 'app\kit\grids\FilterColumn'
         ],
-        'email:email',
-        [
-            'attribute' => 'mobile',
-            'headerOptions' => [
-                'width' => '110px'
-            ]
-        ],
+//         'email:email',
+//         [
+//             'attribute' => 'mobile',
+//             'headerOptions' => [
+//                 'width' => '110px'
+//             ]
+//         ],
         [
             'attribute' => 'is_admin',
             'headerOptions' => [
@@ -66,14 +66,14 @@ PanelGridView::begin([
             ],
             'class' => 'app\kit\grids\FilterColumn'
         ],
-        [
-            'attribute' => 'created_at',
-            'format' => 'date',
-            'headerOptions' => [
-                'width' => '120px'
-            ],
-            'class' => 'app\kit\grids\DateTimeColumn'
-        ],
+//         [
+//             'attribute' => 'created_at',
+//             'format' => 'date',
+//             'headerOptions' => [
+//                 'width' => '120px'
+//             ],
+//             'class' => 'app\kit\grids\DateTimeColumn'
+//         ],
 
         [
             'class' => 'app\kit\grids\ActionColumn',

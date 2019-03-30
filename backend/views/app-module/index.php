@@ -27,8 +27,6 @@ PanelGridView::begin([
                 ]);
             }
         ],
-        'description:ntext',
-        'created_at:date',
         [
             'label' => '路由',
             'format' => 'raw',

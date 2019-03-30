@@ -18,8 +18,6 @@ PanelGridView::begin([
             'class' => 'yii\grid\SerialColumn'
         ],
         'name',
-        'description:ntext',
-        'created_at:date',
         [
             'class' => 'app\kit\grids\ActionColumn',
             'buttonsOptions' => [

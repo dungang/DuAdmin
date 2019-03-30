@@ -30,7 +30,7 @@ class PropertyBehavior extends Behavior
     public function init()
     {
         parent::init();
-        $this->_user = \Yii::$app->user->identity;
+        $this->_user = \Yii::$app->user->getIdentity();
     }
 
     public function events()

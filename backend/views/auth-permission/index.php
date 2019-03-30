@@ -20,7 +20,6 @@ PanelGridView::begin([
         'name',
         'description:ntext',
         'rule_name',
-        'created_at:date',
         [
             'class' => 'app\kit\grids\ActionColumn',
             'buttonsOptions' => [

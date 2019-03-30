@@ -7,9 +7,8 @@ use yii\db\Query;
 use yii\helpers\ArrayHelper;
 use app\kit\models\User;
 use yii\web\UploadedFile;
-use yii\helpers\FileHelper;
-use yii\imagine\BaseImage;
 use Imagine\Image\ManipulatorInterface;
+use app\kit\models\Setting;
 
 /**
  * 系统工具类
@@ -21,13 +20,13 @@ class KitHelper
 
     public static function img($src, $options)
     {
-        return Html::img(\Yii::getAlias('@web') . '/' . ltrim($src, '/'), $options);
+        return Html::img(ltrim($src, '/'), $options);
     }
 
     public static function loazLoadImage($src, $options)
     {
         $opts = ArrayHelper::merge([
-            'data-original' => \Yii::getAlias('@web') . '/' . ltrim($src, '/'),
+            'data-original' => ltrim($src, '/'),
             'class' => 'lazyload'
         ], $options);
         return Html::img('data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=', $opts);
@@ -414,22 +413,22 @@ class KitHelper
      */
     public static function processAttachment($file, $fileType = 'image', $thumbnail = false, $width = null, $height = null, $mode = ManipulatorInterface::THUMBNAIL_OUTBOUND)
     {
-        $dir = self::getUploaderPath($fileType);
-        $url = $dir . uniqid($fileType, true) . '.' . $file->extension;
-        $webroot = \Yii::getAlias("@webroot");
-        $path = $webroot . '/' . $dir;
-        if (! is_dir($path)) {
-            FileHelper::createDirectory($path);
-        }
-        $imageFile = $webroot . '/' . $url;
-        $file->saveAs($imageFile);
+        /**
+         * 配置对应的驱动属性
+         *
+         * @var array $driverConfig
+         */
+        $driverConfig = Setting::getSettingAssoc('storage.config');
+        $driverConfig['class'] = Setting::getSettings('storage.driver', 'app\\kit\\storage\\OssDriver');
+        /* @var $driver \app\kit\storage\IDriver */
+        $driver = \Yii::createObject($driverConfig);
+        $filePath = $driver->write($file, $fileType);
         if ($thumbnail) {
-            $image = BaseImage::thumbnail($imageFile, $width, $height, $mode);
-            $image->save($imageFile . '_thumb.png');
+            $driver->thumbnail($filePath, $file, '_thumb.png', $width, $height, $mode);
         }
         return [
             'name' => $file->name,
-            'url' => $url,
+            'url' => $driver->getUrl($filePath),
             'extension' => $file->extension,
             'size' => $file->size,
             'type' => $file->type

@@ -128,6 +128,7 @@ class Setting extends \app\kit\core\BaseModel
 
     /**
      * 以关联数组形式的返回参数值
+     *
      * @param string $name
      * @return mixed[]
      */
@@ -137,20 +138,25 @@ class Setting extends \app\kit\core\BaseModel
         $val = self::getSettings($name);
         $items = \explode("\n", trim($val));
         foreach ($items as $item) {
-            $kv = explode(':', $item);
-            $assoc[$kv[0]] = $kv[1];
+            if ($item) {
+                $match=[];
+                if(\preg_match('#^(.*?):(.*?)$#i', $item,$match)){
+                    $assoc[$match[1]] = trim($match[2]);
+                }
+            }
         }
         return $assoc;
     }
-    
+
     /**
      * 数组形式的返回参数值
+     *
      * @param string $name
      * @return array
      */
     public static function getSettingAry($name)
     {
-        $val = self::getSettings($name);
+        $val = self::getSettings($name, '');
         return \explode("\n", trim($val));
     }
 
@@ -165,7 +171,7 @@ class Setting extends \app\kit\core\BaseModel
         return $vars;
     }
 
-    public static function getSettings($name)
+    public static function getSettings($name, $default = NULL)
     {
         if (! self::$settings) {
             self::$settings = self::getCacheSettings();
@@ -173,6 +179,6 @@ class Setting extends \app\kit\core\BaseModel
         if (self::$settings && isset(self::$settings[$name])) {
             return self::$settings[$name]['value'];
         }
-        return null;
+        return $default;
     }
 }

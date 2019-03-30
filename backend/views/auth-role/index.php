@@ -30,7 +30,6 @@ PanelGridView::begin([
         ],
         'name',
         'scope',
-        'description',
         [
             'label' => '权限',
             'format' => 'raw',
