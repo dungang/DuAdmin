@@ -7,7 +7,7 @@ use app\kit\widgets\AjaxModalOrNormalPanelContent;
 /* @var $model app\kit\models\Setting */
 
 $this->title = '查看';
-$this->params['breadcrumbs'][] = ['label' => '设置', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => \Yii::$app->controller->module->name . '设置', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $model->name;
 
 echo AjaxModalOrNormalPanelContent::widget([
@@ -18,6 +18,7 @@ echo AjaxModalOrNormalPanelContent::widget([
             'name',
             'title',
             'value:ntext',
+            'hint:ntext',
         ],
     ])
 ])?>

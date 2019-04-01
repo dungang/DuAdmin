@@ -11,7 +11,9 @@ use app\kit\models\Setting;
 <div class="setting-form">
 
     <?php $form = ActiveForm::begin(); ?>
+    <?php if (\Yii::$app->controller->is_backend_module) :?>
     <?= $form->field($model, 'category')->dropDownList(Setting::getSettingCatetory()) ?>
+    <?php endif;?>
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'val_type')->radioList(['STR'=>'字符串','ARRY'=>'数组','ASSOC'=>'关联数组','JSON'=>'json','HTML'=>'html','P'=>'段落']) ?>

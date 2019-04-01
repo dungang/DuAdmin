@@ -1,13 +1,22 @@
 <?php
 namespace app\backend;
 
-use yii\base\Module;
+use app\kit\components\Addon;
 
-class BackendModule extends Module
+class BackendModule extends Addon
 {
-    public function init() {
-        parent::init();
+
+    public function init()
+    {
+        $this->name = '系统';
         $this->controllerNamespace = 'app\backend\controllers';
+        $this->controllerMap = [
+            'setting' => [
+                'class' => 'app\backend\components\SettingController',
+                'is_backend_module'=>true,
+            ]
+        ];
+        parent::init();
     }
 }
 

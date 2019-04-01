@@ -25,6 +25,11 @@ class Addon extends Module
      * @var string
      */
     public $setting_prefix;
+    
+    public function init(){
+        parent::init();
+        \Yii::$app->view->params['breadcrumbs'][] = $this->name;
+    }
 
     /**
      * 获取字符串值的参数
