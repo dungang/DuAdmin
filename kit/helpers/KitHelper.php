@@ -6,6 +6,7 @@ use yii\helpers\Html;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
 use app\kit\models\User;
+use app\kit\components\MobileDetect;
 
 /**
  * 系统工具类
@@ -14,6 +15,14 @@ use app\kit\models\User;
  */
 class KitHelper
 {
+    protected static $agent_detect;
+    
+    public static function IsMobile(){
+        if(self::$agent_detect ==null){
+            self::$agent_detect = new MobileDetect();
+        }
+        return self::$agent_detect->isMobile();
+    }
 
     public static function img($src, $options)
     {

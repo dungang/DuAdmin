@@ -39,14 +39,19 @@ class LocalDriver extends IDriver
      * @param \yii\web\UploadedFile $file
      * @see \app\kit\storage\IDriver::write()
      */
-    public function write($file, $fileType, $filePath = NULL)
+    public function write($file, $fileType, $filePath = NULL, $resize = NULL)
     {
         if ($filePath == null) {
             $filePath = $this->getWriteFilePath($file, $fileType);
         }
-        $targetFile = $this->webroot . '/' . $filePath;
-        //不立刻删除临时文件，方便后面的程序还可以使用临时文件
-        $file->saveAs($targetFile, false);
+        if ($resize) {
+            $this->thumbnail($filePath, $file, '', $resize['width'], $resize['height'], $resize['mode']);
+        } else {
+            $targetFile = $this->webroot . '/' . $filePath;
+            //不立刻删除临时文件，方便后面的程序还可以使用临时文件
+            $file->saveAs($targetFile, false);
+        }
+
         return $filePath;
     }
 
@@ -71,7 +76,10 @@ class LocalDriver extends IDriver
      */
     public function delete($filename)
     {
-        // TODO Auto-generated method stub
+        if (! \parse_url($filename, PHP_URL_SCHEME)) {
+            $targetFile = $this->webroot . '/' . $filename;
+            FileHelper::unlink($targetFile);
+        }
     }
 }
 

@@ -22,6 +22,7 @@ class QrWidget extends Widget
 
     public function run()
     {
+        if(empty($this->content)) return null;
         if ($this->savePic) {
             return $this->createFile();
         } else {

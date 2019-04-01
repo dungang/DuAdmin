@@ -13,7 +13,8 @@ use app\kit\core\BaseModel;
  * creator_id, 添加人
  * updator_id, 更新人
  * creator, 创建人的名称
- * updator 更新人的名称
+ * updator, 更新人的名称
+ * pid,  父类
  *
  * @author dungang
  */
@@ -41,6 +42,7 @@ class PropertyBehavior extends Behavior
         ];
     }
 
+
     /**
      * 在表单验证之前
      *
@@ -53,6 +55,7 @@ class PropertyBehavior extends Behavior
         $model = $event->sender;
         $this->setOnce('created_at', $time, $model);
         $this->setEverytime('updated_at', $time, $model);
+        $this->setOnce('pid', 0, $model);
 
         if ($this->_user) {
             $this->setOnce('creator_id', $this->_user->id, $model);

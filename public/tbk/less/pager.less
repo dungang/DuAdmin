@@ -29,6 +29,10 @@
         padding-left: 5px;
         width: 220px;
 
+        dl {
+            margin-bottom: 0;
+        }
+
         dl>dt,
         dl>dd {
             font-weight: normal;
@@ -41,11 +45,19 @@
 
         dd {
             padding-left: 20px;
+            padding-right: 15px;
             padding-bottom: 15px;
 
             &,
             a {
                 color: @gray-light;
+                display: inline-block;
+                font-size: 14px;
+                line-height: 22px;
+                margin-right: 5px;
+                &.is_hot {
+                    color: @brand-primary;
+                }
             }
         }
     }

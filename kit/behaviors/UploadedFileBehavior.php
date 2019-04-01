@@ -69,7 +69,7 @@ class UploadedFileBehavior extends Behavior
         $model = $this->owner;
         foreach ($this->fields as $field => $config) {
             if ($model->{$field} instanceof UploadedFile) {
-                $fileUploader = $this->getFileUploader($model, $field, $config);
+                $fileUploader = $this->getFileUploader($model, $config);
                 if ($file = $fileUploader->uploadFile($model->{$field})) {
                     $model->{$field} = $file['url'];
                 }
@@ -77,16 +77,15 @@ class UploadedFileBehavior extends Behavior
         }
     }
 
-    protected function getFileUploader($model, $field, $config)
+    protected function getFileUploader($model, $config)
     {
         return new FileUploader(ArrayHelper::merge([
             'model' => $model,
             'file_type' => 'image',
-            'field' => $field,
-            'thumbnail' => false,
-            'thumb_width' => null,
-            'thumb_height' => null,
-            'thumb_mode' => 'outbound'
+            'thumbnails' => null,
+            'width' => null,
+            'height' => null,
+            'mode' => 'outbound'
         ], $config));
     }
 }

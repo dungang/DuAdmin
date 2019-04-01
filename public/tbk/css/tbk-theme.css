@@ -667,6 +667,9 @@ fieldset[disabled] .btn-danger.active {
   padding-left: 5px;
   width: 220px;
 }
+.tbk-index-banner .hot-cat dl {
+  margin-bottom: 0;
+}
 .tbk-index-banner .hot-cat dl > dt,
 .tbk-index-banner .hot-cat dl > dd {
   font-weight: normal;
@@ -677,11 +680,20 @@ fieldset[disabled] .btn-danger.active {
 }
 .tbk-index-banner .hot-cat dd {
   padding-left: 20px;
+  padding-right: 15px;
   padding-bottom: 15px;
 }
 .tbk-index-banner .hot-cat dd,
 .tbk-index-banner .hot-cat dd a {
   color: #777777;
+  display: inline-block;
+  font-size: 14px;
+  line-height: 22px;
+  margin-right: 5px;
+}
+.tbk-index-banner .hot-cat dd.is_hot,
+.tbk-index-banner .hot-cat dd a.is_hot {
+  color: #FE2E54;
 }
 .tbk-index-banner .hot-flash {
   vertical-align: top;

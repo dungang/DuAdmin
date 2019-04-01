@@ -31,32 +31,46 @@ class FileUploader extends BaseObject
     public $file_type = 'image';
 
     /**
-     * 是否生成缩略图
-     *
-     * @var bool
-     */
-    public $thumbnail = false;
-
-    /**
-     * 缩略图宽
+     * 原图处理宽度，如果为空，不处理
+     * 实际上是不保留原图，使用默认的缩略图作为原图
      *
      * @var int
      */
-    public $thumb_width = null;
+    public $width = null;
 
     /**
-     * 缩略图高
+     * 原图处理高度，如果为空，不处理
+     * 实际上是不保留原图，使用默认的缩略图作为原图
      *
      * @var int
      */
-    public $thumb_height = null;
+    public $height = null;
 
     /**
-     * 缩略图模式
+     * 原图切图模式
+     * 实际上是不保留原图，使用默认的缩略图作为原图
+     *
+     * @var string
+     */
+    public $mode = 'outbound';
+
+    /**
+     * 除默认图片之外的缩略图的默认处理模式
      *
      * @var string
      */
     public $thumb_mode = 'outbound';
+
+    /**
+     * 缩略图
+     * 除默认图片之外的缩略图集合,suffix默认是'_thumb.png'
+     * [['width'=>100,'mode'=>'outbound','suffix'=>'_thumb.png'],
+     * ['width'=>100,'height'=>100,'mode'=>'outbound','suffix'=>'_100.png'],
+     * ['height'=>200,'mode'=>'outbound','suffix'=>'_200.png'],]
+     *
+     * @var null|array
+     */
+    public $thumbnails = null;
 
     /**
      * 存储驱动
@@ -94,6 +108,47 @@ class FileUploader extends BaseObject
         return null;
     }
 
+    protected function getThumbnailData()
+    {
+        if (is_array($this->thumbnails)) {
+            $this->thumbnails = \array_map(function ($thumbnail) {
+                return \array_merge([
+                    'width' => null,
+                    'height' => null,
+                    'suffix' => '_thumb.png',
+                    'mode' => $this->thumb_mode
+                ], $thumbnail);
+            }, $this->thumbnails);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 生成缩略图
+     *
+     * @param string $filePath
+     * @param \yii\web\UploadedFile $file
+     */
+    protected function createThumbnails($filePath, $file)
+    {
+        foreach ($this->thumbnails as $thumbnail) {
+            self::$driver->thumbnail($filePath, $file, $thumbnail['suffix'], $thumbnail['width'], $thumbnail['height'], $thumbnail['mode']);
+        }
+    }
+
+    protected function getResize()
+    {
+        if (empty($this->width) && empty($this->height)) {
+            return null;
+        }
+        return [
+            'width' => $this->width,
+            'height' => $this->height,
+            'mode' => $this->mode
+        ];
+    }
+
     public function upload()
     {
         if ($this->model) {
@@ -122,9 +177,9 @@ class FileUploader extends BaseObject
     public function uploadFile($file)
     {
         if ($file) {
-            $filePath = self::$driver->write($file, $this->file_type, $this->getOverwriteFilePath());
-            if ($this->thumbnail) {
-                self::$driver->thumbnail($filePath, $file, '_thumb.png', $this->thumb_width, $this->thumb_height, $this->thumb_mode);
+            $filePath = self::$driver->write($file, $this->file_type, $this->getOverwriteFilePath(), $this->getResize());
+            if ($this->getThumbnailData()) {
+                $this->createThumbnails($filePath, $file);
             }
             return [
                 'name' => $file->name,

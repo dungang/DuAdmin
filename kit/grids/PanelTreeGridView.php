@@ -30,6 +30,7 @@ class PanelTreeGridView extends TreeGrid
         parent::init();
         ob_start();
         ob_implicit_flush(false);
+        $this->dataProvider->pagination = false;
     }
 
     public function run()

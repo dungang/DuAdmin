@@ -25,8 +25,20 @@ class OssDriver extends IDriver
 
     public $accessSecret;
 
+    /**
+     * oss的文件上传的地址，
+     * 注意区分内网地址，和外网地址
+     * 最好根据自己的服务器地址来选择
+     *
+     * @var string
+     */
     public $endpoint;
 
+    /**
+     * web访问的baseurl
+     *
+     * @var string
+     */
     public $baseUrl;
 
     public function init()
@@ -63,20 +75,34 @@ class OssDriver extends IDriver
      * @param \yii\web\UploadedFile $file
      * @see \app\kit\storage\IDriver::write()
      */
-    public function write($file, $fileType, $filePath = NULL)
+    public function write($file, $fileType, $filePath = NULL, $resize = NULL)
     {
         if ($filePath == NULL) {
             $filePath = $this->getWriteFilePath($file, $fileType);
         } else {
             $filePath = $this->parseFilePath($filePath);
         }
-        $this->ossClient->uploadFile($this->bucket, $filePath, $file->tempName);
+        if ($resize) {
+            $this->thumbnail($filePath, $file, '', $resize['width'], $resize['height'], $resize['mode']);
+        } else {
+            $this->ossClient->uploadFile($this->bucket, $filePath, $file->tempName);
+        }
         return $filePath;
     }
 
+    /**
+     * 如果匹配不上，则返回NULL
+     *
+     * @param string $ossUrl
+     * @return string|NULL
+     */
     protected function parseFilePath($ossUrl)
     {
-        return trim(\str_replace($this->baseUrl, '', $ossUrl), '/');
+        if (stripos($ossUrl, $this->baseUrl) === 0) {
+            return trim(\substr($ossUrl, \strlen($this->baseUrl)), '/');
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -86,7 +112,9 @@ class OssDriver extends IDriver
      */
     public function delete($filename)
     {
-        $this->ossClient->deleteObject($this->bucket, $filename);
+        if ($key = $this->parseFilePath($filename)) {
+            $this->ossClient->deleteObject($this->bucket, $key);
+        }
         return true;
     }
 }

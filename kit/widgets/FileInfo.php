@@ -29,8 +29,8 @@ class FileInfo extends Widget
         if ($type = $this->fileType()) {
             if ($type == 'image') {
                 return Html::img($this->value . $this->thumbSufix, [
-                    'width' => '300',
-                    'height' => '200',
+                    'width' => $this->width,
+                    'height' => $this->height,
                     'class' => 'thumbnail'
                 ]);
             } else {
