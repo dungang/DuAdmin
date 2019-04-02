@@ -55,6 +55,9 @@ BackendAsset::register($this);
 <?php
 $this->beginBody();
 $user = \Yii::$app->user->getIdentity();
+if (empty($user->avatar)) {
+    $user->avatar = 'images/user2-160x160.jpg';
+}
 ?>
 <div class="wrapper">
 
@@ -102,7 +105,7 @@ $user = \Yii::$app->user->getIdentity();
 							<p>
                   				<?=$user->nick_name?>
                 			</p>
-                		</li>
+						</li>
 						<!-- Menu Footer-->
 						<li class="user-footer">
 							<div class="pull-left">

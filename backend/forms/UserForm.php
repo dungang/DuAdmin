@@ -164,7 +164,7 @@ class UserForm extends Model
                 if ($crop) {
                     $this->fields = [
                         'avatar' => [
-                            'file_path' => 'uploades/avatar/' . \Yii::$app->user->id . '.png',
+                            'file_path' => 'uploads/avatar/' . \Yii::$app->user->id . '.png',
                             'width' => $crop['w'],
                             'height' => $crop['h'],
                             'x' => $crop['x'],

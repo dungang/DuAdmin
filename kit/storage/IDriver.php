@@ -3,39 +3,8 @@ namespace app\kit\storage;
 
 use yii\base\BaseObject;
 
-// class File extends BaseObject
-// {
-
-//     /**
-//      * 文件的原始名称
-//      *
-//      * @var string
-//      */
-//     public $name;
-
-//     /**
-//      * 文件类型
-//      *
-//      * @var string
-//      */
-//     public $type;
-
-//     /**
-//      * 保存的路径
-//      *
-//      * @var string
-//      */
-//     public $url;
-
-//     /**
-//      * 扩展明
-//      *
-//      * @var string
-//      */
-//     public $extension;
-// }
-
 /**
+ * 文件存储驱动接口类
  *
  * @author dungang
  */

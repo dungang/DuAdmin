@@ -89,11 +89,7 @@ class OssDriver extends IDriver
      */
     protected function parseFilePath($ossUrl)
     {
-        if (stripos($ossUrl, $this->baseUrl) === 0) {
-            return trim(\substr($ossUrl, \strlen($this->baseUrl)), '/');
-        } else {
-            return null;
-        }
+        return \parse_url($ossUrl, PHP_URL_PATH);
     }
 
     /**
