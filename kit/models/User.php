@@ -12,6 +12,7 @@ use app\kit\core\BaseModel;
  * @property integer $id
  * @property string $username
  * @property string $nick_name
+ * @property string $avatar 头像
  * @property string $password_hash
  * @property string $password_reset_token
  * @property string $email
@@ -51,6 +52,7 @@ class User extends BaseModel implements IdentityInterface
             'id' => 'ID',
             'username' => '用户名',
             'nick_name' => '姓名',
+            'avatar' => '头像',
             'status' => '状态',
             'is_admin' => '是超管',
             'email' => '邮箱',
@@ -78,6 +80,13 @@ class User extends BaseModel implements IdentityInterface
                     'email'
                 ],
                 'required'
+            ],
+            [
+                [
+                    'mobile',
+                    'avatar'
+                ],
+                'string'
             ],
             [
                 'status',

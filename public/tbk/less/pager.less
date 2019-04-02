@@ -7,10 +7,12 @@
     padding-left: 0px;
     padding-top: 15px;
     padding-bottom: 15px;
+
     a {
         color: @gray;
     }
 }
+
 .tbk-index-banner {
     background-color: #fff;
     display: flex;
@@ -45,8 +47,8 @@
 
         dd {
             padding-left: 20px;
-            padding-right: 15px;
-            padding-bottom: 15px;
+            padding-right: 5px;
+            padding-bottom: 10px;
 
             &,
             a {
@@ -55,6 +57,7 @@
                 font-size: 14px;
                 line-height: 22px;
                 margin-right: 5px;
+
                 &.is_hot {
                     color: @brand-primary;
                 }
@@ -66,10 +69,35 @@
         vertical-align: top;
         width: 670px;
 
-        img {
-            width: inherit;
+        .swiper-slide {
+
+            img,
+            a {
+                display: inline-block;
+                width: inherit;
+                height:300px;
+            }
+        }
+
+        img:hover {
+            opacity: .85;
+        }
+
+        .advs {
+            display: flex;
+            .adv-item {
+                display: inline-block;
+                width: 33.33%;
+                img {
+                    width: 100%;
+                    height: 110px;
+                }
+            }
         }
     }
+
+
+
 
     .hot-adv {
         vertical-align: top;
@@ -77,6 +105,19 @@
 
         img {
             width: inherit;
+            &:hover {
+                opacity: .85;
+            }
+        }
+        .top {
+            height: 150px;
+
+        }
+        .middle {
+            height: 150px;
+        }
+        .bottom {
+            height: 110px;
         }
     }
 }
@@ -160,6 +201,13 @@
     }
 }
 
+.front-breadcrumb {
+    .breadcrumb {
+        background-color: transparent;
+
+    }
+}
+
 .product-grid-lg {
 
     display: flex;
@@ -205,9 +253,11 @@
             border: 0;
             margin-bottom: 15px;
             margin-right: 15px;
+
             &:hover {
                 text-decoration: none;
             }
+
             color: @gray;
 
             img {
@@ -234,8 +284,10 @@
                 margin-top: 10px;
                 margin-bottom: 0px;
             }
+
             .prod-quan-price {
                 font-weight: 400;
+
                 strong {
                     font-size: 20px;
                 }
@@ -258,22 +310,25 @@
     min-width: @container-base-width;
     padding: 10px;
     margin-top: 15px;
-    border: 1px solid lighten(@brand-primary,20%);
+    margin-bottom: 15px;
+    border: 1px solid lighten(@brand-primary, 30%);
     border-radius: 3px;
-    background-color: lighten(@brand-primary,35%);
-    color: @gray;
+    background-color: lighten(@brand-primary, 35%);
+    color: @brand-primary;
 }
 
 .index-block-title {
-    margin:30px;
+    margin: 30px;
 }
 
 
 .product-content {
+
     .content,
     .content-left,
     .content-right {
         background-color: #fff;
+
         img {
             width: 100%;
         }
@@ -287,8 +342,10 @@
     padding: 15px;
     background-color: #fff;
     margin-bottom: 15px;
+
     .photo {
         width: 30%;
+
         img.main-photo {
             width: 100%;
         }
@@ -303,6 +360,7 @@
             margin-right: -15px;
             margin-bottom: 0;
             .clearfix();
+
             li {
                 float: left;
                 width: 25%;
@@ -311,88 +369,106 @@
             }
         }
     }
+
     .base-info {
         width: 70%;
         padding-left: 15px;
         padding-right: 15px;
+
         .title {
             margin-top: 15px;
             margin-bottom: 30px;
             font-size: 20px;
             margin-left: 15px;
         }
+
         .sale-info {
             background-color: @gray-lighter;
             padding: 30px;
             font-size: 18px;
             margin-left: 15px;
             .clearfix();
+
             .coupon-price {
                 margin-right: 30px;
-                color: lighten(@brand-primary,10%);
+                color: lighten(@brand-primary, 10%);
                 line-height: 18px;
+
                 strong {
                     font-size: 32px;
                     font-weight: bolder;
                 }
             }
-            .sale-month{
-                color:@gray-light;
+
+            .sale-month {
+                color: @gray-light;
+
                 strong {
                     font-weight: bolder;
-                    color: lighten(@brand-primary,10%);
+                    color: lighten(@brand-primary, 10%);
                 }
             }
         }
 
         .shop-info {
             padding-top: 15px;
+
             .qr-info {
                 p.h5 {
                     margin-top: 75px;
                 }
+
                 .qr {
                     width: 100%;
                     display: inline-block;
+
                     canvas {
                         width: inherit;
                     }
                 }
             }
+
             .coupon {
                 margin-top: 15px;
                 display: flex;
                 width: 100%;
                 border-radius: 3px;
+
                 .coupon-info {
                     border-top-left-radius: 3px;
                     border-bottom-left-radius: 3px;
                     width: 75%;
-                    background-color:@coupon-bg;
+                    background-color: @coupon-bg;
                     min-height: 110px;
                     text-align: center;
-                    color: darken(@coupon-bg,50%);
+                    color: darken(@coupon-bg, 50%);
+
                     p {
                         margin-bottom: 0px;
                     }
+
                     .money {
-                        color: darken(@brand-primary,10%);
+                        color: darken(@brand-primary, 10%);
+
                         strong {
                             font-size: 55px;
                         }
+
                         margin-right: 30px;
                     }
-                    
+
                 }
+
                 .coupon-btn {
                     border-top-right-radius: 3px;
                     border-bottom-right-radius: 3px;
                     width: 25%;
-                    background-color: darken(@brand-primary,10%);
+                    background-color: darken(@brand-primary, 10%);
                     min-height: 100px;
                     font-size: 24px;
                     line-height: 100px;
                     text-align: center;
+
                     a {
                         color: #fff;
                     }

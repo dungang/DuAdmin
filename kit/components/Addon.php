@@ -3,6 +3,7 @@ namespace app\kit\components;
 
 use yii\base\Module;
 use app\kit\models\Setting;
+use app\kit\core\BackendController;
 
 /**
  * 插件基类
@@ -25,14 +26,19 @@ class Addon extends Module
      * @var string
      */
     public $setting_prefix;
-    
-    public function init(){
+
+    public function init()
+    {
         parent::init();
-        \Yii::$app->view->params['breadcrumbs'][] = $this->name;
+        //默认的插件模块面包屑，只出现在后台程序
+        if (\Yii::$app->controller instanceof BackendController) {
+            \Yii::$app->view->params['breadcrumbs'][] = $this->name;
+        }
     }
 
     /**
      * 获取字符串值的参数
+     *
      * @param string $name
      * @return NULL
      */
@@ -42,8 +48,10 @@ class Addon extends Module
         $self = \Yii::$app->module;
         return Setting::getSettings($self->setting_prefix . '.' . $name);
     }
+
     /**
      * 获取数组值的参数
+     *
      * @param string $name
      * @return NULL
      */
@@ -53,8 +61,10 @@ class Addon extends Module
         $self = \Yii::$app->module;
         return Setting::getSettingAssoc($self->setting_prefix . '.' . $name);
     }
+
     /**
      * 获取字符串值的参数
+     *
      * @param string $name
      * @return NULL
      */

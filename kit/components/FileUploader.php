@@ -29,6 +29,8 @@ class FileUploader extends BaseObject
     public $field = 'pic';
 
     public $file_type = 'image';
+    
+    public $file_path = null;
 
     /**
      * 原图处理宽度，如果为空，不处理
@@ -45,6 +47,16 @@ class FileUploader extends BaseObject
      * @var int
      */
     public $height = null;
+
+    /**
+     * 如果是crop ,坐标X
+     *
+     * @var string
+     */
+    public $x = null;
+
+    //如果是crop ,坐标y
+    public $y = null;
 
     /**
      * 原图切图模式
@@ -104,6 +116,8 @@ class FileUploader extends BaseObject
             if ($this->model && ! empty($this->model->{$this->field})) {
                 return $this->model->{$this->field};
             }
+        } else if($this->file_path) {
+            return $this->file_path;
         }
         return null;
     }
@@ -145,6 +159,8 @@ class FileUploader extends BaseObject
         return [
             'width' => $this->width,
             'height' => $this->height,
+            'x'=>$this->x,
+            'y'=>$this->y,
             'mode' => $this->mode
         ];
     }

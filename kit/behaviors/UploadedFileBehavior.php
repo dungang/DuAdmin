@@ -25,6 +25,9 @@ class UploadedFileBehavior extends Behavior
             'file_type' => 'image'
         ]
     ];
+    
+    
+    public $initFieldsCallback;
 
     /**
      * 调整默认的绑定事件的逻辑，只有是POST请求的时候才绑定
@@ -52,12 +55,16 @@ class UploadedFileBehavior extends Behavior
 
     public function beforeValidate($event)
     {
+        if($this->initFieldsCallback && \is_callable($this->initFieldsCallback)){
+            \call_user_func($this->initFieldsCallback,$this);
+        }
         foreach (array_keys($this->fields) as $field) {
             /* @var $model ActiveRecord  */
             $model = $this->owner;
-            if ($file = UploadedFile::getInstance($model, $field)) {
+            $file = UploadedFile::getInstance($model, $field);
+            if ($file) {
                 $model->{$field} = $file;
-            } else {
+            } else if($model->hasMethod('getOldAttribute')) {
                 $model->{$field} = $model->getOldAttribute($field);
             }
         }
@@ -81,6 +88,7 @@ class UploadedFileBehavior extends Behavior
     {
         return new FileUploader(ArrayHelper::merge([
             'model' => $model,
+            'file_path'=>null,
             'file_type' => 'image',
             'thumbnails' => null,
             'width' => null,

@@ -59,19 +59,6 @@ class OssDriver extends IDriver
     /**
      * (non-PHPdoc)
      *
-     * @see \app\kit\storage\IDriver::thumbnail()
-     */
-    public function thumbnail($filePath, $file, $suffix, $width, $height, $mode)
-    {
-        $thumbnail = BaseImage::thumbnail($file->tempName, $width, $height, $mode);
-        $thumbPath = $filePath . $suffix;
-        $this->ossClient->putObject($this->bucket, $thumbPath, $thumbnail->get('png', $this->getImageQualities()));
-        return $thumbPath;
-    }
-
-    /**
-     * (non-PHPdoc)
-     *
      * @param \yii\web\UploadedFile $file
      * @see \app\kit\storage\IDriver::write()
      */
@@ -83,7 +70,11 @@ class OssDriver extends IDriver
             $filePath = $this->parseFilePath($filePath);
         }
         if ($resize) {
-            $this->thumbnail($filePath, $file, '', $resize['width'], $resize['height'], $resize['mode']);
+            if ($resize['x'] === NULL || $resize['y'] === NULL) {
+                $this->thumbnail($filePath, $file, '', $resize['width'], $resize['height'], $resize['mode']);
+            } else {
+                $this->crop($filePath, $file, '', $resize['width'], $resize['height'], $resize['x'], $resize['y']);
+            }
         } else {
             $this->ossClient->uploadFile($this->bucket, $filePath, $file->tempName);
         }
@@ -103,6 +94,35 @@ class OssDriver extends IDriver
         } else {
             return null;
         }
+    }
+
+    /**
+     * (non-PHPdoc)
+     *
+     * @see \app\kit\storage\IDriver::thumbnail()
+     */
+    public function thumbnail($filePath, $file, $suffix, $width, $height, $mode)
+    {
+        $thumbnail = BaseImage::thumbnail($file->tempName, $width, $height, $mode);
+        $thumbPath = $filePath . $suffix;
+        $this->ossClient->putObject($this->bucket, $thumbPath, $thumbnail->get('png', $this->getImageQualities()));
+        return $thumbPath;
+    }
+
+    /**
+     * (non-PHPdoc)
+     *
+     * @see \app\kit\storage\IDriver::crop()
+     */
+    public function crop($filePath, $file, $suffix, $width, $height, $x, $y)
+    {
+        $crop = BaseImage::crop($file->tempName, $width, $height, [
+            $x,
+            $y
+        ]);
+        $cropPath = $filePath . $suffix;
+        $this->ossClient->putObject($this->bucket, $cropPath, $crop->get('png', $this->getImageQualities()));
+        return $cropPath;
     }
 
     /**

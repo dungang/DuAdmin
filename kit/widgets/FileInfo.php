@@ -17,7 +17,7 @@ class FileInfo extends Widget
 
     public $height = 200;
 
-    public $thumbSufix = '_thumb.png';
+    public $thumbSuffix = '_thumb.png';
 
     public function run()
     {
@@ -28,7 +28,7 @@ class FileInfo extends Widget
     {
         if ($type = $this->fileType()) {
             if ($type == 'image') {
-                return Html::img($this->value . $this->thumbSufix, [
+                return Html::img($this->value . $this->thumbSuffix, [
                     'width' => $this->width,
                     'height' => $this->height,
                     'class' => 'thumbnail'

@@ -52,7 +52,10 @@ BackendAsset::register($this);
  */
 ?>
 <body class="skin-green fixed sidebar-mini">
-<?php $this->beginBody() ?>
+<?php
+$this->beginBody();
+$user = \Yii::$app->user->getIdentity();
+?>
 <div class="wrapper">
 
 		<!-- Main Header -->
@@ -88,16 +91,18 @@ BackendAsset::register($this);
 				<li class="dropdown user user-menu">
 					<!-- Menu Toggle Button --> <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						<!-- The user image in the navbar-->
-						<?=KitHelper::img('images/user2-160x160.jpg',['class'=>'user-image'])?>
+						<?=KitHelper::img($user->avatar,['class'=>'user-image','width'=>160,'height'=>160])?>
 						<!-- hidden-xs hides the username on small devices so only the image appears. -->
-						<span class="hidden-xs"><?=Yii::$app->user->identity->nick_name?></span>
+						<span class="hidden-xs"><?=$user->nick_name?></span>
 					</a>
 					<ul class="dropdown-menu">
 						<!-- The user image in the menu -->
-						<li class="user-header"><img src="images/user2-160x160.jpg" class="img-circle" alt="User Image">
+						<li class="user-header">
+							<?=KitHelper::img($user->avatar,['class'=>'img-circle','width'=>160,'height'=>160])?>
 							<p>
-                  <?=Yii::$app->user->identity->nick_name?>
-                </p></li>
+                  				<?=$user->nick_name?>
+                			</p>
+                		</li>
 						<!-- Menu Footer-->
 						<li class="user-footer">
 							<div class="pull-left">
@@ -118,7 +123,7 @@ BackendAsset::register($this);
       <!-- Sidebar user panel (optional) -->
 		<div class="user-panel">
 			<div class="pull-left image">
-				<?=KitHelper::img('images/user2-160x160.jpg',['class'=>'img-circle'])?>
+				<?=KitHelper::img($user->avatar,['class'=>'img-circle','width'=>160,'height'=>160])?>
 			</div>
 			<div class="pull-left info">
 				<p><?=Yii::$app->user->identity->nick_name?></p>
@@ -126,10 +131,7 @@ BackendAsset::register($this);
 				<i class="fa fa-circle text-success"></i> 在线
 			</div>
 		</div>
-		<?= AdminlteSideBarMenu::widget([
-		    'headerLabel'=>'导航',
-		    'items'=>Menu::getBackMenus()
-		])?>
+		<?=AdminlteSideBarMenu::widget(['headerLabel' => '导航','items' => Menu::getBackMenus()])?>
 
   <?php AdminlteSideBar::end();?>
 
@@ -162,9 +164,7 @@ BackendAsset::register($this);
 		<!-- Main Footer -->
 		<footer class="main-footer">
 			<!-- To the right -->
-			<div class="pull-right hidden-xs">
-      蜗牛CMS
-    </div>
+			<div class="pull-right hidden-xs">蜗牛CMS</div>
 			<!-- Default to the left -->
 			<strong>Copyright &copy; <?= date('Y') ?> <a href="#"><?= Html::encode(Setting::getSettings('site.name')) ?></a>.
 			</strong> All rights reserved.

@@ -680,8 +680,8 @@ fieldset[disabled] .btn-danger.active {
 }
 .tbk-index-banner .hot-cat dd {
   padding-left: 20px;
-  padding-right: 15px;
-  padding-bottom: 15px;
+  padding-right: 5px;
+  padding-bottom: 10px;
 }
 .tbk-index-banner .hot-cat dd,
 .tbk-index-banner .hot-cat dd a {
@@ -699,8 +699,25 @@ fieldset[disabled] .btn-danger.active {
   vertical-align: top;
   width: 670px;
 }
-.tbk-index-banner .hot-flash img {
+.tbk-index-banner .hot-flash .swiper-slide img,
+.tbk-index-banner .hot-flash .swiper-slide a {
+  display: inline-block;
   width: inherit;
+  height: 300px;
+}
+.tbk-index-banner .hot-flash img:hover {
+  opacity: 0.85;
+}
+.tbk-index-banner .hot-flash .advs {
+  display: flex;
+}
+.tbk-index-banner .hot-flash .advs .adv-item {
+  display: inline-block;
+  width: 33.33%;
+}
+.tbk-index-banner .hot-flash .advs .adv-item img {
+  width: 100%;
+  height: 110px;
 }
 .tbk-index-banner .hot-adv {
   vertical-align: top;
@@ -708,6 +725,18 @@ fieldset[disabled] .btn-danger.active {
 }
 .tbk-index-banner .hot-adv img {
   width: inherit;
+}
+.tbk-index-banner .hot-adv img:hover {
+  opacity: 0.85;
+}
+.tbk-index-banner .hot-adv .top {
+  height: 150px;
+}
+.tbk-index-banner .hot-adv .middle {
+  height: 150px;
+}
+.tbk-index-banner .hot-adv .bottom {
+  height: 110px;
 }
 .hot-toutiao .hot-toutiao-items {
   list-style-type: none;
@@ -771,6 +800,9 @@ fieldset[disabled] .btn-danger.active {
 .index-content .content,
 .product-content .content {
   width: 100%;
+}
+.front-breadcrumb .breadcrumb {
+  background-color: transparent;
 }
 .product-grid-lg {
   display: flex;
@@ -864,10 +896,11 @@ fieldset[disabled] .btn-danger.active {
   min-width: 1200px;
   padding: 10px;
   margin-top: 15px;
-  border: 1px solid #fe94a7;
+  margin-bottom: 15px;
+  border: 1px solid #ffc6d1;
   border-radius: 3px;
   background-color: #ffe0e5;
-  color: #555555;
+  color: #FE2E54;
 }
 .index-block-title {
   margin: 30px;

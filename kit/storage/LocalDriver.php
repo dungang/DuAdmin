@@ -33,6 +33,14 @@ class LocalDriver extends IDriver
         return $dir;
     }
 
+    protected function initOldFilePath($filePath)
+    {
+        $path = \dirname($this->webroot . '/' . $filePath);
+        if (! \is_dir($path)) {
+            FileHelper::createDirectory($path);
+        }
+    }
+
     /**
      *
      * {@inheritdoc}
@@ -43,9 +51,15 @@ class LocalDriver extends IDriver
     {
         if ($filePath == null) {
             $filePath = $this->getWriteFilePath($file, $fileType);
+        } else {
+            $this->initOldFilePath($filePath);
         }
         if ($resize) {
-            $this->thumbnail($filePath, $file, '', $resize['width'], $resize['height'], $resize['mode']);
+            if ($resize['x'] === NULL || $resize['y'] === NULL) {
+                $this->thumbnail($filePath, $file, '', $resize['width'], $resize['height'], $resize['mode']);
+            } else {
+                $this->crop($filePath, $file, '', $resize['width'], $resize['height'], $resize['x'], $resize['y']);
+            }
         } else {
             $targetFile = $this->webroot . '/' . $filePath;
             //不立刻删除临时文件，方便后面的程序还可以使用临时文件
@@ -67,6 +81,23 @@ class LocalDriver extends IDriver
         $thumbPath = $targetFile . $suffix;
         $thumbnail->save($thumbPath, $this->getImageQualities());
         return $thumbPath;
+    }
+
+    /**
+     *
+     * {@inheritdoc}
+     * @see \app\kit\storage\IDriver::crop()
+     */
+    public function crop($filePath, $file, $suffix, $width, $height, $x, $y)
+    {
+        $targetFile = $this->webroot . '/' . $filePath;
+        $crop = BaseImage::crop($file->tempName, $width, $height, [
+            $x,
+            $y
+        ]);
+        $cropPath = $targetFile . $suffix;
+        $crop->save($cropPath, $this->getImageQualities());
+        return $cropPath;
     }
 
     /**
