@@ -46,6 +46,12 @@ $config = [
             // uncomment if you want to cache RBAC items hierarchy
             'cache' => 'cache'
         ],
+        'urlManager' => [
+            'class' => 'app\kit\components\RewriteUrl',
+            //'cache' => 'cache',
+            //'suffix' => '.html',
+            'enablePrettyUrl'=>true,
+        ],
 
         'formatter' => [
             'timeZone' => 'Asia/Shanghai',

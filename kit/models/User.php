@@ -9,22 +9,28 @@ use app\kit\core\BaseModel;
 /**
  * User model
  *
- * @property integer $id
- * @property string $username
- * @property string $nick_name
+ * @property int $id
+ * @property string $username 用户名
+ * @property string $nick_name 姓名
  * @property string $avatar 头像
- * @property string $password_hash
- * @property string $password_reset_token
- * @property string $email
- * @property string $mobile
  * @property string $auth_key
- * @property integer $status
- * @property int $is_admin
- * @property int $is_super
- * @property integer $created_at
- * @property integer $updated_at
+ * @property string $password_reset_token
+ * @property string $email 邮箱
+ * @property string $mobile 手机
+ * @property string $wechat 微信
+ * @property string $tel 固话
+ * @property string $qq QQ
+ * @property string $dingding 钉钉
+ * @property string $wangwang 旺旺
+ * @property int $status 状态
+ * @property int $is_admin 管理员
+ * @property int $is_super 超管
+ * @property int $def_project 默认项目
+ * @property int $created_at 添加时间
+ * @property int $updated_at 更新时间
+ * @property string $role 角色
+ * @property int $is_del
  * @property string $password write-only password
- * @property string $role
  */
 class User extends BaseModel implements IdentityInterface
 {
@@ -57,6 +63,11 @@ class User extends BaseModel implements IdentityInterface
             'is_admin' => '是超管',
             'email' => '邮箱',
             'mobile' => '手机',
+            'wechat' => '微信',
+            'tel' => '固话',
+            'qq' => 'QQ',
+            'dingding' => '钉钉',
+            'wangwang' => '旺旺',
             'is_admin' => '管理者',
             'is_super' => '超管',
             'password' => '密码',

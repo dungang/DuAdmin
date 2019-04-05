@@ -70,9 +70,12 @@ class Bootstrap implements BootstrapInterface
      */
     protected function dynamicSetSiteHome($app)
     {
-        $app->setHomeUrl([
-            Setting::getSettings("site.index-page")
-        ]);
+        if ($home = Setting::getSettings("site.index-page")) {
+
+            $app->setHomeUrl([
+                $home
+            ]);
+        }
     }
 
     /**

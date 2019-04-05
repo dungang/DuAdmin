@@ -2,6 +2,8 @@
 namespace app\controllers;
 
 use app\kit\core\FrontendController;
+use yii\base\InvalidArgumentException;
+use app\kit\models\Setting;
 
 /**
  * Site controller
@@ -42,6 +44,10 @@ class SiteController extends FrontendController
      */
     public function actionIndex()
     {
-        return $this->goHome();
+        if (Setting::getSettings("site.index-page")) {
+            return $this->goHome();
+        } else {
+            throw new InvalidArgumentException('默认首页配置`site.index-page`不能为空');
+        }
     }
 }

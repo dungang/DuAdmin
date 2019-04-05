@@ -75,10 +75,12 @@ class UploadedFileBehavior extends Behavior
         /* @var $model ActiveRecord  */
         $model = $this->owner;
         foreach ($this->fields as $field => $config) {
-            if ($model->{$field} instanceof UploadedFile) {
-                $fileUploader = $this->getFileUploader($model, $config);
-                if ($file = $fileUploader->uploadFile($model->{$field})) {
-                    $model->{$field} = $file['url'];
+            if($model->hasProperty($field)){
+                if ($model->{$field} instanceof UploadedFile) {
+                    $fileUploader = $this->getFileUploader($model, $config);
+                    if ($file = $fileUploader->uploadFile($model->{$field})) {
+                        $model->{$field} = $file['url'];
+                    }
                 }
             }
         }

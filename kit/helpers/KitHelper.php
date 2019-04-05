@@ -15,10 +15,12 @@ use app\kit\components\MobileDetect;
  */
 class KitHelper
 {
+
     protected static $agent_detect;
-    
-    public static function IsMobile(){
-        if(self::$agent_detect ==null){
+
+    public static function IsMobile()
+    {
+        if (self::$agent_detect == null) {
             self::$agent_detect = new MobileDetect();
         }
         return self::$agent_detect->isMobile();
@@ -29,13 +31,15 @@ class KitHelper
         return Html::img(ltrim($src, '/'), $options);
     }
 
-    public static function loazLoadImage($src, $options)
+    public static function loazLoadImage($src, $thumb = null, $options = [])
     {
+        if ($thumb == null)
+            $thumb = 'data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=';
         $opts = ArrayHelper::merge([
             'data-original' => ltrim($src, '/'),
             'class' => 'lazyload'
         ], $options);
-        return Html::img('data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=', $opts);
+        return Html::img($thumb, $opts);
     }
 
     public static function powered()
