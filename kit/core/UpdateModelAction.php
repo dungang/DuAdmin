@@ -30,7 +30,7 @@ class UpdateModelAction extends BaseAction
 
         // 动态绑定行为
         $model->attachBehaviors($this->modelBehaviors);
-        if (($loaded = $model->load(\Yii::$app->request->post())) && $model->save()) {
+        if (($loaded = $model->load($this->composePostParams($model))) && $model->save()) {
             if (! $this->successRediretUrl) {
                 $this->successRediretUrl = \Yii::$app->request->referrer;
             }

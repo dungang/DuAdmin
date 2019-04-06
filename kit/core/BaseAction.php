@@ -4,6 +4,7 @@ namespace app\kit\core;
 use yii\base\Action;
 use yii\web\NotFoundHttpException;
 use yii\base\InvalidConfigException;
+use yii\base\Model;
 
 /**
  *
@@ -48,11 +49,18 @@ class BaseAction extends Action
     public $modelClass = null;
 
     /**
-     * 必须传递的参数名称
+     * 条件查找参数
+     *
+     * @var array|null
+     */
+    public $findParams = null;
+
+    /**
+     * 固定赋值参数
      *
      * @var null|array
      */
-    public $mustArgs = null;
+    public $assignParams = null;
 
     /**
      * 成功操作的跳转地址，如果没有设置，则使用默认的
@@ -60,6 +68,66 @@ class BaseAction extends Action
      * @var string
      */
     public $successRediretUrl = false;
+
+    public $successMsg = '添加成功';
+
+    /**
+     * 设置固定的参数，避免被外部覆盖
+     *
+     * @param Model $model
+     * @return boolean
+     */
+    protected function setAssignParams($model)
+    {
+        if ($this->assignParams) {
+            foreach ($this->assignParams as $field => $val) {
+                $model->{$field} = $val;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 获取get参数
+     *
+     * @param Model $model
+     */
+    protected function composeGetParams($model)
+    {
+        $params = \Yii::$app->request->queryParams;
+        if ($this->findParams) {
+            $formName = $model->formName();
+            if (empty($params[$formName]))
+                $params[$formName] = [];
+            $params[$formName] = \array_merge($params[$formName], $this->findParams);
+        }
+        return $params;
+    }
+
+    /**
+     * 获取post参数
+     *
+     * @param Model $model
+     * @param bool $multiple
+     *            是否多模型
+     */
+    protected function composePostParams($model, $multiple = false)
+    {
+        $params = \Yii::$app->request->post();
+        if ($this->assignParams) {
+            $formName = $model->formName();
+            if (empty($params[$formName]))
+                $params[$formName] = [];
+            if ($multiple === false) {
+                $params[$formName] = \array_merge($params[$formName], $this->assignParams);
+            } else {
+                foreach ($params[$formName] as $i => $param) {
+                    $params[$formName][$i] = \array_merge($param, $this->assignParams);
+                }
+            }
+        }
+        return $params;
+    }
 
     /**
      *
@@ -126,6 +194,13 @@ class BaseAction extends Action
         return null;
     }
 
+    /**
+     * 查找一个模型对象实例
+     *
+     * @param boolean $createOneOnNotFound
+     * @throws NotFoundHttpException
+     * @return mixed|object|mixed
+     */
     protected function findModel($createOneOnNotFound = false)
     {
         $model = null;
@@ -140,6 +215,11 @@ class BaseAction extends Action
             if ($class) {
 
                 $condition = array_merge($this->getPrimaryKeyCondition($class), $args);
+
+                //是否设置了查找的固定参数
+                if ($this->findParams) {
+                    $condition = \array_merge($condition, $this->findParams);
+                }
                 $model = call_user_func(array(
                     $class,
                     'findOne'
@@ -155,21 +235,33 @@ class BaseAction extends Action
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
+    /**
+     * 根据多个id查找，目前该方法还不完善
+     *
+     * @param array $ids
+     * @throws NotFoundHttpException
+     * @return mixed
+     */
     protected function findModels($ids)
     {
         $models = null;
         if ($this->modelClass) {
-            if (is_string($this->modelClass)) {
-                $models = call_user_func(array(
-                    $this->modelClass,
-                    'findAll'
-                ), $ids);
-            } else if (is_array($this->modelClass) && isset($this->modelClass['class'])) {
-                $models = call_user_func(array(
-                    $this->modelClass['class'],
-                    'findAll'
-                ), $ids);
+            $class = $this->modelClass;
+            if (is_array($this->modelClass) && isset($this->modelClass['class'])) {
+                $class = $this->modelClass['class'];
             }
+            $cond = [
+                'id' => $ids
+            ];
+
+            //是否设置了查找的固定参数
+            if ($this->findParams) {
+                $cond = \array_merge($cond, $this->findParams);
+            }
+            $models = call_user_func(array(
+                $class,
+                'findAll'
+            ), $cond);
         }
         if ($models !== null) {
             return $models;

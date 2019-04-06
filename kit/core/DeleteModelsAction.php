@@ -3,6 +3,13 @@ namespace app\kit\core;
 
 use Yii;
 
+/**
+ * 批量删除，待完善，目前还不支持查找参数的设置
+ * 直接通过多个id批量上传存在安全隐患。不能保证有固定的查找参数
+ * 问题:单主键是多个字段的联合主键的时候，还没处理好
+ *
+ * @author dungang
+ */
 class DeleteModelsAction extends BaseAction
 {
 

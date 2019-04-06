@@ -32,13 +32,13 @@ class CreateModelsAction extends BaseAction
             $models[] = $models;
         }
 
-        if (($loaded = Model::loadMultiple($models, Yii::$app->request->post())) && Model::validateMultiple($models)) {
+        if (($loaded = Model::loadMultiple($models, $this->composePostParams($model, true))) && Model::validateMultiple($models)) {
             Yii::$app->db->transaction(function ($db) use ($models) {
                 foreach ($models as $model) {
                     $model->save(false);
                 }
             });
-            return $this->controller->redirectOnSuccess(\Yii::$app->request->referrer, "添加成功");
+            return $this->controller->redirectOnSuccess(\Yii::$app->request->referrer, $this->successMsg);
         }
 
         if (\Yii::$app->request->isPost) {

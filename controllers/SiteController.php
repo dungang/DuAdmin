@@ -16,7 +16,8 @@ class SiteController extends FrontendController
         parent::init();
         $this->guestActions = [
             'error',
-            'index'
+            'index',
+            'captcha',
         ];
     }
 

@@ -14,7 +14,7 @@ use app\kit\core\BaseModel;
  * updator_id, 更新人
  * creator, 创建人的名称
  * updator, 更新人的名称
- * pid,  父类
+ * pid, 父类
  *
  * @author dungang
  */
@@ -38,13 +38,14 @@ class PropertyBehavior extends Behavior
     {
         return [
             BaseModel::EVENT_BEFORE_INSERT => 'beforeSave',
-            BaseModel::EVENT_BEFORE_UPDATE => 'beforeSave',
+            BaseModel::EVENT_BEFORE_UPDATE => 'beforeSave'
         ];
     }
 
-
     /**
-     * 在表单验证之前
+     * 在保存之前，不能在表单验证之前，
+     * 因为给了初始值对导致模式搜索的时候也会自动赋值，
+     * 导致查询结果不是预期的结果
      *
      * @param \yii\base\Event $event
      */
