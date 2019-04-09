@@ -11,6 +11,7 @@ $config = [
             'errorAction' => 'site/error'
         ],
         'assetManager' => [
+            'class'=>'\app\kit\core\CoreAssetManager',
             'bundles' => [
                 'yii\bootstrap\BootstrapAsset' => [
                     //'baseUrl' => 'https://cdn.bootcss.com/twitter-bootstrap/3.4.1/',

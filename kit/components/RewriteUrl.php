@@ -15,6 +15,23 @@ use yii\web\Request;
  */
 class RewriteUrl extends UrlManager
 {
+    public $common_params = null;
+    
+    public $from_db = false;
+ 
+    /**
+     * {@inheritDoc}
+     * @see \yii\web\UrlManager::createUrl()
+     */
+    public function createUrl($params)
+    {
+        if($this->common_params && \is_array($params)){
+            foreach($this->common_params as $name=>$val){
+                $params[$name] = $val;
+            }
+        }
+        return parent::createUrl($params);
+    }
 
     /**
      * Initializes UrlManager.
@@ -34,7 +51,9 @@ class RewriteUrl extends UrlManager
         if (is_string($this->cache)) {
             $this->cache = Yii::$app->get($this->cache, false);
         }
-        $this->rules = $this->getRulesFromDb();
+        if($this->from_db){
+            $this->rules = $this->getRulesFromDb();
+        }
         if (empty($this->rules)) {
             return;
         }
@@ -50,6 +69,9 @@ class RewriteUrl extends UrlManager
         }
     }
 
+    
+    
+    
     /**
      * Parses the user request.
      *

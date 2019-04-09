@@ -13,7 +13,7 @@ AjaxModalOrNormalPanelContent::begin([
     'intro' => '修改用户信息'
 ])?>
 
-    <?php $form = ActiveForm::begin(['id'=>'profile-form','enableAjaxValidation' => false,'options'=>['enctype'=>'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin(['id'=>'profile-form','enableAjaxValidation' => true,'options'=>['enctype'=>'multipart/form-data']]); ?>
 	<?= Html::activeHiddenInput($model, 'crop',['id'=>'crop'])?>
 	<?= Html::activeHiddenInput($model, 'username')?>
 

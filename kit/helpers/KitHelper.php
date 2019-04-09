@@ -7,6 +7,7 @@ use yii\db\Query;
 use yii\helpers\ArrayHelper;
 use app\kit\models\User;
 use app\kit\components\MobileDetect;
+use app\kit\models\Setting;
 
 /**
  * 系统工具类
@@ -31,7 +32,7 @@ class KitHelper
         return Html::img(ltrim($src, '/'), $options);
     }
 
-    public static function loazLoadImage($src, $thumb = null, $options = [])
+    public static function lazyLoadImage($src, $thumb = null, $options = [])
     {
         if ($thumb == null)
             $thumb = 'data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=';
@@ -47,6 +48,21 @@ class KitHelper
         return \Yii::t('yii', 'Powered by {soft}', [
             'soft' => '<a href="https://baiyuan.weifutek.com/" rel="external">' . \Yii::$app->name . '</a>'
         ]);
+    }
+
+    public static function getSetting($name)
+    {
+        return Setting::getSettings($name);
+    }
+
+    public static function getSettingAry($name)
+    {
+        return Setting::getSettingAry($name);
+    }
+
+    public static function getSettingAssoc($name)
+    {
+        return Setting::getSettingAssoc($name);
     }
 
     public static function unicodeDecode($unicode_str)

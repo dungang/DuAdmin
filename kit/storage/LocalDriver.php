@@ -56,7 +56,7 @@ class LocalDriver extends IDriver
         }
         if ($resize) {
             if ($resize['x'] === NULL || $resize['y'] === NULL) {
-                $this->thumbnail($filePath, $file, '', $resize['width'], $resize['height'], $resize['mode']);
+                $this->thumbnail(self::THUMBNAIL_FROM_TMP, $filePath, $file, '', $resize['width'], $resize['height'], $resize['mode']);
             } else {
                 $this->crop($filePath, $file, '', $resize['width'], $resize['height'], $resize['x'], $resize['y']);
             }
@@ -74,10 +74,14 @@ class LocalDriver extends IDriver
      * {@inheritdoc}
      * @see \app\kit\storage\IDriver::thumbnail()
      */
-    public function thumbnail($filePath, $file, $suffix, $width, $height, $mode)
+    public function thumbnail($thumbnail_source, $filePath, $file, $suffix, $width, $height, $mode)
     {
         $targetFile = $this->webroot . '/' . $filePath;
-        $thumbnail = BaseImage::thumbnail($file->tempName, $width, $height, $mode);
+        if ($thumbnail_source === self::THUMBNAIL_FROM_TMP) {
+            $thumbnail = BaseImage::thumbnail($file->tempName, $width, $height, $mode);
+        } else {
+            $thumbnail = BaseImage::thumbnail($targetFile, $width, $height, $mode);
+        }
         $thumbPath = $targetFile . $suffix;
         $thumbnail->save($thumbPath, $this->getImageQualities());
         return $thumbPath;

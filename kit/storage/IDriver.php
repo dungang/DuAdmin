@@ -10,6 +10,16 @@ use yii\base\BaseObject;
  */
 abstract class IDriver extends BaseObject
 {
+    /**
+     * 使用临时文件生成缩略图
+     * @var bool
+     */
+    const THUMBNAIL_FROM_TMP = 1;
+    /**
+     * 使用目标文件生成缩略图
+     * @var bool
+     */
+    const THUMBNAIL_FROM_TARGET = 2;
 
     /**
      * from 0 to 100
@@ -86,6 +96,8 @@ abstract class IDriver extends BaseObject
      * 缩略图
      * 参考imagine包
      *
+     * @param bool $thumbnail_source
+     *            生成缩略图是否使用临时文件还是处理过的图片
      * @param string $filePath
      *            原始文件存储的相对路径
      * @param \yii\web\UploadedFile $file
@@ -96,7 +108,7 @@ abstract class IDriver extends BaseObject
      * @param string $height
      * @param string $mode
      */
-    public abstract function thumbnail($filePath, $file, $suffix, $width, $height, $mode);
+    public abstract function thumbnail($thumbnail_source, $filePath, $file, $suffix, $width, $height, $mode);
 
     /**
      * 裁剪图片

@@ -12,6 +12,7 @@ $config = [
             'errorAction' => 'site/error'
         ],
         'assetManager' => [
+            'class'=>'\app\kit\core\CoreAssetManager',
             'basePath'=>'@app/public/assets',
             'bundles' => [
                 'yii\bootstrap\BootstrapPluginAsset' => [

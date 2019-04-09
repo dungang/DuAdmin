@@ -134,6 +134,10 @@ class UserForm extends BaseDynamicModel
         $this->nick_name = $model->nick_name;
         $this->email = $model->email;
         $this->mobile = $model->mobile;
+        $this->dingding = $model->dingding;
+        $this->wechat = $model->wechat;
+        $this->qq = $model->qq;
+        $this->wangwang = $model->wangwang;
         $this->status = $model->status;
         $this->role = $model->role;
         $this->avatar = $model->avatar;
@@ -171,6 +175,10 @@ class UserForm extends BaseDynamicModel
             $user->avatar = $this->avatar;
         }
         $user->mobile = $this->mobile;
+        $user->dingding = $this->dingding;
+        $user->wechat = $this->wechat;
+        $user->qq = $this->qq;
+        $user->wangwang = $this->wangwang;
         $user->role = $this->role;
         if ($this->password) {
             $user->setPassword($this->password);

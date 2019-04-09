@@ -4,6 +4,7 @@ namespace app\kit\components;
 use yii\base\BaseObject;
 use app\kit\models\Setting;
 use yii\web\UploadedFile;
+use app\kit\storage\IDriver;
 
 /**
  *
@@ -29,7 +30,7 @@ class FileUploader extends BaseObject
     public $field = 'pic';
 
     public $file_type = 'image';
-    
+
     public $file_path = null;
 
     /**
@@ -116,7 +117,7 @@ class FileUploader extends BaseObject
             if ($this->model && ! empty($this->model->{$this->field})) {
                 return $this->model->{$this->field};
             }
-        } else if($this->file_path) {
+        } else if ($this->file_path) {
             return $this->file_path;
         }
         return null;
@@ -146,8 +147,12 @@ class FileUploader extends BaseObject
      */
     protected function createThumbnails($filePath, $file)
     {
+        $source = IDriver::THUMBNAIL_FROM_TMP;
+        if ($this->x && $this->y) {
+            $source = IDriver::THUMBNAIL_FROM_TARGET;
+        }
         foreach ($this->thumbnails as $thumbnail) {
-            self::$driver->thumbnail($filePath, $file, $thumbnail['suffix'], $thumbnail['width'], $thumbnail['height'], $thumbnail['mode']);
+            self::$driver->thumbnail($source, $filePath, $file, $thumbnail['suffix'], $thumbnail['width'], $thumbnail['height'], $thumbnail['mode']);
         }
     }
 
@@ -159,8 +164,8 @@ class FileUploader extends BaseObject
         return [
             'width' => $this->width,
             'height' => $this->height,
-            'x'=>$this->x,
-            'y'=>$this->y,
+            'x' => $this->x,
+            'y' => $this->y,
             'mode' => $this->mode
         ];
     }

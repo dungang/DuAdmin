@@ -10,11 +10,11 @@ abstract class FrontendController extends BaseController
         $this->layout = 'front-end';
     }
 
-    public function behaviors()
-    {
-        $bs = parent::behaviors();
-        $bs['post_rate_limit'] = 'app\kit\filters\PostRateLimitFilter';
-        return $bs;
-    }
+//     public function behaviors()
+//     {
+//         $bs = parent::behaviors();
+//         $bs['post_rate_limit'] = 'app\kit\filters\PostRateLimitFilter';
+//         return $bs;
+//     }
 }
 

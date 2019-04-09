@@ -29,6 +29,7 @@ PanelTreeGridView::begin([
             }
         ],
         'url',
+        'sort',
         [
             'class' => '\app\kit\grids\ActionColumn',
             'buttonsOptions' => [

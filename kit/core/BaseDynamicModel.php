@@ -98,7 +98,9 @@ abstract class BaseDynamicModel extends DynamicModel
         foreach ($this->_dynamic_properties as $property) {
             $rows[] = $this->prepareExtPropertyValueRow($masterModel, $property);
         }
-        KitHelper::batchReplaceInto($this->prepareExtPropertyValueTable(), $this->prepareExtPropertyValueFields(), $rows);
+        if(count($rows)>0){
+            KitHelper::batchReplaceInto($this->prepareExtPropertyValueTable(), $this->prepareExtPropertyValueFields(), $rows);
+        }
     }
 
     /**
