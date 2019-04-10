@@ -49,26 +49,26 @@ class PostRateLimitFilter extends Behavior
      */
     public function beforeAction($event)
     {
-        //if (\Yii::$app->request->isPost) {
-        $current_time = microtime(true);
-        if (! in_array(\Yii::$app->controller->route, $this->exclude_routes)) {
-            //超过不正常请求的次数上限
-            if ($this->getBadRequestTimes() >= $this->max_times) {
-                $event->handled = true;
-                $this->validateCaptach($event->sender);
-                return false;
-            }
-            $last_time = $this->getLastRequestTime();
-            $calc_time = $last_time + ($this->max_interval_ms / 1000);
-            //如果间隔时间小于最大间隔时间，则表示不正常的请求
-            if ($calc_time >= $current_time) {
+        if (\Yii::$app->request->isPost) {
+            $current_time = microtime(true);
+            if (! in_array(\Yii::$app->controller->route, $this->exclude_routes)) {
+                //超过不正常请求的次数上限
+                if ($this->getBadRequestTimes() >= $this->max_times) {
+                    $event->handled = true;
+                    $this->validateCaptach($event->sender);
+                    return false;
+                }
+                $last_time = $this->getLastRequestTime();
+                $calc_time = $last_time + ($this->max_interval_ms / 1000);
+                //如果间隔时间小于最大间隔时间，则表示不正常的请求
+                if ($calc_time >= $current_time) {
 
-                $this->setBadRequestTimes();
+                    $this->setBadRequestTimes();
+                }
             }
+
+            $this->setLastRequestTime($current_time);
         }
-
-        $this->setLastRequestTime($current_time);
-        //}
     }
 
     /**
