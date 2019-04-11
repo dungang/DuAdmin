@@ -10,7 +10,7 @@ use app\kit\models\Menu;
 
 <div class="menu-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['id'=>'sys-menu-form','enableAjaxValidation' => true]); ?>
 
     <?= $form->field($model, 'is_front')->checkbox([]) ?>
 

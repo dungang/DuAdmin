@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 
 <div class="rewrite-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['id'=>'sys-rewrite-form','enableAjaxValidation' => true]); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 

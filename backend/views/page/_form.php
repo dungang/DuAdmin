@@ -11,7 +11,7 @@ use app\kit\models\Page;
 
 <div class="page-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['id'=>'sys-page-form','enableAjaxValidation' => true]); ?>
 
     <?= $form->field($model, 'slug')->textInput(['maxlength' => true]) ?>
 

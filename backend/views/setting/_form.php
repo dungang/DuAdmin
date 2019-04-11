@@ -10,7 +10,7 @@ use app\kit\models\Setting;
 
 <div class="setting-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['id'=>'sys-setting-form','enableAjaxValidation' => true]); ?>
     <?php if (\Yii::$app->controller->is_backend_module) :?>
     <?= $form->field($model, 'category')->dropDownList(Setting::getSettingCatetory()) ?>
     <?php endif;?>

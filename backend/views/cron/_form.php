@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 
 <div class="cron-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['id'=>'sys-cron-form','enableAjaxValidation' => true]); ?>
 
     <?= $form->field($model, 'task')->textInput(['maxlength' => true]) ?>
 

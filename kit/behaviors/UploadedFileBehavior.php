@@ -69,13 +69,16 @@ class UploadedFileBehavior extends Behavior
         if ($this->canSaveFileBeforeSave()) {
             $this->initUploader();
             foreach (array_keys($this->fields) as $field) {
+
                 /* @var $model ActiveRecord  */
                 $model = $this->owner;
-                $file = UploadedFile::getInstance($model, $field);
-                if ($file) {
-                    $model->{$field} = $file;
-                } else if ($model->hasMethod('getOldAttribute')) {
-                    $model->{$field} = $model->getOldAttribute($field);
+                if ($model->hasProperty($field)) {
+                    $file = UploadedFile::getInstance($model, $field);
+                    if ($file) {
+                        $model->{$field} = $file;
+                    } else if ($model->hasMethod('getOldAttribute')) {
+                        $model->{$field} = $model->getOldAttribute($field);
+                    }
                 }
             }
         }
