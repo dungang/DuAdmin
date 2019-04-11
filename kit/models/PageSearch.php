@@ -6,9 +6,9 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * RewriteSearch represents the model behind the search form of `app\kit\models\Rewrite`.
+ * PageSearch represents the model behind the search form of `app\kit\models\Page`.
  */
-class RewriteSearch extends Rewrite
+class PageSearch extends Page
 {
     /**
      * {@inheritdoc}
@@ -16,8 +16,8 @@ class RewriteSearch extends Rewrite
     public function rules()
     {
         return [
-            [['id', 'weight'], 'integer'],
-            [['name', 'express', 'route', 'category'], 'safe'],
+            [['id', 'pid', 'sort'], 'integer'],
+            [['slug', 'title', 'content'], 'safe'],
         ];
     }
 
@@ -39,7 +39,7 @@ class RewriteSearch extends Rewrite
      */
     public function search($params)
     {
-        $query = Rewrite::find();
+        $query = Page::find();
 
         // add conditions that should always apply here
 
@@ -58,13 +58,13 @@ class RewriteSearch extends Rewrite
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'weight' => $this->weight,
+            'pid' => $this->pid,
+            'sort' => $this->sort,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'express', $this->express])
-            ->andFilterWhere(['like', 'route', $this->route])
-            ->andFilterWhere(['like', 'category', $this->category]);
+        $query->andFilterWhere(['like', 'slug', $this->slug])
+            ->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'content', $this->content]);
 
         return $dataProvider;
     }

@@ -1,48 +1,42 @@
 <?php
+
 namespace app\backend\controllers;
 
 use app\kit\core\BackendController;
 
-class UserController extends BackendController
-{
 
-    public function actions()
-    {
-        return [
+/**
+ * PageController implements the CRUD actions for Page model.
+ */
+class PageController extends BackendController
+{
+	public function actions(){
+		return [
             'index' => [
                 'class' => 'app\kit\core\ListModelsAction',
                 'modelClass' => [
-                    'class' => 'app\kit\models\UserSearch'
+                    'class' => 'app\kit\models\PageSearch'
                 ]
             ],
             'create' => [
                 'class' => 'app\kit\core\CreateModelAction',
+                'successRediretUrl'=>['update','id'=>'id'],
                 'modelClass' => [
-                    'class' => 'app\backend\forms\DynamicUser',
-                    'scenario'=>'manage',
+                    'class' => 'app\kit\models\Page'
                 ]
             ],
             'update' => [
                 'class' => 'app\kit\core\UpdateModelAction',
                 'modelClass' => [
-                    'class' => 'app\backend\forms\DynamicUser',
-                    'scenario'=>'manage',
-                ]
-            ],
-            'view' => [
-                'class' => 'app\kit\core\ViewModelAction',
-                'modelClass' => [
-                    'class' => 'app\kit\models\User'
+                    'class' => 'app\kit\models\Page'
                 ]
             ],
             'delete' => [
                 'class' => 'app\kit\core\DeleteModelAction',
                 'modelClass' => [
-                    'class' => 'app\kit\models\User'
+                    'class' => 'app\kit\models\Page'
                 ]
-            ]
-        ];
-    }
-
+            ],
+		];
+	}
 }
-

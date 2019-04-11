@@ -12,8 +12,8 @@ $this->params['breadcrumbs'][] = $this->title;
 PanelTreeGridView::begin([
     'intro'=>'维护导航菜单，分前后端的菜单，目前只支持2级菜单。',
     'dataProvider' => $dataProvider,
-    'keyColumnName' => 'id',
-    'parentColumnName' => 'pid',
+//     'keyColumnName' => 'id',
+//     'parentColumnName' => 'pid',
     'columns' => [
         [
             'attribute' => 'name',

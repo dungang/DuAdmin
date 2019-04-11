@@ -6,15 +6,15 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => [
         'log',
-        'app\kit\components\Bootstrap',
+        'app\kit\components\Bootstrap'
     ],
     'language' => 'zh-CN',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset'
     ],
-    'modules'=>[
-        'backend'=>'app\backend\BackendModule'
+    'modules' => [
+        'backend' => 'app\backend\BackendModule'
     ],
     //'homeUrl'=>['/backend'],
     'components' => [
@@ -27,7 +27,9 @@ $config = [
         'user' => [
             'identityClass' => 'app\kit\models\User',
             'enableAutoLogin' => true,
-            'loginUrl'=>['backend/login'],
+            'loginUrl' => [
+                'backend/login'
+            ]
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -36,7 +38,7 @@ $config = [
                     'class' => 'yii\log\FileTarget',
                     'levels' => [
                         'error',
-                        'warning',
+                        'warning'
                     ]
                 ]
             ]
@@ -50,7 +52,10 @@ $config = [
             'class' => 'app\kit\components\RewriteUrl',
             //'cache' => 'cache',
             //'suffix' => '.html',
-            'enablePrettyUrl'=>true,
+            'enablePrettyUrl' => true,
+            'rules' => [
+                '<slug:[\w \-]+>' => 'site/page/'
+            ]
         ],
 
         'formatter' => [

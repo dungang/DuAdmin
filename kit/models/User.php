@@ -5,6 +5,8 @@ use Yii;
 use yii\base\NotSupportedException;
 use yii\web\IdentityInterface;
 use app\kit\core\BaseModel;
+use app\kit\behaviors\UploadedFileBehavior;
+use yii\helpers\Json;
 
 /**
  * User model
@@ -30,6 +32,7 @@ use app\kit\core\BaseModel;
  * @property int $updated_at 更新时间
  * @property string $role 角色
  * @property int $is_del
+ * @property string $password_hash
  * @property string $password write-only password
  */
 class User extends BaseModel implements IdentityInterface
@@ -68,7 +71,7 @@ class User extends BaseModel implements IdentityInterface
             'qq' => 'QQ',
             'dingding' => '钉钉',
             'wangwang' => '旺旺',
-            'is_admin' => '管理者',
+            'is_admin' => '后台用户',
             'is_super' => '超管',
             'password' => '密码',
             'role' => '角色',
@@ -88,16 +91,38 @@ class User extends BaseModel implements IdentityInterface
                 [
                     'username',
                     'nick_name',
-                    'email'
+                    'email',
+                    'mobile'
                 ],
                 'required'
             ],
             [
                 [
-                    'mobile',
-                    'avatar'
+                    'username',
+                    'email'
+                ],
+                'unique'
+            ],
+            [
+                [
+                    'password',
+                    'role',
+                    'wechat',
+                    'qq',
+                    'dingding',
+                    'wangwang',
+                    'tel'
                 ],
                 'string'
+            ],
+            [
+                [
+                    'status',
+                    'is_admin',
+                    'is_super'
+                ],
+                'boolean',
+                'on' => 'manage'
             ],
             [
                 'status',
@@ -111,8 +136,41 @@ class User extends BaseModel implements IdentityInterface
                     self::STATUS_ACTIVE,
                     self::STATUS_DELETED
                 ]
+            ],
+            [
+                [
+                    'avatar'
+                ],
+                'file',
+                'skipOnEmpty' => true,
+                'extensions' => 'png,jpg'
             ]
         ];
+    }
+
+    public function behaviors()
+    {
+        $bs = parent::behaviors();
+        $bs['uploaded_file'] = [
+            'class' => UploadedFileBehavior::className(),
+            'after_create' => true,
+            'initFieldsCallback' => function ($behavior) {
+                $crop = Json::decode(\Yii::$app->request->post('crop'));
+                if ($crop) {
+                    $this->fields = [
+                        'avatar' => [
+                            'file_path' => 'uploads/avatar/' . $behavior->owner->id . '.png',
+                            'width' => $crop['w'],
+                            'height' => $crop['h'],
+                            'x' => $crop['x'],
+                            'y' => $crop['y'],
+                            'mode' => 'inset'
+                        ]
+                    ];
+                }
+            }
+        ];
+        return $bs;
     }
 
     /**
@@ -212,6 +270,11 @@ class User extends BaseModel implements IdentityInterface
         return $this->getAuthKey() === $authKey;
     }
 
+    public function getPassword()
+    {
+        return null;
+    }
+
     /**
      * Validates password
      *
@@ -231,7 +294,9 @@ class User extends BaseModel implements IdentityInterface
      */
     public function setPassword($password)
     {
-        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
+        if (! empty(trim($password))) {
+            $this->password_hash = Yii::$app->security->generatePasswordHash($password);
+        }
     }
 
     /**

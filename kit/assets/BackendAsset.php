@@ -20,7 +20,9 @@ class BackendAsset extends AssetBundle
     
     public $depends = [
         'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapPluginAsset'
+        'yii\bootstrap\BootstrapPluginAsset',
+        'yii\validators\ValidationAsset',
+        'yii\widgets\ActiveFormAsset'
     ];
 }
 

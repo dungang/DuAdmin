@@ -15,6 +15,8 @@ use yii\helpers\ArrayHelper;
 class UploadedFileBehavior extends Behavior
 {
 
+    public $after_create = false;
+
     /**
      * 上传图片的字段
      *
@@ -25,8 +27,7 @@ class UploadedFileBehavior extends Behavior
             'file_type' => 'image'
         ]
     ];
-    
-    
+
     public $initFieldsCallback;
 
     /**
@@ -48,34 +49,61 @@ class UploadedFileBehavior extends Behavior
     public function events()
     {
         return [
+            ActiveRecord::EVENT_AFTER_INSERT => 'whenNewRecordSaveAfterCreated',
             ActiveRecord::EVENT_BEFORE_VALIDATE => 'beforeValidate',
             ActiveRecord::EVENT_AFTER_VALIDATE => 'afterValidate'
         ];
     }
 
+    public function whenNewRecordSaveAfterCreated($event)
+    {
+        if ($this->onlyIsNewRecordSaveFileAfterCreated()) {
+            $this->initUploader();
+            $this->saveFile($event);
+            $this->owner->save(false);
+        }
+    }
+
     public function beforeValidate($event)
     {
-        if($this->initFieldsCallback && \is_callable($this->initFieldsCallback)){
-            \call_user_func($this->initFieldsCallback,$this);
-        }
-        foreach (array_keys($this->fields) as $field) {
-            /* @var $model ActiveRecord  */
-            $model = $this->owner;
-            $file = UploadedFile::getInstance($model, $field);
-            if ($file) {
-                $model->{$field} = $file;
-            } else if($model->hasMethod('getOldAttribute')) {
-                $model->{$field} = $model->getOldAttribute($field);
+        if ($this->canSaveFileBeforeSave()) {
+            $this->initUploader();
+            foreach (array_keys($this->fields) as $field) {
+                /* @var $model ActiveRecord  */
+                $model = $this->owner;
+                $file = UploadedFile::getInstance($model, $field);
+                if ($file) {
+                    $model->{$field} = $file;
+                } else if ($model->hasMethod('getOldAttribute')) {
+                    $model->{$field} = $model->getOldAttribute($field);
+                }
             }
         }
     }
 
     public function afterValidate($event)
     {
+        if ($this->canSaveFileBeforeSave()) {
+            $this->saveFile($event);
+        }
+    }
+
+    protected function onlyIsNewRecordSaveFileAfterCreated()
+    {
+        return $this->after_create === true && $this->owner->isNewRecord;
+    }
+
+    protected function canSaveFileBeforeSave()
+    {
+        return $this->after_create === false || ($this->after_create === true && ! $this->owner->isNewRecord);
+    }
+
+    protected function saveFile($event)
+    {
         /* @var $model ActiveRecord  */
         $model = $this->owner;
         foreach ($this->fields as $field => $config) {
-            if($model->hasProperty($field)){
+            if ($model->hasProperty($field)) {
                 if ($model->{$field} instanceof UploadedFile) {
                     $fileUploader = $this->getFileUploader($model, $config);
                     if ($file = $fileUploader->uploadFile($model->{$field})) {
@@ -86,11 +114,18 @@ class UploadedFileBehavior extends Behavior
         }
     }
 
+    protected function initUploader()
+    {
+        if ($this->initFieldsCallback && \is_callable($this->initFieldsCallback)) {
+            \call_user_func($this->initFieldsCallback, $this);
+        }
+    }
+
     protected function getFileUploader($model, $config)
     {
         return new FileUploader(ArrayHelper::merge([
             'model' => $model,
-            'file_path'=>null,
+            'file_path' => null,
             'file_type' => 'image',
             'thumbnails' => null,
             'width' => null,

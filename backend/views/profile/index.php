@@ -5,7 +5,7 @@ use app\kit\widgets\JcropFileInput;
 use app\kit\widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
-/* @var $model app\backend\forms\UserForm */
+/* @var $model app\backend\forms\DynamicUser */
 
 $this->title = '用户中心';
 $this->params['breadcrumbs'][] = $this->title;
@@ -14,17 +14,17 @@ AjaxModalOrNormalPanelContent::begin([
 ])?>
 
     <?php $form = ActiveForm::begin(['id'=>'profile-form','enableAjaxValidation' => true,'options'=>['enctype'=>'multipart/form-data']]); ?>
-	<?= Html::activeHiddenInput($model, 'crop',['id'=>'crop'])?>
-	<?= Html::activeHiddenInput($model, 'username')?>
+	<?= Html::hiddenInput('crop','',['id'=>'crop'])?>
+	<?= Html::activeHiddenInput($model->model, 'username')?>
 
 <div class="row">
 	<div class="col-md-6">
-            <?= $form->field($model, 'nick_name')->textInput() ?>
-            <?= $form->field($model, 'password')->passwordInput() ?>
-            <?= $form->field($model, 'email')->textInput() ?>
-    		<?= $form->field($model, 'tel')->textInput() ?>
+            <?= $form->field($model->model, 'nick_name')->textInput() ?>
+            <?= $form->field($model->model, 'password')->passwordInput() ?>
+            <?= $form->field($model->model, 'email')->textInput() ?>
+    		<?= $form->field($model->model, 'tel')->textInput() ?>
     	  <?php
-    echo $form->field($model, 'avatar')->widget(JcropFileInput::className(), [
+    	  echo $form->field($model->model, 'avatar')->widget(JcropFileInput::className(), [
         'cropInput' => '#crop',
         'preview_h' => '200',
         'preview_w' => '200',
@@ -41,12 +41,11 @@ AjaxModalOrNormalPanelContent::begin([
     ])?>
     	</div>
 	<div class="col-md-6">
-            <?= $form->field($model, 'mobile')->textInput() ?>
-            <?= $form->field($model, 'dingding')->textInput() ?>
-            <?= $form->field($model, 'wechat')->textInput() ?>
-            <?= $form->field($model, 'qq')->textInput() ?>
-            <?= $form->field($model, 'wangwang')->textInput() ?>
-            <?=$form->field($model, 'status')->hiddenInput()->label(false)?>
+            <?= $form->field($model->model, 'mobile')->textInput() ?>
+            <?= $form->field($model->model, 'dingding')->textInput() ?>
+            <?= $form->field($model->model, 'wechat')->textInput() ?>
+            <?= $form->field($model->model, 'qq')->textInput() ?>
+            <?= $form->field($model->model, 'wangwang')->textInput() ?>
     	</div>
     	
     	<?php foreach($model->getDynamicProperties() as $property):?>

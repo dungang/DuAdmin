@@ -3,7 +3,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\kit\models\Role;
 /* @var $this yii\web\View */
-/* @var $model app\kit\models\User */
+/* @var $model app\backend\forms\DynamicUser */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -13,17 +13,24 @@ use app\kit\models\Role;
 
     <div class="row">
 		<div class="col-md-6">
-        	<?= $form->field($model, 'username')->textInput() ?>
-            <?= $form->field($model, 'nick_name')->textInput() ?>
-            <?= $form->field($model, 'password')->passwordInput() ?>
+        	<?= $form->field($model->model, 'username')->textInput() ?>
+            <?= $form->field($model->model, 'nick_name')->textInput() ?>
+            <?= $form->field($model->model, 'password')->textInput(['autocomplete'=>'off']) ?>
+    		<?= $form->field($model->model, 'is_admin')->checkbox() ?>
     	</div>
 		<div class="col-md-6">
-            <?= $form->field($model, 'email')->textInput() ?>
-            <?= $form->field($model, 'mobile')->textInput() ?>
-            <?=$form->field($model, 'status')->dropDownList([0 => '未激活',10 => '已激活'])?>
+            <?= $form->field($model->model, 'email')->textInput() ?>
+            <?= $form->field($model->model, 'mobile')->textInput() ?>
+            <?=$form->field($model->model, 'status')->dropDownList([0 => '未激活',10 => '已激活'])?>
+    		<?= $form->field($model->model, 'is_super')->checkbox() ?>
     	</div>
+    	 <?php foreach($model->getDynamicProperties() as $property):?>
+    		<div class="col-md-6">
+    		<?= $form->field($model, $property->field)->input($property->input_type) ?>
+    		</div>
+    	<?php endforeach;?>
 		<div class="col-md-12">
-    	<?= $form->field($model, 'role')->radioList(Role::allIdToName('name','name',['scope'=>'ADMIN'])) ?>
+    	<?= $form->field($model->model, 'role')->radioList(Role::allIdToName('name','name',['scope'=>'ADMIN'])) ?>
     	</div>
 	</div>
 

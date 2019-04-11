@@ -3,7 +3,6 @@ namespace app\kit\storage;
 
 use OSS\OssClient;
 use yii\imagine\BaseImage;
-use yii\helpers\FileHelper;
 
 /**
  * 阿里云OSS
@@ -41,28 +40,19 @@ class OssDriver extends IDriver
      * @var string
      */
     public $baseUrl;
-    
+
     protected $webroot;
+
+    /**
+     * 内部交换变量
+     *
+     * @var mixed
+     */
+    private $img;
 
     public function init()
     {
         $this->ossClient = new OssClient($this->accessKey, $this->accessSecret, $this->endpoint);
-        $this->webroot = \Yii::getAlias("@webroot");
-    }
-    
-    /**
-     *
-     * {@inheritdoc}
-     * @see \app\kit\storage\IDriver::initWritePath()
-     */
-    public function initWritePath($fileType)
-    {
-        $dir = parent::initWritePath($fileType);
-        $path = $this->webroot . '/' . $dir;
-        if (! is_dir($path)) {
-            FileHelper::createDirectory($path);
-        }
-        return $dir;
     }
 
     /**
@@ -90,13 +80,12 @@ class OssDriver extends IDriver
         }
         if ($resize) {
             if ($resize['x'] === NULL || $resize['y'] === NULL) {
-                $this->thumbnail(self::THUMBNAIL_FROM_TMP, $filePath, $file, '', $resize['width'], $resize['height'], $resize['mode']);
+                $this->img = $this->thumbnail(self::THUMBNAIL_FROM_TMP, $filePath, $file, '', $resize['width'], $resize['height'], $resize['mode']);
             } else {
-                $this->crop($filePath, $file, '', $resize['width'], $resize['height'], $resize['x'], $resize['y']);
+                $this->img = $this->crop($filePath, $file, '', $resize['width'], $resize['height'], $resize['x'], $resize['y']);
             }
         } else {
-            $targetFile = $this->webroot . '/' . $filePath;
-            $file->saveAs($targetFile, false);
+            $this->img = $file->tempName;
             $this->ossClient->uploadFile($this->bucket, $filePath, $file->tempName);
         }
         return $filePath;
@@ -120,16 +109,14 @@ class OssDriver extends IDriver
      */
     public function thumbnail($thumbnail_source, $filePath, $file, $suffix, $width, $height, $mode)
     {
-        $targetFile = $this->webroot . '/' . $filePath;
         if ($thumbnail_source === self::THUMBNAIL_FROM_TMP) {
             $thumbnail = BaseImage::thumbnail($file->tempName, $width, $height, $mode);
         } else {
-            $thumbnail = BaseImage::thumbnail($targetFile, $width, $height, $mode);
+            $thumbnail = BaseImage::thumbnail($this->img, $width, $height, $mode);
         }
         $thumbPath = $filePath . $suffix;
-        $thumbnail->save($thumbPath, $this->getImageQualities());
         $this->ossClient->putObject($this->bucket, $thumbPath, $thumbnail->get('png', $this->getImageQualities()));
-        return $thumbPath;
+        return $thumbnail;
     }
 
     /**
@@ -144,9 +131,8 @@ class OssDriver extends IDriver
             $y
         ]);
         $cropPath = $filePath . $suffix;
-        $crop->save($cropPath, $this->getImageQualities());
         $this->ossClient->putObject($this->bucket, $cropPath, $crop->get('png', $this->getImageQualities()));
-        return $cropPath;
+        return $crop;
     }
 
     /**

@@ -5,6 +5,7 @@ use yii\base\Action;
 use yii\web\NotFoundHttpException;
 use yii\base\InvalidConfigException;
 use yii\base\Model;
+use yii\db\ActiveRecord;
 
 /**
  *
@@ -199,11 +200,13 @@ class BaseAction extends Action
      *
      * @param boolean $createOneOnNotFound
      * @throws NotFoundHttpException
-     * @return mixed|object|mixed
+     * @return mixed|object|ActiveRecord
      */
     protected function findModel($createOneOnNotFound = false)
     {
+        /* @var $model ActiveRecord */
         $model = null;
+        $scenario = Model::SCENARIO_DEFAULT;
         if ($this->modelClass) {
             if (is_string($this->modelClass)) {
                 $class = $this->modelClass;
@@ -212,8 +215,12 @@ class BaseAction extends Action
                 $args = $this->modelClass;
                 $class = array_shift($args);
             }
+            if(isset($args['scenario'])){
+                $scenario = $args['scenario'];
+                unset($args['scenario']);
+            }
             if ($class) {
-
+                
                 $condition = array_merge($this->getPrimaryKeyCondition($class), $args);
 
                 //是否设置了查找的固定参数
@@ -227,9 +234,13 @@ class BaseAction extends Action
             }
         }
         if ($model !== null) {
+            $model->setScenario($scenario);
             return $model;
         } else if ($createOneOnNotFound) {
-            return \Yii::createObject($this->modelClass);
+            return \Yii::createObject([
+                'class'=>$this->modelClass,
+                'scenario'=>$scenario
+            ]);
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
