@@ -19,7 +19,8 @@
 		"yiisoft/yii2-redis": "^2.0",
 		"yiisoft/yii2-imagine": "^2.1",
 		"bacon/bacon-qr-code": "^1.0",
-		"aliyuncs/oss-sdk-php": "^2.3"
+		"aliyuncs/oss-sdk-php": "^2.3",
+		"abei2017/yii2-wx": "^1.3"
 	},
 	"require-dev" : {
 		"yiisoft/yii2-debug" : "~2.0"

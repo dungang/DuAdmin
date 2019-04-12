@@ -4,8 +4,57 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a2566bb53d643bce9dbdf392d0a08aaa",
+    "content-hash": "1dacb2cd9286835bb955f29bd1f1e23e",
     "packages": [
+        {
+            "name": "abei2017/yii2-wx",
+            "version": "1.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/abei2017/yii2-wx.git",
+                "reference": "584c463de4b176789697288f2dce99500cae40f0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/abei2017/yii2-wx/zipball/584c463de4b176789697288f2dce99500cae40f0",
+                "reference": "584c463de4b176789697288f2dce99500cae40f0",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": ">=5.4",
+                "yiisoft/yii2": "*",
+                "yiisoft/yii2-httpclient": "^2.0"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "abei2017\\wx\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "abei",
+                    "email": "abei@nai8.me"
+                }
+            ],
+            "description": "一个专注于yii2的微信sdk",
+            "keywords": [
+                "extension",
+                "wechat",
+                "yii2"
+            ],
+            "time": "2019-01-30T15:47:03+00:00"
+        },
         {
             "name": "aliyuncs/oss-sdk-php",
             "version": "v2.3.0",

@@ -18,6 +18,7 @@ $config = [
     ],
     //'homeUrl'=>['/backend'],
     'components' => [
+        'view' => 'app\kit\core\CoreView',
         'request' => [
             'cookieValidationKey' => 'kdyagjkuduebfdglsgdls'
         ],

@@ -1,13 +1,18 @@
 <?php
 namespace app\kit\behaviors;
 
-use yii\base\Behavior; 
+use yii\base\Behavior;
 use yii\db\ActiveRecord;
 
 class CleanCacheBehavior extends Behavior
 {
 
-    public $cacheKey;
+    /**
+     * 缓存的key
+     *
+     * @var string|array
+     */
+    public $cache_keys;
 
     public function events()
     {
@@ -20,13 +25,13 @@ class CleanCacheBehavior extends Behavior
 
     public function cleanCache($event)
     {
-        if ($this->cacheKey) {
-            if (is_array($this->cacheKey)) {
-                foreach ($this->cacheKey as $key) {
+        if ($this->cache_keys) {
+            if (is_array($this->cache_keys)) {
+                foreach ($this->cache_keys as $key) {
                     \Yii::$app->cache->delete($key);
                 }
             } else {
-                \Yii::$app->cache->delete($this->cacheKey);
+                \Yii::$app->cache->delete($this->cache_keys);
             }
         }
     }

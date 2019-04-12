@@ -21,7 +21,8 @@ class SiteController extends FrontendController
         $this->guestActions = [
             'error',
             'index',
-            'captcha'
+            'captcha',
+            'wechat'
         ];
         
         $this->view->registerMetaTag([
@@ -47,6 +48,9 @@ class SiteController extends FrontendController
             'captcha' => [
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null
+            ],
+            'wechat'=>[
+                'class'=>'app\kit\components\WechatServerAction'
             ]
         ];
     }
