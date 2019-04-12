@@ -30,19 +30,6 @@ class Menu extends \app\kit\core\BaseModel
         return 'gt_menu';
     }
 
-    public function behaviors()
-    {
-        $b = parent::behaviors();
-        $b['cleanCache'] = [
-            'class' => 'app\kit\behaviors\CleanCacheBehavior',
-            'cacheKey' => [
-                self::CacheKeyFront,
-                self::CacheKeyBack
-            ]
-        ];
-        return $b;
-    }
-
     /**
      *
      * {@inheritdoc}
@@ -114,39 +101,68 @@ class Menu extends \app\kit\core\BaseModel
         return new MenuQuery(get_called_class());
     }
 
+    public function behaviors()
+    {
+        $b = parent::behaviors();
+        $b['cleanCache'] = [
+            'class' => 'app\kit\behaviors\ReCacheBehavior',
+            'cache_keys' => [
+                self::CacheKeyFront => [
+                    __CLASS__,
+                    'getFrontMenusData'
+                ],
+                self::CacheKeyBack => [
+                    __CLASS__,
+                    'getBackendMenusData'
+                ]
+            ]
+        ];
+        return $b;
+    }
+
+    public static function getFrontMenusData()
+    {
+        $vars = self::find()->select('id,pid,name as label,url,icon')
+            ->where([
+            'is_front' => 1
+        ])
+            ->indexBy('id')
+            ->asArray()
+            ->orderBy('sort asc')
+            ->all();
+        if ($vars) {
+            $vars = KitHelper::listToTree($vars);
+        }
+        return $vars;
+    }
+
     public static function getFrontMenus()
     {
-        if (! ($vars = \Yii::$app->cache->get(self::CacheKeyFront))) {
-            $vars = self::find()->select('id,pid,name as label,url,icon')->where([
-                'is_front' => 1
-            ])
-                ->indexBy('id')
-                ->asArray()
-                ->orderBy('sort asc')
-                ->all();
-            if ($vars) {
-                $vars = KitHelper::listToTree($vars);
-            }
-            \Yii::$app->cache->set(self::CacheKeyFront, $vars);
-        }
+        return \Yii::$app->cache->getOrSet(self::CacheKeyFront, function () {
+            return self::getFrontMenusData();
+        });
+    }
+
+    public static function getBackendMenusData()
+    {
+        $vars = self::find()->select('id,pid,name label,url,icon')
+            ->where([
+            'is_front' => 0
+        ])
+            ->indexBy('id')
+            ->asArray()
+            ->orderBy('sort asc')
+            ->all();
+        //             if ($vars) {
+        //                 $vars = KitHelper::listToTree($vars);
+        //             }
         return $vars;
     }
 
     public static function getBackMenus()
     {
-        if (! ($vars = \Yii::$app->cache->get(self::CacheKeyBack))) {
-            $vars = self::find()->select('id,pid,name label,url,icon')->where([
-                'is_front' => 0
-            ])
-                ->indexBy('id')
-                ->asArray()
-                ->orderBy('sort asc')
-                ->all();
-//             if ($vars) {
-//                 $vars = KitHelper::listToTree($vars);
-//             }
-            \Yii::$app->cache->set(self::CacheKeyBack, $vars);
-        }
-        return $vars;
+        return \Yii::$app->cache->getOrSet(self::CacheKeyBack, function () {
+            return self::getBackendMenusData();
+        });
     }
 }

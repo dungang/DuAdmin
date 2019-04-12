@@ -27,16 +27,6 @@ class Setting extends \app\kit\core\BaseModel
         return 'gt_setting';
     }
 
-    public function behaviors()
-    {
-        $b = parent::behaviors();
-        $b['cleanCache'] = [
-            'class' => 'app\kit\behaviors\CleanCacheBehavior',
-            'cacheKey' => self::CacheKey
-        ];
-        return $b;
-    }
-
     /**
      *
      * {@inheritdoc}
@@ -108,6 +98,32 @@ class Setting extends \app\kit\core\BaseModel
     {
         return new SettingQuery(get_called_class());
     }
+    
+    public function behaviors()
+    {
+        $b = parent::behaviors();
+        $b['cleanCache'] = [
+            'class' => 'app\kit\behaviors\ReCacheBehavior',
+            'cache_keys' => [
+                self::CacheKey => [__CLASS__,'getSettingsData'],
+            ]
+        ];
+        return $b;
+    }
+    
+    public static function getSettingsData(){
+        return self::find()->indexBy('name')
+        ->asArray()
+        ->all();
+    }
+    
+    public static function getCacheSettings()
+    {
+        return \Yii::$app->cache->getOrSet(self::CacheKey, function(){
+            return self::getSettingsData();
+        });
+    }
+    
 
     public static function getSettingCatetory()
     {
@@ -139,8 +155,8 @@ class Setting extends \app\kit\core\BaseModel
         $items = \explode("\n", trim($val));
         foreach ($items as $item) {
             if ($item) {
-                $match=[];
-                if(\preg_match('#^(.*?):(.*?)$#i', $item,$match)){
+                $match = [];
+                if (\preg_match('#^(.*?):(.*?)$#i', $item, $match)) {
                     $assoc[$match[1]] = trim($match[2]);
                 }
             }
@@ -159,17 +175,8 @@ class Setting extends \app\kit\core\BaseModel
         $val = self::getSettings($name, '');
         return \explode("\n", trim($val));
     }
-
-    public static function getCacheSettings()
-    {
-        if (! ($vars = \Yii::$app->cache->get(self::CacheKey))) {
-            $vars = self::find()->indexBy('name')
-                ->asArray()
-                ->all();
-            \Yii::$app->cache->set(self::CacheKey, $vars);
-        }
-        return $vars;
-    }
+    
+    
 
     public static function getSettings($name, $default = NULL)
     {

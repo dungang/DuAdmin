@@ -98,41 +98,6 @@ class Asset extends \app\kit\core\BaseModel
         ];
     }
 
-    public function behaviors()
-    {
-        $b = parent::behaviors();
-        $b['cleanCache'] = [
-            'class' => 'app\kit\behaviors\CleanCacheBehavior',
-            'cacheKey' => self::CacheKey
-        ];
-        return $b;
-    }
-
-    public static function getActiveAssets()
-    {
-        if (! ($assets = \Yii::$app->cache->get(self::CacheKey))) {
-            if ($vars = self::find()->where('is_active=1')->all()) {
-                $assets = [];
-                foreach ($vars as $var) {
-                    $assets[$var->name] = [
-                        'sourcePath' => null
-                    ];
-
-                    $assets[$var->name]['baseUrl'] = $var->baseUrl;
-                    if ($var->css) {
-                        $assets[$var->name]['css'] = explode(',', trim($var->css));
-                    }
-                    if ($var->js) {
-                        $assets[$var->name]['js'] = explode(',', trim($var->js));
-                    }
-                }
-            }
-
-            \Yii::$app->cache->set(self::CacheKey, $assets);
-        }
-        return $assets;
-    }
-
     /**
      *
      * {@inheritdoc}
@@ -141,5 +106,49 @@ class Asset extends \app\kit\core\BaseModel
     public static function find()
     {
         return new AssetQuery(get_called_class());
+    }
+
+    public function behaviors()
+    {
+        $b = parent::behaviors();
+        $b['cleanCache'] = [
+            'class' => 'app\kit\behaviors\ReCacheBehavior',
+            'cache_keys' => [
+                self::CacheKey => [
+                    __CLASS__,
+                    'getActiveAssetsData'
+                ]
+            ]
+        ];
+        return $b;
+    }
+
+    public static function getActiveAssetsData()
+    {
+        $assets = [];
+        if ($vars = self::find()->where('is_active=1')->all()) {
+
+            foreach ($vars as $var) {
+                $assets[$var->name] = [
+                    'sourcePath' => null
+                ];
+
+                $assets[$var->name]['baseUrl'] = $var->baseUrl;
+                if ($var->css) {
+                    $assets[$var->name]['css'] = explode(',', trim($var->css));
+                }
+                if ($var->js) {
+                    $assets[$var->name]['js'] = explode(',', trim($var->js));
+                }
+            }
+        }
+        return $assets;
+    }
+
+    public static function getActiveAssets()
+    {
+        return \Yii::$app->cache->getOrSet(self::CacheKey, function () {
+            return self::getActiveAssetsData();
+        });
     }
 }
