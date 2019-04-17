@@ -2,7 +2,7 @@
 namespace app\backend\controllers;
 
 use app\kit\core\BackendController;
-use app\kit\models\Setting;
+use app\backend\helpers\CrontabHelpers;
 
 /**
  * CronController implements the CRUD actions for Cron model.
@@ -13,7 +13,7 @@ class CronController extends BackendController
     public function init()
     {
         parent::init();
-        
+
         $this->guestActions = [
             'run'
         ];
@@ -53,42 +53,49 @@ class CronController extends BackendController
                 ]
             ],
             'run' => [
-                'class' => 'app\kit\core\LoopAction',
-                'beforeRunCallback' => $this->checkCronTabLoop(),
-                'debug'=>true,
+                'class' => '\app\kit\core\LoopAction',
+                'beforeRunCallback' => [
+                    $this,
+                    'canStartCronProcess'
+                ],
+                'debug' => false,
                 'longPollingHandlerClass' => '\app\backend\components\CronHandler'
             ]
         ];
     }
 
     /**
+     * 切换定时任务服务状态
+     *
+     * @return mixed|number[]|string[]
+     */
+    public function actionSwitchService()
+    {
+        if (CrontabHelpers::getCronStatus()) {
+            CrontabHelpers::unactiveCronStatus();
+        } else {
+            CrontabHelpers::activeCronStatus();
+        }
+        return $this->redirectOnSuccess([
+            'index'
+        ]);
+    }
+
+    /**
      * 处理定时器的可执行状态
+     *
      * @return callable
      */
-    public function checkCronTabLoop()
+    public function canStartCronProcess()
     {
-        return function () {
-            if ($trace = Setting::findOne([
-                'name' => 'crontab.traced_at'
-            ])) {
-                if (empty($trace->value) || intval($trace->value) + 180 < time()) {
-                    $trace->value = time();
-                    $trace->save(false);
-                    return true;
-                }
-            } else {
-                //由于Setting默认添加了更新缓存的行为，如果使用模型类来添加，会导致频繁更新缓存。
-                \Yii::$app->db->createCommand()
-                    ->insert(Setting::tableName(), [
-                    'name' => 'crontab.traced_at',
-                    'value' => time(),
-                    'title' => '定时任务执行时间',
-                    'val_type' => 'STR'
-                ])
-                    ->execute();
+        list ($status, $traced_at) = CrontabHelpers::prepareCronSetting();
+        if ($status > 1) {
+            CrontabHelpers::tracedCron();
+            //表示没有cron进程在运行，需要重新启动，如果超过1800秒【半小时】没更新时间，也重新启动
+            if (empty($traced_at) || intval($traced_at) + 1800 < time()) {
                 return true;
             }
-            return false;
-        };
+        }
+        return false;
     }
 }

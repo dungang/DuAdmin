@@ -3,7 +3,7 @@
 namespace app\kit\models;
 
 /**
- * "sys_user_ext_property"表的模型类.
+ * "user_ext_property"表的模型类.
  *
  * @property int $id
  * @property string $field 字段
@@ -23,7 +23,7 @@ class UserExtProperty extends \app\kit\core\BaseModel
      */
     public static function tableName()
     {
-        return 'sys_user_ext_property';
+        return '{{%user_ext_property}}';
     }
 
     /**

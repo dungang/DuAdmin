@@ -48,7 +48,7 @@ class User extends BaseModel implements IdentityInterface
      */
     public static function tableName()
     {
-        return 'gt_user';
+        return '{{%user}}';
     }
 
     /**

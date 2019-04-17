@@ -30,7 +30,6 @@ class Bootstrap implements BootstrapInterface
 
         $this->dynamicSetSiteHome($app);
 
-        $this->initBackendPageInitAssets($app);
     }
 
     /**
@@ -76,31 +75,6 @@ class Bootstrap implements BootstrapInterface
                 $home
             ]);
         }
-    }
-
-    /**
-     * 固定后台的样式配置。
-     * 为什么要在app级别配置？
-     * 因为处理backend模块，还有其他的插件的也有backendController,
-     * 并不是加载了backend模块之后再加载其他插件的，所以最佳的时机再app级别
-     *
-     * @param Application $app
-     */
-    protected function initBackendPageInitAssets($app)
-    {
-        //在处理请求之前
-        $app->on(Application::EVENT_BEFORE_ACTION,
-            function ($event) use ($app) {
-                if ($app->controller instanceof BackendController) {
-                    $app->assetManager->bundles['yii\bootstrap\BootstrapAsset'] = [
-                        'baseUrl' => '@web',
-                        'css' => [
-                            'css/bootstrap.min.css'
-                        ],
-                        'sourcePath' => null // 防止在 frontend/web/asset 下生产文件
-                    ];
-                }
-            });
     }
 
     /**

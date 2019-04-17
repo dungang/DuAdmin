@@ -23,5 +23,6 @@ class CoreView extends View
             }
         }
     }
+    
 }
 

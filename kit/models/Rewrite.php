@@ -3,7 +3,7 @@
 namespace app\kit\models;
 
 /**
- * "sys_rewrite"表的模型类.
+ * "rewrite"表的模型类.
  *
  * @property int $id
  * @property string $name 名称
@@ -19,7 +19,7 @@ class Rewrite extends \app\kit\core\BaseModel
      */
     public static function tableName()
     {
-        return 'sys_rewrite';
+        return '{{%rewrite}}';
     }
 
     /**

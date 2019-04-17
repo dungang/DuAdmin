@@ -17,7 +17,7 @@ class AssetSearch extends Asset
     {
         return [
             [['id'], 'integer'],
-            [['name', 'baseUrl', 'css', 'js'], 'safe'],
+            [['name', 'baseUrl', 'css', 'js','level'], 'safe'],
             [['is_active'], 'boolean'],
         ];
     }
@@ -60,6 +60,7 @@ class AssetSearch extends Asset
         $query->andFilterWhere([
             'id' => $this->id,
             'is_active' => $this->is_active,
+            'level' => $this->level,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])

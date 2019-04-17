@@ -11,6 +11,7 @@ $event = Event::findOne([
     'id' => $searchModel->event_id
 ]);
 $this->title = $event->name . '系统事件处理器';
+$this->params['breadcrumbs'][] = ['label' => '系统事件', 'url' => ['/backend/event/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php Pjax::begin(['id'=>'event-handler-index']); ?>

@@ -28,7 +28,6 @@ BackendAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
-    <?= Setting::getSettings('site.tongji')?>
 </head>
 <?php
 /*

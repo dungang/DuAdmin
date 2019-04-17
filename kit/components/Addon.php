@@ -2,7 +2,6 @@
 namespace app\kit\components;
 
 use yii\base\Module;
-use app\kit\models\Setting;
 use app\kit\core\BackendController;
 
 /**
@@ -40,6 +39,7 @@ class Addon extends Module
                     self::$module_breadscrumb = true;
                 }
                 \Yii::$app->errorHandler->errorAction = 'backend/default/error';
+                
             });
     }
 }

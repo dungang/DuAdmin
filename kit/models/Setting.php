@@ -2,7 +2,7 @@
 namespace app\kit\models;
 
 /**
- * This is the model class for table "gt_setting".
+ * This is the model class for table "setting".
  *
  * @property string $name 名称
  * @property string $title 标题
@@ -24,7 +24,7 @@ class Setting extends \app\kit\core\BaseModel
      */
     public static function tableName()
     {
-        return 'gt_setting';
+        return '{{%setting}}';
     }
 
     /**
@@ -102,7 +102,7 @@ class Setting extends \app\kit\core\BaseModel
     public function behaviors()
     {
         $b = parent::behaviors();
-        $b['cleanCache'] = [
+        $b['re-cache'] = [
             'class' => 'app\kit\behaviors\ReCacheBehavior',
             'cache_keys' => [
                 self::CacheKey => [__CLASS__,'getSettingsData'],

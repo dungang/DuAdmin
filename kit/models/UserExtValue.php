@@ -3,7 +3,7 @@
 namespace app\kit\models;
 
 /**
- * "sys_user_ext_value"表的模型类.
+ * "user_ext_value"表的模型类.
  *
  * @property int $user_id 用户
  * @property string $field 属性
@@ -16,7 +16,7 @@ class UserExtValue extends \app\kit\core\BaseModel
      */
     public static function tableName()
     {
-        return 'sys_user_ext_value';
+        return '{{%user_ext_value}}';
     }
 
     /**

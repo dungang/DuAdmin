@@ -4,7 +4,7 @@ namespace app\kit\models;
 use app\kit\helpers\KitHelper;
 
 /**
- * This is the model class for table "gt_menu".
+ * This is the model class for table "menu".
  *
  * @property int $id
  * @property string $name 名称
@@ -27,7 +27,7 @@ class Menu extends \app\kit\core\BaseModel
      */
     public static function tableName()
     {
-        return 'gt_menu';
+        return '{{%menu}}';
     }
 
     /**

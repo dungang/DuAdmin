@@ -5,7 +5,7 @@ namespace app\kit\models;
 use yii\db\Query;
 
 /**
- * "sys_event_handler"表的模型类.
+ * "event_handler"表的模型类.
  *
  * @property int $id
  * @property int $event_id 事件
@@ -22,7 +22,7 @@ class EventHandler extends \app\kit\core\BaseModel
      */
     public static function tableName()
     {
-        return 'sys_event_handler';
+        return '{{%event_handler}}';
     }
 
     /**
@@ -108,7 +108,7 @@ class EventHandler extends \app\kit\core\BaseModel
         $handlers = \Yii::$app->cache->getOrSet(self::CacheKey, function () {
             return self::getEventHandlersData();
         });
-            if ($level !== null) {
+            if ($level !== null && isset($handlers[$level])) {
                 return $handlers[$level];
             }
             return $handlers;

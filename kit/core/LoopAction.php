@@ -46,9 +46,6 @@ class LoopAction extends Action
 
     protected function beforeRun()
     {
-        if ($this->debug)
-            return true;
-
         if ($this->beforeRunCallback) {
             return call_user_func($this->beforeRunCallback);
         }

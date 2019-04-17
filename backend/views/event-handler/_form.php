@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\kit\models\Event;
 
 /* @var $this yii\web\View */
 /* @var $model app\kit\models\EventHandler */
@@ -12,6 +13,8 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(['id'=>'event-handler-form','enableAjaxValidation' => true]); ?>
     
     <?= $form->field($model, 'is_active')->checkbox() ?>
+    
+    <?= $form->field($model, 'event_id')->dropDownList(Event::allIdToName()) ?>
     
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 

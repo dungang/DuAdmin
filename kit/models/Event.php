@@ -3,7 +3,7 @@
 namespace app\kit\models;
 
 /**
- * "sys_event"表的模型类.
+ * "event"表的模型类.
  *
  * @property int $id
  * @property string $name 名称
@@ -17,7 +17,7 @@ class Event extends \app\kit\core\BaseModel
      */
     public static function tableName()
     {
-        return 'sys_event';
+        return '{{%event}}';
     }
 
     /**

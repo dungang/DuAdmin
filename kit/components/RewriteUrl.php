@@ -15,6 +15,11 @@ use yii\web\Request;
  */
 class RewriteUrl extends UrlManager
 {
+    /**
+     * 公共参数
+     * 保证每一个url都包含的参数
+     * @var array|null
+     */
     public $common_params = null;
     
     public $from_db = false;

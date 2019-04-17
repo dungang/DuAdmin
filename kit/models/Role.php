@@ -2,7 +2,7 @@
 namespace app\kit\models;
 
 /**
- * This is the model class for table "gt_role".
+ * This is the model class for table "role".
  *
  * @property int $id
  * @property string $name 名称
@@ -18,7 +18,7 @@ class Role extends \app\kit\core\BaseModel
      */
     public static function tableName()
     {
-        return 'gt_role';
+        return '{{%role}}';
     }
 
     /**

@@ -58,7 +58,7 @@ class AuthItem extends BaseModel
      */
     public static function tableName()
     {
-        return 'auth_item';
+        return '{{%auth_item}}';
     }
 
     /**

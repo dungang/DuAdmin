@@ -10,8 +10,6 @@ use yii\base\Event;
 class BaseController extends Controller
 {
 
-    const EVENT_BEFORE_RENDER = 'beforeRend';
-
     /**
      * 游客可以访问的action清单
      *
@@ -275,7 +273,6 @@ class BaseController extends Controller
         if (\Yii::$app->request->isAjax) {
             return parent::renderAjax($view, $params);
         }
-        $this->beforeRender($params);
         return parent::render($view, $params);
     }
 }

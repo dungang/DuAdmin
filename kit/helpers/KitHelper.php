@@ -8,6 +8,8 @@ use yii\helpers\ArrayHelper;
 use app\kit\models\User;
 use app\kit\components\MobileDetect;
 use app\kit\models\Setting;
+use app\kit\events\CoreEvent;
+use yii\base\Component;
 
 /**
  * 系统工具类
@@ -420,6 +422,26 @@ class KitHelper
         $command->setRawSql('REPLACE' . \substr($command->getRawSql(), 6));
         //echo $command->getRawSql();die;
         return $command->execute();
+    }
+
+    /**
+     * 触发自定义事件
+     *
+     * @param string $name
+     *            上下文的事件名称
+     * @param mixed $payload
+     *            传递的数据
+     * @param Component $context
+     *            默认为空，则表示是视图上下文
+     */
+    public static function triggerCustomCoreEvent($name, $payload = null, $context = null)
+    {
+        if ($context == null) {
+            $context = \Yii::$app->view;
+        }
+        $context->trigger($name, new CoreEvent([
+            'payload' => $payload
+        ]));
     }
 }
 

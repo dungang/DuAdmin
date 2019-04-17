@@ -23,7 +23,7 @@ class AuthRule extends BaseModel
      */
     public static function tableName()
     {
-        return 'auth_rule';
+        return '{{%auth_rule}}';
     }
 
     /**

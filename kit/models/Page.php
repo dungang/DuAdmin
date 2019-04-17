@@ -5,7 +5,7 @@ namespace app\kit\models;
 use app\kit\helpers\KitHelper;
 
 /**
- * "sys_page"表的模型类.
+ * "page"表的模型类.
  *
  * @property int $id
  * @property string $slug Slug
@@ -21,7 +21,7 @@ class Page extends \app\kit\core\BaseModel
      */
     public static function tableName()
     {
-        return 'sys_page';
+        return '{{%page}}';
     }
 
     /**

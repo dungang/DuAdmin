@@ -2,7 +2,7 @@
 namespace app\kit\models;
 
 /**
- * "sys_asset"表的模型类.
+ * "asset"表的模型类.
  *
  * @property int $id
  * @property string $name 类名
@@ -10,6 +10,7 @@ namespace app\kit\models;
  * @property string $baseUrl 基础地址
  * @property string $css CSS文件
  * @property string $js JS文件
+ * @property string $level 级别
  */
 class Asset extends \app\kit\core\BaseModel
 {
@@ -22,7 +23,7 @@ class Asset extends \app\kit\core\BaseModel
      */
     public static function tableName()
     {
-        return 'sys_asset';
+        return '{{%asset}}';
     }
 
     /**
@@ -34,7 +35,7 @@ class Asset extends \app\kit\core\BaseModel
         return [
             [
                 [
-                    'name'
+                    'name','level'
                 ],
                 'required'
             ],
@@ -80,7 +81,8 @@ class Asset extends \app\kit\core\BaseModel
             'is_active' => '有效',
             'baseUrl' => '基础地址',
             'css' => 'CSS文件',
-            'js' => 'JS文件'
+            'js' => 'JS文件',
+            'level' => '级别'
         ];
     }
 
@@ -94,7 +96,8 @@ class Asset extends \app\kit\core\BaseModel
             'name' => '比如:\yii\assets\JqueryAsset',
             'baseUrl' => 'baseUrl,比如:http://cnd.bootcss.com',
             'css' => '可以用逗号分割多个，比如：css/base.css,css/main.css',
-            'js' => '可以用逗号分割多个，比如：js/base.js,css/main.js'
+            'js' => '可以用逗号分割多个，比如：js/base.js,css/main.js',
+            'level' => 'common表示公共的，其他级别根据模块的英文名填入，比如:backend'
         ];
     }
 
@@ -129,16 +132,18 @@ class Asset extends \app\kit\core\BaseModel
         if ($vars = self::find()->where('is_active=1')->all()) {
 
             foreach ($vars as $var) {
-                $assets[$var->name] = [
+                if(!isset($assets[$var->level])) {
+                    $assets[$var->level] = [];
+                }
+                $assets[$var->level][$var->name] = [
                     'sourcePath' => null
                 ];
-
-                $assets[$var->name]['baseUrl'] = $var->baseUrl;
+                $assets[$var->level][$var->name]['baseUrl'] = $var->baseUrl;
                 if ($var->css) {
-                    $assets[$var->name]['css'] = explode(',', trim($var->css));
+                    $assets[$var->level][$var->name]['css'] = explode(',', trim($var->css));
                 }
                 if ($var->js) {
-                    $assets[$var->name]['js'] = explode(',', trim($var->js));
+                    $assets[$var->level][$var->name]['js'] = explode(',', trim($var->js));
                 }
             }
         }

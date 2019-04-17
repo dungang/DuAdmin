@@ -15,6 +15,8 @@ use yii\web\JsExpression;
  */
 class WechatJsShareHandler extends EventHandler
 {
+    
+    const IMG_PATTER = '#<img\b[^<>]*?\bsrc[\s\t\r\n]*=[\s\t\r\n]*[""\']?[\s\t\r\n]*(?<src>[^\s\t\r\n""\'<>]*)[^<>]*?/?[\s\t\r\n]*>#is';
 
     public $apis = [
         'updateTimelineShareData',
@@ -72,9 +74,10 @@ class WechatJsShareHandler extends EventHandler
         if ($desc = $this->getDescFromMeta($view)) {
             $data['desc'] = $desc;
         }
-        //         if ($img = $this->getFirstImage($event->output)) {
-        //             $data['imgUrl'] = $img;
-        //         }
+        $match=[];
+        if(($content = ob_get_contents()) && preg_match(self::IMG_PATTER,$content,$match)){
+            $data['imgUrl'] = $match['src'];
+        }
         $view->registerJs($this->composeWxReady($data), View::POS_HEAD);
     }
 

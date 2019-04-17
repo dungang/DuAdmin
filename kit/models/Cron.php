@@ -2,7 +2,7 @@
 namespace app\kit\models;
 
 /**
- * "sys_cron"表的模型类.
+ * "cron"表的模型类.
  *
  * @property int $id
  * @property string $task 任务
@@ -27,7 +27,7 @@ class Cron extends \app\kit\core\BaseModel
      */
     public static function tableName()
     {
-        return 'sys_cron';
+        return '{{%cron}}';
     }
 
     /**
