@@ -33,7 +33,7 @@ class LoopResponse extends Response
             //usleep($micro_seconds)
             //\Yii::$app->db->open();
             $this->checkDbConnection();
-            flush(); //No new orders, flush to notify php still alive
+            flush(); //flush to notify php still alive
             if ($this->handler->process()) {
                 flush();
                 break;
