@@ -20,12 +20,12 @@ class CoreAssetManager extends AssetManager
 
             $bundles = [];
             $module_id = \Yii::$app->controller->module->id;
-            if (\Yii::$app->controller instanceof BackendController && isset(self::$__assets['backend'])) {
-                $bundles = self::$__assets['backend'];
+            if (\Yii::$app->controller instanceof BackendController) {
+                $bundles = isset(self::$__assets['backend']) ? self::$__assets['backend']:[];
             } else if (isset(self::$__assets[$module_id])) {
                 $bundles = self::$__assets[$module_id];
             }
-            //print_r($bundles);die;
+            //print_r(self::$__assets);die;
             $this->bundles = array_merge($this->bundles, $common, $bundles);
         }
         return parent::getBundle($name, $publish);

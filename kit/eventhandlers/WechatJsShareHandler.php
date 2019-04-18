@@ -15,7 +15,7 @@ use yii\web\JsExpression;
  */
 class WechatJsShareHandler extends EventHandler
 {
-    
+
     const IMG_PATTER = '#<img\b[^<>]*?\bsrc[\s\t\r\n]*=[\s\t\r\n]*[""\']?[\s\t\r\n]*(?<src>[^\s\t\r\n""\'<>]*)[^<>]*?/?[\s\t\r\n]*>#is';
 
     public $apis = [
@@ -30,7 +30,7 @@ class WechatJsShareHandler extends EventHandler
      */
     public function process($event)
     {
-        if (\Yii::$app->controller instanceof FrontendController) {
+        if (! \Yii::$app->request->isAjax && \Yii::$app->controller instanceof FrontendController) {
 
             if ($mp = KitHelper::getSettingAssoc('wechat.mp')) {
                 $wechat = new Application([
@@ -74,8 +74,8 @@ class WechatJsShareHandler extends EventHandler
         if ($desc = $this->getDescFromMeta($view)) {
             $data['desc'] = $desc;
         }
-        $match=[];
-        if(($content = ob_get_contents()) && preg_match(self::IMG_PATTER,$content,$match)){
+        $match = [];
+        if (($content = ob_get_contents()) && preg_match(self::IMG_PATTER, $content, $match)) {
             $data['imgUrl'] = $match['src'];
         }
         $view->registerJs($this->composeWxReady($data), View::POS_HEAD);

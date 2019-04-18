@@ -4,7 +4,6 @@ namespace app\kit\components;
 use yii\base\BootstrapInterface;
 use app\kit\models\Setting;
 use yii\web\Application;
-use app\kit\core\BackendController;
 
 /**
  * 以后这里的配置从其他的外部配置读取
