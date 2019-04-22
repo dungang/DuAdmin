@@ -6,6 +6,7 @@ use yii\filters\VerbFilter;
 use yii\base\ActionEvent;
 use yii\helpers\Url;
 use yii\base\Event;
+use app\kit\models\EventHandler;
 
 class BaseController extends Controller
 {
@@ -30,6 +31,12 @@ class BaseController extends Controller
      * @var array
      */
     public $verbsActions = [];
+
+    public function init()
+    {
+        parent::init();
+        EventHandler::registerLevel($this, 'Controller');
+    }
 
     /**
      *

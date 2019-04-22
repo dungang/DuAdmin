@@ -155,19 +155,21 @@ class User extends BaseModel implements IdentityInterface
             'class' => UploadedFileBehavior::className(),
             'after_create' => true,
             'initFieldsCallback' => function ($behavior) {
+                $config = [
+                    'file_path' => 'uploads/avatar/' . $behavior->owner->id . '.png',
+                    'mode' => 'inset'
+                ];
                 $crop = Json::decode(\Yii::$app->request->post('crop'));
                 if ($crop) {
-                    $this->fields = [
-                        'avatar' => [
-                            'file_path' => 'uploads/avatar/' . $behavior->owner->id . '.png',
-                            'width' => $crop['w'],
-                            'height' => $crop['h'],
-                            'x' => $crop['x'],
-                            'y' => $crop['y'],
-                            'mode' => 'inset'
-                        ]
-                    ];
+                    $config['width'] = $crop['w'];
+                    $config['height'] = $crop['h'];
+                    $config['x'] = $crop['x'];
+                    $config['y'] = $crop['y'];
                 }
+                //必须配置文件上传字段，否则导致存储被置空
+                $this->fields = [
+                    'avatar' => $config
+                ];
             }
         ];
         return $bs;
@@ -294,7 +296,8 @@ class User extends BaseModel implements IdentityInterface
      */
     public function setPassword($password)
     {
-        if (! empty(trim($password))) {
+        $password = trim($password);
+        if (! empty($password)) {
             $this->password_hash = Yii::$app->security->generatePasswordHash($password);
         }
     }

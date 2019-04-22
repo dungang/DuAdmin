@@ -4,8 +4,10 @@ namespace app\kit\widgets;
 use yii\base\Widget;
 use yii\helpers\Html;
 use BaconQrCode\Writer;
-use BaconQrCode\Renderer\Image\Png;
 use yii\helpers\FileHelper;
+use app\kit\qrcode\WatermarkPng;
+use BaconQrCode\Encoder\Encoder;
+use BaconQrCode\Common\ErrorCorrectionLevel;
 
 /**
  *
@@ -16,13 +18,25 @@ class QrWidget extends Widget
 
     public $savePic = true;
 
+    public $size = 256;
+
     public $content;
+
+    /**
+     * 水印文件路径
+     *
+     * @var string
+     */
+    public $watermark;
+    
+    public $watermark_size = 48;
 
     public $htmlOptions = [];
 
     public function run()
     {
-        if(empty($this->content)) return null;
+        if (empty($this->content))
+            return null;
         if ($this->savePic) {
             return $this->createFile();
         } else {
@@ -36,9 +50,11 @@ class QrWidget extends Widget
      */
     protected function getQrWriter()
     {
-        $renderer = new Png();
-        $renderer->setHeight(256);
-        $renderer->setWidth(256);
+        $renderer = new WatermarkPng();
+        $renderer->watermark_file = $this->watermark;
+        $renderer->watermark_size = $this->watermark_size;
+        $renderer->setHeight($this->size);
+        $renderer->setWidth($this->size);
         return new Writer($renderer);
     }
 
@@ -53,7 +69,7 @@ class QrWidget extends Widget
         $file = $md5 . '.png';
         if (! \is_file($abDir . $file)) {
             $writer = $this->getQrWriter();
-            $writer->writeFile($this->content, $abDir . $file);
+            $writer->writeFile($this->content, $abDir . $file, Encoder::DEFAULT_BYTE_MODE_ECODING, ErrorCorrectionLevel::Q);
         }
         return Html::img($qrDir . $file, $this->htmlOptions);
     }
@@ -61,7 +77,7 @@ class QrWidget extends Widget
     protected function createString()
     {
         $writer = $this->getQrWriter();
-        return Html::img('data:image/png;base64,' .\base64_encode( $writer->writeString($this->content)), $this->htmlOptions);
+        return Html::img('data:image/png;base64,' . \base64_encode($writer->writeString($this->content, Encoder::DEFAULT_BYTE_MODE_ECODING, ErrorCorrectionLevel::Q)), $this->htmlOptions);
     }
 }
 

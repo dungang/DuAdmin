@@ -4,14 +4,9 @@
 /* @var $content string */
 use app\kit\assets\AppAsset;
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
-use app\kit\widgets\Notify;
-use app\kit\widgets\SimpleModal;
-use app\kit\helpers\KitHelper;
 use app\kit\models\Setting;
-use app\kit\models\Menu;
 
 AppAsset::register($this);
 ?>
@@ -25,7 +20,6 @@ AppAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
-    <?= Setting::getSettings('site.tongji')?>
 </head>
 <body>
 <?php $this->beginBody() ?>

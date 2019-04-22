@@ -5,6 +5,7 @@ use yii\base\BaseObject;
 use app\kit\models\Setting;
 use yii\web\UploadedFile;
 use app\kit\storage\IDriver;
+use yii\base\DynamicModel;
 
 /**
  *
@@ -32,6 +33,13 @@ class FileUploader extends BaseObject
     public $file_type = 'image';
 
     public $file_path = null;
+
+    /**
+     * 文件的最大大小
+     *
+     * @var string
+     */
+    public $file_max_size = 0;
 
     /**
      * 原图处理宽度，如果为空，不处理
@@ -91,6 +99,14 @@ class FileUploader extends BaseObject
      * @var \app\kit\storage\IDriver
      */
     protected static $driver;
+
+    /**
+     *
+     * @var \yii\web\UploadedFile[] | \yii\web\UploadedFile
+     */
+    private $_file;
+
+    private $_errors;
 
     public function init()
     {
@@ -170,24 +186,67 @@ class FileUploader extends BaseObject
         ];
     }
 
-    public function upload()
+    public function fetchFile()
     {
         if ($this->model) {
-            $file = UploadedFile::getInstance($this->model, $this->field);
+            $this->_file = UploadedFile::getInstance($this->model, $this->field);
         } else {
-            $file = UploadedFile::getInstanceByName($this->field);
+            $this->_file = UploadedFile::getInstanceByName($this->field);
         }
-        return $this->uploadFile($file);
+
+        return $this;
+    }
+
+    public function fetchFiles()
+    {
+        if ($this->model) {
+            $this->_file = UploadedFile::getInstances($this->model, $this->field);
+        } else {
+            $this->_file = UploadedFile::getInstancesByName($this->field);
+        }
+        return $this;
+    }
+
+    public function validate($rule)
+    {
+        $model = DynamicModel::validateData([
+            $this->field => $this->_file
+        ], [
+            \array_unshift($rule, $this->field, 'file')
+        ]);
+        if ($model->hasErrors($this->field)) {
+            $this->_errors = $model->getErrors($this->field);
+            return false;
+        }
+        return true;
+    }
+
+    public function getErrors()
+    {
+        return $this->_errors;
+    }
+
+    public function getFirstError()
+    {
+        if (count($this->_errors) > 0) {
+            return $this->_errors[0];
+        }
+    }
+
+    public function upload()
+    {
+        if (empty($this->_file)) {
+            $this->fetchFile();
+        }
+        return $this->uploadFile($this->_file);
     }
 
     public function uploads()
     {
-        if ($this->model) {
-            $files = UploadedFile::getInstances($this->model, $this->field);
-        } else {
-            $files = UploadedFile::getInstancesByName($this->field);
+        if (empty($this->_file)) {
+            $this->fetchFiles();
         }
-        return $this->uploadFiles($files);
+        return $this->uploadFiles($this->_file);
     }
 
     /**

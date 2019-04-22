@@ -2,6 +2,7 @@
 namespace app\kit\core;
 
 use yii\base\Action;
+use yii\web\Response;
 
 class LongPollAction extends Action
 {
@@ -36,6 +37,8 @@ class LongPollAction extends Action
      */
     public $handler;
 
+    public $format = 'html';
+
     public function init()
     {
         $this->handler = \Yii::createObject([
@@ -44,10 +47,15 @@ class LongPollAction extends Action
         ]);
     }
 
+    /**
+     *
+     * @return Response
+     */
     public function run()
     {
         return \Yii::createObject([
             'class' => LongPollResponse::className(),
+            'format' => $this->format,
             'timeout' => $this->timeoutSeconds,
             'sleepTime' => $this->sleepTimeSeconds,
             'handler' => $this->handler

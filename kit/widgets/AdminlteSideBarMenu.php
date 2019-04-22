@@ -67,6 +67,7 @@ class AdminlteSideBarMenu extends Widget
         // 算分
         foreach ($this->items as $i => &$item) {
             $item[$this->activeKey] = false;
+            $item['target'] = '_self';
             if ($url = $item[$this->urlKey]) {
                 $urlInfo = parse_url($url);
                 if (empty($urlInfo['host']) || $host == $urlInfo['host']) {
@@ -86,6 +87,8 @@ class AdminlteSideBarMenu extends Widget
                             $counters[$i] += count(array_intersect_assoc($checkParams, $params));
                         }
                     }
+                }else {
+                    $item['target'] = '_blank';
                 }
             }
         }
@@ -113,7 +116,7 @@ class AdminlteSideBarMenu extends Widget
     protected function renderLink($item)
     {
         $icon = empty($item['icon']) ? '' : '<i class="' . $item['icon'] . '"></i> ';
-        return Html::a($icon . '<span>' . $item[$this->nameKey] . '</span>', $item[$this->urlKey]);
+        return Html::a($icon . '<span>' . $item[$this->nameKey] . '</span>', $item[$this->urlKey],['target'=>$item['target']]);
     }
 
     protected function renderItem($item)

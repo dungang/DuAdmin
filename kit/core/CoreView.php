@@ -14,15 +14,7 @@ class CoreView extends View
     public function init()
     {
         parent::init();
-        if ($handlers = EventHandler::getCacheActiveEventHandlers('View')) {
-            foreach ($handlers as $handler) {
-                $this->on($handler['event'], [
-                    \Yii::createObject($handler['handler']),
-                    'process'
-                ]);
-            }
-        }
+        EventHandler::registerLevel($this, 'View');
     }
-    
 }
 

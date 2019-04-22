@@ -12,12 +12,10 @@ use app\kit\helpers\KitHelper;
 class SiteController extends FrontendController
 {
     
-    
-
     public function init()
     {
         parent::init();
-        $this->layout = '@app/addons/travel/views/layouts/front-end';
+        $this->layout = '@app/addons/travel/views/layouts/front-end.php';
         $this->guestActions = [
             'error',
             'index',

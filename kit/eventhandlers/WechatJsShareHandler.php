@@ -13,7 +13,7 @@ use yii\web\JsExpression;
  *
  * @author dungang
  */
-class WechatJsShareHandler extends EventHandler
+class WechatJsShareHandler extends AbstractEventHandler
 {
 
     const IMG_PATTER = '#<img\b[^<>]*?\bsrc[\s\t\r\n]*=[\s\t\r\n]*[""\']?[\s\t\r\n]*(?<src>[^\s\t\r\n""\'<>]*)[^<>]*?/?[\s\t\r\n]*>#is';
@@ -26,7 +26,7 @@ class WechatJsShareHandler extends EventHandler
     /**
      * (non-PHPdoc)
      *
-     * @see \app\kit\eventhandlers\EventHandler::process()
+     * @see \app\kit\eventhandlers\AbstractEventHandler::process()
      */
     public function process($event)
     {

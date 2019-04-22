@@ -7,7 +7,7 @@ use yii\base\BaseObject;
  *
  * @author dungang
  */
-abstract class EventHandler extends BaseObject
+abstract class AbstractEventHandler extends BaseObject
 {
 
     public abstract function process($event);

@@ -11,18 +11,18 @@ use app\kit\helpers\KitHelper;
  *
  * @author dungang
  */
-class SiteStatisticCodeHandler extends EventHandler
+class SiteStatisticCodeHandler extends AbstractEventHandler
 {
 
     /**
      * (non-PHPdoc)
      *
      * @param ViewEvent $event
-     * @see \app\kit\eventhandlers\EventHandler::process()
+     * @see \app\kit\eventhandlers\AbstractEventHandler::process()
      */
     public function process($event)
     {
-        if (! \Yii::$app->request->isAjax && \Yii::$app->controller instanceof FrontendController) {
+        if (!\Yii::$app->request->isAjax && (\Yii::$app->controller instanceof FrontendController)) {
             if ($statisticCode = KitHelper::getSetting('site.tongji')) {
                 $view = \Yii::$app->view;
                 $view->registerJs($statisticCode, View::POS_HEAD);

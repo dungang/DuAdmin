@@ -6,6 +6,7 @@ return [
     'username' => 'hema_oa',
     'password' => 'hemaoa88',
     'charset' => 'utf8mb4',
+    'tablePrefix'=>'bai_',
 
     // Schema cache options (for production environment)
     'enableSchemaCache' => true,

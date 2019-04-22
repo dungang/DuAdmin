@@ -14,7 +14,6 @@ use app\kit\widgets\AdminlteNavBar;
 use app\kit\widgets\AdminlteSideBar;
 use app\kit\widgets\AdminlteSideBarMenu;
 use app\backend\widgets\StartCron;
-
 BackendAsset::register($this);
 ?>
 <?php $this->beginPage() ?>

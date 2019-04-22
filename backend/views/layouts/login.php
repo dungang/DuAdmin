@@ -3,7 +3,6 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 use yii\helpers\Html;
-use app\kit\models\Setting;
 use app\kit\assets\BackendAsset;
 use app\backend\widgets\StartCron;
 BackendAsset::register($this);
@@ -18,7 +17,6 @@ BackendAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
-    <?= Setting::getSettings('site.tongji')?>
 </head>
 <body class="hold-transition login-page">
 <?php $this->beginBody() ?>

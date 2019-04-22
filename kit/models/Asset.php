@@ -97,7 +97,7 @@ class Asset extends \app\kit\core\BaseModel
             'baseUrl' => 'baseUrl,比如:http://cnd.bootcss.com',
             'css' => '可以用逗号分割多个，比如：css/base.css,css/main.css',
             'js' => '可以用逗号分割多个，比如：js/base.js,css/main.js',
-            'level' => 'common表示公共的，其他级别根据模块的英文名填入，比如:backend'
+            'level' => 'common表示公共的,frontend表示前端默认，其他级别根据模块的英文名填入，比如:backend'
         ];
     }
 

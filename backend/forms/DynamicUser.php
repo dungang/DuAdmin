@@ -110,12 +110,9 @@ class DynamicUser extends BaseDynamicModel
         if ($rst) {
             $attrs = $this->model->scenarios()[$this->scenario];
             $formName = $this->formName();
-            $data[$formName] = array_filter($data[$formName], function ($key) use ($attrs) {
+            $data[$formName] = array_filter(\array_keys($data[$formName]), function ($key) use ($attrs) {
                 return in_array($key, $attrs) ? false : true;
-            }, ARRAY_FILTER_USE_KEY);
-//             echo 111;
-//                 \var_dump($this->model->behaviors);die;
-            $rst = parent::load($data, $formName);
+            });
         }
         return $rst;
     }

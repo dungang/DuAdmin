@@ -14,6 +14,8 @@ use yii\helpers\ArrayHelper;
  */
 class UploadedFileBehavior extends Behavior
 {
+    
+    
 
     public $after_create = false;
 
@@ -27,7 +29,11 @@ class UploadedFileBehavior extends Behavior
             'file_type' => 'image'
         ]
     ];
-
+    
+    /**
+     * 动态初始化上传文件的参数
+     * @var string
+     */
     public $initFieldsCallback;
 
     /**

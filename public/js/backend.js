@@ -79,7 +79,7 @@
 
 	function process(options) {
 		var _this = this;
-		options.data['timestamp'] = _this.data('timestamp');
+		options.data['timestamp'] = Math.round(new Date().getTime() / 1000);
 		$.ajax({
 			url : options.url,
 			method : options.method,
@@ -97,8 +97,9 @@
 				if (textStatus == "success") { // 请求成功
 					options.onSuccess.call(_this, data, textStatus, options);
 					if (options.repeat) {
-						setTimeout(function() {
-							process.call(_this, options)
+						var tm = setTimeout(function() {
+							process.call(_this, options);
+							clearTimeout(tm);
 						}, options.interval);
 					}
 				}
@@ -111,13 +112,19 @@
 		return this.each(function() {
 			var _this = $(this);
 			var opts = $.extend({}, $.fn.longpoll.Default, options, _this.data());
-			_this.data('timestamp', opts.timestamp);
-			process.call(_this, opts);
+			if(opts.now === true) {
+				process.call(_this, opts);
+			} else {
+				var tm = setTimeout(function() {
+					process.call(_this, opts);
+					clearTimeout(tm);
+				}, options.interval);
+			}
 		});
 	};
 
 	$.fn.longpoll.Default = {
-		timestamp : Math.round(new Date().getTime() / 1000),
+		now:true, //是否立刻执行
 		interval : 2000,
 		dataType : 'text',
 		method : 'get',
@@ -134,12 +141,12 @@
 			var _this = $(this);
 			var modeOpts = {};
 			switch (options.mode) {
-				case 'delete':
-				case 'quiet':
-					modeOpts.contentType = 'application/json; charset=UTF-8';
-					modeOpts.dataType = 'json';
-					break;
-				default:
+			case 'delete':
+			case 'quiet':
+				modeOpts.contentType = 'application/json; charset=UTF-8';
+				modeOpts.dataType = 'json';
+				break;
+			default:
 
 			}
 			var opts = $.extend({}, $.fn.batchProcess.Default, modeOpts, options, _this.data());
@@ -172,25 +179,25 @@
 							contentType : opts.contentType,
 							success : function(response) {
 								switch (opts.mode) {
-									case 'delete':
-										if (response.code == '200') {
-											_chkboxs.each(function() {
-												var tr = $(this).parents(opts.row);
-												tr.fadeToggle('slow', function() {
-													tr.remove();
-													opts.onSuccess.call(_this, response, _chkboxs);
-												});
+								case 'delete':
+									if (response.code == '200') {
+										_chkboxs.each(function() {
+											var tr = $(this).parents(opts.row);
+											tr.fadeToggle('slow', function() {
+												tr.remove();
+												opts.onSuccess.call(_this, response, _chkboxs);
 											});
-										}
-										break;
-									case 'modal':
-										var modal = $(opts.modal);
-										modal.find('.modal-content').html(response);
-										modal.modal('show');
-										opts.onSuccess.call(_this, response, _chkboxs);
-										break;
-									default:
-										opts.onSuccess.call(_this, response, _chkboxs);
+										});
+									}
+									break;
+								case 'modal':
+									var modal = $(opts.modal);
+									modal.find('.modal-content').html(response);
+									modal.modal('show');
+									opts.onSuccess.call(_this, response, _chkboxs);
+									break;
+								default:
+									opts.onSuccess.call(_this, response, _chkboxs);
 								}
 							}
 						});
@@ -285,18 +292,25 @@
 }(jQuery);
 
 
+
 var App = {
-		extendSimpleModal: function(modalSelector) {
-			var modal = $(modalSelector);
-			modal.on('hidden.bs.modal',function(e){
-				//清空对象
-	            $(e.target).data('bs.modal',null);
-	        });
-			modal.on('show.bs.modal',function(e){
-				var size = $(e.relatedTarget).data('modal-size');
-	            $(e.target).find('.modal-dialog')
-					.removeClass('modal-sm modal-lg')
-					.addClass(size?size:'');
-	        });
-		}
+	extendSimpleModal : function(modalSelector) {
+		var modal = $(modalSelector);
+		modal.on('hidden.bs.modal', function(e) {
+			// 清空对象
+			$(e.target).data('bs.modal', null);
+		});
+		modal.on('show.bs.modal', function(e) {
+			var size = $(e.relatedTarget).data('modal-size');
+			$(e.target).find('.modal-dialog').removeClass('modal-sm modal-lg').addClass(size ? size : '');
+		});
+	}
 };
+
+var baiduTextAudio = new Audio();
+
+function speckText(url) {
+	//var url = "http://tts.baidu.com/text2audio?lan=zh&ctp=1&ie=UTF-8&vol=9&per=0&spd=4&pit=5&aue=3&&text=" + encodeURI(str);
+	baiduTextAudio.src = url;
+	baiduTextAudio.play();
+}
