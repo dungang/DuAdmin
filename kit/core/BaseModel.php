@@ -7,6 +7,8 @@ use app\kit\behaviors\PropertyBehavior;
 
 class BaseModel extends ActiveRecord
 {
+    
+    const EVENT_AFTER_VIEW = 'afterView';
 
     protected $_map_cache_key = false;
 

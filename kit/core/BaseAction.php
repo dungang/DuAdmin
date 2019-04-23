@@ -161,6 +161,11 @@ class BaseAction extends Action
         }
     }
 
+    /**
+     * 计算跳转的参数或url
+     * @param BaseModel $model
+     * @return mixed[]|string
+     */
     protected function getSuccessRediretUrlWidthModel($model)
     {
         if (is_array($this->successRediretUrl)) {
@@ -215,12 +220,12 @@ class BaseAction extends Action
                 $args = $this->modelClass;
                 $class = array_shift($args);
             }
-            if(isset($args['scenario'])){
+            if (isset($args['scenario'])) {
                 $scenario = $args['scenario'];
                 unset($args['scenario']);
             }
             if ($class) {
-                
+
                 $condition = array_merge($this->getPrimaryKeyCondition($class), $args);
 
                 //是否设置了查找的固定参数
@@ -230,7 +235,7 @@ class BaseAction extends Action
                 $model = call_user_func(array(
                     $class,
                     'findOne'
-                ), $condition);
+                ), $this->clearCond($condition));
             }
         }
         if ($model !== null) {
@@ -238,8 +243,8 @@ class BaseAction extends Action
             return $model;
         } else if ($createOneOnNotFound) {
             return \Yii::createObject([
-                'class'=>$this->modelClass,
-                'scenario'=>$scenario
+                'class' => $this->modelClass,
+                'scenario' => $scenario
             ]);
         }
 
@@ -272,13 +277,19 @@ class BaseAction extends Action
             $models = call_user_func(array(
                 $class,
                 'findAll'
-            ), $cond);
+            ), $this->clearCond($cond));
         }
         if ($models !== null) {
             return $models;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+    
+    private function clearCond($cond){
+        return \array_filter($cond,function($val){
+            return !\is_null($val);
+        });
     }
 }
 
