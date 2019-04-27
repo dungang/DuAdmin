@@ -9,7 +9,6 @@ use app\kit\models\User;
  * LoginForm is the model behind the login form.
  *
  * @property User|null $user This property is read-only.
- *          
  */
 class LoginForm extends Model
 {
@@ -19,6 +18,8 @@ class LoginForm extends Model
     public $password;
 
     public $rememberMe = true;
+
+    public $captcha;
 
     private $_user = false;
 
@@ -33,7 +34,8 @@ class LoginForm extends Model
             [
                 [
                     'username',
-                    'password'
+                    'password',
+                    'captcha'
                 ],
                 'required'
             ],
@@ -46,6 +48,10 @@ class LoginForm extends Model
             [
                 'password',
                 'validatePassword'
+            ],
+            [
+                'captcha',
+                'captcha'
             ]
         ];
     }
@@ -55,7 +61,8 @@ class LoginForm extends Model
         return [
             'username' => '账号',
             'password' => '密码',
-            'rememberMe'=>'记住我',
+            'rememberMe' => '记住我',
+            'captcha' => '验证码'
         ];
     }
 
@@ -72,7 +79,7 @@ class LoginForm extends Model
     {
         if (! $this->hasErrors()) {
             $user = $this->getUser();
-            
+
             if (! $user || ! $user->validatePassword($this->password)) {
                 $this->addError($attribute, 'Incorrect username or password.');
             }

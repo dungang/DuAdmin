@@ -6,7 +6,7 @@ use app\kit\core\ILongPollHandler;
 use app\kit\models\Cron;
 use yii\httpclient\Client;
 use app\kit\components\Crontab;
-use app\backend\helpers\CrontabHelpers;
+use app\kit\helpers\CrontabHelpers; 
 
 /**
  * 检查cron 表中的定时任务的状态

@@ -5,6 +5,7 @@ $config = [
         'cms'=>'\app\addons\cms\CmsModule',
         'travel'=>'\app\addons\travel\TravelModule',
         'taobaoke'=>'\app\addons\taobaoke\TaobaokeModule',
+        'form'=>'\app\addons\form\FormModule',
     ],
     'components' => [
         'db' => $db,

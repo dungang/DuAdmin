@@ -10,6 +10,7 @@ use app\kit\components\MobileDetect;
 use app\kit\models\Setting;
 use app\kit\events\CoreEvent;
 use yii\base\Component;
+use app\kit\models\MailQueue;
 
 /**
  * 系统工具类
@@ -442,6 +443,19 @@ class KitHelper
         $context->trigger($name, new CoreEvent([
             'payload' => $payload
         ]));
+    }
+
+    public static function sendMailerByQueue($from, $to, $subject, $body, $try_times = 1, $send_del = true, $time = null)
+    {
+        $mail = new MailQueue();
+        $mail->sender = $from;
+        $mail->recipient = $to;
+        $mail->subject = $subject;
+        $mail->content = $body;
+        $mail->del_after_send = $send_del;
+        $mail->time_to_send = $time;
+        $mail->try_send = $try_times;
+        return $mail->save(false);
     }
 }
 

@@ -2,7 +2,7 @@
 namespace app\backend\controllers;
 
 use app\kit\core\BackendController;
-use app\backend\helpers\CrontabHelpers;
+use app\kit\helpers\CrontabHelpers;
 
 /**
  * CronController implements the CRUD actions for Cron model.

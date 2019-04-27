@@ -17,6 +17,11 @@ class BackendModule extends Addon
             ]
         ];
         parent::init();
+        $this->modules = [
+            'task'=> [
+                'class' => 'app\backend\task\TaskModule',
+            ]
+        ];
     }
 }
 

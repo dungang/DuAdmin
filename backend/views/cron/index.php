@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 use app\kit\grids\PanelGridView;
 use yii\widgets\Pjax;
-use app\backend\helpers\CrontabHelpers;
+use app\kit\helpers\CrontabHelpers;
 /* @var $this yii\web\View */
 /* @var $searchModel app\kit\models\CronSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */

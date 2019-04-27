@@ -31,6 +31,7 @@ $this->registerMetaTag([
     <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
     	<?= $form->field($model, 'username')->textInput() ?>
 		<?= $form->field($model, 'password')->passwordInput() ?>
+		<?= $form->field($model, 'captcha')->widget('yii\captcha\Captcha', ['captchaAction' => '/site/captcha'])?>
 		<div class="row">
 			<div class="col-xs-8">
 		<?= $form->field($model, 'rememberMe')->checkbox() ?>

@@ -34,8 +34,6 @@ PanelGridView::begin(
                     ]);
                 }
             ],
-            'value:ntext',
-
             [
                 'class' => '\app\kit\grids\ActionColumn',
                 'buttonsOptions' => [

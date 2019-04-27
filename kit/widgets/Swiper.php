@@ -16,7 +16,7 @@ class Swiper extends Widget
     public function run()
     {
         SwiperAsset::register($this->view);
-        $this->view->registerJs(new JsExpression("new Swiper('$this->selector'," . Json::encode($this->clientOptions) . ")"));
+        $this->view->registerJs(new JsExpression("new Swiper('$this->selector'," . Json::encode($this->clientOptions) . ");"));
     }
 }
 

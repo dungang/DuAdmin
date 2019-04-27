@@ -6,24 +6,33 @@ use yii\base\Event;
 use app\kit\forms\PostRateLimitForm;
 use yii\web\Controller;
 use yii\web\Response;
+use yii\web\View;
 
 /**
+ * 暂时使用session记录数据
  *
  * @author dungang
  */
 class PostRateLimitFilter extends Behavior
 {
 
+    /**
+     * 已经过滤了
+     *
+     * @var boolean
+     */
+    private static $is_filtered = false;
+
     public $exclude_routes = [
         'site/captcha'
     ];
 
     /**
-     * 限制次数默认是5次
+     * 限制次数默认是10次
      *
      * @var string
      */
-    public $max_times = 1;
+    public $max_times = 10;
 
     /**
      * 默认是900毫秒
@@ -49,25 +58,33 @@ class PostRateLimitFilter extends Behavior
      */
     public function beforeAction($event)
     {
-        if (\Yii::$app->request->isPost) {
-            $current_time = microtime(true);
-            if (! in_array(\Yii::$app->controller->route, $this->exclude_routes)) {
-                //超过不正常请求的次数上限
-                if ($this->getBadRequestTimes() >= $this->max_times) {
-                    $event->handled = true;
-                    $this->validateCaptach($event->sender);
-                    return false;
+        if (self::$is_filtered === false) {
+            self::$is_filtered = true;
+            if (\Yii::$app->request->isPost) {
+                $current_time = microtime(true);
+                if (! in_array(\Yii::$app->controller->route, $this->exclude_routes)) {
+                    //超过不正常请求的次数上限
+                    if ($this->getBadRequestTimes() >= $this->max_times) {
+                        $event->handled = true;
+                        $this->validateCaptach($event->sender);
+                        return false;
+                    }
+                    $last_time = $this->getLastRequestTime();
+                    $calc_time = $last_time + ($this->max_interval_ms / 1000);
+                    //如果间隔时间小于最大间隔时间，则表示不正常的请求
+                    if ($calc_time >= $current_time) {
+                        $this->setBadRequestTimes();
+                    }
                 }
-                $last_time = $this->getLastRequestTime();
-                $calc_time = $last_time + ($this->max_interval_ms / 1000);
-                //如果间隔时间小于最大间隔时间，则表示不正常的请求
-                if ($calc_time >= $current_time) {
 
-                    $this->setBadRequestTimes();
+                $this->setLastRequestTime($current_time);
+            } else {
+                if ($this->getBadRequestTimes() >= $this->max_times) {
+                    \Yii::$app->view->on(View::EVENT_END_BODY, function ($event) {
+                        echo $this->renderForm(\Yii::$app->controller);
+                    });
                 }
             }
-
-            $this->setLastRequestTime($current_time);
         }
     }
 
@@ -76,12 +93,12 @@ class PostRateLimitFilter extends Behavior
      * @param Controller $controller
      * @param PostRateLimitForm $model
      */
-    protected function renderForm($controller, $model)
+    protected function renderForm($controller, $model = null)
     {
-        $content = $controller->render('@app/kit/views/post-rate-limit-form.php', [
+        $model = $model ?: new PostRateLimitForm();
+        return $controller->renderFile('@app/kit/views/post-rate-limit-form.php', [
             'model' => $model
         ]);
-        $this->sendContent($content);
     }
 
     protected function sendContent($content)
@@ -104,6 +121,10 @@ class PostRateLimitFilter extends Behavior
      */
     protected function validateCaptach($controller)
     {
+        if (\Yii::$app->request->isAjax) {
+            \Yii::$app->controller->redirect(\Yii::$app->request->referrer);
+        }
+
         $model = new PostRateLimitForm();
         if ($model->load(\Yii::$app->request->post()) && $model->validate()) {
             $this->clear();
@@ -112,6 +133,8 @@ class PostRateLimitFilter extends Behavior
             return true;
         }
         $this->renderForm($controller, $model);
+
+        $this->sendContent($this->renderForm($controller, $model));
         return false;
     }
 

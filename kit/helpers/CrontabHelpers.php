@@ -1,5 +1,5 @@
 <?php
-namespace app\backend\helpers;
+namespace app\kit\helpers;
 
 use yii\helpers\FileHelper;
 use yii\helpers\Json;
