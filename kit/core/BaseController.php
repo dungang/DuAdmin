@@ -1,4 +1,5 @@
 <?php
+
 namespace app\kit\core;
 
 use yii\web\Controller;
@@ -8,8 +9,7 @@ use yii\helpers\Url;
 use yii\base\Event;
 use app\kit\models\EventHandler;
 
-class BaseController extends Controller
-{
+class BaseController extends Controller {
 
     /**
      * 游客可以访问的action清单
@@ -32,8 +32,7 @@ class BaseController extends Controller
      */
     public $verbsActions = [];
 
-    public function init()
-    {
+    public function init() {
         parent::init();
         EventHandler::registerLevel($this, 'Controller');
     }
@@ -42,18 +41,42 @@ class BaseController extends Controller
      *
      * {@inheritdoc}
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         $defaultBehaviors = [];
         $defaultBehaviors['verbs'] = [
             'class' => VerbFilter::className(),
             'actions' => $this->verbsActions
         ];
+        if(($bs = $this->loadBehaviors())){
+            foreach($bs as $b=>$h){
+                $defaultBehaviors[$b]=$h;
+            }
+        }
         return $defaultBehaviors;
     }
+    
+    /**
+     * 动态加载其他得行为
+     * @return null|array
+     */
+    protected function loadBehaviors(){
+        return null;
+    }
+    
+    /**
+     * 加载配置
+     * @param string $path
+     * @return boolean|array
+     */
+    protected function loadConfig($path){
+        $file = \Yii::getAlias("@app/config/" . $path);
+        if(file_exists($file)){
+             return require $file;
+        }
+        return false;
+    }
 
-    public function beforeRender($params)
-    {
+    public function beforeRender($params) {
         $event = new Event();
         $event->data = $params;
         $this->trigger(self::EVENT_BEFORE_RENDER, $event);
@@ -64,19 +87,14 @@ class BaseController extends Controller
      * {@inheritdoc}
      * @see \yii\base\Controller::afterAction()
      */
-    public function afterAction($action, $result)
-    {
+    public function afterAction($action, $result) {
         $event = new ActionEvent($action);
         $event->result = $result;
         $this->trigger(self::EVENT_AFTER_ACTION, $event);
         if (is_array($result)) {
-            if (isset($result['view']) && ! empty($result['view'])) {
-                if (\Yii::$app->request->isAjax) {
-                    $event->result = $this->renderAjax($result['view'], $result['data']);
-                } else {
-                    $event->result = $this->render($result['view'], $result['data']);
-                }
-            } else if (isset($result['redirectUrl']) && ! empty($result['redirectUrl'])) {
+            if (isset($result['view']) && !empty($result['view'])) {
+                $this->renderResult($event, $result);
+            } else if (isset($result['redirectUrl']) && !empty($result['redirectUrl'])) {
                 $event->result = \Yii::$app->getResponse()->redirect(Url::to($result['redirectUrl']), $result['statusCode']);
             } else {
                 unset($result['view']);
@@ -87,13 +105,21 @@ class BaseController extends Controller
         return $event->result;
     }
 
-    private final function setFlash($status, $message)
-    {
-        if (! \Yii::$app->request->isAjax) {
-            if ($status == 'success')
+    private function renderResult($event, $result) {
+        if (\Yii::$app->request->isAjax) {
+            $event->result = $this->renderAjax($result['view'], $result['data']);
+        } else {
+            $event->result = $this->render($result['view'], $result['data']);
+        }
+    }
+
+    private final function setFlash($status, $message) {
+        if (!\Yii::$app->request->isAjax) {
+            if ($status == 'success') {
                 \Yii::$app->session->setFlash("success", $message);
-            else
+            } else {
                 \Yii::$app->session->setFlash("error", $message);
+            }
         }
     }
 
@@ -106,8 +132,7 @@ class BaseController extends Controller
      * @param string $message
      * @return mixed|number[]|string[]
      */
-    private final function thenRedirect($status, $url, $statusCode = 302, $message = '')
-    {
+    private final function thenRedirect($status, $url, $statusCode = 302, $message = '') {
         $this->setFlash($status, $message);
         return [
             'status' => $status,
@@ -117,70 +142,58 @@ class BaseController extends Controller
         ];
     }
 
-    public final function redirectOnSuccess($url, $message = '处理成功')
-    {
+    public final function redirectOnSuccess($url, $message = '处理成功') {
         return $this->thenRedirect('success', $url, 302, $message);
     }
 
-    public final function redirectOnFail($url, $message = '处理失败')
-    {
+    public final function redirectOnFail($url, $message = '处理失败') {
         return $this->thenRedirect('fail', $url, 302, $message);
     }
 
-    public final function redirectOnException($url, $message = '处理异常')
-    {
+    public final function redirectOnException($url, $message = '处理异常') {
         return $this->thenRedirect('exception', $url, 302, $message);
     }
 
-    public final function goHomeOnSuccess()
-    {
+    public final function goHomeOnSuccess() {
         return $this->redirectOnSuccess(\Yii::$app->getHomeUrl(), '登录成功');
     }
 
-    public final function goHomeOnFail()
-    {
+    public final function goHomeOnFail() {
         return $this->redirectOnFail(\Yii::$app->getHomeUrl());
     }
 
-    public final function gohomeOnException()
-    {
+    public final function gohomeOnException() {
         return $this->redirectOnException(\Yii::$app->getHomeUrl());
     }
 
-    public final function goBackOnSuccess($defaultUrl = null)
-    {
+    public final function goBackOnSuccess($defaultUrl = null) {
         return $this->redirectOnSuccess(\Yii::$app->getUser()
-            ->getReturnUrl($defaultUrl));
+                                ->getReturnUrl($defaultUrl));
     }
 
-    public final function goBackOnFail($defaultUrl = null)
-    {
+    public final function goBackOnFail($defaultUrl = null) {
         return $this->redirectOnFail(\Yii::$app->getUser()
-            ->getReturnUrl($defaultUrl));
+                                ->getReturnUrl($defaultUrl));
     }
 
-    public final function goBackOnExcption($defaultUrl = null)
-    {
+    public final function goBackOnExcption($defaultUrl = null) {
         return $this->redirectOnException(\Yii::$app->getUser()
-            ->getReturnUrl($defaultUrl));
+                                ->getReturnUrl($defaultUrl));
     }
 
-    public final function refreshOnSuccess($anchor = '')
-    {
+    public final function refreshOnSuccess($anchor = '') {
         return $this->redirectOnSuccess(\Yii::$app->getRequest()
-            ->getUrl() . $anchor);
+                                ->getUrl() . $anchor);
     }
 
-    public final function refreshOnFail($anchor = '')
-    {
+    public final function refreshOnFail($anchor = '') {
         return $this->redirectOnFail(\Yii::$app->getRequest()
-            ->getUrl() . $anchor);
+                                ->getUrl() . $anchor);
     }
 
-    public final function refreshOnExcepion($anchor = '')
-    {
+    public final function refreshOnExcepion($anchor = '') {
         return $this->redirectOnException(\Yii::$app->getRequest()
-            ->getUrl() . $anchor);
+                                ->getUrl() . $anchor);
     }
 
     /**
@@ -192,8 +205,7 @@ class BaseController extends Controller
      * @param string $message
      * @return array
      */
-    private final function thenRender($status = 'success', $view = 'index', $params = [], $message = '')
-    {
+    private final function thenRender($status = 'success', $view = 'index', $params = [], $message = '') {
         $this->setFlash($status, $message);
         return [
             'status' => $status,
@@ -208,79 +220,73 @@ class BaseController extends Controller
      *
      * @param string $view
      * @param array $params
+     * @param string $message
      * @return array
      */
-    public final function renderOnSuccess($view, $params = [], $message = '处理成功')
-    {
+    public final function renderOnSuccess($view, $params = [], $message = '处理成功') {
         return $this->thenRender('success', $view, $params, $message);
     }
 
     /**
      * 当成功的时候返回
      *
-     * @param string $view
      * @param array $params
+     * @param string $message
      * @return array
      */
-    public final function renderWithoutViewOnSuccess($params = [], $message = '处理成功')
-    {
+    public final function renderWithoutViewOnSuccess($params = [], $message = '处理成功') {
         return $this->thenRender('success', null, $params, $message);
     }
 
     /**
      * 当失败的时候返回
      *
-     * @param string $view
      * @param array $params
+     * @param string $message
      * @return array
      */
-    public final function renderOnFail($view, $params = [], $message = '处理失败')
-    {
+    public final function renderOnFail($view, $params = [], $message = '处理失败') {
         return $this->thenRender('fail', $view, $params, $message);
     }
 
     /**
      * 当失败的时候返回
      *
-     * @param string $view
      * @param array $params
+     * @param string $message
      * @return array
      */
-    public final function renderWithoutViewOnFail($params = [], $message = '处理失败')
-    {
+    public final function renderWithoutViewOnFail($params = [], $message = '处理失败') {
         return $this->thenRender('fail', null, $params, $message);
     }
 
     /**
      * 当异常的时候返回
-     *
-     * @param string $view
+     * @param string $view 
      * @param array $params
+     * @param string $message
      * @return array
      */
-    public final function renderOnException($view, $params = [], $message = '处理异常')
-    {
+    public final function renderOnException($view, $params = [], $message = '处理异常') {
         return $this->thenRender('exception', $view, $params, $message);
     }
 
     /**
      * 当异常的时候返回
      *
-     * @param string $view
      * @param array $params
+     * @param string $message
      * @return array
      */
-    public final function renderwithoutViewOnException($params = [], $message = '处理异常')
-    {
+    public final function renderwithoutViewOnException($params = [], $message = '处理异常') {
         return $this->thenRender('exception', null, $params, $message);
     }
 
-    public function render($view, $params = [])
-    {
+    public function render($view, $params = []) {
         if (\Yii::$app->request->isAjax) {
             return parent::renderAjax($view, $params);
         }
         return parent::render($view, $params);
     }
-}
 
+}

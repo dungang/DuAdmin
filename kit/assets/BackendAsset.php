@@ -14,7 +14,7 @@ class BackendAsset extends AssetBundle
     ];
     
     public $js = [
-        'adminlte/js/adminlte.min.js',
+        'adminlte/js/adminlte.js',
         'js/backend.js'
     ];
     

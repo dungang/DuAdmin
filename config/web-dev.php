@@ -1,11 +1,12 @@
 <?php
+
 $db = require __DIR__ . '/db-dev.php';
 $config = [
-    'modules'=>[
-        'cms'=>'\app\addons\cms\CmsModule',
-        'travel'=>'\app\addons\travel\TravelModule',
-        'taobaoke'=>'\app\addons\taobaoke\TaobaokeModule',
-        'form'=>'\app\addons\form\FormModule',
+    'modules' => [
+        'cms' => '\app\addons\cms\CmsModule',
+        'travel' => '\app\addons\travel\TravelModule',
+        'taobaoke' => '\app\addons\taobaoke\TaobaokeModule',
+        'form' => '\app\addons\form\FormModule',
     ],
     'components' => [
         'db' => $db,
@@ -13,26 +14,8 @@ $config = [
             'errorAction' => 'site/error'
         ],
         'assetManager' => [
-            'class'=>'\app\kit\core\CoreAssetManager',
-            'basePath'=>'@app/public/assets',
-            'bundles' => [
-                'yii\bootstrap\BootstrapPluginAsset' => [
-                    //'baseUrl' => 'https://cdn.bootcss.com/twitter-bootstrap/3.4.1/',
-                    'baseUrl' => '@web',
-                    'js' => [
-                        'js/bootstrap.min.js',
-                    ],
-                    'sourcePath' => null // 防止在 frontend/web/asset 下生产文件
-                ],
-                'yii\bootstrap\BootstrapAsset' => [
-                    //'baseUrl' => 'https://cdn.bootcss.com/twitter-bootstrap/3.4.1/',
-                    'baseUrl' => '@web',
-                    'css' => [
-                        'css/bootstrap-flatly.min.css',
-                    ],
-                    'sourcePath' => null // 防止在 frontend/web/asset 下生产文件
-                ]
-            ]
+            'class' => '\app\kit\core\CoreAssetManager',
+            'basePath' => '@app/public/assets',
         ],
     ]
 ];
@@ -42,8 +25,8 @@ if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module'
-        // uncomment the following to add your IP if you are not connecting from localhost.
-        // 'allowedIPs' => ['127.0.0.1', '::1'],
+            // uncomment the following to add your IP if you are not connecting from localhost.
+            // 'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 
     $config['bootstrap'][] = 'gii';
@@ -63,8 +46,8 @@ if (YII_ENV_DEV) {
                 'class' => 'app\generators\addons\Generator',
             ]
         ]
-        // uncomment the following to add your IP if you are not connecting from localhost.
-        // 'allowedIPs' => ['127.0.0.1', '::1'],
+            // uncomment the following to add your IP if you are not connecting from localhost.
+            // 'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 }
 

@@ -1,222 +1,119 @@
 <?php
-
 /* @var $this \yii\web\View */
 /* @var $content string */
+
 use app\kit\assets\AppAsset;
-use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
+use app\kit\helpers\KitHelper;
+use app\kit\models\Menu;
+use app\kit\models\Setting;
+use app\kit\widgets\LazyLoad;
 use app\kit\widgets\Notify;
 use app\kit\widgets\SimpleModal;
-use app\kit\helpers\KitHelper;
-use app\kit\models\Setting;
+use yii\bootstrap\Nav;
+use yii\bootstrap\NavBar;
+use yii\helpers\Html;
+use yii\widgets\Breadcrumbs;
 
 AppAsset::register($this);
+Notify::widget();
+LazyLoad::widget();
+$this->params['logo'] = KitHelper::getSetting('site.logo');
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
-<head>
-<meta charset="<?= Yii::$app->charset ?>">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-    <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
-    <?php $this->head() ?>
-</head>
-<body>
-<?php $this->beginBody() ?>
+    <head>
+        <base href="<?= Yii::$app->request->baseUrl ?>/">
+        <meta charset="<?= Yii::$app->charset ?>">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <?= Html::csrfMetaTags() ?>
+        <title><?= Html::encode($this->title) ?></title>
+        <?php $this->head() ?>
+    </head>
+    <body>
+        <?php $this->beginBody() ?>
 
-<div class="wrap">
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name . ' <font class="h6">' . Yii::$app->version . '</font>',
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-default'
-        ]
-    ]);
-    $menus = [
-        [
-            'label' => '首页',
-            'url' => [
-                '/site/index'
-            ]
-        ]
-    ];
-    if (\Yii::$app->user->isGuest) {
-        $menus[] = [
-            'label' => '关于',
-            'url' => [
-                '/site/about'
-            ]
-        ];
-    }
-    if (! \Yii::$app->user->isGuest && KitHelper::isAdmin()) {
-        $menus[] = [
-            'label' => '软件',
-            'url' => [
-                '/wf-app/index'
-            ]
-        ];
-        $menus[] = [
-            'label'=>'文档',
-            'items'=>[
-                [
-                    'label' => '文档',
-                    'url' => [
-                        '/doc/index'
-                    ]
-                ],
-                [
-                    'label' => '白名单',
-                    'url' => [
-                        '/doc-white-list/index'
-                    ]
+        <div class="wrap">
+            <?php
+            NavBar::begin([
+                'brandImage' => $this->params['logo'],
+                'brandLabel' => KitHelper::getSetting('site.name'),
+                'brandUrl' => Yii::$app->homeUrl,
+                'options' => [
+                    'class' => 'navbar-inverse'
                 ]
-            ]
-        ];
-        $menus[] = [
-            'label' => '运营',
-            'items' => [
-                [
-                    'label' => '资讯',
-                    'url' => [
-                        '/post/index'
+            ]);
+            $menus = [];
+            if (($frontMenus = Menu::getFrontMenus())) {
+                foreach ($frontMenus as $frontMenu) {
+                    $menus[] = $frontMenu;
+                }
+            }
+            if (!Yii::$app->user->isGuest) {
+                $menus[] = [
+                    'label' => Yii::$app->user->identity->nick_name,
+                    'items' => [
+                        [
+                            'label' => '后台',
+                            'url' => [
+                                '/backend/'
+                            ]
+                        ],
+                        [
+                            'label' => '退出',
+                            'url' => [
+                                '/backend/logout'
+                            ],
+                            'linkOptions' => [
+                                'data-method' => 'post'
+                            ]
+                        ]
                     ]
+                ];
+            }
+            echo Nav::widget([
+                'options' => [
+                    'class' => 'navbar-nav navbar-right'
                 ],
-                [
-                    'label' => '资讯分类',
-                    'url' => [
-                        '/post-category/index'
-                    ]
-                ],
-                [
-                    'label' => '幻灯片',
-                    'url' => [
-                        '/flash/index'
-                    ]
-                ]
-            ]
-        ];
-        $menus[] = [
-            'label' => '用户',
-            'url' => [
-                '/user/index'
-            ]
-        ];
-        $menus[] = [
-            'label' => '系统',
-            'items' => [
-                [
-                    'label' => '设置',
-                    'url' => [
-                        '/setting/index'
-                    ]
-                ],
-                [
-                    'label' => '路由',
-                    'url' => [
-                        '/ac-route/index'
-                    ]
-                ],
-                [
-                    'label' => '模块',
-                    'url' => [
-                        '/app-module/index'
-                    ]
-                ],
-                [
-                    'label' => '角色',
-                    'url' => [
-                        '/auth-role/index'
-                    ]
-                ],
-                [
-                    'label' => '权限',
-                    'url' => [
-                        '/auth-permission/index'
-                    ]
-                ],
-                [
-                    'label' => '规则',
-                    'url' => [
-                        '/auth-rule/index'
-                    ]
-                ]
-            ]
-        ];
-    }
-    if (! \Yii::$app->user->isGuest) {
-        $menus[] = [
-            'label' => Yii::$app->user->identity->nick_name,
-            'items' => [
-                [
-                    'label' => '个人信息',
-                    'url' => [
-                        '/user/profile'
-                    ],
-                    'linkOptions' => [
-                        'data-toggle' => 'modal',
-                        'data-target' => '#modal-dailog'
-                    ]
-                ],
-                [
-                    'label' => '退出',
-                    'url' => [
-                        '/site/logout'
-                    ],
-                    'linkOptions' => [
-                        'data-method' => 'post'
-                    ]
-                ]
-            ]
-        ];
-    } else {
-        $menus[] = [
-            'label' => '登录',
-            'url' => [
-                '/site/login'
-            ]
-        ];
-    }
-    echo Nav::widget([
-        'options' => [
-            'class' => 'navbar-nav navbar-right'
-        ],
-        'items' => $menus
-    ]);
-    NavBar::end();
-    ?>
+                'items' => $menus
+            ]);
+            NavBar::end();
+            ?>
 
-    <div class="container">
-        <?=Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : []])?>
-        <?= Notify::widget() ?>
-        <?= $content ?>
-        <?php
+            <div class="container">
+                <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : []]) ?>
 
-        SimpleModal::begin([
-            'size' => 'modal-lg',
-            'header' => '对话框',
-            'options' => [
-                'id' => 'modal-dailog'
-            ]
-        ]);
-        echo "没有记录";
-        SimpleModal::end();
-        ?>
-    </div>
-	</div>
+                <?= $content ?>
+                <?php
+                SimpleModal::begin([
+                    'size' => 'modal-lg',
+                    'header' => '对话框',
+                    'options' => [
+                        'id' => 'modal-dailog'
+                    ]
+                ]);
+                echo "没有记录";
+                SimpleModal::end();
+                ?>
+            </div>
+        </div>
 
-	<footer class="footer">
-		<div class="container">
-			<p class="pull-left"><?=Setting::getSettings('site.beian')?> &copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
+        <footer class="footer bg-primary text-center">
+            <div class="container">
+                <p><?= Html::a('<i class="fa fa-user"></i> 关于我们', ['/about-us']) ?></p>
+                <p>
+                    <?= date('Y') ?> &copy; <?= Html::encode(Setting::getSettings('site.company')) ?> 
+                </p>
+                <p>
+                    <a href="tel://<?= Setting::getSettings('site.company.phone') ?>">
+                        <i class="fa fa-phone"></i> <?= Setting::getSettings('site.company.phone') ?></a>
 
-			<p class="pull-right"><?= KitHelper::powered() ?></p>
-		</div>
-	</footer>
-<?php $this->endBody() ?>
-</body>
+
+                <p><?= Setting::getSettings('site.beian') ?>  </p>
+            </div>
+        </footer>
+        <?php $this->endBody() ?>
+    </body>
 </html>
 <?php $this->endPage() ?>

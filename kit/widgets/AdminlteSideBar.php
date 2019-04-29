@@ -23,7 +23,9 @@ class AdminlteSideBar extends Widget
     }
     
     public function run(){
-        $this->view->registerJs("$('[data-toggle=\"push-menu\"]').pushMenu()");
+        //注册js代码最好结束的时候加上语句结束表示`;`分号，
+        //否则会出现语法错误，比如下面就会提示pushMenu方法未定义
+        $this->view->registerJs("$('[data-toggle=\"push-menu\"]').pushMenu();");
         $content =  ob_get_clean();
         $start = '<aside class="main-sidebar"><section class="sidebar">';
         $end = '</aside></section>';

@@ -1,7 +1,7 @@
 <?php
 $config = [
-    'id' => 'baiyuan-start-kit',
-    'name' => 'Yii2',
+    'id' => 'base',
+    'name' => 'BY-CMS',
     'version' => 'beta',
     'basePath' => dirname(__DIR__),
     'bootstrap' => [

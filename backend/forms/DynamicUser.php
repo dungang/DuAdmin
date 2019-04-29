@@ -34,8 +34,9 @@ class DynamicUser extends BaseDynamicModel
     public function setScenario($value)
     {
         parent::setScenario($value);
-        if ($this->model)
+        if ($this->model) {
             $this->model->setScenario($value);
+        }
     }
 
     public static function primaryKey()
@@ -74,7 +75,7 @@ class DynamicUser extends BaseDynamicModel
 
     public function validate($attributeNames = null, $clearErrors = true)
     {
-        if ($rst = $this->model->validate($attributeNames, $clearErrors)) {
+        if (($rst = $this->model->validate($attributeNames, $clearErrors))) {
             $rst = parent::validate($attributeNames, $clearErrors);
         }
         return $rst;
@@ -82,7 +83,7 @@ class DynamicUser extends BaseDynamicModel
 
     public static function findOne($condition)
     {
-        if ($user = User::findOne($condition)) {
+        if (($user = User::findOne($condition))) {
             if ($user->id) {
                 $dynamic = new DynamicUser();
                 $dynamic->id = $user->id;
@@ -158,9 +159,9 @@ class DynamicUser extends BaseDynamicModel
      */
     protected function prepareExtPropertyValues($model)
     {
-        if ($values = UserExtValue::findAll([
+        if (($values = UserExtValue::findAll([
             'user_id' => $model->id
-        ])) {
+        ]))) {
             foreach ($values as $value) {
                 $this->{$value->field} = $value->value;
             }

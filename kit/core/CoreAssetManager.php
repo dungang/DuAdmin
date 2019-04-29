@@ -8,13 +8,11 @@ use app\kit\models\Asset;
  *
  * @author dungang
  */
-class CoreAssetManager extends AssetManager
-{
+class CoreAssetManager extends AssetManager {
 
     private static $__assets;
 
-    public function getBundle($name, $publish = true)
-    {
+    public function getBundle($name, $publish = true) {
         if (empty(self::$__assets) && (self::$__assets = Asset::getActiveAssets())) {
             $common = isset(self::$__assets['common']) ? self::$__assets['common'] : [];
             $bundles = [];
@@ -22,7 +20,7 @@ class CoreAssetManager extends AssetManager
             if (\Yii::$app->controller instanceof BackendController) {
                 $bundles = isset(self::$__assets['backend']) ? self::$__assets['backend'] : [];
             } else {
-                if (! empty(self::$__assets['frontend'])) {
+                if (!empty(self::$__assets['frontend'])) {
                     $bundles = self::$__assets['frontend'];
                 }
                 if (isset(self::$__assets[$module_id])) {
@@ -33,5 +31,5 @@ class CoreAssetManager extends AssetManager
         }
         return parent::getBundle($name, $publish);
     }
-}
 
+}

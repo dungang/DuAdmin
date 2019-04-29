@@ -1,4 +1,5 @@
 <?php
+
 namespace app\kit\helpers;
 
 use yii\base\NotSupportedException;
@@ -17,68 +18,93 @@ use app\kit\models\MailQueue;
  *
  * @author dungang
  */
-class KitHelper
-{
+class KitHelper {
 
     protected static $agent_detect;
 
-    public static function IsMobile()
-    {
+    public static function IsMobile() {
         if (self::$agent_detect == null) {
             self::$agent_detect = new MobileDetect();
         }
         return self::$agent_detect->isMobile();
     }
 
-    public static function img($src, $options)
-    {
+    /**
+     * 将可识别的本地url转化为满足框架的数组格式，否则直接返回原始字符串
+     * @param string $url
+     * @return array|string
+     */
+    public static function normalizeUrl2Route($url) {
+        $url_parts = parse_url($url);
+        if (empty($url_parts['host'])) {
+            $params = [];
+            parse_str($url_parts['query'], $params);
+            if (isset($params['r'])) {
+                $r = '/' . $params['r'];
+                unset($params['r']);
+                array_unshift($params, $r);
+                return $params;
+            }
+        } else {
+            return $url;
+        }
+    }
+
+    /**
+     *  图片
+     * @param string $src
+     * @param array $options
+     * @return string
+     */
+    public static function img($src, $options) {
         return Html::img(ltrim($src, '/'), $options);
     }
 
-    public static function lazyLoadImage($src, $thumb = null, $options = [])
-    {
+    /**
+     * 生成延迟加载图片，并默认设置base64的小图片
+     * @param string $src
+     * @param string $thumb
+     * @param array $options
+     * @return string
+     */
+    public static function lazyLoadImage($src, $thumb = null, $options = []) {
         if ($thumb == null)
             $thumb = 'data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=';
         $opts = ArrayHelper::merge([
-            'data-original' => ltrim($src, '/'),
-            'class' => 'lazyload'
-        ], $options);
+                    'data-original' => ltrim($src, '/'),
+                    'class' => 'lazyload'
+                        ], $options);
         return Html::img($thumb, $opts);
     }
 
-    public static function powered()
-    {
+    public static function powered() {
         return \Yii::t('yii', 'Powered by {soft}', [
-            'soft' => '<a href="https://baiyuan.weifutek.com/" rel="external">' . \Yii::$app->name . '</a>'
+                    'soft' => '<a href="https://baiyuan.weifutek.com/" rel="external">' . \Yii::$app->name . '</a>'
         ]);
     }
 
-    public static function getSetting($name)
-    {
+    public static function getSetting($name) {
         return Setting::getSettings($name);
     }
 
-    public static function getSettingAry($name)
-    {
+    public static function getSettingAry($name) {
         return Setting::getSettingAry($name);
     }
 
-    public static function getSettingAssoc($name)
-    {
+    public static function getSettingAssoc($name) {
         return Setting::getSettingAssoc($name);
     }
 
-    public static function unicodeDecode($unicode_str)
-    {
+    public static function unicodeDecode($unicode_str) {
         $json = '{"str":"' . $unicode_str . '"}';
         $arr = json_decode($json, true);
-        if (empty($arr))
+        if (empty($arr)) {
             return '';
+        }
         return $arr['str'];
     }
 
-    public static function GUID()
-    {
+    public static function GUID() {
         if (function_exists('com_create_guid') === true) {
             return trim(com_create_guid(), '{}');
         }
@@ -86,8 +112,11 @@ class KitHelper
         return sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
     }
 
-    public static function isAdmin()
-    {
+    /**
+     * 判断当前用户是否是管理用户
+     * @return boolean
+     */
+    public static function isAdmin() {
         return \Yii::$app->user->identity->is_admin;
     }
 
@@ -99,8 +128,7 @@ class KitHelper
      * @param array $one
      * @param boolean $is_root
      */
-    public function to1Array($root_key, $array, &$one, $is_root = true)
-    {
+    public function to1Array($root_key, $array, &$one, $is_root = true) {
         foreach ($array as $key => $val) {
             if ($is_root) {
                 $key = $root_key . $key;
@@ -121,8 +149,7 @@ class KitHelper
      * @param array $items
      * @return array
      */
-    public static function reActiveItem($items)
-    {
+    public static function reActiveItem($items) {
         //获取请求的路由，是完整的，头部不会自动添加'/'
         $route = \Yii::$app->requestedRoute;
         $params = [];
@@ -161,8 +188,7 @@ class KitHelper
         return $items;
     }
 
-    public static function betweenDayWithTimestamp($field, $date)
-    {
+    public static function betweenDayWithTimestamp($field, $date) {
         if ($date) {
             $start = strtotime($date);
             $end = 24 * 3600 + $start;
@@ -176,15 +202,14 @@ class KitHelper
         return [];
     }
 
-    public static function memberNames($ids)
-    {
+    public static function memberNames($ids) {
         $query = new Query();
         $membs = $query->select('id,name')
-            ->from(User::tableName())
-            ->where([
-            'id' => $ids
-        ])
-            ->all();
+                ->from(User::tableName())
+                ->where([
+                    'id' => $ids
+                ])
+                ->all();
         return ArrayHelper::map($membs, 'id', 'name');
     }
 
@@ -195,8 +220,7 @@ class KitHelper
      * @param array $options
      * @return string
      */
-    public static function orgLinkButton($text, $url, $options)
-    {
+    public static function orgLinkButton($text, $url, $options) {
         if (is_array($url)) {
             return self::hasProjectPermission($url[0]) ? Html::a($text, $url, $options) : '';
         }
@@ -211,8 +235,7 @@ class KitHelper
      * @throws NotSupportedException
      * @return string
      */
-    public static function orgSubmitButton($action, $content = '', $options = [])
-    {
+    public static function orgSubmitButton($action, $content = '', $options = []) {
         if (is_array($action)) {
             return self::hasProjectPermission($action[0]) ? Html::SubmitButton($content, $options) : '';
         }
@@ -235,8 +258,7 @@ class KitHelper
      * @return array
      * @author gang.dun <dungang@huluwa.cc>
      */
-    public static function listToTree($list, $pk = 'id', $pid = 'pid', $child = 'items', $root = 0)
-    {
+    public static function listToTree($list, $pk = 'id', $pid = 'pid', $child = 'items', $root = 0) {
         // 创建Tree
         $tree = array();
         if (is_array($list)) {
@@ -276,8 +298,7 @@ class KitHelper
      *            父节点字段
      * @return array
      */
-    public static function calcListItemDepth($items, $parent_id = 0, $depth = 1, $idField = 'id', $parentField = 'pid')
-    {
+    public static function calcListItemDepth($items, $parent_id = 0, $depth = 1, $idField = 'id', $parentField = 'pid') {
         $dep = array();
         foreach ($items as $item) {
             if ($item[$parentField] == $parent_id) {
@@ -299,8 +320,7 @@ class KitHelper
      * @param string $parentField
      * @return string[]
      */
-    public static function list2MapLikeTreeWithDepth($items, $textField, $idField = 'id', $parentField = 'pid', $parent_id = 0, $depth = 1)
-    {
+    public static function list2MapLikeTreeWithDepth($items, $textField, $idField = 'id', $parentField = 'pid', $parent_id = 0, $depth = 1) {
         $depItems = static::calcListItemDepth($items, $parent_id, $depth, $idField, $parentField);
 
         $tree = [];
@@ -324,16 +344,15 @@ class KitHelper
      * @param number $depth
      * @return string[]
      */
-    public static function dbQueryAsMapLikeTree($table, $textField, $filter = null, $idField = 'id', $parentField = 'pid', $parent_id = 0, $depth = 1)
-    {
+    public static function dbQueryAsMapLikeTree($table, $textField, $filter = null, $idField = 'id', $parentField = 'pid', $parent_id = 0, $depth = 1) {
         $items = (new Query())->select([
-            $idField,
-            $parentField,
-            $textField
-        ])
-            ->from($table)
-            ->where($filter)
-            ->all();
+                    $idField,
+                    $parentField,
+                    $textField
+                ])
+                ->from($table)
+                ->where($filter)
+                ->all();
         return self::list2MapLikeTreeWithDepth($items, $textField, $idField, $parentField, $parent_id, $depth);
     }
 
@@ -343,12 +362,11 @@ class KitHelper
      * @param string $text
      * @return mixed[]
      */
-    public static function parseText2Assoc($text)
-    {
+    public static function parseText2Assoc($text) {
         $assoc = [];
         $lines = \explode("\n", trim($text));
         foreach ($lines as $line) {
-            if ($line = trim($line, '\n\r\s')) {
+            if (($line = trim($line, '\n\r\s'))) {
                 $kv = explode(':', $line);
                 $assoc[$kv[0]] = $kv[1];
             }
@@ -366,8 +384,7 @@ class KitHelper
      * @param string $parentField
      * @return array[]|array
      */
-    public static function groupOptions($items, $textField, $filter = null, $idField = 'id', $parentField = 'pid')
-    {
+    public static function groupOptions($items, $textField, $filter = null, $idField = 'id', $parentField = 'pid') {
         $options = [];
         foreach ($items as $id => $item) {
             if ($item[$parentField] == 0) {
@@ -396,16 +413,15 @@ class KitHelper
      * @param number $depth
      * @return array
      */
-    public static function dbQueryAsGroupOptions($table, $textField, $filter = null, $idField = 'id', $parentField = 'pid', $parent_id = 0, $depth = 1)
-    {
+    public static function dbQueryAsGroupOptions($table, $textField, $filter = null, $idField = 'id', $parentField = 'pid', $parent_id = 0, $depth = 1) {
         $items = (new Query())->select([
-            $idField,
-            $parentField,
-            $textField
-        ])
-            ->from($table)
-            ->where($filter)
-            ->all();
+                    $idField,
+                    $parentField,
+                    $textField
+                ])
+                ->from($table)
+                ->where($filter)
+                ->all();
         return self::groupOptions($items, $textField, $idField, $parentField);
     }
 
@@ -417,8 +433,7 @@ class KitHelper
      * @param array $rows
      * @return number
      */
-    public static function batchReplaceInto($table, $columns, $rows)
-    {
+    public static function batchReplaceInto($table, $columns, $rows) {
         $command = \Yii::$app->db->createCommand()->batchInsert($table, $columns, $rows);
         $command->setRawSql('REPLACE' . \substr($command->getRawSql(), 6));
         //echo $command->getRawSql();die;
@@ -435,18 +450,16 @@ class KitHelper
      * @param Component $context
      *            默认为空，则表示是视图上下文
      */
-    public static function triggerCustomCoreEvent($name, $payload = null, $context = null)
-    {
+    public static function triggerCustomCoreEvent($name, $payload = null, $context = null) {
         if ($context == null) {
             $context = \Yii::$app->view;
         }
         $context->trigger($name, new CoreEvent([
-            'payload' => $payload
+                    'payload' => $payload
         ]));
     }
 
-    public static function sendMailerByQueue($from, $to, $subject, $body, $try_times = 1, $send_del = true, $time = null)
-    {
+    public static function sendMailerByQueue($from, $to, $subject, $body, $try_times = 1, $send_del = true, $time = null) {
         $mail = new MailQueue();
         $mail->sender = $from;
         $mail->recipient = $to;
@@ -457,5 +470,5 @@ class KitHelper
         $mail->try_send = $try_times;
         return $mail->save(false);
     }
-}
 
+}

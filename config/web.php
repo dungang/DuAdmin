@@ -12,23 +12,6 @@ $config = [
         ],
         'assetManager' => [
             'class'=>'\app\kit\core\CoreAssetManager',
-            'bundles' => [
-                'yii\bootstrap\BootstrapAsset' => [
-                    //'baseUrl' => 'https://cdn.bootcss.com/twitter-bootstrap/3.4.1/',
-                    'baseUrl' => '@web',
-                    'css' => [
-                        'css/bootstrap-flatly.min.css',
-                    ],
-                    'sourcePath' => null // 防止在 frontend/web/asset 下生产文件
-                ],
-                'yii\bootstrap\BootstrapPluginAsset' => [
-                    'baseUrl' => '@web',
-                    'js' => [
-                        'js/bootstrap.min.js',
-                    ],
-                    'sourcePath' => null // 防止在 frontend/web/asset 下生产文件
-                ],
-            ]
         ],
     ]
 ];
