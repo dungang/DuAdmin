@@ -4,6 +4,9 @@ namespace app\kit\widgets;
 use Yii;
 use yii\base\Widget;
 
+/**
+ * 包含的内容AJAX才输出
+ */
 class AjaxContent extends Widget
 {
     public function init(){
