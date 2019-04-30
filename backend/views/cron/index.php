@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 use app\kit\grids\PanelGridView;
 use yii\widgets\Pjax;
-use app\kit\helpers\CrontabHelpers;
+use app\kit\helpers\CrontabHelper;
 /* @var $this yii\web\View */
 /* @var $searchModel app\kit\models\CronSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -55,7 +55,7 @@ PanelGridView::begin(
     ]);
 ?>
 <div class="well">
-    <?php list ($cron_status, $cron_traced_at) = CrontabHelpers::prepareCronSetting();?>
+    <?php list ($cron_status, $cron_traced_at) = CrontabHelper::prepareCronSetting();?>
     <p>
 		<strong>服务运行状态: </strong>
     <?php

@@ -4,7 +4,7 @@ namespace app\kit\helpers;
 
 use yii\base\UnknownClassException;
 
-class ZipHelpers
+class ZipHelper
 {
       /**
      * Charge method to backup and create a zip with this

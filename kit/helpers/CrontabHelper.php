@@ -8,7 +8,7 @@ use yii\helpers\Json;
  * 类定时任务进程管理工具类
  * @author dungang
  */
-class CrontabHelpers
+class CrontabHelper
 {
 
     /**

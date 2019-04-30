@@ -2,7 +2,7 @@
 namespace app\backend\controllers;
 
 use app\kit\core\BackendController;
-use app\kit\helpers\CrontabHelpers;
+use app\kit\helpers\CrontabHelper;
 
 /**
  * CronController implements the CRUD actions for Cron model.
@@ -71,10 +71,10 @@ class CronController extends BackendController
      */
     public function actionSwitchService()
     {
-        if (CrontabHelpers::getCronStatus()) {
-            CrontabHelpers::unactiveCronStatus();
+        if (CrontabHelper::getCronStatus()) {
+            CrontabHelper::unactiveCronStatus();
         } else {
-            CrontabHelpers::activeCronStatus();
+            CrontabHelper::activeCronStatus();
         }
         return $this->redirectOnSuccess([
             'index'
@@ -88,9 +88,9 @@ class CronController extends BackendController
      */
     public function canStartCronProcess()
     {
-        list ($status, $traced_at) = CrontabHelpers::prepareCronSetting();
+        list ($status, $traced_at) = CrontabHelper::prepareCronSetting();
         if ($status > 1) {
-            CrontabHelpers::tracedCron();
+            CrontabHelper::tracedCron();
             //表示没有cron进程在运行，需要重新启动，如果超过1800秒【半小时】没更新时间，也重新启动
             if (empty($traced_at) || intval($traced_at) + 1800 < time()) {
                 return true;
