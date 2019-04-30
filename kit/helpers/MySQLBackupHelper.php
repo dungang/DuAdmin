@@ -6,7 +6,7 @@ use Yii;
 use yii\db\Exception;
 use yii\helpers\FileHelper;
 
-class MySQLBackupHelpers
+class MySQLBackupHelper
 {
 
     public static function generateBackupFile($dir)
