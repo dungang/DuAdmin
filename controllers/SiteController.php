@@ -14,7 +14,6 @@ class SiteController extends FrontendController {
 
     public function init() {
         parent::init();
-        $this->layout = '@app/addons/travel/views/layouts/front-end.php';
         $this->guestActions = [
             'error',
             'index',
@@ -79,7 +78,7 @@ class SiteController extends FrontendController {
         try {
             return $this->runAction($slug);
         } catch (\yii\base\InvalidRouteException $ex) {
-            
+    
         }
 
         //try to display action from application

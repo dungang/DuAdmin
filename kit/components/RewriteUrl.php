@@ -6,7 +6,6 @@ use yii\web\UrlManager;
 use yii\web\UrlNormalizer;
 use yii\base\InvalidConfigException;
 use app\kit\models\Rewrite;
-use yii\web\UrlRule;
 use yii\web\Request;
 
 /**
@@ -31,9 +30,7 @@ class RewriteUrl extends UrlManager
     public function createUrl($params)
     {
         if($this->common_params && \is_array($params)){
-            foreach($this->common_params as $name=>$val){
-                $params[$name] = $val;
-            }
+            $params = array_merge($this->common_params,$params);
         }
         return parent::createUrl($params);
     }
@@ -65,6 +62,11 @@ class RewriteUrl extends UrlManager
         $this->rules = $this->buildRules($this->rules);
     }
 
+    /**
+     * 从数据库读取重写规则
+     *
+     * @return array|null
+     */
     protected function getRulesFromDb()
     {
         if (\Yii::$app->db) {
@@ -78,6 +80,7 @@ class RewriteUrl extends UrlManager
     
     
     /**
+     * 此处相对原版做了处理的顺序调整
      * Parses the user request.
      *
      * @param Request $request
@@ -88,7 +91,7 @@ class RewriteUrl extends UrlManager
     public function parseRequest($request)
     {
         if ($this->enablePrettyUrl) {
-            /* @var $rule UrlRule */
+            /* @var $rule \yii\web\UrlRule */
             foreach ($this->rules as $rule) {
                 $result = $rule->parseRequest($this, $request);
                 if (YII_DEBUG) {

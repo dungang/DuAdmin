@@ -36,7 +36,7 @@ class KitHelper {
      */
     public static function normalizeUrl2Route($url) {
         $url_parts = parse_url($url);
-        if (empty($url_parts['host'])) {
+        if (empty($url_parts['host']) && isset($url_parts['query'])) {
             $params = [];
             parse_str($url_parts['query'], $params);
             if (isset($params['r'])) {

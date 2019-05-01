@@ -4,6 +4,9 @@ namespace app\kit\widgets;
 use yii\base\Widget;
 use yii\helpers\Html;
 
+/**
+ * 当ajax请求的时候只输出内容，非ajax的输出panel的结构
+ */
 class AjaxModalOrNormalPanelContent extends Widget
 {
 
