@@ -17,7 +17,8 @@ class AttachmentController extends BackendController
         parent::init();
         $this->userActions = [
             'inline',
-            'wang-editor'
+            'wang-editor',
+            'ueditor-upload'
         ];
         $this->verbsActions = [
             'inline' => [
@@ -25,7 +26,16 @@ class AttachmentController extends BackendController
             ],
             'wang-editor' => [
                 'post'
+            ],
+            'ueditor-upload' => [
+                'post'
             ]
+        ];
+    }
+
+    public function actions(){
+        return [
+            'ueditor-upload'=> 'app\kit\thirds\UEditorAction'
         ];
     }
 

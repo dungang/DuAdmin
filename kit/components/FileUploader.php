@@ -130,7 +130,7 @@ class FileUploader extends BaseObject
     protected function getOverwriteFilePath()
     {
         if ($this->overwrite) {
-            if ($this->model && ! empty($this->model->{$this->field})) {
+            if ($this->model && !empty($this->model->{$this->field})) {
                 return $this->model->{$this->field};
             }
         } else if ($this->file_path) {
@@ -209,11 +209,10 @@ class FileUploader extends BaseObject
 
     public function validate($rule)
     {
+        \array_unshift($rule, $this->field, 'file');
         $model = DynamicModel::validateData([
             $this->field => $this->_file
-        ], [
-            \array_unshift($rule, $this->field, 'file')
-        ]);
+        ], [$rule]);
         if ($model->hasErrors($this->field)) {
             $this->_errors = $model->getErrors($this->field);
             return false;
@@ -288,4 +287,3 @@ class FileUploader extends BaseObject
         return $results;
     }
 }
-

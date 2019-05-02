@@ -20,12 +20,8 @@ use app\kit\models\Page;
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
     <?php
-    echo $form->field($model, 'content')->widget('app\kit\widgets\WangEditor', [
-        'clientOptions' => [
-            'uploadImgServer' => Url::to([
-                '/backend/attachment/wang-editor'
-            ])
-        ]
+    echo $form->field($model, 'content')->widget('app\kit\widgets\Ueditor',[
+        'toolBars'=>['|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|','insertimage','insertvideo']
     ])?>
 
     <?= $form->field($model, 'sort')->textInput() ?>
