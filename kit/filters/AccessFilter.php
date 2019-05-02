@@ -18,8 +18,6 @@ class AccessFilter extends ActionFilter
 
     const ID = 'access-filter';
 
-    public $is_backend = false;
-
     /**
      *
      * @var callable a callback that will be called if the access should be denied
@@ -51,10 +49,11 @@ class AccessFilter extends ActionFilter
         // route
         $route = '/' . $action->getUniqueId();
 
-        // step1. 是游客
+        // step1. 是游客,首先检查是否游客级别的action
         if (in_array($action->id, $controller->guestActions)) {
             return true;
         }
+        //如果检查通过，还继续，则不允许非游客访问
         if (\Yii::$app->user->isGuest) {
             $this->denyAccess();
         } else {
@@ -67,7 +66,7 @@ class AccessFilter extends ActionFilter
                 $this->denyAccess();
 
             //如果是后台控制器，必须是管理者属性的用户
-            } else if ($this->is_backend && $user->is_admin != 1) {
+            } else if ($user->is_admin != 1) {
                 return false;
                 // step3. 如果是超级管理员
             } else if ($user->is_super) {

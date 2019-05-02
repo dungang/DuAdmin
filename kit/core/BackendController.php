@@ -3,7 +3,6 @@
 namespace app\kit\core;
 
 use app\kit\filters\AccessFilter;
-use app\kit\filters\SaveRouteFilter;
 use app\kit\models\EventHandler;
 
 abstract class BackendController extends BaseController {
@@ -17,10 +16,8 @@ abstract class BackendController extends BaseController {
 
     public function behaviors() {
         $behaviors = parent::behaviors();
-        if (YII_ENV_DEV) {
-            $behaviors['saveRoute'] = SaveRouteFilter::className();
-        }
-        $behaviors[AccessFilter::ID] = AccessFilter::className();
+        //必须把行为放在第一个位置
+        array_unshift($behaviors,AccessFilter::className());
         return $behaviors;
     }
 
