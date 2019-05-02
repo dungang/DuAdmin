@@ -162,16 +162,18 @@ class TreeColumn extends BaseObject
      *            the key associated with the data model
      * @param int $index
      *            the zero-based index of the data item among the item array returned by [[GridView::dataProvider]].
+     * @param int $parent_id
+     *            节点的父节id
      * @return string the rendering result
      */
-    public function renderDataCell($model, $key, $index)
+    public function renderDataCell($model, $key, $index, $parent_id)
     {
         if ($this->contentOptions instanceof Closure) {
             $options = call_user_func($this->contentOptions, $model, $key, $index, $this);
         } else {
             $options = $this->contentOptions;
         }
-        return Html::tag('td', $this->renderDataCellContent($model, $key, $index), $options);
+        return Html::tag('td', $this->renderDataCellContent($model, $key, $index, $parent_id), $options);
     }
 
     /**
@@ -233,13 +235,13 @@ class TreeColumn extends BaseObject
      *            the zero-based index of the data model among the models array returned by [[GridView::dataProvider]].
      * @return string the rendering result
      */
-    protected function renderDataCellContent($model, $key, $index)
+    protected function renderDataCellContent($model, $key, $index, $parent_id)
     {
         if ($this->content === null) {
-            return $this->grid->formatter->format($this->getDataCellValue($model, $key, $index), $this->format);
+            return $this->grid->formatter->format($this->getDataCellValue($model, $key, $index, $parent_id), $this->format);
         } else {
             if ($this->content !== null) {
-                return call_user_func($this->content, $model, $key, $index, $this);
+                return call_user_func($this->content, $model, $key, $index, $parent_id, $this);
             } else {
                 return $this->grid->emptyCell;
             }
@@ -257,13 +259,13 @@ class TreeColumn extends BaseObject
      *            the zero-based index of the data model among the models array returned by [[GridView::dataProvider]].
      * @return string the data cell value
      */
-    public function getDataCellValue($model, $key, $index)
+    public function getDataCellValue($model, $key, $index, $parent_id)
     {
         if ($this->value !== null) {
             if (is_string($this->value)) {
                 return ArrayHelper::getValue($model, $this->value);
             } else {
-                return call_user_func($this->value, $model, $key, $index, $this);
+                return call_user_func($this->value, $model, $key, $index, $parent_id, $this);
             }
         } elseif ($this->attribute !== null) {
             return ArrayHelper::getValue($model, $this->attribute);
@@ -271,5 +273,3 @@ class TreeColumn extends BaseObject
         return null;
     }
 }
-
-

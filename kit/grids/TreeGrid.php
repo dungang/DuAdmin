@@ -185,7 +185,7 @@ class TreeGrid extends Widget
         if ($this->emptyText === null) {
             $this->emptyText = Yii::t('yii', 'No results found.');
         }
-        if (! isset($this->options['id'])) {
+        if (!isset($this->options['id'])) {
             $this->options['id'] = $this->getId();
         }
 
@@ -194,14 +194,14 @@ class TreeGrid extends Widget
         } elseif (is_array($this->formatter)) {
             $this->formatter = Yii::createObject($this->formatter);
         }
-        if (! $this->formatter instanceof Formatter) {
+        if (!$this->formatter instanceof Formatter) {
             throw new InvalidConfigException('The "formatter" property must be either a Format object or a configuration array.');
         }
 
-        if (! $this->keyColumnName) {
+        if (!$this->keyColumnName) {
             throw new InvalidConfigException('The "keyColumnName" property must be specified"');
         }
-        if (! $this->parentColumnName) {
+        if (!$this->parentColumnName) {
             throw new InvalidConfigException('The "parentColumnName" property must be specified"');
         }
 
@@ -263,17 +263,13 @@ class TreeGrid extends Widget
      */
     public function renderTableRow($model, $key, $index)
     {
-        $cells = [];
-        /* @var $column TreeColumn */
-        foreach ($this->columns as $column) {
-            $cells[] = $column->renderDataCell($model, $key, $index);
-        }
+
         if ($this->rowOptions instanceof Closure) {
             $options = call_user_func($this->rowOptions, $model, $key, $index, $this);
         } else {
             $options = $this->rowOptions;
         }
-        $options['data-key'] = is_array($key) ? json_encode($key) : (string) $key;
+        $options['data-key'] = is_array($key) ? json_encode($key) : (string)$key;
 
         $id = ArrayHelper::getValue($model, $this->keyColumnName);
         Html::addCssClass($options, "treegrid-$id");
@@ -284,6 +280,12 @@ class TreeGrid extends Widget
                 Html::addCssStyle($options, 'display: none;');
             }
             Html::addCssClass($options, "treegrid-parent-$parentId");
+        }
+
+        $cells = [];
+        /* @var $column TreeColumn */
+        foreach ($this->columns as $column) {
+            $cells[] = $column->renderDataCell($model, $key, $index, $parentId);
         }
 
         return Html::tag('tr', implode('', $cells), $options);
@@ -338,7 +340,7 @@ class TreeGrid extends Widget
             $key = $keys[$index];
             if ($this->beforeRow !== null) {
                 $row = call_user_func($this->beforeRow, $model, $key, $index, $this);
-                if (! empty($row)) {
+                if (!empty($row)) {
                     $rows[] = $row;
                 }
             }
@@ -347,7 +349,7 @@ class TreeGrid extends Widget
 
             if ($this->afterRow !== null) {
                 $row = call_user_func($this->afterRow, $model, $key, $index, $this);
-                if (! empty($row)) {
+                if (!empty($row)) {
                     $rows[] = $row;
                 }
             }
@@ -378,7 +380,7 @@ class TreeGrid extends Widget
                     'grid' => $this
                 ], $column));
             }
-            if (! $column->visible) {
+            if (!$column->visible) {
                 unset($this->columns[$i]);
                 continue;
             }
@@ -397,7 +399,7 @@ class TreeGrid extends Widget
     protected function createDataColumn($text)
     {
         $matches = null;
-        if (! preg_match('/^([^:]+)(:(\w*))?(:(.*))?$/', $text, $matches)) {
+        if (!preg_match('/^([^:]+)(:(\w*))?(:(.*))?$/', $text, $matches)) {
             throw new InvalidConfigException('The column must be specified in the format of "attribute", "attribute:format" or "attribute:format:label"');
         }
 
