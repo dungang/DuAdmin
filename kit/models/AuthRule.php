@@ -54,7 +54,7 @@ class AuthRule extends BaseModel
             ],
             [
                 [
-                    'name'
+                    'name',
                 ],
                 'string',
                 'max' => 64

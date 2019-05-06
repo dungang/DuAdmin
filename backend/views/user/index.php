@@ -1,8 +1,9 @@
 <?php
 use yii\helpers\Html;
-use app\kit\models\Role;
 use app\kit\grids\PanelGridView;
 use yii\widgets\Pjax;
+use app\kit\models\AuthItem;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\kit\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -29,18 +30,11 @@ PanelGridView::begin([
         ],
         [
             'attribute' => 'role',
-            'filter' => Role::allIdToName('name', 'name', [
-                'scope' => 'ADMIN'
+            'filter' => AuthItem::allIdToName('name', 'name', [
+                'type' => 1
             ]),
             'class' => 'app\kit\grids\FilterColumn'
         ],
-//         'email:email',
-//         [
-//             'attribute' => 'mobile',
-//             'headerOptions' => [
-//                 'width' => '110px'
-//             ]
-//         ],
         [
             'attribute' => 'is_admin',
             'headerOptions' => [

@@ -20,7 +20,6 @@ class AuthRuleSearch extends AuthRule
             [
                 [
                     'name',
-                    'data'
                 ],
                 'safe'
             ],
@@ -79,10 +78,6 @@ class AuthRuleSearch extends AuthRule
             'like',
             'name',
             $this->name
-        ])->andFilterWhere([
-            'like',
-            'data',
-            $this->data
         ]);
 
         return $dataProvider;

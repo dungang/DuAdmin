@@ -1,7 +1,8 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use app\kit\models\Role;
+use app\kit\models\AuthItem;
+
 /* @var $this yii\web\View */
 /* @var $model app\backend\forms\DynamicUser */
 /* @var $form yii\widgets\ActiveForm */
@@ -30,7 +31,7 @@ use app\kit\models\Role;
     		</div>
     	<?php endforeach;?>
 		<div class="col-md-12">
-    	<?= $form->field($model->model, 'role')->radioList(Role::allIdToName('name','name',['scope'=>'ADMIN'])) ?>
+    	<?= $form->field($model->model, 'role')->radioList(AuthItem::allIdToName('name','name',['type'=>1])) ?>
     	</div>
 	</div>
 

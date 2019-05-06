@@ -29,10 +29,11 @@ class CreateModelsAction extends BaseAction
             $model->load(\Yii::$app->request->queryParams);
             // 动态绑定行为
             $model->attachBehaviors($this->modelBehaviors);
-            $models[] = $models;
+            $models[] = $model;
         }
 
-        if (($loaded = Model::loadMultiple($models, $this->composePostParams($model, true))) && Model::validateMultiple($models)) {
+        if (($loaded = Model::loadMultiple($models, $this->composePostParams($model, true))) 
+            && Model::validateMultiple($models)) {
             Yii::$app->db->transaction(function ($db) use ($models) {
                 foreach ($models as $model) {
                     $model->save(false);

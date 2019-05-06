@@ -1,41 +1,28 @@
 <?php
-namespace app\kit\models;
+
+namespace app\backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use app\backend\models\AuthGroup;
 
 /**
- * RoleSearch represents the model behind the search form of `app\kit\models\Role`.
+ * AuthGroupSearch represents the model behind the search form of `app\backend\models\AuthGroup`.
  */
-class RoleSearch extends Role
+class AuthGroupSearch extends AuthGroup
 {
-
     /**
-     *
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [
-                [
-                    'id'
-                ],
-                'integer'
-            ],
-            [
-                [
-                    'name',
-                    'scope',
-                    'description'
-                ],
-                'safe'
-            ]
+            [['name', 'title'], 'safe'],
+            [['type','is_backend'], 'integer'],
         ];
     }
 
     /**
-     *
      * {@inheritdoc}
      */
     public function scenarios()
@@ -53,17 +40,17 @@ class RoleSearch extends Role
      */
     public function search($params)
     {
-        $query = Role::find();
+        $query = AuthGroup::find();
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query
+            'query' => $query,
         ]);
 
         $this->load($params);
 
-        if (! $this->validate()) {
+        if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
@@ -71,24 +58,12 @@ class RoleSearch extends Role
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id
+            'type' => $this->type,
+            'is_backend' => $this->is_backend,
         ]);
 
-        $query->andFilterWhere([
-            'like',
-            'name',
-            $this->name
-        ])
-            ->andFilterWhere([
-            'like',
-            'scope',
-            $this->scope
-        ])
-            ->andFilterWhere([
-            'like',
-            'description',
-            $this->description
-        ]);
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'title', $this->title]);
 
         return $dataProvider;
     }

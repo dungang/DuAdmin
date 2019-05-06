@@ -1,8 +1,9 @@
 <?php
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-use app\kit\models\AuthItem;
-use app\kit\grids\PanelTreeGridView;
+use app\kit\widgets\AjaxModalOrNormalPanelContent;
+use app\kit\widgets\ZTree;
+use yii\web\JsExpression;
 
 /* @var $this yii\web\View */
 /* @var $model app\kit\models\AuthRole */
@@ -26,53 +27,68 @@ $this->params['breadcrumbs'][] = [
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="auth-role-permissions">
-	<?php ActiveForm::begin(); ?>
+    <?php ActiveForm::begin(); ?>
     <?php
-    PanelTreeGridView::begin([
-        'intro' => '给角色<strong>'.$model->name.'</strong>分配权限标识',
-        'dataProvider' => $dataProvider,
-        'keyColumnName' => 'name',
-        'parentColumnName' => 'parent',
-        'columns' => [
-            [
-                'attribute' => 'name',
-                'label' => '名称',
-                'format' => 'raw',
-                'value' => function ($model, $key, $index, $column) use ($rights) {
-                    if ($model['type'] == AuthItem::TYPE_PERMISSION) {
-                        $checkbox = Html::checkbox('permission[]', in_array($model['name'], $rights), [
-                            'value' => $model['name']
-                        ]);
-                        return $checkbox . $model['name'];
-                    } else {
-                        return $model['description'];
-                    }
-                }
-            ],
-            [
-                'attribute' => 'description',
-                'label' => '描述',
-                'format' => 'ntext',
-                'value' => function ($model, $key, $index, $column) {
-                    return $model['type'] == AuthItem::TYPE_PERMISSION ? $model['description'] : '';
-                }
-            ],
-            [
-                'attribute' => 'rule_name',
-                'label' => '规则',
-                'value' => function ($model, $key, $index, $column) {
-                    return $model['type'] == AuthItem::TYPE_PERMISSION ? $model['rule_name'] : '';
-                }
-            ]
-        ]
+    AjaxModalOrNormalPanelContent::begin([
+        'intro' => '给角色<strong>' . $model->name . '</strong>分配权限标识',
     ]);
+
+    $zTreeSettings = [
+        'callback' => [
+            'onCheck' => new JsExpression("function(event,treeId,treeNode){
+                var treeObj = this.getZTreeObj(treeId);
+                var nodes = treeObj.getCheckedNodes(true);
+                var rights = new Array();
+                for(var p in nodes){
+                    rights.push(nodes[p].id);
+                }
+                $('#permission_rights').val(rights.join(','));
+            }")
+        ],
+        'view' => [
+            'showIcon' => false
+        ],
+        'check' => [
+            'enable' => true
+        ]
+    ];
     ?>
     <p>
         <?= Html::submitButton('<i class="fa fa-save"></i> 保存', ['class' => 'btn btn-sm btn-default']) ?>
     </p>
-    
-    <?php PanelTreeGridView::end()?>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">权限</h3>
+                    <?= Html::hiddenInput('permission[]', implode(',', $permission_rights), ['id' => 'permission_rights']) ?>
+                </div>
+                <div id="permission-tree" class="box-body ztree">
+                    <?php ZTree::widget([
+                        'id' => 'permission-tree',
+                        'settings' => $zTreeSettings,
+                        'nodes' => $permissions,
+                    ]); ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">角色</h3>
+                    <?= Html::hiddenInput('permission[]', implode(',', $role_rights), ['id' => 'role_rights']) ?>
+                </div>
+                <div id="role-tree" class="box-body ztree">
+                    <?php ZTree::widget([
+                        'id' => 'role-tree',
+                        'settings' => $zTreeSettings,
+                        'nodes' => $roles,
+                    ]); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php AjaxModalOrNormalPanelContent::end() ?>
 
     <?php ActiveForm::end(); ?>
-
 </div>

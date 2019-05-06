@@ -1,13 +1,12 @@
 <?php
 namespace app\backend\controllers;
 
-use app\kit\models\AuthItemChild;
-use yii\data\ActiveDataProvider;
-use app\kit\models\AuthItem;
-use yii\db\Query;
 use yii\helpers\ArrayHelper;
 use app\kit\models\AuthRole;
 use app\kit\core\BackendController;
+use app\backend\models\AuthGroup;
+use app\kit\models\AuthPermission;
+use app\kit\models\AuthItemChild;
 
 /**
  * RoleController implements the CRUD actions for Role model.
@@ -21,31 +20,44 @@ class AuthRoleController extends BackendController
             'index' => [
                 'class' => 'app\kit\core\ListModelsAction',
                 'modelClass' => [
-                    'class' => 'app\kit\models\RoleSearch'
+                    'class' => 'app\kit\models\AuthRoleSearch',
+                    'group_name' => 'backend'
                 ]
             ],
             'create' => [
                 'class' => 'app\kit\core\CreateModelAction',
+                'findParams' => [
+                    'type' => AuthRole::TYPE_ROLE
+                ],
                 'modelClass' => [
-                    'class' => 'app\kit\models\Role'
+                    'class' => 'app\kit\models\AuthRole'
                 ]
             ],
             'update' => [
                 'class' => 'app\kit\core\UpdateModelAction',
+                'findParams' => [
+                    'type' => AuthRole::TYPE_ROLE
+                ],
                 'modelClass' => [
-                    'class' => 'app\kit\models\Role'
+                    'class' => 'app\kit\models\AuthRole'
                 ]
             ],
             'view' => [
                 'class' => 'app\kit\core\ViewModelAction',
+                'findParams' => [
+                    'type' => AuthRole::TYPE_ROLE
+                ],
                 'modelClass' => [
-                    'class' => 'app\kit\models\Role'
+                    'class' => 'app\kit\models\AuthRole'
                 ]
             ],
             'delete' => [
                 'class' => 'app\kit\core\DeleteModelAction',
+                'findParams' => [
+                    'type' => AuthRole::TYPE_ROLE
+                ],
                 'modelClass' => [
-                    'class' => 'app\kit\models\Role'
+                    'class' => 'app\kit\models\AuthRole'
                 ]
             ]
         ];
@@ -63,20 +75,27 @@ class AuthRoleController extends BackendController
             'name' => $name
         ]);
 
+        
         // 角色已经拥有的权限
-        $rights = ArrayHelper::getColumn($model->getChildren()->all(), "name");
+        $authChildren = $model->getChildren()->all();
+        //获取角色和权限的name属性
+        $rights = ArrayHelper::getColumn($authChildren, "name");
 
         // 如果是是更新权限
         if ($permissions = \Yii::$app->request->post('permission')) {
-
+            $perms = [];
+            foreach($permissions as $perm) {
+                if(!empty(trim($perm))) {
+                    $perms = array_merge($perms,explode(',',$perm));
+                }
+            }
             // array_diff 结果是包含在第一个数组，不包含在第二个数组
-            $adds = array_diff($permissions, $rights);
-            $dels = array_diff($rights, $permissions);
+            $adds = array_diff($perms, $rights);
+            $dels = array_diff($rights, $perms);
             \Yii::$app->db->beginTransaction();
             try {
                 // 删除取消的权限
                 if ($dels) {
-
                     AuthItemChild::deleteAll([
                         'parent' => $name,
                         'child' => $dels
@@ -89,12 +108,12 @@ class AuthRoleController extends BackendController
                         $val
                     ];
                 }, $adds);
-                // BaseVarDumper::dump($rows);die;
+                //\yii\helpers\BaseVarDumper::dump($rows);die;
                 \Yii::$app->db->createCommand()
                     ->batchInsert(AuthItemChild::tableName(), [
-                    'parent',
-                    'child'
-                ], $rows)
+                        'parent',
+                        'child'
+                    ], $rows)
                     ->execute();
                 \Yii::$app->db->getTransaction()->commit();
                 \Yii::$app->session->setFlash("success", "权限更新成功！");
@@ -105,24 +124,61 @@ class AuthRoleController extends BackendController
             return $this->redirect(\Yii::$app->request->url);
         }
 
-        $query = (new Query())->from(AuthItem::tableName())
-            ->where([
-            'type' => [
-                AuthItem::TYPE_PERMISSION,
-                AuthItem::TYPE_MODULE
-            ]
-        ])
-            ->leftJoin(AuthItemChild::tableName(), AuthItem::tableName() . '.name = ' . AuthItemChild::tableName() . '.child');
+        //根据item的分组获取对应的组的信息
+        $item_group = AuthGroup::findOne(['name'=>$model->group_name]);
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => false
-        ]);
+        //根据组的信息，是否是backend属性，获取对应的的全部组(is_backend相同)
+        $groups = AuthGroup::allIdToName('name', 'title', ['is_backend'=>$item_group->is_backend]);
+
+        //再根据backend相同的组，查找到权限和角色
+        $items = AuthPermission::findAll(['group_name' => array_keys($groups)]);
+
+        //获取的角色和权限，分成2棵树(zTree)
+        $roles = [];
+        $permissions = [];
+        foreach ($items as $item) {
+            $node = [
+                'id'=>$item->name,
+                'name'=>$item->description,
+                'checked' => in_array($item->name,$rights)
+            ];
+            
+            if ($item->type == AuthGroup::TYPE_PERMISSION) {
+                $group = $item->group_name ?: 'other';
+                if(empty($permissions[$group])) {
+                    $permissions[$group] = [
+                        'id'=>$group,
+                        'name'=> $groups[$group]?:'其他',
+                        'nocheck'=>true,
+                        'children'=>[],
+                    ];
+                }
+                $permissions[$group]['children'][] = $node;
+            } else {
+                if($item->name == $name) {
+                    continue;
+                }
+                $roles[] = $node;
+            }
+        }
+
+        //将已经授权的角色和权限分离
+        $role_rights = [];
+        $permission_rights = [];
+        foreach($authChildren as $child) {
+            if($child->type == AuthGroup::TYPE_PERMISSION) {
+                $permission_rights[] = $child->name;
+            } else {
+                $role_rights[] = $child->name;
+            }
+        }
 
         return $this->render("permission", [
             'model' => $model,
-            'rights' => $rights,
-            'dataProvider' => $dataProvider
+            'role_rights' => $role_rights,
+            'permission_rights'=> $permission_rights,
+            'roles' => $roles,
+            'permissions' => array_values($permissions),
         ]);
     }
 }

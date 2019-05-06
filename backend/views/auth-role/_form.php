@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\backend\models\AuthGroup;
 
 /* @var $this yii\web\View */
 /* @var $model app\kit\models\Role */
@@ -11,9 +12,9 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(['id'=>'auth-role-form','enableAjaxValidation' => true]); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'group_name')->radioList(AuthGroup::allIdToName('name','title',['type'=>AuthGroup::TYPE_ROLE])) ?>
 
-    <?= $form->field($model, 'scope')->dropDownList([ 'ADMIN' => 'ADMIN', 'POSITION' => 'POSITION', ], ['prompt' => '']) ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 

@@ -20,9 +20,9 @@ class AuthItemSearch extends AuthItem
             [
                 [
                     'name',
+                    'group_name',
                     'description',
                     'rule_name',
-                    'data'
                 ],
                 'safe'
             ],
@@ -66,7 +66,7 @@ class AuthItemSearch extends AuthItem
 
         $this->load($params);
 
-        if (! $this->validate()) {
+        if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
@@ -75,6 +75,7 @@ class AuthItemSearch extends AuthItem
         // grid filtering conditions
         $query->andFilterWhere([
             'type' => $this->type,
+            'group_name' => $this->group_name,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ]);
@@ -85,20 +86,15 @@ class AuthItemSearch extends AuthItem
             $this->name
         ])
             ->andFilterWhere([
-            'like',
-            'description',
-            $this->description
-        ])
+                'like',
+                'description',
+                $this->description
+            ])
             ->andFilterWhere([
-            'like',
-            'rule_name',
-            $this->rule_name
-        ])
-            ->andFilterWhere([
-            'like',
-            'data',
-            $this->data
-        ]);
+                'like',
+                'rule_name',
+                $this->rule_name
+            ]);
 
         return $dataProvider;
     }

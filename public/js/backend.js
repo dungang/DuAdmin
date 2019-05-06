@@ -3,7 +3,7 @@
  * //加载数据的地址 data-param //加载数据的参数 data-value //默认初始值，并不代表事最终逻辑值 data-queue
  * //顺序执行的对象队列
  */
-+function($) {
++ function ($) {
 
 	function isNotEmptyObject(e) {
 		var t;
@@ -14,7 +14,7 @@
 
 	function assembleOptions(data, value) {
 		var options = '';
-		for ( var p in data) {
+		for (var p in data) {
 			var txt = data[p];
 			if (p == value) {
 				options += "<option value='" + p + "' selected >" + txt + "</option>";
@@ -31,7 +31,7 @@
 			return;
 		$self = $(select);
 		var data = $self.data();
-		$self.empty();// 情况自己
+		$self.empty(); // 情况自己
 		var param = {};
 		if (data.parentId != null && data.param) {
 			param[data.param] = data.parentId;
@@ -47,7 +47,7 @@
 			alert('连级下拉框参数配置不正确:' + $self.attr('name'));
 		}
 		if (isNotEmptyObject(param)) {
-			$.getJSON(data.url, param, function(res) {
+			$.getJSON(data.url, param, function (res) {
 				if (res.code == 0) {
 					$self.append(assembleOptions(res.data, data.value));
 					process(queue);
@@ -65,39 +65,40 @@
 		process(queue);
 	}
 
-	$.fn.linkageSelect = function() {
+	$.fn.linkageSelect = function () {
 		$(document).off('change.site.linkage');
 		execute();
-		$(document).on('change.site.linkage', 'select[data-linkage]', function() {
+		$(document).on('change.site.linkage', 'select[data-linkage]', function () {
 			var queue = $($(this).data('queue')).toArray();
 			process(queue);
 		});
 	}
 }(jQuery);
 
-+function($) {
++
+function ($) {
 
 	function process(options) {
 		var _this = this;
 		options.data['timestamp'] = Math.round(new Date().getTime() / 1000);
 		$.ajax({
-			url : options.url,
-			method : options.method,
-			data : options.data,
-			dataType : options.dataType,
-			error : function(xhr, textStatus, errorThrown) {
+			url: options.url,
+			method: options.method,
+			data: options.data,
+			dataType: options.dataType,
+			error: function (xhr, textStatus, errorThrown) {
 				options.onTimeout.call(_this, options, xhr, textStatus, errorThrown);
 				if (options.repeat) {
-					setTimeout(function() {
+					setTimeout(function () {
 						process.call(_this, options)
 					}, options.interval);
 				}
 			},
-			success : function(data, textStatus) {
+			success: function (data, textStatus) {
 				if (textStatus == "success") { // 请求成功
 					options.onSuccess.call(_this, data, textStatus, options);
 					if (options.repeat) {
-						var tm = setTimeout(function() {
+						var tm = setTimeout(function () {
 							process.call(_this, options);
 							clearTimeout(tm);
 						}, options.interval);
@@ -108,14 +109,14 @@
 
 	}
 
-	$.fn.longpoll = function(options) {
-		return this.each(function() {
+	$.fn.longpoll = function (options) {
+		return this.each(function () {
 			var _this = $(this);
 			var opts = $.extend({}, $.fn.longpoll.Default, options, _this.data());
-			if(opts.now === true) {
+			if (opts.now === true) {
 				process.call(_this, opts);
 			} else {
-				var tm = setTimeout(function() {
+				var tm = setTimeout(function () {
 					process.call(_this, opts);
 					clearTimeout(tm);
 				}, options.interval);
@@ -124,40 +125,41 @@
 	};
 
 	$.fn.longpoll.Default = {
-		now:true, //是否立刻执行
-		interval : 2000,
-		dataType : 'text',
-		method : 'get',
-		data : {},
-		repeat : true,
-		onTimeout : $.noop,
-		onSuccess : $.noop
+		now: true, //是否立刻执行
+		interval: 2000,
+		dataType: 'text',
+		method: 'get',
+		data: {},
+		repeat: true,
+		onTimeout: $.noop,
+		onSuccess: $.noop
 	};
 }(jQuery);
 
-+function($) {
-	$.fn.batchProcess = function(options) {
-		return this.each(function() {
++
+function ($) {
+	$.fn.batchProcess = function (options) {
+		return this.each(function () {
 			var _this = $(this);
 			var modeOpts = {};
 			switch (options.mode) {
-			case 'delete':
-			case 'quiet':
-				modeOpts.contentType = 'application/json; charset=UTF-8';
-				modeOpts.dataType = 'json';
-				break;
-			default:
+				case 'delete':
+				case 'quiet':
+					modeOpts.contentType = 'application/json; charset=UTF-8';
+					modeOpts.dataType = 'json';
+					break;
+				default:
 
 			}
 			var opts = $.extend({}, $.fn.batchProcess.Default, modeOpts, options, _this.data());
 
 			var url = _this.attr('href');
 			var hasQuery = url.indexOf('?') > -1;
-			_this.click(function(e) {
+			_this.click(function (e) {
 				e.preventDefault();
 				if (opts.needConfirm == false || confirm(opts.confirm)) {
 					var _chkboxs = $('input[name=' + opts.key + '\\[\\]]:checked');
-					var idObjs = _chkboxs.map(function(idx, obj) {
+					var idObjs = _chkboxs.map(function (idx, obj) {
 						return obj.value;
 					});
 
@@ -172,32 +174,32 @@
 						}
 
 						$.ajax({
-							url : url,
-							method : opts.method,
-							data : _this.data('param'),
-							dataType : opts.dataType,
-							contentType : opts.contentType,
-							success : function(response) {
+							url: url,
+							method: opts.method,
+							data: _this.data('param'),
+							dataType: opts.dataType,
+							contentType: opts.contentType,
+							success: function (response) {
 								switch (opts.mode) {
-								case 'delete':
-									if (response.code == '200') {
-										_chkboxs.each(function() {
-											var tr = $(this).parents(opts.row);
-											tr.fadeToggle('slow', function() {
-												tr.remove();
-												opts.onSuccess.call(_this, response, _chkboxs);
+									case 'delete':
+										if (response.code == '200') {
+											_chkboxs.each(function () {
+												var tr = $(this).parents(opts.row);
+												tr.fadeToggle('slow', function () {
+													tr.remove();
+													opts.onSuccess.call(_this, response, _chkboxs);
+												});
 											});
-										});
-									}
-									break;
-								case 'modal':
-									var modal = $(opts.modal);
-									modal.find('.modal-content').html(response);
-									modal.modal('show');
-									opts.onSuccess.call(_this, response, _chkboxs);
-									break;
-								default:
-									opts.onSuccess.call(_this, response, _chkboxs);
+										}
+										break;
+									case 'modal':
+										var modal = $(opts.modal);
+										modal.find('.modal-content').html(response);
+										modal.modal('show');
+										opts.onSuccess.call(_this, response, _chkboxs);
+										break;
+									default:
+										opts.onSuccess.call(_this, response, _chkboxs);
 								}
 							}
 						});
@@ -207,27 +209,27 @@
 		});
 	};
 	$.fn.batchProcess.Default = {
-		key : 'id',
-		row : 'tr',
-		noSelectedMsg : '请选择条目，否则不能进行操作',
-		confirm : '确定删除？',
-		needConfirm : true,
-		method : 'POST',
-		mode : 'delete',
-		modal : '#modal-dailog',
-		onSuccess : $.noop
+		key: 'id',
+		row: 'tr',
+		noSelectedMsg: '请选择条目，否则不能进行操作',
+		confirm: '确定删除？',
+		needConfirm: true,
+		method: 'POST',
+		mode: 'delete',
+		modal: '#modal-dailog',
+		onSuccess: $.noop
 	};
-}(jQuery);
-+function($) {
-	$.fn.batchLoad = function(options) {
-		return this.each(function() {
+}(jQuery); +
+function ($) {
+	$.fn.batchLoad = function (options) {
+		return this.each(function () {
 			var _this = $(this);
 			var opts = $.extend({}, $.fn.batchLoad.Default, options, _this.data());
 			var url = _this.attr('href');
 			var hasQuery = url.indexOf('?') > -1;
-			_this.click(function(e) {
+			_this.click(function (e) {
 				e.preventDefault();
-				var idObjs = $('input[name=' + opts.key + '\\[\\]]:checked').map(function(idx, obj) {
+				var idObjs = $('input[name=' + opts.key + '\\[\\]]:checked').map(function (idx, obj) {
 					return obj.value;
 				});
 
@@ -241,7 +243,7 @@
 						url += '?id' + ids.join();
 					}
 
-					$.get(url, function(response) {
+					$.get(url, function (response) {
 						var modal = $(opts.modal);
 						modal.find('.modal-content').html(response);
 						modal.modal('show');
@@ -252,29 +254,30 @@
 		});
 	};
 	$.fn.batchLoad.Default = {
-		key : 'id',
-		modal : '#modal-dailog'
+		key: 'id',
+		modal: '#modal-dailog'
 	};
 }(jQuery);
 
-+function($) {
++
+function ($) {
 	/**
 	 * Create or Delete a Row of List
 	 */
-	$.fn.listrowcd = function(options) {
-		return this.each(function() {
+	$.fn.listrowcd = function (options) {
+		return this.each(function () {
 			var _this = $(this);
 			var opts = $.extend({}, $.fn.listrowcd.Default, options, _this.data());
 			// delete button
-			_this.find(opts.delBtn).click(function(e) {
+			_this.find(opts.delBtn).click(function (e) {
 				e.preventDefault();
 				var _delBtn = $(this);
 				var _row = _delBtn.parents(opts.row);
-				_row.fadeToggle('slow', function() {
+				_row.fadeToggle('slow', function () {
 					_row.remove();
 				});
 			});
-			_this.find(opts.createBtn).click(function(e) {
+			_this.find(opts.createBtn).click(function (e) {
 				e.preventDefault();
 				var _createBtn = $(this);
 				var _rows = _this.find(opts.row);
@@ -285,22 +288,22 @@
 	};
 
 	$.fn.listrowcd.Default = {
-		delBtn : '.btn-del',
-		createBtn : '.btn-create',
-		row : 'tr',
+		delBtn: '.btn-del',
+		createBtn: '.btn-create',
+		row: 'tr',
 	};
 }(jQuery);
 
 
 
 var App = {
-	extendSimpleModal : function(modalSelector) {
+	extendSimpleModal: function (modalSelector) {
 		var modal = $(modalSelector);
-		modal.on('hidden.bs.modal', function(e) {
+		modal.on('hidden.bs.modal', function (e) {
 			// 清空对象
 			$(e.target).data('bs.modal', null);
 		});
-		modal.on('show.bs.modal', function(e) {
+		modal.on('show.bs.modal', function (e) {
 			var size = $(e.relatedTarget).data('modal-size');
 			$(e.target).find('.modal-dialog').removeClass('modal-sm modal-lg').addClass(size ? size : '');
 		});
@@ -314,3 +317,118 @@ function speckText(url) {
 	baiduTextAudio.src = url;
 	baiduTextAudio.play();
 }
+
++
+function ($) {
+	function replaceIndex(clone){
+		var regexID = /\-\d{1,}\-/gmi;
+		var regexName = /\[\d{1,}\]/gmi;
+		var size = this.data('index');
+		var html = clone.html().replace(regexName,'['+size+']').replace(regexID,'-'+size+'-');
+		size = size + 1;
+		this.data('index',size);
+		clone.html(html);
+		return clone;
+	}
+
+	$.fn.dynamicline = function (options) {
+		return this.each(function () {
+			var _container = $(this);
+			var opts = $.extend({}, $.fn.dynamicline.DEF, options, _container.data());
+			_container.on('click', '.delete-self', function (e) {
+				e.preventDefault();
+				var _this = $(this);
+				var target_obj = _this.parents(opts.target);
+				var targets = _container.find(opts.target);
+				if (targets.length > 2) {
+					target_obj.remove();
+				}
+			}).on('click', '.copy-self', function (e) {
+				e.preventDefault();
+				var _this = $(this);
+				var target_obj = _this.parents(opts.target);
+				var clone = target_obj.clone();
+				console.log(clone);
+				if(opts.onCopy) {
+					clone = opts.onCopy.call(_container,clone);
+				}
+				clone.insertAfter(target_obj);
+			})
+		});
+	};
+	
+	$.fn.dynamicline.DEF = {
+		onCopy: replaceIndex
+	};
+}(jQuery);
+
+/**
+ * Created by dungang
+ */
++function ($) {
+
+    'use strict';
+
+    $.fn.selectBox = function () {
+        return this.each(function () {
+            var _this = $(this);
+            var id = _this.attr('id');
+            var sourceSearchInput = $('#'+id+'-source-search');
+            var targetSearchInput = $('#'+id+'-target-search');
+            var sourceSelect = $('#'+id+'-source');
+            var targetSelect = $('#'+id+'-target');
+            var yesButton = $('#'+id+'-btn-yes');
+            var noButton = $('#'+id+'-btn-no');
+
+            targetSelect.on('update',function () {
+                targetSelect
+                    .find('option')
+                    .attr('selected',true);
+            });
+
+            sourceSearchInput.keyup(function () {
+                var filter = sourceSearchInput.val().trim();
+                sourceSelect.find('option').each(function () {
+                    var _option = $(this);
+                    if (_option.text().indexOf(filter) < 0) {
+                        _option.attr('selected',false)
+                            .css({display:'none'});
+                    } else {
+                        _option.css({display:'block'});
+                    }
+                });
+            });
+
+            targetSearchInput.keyup(function () {
+                var filter = targetSearchInput.val().trim();
+                targetSelect.find('option').each(function () {
+                    var _option = $(this);
+                    if (_option.text().indexOf(filter) < 0) {
+                        _option.attr('selected',false)
+                            .css({display:'none'});
+                    } else {
+                        _option.css({display:'block'});
+                    }
+                });
+                targetSelect.trigger('update');
+            });
+
+            yesButton.click(function () {
+                sourceSelect
+                    .find('option:selected')
+                    .appendTo(targetSelect);
+                targetSelect.trigger('update');
+            });
+
+            noButton.click(function () {
+                targetSelect
+                    .find('option:selected')
+                    .appendTo(sourceSelect);
+            });
+
+            targetSelect.trigger('update');
+
+        });
+    };
+
+}(jQuery);

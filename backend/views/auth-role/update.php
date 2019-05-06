@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = [
     'label' => $model->name,
     'url' => [
         'view',
-        'id' => $model->id
+        'name' => $model->name
     ]
 ];
 $this->params['breadcrumbs'][] = $this->title;

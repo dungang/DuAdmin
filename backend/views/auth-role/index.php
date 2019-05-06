@@ -2,9 +2,11 @@
 use yii\helpers\Html;
 use app\kit\grids\PanelGridView;
 use yii\widgets\Pjax;
+use app\kit\widgets\PanelNavTabs;
+use app\backend\models\AuthGroup;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\kit\models\RoleSearch */
+/* @var $searchModel app\kit\models\AuthItemSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '角色';
@@ -16,27 +18,28 @@ PanelGridView::begin([
     'filterModel' => $searchModel,
     'columns' => [
         [
-            'attribute' => 'id',
+            'attribute' => 'name',
             'format' => 'raw',
             'value' => function ($model, $key, $index, $column) {
-                return Html::a($model['id'], [
+                return Html::a($model['name'], [
                     'view',
-                    'id' => $model['id']
+                    'id' => $model['name']
                 ], [
                     'data-toggle' => 'modal',
                     'data-target' => '#modal-dailog'
                 ]);
             }
         ],
-        'name',
-        'scope',
+        'description',
+        'group_name',
         [
             'label' => '权限',
             'format' => 'raw',
             'value' => function ($model) {
                 return Html::a('授权', [
                     'permission',
-                    'name' => $model['name']
+                    'name' => $model['name'],
+                    'group_name' => $model['group_name']
                 ]);
             }
         ],
@@ -56,7 +59,27 @@ PanelGridView::begin([
         ]
     ]
 ]);
+$tabs = array_map(function($group){
+    return [
+        'name'=>$group['title'],
+        'url' => [
+            'index',
+            'AuthRoleSearch[group_name]' => $group['name']
+        ]
+    ];
+},AuthGroup::findAll(['type'=>AuthGroup::TYPE_ROLE]));
+array_push($tabs,[
+    'name' => '<i class="fa fa-plus"></i> 添加角色',
+    'url' => [
+        'create',
+        'AuthRole[group_name]' => $searchModel->group_name,
+    ],
+    'options'=>['data-toggle'=>'modal','data-target'=>'#modal-dailog']
+]);
+echo PanelNavTabs::widget([
+    'wrapper'=>true,
+    'tabs' => $tabs
+]);   
 ?>
-<?= Html::a('<i class="fa fa-plus"></i> 添加', ['create'], ['class' => 'btn btn-sm btn-default','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
 <?php PanelGridView::end()?>
 <?php Pjax::end()?>

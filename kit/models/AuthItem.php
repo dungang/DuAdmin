@@ -1,7 +1,6 @@
 <?php
 namespace app\kit\models;
 
-use Yii;
 use app\kit\core\BaseModel;
 
 /**
@@ -9,6 +8,7 @@ use app\kit\core\BaseModel;
  *
  * @property string $name
  * @property int $type
+ * @property  string $group_name
  * @property string $description
  * @property string $rule_name
  * @property resource $data
@@ -38,19 +38,6 @@ class AuthItem extends BaseModel
      */
     const TYPE_PERMISSION = 2;
 
-    /**
-     * 模块
-     *
-     * @var integer
-     */
-    const TYPE_MODULE = 3;
-
-    /**
-     * 路由
-     *
-     * @var integer
-     */
-    const TYPE_ROUTE = 4;
 
     /**
      *
@@ -85,6 +72,7 @@ class AuthItem extends BaseModel
             ],
             [
                 [
+                    'group_name',
                     'description',
                     'data'
                 ],
@@ -126,6 +114,7 @@ class AuthItem extends BaseModel
     {
         return [
             'name' => '名称',
+            'group_name' => '组',
             'type' => '类型',
             'description' => '介绍',
             'rule_name' => '规则',
@@ -176,7 +165,7 @@ class AuthItem extends BaseModel
     {
         return $this->hasMany(AuthItem::className(), [
             'name' => 'child'
-        ])->viaTable('auth_item_child', [
+        ])->viaTable(AuthItemChild::tableName(), [
             'parent' => 'name'
         ]);
     }
@@ -189,17 +178,22 @@ class AuthItem extends BaseModel
     {
         return $this->hasMany(AuthItem::className(), [
             'name' => 'parent'
-        ])->viaTable('auth_item_child', [
+        ])->viaTable(AuthItemChild::tableName(), [
             'child' => 'name'
         ]);
     }
 
-    public static function allIdToName($key = 'id', $val = 'name', $where = null, $orderBy = null)
+    public static function allMap($key = 'name', $val = 'description', $where = null, $orderBy = null){
+        return parent::allIdToName($key, $val, $where, $orderBy);
+    }
+
+    public static function allIdToName($key = 'name', $val = 'description', $where = null, $orderBy = null)
     {
         if ($where == null) {
             $where = [];
+        } else {
+            $where['type']=AuthItem::TYPE_ROLE;
         }
-        $where['type'] = AuthItem::TYPE_ROLE;
         return parent::allIdToName($key, $val, $where, $orderBy);
     }
 }

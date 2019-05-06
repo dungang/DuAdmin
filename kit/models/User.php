@@ -117,7 +117,6 @@ class User extends BaseModel implements IdentityInterface
             ],
             [
                 [
-                    'status',
                     'is_admin',
                     'is_super'
                 ],

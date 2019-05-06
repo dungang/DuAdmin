@@ -3115,7 +3115,7 @@ table.text-center th {
 .panel-adminlte {
   /* NAV TABS */
 }
-.panel-adminlte .panel-heading {
+.panel-adminlte > .panel-heading {
   padding: 20px;
   background-color: #fcf8e3;
   color: #8a6d3b;
@@ -3123,14 +3123,14 @@ table.text-center th {
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
 }
-.panel-adminlte .panel-heading p {
+.panel-adminlte > .panel-heading p {
   font-size: 12px;
   margin: 0px;
 }
-.panel-adminlte .panel-heading > .dropdown .dropdown-toggle {
+.panel-adminlte > .panel-heading > .dropdown .dropdown-toggle {
   color: inherit;
 }
-.panel-adminlte .panel-heading .grid-summary {
+.panel-adminlte > .panel-heading .grid-summary {
   display: inline-block;
 }
 .panel-adminlte .panel-title {

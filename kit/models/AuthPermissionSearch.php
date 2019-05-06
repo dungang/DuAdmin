@@ -11,6 +11,13 @@ class AuthPermissionSearch extends AuthPermission
 {
 
     /**
+     * 内部查询字段，非模型字段
+     *
+     * @var array
+     */
+    public $_groups;
+
+    /**
      *
      * {@inheritdoc}
      */
@@ -20,9 +27,9 @@ class AuthPermissionSearch extends AuthPermission
             [
                 [
                     'name',
+                    'group_name',
                     'description',
                     'rule_name',
-                    'data'
                 ],
                 'safe'
             ],
@@ -66,7 +73,7 @@ class AuthPermissionSearch extends AuthPermission
 
         $this->load($params);
 
-        if (! $this->validate()) {
+        if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
@@ -75,6 +82,7 @@ class AuthPermissionSearch extends AuthPermission
         // grid filtering conditions
         $query->andFilterWhere([
             'type' => $this->type,
+            'group_name' => $this->group_name?:$this->_groups,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ]);
@@ -85,20 +93,15 @@ class AuthPermissionSearch extends AuthPermission
             $this->name
         ])
             ->andFilterWhere([
-            'like',
-            'description',
-            $this->description
-        ])
+                'like',
+                'description',
+                $this->description
+            ])
             ->andFilterWhere([
-            'like',
-            'rule_name',
-            $this->rule_name
-        ])
-            ->andFilterWhere([
-            'like',
-            'data',
-            $this->data
-        ]);
+                'like',
+                'rule_name',
+                $this->rule_name
+            ]);
 
         $query->leftJoin(AuthItemChild::tableName(), self::tableName() . '.name = ' . AuthItemChild::tableName() . '.child')->andFilterWhere([
             'parent' => isset($params['parent']) ? $params['parent'] : null

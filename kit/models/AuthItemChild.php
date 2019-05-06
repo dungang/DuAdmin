@@ -1,7 +1,6 @@
 <?php
 namespace app\kit\models;
 
-use Yii;
 
 /**
  * This is the model class for table "auth_item_child".

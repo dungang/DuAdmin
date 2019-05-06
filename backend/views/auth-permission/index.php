@@ -2,6 +2,8 @@
 use yii\helpers\Html;
 use app\kit\grids\PanelGridView;
 use yii\widgets\Pjax;
+use app\kit\widgets\PanelNavTabs;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\kit\models\AuthPermissionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -21,6 +23,11 @@ PanelGridView::begin([
         'description:ntext',
         'rule_name',
         [
+            'class'=>'app\kit\grids\FilterColumn',
+            'attribute' => 'group_name',
+            'filter' => $this->params['groups'],
+        ],
+        [
             'class' => 'app\kit\grids\ActionColumn',
             'buttonsOptions' => [
                 'update' => [
@@ -35,7 +42,29 @@ PanelGridView::begin([
         ]
     ]
 ]);
+
+echo PanelNavTabs::widget([
+    'wrapper'=>true,
+    'tabs' => [
+        [
+            'name'=>'全部',
+            'url' => ['index','is_backend'=>-1]
+        ],
+        [
+            'name'=>'后台',
+            'url' => ['index','is_backend'=>1]
+        ],
+        [
+            'name'=>'前台',
+            'url' => ['index','is_backend'=>0]
+        ],
+        [
+            'name'=>'<i class="fa fa-plus"></i> 添加',
+            'url' => ['create','AuthPermission[group_name]'=>$searchModel->group_name],
+            'options'=>['data-toggle'=>'modal','data-target'=>'#modal-dailog']
+        ],
+    ]
+]);
 ?>
-<?= Html::a('<i class="fa fa-plus"></i> 添加', ['create'], ['class' => 'btn btn-sm btn-default','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
 <?php PanelGridView::end()?>
 <?php Pjax::end()?>
