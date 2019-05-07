@@ -5,7 +5,6 @@ use Yii;
 use yii\base\ActionFilter;
 use yii\web\ForbiddenHttpException;
 use app\kit\models\User;
-use app\kit\models\AcRoute;
 
 /**
  * 替代默认的ACF
@@ -65,7 +64,7 @@ class AccessFilter extends ActionFilter
                 Yii::$app->getSession()->destroy();
                 $this->denyAccess();
 
-            //如果是后台控制器，必须是管理者属性的用户
+                //如果是后台控制器，必须是管理者属性的用户
             } else if ($user->is_admin != 1) {
                 return false;
                 // step3. 如果是超级管理员
@@ -83,9 +82,10 @@ class AccessFilter extends ActionFilter
             } else {
                 // step6. 路由权限检查
                 $params = Yii::$app->request->isPost ? Yii::$app->request->getBodyParams() : Yii::$app->request->getQueryParams();
-
                 // 后台管理权限检查
-                \Yii::$app->user->can($route, $params);
+                if(\Yii::$app->user->can($route, $params)) {
+                    return true;
+                }
             }
         }
 
@@ -113,4 +113,3 @@ class AccessFilter extends ActionFilter
         }
     }
 }
-

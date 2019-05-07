@@ -6,6 +6,10 @@ use yii\base\Behavior;
 use yii\db\ActiveRecord;
 use app\backend\models\AuthGroup;
 
+/**
+ * 权限列表查询行为，通过is_backend参数动态绑定AuthPermissionSearch的group_name的查询值
+ * 并在视图中添加参数groups
+ */
 class PermissionListBehavior extends Behavior
 {
     public $is_backend = 1;

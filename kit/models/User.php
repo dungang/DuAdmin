@@ -27,7 +27,6 @@ use yii\helpers\Json;
  * @property int $status 状态
  * @property int $is_admin 管理员
  * @property int $is_super 超管
- * @property int $def_project 默认项目
  * @property int $created_at 添加时间
  * @property int $updated_at 更新时间
  * @property string $role 角色

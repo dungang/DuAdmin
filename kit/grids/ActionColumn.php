@@ -205,6 +205,10 @@ class ActionColumn extends Column
         }
     }
 
+    public function getRoute($action) {
+        return $this->controller ? $this->controller . '/' . $action : $action;
+    }
+
     /**
      * Creates a URL for the given action and model.
      * This method is called for each button and each row.
@@ -248,7 +252,7 @@ class ActionColumn extends Column
                 $keyNames[0] => (string) $key
             ];
         }
-        $params[0] = $this->controller ? $this->controller . '/' . $action : $action;
+        $params[0] = $this->getRoute($action);
 
         return Url::toRoute($params);
     }

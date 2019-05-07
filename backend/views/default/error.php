@@ -5,8 +5,12 @@
 /* @var $message string */
 /* @var $exception Exception */
 use yii\helpers\Html;
+use app\kit\widgets\AjaxModalOrNormalPanelContent;
 
 $this->title = '提示信息';
+AjaxModalOrNormalPanelContent::begin([
+	'intro'=>'操作异常',
+]);
 ?>
 <div class="site-error">
 
@@ -20,3 +24,4 @@ $this->title = '提示信息';
 	</div>
 
 </div>
+<?php AjaxModalOrNormalPanelContent::end()?>

@@ -29,6 +29,7 @@ class DynamicUser extends BaseDynamicModel
                 'scenario' => $this->scenario
             ]);
         }
+        $this->model->attachBehavior('role-update','app\kit\behaviors\UpdateUserRoleBehavior');
     }
 
     public function setScenario($value)
@@ -85,9 +86,10 @@ class DynamicUser extends BaseDynamicModel
     {
         if (($user = User::findOne($condition))) {
             if ($user->id) {
-                $dynamic = new DynamicUser();
-                $dynamic->id = $user->id;
-                $dynamic->model = $user;
+                $dynamic = new DynamicUser([],[
+                    'id'=>$user->id,
+                    'model'=>$user,
+                ]);
                 $dynamic->prepareExtPropertyValues($user);
                 return $dynamic;
             }

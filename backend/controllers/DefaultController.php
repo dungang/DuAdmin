@@ -22,7 +22,7 @@ class DefaultController extends BackendController
     {
         return [
             'error' => [
-                'class' => 'yii\web\ErrorAction'
+                'class' => 'app\kit\core\CoreErrorAction'
             ]
         ];
     }
