@@ -4,7 +4,7 @@ namespace app\kit\core;
 use Yii;
 use yii\bootstrap\ActiveForm;
 use yii\web\Response;
-use app\kit\events\CoreEvent;
+use app\kit\events\CustomerEvent;
 
 class CreateModelAction extends BaseAction
 {
@@ -30,7 +30,7 @@ class CreateModelAction extends BaseAction
         // 执行表单提交
         if (($loaded = $model->load($this->composePostParams($model))) && $model->save()) {
 
-            $this->trigger(self::EVENT_CREATE_SUCCESS, new CoreEvent([
+            $this->trigger(self::EVENT_CREATE_SUCCESS, new CustomerEvent([
                 'payload' => $model
             ]));
             if (! $this->successRediretUrl) {

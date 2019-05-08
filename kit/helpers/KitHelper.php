@@ -9,7 +9,7 @@ use yii\helpers\ArrayHelper;
 use app\kit\models\User;
 use app\kit\components\MobileDetect;
 use app\kit\models\Setting;
-use app\kit\events\CoreEvent;
+use app\kit\events\CustomerEvent;
 use yii\base\Component;
 use app\kit\models\MailQueue;
 
@@ -450,11 +450,11 @@ class KitHelper {
      * @param Component $context
      *            默认为空，则表示是视图上下文
      */
-    public static function triggerCustomCoreEvent($name, $payload = null, $context = null) {
+    public static function triggerCustomCustomEvent($name, $payload = null, $context = null) {
         if ($context == null) {
             $context = \Yii::$app->view;
         }
-        $context->trigger($name, new CoreEvent([
+        $context->trigger($name, new CustomerEvent([
                     'payload' => $payload
         ]));
     }
