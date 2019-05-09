@@ -2,11 +2,9 @@
 
 namespace app\kit\helpers;
 
-use yii\base\NotSupportedException;
 use yii\helpers\Html;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
-use app\kit\models\User;
 use app\kit\components\MobileDetect;
 use app\kit\models\Setting;
 use app\kit\events\CustomerEvent;
@@ -113,14 +111,6 @@ class KitHelper {
     }
 
     /**
-     * 判断当前用户是否是管理用户
-     * @return boolean
-     */
-    public static function isAdmin() {
-        return \Yii::$app->user->identity->is_admin;
-    }
-
-    /**
      * 将yii的query转换为一维数组
      *
      * @param string $root_key
@@ -202,45 +192,6 @@ class KitHelper {
         return [];
     }
 
-    public static function memberNames($ids) {
-        $query = new Query();
-        $membs = $query->select('id,name')
-                ->from(User::tableName())
-                ->where([
-                    'id' => $ids
-                ])
-                ->all();
-        return ArrayHelper::map($membs, 'id', 'name');
-    }
-
-    /**
-     *
-     * @param string $text
-     * @param array $url
-     * @param array $options
-     * @return string
-     */
-    public static function orgLinkButton($text, $url, $options) {
-        if (is_array($url)) {
-            return self::hasProjectPermission($url[0]) ? Html::a($text, $url, $options) : '';
-        }
-        throw new NotSupportedException('argment url be must an array!');
-    }
-
-    /**
-     *
-     * @param array $action
-     * @param string $content
-     * @param array $options
-     * @throws NotSupportedException
-     * @return string
-     */
-    public static function orgSubmitButton($action, $content = '', $options = []) {
-        if (is_array($action)) {
-            return self::hasProjectPermission($action[0]) ? Html::SubmitButton($content, $options) : '';
-        }
-        throw new NotSupportedException('argment url be must an array!');
-    }
 
     /**
      * 把返回的数据集转换成Tree

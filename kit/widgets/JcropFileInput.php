@@ -25,8 +25,9 @@ class JcropFileInput extends InputWidget
     public $cropInput;
 
     public $clientOptions = [];
-    
+
     public $preview_h = 300;
+
     public $preview_w = 200;
 
     private $image_box_id;
@@ -89,7 +90,7 @@ class JcropFileInput extends InputWidget
                     $(img).Jcrop({$options});
                 });
                 reader.readAsDataURL(file);
-            })");
+            })"
+        );
     }
 }
-
