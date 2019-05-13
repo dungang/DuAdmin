@@ -16,11 +16,13 @@ use app\kit\models\MailQueue;
  *
  * @author dungang
  */
-class KitHelper {
+class KitHelper
+{
 
     protected static $agent_detect;
 
-    public static function IsMobile() {
+    public static function IsMobile()
+    {
         if (self::$agent_detect == null) {
             self::$agent_detect = new MobileDetect();
         }
@@ -32,7 +34,8 @@ class KitHelper {
      * @param string $url
      * @return array|string
      */
-    public static function normalizeUrl2Route($url) {
+    public static function normalizeUrl2Route($url)
+    {
         $url_parts = parse_url($url);
         if (empty($url_parts['host']) && isset($url_parts['query'])) {
             $params = [];
@@ -54,7 +57,8 @@ class KitHelper {
      * @param array $options
      * @return string
      */
-    public static function img($src, $options) {
+    public static function img($src, $options)
+    {
         return Html::img(ltrim($src, '/'), $options);
     }
 
@@ -65,35 +69,41 @@ class KitHelper {
      * @param array $options
      * @return string
      */
-    public static function lazyLoadImage($src, $thumb = null, $options = []) {
+    public static function lazyLoadImage($src, $thumb = null, $options = [])
+    {
         if ($thumb == null)
             $thumb = 'data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=';
         $opts = ArrayHelper::merge([
-                    'data-original' => ltrim($src, '/'),
-                    'class' => 'lazyload'
-                        ], $options);
+            'data-original' => ltrim($src, '/'),
+            'class' => 'lazyload'
+        ], $options);
         return Html::img($thumb, $opts);
     }
 
-    public static function powered() {
+    public static function powered()
+    {
         return \Yii::t('yii', 'Powered by {soft}', [
-                    'soft' => '<a href="https://baiyuan.weifutek.com/" rel="external">' . \Yii::$app->name . '</a>'
+            'soft' => '<a href="https://baiyuan.weifutek.com/" rel="external">' . \Yii::$app->name . '</a>'
         ]);
     }
 
-    public static function getSetting($name) {
+    public static function getSetting($name)
+    {
         return Setting::getSettings($name);
     }
 
-    public static function getSettingAry($name) {
+    public static function getSettingAry($name)
+    {
         return Setting::getSettingAry($name);
     }
 
-    public static function getSettingAssoc($name) {
+    public static function getSettingAssoc($name)
+    {
         return Setting::getSettingAssoc($name);
     }
 
-    public static function unicodeDecode($unicode_str) {
+    public static function unicodeDecode($unicode_str)
+    {
         $json = '{"str":"' . $unicode_str . '"}';
         $arr = json_decode($json, true);
         if (empty($arr)) {
@@ -102,7 +112,8 @@ class KitHelper {
         return $arr['str'];
     }
 
-    public static function GUID() {
+    public static function GUID()
+    {
         if (function_exists('com_create_guid') === true) {
             return trim(com_create_guid(), '{}');
         }
@@ -118,7 +129,8 @@ class KitHelper {
      * @param array $one
      * @param boolean $is_root
      */
-    public function to1Array($root_key, $array, &$one, $is_root = true) {
+    public function to1Array($root_key, $array, &$one, $is_root = true)
+    {
         foreach ($array as $key => $val) {
             if ($is_root) {
                 $key = $root_key . $key;
@@ -139,7 +151,8 @@ class KitHelper {
      * @param array $items
      * @return array
      */
-    public static function reActiveItem($items) {
+    public static function reActiveItem($items)
+    {
         //获取请求的路由，是完整的，头部不会自动添加'/'
         $route = \Yii::$app->requestedRoute;
         $params = [];
@@ -178,7 +191,8 @@ class KitHelper {
         return $items;
     }
 
-    public static function betweenDayWithTimestamp($field, $date) {
+    public static function betweenDayWithTimestamp($field, $date)
+    {
         if ($date) {
             $start = strtotime($date);
             $end = 24 * 3600 + $start;
@@ -192,6 +206,46 @@ class KitHelper {
         return [];
     }
 
+    /**
+     * 数组 转 对象
+     *
+     * @param array $arr 数组
+     * @return object
+     */
+    public static function array_to_object($arr)
+    {
+        if (gettype($arr) != 'array') {
+            return;
+        }
+        foreach ($arr as $k => $v) {
+            if (gettype($v) == 'array' || getType($v) == 'object') {
+                $arr[$k] = (object)self::array_to_object($v);
+            }
+        }
+
+        return (object)$arr;
+    }
+
+    /**
+     * 对象 转 数组
+     *
+     * @param object $obj 对象
+     * @return array
+     */
+    public static function object_to_array($obj)
+    {
+        $obj = (array)$obj;
+        foreach ($obj as $k => $v) {
+            if (gettype($v) == 'resource') {
+                return;
+            }
+            if (gettype($v) == 'object' || gettype($v) == 'array') {
+                $obj[$k] = (array)self::object_to_array($v);
+            }
+        }
+
+        return $obj;
+    }
 
     /**
      * 把返回的数据集转换成Tree
@@ -209,24 +263,25 @@ class KitHelper {
      * @return array
      * @author gang.dun <dungang@huluwa.cc>
      */
-    public static function listToTree($list, $pk = 'id', $pid = 'pid', $child = 'items', $root = 0) {
+    public static function listToTree($list, $pk = 'id', $pid = 'pid', $child = 'items', $root = 0)
+    {
         // 创建Tree
         $tree = array();
         if (is_array($list)) {
             // 创建基于主键的数组引用
             $refer = array();
             foreach ($list as $key => $data) {
-                $refer[$data[$pk]] = & $list[$key];
+                $refer[$data[$pk]] = &$list[$key];
             }
             foreach ($list as $key => $data) {
                 // 判断是否存在parent
                 $parentId = $data[$pid];
                 if ($root == $parentId) {
-                    $tree[] = & $list[$key];
+                    $tree[] = &$list[$key];
                 } else {
                     if (isset($refer[$parentId])) {
-                        $parent = & $refer[$parentId];
-                        $parent[$child][] = & $list[$key];
+                        $parent = &$refer[$parentId];
+                        $parent[$child][] = &$list[$key];
                     }
                 }
             }
@@ -249,7 +304,8 @@ class KitHelper {
      *            父节点字段
      * @return array
      */
-    public static function calcListItemDepth($items, $parent_id = 0, $depth = 1, $idField = 'id', $parentField = 'pid') {
+    public static function calcListItemDepth($items, $parent_id = 0, $depth = 1, $idField = 'id', $parentField = 'pid')
+    {
         $dep = array();
         foreach ($items as $item) {
             if ($item[$parentField] == $parent_id) {
@@ -271,7 +327,8 @@ class KitHelper {
      * @param string $parentField
      * @return string[]
      */
-    public static function list2MapLikeTreeWithDepth($items, $textField, $idField = 'id', $parentField = 'pid', $parent_id = 0, $depth = 1) {
+    public static function list2MapLikeTreeWithDepth($items, $textField, $idField = 'id', $parentField = 'pid', $parent_id = 0, $depth = 1)
+    {
         $depItems = static::calcListItemDepth($items, $parent_id, $depth, $idField, $parentField);
 
         $tree = [];
@@ -295,15 +352,16 @@ class KitHelper {
      * @param number $depth
      * @return string[]
      */
-    public static function dbQueryAsMapLikeTree($table, $textField, $filter = null, $idField = 'id', $parentField = 'pid', $parent_id = 0, $depth = 1) {
+    public static function dbQueryAsMapLikeTree($table, $textField, $filter = null, $idField = 'id', $parentField = 'pid', $parent_id = 0, $depth = 1)
+    {
         $items = (new Query())->select([
-                    $idField,
-                    $parentField,
-                    $textField
-                ])
-                ->from($table)
-                ->where($filter)
-                ->all();
+            $idField,
+            $parentField,
+            $textField
+        ])
+            ->from($table)
+            ->where($filter)
+            ->all();
         return self::list2MapLikeTreeWithDepth($items, $textField, $idField, $parentField, $parent_id, $depth);
     }
 
@@ -313,7 +371,8 @@ class KitHelper {
      * @param string $text
      * @return mixed[]
      */
-    public static function parseText2Assoc($text) {
+    public static function parseText2Assoc($text)
+    {
         $assoc = [];
         $lines = \explode("\n", trim($text));
         foreach ($lines as $line) {
@@ -335,7 +394,8 @@ class KitHelper {
      * @param string $parentField
      * @return array[]|array
      */
-    public static function groupOptions($items, $textField, $filter = null, $idField = 'id', $parentField = 'pid') {
+    public static function groupOptions($items, $textField, $filter = null, $idField = 'id', $parentField = 'pid')
+    {
         $options = [];
         foreach ($items as $id => $item) {
             if ($item[$parentField] == 0) {
@@ -364,15 +424,16 @@ class KitHelper {
      * @param number $depth
      * @return array
      */
-    public static function dbQueryAsGroupOptions($table, $textField, $filter = null, $idField = 'id', $parentField = 'pid', $parent_id = 0, $depth = 1) {
+    public static function dbQueryAsGroupOptions($table, $textField, $filter = null, $idField = 'id', $parentField = 'pid', $parent_id = 0, $depth = 1)
+    {
         $items = (new Query())->select([
-                    $idField,
-                    $parentField,
-                    $textField
-                ])
-                ->from($table)
-                ->where($filter)
-                ->all();
+            $idField,
+            $parentField,
+            $textField
+        ])
+            ->from($table)
+            ->where($filter)
+            ->all();
         return self::groupOptions($items, $textField, $idField, $parentField);
     }
 
@@ -384,7 +445,8 @@ class KitHelper {
      * @param array $rows
      * @return number
      */
-    public static function batchReplaceInto($table, $columns, $rows) {
+    public static function batchReplaceInto($table, $columns, $rows)
+    {
         $command = \Yii::$app->db->createCommand()->batchInsert($table, $columns, $rows);
         $command->setRawSql('REPLACE' . \substr($command->getRawSql(), 6));
         //echo $command->getRawSql();die;
@@ -401,16 +463,18 @@ class KitHelper {
      * @param Component $context
      *            默认为空，则表示是视图上下文
      */
-    public static function triggerCustomCustomEvent($name, $payload = null, $context = null) {
+    public static function triggerCustomCustomEvent($name, $payload = null, $context = null)
+    {
         if ($context == null) {
             $context = \Yii::$app->view;
         }
         $context->trigger($name, new CustomerEvent([
-                    'payload' => $payload
+            'payload' => $payload
         ]));
     }
 
-    public static function sendMailerByQueue($from, $to, $subject, $body, $try_times = 1, $send_del = true, $time = null) {
+    public static function sendMailerByQueue($from, $to, $subject, $body, $try_times = 1, $send_del = true, $time = null)
+    {
         $mail = new MailQueue();
         $mail->sender = $from;
         $mail->recipient = $to;
@@ -421,5 +485,4 @@ class KitHelper {
         $mail->try_send = $try_times;
         return $mail->save(false);
     }
-
 }

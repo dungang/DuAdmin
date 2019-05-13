@@ -164,7 +164,7 @@ class TreeGrid extends Widget
      *
      * @var mixed parent column value of root elements from data
      */
-    public $parentRootValue = null;
+    public $parentRootValue = 0;
 
     /**
      *
@@ -329,13 +329,13 @@ class TreeGrid extends Widget
     public function renderItems()
     {
         $rows = [];
-        $this->dataProvider->setKeys([]);
-        $models = array_values($this->dataProvider->getModels());
-        $models = $this->normalizeData($models, $this->parentRootValue);
-        $this->dataProvider->setModels($models);
         $this->dataProvider->setKeys(null);
-        $this->dataProvider->prepare();
+        $models = array_values($this->dataProvider->getModels());
+        //var_dump($models);
+        $models = $this->normalizeData($models, $this->parentRootValue);
         $keys = $this->dataProvider->getKeys();
+        //var_dump($keys);
+        //die;
         foreach ($models as $index => $model) {
             $key = $keys[$index];
             if ($this->beforeRow !== null) {
@@ -434,7 +434,7 @@ class TreeGrid extends Widget
      * @param string $parentId
      * @return array
      */
-    protected function normalizeData(array $data, $parentId = null)
+    protected function normalizeData(array $data, $parentId = 0)
     {
         $result = [];
         foreach ($data as $element) {
