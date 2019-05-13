@@ -10,6 +10,7 @@ use app\kit\models\Setting;
 use app\kit\events\CustomerEvent;
 use yii\base\Component;
 use app\kit\models\MailQueue;
+use app\kit\core\BackendController;
 
 /**
  * 系统工具类
@@ -27,6 +28,10 @@ class KitHelper
             self::$agent_detect = new MobileDetect();
         }
         return self::$agent_detect->isMobile();
+    }
+
+    public static function isBackend(){
+        return \Yii::$app->controller instanceof BackendController;
     }
 
     /**
@@ -206,46 +211,6 @@ class KitHelper
         return [];
     }
 
-    /**
-     * 数组 转 对象
-     *
-     * @param array $arr 数组
-     * @return object
-     */
-    public static function array_to_object($arr)
-    {
-        if (gettype($arr) != 'array') {
-            return;
-        }
-        foreach ($arr as $k => $v) {
-            if (gettype($v) == 'array' || getType($v) == 'object') {
-                $arr[$k] = (object)self::array_to_object($v);
-            }
-        }
-
-        return (object)$arr;
-    }
-
-    /**
-     * 对象 转 数组
-     *
-     * @param object $obj 对象
-     * @return array
-     */
-    public static function object_to_array($obj)
-    {
-        $obj = (array)$obj;
-        foreach ($obj as $k => $v) {
-            if (gettype($v) == 'resource') {
-                return;
-            }
-            if (gettype($v) == 'object' || gettype($v) == 'array') {
-                $obj[$k] = (array)self::object_to_array($v);
-            }
-        }
-
-        return $obj;
-    }
 
     /**
      * 把返回的数据集转换成Tree

@@ -18,10 +18,11 @@ echo AjaxModalOrNormalPanelContent::widget([
             'model' => $model,
             'attributes' => [
                 'id',
-            'name',
-            'event',
-            'level',
+                'name',
+                'event',
+                'level',
+                'intro:html',
+                'is_backend:boolean'
             ],
         ])
 ]);
-?>

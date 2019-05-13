@@ -17,7 +17,7 @@ class LazyLoad extends Widget
     {
         $options = Json::encode($this->options);
         LazyLoadAsset::register($this->view);
-        $this->view->registerJs("$('img.lazyload').lazyload(".$options.")");
+        $this->view->registerJs("$('img.lazyload').lazyload(".$options.");");
     }
 }
 

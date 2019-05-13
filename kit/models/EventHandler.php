@@ -3,6 +3,7 @@ namespace app\kit\models;
 
 use yii\db\Query;
 use yii\base\Component;
+use app\kit\helpers\KitHelper;
 
 /**
  * "event_handler"表的模型类.
@@ -125,14 +126,15 @@ class EventHandler extends \app\kit\core\BaseModel
     public static function getActiveEventHandlersData()
     {
         $levelHandlers = [];
-        if ($handlers = (new Query())->select('e.event,e.level,h.handler')
+        if ($handlers = (new Query())->select('e.event,e.level,e.is_backend,h.handler')
             ->from([
-            'e' => Event::tableName(),
-            'h' => self::tableName()
-        ])
+                'e' => Event::tableName(),
+                'h' => self::tableName()
+            ])
             ->where('e.id = h.event_id and h.is_active = 1')
             ->orderBy('h.sort asc')
-            ->all()) {
+            ->all()
+        ) {
             foreach ($handlers as $handler) {
                 if (empty($levelHandlers[$handler['level']]))
                     $levelHandlers[$handler['level']] = [];
@@ -162,11 +164,14 @@ class EventHandler extends \app\kit\core\BaseModel
     public static function registerLevel($target, $level)
     {
         if ($handlers = EventHandler::getCacheActiveEventHandlers($level)) {
+            $is_backend = KitHelper::isBackend();
             foreach ($handlers as $handler) {
-                $target->on($handler['event'], [
-                    \Yii::createObject($handler['handler']),
-                    'process'
-                ]);
+                if (isset($handler['is_backend']) && $handler['is_backend'] == $is_backend) {
+                    $target->on($handler['event'], [
+                        \Yii::createObject($handler['handler']),
+                        'process'
+                    ]);
+                }
             }
         }
     }

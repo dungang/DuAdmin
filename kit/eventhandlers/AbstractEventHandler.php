@@ -2,6 +2,7 @@
 namespace app\kit\eventhandlers;
 
 use yii\base\BaseObject;
+use app\kit\core\FrontendController;
 
 /**
  *  事件处理的抽象句柄
@@ -13,6 +14,11 @@ use yii\base\BaseObject;
 abstract class AbstractEventHandler extends BaseObject
 {
 
+    public function isNotAjaxWithFrontend()
+    {
+        return !\Yii::$app->request->isAjax && (\Yii::$app->controller instanceof FrontendController);
+    }
+
     /**
      * 事件处理接口方法
      *
@@ -21,4 +27,3 @@ abstract class AbstractEventHandler extends BaseObject
      */
     public abstract function process($event);
 }
-

@@ -3,12 +3,14 @@
 namespace app\kit\models;
 
 /**
- * "event"表的模型类.
+ * "{{%event}}"表的模型类.
  *
  * @property int $id
  * @property string $name 名称
  * @property string $event 事件
  * @property string $level 级别
+ * @property string $intro 说明
+ * @property bool $is_backend 后端
  */
 class Event extends \app\kit\core\BaseModel
 {
@@ -26,8 +28,10 @@ class Event extends \app\kit\core\BaseModel
     public function rules()
     {
         return [
-            [['name', 'event', 'level'], 'required'],
+            [['name', 'event', 'level', 'intro'], 'required'],
+            [['is_backend'], 'boolean'],
             [['name', 'event', 'level'], 'string', 'max' => 64],
+            [['intro'], 'string', 'max' => 255],
         ];
     }
 
@@ -40,7 +44,9 @@ class Event extends \app\kit\core\BaseModel
             'id' => 'ID',
             'name' => '名称',
             'event' => '事件',
-            'level' => '级别',
+            'level' => '范围',
+            'intro' => '说明',
+            'is_backend' => '后端',
         ];
     }
 

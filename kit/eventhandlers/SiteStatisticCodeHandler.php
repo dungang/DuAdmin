@@ -22,7 +22,7 @@ class SiteStatisticCodeHandler extends AbstractEventHandler
      */
     public function process($event)
     {
-        if (!\Yii::$app->request->isAjax && (\Yii::$app->controller instanceof FrontendController)) {
+        if ($this->isNotAjaxWithFrontend()) {
             if ($statisticCode = KitHelper::getSetting('site.tongji')) {
                 $view = \Yii::$app->view;
                 $view->registerJs($statisticCode, View::POS_HEAD);

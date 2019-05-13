@@ -9,7 +9,7 @@ use yii\widgets\Pjax;
 $this->title = '系统事件';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<?php Pjax::begin(['id'=>'event-index']); ?>
+<?php Pjax::begin(['id' => 'event-index']); ?>
 <?php
 
 PanelGridView::begin(
@@ -33,15 +33,16 @@ PanelGridView::begin(
             ],
             'event',
             'level',
+            'is_backend:boolean',
             [
                 'label' => '处理器',
-                'format'=>'raw',
+                'format' => 'raw',
                 'value' => function ($model) {
                     return Html::a('<i class="fa fa-cog"></i> 设置', [
                         '/backend/event-handler/index',
-                        'EventHandlerSearch[event_id]'=>$model->id
+                        'EventHandlerSearch[event_id]' => $model->id
                     ], [
-                        'class'=>'btn btn-xs btn-default',
+                        'class' => 'btn btn-xs btn-default',
                         'data-pjax' => '0'
                     ]);
                 }
@@ -60,9 +61,10 @@ PanelGridView::begin(
                 ]
             ]
         ]
-    ]);
+    ]
+);
 ?>
-<?= Html::a('<i class="fa fa-plus"></i> 添加', ['create'], ['class'=>'btn btn-sm btn-link','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
+<?= Html::a('<i class="fa fa-plus"></i> 添加', ['create'], ['class' => 'btn btn-sm btn-link', 'data-toggle' => 'modal', 'data-target' => '#modal-dailog']) ?>
 <?php PanelGridView::end() ?>
 <?php Pjax::end(); ?>
 

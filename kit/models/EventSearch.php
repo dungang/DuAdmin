@@ -2,8 +2,10 @@
 
 namespace app\kit\models;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use app\kit\models\Event;
 
 /**
  * EventSearch represents the model behind the search form of `app\kit\models\Event`.
@@ -17,7 +19,8 @@ class EventSearch extends Event
     {
         return [
             [['id'], 'integer'],
-            [['name', 'event', 'level'], 'safe'],
+            [['name', 'event', 'level', 'intro'], 'safe'],
+            [['is_backend'], 'boolean'],
         ];
     }
 
@@ -58,11 +61,13 @@ class EventSearch extends Event
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'is_backend' => $this->is_backend,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'event', $this->event])
-            ->andFilterWhere(['like', 'level', $this->level]);
+            ->andFilterWhere(['like', 'level', $this->level])
+            ->andFilterWhere(['like', 'intro', $this->intro]);
 
         return $dataProvider;
     }
