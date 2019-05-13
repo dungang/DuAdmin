@@ -1,6 +1,5 @@
 <?php
-$params = require __DIR__ . '/params.php';
-$db = require __DIR__ . '/db.php';
+$db = require 'db-dev.php';
 
 $config = [
     'id' => 'basic-console',
@@ -34,22 +33,38 @@ $config = [
             // uncomment if you want to cache RBAC items hierarchy
             // 'cache' => 'cache',
         ]
-    ],
-    'params' => $params
+    ]
     /*
- * 'controllerMap' => [
- * 'fixture' => [ // Fixture generation command line.
- * 'class' => 'yii\faker\FixtureController',
- * ],
- * ],
- */
+    * 'controllerMap' => [
+    * 'fixture' => [ // Fixture generation command line.
+    * 'class' => 'yii\faker\FixtureController',
+    * ],
+    * 
+    * ],
+    */
 ];
 
 if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
-        'class' => 'yii\gii\Module'
+        'class' => 'app\generators\Module',
+        'generators' => [
+            'crud' => [
+                'class' => 'app\generators\crud\Generator',
+            ],
+            'model' => [
+                'class' => 'app\generators\model\Generator',
+                'baseClass' => 'app\kit\core\BaseModel',
+                'ns' => 'app\kit\models',
+                'queryNs' => 'app\kit\models'
+            ],
+            'addons' => [
+                'class' => 'app\generators\addons\Generator',
+            ]
+        ]
+            // uncomment the following to add your IP if you are not connecting from localhost.
+            // 'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 }
 

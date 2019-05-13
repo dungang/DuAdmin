@@ -131,7 +131,6 @@ wx.ready(function () {
 });
 wx.error(function (res) {
     alert(res.errMsg);//错误提示
-
 });
 ");
     }

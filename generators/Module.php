@@ -66,7 +66,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
             ], false);
         } elseif ($app instanceof \yii\console\Application) {
             $app->controllerMap[$this->id] = [
-                'class' => 'yii\gii\console\GenerateController',
+                'class' => 'app\generators\console\GenerateController',
                 'generators' => array_merge($this->coreGenerators(), $this->generators),
                 'module' => $this,
             ];

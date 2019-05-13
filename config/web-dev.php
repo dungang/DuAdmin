@@ -7,6 +7,7 @@ $config = [
         'travel' => '\app\addons\travel\TravelModule',
         'taobaoke' => '\app\addons\taobaoke\TaobaokeModule',
         'form' => '\app\addons\form\FormModule',
+        'wechat' => '\app\addons\wechat\WechatModule',
     ],
     'components' => [
         'db' => $db,

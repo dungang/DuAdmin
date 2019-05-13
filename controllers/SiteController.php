@@ -46,9 +46,6 @@ class SiteController extends FrontendController {
                 'maxLength' => 4,
                 'minLength' => 4,
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null
-            ],
-            'wechat' => [
-                'class' => '\app\kit\components\WechatServerAction'
             ]
         ];
     }
