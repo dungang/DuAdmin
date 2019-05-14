@@ -7,7 +7,12 @@ class PanelTreeGridView extends TreeGrid
 {
 
     public $title = '功能说明';
-    
+
+    /**
+     * 说明
+     *
+     * @var string|array
+     */
     public $intro;
 
     public $panelClass = 'panel panel-adminlte';
@@ -44,16 +49,22 @@ class PanelTreeGridView extends TreeGrid
             'class' => $this->panelClass
         ]);
     }
-    
-    protected function renderPanelHeading(){
+
+    protected function renderPanelHeading()
+    {
         $header = '';
-        if($this->intro) {
-            if($this->title) {
-                $header .= Html::tag('div',$this->title,['class'=>$this->panelTitleClass]);
+        if ($this->intro) {
+            if ($this->title) {
+                $header .= Html::tag('div', $this->title, ['class' => $this->panelTitleClass]);
             }
-            $header .= Html::tag('p',$this->intro);
+            if (is_array($this->intro)) {
+                $header .= implode('', array_map(function ($intro) {
+                    return Html::tag('p', $intro);
+                }, $this->intro));
+            } else {
+                $header .= Html::tag('p', $this->intro);
+            }
         }
-        return $header ? Html::tag('div',$header,['class'=>$this->panelHeadingClass]):'';
+        return $header ? Html::tag('div', $header, ['class' => $this->panelHeadingClass]) : '';
     }
 }
-

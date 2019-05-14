@@ -17,13 +17,13 @@ class PanelGridView extends GridView
      * @var string
      */
     public $title = '功能说明';
-    
+
     /**
      * 面板介绍
-     * @var string
+     * @var string|array
      */
     public $intro;
-    
+
     public $panelClass = 'panel panel-adminlte';
 
     public $panelHeadingClass = 'panel-heading clearfix';
@@ -41,29 +41,36 @@ class PanelGridView extends GridView
         parent::init();
         $this->options['class'] = $this->panelClass;
         $this->summaryOptions['class'] = 'grid-summary'; // $this->panelTitleClass;
-                                                         // $this->summaryOptions['tag'] = 'span';
+        // $this->summaryOptions['tag'] = 'span';
         ob_start();
         ob_implicit_flush(false);
     }
 
     public function run()
     {
-        $this->_body_content = ob_get_clean() . Html::tag('div',parent::renderPager(),['class'=>'pull-right']);
-        if(!empty($this->_body_content)) {
-           $this->_body_content = Html::tag('div',$this->_body_content,['class'=>'panel-tools']); 
+        $this->_body_content = ob_get_clean() . Html::tag('div', parent::renderPager(), ['class' => 'pull-right']);
+        if (!empty($this->_body_content)) {
+            $this->_body_content = Html::tag('div', $this->_body_content, ['class' => 'panel-tools']);
         }
         return parent::run();
     }
-    
-    protected function renderPanelHeading(){
+
+    protected function renderPanelHeading()
+    {
         $header = '';
-        if($this->intro) {
-            if($this->title) {
-                $header .= Html::tag('div',$this->title,['class'=>$this->panelTitleClass]);
+        if ($this->intro) {
+            if ($this->title) {
+                $header .= Html::tag('div', $this->title, ['class' => $this->panelTitleClass]);
             }
-            $header .= Html::tag('p',$this->intro);
+            if (is_array($this->intro)) {
+                $header .= implode('', array_map(function ($intro) {
+                    return Html::tag('p', $intro);
+                }, $this->intro));
+            } else {
+                $header .= Html::tag('p', $this->intro);
+            }
         }
-        return $header ? Html::tag('div',$header,['class'=>$this->panelHeadingClass]):'';
+        return $header ? Html::tag('div', $header, ['class' => $this->panelHeadingClass]) : '';
     }
 
     public function renderEmpty()
@@ -88,6 +95,4 @@ class PanelGridView extends GridView
             'class' => 'panel-footer'
         ]);
     }
-
 }
-
