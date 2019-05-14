@@ -5,9 +5,14 @@ use Yii;
 use yii\base\ActionFilter;
 use yii\web\ForbiddenHttpException;
 use app\kit\models\User;
+use app\kit\models\ActionLog;
+use yii\helpers\Json;
+use app\kit\core\LongPollAction;
+use app\kit\core\LoopAction;
 
 /**
  * 替代默认的ACF
+ * 负责backend权限校验和操作日志的记录
  *
  * @author dungang
  *        
@@ -83,7 +88,7 @@ class AccessFilter extends ActionFilter
                 // step6. 路由权限检查
                 $params = Yii::$app->request->isPost ? Yii::$app->request->getBodyParams() : Yii::$app->request->getQueryParams();
                 // 后台管理权限检查
-                if(\Yii::$app->user->can($route, $params)) {
+                if (\Yii::$app->user->can($route, $params)) {
                     return true;
                 }
             }
@@ -95,6 +100,28 @@ class AccessFilter extends ActionFilter
             $this->denyAccess();
         }
         return false;
+    }
+
+    public function afterAction($action, $result)
+    {
+        if ($action instanceof LongPollAction) {
+            return $result;
+        } else if ($action instanceof LoopAction) {
+            return $result;
+        } else {
+            if (!\Yii::$app->user->isGuest) {
+                $data = $_REQUEST;
+                unset($data['r']);
+                $log = new ActionLog([
+                    'user_id' => \Yii::$app->user->id,
+                    'action' => $action->getUniqueId(),
+                    'ip' => ip2long(\Yii::$app->request->getRemoteIP()),
+                    'data' => Json::encode($data)
+                ]);
+                $log->save(false);
+            }
+            return $result;
+        }
     }
 
     /**
