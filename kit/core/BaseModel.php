@@ -4,11 +4,17 @@ namespace app\kit\core;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 use app\kit\behaviors\PropertyBehavior;
+use app\kit\events\BeforeSearchEvent;
 
 class BaseModel extends ActiveRecord
 {
-    
+
     const EVENT_AFTER_VIEW = 'afterView';
+
+    /**
+     * searchModel 在搜索前执行的事件
+     */
+    const EVNT_BEFORE_SEARCH = 'beforeSearch';
 
     protected $_map_cache_key = false;
 
@@ -52,6 +58,25 @@ class BaseModel extends ActiveRecord
         return parent::delete();
     }
 
+    /**
+     * 搜索模型在收索前执行的事件，
+     * 对参数和query做修改
+     *
+     * @param \yii\db\ActiveQuery $query
+     * @param array $params
+     * @return void
+     */
+    public function beforeSearch(&$query, &$params)
+    {
+        $event = new BeforeSearchEvent([
+            'query' => $query,
+            'params' => $params,
+        ]);
+        $this->trigger(self::EVNT_BEFORE_SEARCH, $event);
+        $params =  $event->params;
+        $query = $event->query;
+    }
+
     public static function allIdToName($key = 'id', $val = 'name', $where = null, $orderBy = null)
     {
         $models = self::find()->select("$key,$val")
@@ -75,4 +100,3 @@ class BaseModel extends ActiveRecord
         return array_pop(explode("\\", get_called_class()));
     }
 }
-

@@ -433,6 +433,10 @@ class Generator extends \app\generators\Generator
         $likeConditions = [];
         $hashConditions = [];
         foreach ($columns as $column => $type) {
+            //关于时间的忽略
+            if(substr($column,-3) == '_at') {
+                continue;
+            }
             switch ($type) {
                 case Schema::TYPE_TINYINT:
                 case Schema::TYPE_SMALLINT:

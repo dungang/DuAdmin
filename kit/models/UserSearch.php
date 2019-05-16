@@ -72,6 +72,8 @@ class UserSearch extends User
 
         // add conditions that should always apply here
 
+        $this->beforeSearch($query,$params);
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);

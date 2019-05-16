@@ -3,7 +3,6 @@ namespace app\kit\eventhandlers;
 
 use yii\base\ViewEvent;
 use yii\web\View;
-use app\kit\core\FrontendController;
 use app\kit\helpers\KitHelper;
 
 /**
