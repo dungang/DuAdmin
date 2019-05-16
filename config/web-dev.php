@@ -9,6 +9,7 @@ $config = [
         'form' => '\app\addons\form\FormModule',
         'wechat' => '\app\addons\wechat\WechatModule',
         'school' => '\app\addons\school\SchoolModule',
+        'ueditor' => '\app\addons\ueditor\UeditorModule',
     ],
     'components' => [
         'db' => $db,

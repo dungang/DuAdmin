@@ -17,25 +17,11 @@ class AttachmentController extends BackendController
         parent::init();
         $this->userActions = [
             'inline',
-            'wang-editor',
-            'ueditor-upload'
         ];
         $this->verbsActions = [
             'inline' => [
                 'post'
             ],
-            'wang-editor' => [
-                'post'
-            ],
-            'ueditor-upload' => [
-                'post','get'
-            ]
-        ];
-    }
-
-    public function actions(){
-        return [
-            'ueditor-upload'=> 'app\kit\thirds\UEditorAction'
         ];
     }
 
@@ -67,29 +53,6 @@ class AttachmentController extends BackendController
         } catch (\Exception $e) {
             return $this->asJson([
                 'error' => $e->getMessage()
-            ]);
-        }
-    }
-
-    /**
-     * Wang Editor image uploader
-     *
-     * @return \yii\web\Response
-     */
-    public function actionWangEditor()
-    {
-        try {
-            $rst = $this->getFileUploader()->upload();
-            return $this->asJson([
-                'errno' => 0,
-                'data' => [
-                    $rst['url']
-                ]
-            ]);
-        } catch (\Exception $e) {
-            return $this->asJson([
-                'errno' => $e->getCode(),
-                'message' => $e->getMessage()
             ]);
         }
     }

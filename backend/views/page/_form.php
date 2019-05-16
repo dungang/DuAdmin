@@ -1,8 +1,8 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use yii\helpers\Url;
 use app\kit\models\Page;
+use app\kit\widgets\DefaultEditor;
 
 /* @var $this yii\web\View */
 /* @var $model app\kit\models\Page */
@@ -20,9 +20,7 @@ use app\kit\models\Page;
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
     <?php
-    echo $form->field($model, 'content')->widget('app\kit\widgets\Ueditor',[
-        'toolBars'=>['|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|','insertimage','insertvideo']
-    ])?>
+    echo $form->field($model, 'content')->widget(DefaultEditor::getEditorClass(),['mode'=>DefaultEditor::MODE_RICH])?>
 
     <?= $form->field($model, 'sort')->textInput() ?>
 

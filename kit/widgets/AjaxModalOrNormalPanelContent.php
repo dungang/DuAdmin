@@ -2,17 +2,12 @@
 namespace app\kit\widgets;
 
 use yii\helpers\Html;
-use yii\base\Widget;
-use app\kit\traits\AdminlitPanelTrait;
 
 /**
  * 当ajax请求的时候只输出内容，非ajax的输出panel的结构
  */
-class AjaxModalOrNormalPanelContent extends Widget
+class AjaxModalOrNormalPanelContent extends AdminltePanel
 {
-
-    use AdminlitPanelTrait;
-
     public function run()
     {
         $content = ob_get_clean();
