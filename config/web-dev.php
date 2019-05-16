@@ -8,6 +8,7 @@ $config = [
         'taobaoke' => '\app\addons\taobaoke\TaobaokeModule',
         'form' => '\app\addons\form\FormModule',
         'wechat' => '\app\addons\wechat\WechatModule',
+        'school' => '\app\addons\school\SchoolModule',
     ],
     'components' => [
         'db' => $db,

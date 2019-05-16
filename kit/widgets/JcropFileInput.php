@@ -32,33 +32,49 @@ class JcropFileInput extends InputWidget
 
     private $image_box_id;
 
-    public function init()
-    {
-        parent::init();
-        $this->clientOptions = ArrayHelper::merge([
-            'boxWidth' => 300,
-            'boxHeight' => 200,
-            'onSelect' => new JsExpression("function(c){
-                $('{$this->cropInput}').val(JSON.stringify(c));
-            }")
-        ], $this->clientOptions);
-    }
+    private $crop_input_id;
 
     public function run()
     {
         JcropAsset::register($this->view);
         $html = $this->renderInputHtml();
         $html .= $this->renderImageBox();
+        $this->clientOptions = ArrayHelper::merge([
+            'boxWidth' => 300,
+            'boxHeight' => 200,
+            'setSelect' => [
+                100,
+                100,
+                200,
+                200
+            ],
+            'aspectRatio' => 1,
+            'onSelect' => new JsExpression("function(c){
+                $('#{$this->crop_input_id}').val(JSON.stringify(c));
+            }")
+        ], $this->clientOptions);
         $this->addJsEvent();
         return $html;
     }
 
+
+
     protected function renderInputHtml()
     {
+        $html = '';
         if ($this->hasModel()) {
-            return Html::activeFileInput($this->model, $this->attribute, $this->options);
+            if (!isset($this->field->form->options['enctype'])) {
+                $this->field->form->options['enctype'] = 'multipart/form-data';
+            }
+            $this->crop_input_id = $this->attribute . '_crop';
+            $html = Html::hiddenInput($this->crop_input_id, null, ['id' => $this->crop_input_id]);
+            $html .= Html::activeFileInput($this->model, $this->attribute, $this->options);
+        } else {
+            $this->crop_input_id = $this->this->crop_input_id . '_crop';
+            $html = Html::hiddenInput($this->crop_input_id, null, ['id' => $this->crop_input_id]);
+            $html .= Html::fileInput($this->name, $this->value, $this->options);
         }
-        return Html::fileInput($this->name, $this->value, $this->options);
+        return $html;
     }
 
     protected function renderImageBox()

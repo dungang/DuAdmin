@@ -1,8 +1,9 @@
 <?php
 namespace app\kit\widgets;
 
-use yii\base\Widget;
 use yii\helpers\Html;
+use yii\base\Widget;
+use app\kit\traits\AdminlitPanelTrait;
 
 /**
  * 当ajax请求的时候只输出内容，非ajax的输出panel的结构
@@ -10,31 +11,7 @@ use yii\helpers\Html;
 class AjaxModalOrNormalPanelContent extends Widget
 {
 
-    public $title = '功能说明';
-
-    /**
-     * 说明
-     *
-     * @var string|array
-     */
-    public $intro = '';
-
-    public $content = '';
-
-    public $panelClass = 'panel panel-adminlte';
-
-    public $panelHeadingClass = 'panel-heading clearfix';
-
-    public $panelTitleClass = 'panel-title';
-
-    public $panelBodyClass = 'panel-body clearfix';
-
-    public function init()
-    {
-        parent::init();
-        ob_start();
-        ob_implicit_flush(false);
-    }
+    use AdminlitPanelTrait;
 
     public function run()
     {
@@ -63,29 +40,6 @@ class AjaxModalOrNormalPanelContent extends Widget
         return null;
     }
 
-    protected function renderPanelHeading()
-    {
-        $header = '';
-        if ($this->intro) {
-            if ($this->title) {
-                $header .= Html::tag('div', $this->title, ['class' => $this->panelTitleClass]);
-            }
-            if (is_array($this->intro)) {
-                $header .= implode('', array_map(function ($intro) {
-                    return Html::tag('p', $intro);
-                }, $this->intro));
-            } else {
-                $header .= Html::tag('p', $this->intro);
-            }
-        }
-        return $header ? Html::tag('div', $header, ['class' => $this->panelHeadingClass]) : '';
-    }
-
-    protected function renderBody()
-    {
-        return Html::tag('div', $this->content, ['class' => $this->panelBodyClass]);
-    }
-
     protected function renderContent()
     {
         if (\Yii::$app->request->isAjax) {
@@ -93,7 +47,7 @@ class AjaxModalOrNormalPanelContent extends Widget
                 'class' => 'modal-body'
             ]);
         } else {
-            return Html::tag('div', $this->renderPanelHeading() . $this->renderBody(), ['class' => $this->panelClass]);
+            return parent::renderContent();
         }
     }
 }

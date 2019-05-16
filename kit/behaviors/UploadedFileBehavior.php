@@ -6,6 +6,7 @@ use yii\db\ActiveRecord;
 use yii\web\UploadedFile;
 use app\kit\components\FileUploader;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Json;
 
 /**
  * 图片上传行为
@@ -14,10 +15,21 @@ use yii\helpers\ArrayHelper;
  */
 class UploadedFileBehavior extends Behavior
 {
-    
-    
 
+
+    /**
+     * 是否在模型数据添加成功后处理图片
+     *
+     * @var boolean
+     */
     public $after_create = false;
+
+    /**
+     * 是否开启图片裁剪
+     *
+     * @var boolean
+     */
+    public $enable_crop = false;
 
     /**
      * 上传图片的字段
@@ -29,7 +41,7 @@ class UploadedFileBehavior extends Behavior
             'file_type' => 'image'
         ]
     ];
-    
+
     /**
      * 动态初始化上传文件的参数
      * @var string
@@ -97,6 +109,25 @@ class UploadedFileBehavior extends Behavior
         }
     }
 
+    protected function initCrop()
+    {
+        if($this->enable_crop){
+
+            foreach ($this->fields as $field => $config) {
+                $crop = Json::decode(\Yii::$app->request->post($field . '_crop'));
+                if ($crop) {
+                    $config['width'] = $crop['w'];
+                    $config['height'] = $crop['h'];
+                    $config['x'] = $crop['x'];
+                    $config['y'] = $crop['y'];
+                }
+                $this->fields = [
+                    $field => $config
+                ];
+            }
+        }
+    }
+
     protected function onlyIsNewRecordSaveFileAfterCreated()
     {
         return $this->after_create === true && $this->owner->isNewRecord;
@@ -104,7 +135,7 @@ class UploadedFileBehavior extends Behavior
 
     protected function canSaveFileBeforeSave()
     {
-        return $this->after_create === false || ($this->after_create === true && ! $this->owner->isNewRecord);
+        return $this->after_create === false || ($this->after_create === true && !$this->owner->isNewRecord);
     }
 
     protected function saveFile($event)
@@ -125,6 +156,7 @@ class UploadedFileBehavior extends Behavior
 
     protected function initUploader()
     {
+        $this->initCrop();
         if ($this->initFieldsCallback && \is_callable($this->initFieldsCallback)) {
             \call_user_func($this->initFieldsCallback, $this);
         }
@@ -143,4 +175,3 @@ class UploadedFileBehavior extends Behavior
         ], $config));
     }
 }
-

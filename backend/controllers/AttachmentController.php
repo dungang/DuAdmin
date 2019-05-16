@@ -28,7 +28,7 @@ class AttachmentController extends BackendController
                 'post'
             ],
             'ueditor-upload' => [
-                'post'
+                'post','get'
             ]
         ];
     }
