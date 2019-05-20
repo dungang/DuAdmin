@@ -167,6 +167,7 @@ class EventHandler extends \app\kit\core\BaseModel
             $is_backend = KitHelper::isBackend();
             foreach ($handlers as $handler) {
                 if (isset($handler['is_backend']) && $handler['is_backend'] == $is_backend) {
+                    
                     $target->on($handler['event'], [
                         \Yii::createObject($handler['handler']),
                         'process'

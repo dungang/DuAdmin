@@ -152,23 +152,12 @@ class User extends BaseModel implements IdentityInterface
         $bs['uploaded_file'] = [
             'class' => UploadedFileBehavior::className(),
             'after_create' => true,
-            'initFieldsCallback' => function ($behavior) {
-                $config = [
-                    'file_path' => 'uploads/avatar/' . $behavior->owner->id . '.png',
+            'enable_crop' => true,
+            'fields' => [
+                'avatar' => [
                     'mode' => 'inset'
-                ];
-                $crop = Json::decode(\Yii::$app->request->post('crop'));
-                if ($crop) {
-                    $config['width'] = $crop['w'];
-                    $config['height'] = $crop['h'];
-                    $config['x'] = $crop['x'];
-                    $config['y'] = $crop['y'];
-                }
-                //必须配置文件上传字段，否则导致存储被置空
-                $this->fields = [
-                    'avatar' => $config
-                ];
-            }
+                ]
+            ]
         ];
         return $bs;
     }
