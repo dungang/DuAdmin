@@ -29,7 +29,7 @@ class CountersBehavior extends Behavior
         $model = $this->owner;
         if ($model->hasProperty($this->counter_field)) {
             $model->updateCounters([
-                $this->count_field => $this->counter_gap
+                $this->counter_field => $this->counter_gap
             ]);
         }
     }

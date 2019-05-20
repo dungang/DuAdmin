@@ -41,6 +41,19 @@ class Addon extends Module {
         $this->on(self::EVENT_BEFORE_ACTION, [$this, 'initAddonResouces']);
     }
 
+    /**
+     * 插件初始化的方法
+     *
+     * @return void
+     */
+    public static function initAddon(){
+        //空实现，可以在这注册第三方代码库
+        //LoaderHelper::addNamespace() //psr0
+        //LoaderHelper::addPsr4()
+        //LoaderHelper::addClassMap()
+        
+    }
+
     public function initAddonResouces() {
         $this->registerAddonErrorAction();
         $this->registerAddonBackendHomeBreadscrumb();

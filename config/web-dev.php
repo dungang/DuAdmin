@@ -10,6 +10,7 @@ $config = [
         'wechat' => '\app\addons\wechat\WechatModule',
         'school' => '\app\addons\school\SchoolModule',
         'ueditor' => '\app\addons\ueditor\UeditorModule',
+        'aliyun-oss' => '\app\addons\aliyunoss\AliyunOssModule',
     ],
     'components' => [
         'db' => $db,

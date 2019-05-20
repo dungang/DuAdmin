@@ -102,6 +102,9 @@ class AuthItem extends BaseModel
                 'targetAttribute' => [
                     'rule_name' => 'name'
                 ]
+            ],
+            [
+                'rule_name','default','value'=>null
             ]
         ];
     }
@@ -183,7 +186,8 @@ class AuthItem extends BaseModel
         ]);
     }
 
-    public static function allMap($key = 'name', $val = 'description', $where = null, $orderBy = null){
+    public static function allMap($key = 'name', $val = 'description', $where = null, $orderBy = null)
+    {
         return parent::allIdToName($key, $val, $where, $orderBy);
     }
 
@@ -192,7 +196,7 @@ class AuthItem extends BaseModel
         if ($where == null) {
             $where = [];
         } else {
-            $where['type']=AuthItem::TYPE_ROLE;
+            $where['type'] = AuthItem::TYPE_ROLE;
         }
         return parent::allIdToName($key, $val, $where, $orderBy);
     }

@@ -28,7 +28,6 @@ class Bootstrap implements BootstrapInterface
         $this->dynamicRegistAddons($app);
 
         $this->dynamicSetSiteHome($app);
-
     }
 
     /**
@@ -83,7 +82,10 @@ class Bootstrap implements BootstrapInterface
      */
     protected function dynamicRegistAddons($app)
     {
-        // To-Do
+        foreach (array_values($app->modules) as $module) {
+            if (method_exists($module, 'initAddon')) {
+                call_user_func([$module, 'initAddon']);
+            }
+        }
     }
 }
-
