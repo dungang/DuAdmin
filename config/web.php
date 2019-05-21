@@ -4,8 +4,8 @@ $config = [
     'modules'=>[
         'travel'=>'\app\addons\travel\TravelModule',
         'wechat' => '\app\addons\wechat\WechatModule',
-        'school' => '\app\addons\school\SchoolModule',
         'ueditor' => '\app\addons\ueditor\UeditorModule',
+        'wangeditor' => '\app\addons\wangeditor\WangEditorModule',
         'aliyun-oss' => '\app\addons\aliyunoss\AliyunOssModule',
     ],
     'components' => [
