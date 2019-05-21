@@ -23,12 +23,18 @@ class AuthPermissionController extends BackendController
             ],
             'create' => [
                 'class' => 'app\kit\core\CreateModelAction',
+                'modelBehaviors' => [
+                    'app\backend\behaviors\CleanRbacBehavior',
+                ],
                 'modelClass' => [
                     'class' => 'app\kit\models\AuthPermission'
                 ]
             ],
             'update' => [
                 'class' => 'app\kit\core\UpdateModelAction',
+                'modelBehaviors' => [
+                    'app\backend\behaviors\CleanRbacBehavior',
+                ],
                 'modelClass' => [
                     'class' => 'app\kit\models\AuthPermission'
                 ]
@@ -41,6 +47,9 @@ class AuthPermissionController extends BackendController
             ],
             'delete' => [
                 'class' => 'app\kit\core\DeleteModelAction',
+                'modelBehaviors' => [
+                    'app\backend\behaviors\CleanRbacBehavior',
+                ],
                 'modelClass' => [
                     'class' => 'app\kit\models\AuthPermission'
                 ]

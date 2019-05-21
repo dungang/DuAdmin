@@ -26,6 +26,9 @@ class AuthRoleController extends BackendController
             ],
             'create' => [
                 'class' => 'app\kit\core\CreateModelAction',
+                'modelBehaviors' => [
+                    'app\backend\behaviors\CleanRbacBehavior',
+                ],
                 'findParams' => [
                     'type' => AuthRole::TYPE_ROLE
                 ],
@@ -35,6 +38,9 @@ class AuthRoleController extends BackendController
             ],
             'update' => [
                 'class' => 'app\kit\core\UpdateModelAction',
+                'modelBehaviors' => [
+                    'app\backend\behaviors\CleanRbacBehavior',
+                ],
                 'findParams' => [
                     'type' => AuthRole::TYPE_ROLE
                 ],
@@ -53,6 +59,9 @@ class AuthRoleController extends BackendController
             ],
             'delete' => [
                 'class' => 'app\kit\core\DeleteModelAction',
+                'modelBehaviors' => [
+                    'app\backend\behaviors\CleanRbacBehavior',
+                ],
                 'findParams' => [
                     'type' => AuthRole::TYPE_ROLE
                 ],
