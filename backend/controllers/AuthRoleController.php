@@ -118,6 +118,7 @@ class AuthRoleController extends BackendController
                     ->execute();
                 \Yii::$app->db->getTransaction()->commit();
                 \Yii::$app->session->setFlash("success", "权限更新成功！");
+                \Yii::$app->cache->delete('rbac');
             } catch (\Exception $e) {
                 \Yii::$app->db->getTransaction()->rollBack();
                 \Yii::$app->session->setFlash("error", "更新失败，系统错误：" . $e->getCode());

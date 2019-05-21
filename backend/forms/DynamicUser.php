@@ -17,7 +17,7 @@ class DynamicUser extends BaseDynamicModel
 
     /**
      *
-     * @var User
+     * @var \app\kit\models\User
      */
     public $model;
 
@@ -100,11 +100,32 @@ class DynamicUser extends BaseDynamicModel
     public function save($validate = true, $attributeNames = null)
     {
         if ($this->model->save($validate, $attributeNames)) {
+            $this->syncRoleAssignment();
             $this->id = $this->model->id;
             $this->saveExtProperites($this);
             return true;
         }
         return false;
+    }
+
+    /**
+     * 同步用户角色授权
+     *
+     * @return void
+     */
+    protected function syncRoleAssignment() {
+        if($role = \Yii::$app->authManager->getRole($this->model->role)){
+            if(!\Yii::$app->authManager->getAssignment($this->model->role,$this->model->id)) {
+                \Yii::$app->authManager->assign($role,$this->model->id);
+                \Yii::$app->cache->delete('rbac');
+            }
+        }
+        if(($old_role_name = $this->model->getOldAttribute('role')) != $this->model->role){
+            if($old_role = \Yii::$app->authManager->getRole($old_role_name)){
+                \Yii::$app->authManager->revoke($old_role,$this->model->id);
+                \Yii::$app->cache->delete('rbac');
+            }
+        }
     }
 
     public function load($data, $formName = null)

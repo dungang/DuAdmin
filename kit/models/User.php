@@ -6,7 +6,6 @@ use yii\base\NotSupportedException;
 use yii\web\IdentityInterface;
 use app\kit\core\BaseModel;
 use app\kit\behaviors\UploadedFileBehavior;
-use yii\helpers\Json;
 
 /**
  * User model

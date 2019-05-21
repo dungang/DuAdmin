@@ -225,8 +225,8 @@ class BaseAction extends Action
                 unset($args['scenario']);
             }
             if ($class) {
-
-                $condition = array_merge($this->getPrimaryKeyCondition($class), $args);
+                
+                $condition = array_merge($this->getPrimaryKeyCondition($class), $args?:[]);
 
                 //是否设置了查找的固定参数
                 if ($this->findParams) {

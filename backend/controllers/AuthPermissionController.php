@@ -15,7 +15,7 @@ class AuthPermissionController extends BackendController
             'index' => [
                 'class' => 'app\kit\core\ListModelsAction',
                 'modelBehaviors' => [
-                    'app\backend\behaviors\PermissionListBehavior'
+                    'app\backend\behaviors\PermissionListBehavior',
                 ],
                 'modelClass' => [
                     'class' => 'app\kit\models\AuthPermissionSearch'
