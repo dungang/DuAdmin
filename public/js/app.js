@@ -62,6 +62,6 @@ $(document).ready(function(){
 		});
 	}
 	calcVideoSize();
-	//$(window).resize(calcVideoSize);
+	$(window).resize(calcVideoSize);
 
 });
