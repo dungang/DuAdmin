@@ -329,13 +329,14 @@ class TreeGrid extends Widget
     public function renderItems()
     {
         $rows = [];
-        $this->dataProvider->setKeys(null);
         $models = array_values($this->dataProvider->getModels());
-        //var_dump($models);
         $models = $this->normalizeData($models, $this->parentRootValue);
+        //重新计算models
+        $this->dataProvider->setModels($models);
+        //重置key，不然就是原理的第一此的顺序，不是normalize后的顺序
+        $this->dataProvider->setKeys(null);
         $keys = $this->dataProvider->getKeys();
-        //var_dump($keys);
-        //die;
+
         foreach ($models as $index => $model) {
             $key = $keys[$index];
             if ($this->beforeRow !== null) {

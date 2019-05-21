@@ -85,7 +85,8 @@ class AuthRoleController extends BackendController
         if ($permissions = \Yii::$app->request->post('permission')) {
             $perms = [];
             foreach($permissions as $perm) {
-                if(!empty(trim($perm))) {
+                $perm = trim($perm);
+                if(!empty($perm)) {
                     $perms = array_merge($perms,explode(',',$perm));
                 }
             }
@@ -155,6 +156,7 @@ class AuthRoleController extends BackendController
                 }
                 $permissions[$group]['children'][] = $node;
             } else {
+                $node['name'] = $item->name;
                 if($item->name == $name) {
                     continue;
                 }
