@@ -17,6 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
+            'created_at:datetime',
             [
                 'class'=>'app\kit\grids\FilterColumn',
                 'attribute'=>'user_id',
@@ -40,7 +41,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     return long2ip($model->ip);
                 }
             ],
-            'created_at:datetime',
             [
                 'class' => '\app\kit\grids\ActionColumn',
                 'template'=>'{view}',
