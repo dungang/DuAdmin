@@ -4,8 +4,8 @@ namespace app\controllers;
 
 use app\kit\core\FrontendController;
 use yii\base\InvalidArgumentException;
-use app\kit\models\Page;
 use app\kit\helpers\KitHelper;
+use app\kit\events\SlugEvent;
 
 /**
  * Site controller
@@ -86,12 +86,19 @@ class SiteController extends FrontendController {
         }
 
         //try to display static page from datebase
-        if ($page = Page::findOne([
-                    'slug' => $slug
-                ])) {
-            return $this->render('page', [
-                        'model' => $page
-            ]);
+        // if ($page = Page::findOne([
+        //             'slug' => $slug
+        //         ])) {
+        //     return $this->render('page', [
+        //                 'model' => $page
+        //     ]);
+        // }
+        $event = new SlugEvent([
+            'slug'=>$slug,
+        ]);
+        $this->trigger('findSlugContent',$event);
+        if($event->content) {
+            return $event->content;
         }
         //if nothing suitable was found then throw 404 error
         throw new \yii\web\NotFoundHttpException('Page not found.');
