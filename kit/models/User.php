@@ -116,7 +116,7 @@ class User extends BaseModel implements IdentityInterface
             [
                 [
                     'is_admin',
-                    'is_super'
+                    //'is_super'
                 ],
                 'boolean',
                 'on' => 'manage'

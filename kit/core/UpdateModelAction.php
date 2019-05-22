@@ -30,14 +30,14 @@ class UpdateModelAction extends BaseAction
 
         // 动态绑定行为
         $model->attachBehaviors($this->modelBehaviors);
-        if (($loaded = $model->load($this->composePostParams($model))) && $model->save()) {
-            if (! $this->successRediretUrl) {
-                $this->successRediretUrl = \Yii::$app->request->referrer;
+        if ($this->isPost()) {
+            if (($loaded = $model->load($this->composePostParams($model))) && $model->save()) {
+                if (!$this->successRediretUrl) {
+                    $this->successRediretUrl = \Yii::$app->request->referrer;
+                }
+                return $this->controller->redirectOnSuccess($this->getSuccessRediretUrlWidthModel($model), "修改成功");
             }
-            return $this->controller->redirectOnSuccess($this->getSuccessRediretUrlWidthModel($model), "修改成功");
-        }
 
-        if (\Yii::$app->request->isPost) {
             if ($loaded === false) {
                 return $this->controller->renderOnFail($this->viewName, $data, '可能表达的字段更服务端不一致');
             }
@@ -47,4 +47,3 @@ class UpdateModelAction extends BaseAction
         return $this->controller->render($this->viewName, $data);
     }
 }
-

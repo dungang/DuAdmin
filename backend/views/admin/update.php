@@ -6,7 +6,7 @@ use app\kit\widgets\AjaxModalOrNormalPanelContent;
 
 $this->title = '更新';
 $this->params['breadcrumbs'][] = [
-    'label' => '用户',
+    'label' => '管理员',
     'url' => [
         'index'
     ]
@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = [
 ];
 $this->params['breadcrumbs'][] = $this->title;
 echo AjaxModalOrNormalPanelContent::widget([
-    'intro' => '编辑用户的基本信息',
+    'intro' => '编辑管理员的基本信息',
     'content' => $this->render('_form', [
         'model' => $model
     ])

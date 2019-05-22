@@ -12,6 +12,7 @@ $config = [
         'ueditor' => '\app\addons\ueditor\UeditorModule',
         'wangeditor' => '\app\addons\wangeditor\WangEditorModule',
         'aliyun-oss' => '\app\addons\aliyunoss\AliyunOssModule',
+        'user' => '\app\addons\user\UserModule',
     ],
     'components' => [
         'db' => $db,

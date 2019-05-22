@@ -8,11 +8,11 @@ use app\kit\models\AuthItem;
 /* @var $searchModel app\kit\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '用户';
+$this->title = '管理员';
 $this->params['breadcrumbs'][] = $this->title;
 Pjax::begin(['id'=>'user-index','formSelector'=>false]);
 PanelGridView::begin([
-    'intro'=>'用户信息维护。根据是否是管理者区分是<strong>后台管理员</strong>或者是<strong>前台会员</strong>',
+    'intro'=>'管理员信息维护。根据是否是管理者区分是<strong>后台管理员</strong>或者是<strong>前台会员</strong>',
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
     'columns' => [
@@ -34,13 +34,6 @@ PanelGridView::begin([
                 'type' => 1
             ]),
             'class' => 'app\kit\grids\FilterColumn'
-        ],
-        [
-            'attribute' => 'is_admin',
-            'headerOptions' => [
-                'width' => '80px'
-            ],
-            'class' => 'app\kit\grids\BoolColumn'
         ],
         [
             'attribute' => 'is_super',

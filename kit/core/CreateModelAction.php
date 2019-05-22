@@ -29,18 +29,18 @@ class CreateModelAction extends BaseAction
         $model->attachBehaviors($this->modelBehaviors);
 
         // 执行表单提交
-        if (($loaded = $model->load($this->composePostParams($model))) && $model->save()) {
+        if ($this->isPost()) {
+            if (($loaded = $model->load($this->composePostParams($model))) && $model->save()) {
 
-            $this->trigger(self::EVENT_CREATE_SUCCESS, new CustomerEvent([
-                'payload' => $model
-            ]));
-            if (! $this->successRediretUrl) {
-                $this->successRediretUrl = \Yii::$app->request->referrer;
+                $this->trigger(self::EVENT_CREATE_SUCCESS, new CustomerEvent([
+                    'payload' => $model
+                ]));
+                if (!$this->successRediretUrl) {
+                    $this->successRediretUrl = \Yii::$app->request->referrer;
+                }
+                return $this->controller->redirectOnSuccess($this->getSuccessRediretUrlWidthModel($model), $this->successMsg);
             }
-            return $this->controller->redirectOnSuccess($this->getSuccessRediretUrlWidthModel($model), $this->successMsg);
-        }
 
-        if (\Yii::$app->request->isPost) {
             if ($loaded === false) {
                 return $this->controller->renderOnFail($this->viewName, $data, '可能表达的字段更服务端不一致');
             }
@@ -50,4 +50,3 @@ class CreateModelAction extends BaseAction
         return $this->controller->render($this->viewName, $data);
     }
 }
-

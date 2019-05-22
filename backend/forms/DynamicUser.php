@@ -15,6 +15,8 @@ class DynamicUser extends BaseDynamicModel
 
     public $id;
 
+    public $is_admin;
+
     /**
      *
      * @var \app\kit\models\User
@@ -26,8 +28,9 @@ class DynamicUser extends BaseDynamicModel
         parent::init();
         if (! $this->model) {
             $this->model = new User([
-                'scenario' => $this->scenario
+                'scenario' => $this->scenario,
             ]);
+            //$this->model->is_admin = $this->is_admin;
         }
         $this->model->attachBehavior('role-update','app\kit\behaviors\UpdateUserRoleBehavior');
     }

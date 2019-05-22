@@ -6,7 +6,7 @@ use app\kit\widgets\AjaxModalOrNormalPanelContent;
 
 $this->title = '查看';
 $this->params['breadcrumbs'][] = [
-    'label' => '用户',
+    'label' => '管理员',
     'url' => [
         'index'
     ]
@@ -26,7 +26,6 @@ echo AjaxModalOrNormalPanelContent::widget([
             'nick_name',
             'email:email',
             'mobile',
-            'is_admin',
             'is_super',
             'role',
             [

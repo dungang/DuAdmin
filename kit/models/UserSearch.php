@@ -3,7 +3,6 @@ namespace app\kit\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\kit\helpers\KitHelper;
 
 /**
  * UserSearch represents the model behind the search form of `app\kit\models\User`.
@@ -72,7 +71,7 @@ class UserSearch extends User
 
         // add conditions that should always apply here
 
-        $this->beforeSearch($query,$params);
+        $this->beforeSearch($query, $params);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -80,7 +79,7 @@ class UserSearch extends User
 
         $this->load($params);
 
-        if (! $this->validate()) {
+        if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
@@ -90,6 +89,8 @@ class UserSearch extends User
         $query->andFilterWhere([
             'id' => $this->id,
             'status' => $this->status,
+            'is_admin' => $this->is_admin,
+            'is_super' => $this->is_super,
             'role' => $this->role
         ]);
         $query->andFilterWhere([
@@ -98,17 +99,15 @@ class UserSearch extends User
             $this->username
         ])
             ->andFilterWhere([
-            'like',
-            'email',
-            $this->email
-        ])
+                'like',
+                'email',
+                $this->email
+            ])
             ->andFilterWhere([
-            'like',
-            'mobile',
-            $this->mobile
-        ])
-            ->andFilterWhere(KitHelper::betweenDayWithTimestamp('updated_at', $this->updated_at))
-            ->andFilterWhere(KitHelper::betweenDayWithTimestamp('created_at', $this->created_at));
+                'like',
+                'mobile',
+                $this->mobile
+            ]);
 
         return $dataProvider;
     }

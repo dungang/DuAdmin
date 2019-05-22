@@ -50,15 +50,34 @@ class BaseAction extends Action
     public $modelClass = null;
 
     /**
-     * 条件查找参数
+     * 固定的对象属性，
+     * 整合了之前的 findParams 和 assignParams
+     * 在很多场景下，findParams assignParams 是一直的所以没有必要使用两个参数来区分。
+     * 很难理解。
+     * 
+     * 比如查询对象的时候必须在代码内部确定的属性。查询当前用户的数据，
+     * 为什么要做这样的参数设置。
+     * Yii有个优点也是缺点，模型load的时候可以任意覆盖，如果不约束就会有注入的风险，
+     * 不通过这种方式也是可以的，配置模型的安全属性，safe，但是这样会导致模型文件的维护复杂
+     * 随着业务的增加，对一个模型的需求就会出现不同场景（属性数量的不同）在rules方法章充满了各种场景，已经复杂的组合。
+     * 还不入直接通过参数约束。
+     * 
+     * 可以参考用户表（当会员和管理员同表的场景），用户表即代表了管理员也可以代表会员
      *
+     * @var array|null
+     */
+    public $baseAttrs = null;
+
+    /**
+     * 条件查找参数
+     * @deprecated 请使用 baseAttrs
      * @var array|null
      */
     public $findParams = null;
 
     /**
      * 固定赋值参数
-     *
+     * @deprecated 请使用 baseAttrs
      * @var null|array
      */
     public $assignParams = null;
@@ -71,6 +90,25 @@ class BaseAction extends Action
     public $successRediretUrl = false;
 
     public $successMsg = '添加成功';
+
+
+    public function init()
+    {
+        if (empty($this->viewName)) {
+            $this->viewName = $this->id;
+        }
+        if (!empty($this->actionBehaviors)) {
+            $this->attachBehaviors($this->actionBehaviors);
+        }
+        if($this->baseAttrs) {
+            $this->findParams = $this->baseAttrs;
+            $this->assignParams = $this->baseAttrs;
+        }
+    }
+
+    protected function isPost(){
+        return \Yii::$app->request->isPost;
+    }
 
     /**
      * 设置固定的参数，避免被外部覆盖
@@ -151,15 +189,6 @@ class BaseAction extends Action
         return parent::beforeRun();
     }
 
-    public function init()
-    {
-        if (empty($this->viewName)) {
-            $this->viewName = $this->id;
-        }
-        if (! empty($this->actionBehaviors)) {
-            $this->attachBehaviors($this->actionBehaviors);
-        }
-    }
 
     /**
      * 计算跳转的参数或url
@@ -225,8 +254,8 @@ class BaseAction extends Action
                 unset($args['scenario']);
             }
             if ($class) {
-                
-                $condition = array_merge($this->getPrimaryKeyCondition($class), $args?:[]);
+
+                $condition = array_merge($this->getPrimaryKeyCondition($class), $args ?: []);
 
                 //是否设置了查找的固定参数
                 if ($this->findParams) {
@@ -285,11 +314,11 @@ class BaseAction extends Action
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-    
-    private function clearCond($cond){
-        return \array_filter($cond,function($val){
+
+    private function clearCond($cond)
+    {
+        return \array_filter($cond, function ($val) {
             return !\is_null($val);
         });
     }
 }
-

@@ -17,13 +17,11 @@ use app\kit\models\AuthItem;
         	<?= $form->field($model->model, 'username')->textInput() ?>
             <?= $form->field($model->model, 'nick_name')->textInput() ?>
             <?= $form->field($model->model, 'password')->textInput(['autocomplete'=>'off']) ?>
-    		<?= $form->field($model->model, 'is_admin')->checkbox() ?>
     	</div>
 		<div class="col-md-6">
             <?= $form->field($model->model, 'email')->textInput() ?>
             <?= $form->field($model->model, 'mobile')->textInput() ?>
             <?=$form->field($model->model, 'status')->dropDownList([0 => '未激活',10 => '已激活'])?>
-    		<?= $form->field($model->model, 'is_super')->checkbox() ?>
     	</div>
     	 <?php foreach($model->getDynamicProperties() as $property):?>
     		<div class="col-md-6">

@@ -22,6 +22,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'user_id',
                 'filter'=> User::allIdToName('id','nick_name'),
             ],
+            [
+                'class'=>'app\kit\grids\FilterColumn',
+                'attribute'=>'method',
+                'filter'=> [
+                    'POST'=>'POST',
+                    'GET'=>'GET',
+                    'PUT'=>'PUT',
+                    'OPTION'=>'OPTION',
+                    'HEAD'=>'HEAD'
+                ]
+            ],
             'action',
             [
                 'attribute'=>'ip',

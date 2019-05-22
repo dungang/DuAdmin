@@ -28,6 +28,7 @@ echo AjaxModalOrNormalPanelContent::widget([
                 }
             ],
             'action',
+            'method',
             'created_at:datetime',
             'data:ntext',
             ],

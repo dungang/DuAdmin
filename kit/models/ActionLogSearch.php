@@ -19,7 +19,7 @@ class ActionLogSearch extends ActionLog
     {
         return [
             [['id', 'user_id', 'ip', 'created_at'], 'integer'],
-            [['action', 'data'], 'safe'],
+            [['action', 'method','data'], 'safe'],
         ];
     }
 
@@ -47,6 +47,11 @@ class ActionLogSearch extends ActionLog
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder' => [
+                    'created_at' => SORT_DESC
+                ]
+            ]
         ]);
 
         $this->load($params);
