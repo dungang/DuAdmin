@@ -9,7 +9,7 @@ use app\kit\widgets\PanelNavTabs;
 /* @var $searchModel app\backend\models\AuthGroupSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '授权组';
+$this->title = '管理员授权组';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php Pjax::begin(['id' => 'auth-group-index']); ?>
@@ -26,12 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
             }
         ],
         'name',
-        'is_backend:boolean',
-        [
-            'class' => 'app\kit\grids\FilterColumn',
-            'attribute' => 'type',
-            'filter' => ['1' => '角色', '2' => '权限']
-        ],
         [
             'label' => '权限',
             'format' => 'raw',

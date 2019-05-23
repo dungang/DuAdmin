@@ -10,7 +10,7 @@ use app\backend\models\AuthGroup;
 $group = AuthGroup::findOne(['name' => $searchModel->group_name]);
 $this->title = $group->title;
 $this->params['breadcrumbs'][] = [
-    'label' => '权限组',
+    'label' => '管理员权限组',
     'url' => ['index', 'AuthGroupSearch[type]' => $searchModel->type]
 ];
 $this->params['breadcrumbs'][] = $this->title;

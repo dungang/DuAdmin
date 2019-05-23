@@ -9,6 +9,7 @@ use app\kit\models\ActionLog;
 use yii\helpers\Json;
 use app\kit\core\LongPollAction;
 use app\kit\core\LoopAction;
+use yii\web\ErrorAction;
 
 /**
  * 替代默认的ACF
@@ -106,14 +107,16 @@ class AccessFilter extends ActionFilter
 
     public function afterAction($action, $result)
     {
-        if ($action instanceof LongPollAction) {
+        if ($action instanceof ErrorAction) {
+            return $result;
+        } else if ($action instanceof LongPollAction) {
             return $result;
         } else if ($action instanceof LoopAction) {
             return $result;
         } else {
             if (!\Yii::$app->user->isGuest) {
                 $data = $_REQUEST;
-                unset($data['r']);
+                unset($data['r'],$data['_csrf']);
                 $log = new ActionLog([
                     'user_id' => \Yii::$app->user->id,
                     'action' => $action->getUniqueId(),
