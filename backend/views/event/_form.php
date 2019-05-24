@@ -19,8 +19,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'intro')->textarea(['maxlength' => true]) ?>
     
-    <?= $form->field($model, 'is_backend')->checkbox()?>
-
     <div class="form-group">
         <?= Html::submitButton('<i class="fa fa-save"></i> 保存', ['class' => 'btn btn-success']) ?>
     </div>

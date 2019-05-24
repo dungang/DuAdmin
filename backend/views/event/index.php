@@ -33,7 +33,6 @@ PanelGridView::begin(
             ],
             'event',
             'level',
-            'is_backend:boolean',
             [
                 'label' => '处理器',
                 'format' => 'raw',

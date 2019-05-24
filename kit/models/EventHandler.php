@@ -144,13 +144,17 @@ class EventHandler extends \app\kit\core\BaseModel
         return $levelHandlers;
     }
 
+    private static $_all_handlers;
+
     public static function getCacheActiveEventHandlers($level = null)
     {
-        $handlers = \Yii::$app->cache->getOrSet(self::CacheKey, function () {
-            return self::getActiveEventHandlersData();
-        });
-        if ($level !== null && isset($handlers[$level])) {
-            return $handlers[$level];
+        if (empty(self::$_all_handlers)) {
+            self::$_all_handlers = \Yii::$app->cache->getOrSet(self::CacheKey, function () {
+                return self::getActiveEventHandlersData();
+            });
+        }
+        if ($level !== null && isset(self::$_all_handlers[$level])) {
+            return self::$_all_handlers[$level];
         }
         return [];
     }
@@ -164,15 +168,11 @@ class EventHandler extends \app\kit\core\BaseModel
     public static function registerLevel($target, $level)
     {
         if ($handlers = EventHandler::getCacheActiveEventHandlers($level)) {
-            $is_backend = KitHelper::isBackend();
             foreach ($handlers as $handler) {
-                if (isset($handler['is_backend']) && $handler['is_backend'] == $is_backend) {
-                    
-                    $target->on($handler['event'], [
-                        \Yii::createObject($handler['handler']),
-                        'process'
-                    ]);
-                }
+                $target->on($handler['event'], [
+                    \Yii::createObject($handler['handler']),
+                    'process'
+                ]);
             }
         }
     }

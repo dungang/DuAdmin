@@ -12,6 +12,7 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
 
     public $css = [
+        'css/bootstrap-flatly.min.css',
         'font-awesome/css/font-awesome.min.css'
     ];
 

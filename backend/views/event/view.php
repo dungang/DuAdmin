@@ -22,7 +22,6 @@ echo AjaxModalOrNormalPanelContent::widget([
                 'event',
                 'level',
                 'intro:html',
-                'is_backend:boolean'
             ],
         ])
 ]);

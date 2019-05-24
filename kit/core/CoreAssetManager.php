@@ -3,6 +3,7 @@ namespace app\kit\core;
 
 use yii\web\AssetManager;
 use app\kit\events\CustomerEvent;
+use app\kit\models\EventHandler;
 
 /**
  *
@@ -13,6 +14,12 @@ class CoreAssetManager extends AssetManager {
     const EVENT_BEORE_GET_BUNDLE = 'beforeGetBundle';
 
     private static $__assets;
+
+    public function init()
+    {
+        parent::init();
+        EventHandler::registerLevel($this,'AssetManager');
+    }
 
     public function getBundle($name, $publish = true) {
         $this->beforeGetBundle();

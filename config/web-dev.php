@@ -13,6 +13,7 @@ $config = [
         'wangeditor' => '\app\addons\wangeditor\WangEditorModule',
         'aliyun-oss' => '\app\addons\aliyunoss\AliyunOssModule',
         'user' => '\app\addons\user\UserModule',
+        'asset' => '\app\addons\asset\AssetModule',
     ],
     'components' => [
         'db' => $db,
