@@ -14,6 +14,7 @@ $config = [
         'aliyun-oss' => '\app\addons\aliyunoss\AliyunOssModule',
         'user' => '\app\addons\user\UserModule',
         'asset' => '\app\addons\asset\AssetModule',
+        'page' => '\app\addons\page\PageModule',
     ],
     'components' => [
         'db' => $db,

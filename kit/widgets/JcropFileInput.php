@@ -48,7 +48,7 @@ class JcropFileInput extends InputWidget
                 200,
                 200
             ],
-            'aspectRatio' => 1,
+            'aspectRatio' => $this->preview_w / $this->preview_h,
             'onSelect' => new JsExpression("function(c){
                 $('#{$this->crop_input_id}').val(JSON.stringify(c));
             }")

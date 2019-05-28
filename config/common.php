@@ -8,6 +8,7 @@ $config = [
         'log',
         'app\kit\components\Bootstrap'
     ],
+    'timeZone'=>'Asia/Shanghai',
     'language' => 'zh-CN',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
@@ -16,9 +17,10 @@ $config = [
     'modules' => [
         'backend' => 'app\backend\BackendModule'
     ],
-    //'homeUrl'=>['/backend'],
     'components' => [
-        'view' => 'app\kit\core\CoreView',
+        'view' => [
+            'class'=>'app\kit\core\CoreView',
+        ],
         'request' => [
             'cookieValidationKey' => 'kdyagjkuduebfdglsgdls'
         ],

@@ -28,7 +28,7 @@ class AdminlteSideBar extends Widget
         $this->view->registerJs("$('[data-toggle=\"push-menu\"]').pushMenu();");
         $content =  ob_get_clean();
         $start = '<aside class="main-sidebar"><section class="sidebar">';
-        $end = '</aside></section>';
+        $end = '</section></aside>';
         return $start  . $content  .$end;
     }
 }
