@@ -23,7 +23,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::a($model['name'],['view','id'=>$model['id']],['data-toggle'=>'modal','data-target'=>'#modal-dailog']);
                 }
         	],
-            'code',
             'source',
             'is_static:boolean',
             'unlimited:boolean',

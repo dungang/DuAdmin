@@ -22,7 +22,7 @@
                     <td><?= Yii::$app->timeZone ?></td>
                 </tr>
                 <tr>
-                    <th>服务器操作系统</th>
+                    <th>服务器系统</th>
                     <td><?= PHP_OS ?></td>
                 </tr>
                 <tr>
