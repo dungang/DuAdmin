@@ -14,10 +14,8 @@ use app\kit\widgets\AdminlteNavBar;
 use app\kit\widgets\AdminlteSideBar;
 use app\kit\widgets\AdminlteSideBarMenu;
 use app\backend\widgets\StartCron;
-use app\backend\assets\IonIconsAsset;
 
 BackendAsset::register($this);
-IonIconsAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

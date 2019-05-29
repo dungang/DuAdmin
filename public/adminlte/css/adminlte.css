@@ -87,7 +87,7 @@ body {
 }
 .content-wrapper {
   min-height: 100%;
-  background-color: #ecf0f5;
+  background-color: #f1f4f6;
   z-index: 800;
 }
 .main-footer {
@@ -3117,8 +3117,8 @@ table.text-center th {
 }
 .panel-adminlte > .panel-heading {
   padding: 20px;
-  background-color: #fcf8e3;
-  color: #8a6d3b;
+  background-color: #e8edf0;
+  color: #555555;
   border: 0;
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
