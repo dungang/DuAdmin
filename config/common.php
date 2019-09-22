@@ -31,19 +31,7 @@ $config = [
             'identityClass' => 'app\kit\models\User',
             'enableAutoLogin' => true,
             'loginUrl' => [
-                'backend/login'
-            ]
-        ],
-        'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
-            'targets' => [
-                [
-                    'class' => 'yii\log\FileTarget',
-                    'levels' => [
-                        'error',
-                        'warning'
-                    ]
-                ]
+                'site/login'
             ]
         ],
         'authManager' => [

@@ -5,8 +5,9 @@ use yii\web\View;
 use app\kit\models\EventHandler;
 
 /**
- *
- * @author dungang
+ * 重写视图
+ * @author dungang<dungang@126.com>
+ * date: 2019年9月20日
  */
 class CoreView extends View
 {

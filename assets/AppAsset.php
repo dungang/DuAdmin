@@ -1,5 +1,5 @@
 <?php
-namespace app\kit\assets;
+namespace app\assets;
 
 use yii\web\AssetBundle;
 
@@ -12,8 +12,9 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
 
     public $css = [
-        'css/bootstrap-flatly.min.css',
-        'font-awesome/css/font-awesome.min.css'
+       //'css/bootstrap-flatly.min.css',
+       'font-awesome/css/font-awesome.min.css',
+       'css/site.css'
     ];
 
     public $js = [

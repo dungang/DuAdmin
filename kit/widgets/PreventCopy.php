@@ -2,14 +2,14 @@
 namespace app\kit\widgets;
 
 use yii\base\Widget;
-use app\kit\assets\AppAsset;
+use yii\web\JqueryAsset;
 
 class PreventCopy extends Widget
 {
 
     public function run()
     {
-        AppAsset::register($this->view);
+        JqueryAsset::register($this->view);
         $this->view->registerJs("$('div').on('selectstart',function(e){
             e.preventDefault();
             return false;

@@ -13,20 +13,6 @@ class BaseController extends Controller
 {
 
     /**
-     * 游客可以访问的action清单
-     *
-     * @var array
-     */
-    public $guestActions = [];
-
-    /**
-     * 登录用户可以访问的action清单
-     *
-     * @var array
-     */
-    public $userActions = [];
-
-    /**
      * 请求的方法过滤
      *
      * @var array

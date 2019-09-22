@@ -4,6 +4,7 @@ body {
 }
 .navbar {
 	border-radius: 0;
+	border: 0;
 }
 .wrap {
     min-height: 100%;
@@ -13,7 +14,7 @@ body {
 }
 
 .wrap > .container {
-    padding: 70px 15px 20px;
+    padding: 0px 15px 20px 60px;
 }
 
 .footer {
@@ -116,3 +117,9 @@ a.desc:after {
     outline: none;
 }
 
+
+/* customer css */
+
+.grid-view .summary {
+    padding-bottom: 10px;
+}

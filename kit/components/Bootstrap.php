@@ -26,8 +26,6 @@ class Bootstrap implements BootstrapInterface
         $this->whenAddonToAppReset($app);
 
         $this->dynamicRegistAddons($app);
-
-        $this->dynamicSetSiteHome($app);
     }
 
     /**
@@ -58,21 +56,6 @@ class Bootstrap implements BootstrapInterface
         //重置baseUri，由于资源文件是同意在public目录的。
         //当插件独立域名运行的时候需要通过@web知道资源的文件的位置
         //\Yii::setAlias('@web', '/baiyuan-yii2/public');
-    }
-
-    /**
-     * 通过参数配置，修改app的默认的homepage
-     *
-     * @param Application $app
-     */
-    protected function dynamicSetSiteHome($app)
-    {
-        if ($home = Setting::getSettings("site.index-page")) {
-
-            $app->setHomeUrl([
-                $home
-            ]);
-        }
     }
 
     /**

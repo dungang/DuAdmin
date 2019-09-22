@@ -6,7 +6,7 @@ use app\kit\core\ILongPollHandler;
 use app\kit\models\Cron;
 use yii\httpclient\Client;
 use app\kit\components\Crontab;
-use app\kit\helpers\CrontabHelpers; 
+use app\kit\helpers\CrontabHelper;
 
 /**
  * 检查cron 表中的定时任务的状态
@@ -37,7 +37,7 @@ class CronHandler extends ILongPollHandler
     public function process()
     {
         //如果没有启动cron服务，则退出循环
-        if (! CrontabHelpers::getCronStatus()) {
+        if (! CrontabHelper::getCronStatus()) {
             return true;
         }
 

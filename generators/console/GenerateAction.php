@@ -3,6 +3,7 @@
 namespace app\generators\console;
 
 use yii\helpers\Console;
+use app\generators\Generator;
 
 /**
  * @author Qiang Xue <qiang.xue@gmail.com>
@@ -11,7 +12,7 @@ use yii\helpers\Console;
 class GenerateAction extends \yii\base\Action
 {
     /**
-     * @var \Yiisoft\Yii\Gii\Generator
+     * @var Generator
      */
     public $generator;
     /**

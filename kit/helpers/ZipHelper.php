@@ -1,12 +1,12 @@
 <?php
-
 namespace app\kit\helpers;
 
 use yii\base\UnknownClassException;
 
 class ZipHelper
 {
-      /**
+
+    /**
      * Charge method to backup and create a zip with this
      */
     public static function createZipBackup($file_name)
@@ -32,8 +32,8 @@ class ZipHelper
     {
         if ($handle = opendir($directory)) {
             while (($file = readdir($handle)) !== false) {
-                if (is_dir($directory . $file) && $file != "." && $file != ".." && !in_array($directory . $file . '/', $this->module->excludeDirectoryBackup))
-                    $this->zipDirectory($zip, $new_dir_name . $file . '/', $directory . $file . '/');
+                if (is_dir($directory . $file) && $file != "." && $file != ".." && ! in_array($directory . $file . '/', $this->module->excludeDirectoryBackup))
+                    self::zipDirectory($zip, $new_dir_name . $file . '/', $directory . $file . '/');
 
                 if (is_file($directory . $file))
                     $zip->addFile($directory . $file, $new_dir_name . $file);
@@ -61,7 +61,8 @@ class ZipHelper
         }
         return $sqlZipFile;
     }
-/**
+
+    /**
      * 获取zip资源
      *
      * @return \ZipArchive

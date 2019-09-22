@@ -22,16 +22,18 @@ PanelGridView::begin(
         'columns' => [
             'title',
             [
-                'attribute' => 'name',
-                'format' => 'raw',
+                'attribute' => 'value',
+                'format'=>'raw',
                 'value' => function ($model, $key, $index, $column) {
-                    return Html::a($model['name'], [
+                    $detail =  Html::a('查看详情', [
                         'view',
                         'name' => $model['name']
                     ], [
                         'data-toggle' => 'modal',
                         'data-target' => '#modal-dailog'
                     ]);
+                    return $model['val_type']=='STR'
+                        ?(strlen($model['value'])<128?$model['value']:$detail ):$detail;
                 }
             ],
             [

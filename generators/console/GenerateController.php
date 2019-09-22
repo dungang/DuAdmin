@@ -10,6 +10,7 @@ namespace app\generators\console;
 use Yii;
 use yii\base\InlineAction;
 use yii\console\Controller;
+use app\generators\Module;
 
 /**
  * This is the command line version of Gii - a code generator.
@@ -28,7 +29,7 @@ use yii\console\Controller;
 class GenerateController extends Controller
 {
     /**
-     * @var \yii\gii\Module
+     * @var Module
      */
     public $module;
     /**

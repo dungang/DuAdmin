@@ -11,6 +11,7 @@ class LoginController extends BaseController
 		parent::init();
 		$this->layout='login';
 	}
+	
     /**
      * Login action.
      *

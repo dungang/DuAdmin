@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Html;
-/* @var $widget  \dungang\selectbox\SelectBox */
+use app\kit\widgets\SelectBox;
+/* @var $widget  SelectBox */
 $id = $widget->options['id'];
 ?>
 <?=Html::beginTag('table',$widget->options)?>

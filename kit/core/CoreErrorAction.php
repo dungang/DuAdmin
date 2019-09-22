@@ -5,6 +5,11 @@ namespace app\kit\core;
 use Yii;
 use yii\web\ErrorAction;
 
+/**
+ * 重写错误处理的action
+ * @author dungang<dungang@126.com>
+ * date: 2019年9月20日
+ */
 class CoreErrorAction extends ErrorAction
 {
     public function run()

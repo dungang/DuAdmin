@@ -7,7 +7,8 @@ use yii\helpers\Html;
 
 class AdminltePanel extends Widget
 {
-  public $title = '功能说明';
+ 
+    public $title = '功能说明';
 
   /**
    * 说明

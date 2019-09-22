@@ -85,7 +85,7 @@ class AuthAdminGroupController extends BackendController
      *
      * @param string $group_name
      * @param integer $type
-     * @return string|yii\web\Response
+     * @return string|\yii\web\Response
      */
     public function actionAssign($group_name, $type = 1)
     {

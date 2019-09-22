@@ -55,17 +55,17 @@ class Addon extends Module {
     }
 
     public function initAddonResouces() {
-        $this->registerAddonErrorAction();
+        //$this->registerAddonErrorAction();
         $this->registerAddonBackendHomeBreadscrumb();
         Yii::$app->view->on(View::EVENT_BEGIN_PAGE, [$this, 'registerAddonFrontendAssetBundle']);
     }
 
-    /**
-     * 注册插件模块的错误处理执行处理动作
-     */
-    protected function registerAddonErrorAction() {
-        \Yii::$app->errorHandler->errorAction = 'backend/default/error';
-    }
+//     /**
+//      * 注册插件模块的错误处理执行处理动作
+//      */
+//     protected function registerAddonErrorAction() {
+//         \Yii::$app->errorHandler->errorAction = 'backend/default/error';
+//     }
 
     /**
      * 注册插件模块的前端资源文件，如果存在则注册

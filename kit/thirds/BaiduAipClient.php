@@ -4,6 +4,7 @@ namespace app\kit\thirds;
 
 use yii\base\BaseObject;
 use yii\httpclient\Client;
+use yii\helpers\Json;
 
 class BaiduAipClient extends BaseObject
 {

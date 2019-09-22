@@ -3,13 +3,13 @@
 namespace app\backend\portals;
 
 use yii\base\Widget;
-use app\addons\school\models\Admin;
+use app\kit\models\User;
 
 class AdminCounterPortal extends Widget
 {
     public function run()
     {
-        $count = Admin::find()->count();
+        $count = User::find()->where(['is_admin'=>1])->count();
         return $this->render('admin-counter',[
             'count' => $count,
         ]);

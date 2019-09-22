@@ -1,5 +1,4 @@
 <?php
-
 namespace app\kit\helpers;
 
 use yii\helpers\Html;
@@ -30,12 +29,30 @@ class KitHelper
         return self::$agent_detect->isMobile();
     }
 
-    public static function isBackend(){
+    public static function isBackend()
+    {
         return \Yii::$app->controller instanceof BackendController;
     }
 
     /**
+     * 根据起始值，和长度，生产关系数组
+     * @param number $start
+     * @param number $size
+     * @param string $textsuffix
+     * @return string[]
+     */
+    public static function generateNumberMap($start = 1, $size = 12, $textsuffix = '')
+    {
+        $map = array();
+        for ($i = $start; $i <= $size; $i ++) {
+            $map[$i] = $i . $textsuffix;
+        }
+        return $map;
+    }
+
+    /**
      * 将可识别的本地url转化为满足框架的数组格式，否则直接返回原始字符串
+     *
      * @param string $url
      * @return array|string
      */
@@ -57,7 +74,8 @@ class KitHelper
     }
 
     /**
-     *  图片
+     * 图片
+     *
      * @param string $src
      * @param array $options
      * @return string
@@ -69,6 +87,7 @@ class KitHelper
 
     /**
      * 生成延迟加载图片，并默认设置base64的小图片
+     *
      * @param string $src
      * @param string $thumb
      * @param array $options
@@ -134,7 +153,7 @@ class KitHelper
      * @param array $one
      * @param boolean $is_root
      */
-    public function to1Array($root_key, $array, &$one, $is_root = true)
+    public static function to1Array($root_key, $array, &$one, $is_root = true)
     {
         foreach ($array as $key => $val) {
             if ($is_root) {
@@ -158,7 +177,7 @@ class KitHelper
      */
     public static function reActiveItem($items)
     {
-        //获取请求的路由，是完整的，头部不会自动添加'/'
+        // 获取请求的路由，是完整的，头部不会自动添加'/'
         $route = \Yii::$app->requestedRoute;
         $params = [];
         self::to1Array('', \Yii::$app->request->get(), $params);
@@ -166,14 +185,14 @@ class KitHelper
         foreach ($items as $i => $item) {
             if (is_array($item['url'])) {
                 $checkRoute = \array_shift($item['url']);
-                //如果菜单的路由不是‘/’开头，则说明是当前控制器的action
+                // 如果菜单的路由不是‘/’开头，则说明是当前控制器的action
                 if (\strpos($checkRoute, '/') !== 0) {
                     $checkRoute = \Yii::$app->controller->uniqueId . '/' . $checkRoute;
                 } else {
-                    //否则就是绝对的路由（头部包含了'/'）,抹掉头部的'/',方便和请求的路由比较
+                    // 否则就是绝对的路由（头部包含了'/'）,抹掉头部的'/',方便和请求的路由比较
                     $checkRoute = \ltrim($checkRoute, '/');
                 }
-                //对比路由地址，积一分
+                // 对比路由地址，积一分
                 if ($checkRoute == $route) {
                     $counters[$i] = 1;
                     if (is_array($item['url']) && \is_array($params)) {
@@ -182,7 +201,7 @@ class KitHelper
                 }
             }
         }
-        //需要积分高的菜单选项
+        // 需要积分高的菜单选项
         $max = 0;
         $idx = 0;
         foreach ($counters as $i => $count) {
@@ -191,7 +210,7 @@ class KitHelper
                 $idx = $i;
             }
         }
-        //找到后，添加激活属性
+        // 找到后，添加激活属性
         $items[$idx]['isActive'] = true;
         return $items;
     }
@@ -210,7 +229,6 @@ class KitHelper
         }
         return [];
     }
-
 
     /**
      * 把返回的数据集转换成Tree
@@ -297,7 +315,7 @@ class KitHelper
         $depItems = static::calcListItemDepth($items, $parent_id, $depth, $idField, $parentField);
 
         $tree = [];
-        $tab = self::unicodeDecode("\u3000"); //特殊空格
+        $tab = self::unicodeDecode("\u3000"); // 特殊空格
         foreach ($depItems as $item) {
 
             $tree[$item[$idField]] = str_repeat($tab, ($item['dep'] - 1) * 2) . '└' . $item[$textField];
@@ -414,7 +432,7 @@ class KitHelper
     {
         $command = \Yii::$app->db->createCommand()->batchInsert($table, $columns, $rows);
         $command->setRawSql('REPLACE' . \substr($command->getRawSql(), 6));
-        //echo $command->getRawSql();die;
+        // echo $command->getRawSql();die;
         return $command->execute();
     }
 

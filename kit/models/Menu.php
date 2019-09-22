@@ -153,9 +153,9 @@ class Menu extends \app\kit\core\BaseModel
             ->asArray()
             ->orderBy('sort asc')
             ->all();
-        //             if ($vars) {
-        //                 $vars = KitHelper::listToTree($vars);
-        //             }
+        // if ($vars) {
+        // $vars = KitHelper::listToTree($vars);
+        // }
         return $vars;
     }
 

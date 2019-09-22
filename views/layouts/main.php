@@ -2,7 +2,7 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-use app\kit\assets\AppAsset;
+use app\assets\AppAsset;
 use app\kit\helpers\KitHelper;
 use app\kit\models\Menu;
 use app\kit\models\Setting;
@@ -37,14 +37,19 @@ $this->params['logo'] = KitHelper::getSetting('site.logo');
         <div class="wrap">
             <?php
             NavBar::begin([
-                'brandImage' => $this->params['logo'],
                 'brandLabel' => KitHelper::getSetting('site.name'),
+                //'brandImage' => $this->params['logo'],
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
-                    'class' => 'navbar-inverse'
+                    'class' => 'navbar-default'
                 ]
             ]);
-            $menus = [];
+            $menus = [[
+                'label'=>'首页',
+                'url'=>[
+                    '/'
+                ]
+            ]];
             if (($frontMenus = Menu::getFrontMenus())) {
                 foreach ($frontMenus as $frontMenu) {
                     $menus[] = $frontMenu;
@@ -55,15 +60,15 @@ $this->params['logo'] = KitHelper::getSetting('site.logo');
                     'label' => Yii::$app->user->identity->nick_name,
                     'items' => [
                         [
-                            'label' => '后台',
+                            'label' => '理财',
                             'url' => [
-                                '/backend/'
+                                '/finance/'
                             ]
                         ],
                         [
                             'label' => '退出',
                             'url' => [
-                                '/backend/logout'
+                                '/site/logout'
                             ],
                             'linkOptions' => [
                                 'data-method' => 'post'
@@ -71,7 +76,15 @@ $this->params['logo'] = KitHelper::getSetting('site.logo');
                         ]
                     ]
                 ];
+            }  else {
+                $menus[]=[
+                    'label'=>'登录',
+                    'url'=>[
+                        '/oauth/alipay'
+                    ]
+                ];
             }
+            //print_r($menus);die;
             echo Nav::widget([
                 'options' => [
                     'class' => 'navbar-nav navbar-right'
@@ -83,7 +96,6 @@ $this->params['logo'] = KitHelper::getSetting('site.logo');
 
             <div class="container">
                 <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : []]) ?>
-
                 <?= $content ?>
                 <?php
                 SimpleModal::begin([
@@ -101,16 +113,14 @@ $this->params['logo'] = KitHelper::getSetting('site.logo');
 
         <footer class="footer bg-primary text-center">
             <div class="container">
-                <p><?= Html::a('<i class="fa fa-user"></i> 关于我们', ['/about-us']) ?></p>
-                <p>
+                <p><?= Html::a('<i class="fa fa-user"></i> 关于我们', ['/about-us']) ?>
+                
                     <?= date('Y') ?> &copy; <?= Html::encode(Setting::getSettings('site.company')) ?> 
-                </p>
-                <p>
+                
                     <a href="tel://<?= Setting::getSettings('site.company.phone') ?>">
                         <i class="fa fa-phone"></i> <?= Setting::getSettings('site.company.phone') ?></a>
 
-
-                <p><?= Setting::getSettings('site.beian') ?>  </p>
+                <?= Setting::getSettings('site.beian') ?>  </p>
             </div>
         </footer>
         <?php $this->endBody() ?>

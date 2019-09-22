@@ -24,22 +24,6 @@ class AccessFilter extends ActionFilter
     const ID = 'access-filter';
 
     /**
-     *
-     * @var callable a callback that will be called if the access should be denied
-     *      to the current user. If not set, [[denyAccess()]] will be called.
-     *     
-     *      The signature of the callback should be as follows:
-     *     
-     *      ~~~
-     *      function ($rule, $action)
-     *      ~~~
-     *     
-     *      where `$rule` is the rule that denies the user, and `$action` is the current [[Action|action]] object.
-     *      `$rule` can be `null` if access is denied because none of the rules matched.
-     */
-    public $denyCallback;
-
-    /**
      * action执行之前
      *
      * @param \yii\base\Action $action
@@ -97,11 +81,7 @@ class AccessFilter extends ActionFilter
             }
         }
 
-        if (isset($this->denyCallback)) {
-            call_user_func($this->denyCallback, null, $action);
-        } else {
-            $this->denyAccess();
-        }
+        $this->denyAccess();
         return false;
     }
 
