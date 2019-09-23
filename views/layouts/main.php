@@ -1,7 +1,6 @@
 <?php
 /* @var $this \yii\web\View */
 /* @var $content string */
-
 use app\assets\AppAsset;
 use app\kit\helpers\KitHelper;
 use app\kit\models\Menu;
@@ -22,47 +21,53 @@ $this->params['logo'] = KitHelper::getSetting('site.logo');
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
-    <head>
-        <base href="<?= Yii::$app->request->baseUrl ?>/">
-        <meta charset="<?= Yii::$app->charset ?>">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+<base href="<?= Yii::$app->request->baseUrl ?>/">
+<meta charset="<?= Yii::$app->charset ?>">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
         <?= Html::csrfMetaTags() ?>
-        <title><?= Html::encode($this->title) ?></title>
+        <title><?= Html::encode($this->title  .'-'.KitHelper::getSetting('site.name')) ?></title>
         <?php $this->head() ?>
     </head>
-    <body>
+<body>
         <?php $this->beginBody() ?>
 
         <div class="wrap">
             <?php
             NavBar::begin([
                 'brandLabel' => KitHelper::getSetting('site.name'),
-                //'brandImage' => $this->params['logo'],
+                // 'brandImage' => $this->params['logo'],
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
                     'class' => 'navbar-default'
                 ]
             ]);
-            $menus = [[
-                'label'=>'首页',
-                'url'=>[
-                    '/'
+            $menus = [
+                [
+                    'label' => '首页',
+                    'url' => [
+                        '/'
+                    ]
                 ]
-            ]];
+            ];
             if (($frontMenus = Menu::getFrontMenus())) {
                 foreach ($frontMenus as $frontMenu) {
+                    if ($frontMenu['require_login'] && Yii::$app->user->isGuest) {
+                        continue;
+                    }
+                    $frontMenu['url'] = KitHelper::normalizeUrl2Route($frontMenu['url']);
                     $menus[] = $frontMenu;
                 }
             }
-            if (!Yii::$app->user->isGuest) {
+            if (! Yii::$app->user->isGuest) {
                 $menus[] = [
                     'label' => Yii::$app->user->identity->nick_name,
                     'items' => [
                         [
-                            'label' => '理财',
+                            'label' => '我的服务',
                             'url' => [
-                                '/finance/'
+                                '/finance/user-service/index'
                             ]
                         ],
                         [
@@ -76,15 +81,15 @@ $this->params['logo'] = KitHelper::getSetting('site.logo');
                         ]
                     ]
                 ];
-            }  else {
-                $menus[]=[
-                    'label'=>'登录',
-                    'url'=>[
+            } else {
+                $menus[] = [
+                    'label' => '登录',
+                    'url' => [
                         '/oauth/alipay'
                     ]
                 ];
             }
-            //print_r($menus);die;
+            // print_r($menus);die;
             echo Nav::widget([
                 'options' => [
                     'class' => 'navbar-nav navbar-right'
@@ -109,20 +114,15 @@ $this->params['logo'] = KitHelper::getSetting('site.logo');
                 SimpleModal::end();
                 ?>
             </div>
-        </div>
+	</div>
 
-        <footer class="footer bg-primary text-center">
-            <div class="container">
-                <p><?= Html::a('<i class="fa fa-user"></i> 关于我们', ['/about-us']) ?>
-                
-                    <?= date('Y') ?> &copy; <?= Html::encode(Setting::getSettings('site.company')) ?> 
-                
-                    <a href="tel://<?= Setting::getSettings('site.company.phone') ?>">
-                        <i class="fa fa-phone"></i> <?= Setting::getSettings('site.company.phone') ?></a>
-
+	<footer class="footer  text-center">
+		<div class="container">
+			<p ><?= Html::a('<i class="fa fa-user"></i>  关于我们', ['/about-us']) ?>
+                <?= date('Y') ?> &copy; <?= Html::encode(Setting::getSettings('site.company')) ?> 
                 <?= Setting::getSettings('site.beian') ?>  </p>
-            </div>
-        </footer>
+		</div>
+	</footer>
         <?php $this->endBody() ?>
     </body>
 </html>

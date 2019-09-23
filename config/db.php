@@ -2,9 +2,9 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=rm-wz96odnck1428448ko.mysql.rds.aliyuncs.com;dbname=fmcms',
-    'username' => 'hema_oa',
-    'password' => 'hemaoa88',
+    'dsn' => 'mysql:host=localhost;dbname=docdada',
+    'username' => 'docdada',
+    'password' => 'docdada!@#83',
     'charset' => 'utf8mb4',
     'tablePrefix'=>'bai_',
 

@@ -10,6 +10,7 @@ use app\kit\helpers\KitHelper;
  * @property string $name 名称
  * @property string $url 链接
  * @property bool $is_front 是否前端
+ * @property bool $require_login 需要登录
  * @property int $pid 父节点
  * @property string $icon 图标
  * @property int $sort 排序
@@ -45,7 +46,8 @@ class Menu extends \app\kit\core\BaseModel
             ],
             [
                 [
-                    'is_front'
+                    'is_front',
+                    'require_login'
                 ],
                 'boolean'
             ],
@@ -85,6 +87,7 @@ class Menu extends \app\kit\core\BaseModel
             'name' => '名称',
             'url' => '链接',
             'is_front' => '是否前端',
+            'require_login' => '需要登录',
             'pid' => '父节点',
             'icon' => '图标',
             'sort' => '排序'
@@ -122,7 +125,7 @@ class Menu extends \app\kit\core\BaseModel
 
     public static function getFrontMenusData()
     {
-        $vars = self::find()->select('id,pid,name as label,url,icon')
+        $vars = self::find()->select('id,pid,name as label,url,icon,require_login')
             ->where([
             'is_front' => 1
         ])
@@ -145,7 +148,7 @@ class Menu extends \app\kit\core\BaseModel
 
     public static function getBackendMenusData()
     {
-        $vars = self::find()->select('id,pid,name label,url,icon')
+        $vars = self::find()->select('id,pid,name label,url,icon,require_login')
             ->where([
             'is_front' => 0
         ])

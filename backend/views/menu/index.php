@@ -10,7 +10,7 @@ use app\kit\widgets\PanelNavTabs;
 $this->title = '导航';
 $this->params['breadcrumbs'][] = $this->title;
 PanelTreeGridView::begin([
-    'intro'=>'维护导航菜单，分前后端的菜单，目前只支持2级菜单。',
+    'intro' => '维护导航菜单，分前后端的菜单，目前只支持2级菜单。',
     'dataProvider' => $dataProvider,
     'keyColumnName' => 'id',
     'parentColumnName' => 'pid',
@@ -19,7 +19,7 @@ PanelTreeGridView::begin([
             'attribute' => 'name',
             'format' => 'raw',
             'value' => function ($model, $key, $index, $column) {
-                return Html::a('<i class="'. $model['icon'].'"></i> ' . $model['name'], [
+                return Html::a('<i class="' . $model['icon'] . '"></i> ' . $model['name'], [
                     'view',
                     'id' => $model['id']
                 ], [
@@ -28,6 +28,7 @@ PanelTreeGridView::begin([
                 ]);
             }
         ],
+        'require_login',
         'url',
         'sort',
         [
@@ -46,7 +47,7 @@ PanelTreeGridView::begin([
     ]
 ]);
 echo PanelNavTabs::widget([
-    'wrapper'=>true,
+    'wrapper' => true,
     'tabs' => [
         [
             'name' => '前台菜单',
@@ -68,7 +69,10 @@ echo PanelNavTabs::widget([
                 'create',
                 'Menu[is_front]' => $searchModel->is_front
             ],
-            'options'=>['data-toggle'=>'modal','data-target'=>'#modal-dailog']
+            'options' => [
+                'data-toggle' => 'modal',
+                'data-target' => '#modal-dailog'
+            ]
         ]
     ]
 ]);

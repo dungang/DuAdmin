@@ -2,7 +2,7 @@
 $db = require __DIR__ . '/db-dev.php';
 $config = [
     'modules' => [
-        // 'cms' => '\app\addons\cms\CmsModule',
+        'cms' => '\app\addons\cms\CmsModule',
         // 'travel' => '\app\addons\travel\TravelModule',
         // 'taobaoke' => '\app\addons\taobaoke\TaobaokeModule',
         // 'form' => '\app\addons\form\FormModule',

@@ -2,11 +2,13 @@
 $db = require __DIR__ . '/db.php';
 $config = [
     'modules'=>[
-        'travel'=>'\app\addons\travel\TravelModule',
-        'wechat' => '\app\addons\wechat\WechatModule',
         'ueditor' => '\app\addons\ueditor\UeditorModule',
-        'wangeditor' => '\app\addons\wangeditor\WangEditorModule',
-        'aliyun-oss' => '\app\addons\aliyunoss\AliyunOssModule',
+        'finance' => '\app\addons\finance\FinanceModule',
+        'user' => '\app\addons\user\UserModule',
+        'asset' => '\app\addons\asset\AssetModule',
+        'page' => '\app\addons\page\PageModule',
+        'oauth' => '\app\addons\oauth\OauthModule',
+        'cms' => '\app\addons\cms\CmsModule'
     ],
     'components' => [
         'db' => $db,
