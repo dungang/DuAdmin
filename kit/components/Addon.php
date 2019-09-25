@@ -84,7 +84,8 @@ class Addon extends Module {
      * 注册插件模块的home面包屑
      */
     protected function registerAddonBackendHomeBreadscrumb() {
-        if (self::$has_set_addon_home_breadscrumb === false && (\Yii::$app->controller instanceof BackendController)) {
+        if (self::$has_set_addon_home_breadscrumb === false 
+            && (\Yii::$app->controller instanceof BackendController)) {
             \Yii::$app->view->params['breadcrumbs'][] = $this->home;
             self::$has_set_addon_home_breadscrumb = true;
         }

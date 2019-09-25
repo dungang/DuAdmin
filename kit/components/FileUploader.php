@@ -112,8 +112,8 @@ class FileUploader extends BaseObject
     {
         if (empty(self::$driver)) {
             /**
-             * 配置对应的驱动属性
-             *
+             * 配置对应的驱动属性,如果配置storage.config 则会生效覆盖通过独立配置的属性
+             * 每个驱动也会自动在配置中心读取配置
              * @var array $driverConfig
              */
             $driverConfig = Setting::getSettingAssoc('storage.config');

@@ -11,6 +11,7 @@ $config = [
         'ueditor' => '\app\addons\ueditor\UeditorModule',
         'finance' => '\app\addons\finance\FinanceModule',
         'aliyun-oss' => '\app\addons\aliyunoss\AliyunOssModule',
+        'qiniu' => '\app\addons\qiniu\QiniuModule',
         'user' => '\app\addons\user\UserModule',
         'asset' => '\app\addons\asset\AssetModule',
         'page' => '\app\addons\page\PageModule',

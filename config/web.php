@@ -1,7 +1,8 @@
 <?php
 $db = require __DIR__ . '/db.php';
 $config = [
-    'modules'=>[
+    'modules' => [
+        'qiniu' => '\app\addons\qiniu\QiniuModule',
         'ueditor' => '\app\addons\ueditor\UeditorModule',
         'finance' => '\app\addons\finance\FinanceModule',
         'user' => '\app\addons\user\UserModule',
@@ -22,14 +23,14 @@ $config = [
                     'class' => 'yii\log\FileTarget',
                     'levels' => [
                         'error',
-                        'warning',
+                        'warning'
                     ]
                 ]
             ]
         ],
         'assetManager' => [
-            'class'=>'\app\kit\core\CoreAssetManager',
-        ],
+            'class' => '\app\kit\core\CoreAssetManager'
+        ]
     ]
 ];
 

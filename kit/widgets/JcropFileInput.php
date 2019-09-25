@@ -37,7 +37,7 @@ class JcropFileInput extends InputWidget
     public function run()
     {
         JcropAsset::register($this->view);
-        $html = $this->renderInputHtml();
+        $html = $this->renderFileInputHtml();
         $html .= $this->renderImageBox();
         $this->clientOptions = ArrayHelper::merge([
             'boxWidth' => 300,
@@ -59,7 +59,7 @@ class JcropFileInput extends InputWidget
 
 
 
-    protected function renderInputHtml()
+    protected function renderFileInputHtml()
     {
         $html = '';
         if ($this->hasModel()) {
