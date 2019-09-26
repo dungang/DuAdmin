@@ -21,6 +21,10 @@ class KitHelper
 
     protected static $agent_detect;
 
+    /**
+     * 是否是移动端
+     * @return boolean
+     */
     public static function IsMobile()
     {
         if (self::$agent_detect == null) {
