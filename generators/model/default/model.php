@@ -59,15 +59,6 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
     {
         return [<?= empty($rules) ? '' : ("\n            " . implode(",\n            ", $rules) . ",\n        ") ?>];
     }
-    
-    /**
-     *  默认开启所有操作的事务
-     */
-    public function transactions(){
-        return [
-            static::SCENARIO_DEFAULT => static::OP_ALL
-        ];
-    }
 
     /**
      * {@inheritdoc}

@@ -34,6 +34,16 @@ class BaseModel extends ActiveRecord
     }
 
     /**
+     * 默认开启所有操作的事务
+     */
+    public function transactions()
+    {
+        return [
+            static::SCENARIO_DEFAULT => static::OP_ALL
+        ];
+    }
+
+    /**
      * 不是物理删除，而是状态删除
      * 通知is_del字段来标记
      *
@@ -52,8 +62,12 @@ class BaseModel extends ActiveRecord
     public function delete()
     {
         if ($this->hasDeleteProperty()) {
-            $this->is_del = 1;
-            return $this->update(false);
+           // if ($this->beforeDelete()) {
+                $this->is_del = 1;
+                $result = $this->update(false);
+                //$this->afterDelete();
+                return $result;
+           // }
         }
         return parent::delete();
     }
@@ -70,10 +84,10 @@ class BaseModel extends ActiveRecord
     {
         $event = new BeforeSearchEvent([
             'query' => $query,
-            'params' => $params,
+            'params' => $params
         ]);
         $this->trigger(self::EVNT_BEFORE_SEARCH, $event);
-        $params =  $event->params;
+        $params = $event->params;
         $query = $event->query;
     }
 
