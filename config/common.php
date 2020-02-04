@@ -8,18 +8,37 @@ $config = [
         'log',
         'app\kit\components\Bootstrap'
     ],
-    'timeZone'=>'Asia/Shanghai',
+    'timeZone' => 'Asia/Shanghai',
     'language' => 'zh-CN',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset'
     ],
     'modules' => [
-        'backend' => 'app\backend\BackendModule'
+        'cms' => '\app\addons\cms\Addon',
+        //'card' => '\app\addons\card\Addon',
+        'alipay' => '\app\addons\alipay\Addon',
+        'ocr' => '\app\addons\ocr\Addon',
+        'drug' => '\app\addons\drug\Addon',
+        'mmh' => '\app\addons\mmh\Addon',
+        // 'travel' => '\app\addons\travel\Addon',
+        // 'taobaoke' => '\app\addons\taobaoke\Addon',
+        // 'form' => '\app\addons\form\Addon',
+        // 'wechat' => '\app\addons\wechat\Addon',
+        //'merchant' => '\app\addons\merchant\Addon',
+        //'shoukuan' => '\app\addons\shoukuan\Addon',
+        'ueditor' => '\app\addons\ueditor\Addon',
+        //'finance' => '\app\addons\finance\Addon',
+        //'aliyun-oss' => '\app\addons\aliyunoss\Addon',
+        'qiniu' => '\app\addons\qiniu\Addon',
+        'user' => '\app\addons\user\Addon',
+        'asset' => '\app\addons\asset\Addon',
+        'page' => '\app\addons\page\Addon',
+        'oauth' => '\app\addons\oauth\Addon'
     ],
     'components' => [
         'view' => [
-            'class'=>'app\kit\core\CoreView',
+            'class' => 'app\kit\core\CoreView',
         ],
         'request' => [
             'cookieValidationKey' => 'kdyagjkuduebfdglsgdls'
@@ -31,7 +50,7 @@ $config = [
             'identityClass' => 'app\kit\models\User',
             'enableAutoLogin' => true,
             'loginUrl' => [
-                'site/login'
+                'login'
             ]
         ],
         'authManager' => [
@@ -39,16 +58,9 @@ $config = [
             // uncomment if you want to cache RBAC items hierarchy
             'cache' => 'cache'
         ],
-        'urlManager' => [
-            'class' => 'app\kit\components\RewriteUrl',
-            //'cache' => 'cache',
-            //'suffix' => '.html',
-            'enablePrettyUrl' => true,
-            'rules' => [
-                '<slug:[\w \-]+>' => 'site/page/'
-            ]
+        'errorHandler' => [
+            'errorAction' => 'site/error'
         ],
-
         'formatter' => [
             'timeZone' => 'Asia/Shanghai',
             'datetimeFormat' => 'yyyy-MM-dd HH:mm:ss',

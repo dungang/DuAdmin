@@ -2,7 +2,6 @@
 namespace app\kit\components;
 
 use yii\base\BootstrapInterface;
-use app\kit\models\Setting;
 use yii\web\Application;
 
 /**

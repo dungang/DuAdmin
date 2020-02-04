@@ -10,7 +10,7 @@ use yii\web\AssetBundle;
 class SwiperAsset extends AssetBundle
 {
     
-    public $baseUrl = '@web/swiper/';
+    public $baseUrl = '@web/third/swiper/';
     
     public $js = [
         'js/swiper.min.js',

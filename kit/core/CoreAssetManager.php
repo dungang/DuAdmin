@@ -66,7 +66,7 @@ class CoreAssetManager extends AssetManager
             }
             $this->bundles = array_merge($this->bundles, $common, $bundles);
         }
-        // print_r(self::$__assets);die;
+        //print_r(self::$__assets);die;
         return parent::getBundle($name, $publish);
     }
 
@@ -74,6 +74,7 @@ class CoreAssetManager extends AssetManager
     {
         $event = new CustomerEvent();
         $this->trigger(self::EVENT_BEORE_GET_BUNDLE, $event);
+        //var_dump($event);die;
         self::$__assets = $event->payload;
     }
 }

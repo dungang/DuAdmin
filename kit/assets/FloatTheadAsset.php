@@ -9,7 +9,7 @@ use yii\web\AssetBundle;
  */
 class FloatTheadAsset extends AssetBundle
 {
-    public $baseUrl = '@web/float-thead';
+    public $baseUrl = '@web/third/float-thead';
     
     public $js = [
         'jquery-floatthead.min.js',

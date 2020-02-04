@@ -12,6 +12,8 @@ use app\kit\models\EventHandler;
 class BaseController extends Controller
 {
 
+    const EVENT_BEFORE_RENDER = 'beforeRender';
+
     /**
      * 请求的方法过滤
      *
@@ -90,7 +92,7 @@ class BaseController extends Controller
             } else if (isset($result['redirectUrl']) && !empty($result['redirectUrl'])) {
                 $event->result = \Yii::$app->getResponse()->redirect(Url::to($result['redirectUrl']), $result['statusCode']);
             } else {
-                unset($result['view'],$result['redirectUrl']);
+                unset($result['view'], $result['redirectUrl']);
                 $event->result = $this->asJson($result);
             }
         }

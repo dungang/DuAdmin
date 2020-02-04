@@ -52,14 +52,14 @@ echo PanelNavTabs::widget([
         [
             'name' => '前台菜单',
             'url' => [
-                '/backend/menu/index',
+                'menu/index',
                 'MenuSearch[is_front]' => 1
             ]
         ],
         [
             'name' => '后台菜单',
             'url' => [
-                '/backend/menu/index',
+                'menu/index',
                 'MenuSearch[is_front]' => 0
             ]
         ],

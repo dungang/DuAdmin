@@ -122,10 +122,12 @@ abstract class IDriver extends BaseObject
      *            文件后缀
      * @param string $width
      * @param string $height
+     * @param string $final_width
+     * @param string $final_height
      * @param int $x
      * @param int $y
      */
-    public abstract function crop($filePath, $file, $suffix, $width, $height, $x, $y);
+    public abstract function crop($filePath, $file, $suffix, $width, $height, $x, $y,$final_width=null,$final_height=null);
 
     /**
      * 删除文件

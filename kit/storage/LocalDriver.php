@@ -92,13 +92,16 @@ class LocalDriver extends IDriver
      * {@inheritdoc}
      * @see \app\kit\storage\IDriver::crop()
      */
-    public function crop($filePath, $file, $suffix, $width, $height, $x, $y)
+    public function crop($filePath, $file, $suffix, $width, $height, $x, $y,$final_width=null,$final_height=null)
     {
         $targetFile = $this->webroot . '/' . $filePath;
         $crop = BaseImage::crop($file->tempName, $width, $height, [
             $x,
             $y
         ]);
+        if($final_width && $final_height) {
+            $crop = BaseImage::resize($crop, $final_width, $final_height,true,true);
+        }
         $cropPath = $targetFile . $suffix;
         $crop->save($cropPath, $this->getImageQualities());
         return $cropPath;

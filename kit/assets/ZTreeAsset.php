@@ -6,7 +6,7 @@ use yii\web\AssetBundle;
 
 class ZTreeAsset extends AssetBundle
 {
-    public $baseUrl = '@web/zTree';
+    public $baseUrl = '@web/third/zTree';
 
     public $css = [
         'css/metroStyle/metroStyle.css'

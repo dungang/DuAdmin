@@ -6,7 +6,7 @@ use yii\web\AssetBundle;
 class InlineAttachmentAsset extends AssetBundle
 {
 
-    public $baseUrl = '@web/inline-attachment/';
+    public $baseUrl = '@web/third/inline-attachment/';
 
     public $js = [
         // 'inline-attachment.js',

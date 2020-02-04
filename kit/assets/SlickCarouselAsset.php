@@ -5,7 +5,7 @@ use yii\web\AssetBundle;
 
 class SlickCarouselAsset extends AssetBundle
 {
-    public $baseUrl = '@web/slick/';
+    public $baseUrl = '@web/third/slick/';
     
     public $js = [
         'slick.min.js'

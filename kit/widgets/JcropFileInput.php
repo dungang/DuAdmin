@@ -39,16 +39,17 @@ class JcropFileInput extends InputWidget
         JcropAsset::register($this->view);
         $html = $this->renderFileInputHtml();
         $html .= $this->renderImageBox();
+        $ratio = $this->preview_w / $this->preview_h;
         $this->clientOptions = ArrayHelper::merge([
-            'boxWidth' => 300,
-            'boxHeight' => 200,
+            'boxHeight' => $this->preview_h,
+            'boxWidth' => $this->preview_w,
             'setSelect' => [
                 100,
                 100,
                 200,
                 200
             ],
-            'aspectRatio' => $this->preview_w / $this->preview_h,
+            'aspectRatio' => $ratio,
             'onSelect' => new JsExpression("function(c){
                 $('#{$this->crop_input_id}').val(JSON.stringify(c));
             }")
@@ -83,8 +84,7 @@ class JcropFileInput extends InputWidget
         $content = '';
         if ($this->hasModel() && ($this->model->{$this->attribute})) {
             $content = Html::img($this->model->{$this->attribute}, [
-                'width' => $this->preview_w,
-                'height' => $this->preview_h
+                'width'=>'100%'
             ]);
         }
         return Html::tag('div', $content, [

@@ -5,14 +5,38 @@ use yii\bootstrap\Widget;
 use app\kit\assets\SlickCarouselAsset;
 use yii\bootstrap\BootstrapPluginAsset;
 use yii\helpers\Json;
+use yii\helpers\Html;
 
 class SlickCarousel extends Widget
 {
     public $selector = '.swiper-container';
     
+    public $tagName = 'div';
+    
+    /**
+     * item模板
+     * @var string
+     */
+    public $template = "{field}";
+    
+    /**
+     * 元素集合
+     * @var array
+     */
+    public $items = null;
+    
     public function run()
     {
         SlickCarouselAsset::register($this->view);
+        if($this->items) {
+            $lines = [];
+            foreach($this->items as $item) {
+                $lines[] = preg_replace_callback('/\{(\w+)\}/i', function($match) use ($item) {
+                    return $item[$match[1]];
+                }, $this->template);
+            }
+            echo Html::tag($this->tagName,implode("\n", $lines),['class'=>ltrim($this->selector,'.')]);
+        }
         $this->registerPlugin('slick');
     }
     

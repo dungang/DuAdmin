@@ -24,7 +24,8 @@ class Panel extends Widget
 
     protected function renderHeader()
     {
-        return '<div class="panel-heading"><div class="panel-title">' . Html::encode($this->title) . '</div></div>';
+        return $this->title? 
+        '<div class="panel-heading"><div class="panel-title">' . Html::encode($this->title) . '</div></div>':'';
     }
 
     protected function renderContent()

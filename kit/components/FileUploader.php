@@ -42,6 +42,7 @@ class FileUploader extends BaseObject
     public $file_max_size = 0;
 
     /**
+     * 如果裁剪，后处理图片
      * 原图处理宽度，如果为空，不处理
      * 实际上是不保留原图，使用默认的缩略图作为原图
      *
@@ -50,12 +51,25 @@ class FileUploader extends BaseObject
     public $width = null;
 
     /**
+     * 如果裁剪，后处理图片
      * 原图处理高度，如果为空，不处理
      * 实际上是不保留原图，使用默认的缩略图作为原图
      *
      * @var int
      */
     public $height = null;
+    
+    /**
+     * 裁剪图片宽度，文件最终宽度有 width 属性决定
+     * @var number
+     */
+    public $crop_width = null;
+    
+    /**
+     * 裁剪图片高度，文件最终高度有 heightwidth 属性决定
+     * @var number
+     */
+    public $crop_height = null;
 
     /**
      * 如果是crop ,坐标X
@@ -180,6 +194,8 @@ class FileUploader extends BaseObject
         return [
             'width' => $this->width,
             'height' => $this->height,
+            'crop_width' => $this->crop_width,
+            'crop_height' => $this->crop_height,
             'x' => $this->x,
             'y' => $this->y,
             'mode' => $this->mode
@@ -265,7 +281,8 @@ class FileUploader extends BaseObject
                 'url' => self::$driver->getUrl($filePath),
                 'extension' => $file->extension,
                 'size' => $file->size,
-                'type' => $file->type
+                'type' => $file->type,
+                'tempName'=>$file->tempName
             ];
         }
         return null;

@@ -10,7 +10,7 @@ use yii\web\AssetBundle;
  */
 class BootstrapColorPickerAsset extends AssetBundle
 {
-    public $baseUrl = '@web/colorpicker';
+    public $baseUrl = '@web/third/colorpicker';
     
     public $css = [
         'css/bootstrap-colorpicker.min.css'

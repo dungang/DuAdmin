@@ -9,7 +9,7 @@ use yii\web\AssetBundle;
  */
 class JcropAsset extends AssetBundle
 {
-    public $baseUrl = '@web/Jcrop/';
+    public $baseUrl = '@web/third/Jcrop/';
     
     public $js = [
         'jquery.Jcrop.min.js'

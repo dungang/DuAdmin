@@ -11,7 +11,7 @@ use yii\web\AssetBundle;
  */
 class DatePickerAsset extends AssetBundle
 {
-    public $baseUrl = '@web/date-picker';
+    public $baseUrl = '@web/third/date-picker';
 
     public $js = [
         'js/bootstrap-datepicker.min.js',

@@ -1,64 +1,72 @@
 {
-	"name" : "baiyuan/yii2-fast-kit",
-	"description" : "yii2快速开发模板",
-	"keywords" : [
+	"name": "baiyuan/yii2-fast-kit",
+	"description": "yii2快速开发模板",
+	"keywords": [
 		"baiyuan",
 		"yii2",
 		"fast develop template"
 	],
-	"homepage" : "http://www.baiyuan-teck.com/",
-	"type" : "project",
-	"minimum-stability" : "stable",
-	"require" : {
-		"php" : ">=5.4.0",
-		"yiisoft/yii2" : "~2.0",
-		"yiisoft/yii2-bootstrap" : "~2.0",
-		"yiisoft/yii2-swiftmailer" : "~2",
-		"yiisoft/yii2-httpclient" : "~2.0",
-		"yiisoft/yii2-authclient" : "^2.2",
-		"yiisoft/yii2-redis" : "^2.0",
-		"yiisoft/yii2-imagine" : "^2.1",
-		"yiisoft/yii2-queue" : "^2.2",
-		"phpspec/php-diff" : "^1.1",
-		"bacon/bacon-qr-code" : "^1.0"
+	"homepage": "http://www.baiyuan-teck.com/",
+	"type": "project",
+	"minimum-stability": "stable",
+	"provide": {
+		"bower-asset/jquery": "*",
+		"bower-asset/inputmask": "*",
+		"bower-asset/punycode": "*",
+		"bower-asset/yii2-pjax": "*",
+		"bower-asset/bootstrap": "*",
+		"bower-asset/typeahead.js": "*"
 	},
-	"require-dev" : {
-		"yiisoft/yii2-debug" : "~2.0"
+	"require": {
+		"php": ">=5.4.0",
+		"yiisoft/yii2": "~2.0",
+		"yiisoft/yii2-bootstrap": "~2.0",
+		"yiisoft/yii2-swiftmailer": "~2",
+		"yiisoft/yii2-httpclient": "~2.0",
+		"yiisoft/yii2-authclient": "^2.2",
+		"yiisoft/yii2-redis": "^2.0",
+		"yiisoft/yii2-imagine": "^2.1",
+		"yiisoft/yii2-queue": "^2.2",
+		"phpspec/php-diff": "^1.1",
+		"bacon/bacon-qr-code": "^1.0",
+		"damirka/yii2-jwt": "v0.2.1"
 	},
-	"config" : {
-		"process-timeout" : 1800,
-		"fxp-asset" : {
-			"installer-paths" : {
-				"npm-asset-library" : "vendor/npm",
-				"bower-asset-library" : "vendor/bower"
+	"require-dev": {
+		"yiisoft/yii2-debug": "~2.0"
+	},
+	"config": {
+		"process-timeout": 1800,
+		"fxp-asset": {
+			"enabled": false,
+			"installer-paths": {
+				"npm-asset-library": "vendor/npm",
+				"bower-asset-library": "vendor/bower"
 			}
 		}
 	},
-	"scripts" : {
-		"post-install-cmd" : "yii\\composer\\Installer::postInstall",
-		"post-create-project-cmd" : [
+	"scripts": {
+		"post-install-cmd": "yii\\composer\\Installer::postInstall",
+		"post-create-project-cmd": [
 			"yii\\composer\\Installer::postCreateProject",
 			"yii\\composer\\Installer::postInstall"
 		]
 	},
-	"extra" : {
-		"yii\\composer\\Installer::postCreateProject" : {
-			"setPermission" : [{
-					"runtime" : "0777",
-					"public/assets" : "0777",
-					"yii" : "0755"
-				}
-			]
+	"extra": {
+		"yii\\composer\\Installer::postCreateProject": {
+			"setPermission": [{
+				"runtime": "0777",
+				"public/assets": "0777",
+				"yii": "0755"
+			}]
 		},
-		"yii\\composer\\Installer::postInstall" : {
-			"generateCookieValidationKey" : [
+		"yii\\composer\\Installer::postInstall": {
+			"generateCookieValidationKey": [
 				"config/common.php"
 			]
 		}
 	},
-	"repositories" : [{
-			"type" : "composer",
-			"url" : "https://asset-packagist.org"
-		}
-	]
+	"repositories": [{
+		"type": "composer",
+		"url": "https://asset-packagist.org"
+	}]
 }

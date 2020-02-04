@@ -67,12 +67,13 @@ class BackgroundVideo extends Widget
     {
         $selector = '#' . $selector;
         return <<<CSS
+                body {background: transparent !important;}
                 .navbar-default,
                 .navbar-inverse,
                 .navbar-inverse .navbar-nav>.active>a,
                 .footer {
                     border-color: transparent;
-                    background-color: transparent;
+                    background-color: transparent; 
                     color:white;
                 }
                 

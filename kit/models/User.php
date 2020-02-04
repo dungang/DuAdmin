@@ -1,11 +1,12 @@
 <?php
+
 namespace app\kit\models;
 
 use Yii;
-use yii\base\NotSupportedException;
 use yii\web\IdentityInterface;
 use app\kit\core\BaseModel;
 use app\kit\behaviors\UploadedFileBehavior;
+use damirka\JWT\UserTrait;
 
 /**
  * User model
@@ -35,6 +36,8 @@ use app\kit\behaviors\UploadedFileBehavior;
  */
 class User extends BaseModel implements IdentityInterface
 {
+
+    use UserTrait;
 
     const STATUS_DELETED = 0;
 
@@ -145,21 +148,21 @@ class User extends BaseModel implements IdentityInterface
         ];
     }
 
-    public function behaviors()
-    {
-        $bs = parent::behaviors();
-        $bs['uploaded_file'] = [
-            'class' => UploadedFileBehavior::className(),
-            'after_create' => true,
-            'enable_crop' => true,
-            'fields' => [
-                'avatar' => [
-                    'mode' => 'inset'
-                ]
-            ]
-        ];
-        return $bs;
-    }
+    // public function behaviors()
+    // {
+    //     $bs = parent::behaviors();
+    //     $bs['uploaded_file'] = [
+    //         'class' => UploadedFileBehavior::className(),
+    //         'after_create' => true,
+    //         'enable_crop' => true,
+    //         'fields' => [
+    //             'avatar' => [
+    //                 'mode' => 'inset'
+    //             ]
+    //         ]
+    //     ];
+    //     return $bs;
+    // }
 
     /**
      *
@@ -173,13 +176,25 @@ class User extends BaseModel implements IdentityInterface
         ]);
     }
 
-    /**
-     *
-     * {@inheritdoc}
-     */
-    public static function findIdentityByAccessToken($token, $type = null)
+    // /**
+    //  *
+    //  * {@inheritdoc}
+    //  */
+    // public static function findIdentityByAccessToken($token, $type = null)
+    // {
+    //     throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
+    // }
+
+    // Override this method
+    protected static function getSecretKey()
     {
-        throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
+        return Yii::$app->request->cookieValidationKey;
+    }
+
+    // And this one if you wish
+    protected static function getHeaderToken()
+    {
+        return [];
     }
 
     /**
@@ -205,7 +220,7 @@ class User extends BaseModel implements IdentityInterface
      */
     public static function findByPasswordResetToken($token)
     {
-        if (! static::isPasswordResetTokenValid($token)) {
+        if (!static::isPasswordResetTokenValid($token)) {
             return null;
         }
         return static::findOne([
@@ -283,7 +298,7 @@ class User extends BaseModel implements IdentityInterface
     public function setPassword($password)
     {
         $password = trim($password);
-        if (! empty($password)) {
+        if (!empty($password)) {
             $this->password_hash = Yii::$app->security->generatePasswordHash($password);
         }
     }

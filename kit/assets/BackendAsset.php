@@ -8,13 +8,13 @@ class BackendAsset extends AssetBundle
     public $baseUrl = '@web';
     
     public $css = [
-        'font-awesome/css/font-awesome.min.css',
-        'adminlte/css/adminlte.css',
+        'third/font-awesome/css/font-awesome.min.css',
+        'third/adminlte/css/adminlte.css',
         'css/backend.css'
     ];
     
     public $js = [
-        'adminlte/js/adminlte.js',
+        'third/adminlte/js/adminlte.js',
         'js/backend.js'
     ];
     

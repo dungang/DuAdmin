@@ -116,8 +116,10 @@ class UploadedFileBehavior extends Behavior
             foreach ($this->fields as $field => $config) {
                 $crop = Json::decode(\Yii::$app->request->post($field . '_crop'));
                 if ($crop) {
-                    $config['width'] = $crop['w'];
-                    $config['height'] = $crop['h'];
+//                     $config['width'] = $crop['w'];
+//                     $config['height'] = $crop['h'];
+                    $config['crop_width'] = $crop['w'];
+                    $config['crop_height'] = $crop['h'];
                     $config['x'] = $crop['x'];
                     $config['y'] = $crop['y'];
                 }
@@ -158,7 +160,7 @@ class UploadedFileBehavior extends Behavior
     {
         $this->initCrop();
         if ($this->initFieldsCallback && \is_callable($this->initFieldsCallback)) {
-            \call_user_func($this->initFieldsCallback, $this);
+            \call_user_func($this->initFieldsCallback, $this,$this->owner);
         }
     }
 

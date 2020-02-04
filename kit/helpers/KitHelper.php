@@ -39,6 +39,24 @@ class KitHelper
     }
 
     /**
+     * 递归移除元素
+     * 
+     */
+    public static function walkRecursiveRemove (array $array, callable $callback) {
+        foreach ($array as $k => $v) {
+            if (is_array($v)) {
+                $array[$k] = static::walkRecursiveRemove($v, $callback);
+            } else {
+                if ($callback($v, $k)) {
+                    unset($array[$k]);
+                }
+            }
+        }
+
+        return $array;
+    }
+
+    /**
      * 根据起始值，和长度，生产关系数组
      * @param number $start
      * @param number $size
@@ -111,7 +129,7 @@ class KitHelper
     public static function powered()
     {
         return \Yii::t('yii', 'Powered by {soft}', [
-            'soft' => '<a href="https://baiyuan.weifutek.com/" rel="external">' . \Yii::$app->name . '</a>'
+            'soft' => \Yii::$app->name
         ]);
     }
 

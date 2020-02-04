@@ -9,7 +9,7 @@ use yii\web\AssetBundle;
  */
 class JplayerAsset extends AssetBundle
 {
-    public $baseUrl = '@web/jplayer/js';
+    public $baseUrl = '@web/third/jplayer/js';
     
     public $js = [
         'jquery.jplayer.min.js',

@@ -6,7 +6,7 @@ use yii\web\AssetBundle;
 class TreeGridAsset extends AssetBundle
 {
 
-    public $baseUrl = '@web/jquery-treegrid';
+    public $baseUrl = '@web/third/jquery-treegrid';
 
     public $js = [
         'js/jquery.treegrid.min.js'
