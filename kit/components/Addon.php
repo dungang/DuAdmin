@@ -7,6 +7,7 @@ use yii\base\Module;
 use yii\web\View;
 use app\kit\core\BackendController;
 use app\kit\core\FrontendController;
+use yii\base\NotSupportedException;
 
 /**
  * 插件基类
@@ -37,19 +38,24 @@ class Addon extends Module
      */
     public $home;
 
-
     public $namespaceBase = 'app';
 
     protected function initApi()
     {
+        //初始化API的模块配置
+        throw new NotSupportedException('不支持API服务');
     }
 
     protected function initBackend()
     {
+        //初始化后端的模块配置
+        throw new NotSupportedException('不支持后端服务');
     }
 
     protected function initFrontend()
     {
+        //初始化前端的模块配置
+        throw new NotSupportedException('不支持前端服务');
     }
 
     /**
