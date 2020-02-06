@@ -161,10 +161,12 @@ class ApiActionChain extends Component
 
     private function bindBehaviors($behaviors, $model = null)
     {
-        if (is_callable($behaviors)) {
-            $this->attachBehaviors(call_user_func($behaviors, $model));
-        } else {
-            $this->attachBehaviors($behaviors);
+        if ($behaviors) {
+            if (is_callable($behaviors)) {
+                $this->attachBehaviors(call_user_func($behaviors, $model));
+            } else {
+                $this->attachBehaviors($behaviors);
+            }
         }
     }
 

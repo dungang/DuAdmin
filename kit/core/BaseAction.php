@@ -1,4 +1,5 @@
 <?php
+
 namespace app\kit\core;
 
 use yii\base\Action;
@@ -11,6 +12,8 @@ use yii\db\ActiveRecord;
  *
  * @author dungang
  * @property BaseController $controller 控制器
+ * @property array $modelBehaviors 模型的行为
+ * @property array $actionBehaviors action的行为
  */
 class BaseAction extends Action
 {
@@ -31,14 +34,14 @@ class BaseAction extends Action
      *
      * @var string
      */
-    public $actionBehaviors = [];
+    protected $_actionBehaviors = [];
 
     /**
      * 模型的行为
      *
      * @var array
      */
-    public $modelBehaviors = [];
+    protected $_modelBehaviors = [];
 
     /**
      * 模型配置参数
@@ -100,13 +103,48 @@ class BaseAction extends Action
         if (!empty($this->actionBehaviors)) {
             $this->attachBehaviors($this->actionBehaviors);
         }
-        if($this->baseAttrs) {
+        if ($this->baseAttrs) {
             $this->findParams = $this->baseAttrs;
             $this->assignParams = $this->baseAttrs;
         }
     }
 
-    protected function isPost(){
+    public function getActionBehaviors()
+    {
+        if ($this->_actionBehaviors) {
+            foreach ($this->_actionBehaviors as $key => &$val) {
+                if (is_callable($val)) {
+                    $this->_actionBehaviors[$key] = call_user_func($val);
+                }
+            }
+        }
+        return $this->_actionBehaviors;
+    }
+
+    public function setActionBehaviors($behaviors)
+    {
+        $this->_actionBehaviors = $behaviors;
+    }
+
+    public function getModelBehaviors()
+    {
+        if ($this->_modelBehaviors) {
+            foreach ($this->_modelBehaviors as $key => &$val) {
+                if (is_callable($val)) {
+                    $this->_modelBehaviors[$key] = call_user_func($val);
+                }
+            }
+        }
+        return $this->_modelBehaviors;
+    }
+
+    public function setModelBehaviors($behaviors)
+    {
+        $this->_modelBehaviors = $behaviors;
+    }
+
+    protected function isPost()
+    {
         return \Yii::$app->request->isPost;
     }
 

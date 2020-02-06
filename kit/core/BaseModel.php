@@ -1,4 +1,5 @@
 <?php
+
 namespace app\kit\core;
 
 use yii\db\ActiveRecord;
@@ -62,14 +63,27 @@ class BaseModel extends ActiveRecord
     public function delete()
     {
         if ($this->hasDeleteProperty()) {
-           // if ($this->beforeDelete()) {
-                $this->is_del = 1;
-                $result = $this->update(false);
-                //$this->afterDelete();
-                return $result;
-           // }
+            // if ($this->beforeDelete()) {
+            $this->is_del = 1;
+            $result = $this->update(false);
+            //$this->afterDelete();
+            return $result;
+            // }
         }
         return parent::delete();
+    }
+
+
+    /**
+     * @param array $counters
+     * @return int
+     */
+    public function counter($counters)
+    {
+        foreach ($counters as $field => $value) {
+            $this->$field = $this->$field + $value;
+        }
+        return $this->save(false);
     }
 
     /**

@@ -2,11 +2,13 @@
 
 namespace app\kit\components;
 
+use app\kit\core\Application;
 use Yii;
 use yii\base\Module;
 use yii\web\View;
 use app\kit\core\BackendController;
 use app\kit\core\FrontendController;
+use ReflectionClass;
 use yii\base\NotSupportedException;
 
 /**
@@ -38,7 +40,15 @@ class Addon extends Module
      */
     public $home;
 
-    public $namespaceBase = 'app';
+    /**
+     * 插件模块的namespace 基础名称
+     */
+    public $addonNamespaceBase = null;
+
+    /**
+     * 是否忽略入口模式
+     */
+    public $ignoreMode = false;
 
     protected function initApi()
     {
@@ -74,34 +84,38 @@ class Addon extends Module
 
     public function init()
     {
-        parent::init();
+        
         //加载模块自己的资源文件
         $this->on(self::EVENT_BEFORE_ACTION, [$this, 'loadAddonAssets']);
-        $this->initControllerNamespace(Yii::$app->mode);
-        $this->initViewPath(Yii::$app->mode);
-        switch (Yii::$app->mode) {
-            case 1:
-                $this->controllerNamespace = $this->namespaceBase . '\backend\controllers';
-                $this->initBackend();
-                break;
-            case 2:
-                $this->initFrontend();
-                break;
-            case 3:
-                $this->controllerNamespace = $this->namespaceBase . '\api\controllers';
-                $this->initApi();
-                break;
+        if($this->ignoreMode == false) {
+            if (empty($this->addonNamespaceBase)) {
+                $reflector = new ReflectionClass(static::className());
+                $this->addonNamespaceBase = $reflector->getNamespaceName();
+            }
+            $this->initControllerNamespace(Yii::$app->mode);
+            $this->initViewPath(Yii::$app->mode);
+            switch (Yii::$app->mode) {
+                case Application::MODE_BACKEND:
+                    $this->initBackend();
+                    break;
+                case Application::MODE_FRONTEND:
+                    $this->initFrontend();
+                    break;
+                case Application::MODE_API:
+                    $this->initApi();
+                    break;
+            }
         }
     }
 
     private function initControllerNamespace($mode)
     {
-        $this->controllerNamespace = $this->namespaceBase . '\\' . $mode . '\\controllers';
+        $this->controllerNamespace = $this->addonNamespaceBase . '\\' . $mode . '\\controllers';
     }
 
     private function initViewPath($mode)
     {
-        $path = '@' . trim(str_replace('\\', '/', $this->namespaceBase), '/');
+        $path = '@' . trim(str_replace('\\', '/', $this->addonNamespaceBase), '/');
         $this->viewPath = $path . '/' . $mode . '/views';
     }
 
