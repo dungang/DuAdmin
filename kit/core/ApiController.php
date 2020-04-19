@@ -3,6 +3,7 @@
 namespace app\kit\core;
 
 use app\kit\helpers\KitHelper;
+use yii\base\Arrayable;
 use yii\filters\auth\HttpBearerAuth;
 use yii\filters\RateLimiter;
 use yii\filters\VerbFilter;
@@ -20,6 +21,13 @@ class ApiController extends Controller
     public function behaviors()
     {
         return [
+            'corsFilter' => [
+                'class' => \yii\filters\Cors::className(),
+                // 'cors' => [
+                //     'Origin' => ['*'],
+                //     'Access-Control-Request-Method' => ['GET','POST', 'PUT','OPTIONS','HEAD'],
+                // ]
+            ],
             'verbFilter' => [
                 'class' => VerbFilter::className(),
                 'actions' => $this->verbs(),
@@ -40,7 +48,7 @@ class ApiController extends Controller
     public function afterAction($action, $result)
     {
         $result = parent::afterAction($action, $result);
-        if ($this->hiddenFields) {
+        if ($this->hiddenFields && (is_array($result) || $result instanceof Arrayable)) {
             if (is_string($this->hiddenFields)) {
                 $fields = explode(',', $this->hiddenFields);
             } else {

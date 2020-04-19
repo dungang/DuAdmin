@@ -183,7 +183,8 @@ class ApiActionChain extends Component
             if ($this->validate) {
                 $model = MyDynamicModel::validateData(array_keys($this->fields), $this->fieldsRules);
                 $model->attributeLabels = $this->fields;
-                if ($model->load($this->data, '')) {
+                $model->load($this->data, '');
+                //if ($model->load($this->data, '')) {
                     if ($model->validate()) {
                         $this->bindBehaviors($behaviors, $model);
                         return $this->process($callback, $model);
@@ -192,8 +193,8 @@ class ApiActionChain extends Component
                     if ($model->hasErrors()) {
                         throw new InvalidArgumentException(current(array_values($model->getFirstErrors())), 400);
                     }
-                }
-                throw new BadRequestHttpException('参数无效', 400);
+                //}
+                //throw new BadRequestHttpException('参数无效', 400);
             }
             $this->bindBehaviors($behaviors, $model);
             return $this->process($callback);

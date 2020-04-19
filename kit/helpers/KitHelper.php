@@ -10,6 +10,7 @@ use app\kit\events\CustomerEvent;
 use yii\base\Component;
 use app\kit\models\MailQueue;
 use app\kit\core\BackendController;
+use yii\base\Arrayable;
 
 /**
  * 系统工具类
@@ -40,15 +41,21 @@ class KitHelper
 
     /**
      * 递归移除元素
-     * 
+     * @param array|Arrable $array
+     * @param callable $callback
+     * @return array
      */
-    public static function walkRecursiveRemove (array $array, callable $callback) {
+    public static function walkRecursiveRemove ( $array, callable $callback) {
         foreach ($array as $k => $v) {
             if (is_array($v)) {
                 $array[$k] = static::walkRecursiveRemove($v, $callback);
+            }  else if($v instanceof Arrayable) {
+                $array[$k] = static::walkRecursiveRemove($v->toArray(), $callback);
             } else {
                 if ($callback($v, $k)) {
                     unset($array[$k]);
+                } else {
+                    $array[$k] = strval($v);
                 }
             }
         }
