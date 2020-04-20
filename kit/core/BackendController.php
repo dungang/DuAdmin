@@ -3,6 +3,7 @@
 namespace app\kit\core;
 
 use app\kit\filters\AccessFilter;
+use app\kit\hooks\BackendCtrInitedHook;
 use app\kit\models\EventHandler;
 
 /**
@@ -30,7 +31,7 @@ abstract class BackendController extends BaseController {
 
     public function init() {
         parent::init();
-        EventHandler::registerLevel($this, 'BackendController');
+        BackendCtrInitedHook::emit();
         $this->module->layoutPath = '@app/backend/views/layouts';
         $this->layout = 'main';
     }

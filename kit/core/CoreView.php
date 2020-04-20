@@ -1,8 +1,9 @@
 <?php
+
 namespace app\kit\core;
 
+use app\kit\hooks\ViewInitedHook;
 use yii\web\View;
-use app\kit\models\EventHandler;
 
 /**
  * 重写视图
@@ -15,7 +16,6 @@ class CoreView extends View
     public function init()
     {
         parent::init();
-        EventHandler::registerLevel($this, 'View');
+        ViewInitedHook::emit();
     }
 }
-

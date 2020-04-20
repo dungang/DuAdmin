@@ -1,4 +1,5 @@
 <?php
+
 namespace app\kit\validators;
 
 use yii\validators\Validator;
@@ -55,11 +56,11 @@ class AlternativeValidator extends Validator
      */
     protected function validateValue($value)
     {
-        if (! empty(trim($value))) {
+        if (!empty(trim($value))) {
             return null;
         } else {
             foreach ($this->alterAttributes as $attr) {
-                if (! empty(trim($this->__target_model->$attr))) {
+                if (!empty(trim($this->__target_model->$attr))) {
                     return null;
                 }
             }
@@ -140,8 +141,7 @@ class AlternativeValidator extends Validator
     {
         $this->initMessageTemplate($attribute);
         $message = \strtr($this->message, $this->getAlterLabels($model, $attribute));
-        return new JsExpression(
-            "
+        return <<<JS
 (function($,value,messages,message,attrs){
     if(!value || (value && value.trim() =='')){
         for(var p in attrs){
@@ -153,7 +153,7 @@ class AlternativeValidator extends Validator
         return false;
     }
     return true;
-})(jQuery,value, messages,'$message',$alterAttrs);");
+})(jQuery,value, messages,"${message}",$alterAttrs);
+JS;
     }
 }
-

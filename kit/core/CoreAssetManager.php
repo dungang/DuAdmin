@@ -2,8 +2,7 @@
 namespace app\kit\core;
 
 use yii\web\AssetManager;
-use app\kit\events\CustomerEvent;
-use app\kit\models\EventHandler;
+use app\kit\hooks\AssetManagerInitedHook;
 
 /**
  * 增强资源文件的加载
@@ -12,14 +11,6 @@ use app\kit\models\EventHandler;
  */
 class CoreAssetManager extends AssetManager
 {
-
-    /**
-     * 定义事件名称
-     * 在获取资源包之前
-     *
-     * @var string
-     */
-    const EVENT_BEORE_GET_BUNDLE = 'beforeGetBundle';
 
     /**
      * 记录加载的资源包
@@ -31,9 +22,11 @@ class CoreAssetManager extends AssetManager
     public function init()
     {
         parent::init();
-        // 注册需要处理的事件级别或者类型
-        // 请查看Event模型表
-        EventHandler::registerLevel($this, 'AssetManager');
+        AssetManagerInitedHook::emit(['payload'=>$this]);
+    }
+
+    public function updateAssets($assets){
+        self::$__assets = $assets;
     }
 
     /**
@@ -43,9 +36,6 @@ class CoreAssetManager extends AssetManager
      */
     public function getBundle($name, $publish = true)
     {
-
-        // 触发获取价值资源包事件
-        $this->beforeGetBundle();
         if (self::$__assets) {
             // 加载功能的资源
             $common = isset(self::$__assets['common']) ? self::$__assets['common'] : [];
@@ -68,13 +58,5 @@ class CoreAssetManager extends AssetManager
         }
         //print_r(self::$__assets);die;
         return parent::getBundle($name, $publish);
-    }
-
-    public function beforeGetBundle()
-    {
-        $event = new CustomerEvent();
-        $this->trigger(self::EVENT_BEORE_GET_BUNDLE, $event);
-        //var_dump($event);die;
-        self::$__assets = $event->payload;
     }
 }

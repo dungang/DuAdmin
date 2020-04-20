@@ -14,6 +14,10 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset'
     ],
+    'validators' => [
+        'mobile' => '\app\kit\validators\MobileValidator', //手机验证
+        'alternative' => '\app\kit\validators\AlternativeValidator', //二选一验证
+    ],
     'modules' => [
         'cms' => '\app\addons\cms\Addon',
         //'card' => '\app\addons\card\Addon',

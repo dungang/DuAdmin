@@ -1,7 +1,8 @@
 <?php
-namespace app\kit\eventhandlers;
 
-use yii\base\ViewEvent;
+namespace app\kit\hooks;
+
+use app\kit\core\FrontendController;
 use yii\web\View;
 use app\kit\helpers\KitHelper;
 
@@ -10,16 +11,20 @@ use app\kit\helpers\KitHelper;
  *
  * @author dungang
  */
-class SiteStatisticCodeHandler extends AbstractEventHandler
+class SiteStatisticCodeHandler extends Handler
 {
+    public function isNotAjaxWithFrontend()
+    {
+        return !\Yii::$app->request->isAjax && (\Yii::$app->controller instanceof FrontendController);
+    }
 
     /**
      * (non-PHPdoc)
      *
-     * @param ViewEvent $event
-     * @see \app\kit\eventhandlers\AbstractEventHandler::process()
+     * @param \app\kit\core\Hook $hook 
+     * @see \app\kit\hooks\Handler::process()
      */
-    public function process($event)
+    public function process($hook)
     {
         if ($this->isNotAjaxWithFrontend()) {
             if ($statisticCode = KitHelper::getSetting('site.tongji')) {

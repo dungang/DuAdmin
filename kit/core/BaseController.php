@@ -2,6 +2,7 @@
 
 namespace app\kit\core;
 
+use app\kit\hooks\BaseCtrInitedHook;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\base\ActionEvent;
@@ -24,7 +25,7 @@ class BaseController extends Controller
     public function init()
     {
         parent::init();
-        EventHandler::registerLevel($this, 'Controller');
+        BaseCtrInitedHook::emit();
     }
 
     /**

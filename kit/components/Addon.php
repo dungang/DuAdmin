@@ -82,23 +82,63 @@ class Addon extends Module
 
     }
 
+    public static function registerHookHandlers()
+    {
+        static::registerCommonHookHandlers();
+        switch (Yii::$app->mode) {
+            case Application::MODE_BACKEND:
+                static::registerWebHookHandlers();
+                static::registerBackenHookHandlers();
+                break;
+            case Application::MODE_FRONTEND:
+                static::registerWebHookHandlers();
+                static::registerFrontHookHandlers();
+                break;
+            case Application::MODE_API:
+                static::registerApiHookHandlers();
+                break;
+        }
+    }
+
+    public static function registerCommonHookHandlers()
+    {
+    }
+
+    public static function registerBackenHookHandlers()
+    {
+    }
+
+    public static function registerFrontHookHandlers()
+    {
+    }
+
+    public static function registerWebHookHandlers()
+    {
+    }
+    public static function registerApiHookHandlers()
+    {
+    }
+
     public function init()
     {
-        
-        //加载模块自己的资源文件
-        $this->on(self::EVENT_BEFORE_ACTION, [$this, 'loadAddonAssets']);
-        if($this->ignoreMode == false) {
+        if ($this->ignoreMode == false) {
             if (empty($this->addonNamespaceBase)) {
                 $reflector = new ReflectionClass(static::className());
                 $this->addonNamespaceBase = $reflector->getNamespaceName();
             }
             $this->initControllerNamespace(Yii::$app->mode);
-            $this->initViewPath(Yii::$app->mode);
             switch (Yii::$app->mode) {
                 case Application::MODE_BACKEND:
+                    $this->initViewPath(Yii::$app->mode);
+                    $this->registerAddonBackendHomeBreadscrumb();
                     $this->initBackend();
                     break;
                 case Application::MODE_FRONTEND:
+                    $this->initViewPath(Yii::$app->mode);
+                    Yii::$app->view->on(
+                        View::EVENT_BEGIN_PAGE,
+                        [$this, 'registerAddonFrontendAssetBundle']
+                    );
                     $this->initFrontend();
                     break;
                 case Application::MODE_API:
@@ -119,14 +159,6 @@ class Addon extends Module
         $this->viewPath = $path . '/' . $mode . '/views';
     }
 
-
-    public function loadAddonAssets()
-    {
-        //$this->registerAddonErrorAction();
-        $this->registerAddonBackendHomeBreadscrumb();
-        Yii::$app->view->on(View::EVENT_BEGIN_PAGE, [$this, 'registerAddonFrontendAssetBundle']);
-    }
-
     //     /**
     //      * 注册插件模块的错误处理执行处理动作
     //      */
@@ -139,11 +171,9 @@ class Addon extends Module
      */
     protected function registerAddonFrontendAssetBundle()
     {
-        if (Yii::$app->controller instanceof FrontendController) {
-            $class = '\\app\\addons\\' . Yii::$app->controller->module->id . '\\assets\\AddonAsset';
-            if (class_exists($class)) {
-                call_user_func([$class, 'register'], Yii::$app->view);
-            }
+        $class = '\\app\\addons\\' . Yii::$app->controller->module->id . '\\assets\\AddonAsset';
+        if (class_exists($class)) {
+            call_user_func([$class, 'register'], Yii::$app->view);
         }
     }
 
@@ -153,10 +183,7 @@ class Addon extends Module
      */
     protected function registerAddonBackendHomeBreadscrumb()
     {
-        if (
-            self::$has_set_addon_home_breadscrumb === false
-            && (\Yii::$app->controller instanceof BackendController)
-        ) {
+        if (self::$has_set_addon_home_breadscrumb == false) {
             \Yii::$app->view->params['breadcrumbs'][] = $this->home;
             self::$has_set_addon_home_breadscrumb = true;
         }

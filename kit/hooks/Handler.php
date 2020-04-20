@@ -1,8 +1,7 @@
 <?php
-namespace app\kit\eventhandlers;
+namespace app\kit\hooks;
 
 use yii\base\BaseObject;
-use app\kit\core\FrontendController;
 
 /**
  *  事件处理的抽象句柄
@@ -11,18 +10,12 @@ use app\kit\core\FrontendController;
  *  关联数据表 : bai_event, bai_event_handler
  * @author dungang
  */
-abstract class AbstractEventHandler extends BaseObject
+abstract class Handler extends BaseObject
 {
-
-    public function isNotAjaxWithFrontend()
-    {
-        return !\Yii::$app->request->isAjax && (\Yii::$app->controller instanceof FrontendController);
-    }
-
     /**
      * 事件处理接口方法
      *
-     * @param \yii\base\Event $event
+     * @param \app\kit\core\Hook $hook
      * @return void
      */
     public abstract function process($event);

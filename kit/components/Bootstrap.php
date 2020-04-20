@@ -1,8 +1,11 @@
 <?php
+
 namespace app\kit\components;
 
+use app\kit\core\Application;
+use app\kit\hooks\ViewInitedHook;
+use Yii;
 use yii\base\BootstrapInterface;
-use yii\web\Application;
 
 /**
  * 以后这里的配置从其他的外部配置读取
@@ -23,8 +26,10 @@ class Bootstrap implements BootstrapInterface
     public function bootstrap($app)
     {
         $this->whenAddonToAppReset($app);
-
         $this->dynamicRegistAddons($app);
+        if (Yii::$app->mode === Application::MODE_FRONTEND) {
+            ViewInitedHook::registerHandler('app\kit\hooks\SiteStatisticCodeHandler');
+        }
     }
 
     /**
@@ -66,7 +71,10 @@ class Bootstrap implements BootstrapInterface
     {
         foreach (array_values($app->modules) as $module) {
             if (method_exists($module, 'initAddon')) {
+                //加载类
                 call_user_func([$module, 'initAddon']);
+                //注册hook的处理器
+                call_user_func([$module, 'registerHookHandlers']);
             }
         }
     }

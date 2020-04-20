@@ -2,8 +2,7 @@
 
 namespace app\kit\core;
 
-use app\kit\models\EventHandler;
-
+use app\kit\hooks\FontendCtrInitedHook;
 /**
  * 前端控制器基类
  * 不需要登陆
@@ -14,7 +13,7 @@ abstract class FrontendController extends BaseController {
 
     public function init() {
         parent::init();
-        EventHandler::registerLevel($this, 'FrontendController');
+        FontendCtrInitedHook::emit();
     }
 
     public function behaviors() {
