@@ -6,6 +6,9 @@ use Yii;
 use yii\web\IdentityInterface;
 use app\kit\core\BaseModel;
 use app\kit\behaviors\UploadedFileBehavior;
+use app\kit\hooks\DeleteUserHook;
+use app\kit\hooks\RegisterUserHook;
+use app\kit\hooks\UpdateUserHook;
 use damirka\JWT\UserTrait;
 
 /**
@@ -163,6 +166,21 @@ class User extends BaseModel implements IdentityInterface
     //     ];
     //     return $bs;
     // }
+
+    public function init()
+    {
+        parent::init();
+
+        $this->on(self::EVENT_AFTER_INSERT, function ($event) {
+            RegisterUserHook::emit(['user' => $this]);
+        });
+        $this->on(self::EVENT_AFTER_UPDATE, function ($event) {
+            UpdateUserHook::emit(['user' => $this]);
+        });
+        $this->on(self::EVENT_AFTER_DELETE, function ($event) {
+            DeleteUserHook::emit(['user' => $this]);
+        });
+    }
 
     /**
      *

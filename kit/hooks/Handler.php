@@ -18,5 +18,5 @@ abstract class Handler extends BaseObject
      * @param \app\kit\core\Hook $hook
      * @return void
      */
-    public abstract function process($event);
+    public abstract function process($hook);
 }
