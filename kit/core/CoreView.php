@@ -16,6 +16,6 @@ class CoreView extends View
     public function init()
     {
         parent::init();
-        ViewInitedHook::emit();
+        ViewInitedHook::emit($this);
     }
 }

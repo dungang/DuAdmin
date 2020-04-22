@@ -155,13 +155,13 @@ class User extends BaseModel implements IdentityInterface
         parent::init();
 
         $this->on(self::EVENT_AFTER_INSERT, function ($event) {
-            RegisterUserHook::emit(['user' => $this]);
+            RegisterUserHook::emit($this,['user' => $this]);
         });
         $this->on(self::EVENT_AFTER_UPDATE, function ($event) {
-            UpdateUserHook::emit(['user' => $this]);
+            UpdateUserHook::emit($this,['user' => $this]);
         });
         $this->on(self::EVENT_AFTER_DELETE, function ($event) {
-            DeleteUserHook::emit(['user' => $this]);
+            DeleteUserHook::emit($this,['user' => $this]);
         });
     }
 

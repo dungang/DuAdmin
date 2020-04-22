@@ -22,7 +22,7 @@ class CoreAssetManager extends AssetManager
     public function init()
     {
         parent::init();
-        AssetManagerInitedHook::emit(['payload'=>$this]);
+        AssetManagerInitedHook::emit($this,['payload'=>$this]);
     }
 
     public function updateAssets($assets){

@@ -15,6 +15,12 @@ abstract class Hook extends BaseObject
     public static $hooks = [];
 
     /**
+     * 所有者
+     * @var \yii\base\BaseObject;
+     */
+    public $owner;
+
+    /**
      * 承载的数据
      * @var mixed
      */
@@ -46,16 +52,19 @@ abstract class Hook extends BaseObject
 
     /**
      * 处罚hook
+     * @param yii\base\BaseObject $owner 所有者
      * @param array $config 配置hook的属性
      * @return Hook
      */
-    public static function emit($config = [])
+    public static function emit($owner,$config = [])
     {
         $hookName = static::class;
         if (isset(self::$hooks[$hookName])) {
+            $config['owner'] = $owner;
             $hook = new $hookName($config);
             foreach (self::$hooks[$hookName] as $handler) {
                 call_user_func([new $handler, 'process'], $hook);
+                Yii::trace($hookName . ' : ' . $handler);
                 if ($hook->stop) {
                     break;
                 }

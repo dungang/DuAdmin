@@ -5,6 +5,7 @@ namespace app\frontend\controllers;
 use app\kit\core\FrontendController;
 use app\kit\helpers\KitHelper;
 use app\kit\hooks\FindSlugHook;
+use yii\helpers\VarDumper;
 
 /**
  * Site controller
@@ -56,7 +57,6 @@ class SiteController extends FrontendController
      */
     public function actionIndex()
     {
-
         if ($url = KitHelper::getSetting("site.index-page")) {
             return $this->redirect($url);
         } else {
@@ -86,7 +86,7 @@ class SiteController extends FrontendController
         }
 
         // try to display static page from hook handler
-        $hook = FindSlugHook::emit(['slug'=>$slug]);
+        $hook = FindSlugHook::emit($this, ['slug' => $slug]);
         if ($hook && $hook->payload) {
             return $hook->payload;
         }

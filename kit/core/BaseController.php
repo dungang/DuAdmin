@@ -25,7 +25,7 @@ class BaseController extends Controller
     public function init()
     {
         parent::init();
-        BaseCtrInitedHook::emit();
+        BaseCtrInitedHook::emit($this);
     }
 
     /**

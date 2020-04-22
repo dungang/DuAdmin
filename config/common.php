@@ -19,6 +19,7 @@ $config = [
         'alternative' => '\app\kit\validators\AlternativeValidator', //二选一验证
     ],
     'modules' => [
+        'theme'=>'app\addons\theme\Addon',
         'mailbox'=>'app\addons\mailbox\Addon',
         'cms' => '\app\addons\cms\Addon',
         //'card' => '\app\addons\card\Addon',

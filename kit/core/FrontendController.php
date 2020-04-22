@@ -13,7 +13,7 @@ abstract class FrontendController extends BaseController {
 
     public function init() {
         parent::init();
-        FontendCtrInitedHook::emit();
+        FontendCtrInitedHook::emit($this);
     }
 
     public function behaviors() {
