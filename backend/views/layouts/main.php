@@ -104,7 +104,7 @@ BackendAsset::register($this);
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
             <div class="pull-left image">
-                <?= KitHelper::img($user->avatar, ['class' => 'img-circle', 'width' => 160, 'height' => 160]) ?>
+                <?= KitHelper::img($user->avatar, ['class' => 'img-circle', 'width' => '45px', 'height' => '45px']) ?>
             </div>
             <div class="pull-left info">
                 <p><?= Yii::$app->user->identity->nick_name ?></p>

@@ -1,6 +1,8 @@
 <?php
+
 namespace app\backend\forms;
 
+use app\kit\behaviors\UploadedFileBehavior;
 use app\kit\models\User;
 use app\kit\core\BaseDynamicModel;
 use app\kit\models\UserExtValue;
@@ -26,13 +28,23 @@ class DynamicUser extends BaseDynamicModel
     public function init()
     {
         parent::init();
-        if (! $this->model) {
+        if (!$this->model) {
             $this->model = new User([
                 'scenario' => $this->scenario,
             ]);
             //$this->model->is_admin = $this->is_admin;
         }
-        $this->model->attachBehavior('role-update','app\kit\behaviors\UpdateUserRoleBehavior');
+        $this->model->attachBehavior('role-update', 'app\kit\behaviors\UpdateUserRoleBehavior');
+        $this->model->attachBehavior('upload-avatar', [
+            'class' => UploadedFileBehavior::className(),
+            'after_create' => true,
+            'enable_crop' => true,
+            'fields' => [
+                'avatar' => [
+                    'mode' => 'inset'
+                ]
+            ]
+        ]);
     }
 
     public function setScenario($value)
@@ -89,9 +101,9 @@ class DynamicUser extends BaseDynamicModel
     {
         if (($user = User::findOne($condition))) {
             if ($user->id) {
-                $dynamic = new DynamicUser([],[
-                    'id'=>$user->id,
-                    'model'=>$user,
+                $dynamic = new DynamicUser([], [
+                    'id' => $user->id,
+                    'model' => $user,
                 ]);
                 $dynamic->prepareExtPropertyValues($user);
                 return $dynamic;
@@ -116,16 +128,17 @@ class DynamicUser extends BaseDynamicModel
      *
      * @return void
      */
-    protected function syncRoleAssignment() {
-        if($role = \Yii::$app->authManager->getRole($this->model->role)){
-            if(!\Yii::$app->authManager->getAssignment($this->model->role,$this->model->id)) {
-                \Yii::$app->authManager->assign($role,$this->model->id);
+    protected function syncRoleAssignment()
+    {
+        if ($role = \Yii::$app->authManager->getRole($this->model->role)) {
+            if (!\Yii::$app->authManager->getAssignment($this->model->role, $this->model->id)) {
+                \Yii::$app->authManager->assign($role, $this->model->id);
                 \Yii::$app->cache->delete('rbac');
             }
         }
-        if(($old_role_name = $this->model->getOldAttribute('role')) != $this->model->role){
-            if($old_role = \Yii::$app->authManager->getRole($old_role_name)){
-                \Yii::$app->authManager->revoke($old_role,$this->model->id);
+        if (($old_role_name = $this->model->getOldAttribute('role')) != $this->model->role) {
+            if ($old_role = \Yii::$app->authManager->getRole($old_role_name)) {
+                \Yii::$app->authManager->revoke($old_role, $this->model->id);
                 \Yii::$app->cache->delete('rbac');
             }
         }
@@ -229,4 +242,3 @@ class DynamicUser extends BaseDynamicModel
         ];
     }
 }
-
