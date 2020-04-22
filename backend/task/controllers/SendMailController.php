@@ -46,6 +46,7 @@ class SendMailController extends TaskController
             ->setSubject($mail->subject)
             ->setHtmlBody($mail->content)
             ->send()) {
+                //发送后删除
             if ($mail->del_after_send) {
                 $mail->delete();
             } else {
@@ -53,6 +54,7 @@ class SendMailController extends TaskController
                 $mail->save(false);
             }
         } else {
+            // 重拾
             if ($mail->try_send > 0) {
                 $mail->updateCounters([
                     'try_send' => - 1

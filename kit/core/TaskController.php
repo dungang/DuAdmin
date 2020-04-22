@@ -9,6 +9,7 @@ use yii\web\Controller;
 
 /**
  * 定时任务的基类
+ * 直接继承框架的web controller类，可以规避不添加任何的行为和过滤器和权限检查
  *
  * @author dungang
  */

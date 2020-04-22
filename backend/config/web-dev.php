@@ -2,6 +2,7 @@
 
 use app\kit\core\Application;
 
+// 数据库配置放在具体的项目中是方便项目独立配置，项目之间相互隔离
 $db = require __DIR__ . '/../../config/db-dev.php';
 $config = [
     //'basePath' => dirname(__DIR__),
@@ -9,6 +10,9 @@ $config = [
     'controllerNamespace' => 'app\backend\controllers',
     'viewPath' => '@app/backend/views',
     'defaultRoute' => 'default',
+    'modules'=>[
+        'task'=>'app\backend\task\TaskModule',
+    ],
     //'layoutPath'=>'@app/frontend/layout',
     'components' => [
         'db' => $db,

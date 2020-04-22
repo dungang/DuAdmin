@@ -30,10 +30,13 @@ class PortalWidget extends Widget
         $statics = '';
         $info = '';
         foreach ($portals as $portal) {
-            if ($portal->is_static) {
-                $statics .= call_user_func([$portal->code, 'widget']);
-            } else {
-                $info .= call_user_func([$portal->code, 'widget']);
+            //检查类必须存在，有可能代码移除了，但是数据库的数据没有变化
+            if (class_exists($portal->code)) {
+                if ($portal->is_static) {
+                    $statics .= call_user_func([$portal->code, 'widget']);
+                } else {
+                    $info .= call_user_func([$portal->code, 'widget']);
+                }
             }
         }
         $this->enableSortable();

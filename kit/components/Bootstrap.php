@@ -70,11 +70,16 @@ class Bootstrap implements BootstrapInterface
     protected function dynamicRegistAddons($app)
     {
         foreach (array_values($app->modules) as $module) {
-            if (method_exists($module, 'initAddon')) {
-                //加载类
-                call_user_func([$module, 'initAddon']);
-                //注册hook的处理器
-                call_user_func([$module, 'registerHookHandlers']);
+            if (is_array($module)) {
+                $module = $module['class'];
+            }
+            if ($module && class_exists($module)) {
+                if (method_exists($module, 'initAddon')) {
+                    //加载类
+                    call_user_func([$module, 'initAddon']);
+                    //注册hook的处理器
+                    call_user_func([$module, 'registerHookHandlers']);
+                }
             }
         }
     }
