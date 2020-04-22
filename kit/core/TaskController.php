@@ -1,9 +1,10 @@
 <?php
+
 namespace app\kit\core;
 
 use Yii;
 use app\kit\models\Cron;
-use app\kit\helpers\KitHelper; 
+use app\kit\helpers\KitHelper;
 use yii\web\Controller;
 
 /**
@@ -14,8 +15,6 @@ use yii\web\Controller;
 abstract class TaskController extends Controller
 {
 
-    public $debug = false;
-
     public function init()
     {
         parent::init();
@@ -23,7 +22,9 @@ abstract class TaskController extends Controller
         \Yii::$app->getSession()->close();
         //关闭postCSRF检查
         $this->enableCsrfValidation = false;
+        //设置没有超时限制
         set_time_limit(0);
+        //忽略用户终端连接
         ignore_user_abort(true);
     }
 
@@ -36,7 +37,7 @@ abstract class TaskController extends Controller
     protected abstract function execJob($param, $task);
 
     /**
-     * 默认的action
+     * 默认的action 不可以修改和覆写
      *
      * @param string $id
      *            任务id
@@ -44,13 +45,13 @@ abstract class TaskController extends Controller
      *            任务密钥
      * @return string
      */
-    public function actionIndex($id, $token)
+    public final function actionIndex($id, $token)
     {
-        Yii::info('Validating One Task : ' . $id, __METHOD__);
+        Yii::trace('Validating One Task : ' . $id, __METHOD__);
         if ($cron = Cron::findOne([
             'id' => $id
         ])) {
-            if ($this->debug || $cron->token == $token) {
+            if (KitHelper::isDevMode() || $cron->token == $token) {
                 try {
                     $this->execJob(KitHelper::parseText2Assoc($cron->param), $cron);
                 } catch (\Exception $e) {
@@ -61,10 +62,9 @@ abstract class TaskController extends Controller
                 }
                 //放在任务程序的后面，方便调试。
                 $cron->token = \Yii::$app->security->generateRandomString(32);
-                $this->debug || $cron->save(false);
+                KitHelper::isDevMode() || $cron->save(false);
             }
         }
         return '';
     }
 }
-

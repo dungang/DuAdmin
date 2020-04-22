@@ -25,7 +25,7 @@ class CronHandler extends ILongPollHandler
     {
         //初始化一个异步请求的HttpClient
         $this->_httpClient = new Client([
-            'transport' => 'app\kit\components\AsyncStreamTransport'
+            'transport' => '\app\kit\components\AsyncStreamTransport'
         ]);
     }
 
@@ -71,6 +71,7 @@ class CronHandler extends ILongPollHandler
                     ]);
                     Yii::info('Starting One Task : ' . $task->task . ': ' . $url, __METHOD__);
                     //echo $url;die;
+                    // 发送异步请求
                     $this->_httpClient->get($url)->send();
                 }
             }

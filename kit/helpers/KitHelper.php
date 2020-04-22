@@ -1,4 +1,5 @@
 <?php
+
 namespace app\kit\helpers;
 
 use yii\helpers\Html;
@@ -39,17 +40,23 @@ class KitHelper
         return \Yii::$app->controller instanceof BackendController;
     }
 
+    public static function isDevMode()
+    {
+        return (defined('YII_ENV') && YII_ENV == 'dev');
+    }
+
     /**
      * 递归移除元素
      * @param array|Arrable $array
      * @param callable $callback
      * @return array
      */
-    public static function walkRecursiveRemove ( $array, callable $callback) {
+    public static function walkRecursiveRemove($array, callable $callback)
+    {
         foreach ($array as $k => $v) {
             if (is_array($v)) {
                 $array[$k] = static::walkRecursiveRemove($v, $callback);
-            }  else if($v instanceof Arrayable) {
+            } else if ($v instanceof Arrayable) {
                 $array[$k] = static::walkRecursiveRemove($v->toArray(), $callback);
             } else {
                 if ($callback($v, $k)) {
@@ -73,7 +80,7 @@ class KitHelper
     public static function generateNumberMap($start = 1, $size = 12, $textsuffix = '')
     {
         $map = array();
-        for ($i = $start; $i <= $size; $i ++) {
+        for ($i = $start; $i <= $size; $i++) {
             $map[$i] = $i . $textsuffix;
         }
         return $map;

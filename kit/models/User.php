@@ -5,7 +5,6 @@ namespace app\kit\models;
 use Yii;
 use yii\web\IdentityInterface;
 use app\kit\core\BaseModel;
-use app\kit\behaviors\UploadedFileBehavior;
 use app\kit\hooks\DeleteUserHook;
 use app\kit\hooks\RegisterUserHook;
 use app\kit\hooks\UpdateUserHook;
@@ -151,22 +150,6 @@ class User extends BaseModel implements IdentityInterface
         ];
     }
 
-    // public function behaviors()
-    // {
-    //     $bs = parent::behaviors();
-    //     $bs['uploaded_file'] = [
-    //         'class' => UploadedFileBehavior::className(),
-    //         'after_create' => true,
-    //         'enable_crop' => true,
-    //         'fields' => [
-    //             'avatar' => [
-    //                 'mode' => 'inset'
-    //             ]
-    //         ]
-    //     ];
-    //     return $bs;
-    // }
-
     public function init()
     {
         parent::init();
@@ -193,15 +176,6 @@ class User extends BaseModel implements IdentityInterface
             'status' => self::STATUS_ACTIVE
         ]);
     }
-
-    // /**
-    //  *
-    //  * {@inheritdoc}
-    //  */
-    // public static function findIdentityByAccessToken($token, $type = null)
-    // {
-    //     throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
-    // }
 
     // Override this method
     protected static function getSecretKey()

@@ -1,4 +1,5 @@
 <?php
+
 namespace app\kit\components;
 
 use Yii;
@@ -10,8 +11,8 @@ use yii\helpers\Inflector;
 /**
  * 作用于发送定时任务的请求
  * \stream_set_blocking($stream, false);
- * 此类不处理响应的结果，所有不读取响应的结果
- * 取消 stream_get_contents($stream);
+ * 此类不处理响应的结果，所以不读取响应的结果
+ * 因此，放弃读取数据流 stream_get_contents($stream);
  * @author dungang
  */
 class AsyncStreamTransport extends Transport
@@ -58,7 +59,7 @@ class AsyncStreamTransport extends Transport
             $stream = fopen($url, 'rb', false, $context);
             //设置位了非堵塞的流
             \stream_set_blocking($stream, false);
-            $responseContent = '';// stream_get_contents($stream);
+            $responseContent = ''; // stream_get_contents($stream);
             // see http://php.net/manual/en/reserved.variables.httpresponseheader.php
             $responseHeaders = $http_response_header;
             //\var_dump($responseHeaders);die;
