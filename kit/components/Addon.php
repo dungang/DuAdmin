@@ -127,19 +127,20 @@ class Addon extends Module
                 $this->addonNamespaceBase = $reflector->getNamespaceName();
             }
             $this->initControllerNamespace(Yii::$app->mode);
+            //注意这里代码执行的顺序
             switch (Yii::$app->mode) {
                 case Application::MODE_BACKEND:
                     $this->initViewPath(Yii::$app->mode);
-                    $this->registerAddonBackendHomeBreadscrumb();
                     $this->initBackend();
+                    $this->registerAddonBackendHomeBreadscrumb();
                     break;
                 case Application::MODE_FRONTEND:
                     $this->initViewPath(Yii::$app->mode);
+                    $this->initFrontend();
                     Yii::$app->view->on(
                         View::EVENT_BEGIN_PAGE,
                         [$this, 'registerAddonFrontendAssetBundle']
                     );
-                    $this->initFrontend();
                     break;
                 case Application::MODE_API:
                     $this->initApi();
