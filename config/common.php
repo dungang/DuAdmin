@@ -20,6 +20,7 @@ $config = [
     ],
     'modules' => [
         'theme'=>'app\addons\theme\Addon',
+        'flash'=>'app\addons\flash\Addon',
         'mailbox'=>'app\addons\mailbox\Addon',
         'cms' => '\app\addons\cms\Addon',
         //'card' => '\app\addons\card\Addon',
