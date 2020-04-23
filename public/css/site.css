@@ -3,6 +3,9 @@ body {
     height: 100%;
     background: #f5f5f5;
 }
+.navbar-default {
+    background-color: white;
+}
 .navbar {
 	border-radius: 0;
 	border: 0;

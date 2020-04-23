@@ -3,6 +3,7 @@ namespace app\kit\core;
 
 use yii\web\AssetManager;
 use app\kit\hooks\AssetManagerInitedHook;
+use Yii;
 
 /**
  * 增强资源文件的加载
@@ -30,7 +31,7 @@ class CoreAssetManager extends AssetManager
     }
 
     /**
-     * 获取具体的资源
+     * 获取具体的资源,生成资源替代的映射表
      * {@inheritDoc}
      * @see \yii\web\AssetManager::getBundle()
      */
@@ -57,6 +58,7 @@ class CoreAssetManager extends AssetManager
             $this->bundles = array_merge($this->bundles, $common, $bundles);
         }
         //print_r(self::$__assets);die;
+        Yii::trace(static::$__assets,__CLASS__);
         return parent::getBundle($name, $publish);
     }
 }
