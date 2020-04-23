@@ -45,7 +45,7 @@ $this->params['logo'] = KitHelper::getSetting('site.logo');
             ]);
             $menus = [
                 [
-                    'label' => 'Basic首页',
+                    'label' => '首页',
                     'url' => [
                         '/'
                     ]
