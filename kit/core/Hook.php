@@ -2,6 +2,8 @@
 
 namespace app\kit\core;
 
+use app\kit\helpers\KitHelper;
+use ReflectionFunction;
 use Yii;
 use yii\base\BaseObject;
 
@@ -34,7 +36,7 @@ abstract class Hook extends BaseObject
 
     /**
      * 注册监听hook的处理器
-     * @param app\kit\hooks\Handler $handler
+     * @param app\kit\hooks\Handler | callable  $handler
      * @param boolean $addHeader hook添加在头还是队列的尾
      */
     public static function registerHandler($handler, $addHeader = false)
@@ -56,15 +58,23 @@ abstract class Hook extends BaseObject
      * @param array $config 配置hook的属性
      * @return Hook
      */
-    public static function emit($owner,$config = [])
+    public static function emit($owner, $config = [])
     {
         $hookName = static::class;
         if (isset(self::$hooks[$hookName])) {
             $config['owner'] = $owner;
             $hook = new $hookName($config);
             foreach (self::$hooks[$hookName] as $handler) {
-                call_user_func([new $handler, 'process'], $hook);
-                Yii::trace($hookName . ' : ' . $handler);
+                if (is_callable($handler)) {
+                    call_user_func($handler, $hook);
+                    if (KitHelper::isDevMode()) {
+                        $caller = (new ReflectionFunction($handler));
+                        Yii::trace($hookName . ' : callback in ' . $caller->getFileName() . ' on ' . $caller->getStartLine());
+                    }
+                } else {
+                    call_user_func([new $handler, 'process'], $hook);
+                    Yii::trace($hookName . ' : ' . $handler);
+                }
                 if ($hook->stop) {
                     break;
                 }
