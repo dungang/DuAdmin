@@ -6,7 +6,7 @@ use app\addons\flash\models\FeFlash;
 use app\addons\required\widgets\RequiredFormShow;
 use app\kit\widgets\Swiper;
 use yii\helpers\Html;
-
+$this->title = '首页';
 ?>
 <div style="margin-top:-20px;">
     <?= Swiper::widget([

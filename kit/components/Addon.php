@@ -6,8 +6,6 @@ use app\kit\core\Application;
 use Yii;
 use yii\base\Module;
 use yii\web\View;
-use app\kit\core\BackendController;
-use app\kit\core\FrontendController;
 use ReflectionClass;
 use yii\base\NotSupportedException;
 
@@ -23,7 +21,7 @@ class Addon extends Module
      * 避免重复赋值插件模块的面包屑
      * 比如，出现异常的时候，如果是backendcontroller 处理的异常的情况。
      *
-     * @var string
+     * @var boolean
      */
     public static $has_set_addon_home_breadscrumb = false;
 
