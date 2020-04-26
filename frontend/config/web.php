@@ -1,27 +1,22 @@
 <?php
-$db = require __DIR__ . '/db.php';
+
+use app\kit\core\Application;
+// 数据库配置放在具体的项目中是方便项目独立配置，项目之间相互隔离
+$db = require __DIR__ . '/../../config/db.php';
 $config = [
-    'modules' => [
-        'qiniu' => '\app\addons\qiniu\QiniuModule',
-        'taobaoke' => '\app\addons\taobaoke\TaobaokeModule',
-        'ueditor' => '\app\addons\ueditor\UeditorModule',
-        'finance' => '\app\addons\finance\FinanceModule',
-        'user' => '\app\addons\user\UserModule',
-        'asset' => '\app\addons\asset\AssetModule',
-        'page' => '\app\addons\page\PageModule',
-        'oauth' => '\app\addons\oauth\OauthModule',
-        'cms' => '\app\addons\cms\CmsModule'
+    'mode'=> Application::MODE_FRONTEND,
+    'controllerNamespace' => 'app\frontend\controllers',
+    'viewPath'=>'@app/frontend/views',
+    'modules'=>[
     ],
     'components' => [
         'db' => $db,
-        'errorHandler' => [
-            'errorAction' => 'site/error'
-        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
+                    'logFile' => '@runtime/logs/frontend/app.log',
                     'levels' => [
                         'error',
                         'warning'
@@ -29,8 +24,28 @@ $config = [
                 ]
             ]
         ],
+        
+        'view' => [
+            'class' => 'app\kit\core\CoreView',
+            'theme'=> [
+                'basePath' => '@app/themes/basic',
+                'pathMap' => [
+                    '@app/frontend/views' => '@app/themes/basic'
+                ]
+            ]
+        ],
+        'urlManager' => [
+            'class' => 'app\kit\components\RewriteUrl',
+            //'cache' => 'cache',
+            //'suffix' => '.html',
+            'enablePrettyUrl' => true,
+            'rules' => [
+                '<slug:[\w \-]+>' => 'site/page/'
+            ]
+        ],
         'assetManager' => [
-            'class' => '\app\kit\core\CoreAssetManager'
+            'class' => 'app\kit\core\CoreAssetManager',
+            'basePath' => '@app/public/assets'
         ]
     ]
 ];

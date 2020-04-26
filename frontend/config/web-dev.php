@@ -24,6 +24,16 @@ $config = [
                 ]
             ]
         ],
+        
+        'view' => [
+            'class' => 'app\kit\core\CoreView',
+            'theme'=> [
+                'basePath' => '@app/themes/basic',
+                'pathMap' => [
+                    '@app/frontend/views' => '@app/themes/basic'
+                ]
+            ]
+        ],
         'urlManager' => [
             'class' => 'app\kit\components\RewriteUrl',
             //'cache' => 'cache',
