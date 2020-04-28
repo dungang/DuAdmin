@@ -9,13 +9,11 @@ class BackendAsset extends AssetBundle
     
     public $css = [
         'third/font-awesome/css/font-awesome.min.css',
-        'third/adminlte/css/adminlte.css',
-        'css/backend.css'
+        'backend/dist/css/main.css'
     ];
     
     public $js = [
-        'third/adminlte/js/adminlte.js',
-        'js/backend.js'
+        'backend/dist/js/main.js',
     ];
     
     public $depends = [

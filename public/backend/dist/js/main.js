@@ -1,0 +1,645 @@
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./node_modules/adminlte/dist/js/adminlte.min.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/adminlte/dist/js/adminlte.min.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*! AdminLTE app.js
+* ================
+* Main JS application file for AdminLTE v2. This file
+* should be included in all pages. It controls some layout
+* options and implements exclusive AdminLTE plugins.
+*
+* @Author  Almsaeed Studio
+* @Support <https://www.almsaeedstudio.com>
+* @Email   <abdullah@almsaeedstudio.com>
+* @version 2.4.0
+* @repository git://github.com/Social-chan/AdminLTE.git
+* @license MIT <http://opensource.org/licenses/MIT>
+*/
+if("undefined"==typeof jQuery)throw new Error("AdminLTE requires jQuery");+function(a){"use strict";function b(b){return this.each(function(){var e=a(this),f=e.data(c);if(!f){var g=a.extend({},d,e.data(),"object"==typeof b&&b);e.data(c,f=new h(e,g))}if("string"==typeof b){if(void 0===f[b])throw new Error("No method named "+b);f[b]()}})}var c="lte.boxwidget",d={animationSpeed:500,collapseTrigger:'[data-widget="collapse"]',removeTrigger:'[data-widget="remove"]',collapseIcon:"fa-minus",expandIcon:"fa-plus",removeIcon:"fa-times"},e={data:".box",collapsed:".collapsed-box",body:".box-body",footer:".box-footer",tools:".box-tools"},f={collapsed:"collapsed-box"},g={collapsed:"collapsed.boxwidget",expanded:"expanded.boxwidget",removed:"removed.boxwidget"},h=function(a,b){this.element=a,this.options=b,this._setUpListeners()};h.prototype.toggle=function(){a(this.element).is(e.collapsed)?this.expand():this.collapse()},h.prototype.expand=function(){var b=a.Event(g.expanded),c=this.options.collapseIcon,d=this.options.expandIcon;a(this.element).removeClass(f.collapsed),a(this.element).find(e.tools).find("."+d).removeClass(d).addClass(c),a(this.element).find(e.body+", "+e.footer).slideDown(this.options.animationSpeed,function(){a(this.element).trigger(b)}.bind(this))},h.prototype.collapse=function(){var b=a.Event(g.collapsed),c=this.options.collapseIcon,d=this.options.expandIcon;a(this.element).find(e.tools).find("."+c).removeClass(c).addClass(d),a(this.element).find(e.body+", "+e.footer).slideUp(this.options.animationSpeed,function(){a(this.element).addClass(f.collapsed),a(this.element).trigger(b)}.bind(this))},h.prototype.remove=function(){var b=a.Event(g.removed);a(this.element).slideUp(this.options.animationSpeed,function(){a(this.element).trigger(b),a(this.element).remove()}.bind(this))},h.prototype._setUpListeners=function(){var b=this;a(this.element).on("click",this.options.collapseTrigger,function(a){a&&a.preventDefault(),b.toggle()}),a(this.element).on("click",this.options.removeTrigger,function(a){a&&a.preventDefault(),b.remove()})};var i=a.fn.boxWidget;a.fn.boxWidget=b,a.fn.boxWidget.Constructor=h,a.fn.boxWidget.noConflict=function(){return a.fn.boxWidget=i,this},a(window).on("load",function(){a(e.data).each(function(){b.call(a(this))})})}(jQuery),function(a){"use strict";function b(b){return this.each(function(){var e=a(this),f=e.data(c);if(!f){var g=a.extend({},d,e.data(),"object"==typeof b&&b);e.data(c,f=new h(e,g))}"string"==typeof b&&f.toggle()})}var c="lte.controlsidebar",d={slide:!0},e={sidebar:".control-sidebar",data:'[data-toggle="control-sidebar"]',open:".control-sidebar-open",bg:".control-sidebar-bg",wrapper:".wrapper",content:".content-wrapper",boxed:".layout-boxed"},f={open:"control-sidebar-open",fixed:"fixed"},g={collapsed:"collapsed.controlsidebar",expanded:"expanded.controlsidebar"},h=function(a,b){this.element=a,this.options=b,this.hasBindedResize=!1,this.init()};h.prototype.init=function(){a(this.element).is(e.data)||a(this).on("click",this.toggle),this.fix(),a(window).resize(function(){this.fix()}.bind(this))},h.prototype.toggle=function(b){b&&b.preventDefault(),this.fix(),a(e.sidebar).is(e.open)||a("body").is(e.open)?this.collapse():this.expand()},h.prototype.expand=function(){this.options.slide?a(e.sidebar).addClass(f.open):a("body").addClass(f.open),a(this.element).trigger(a.Event(g.expanded))},h.prototype.collapse=function(){a("body, "+e.sidebar).removeClass(f.open),a(this.element).trigger(a.Event(g.collapsed))},h.prototype.fix=function(){a("body").is(e.boxed)&&this._fixForBoxed(a(e.bg))},h.prototype._fixForBoxed=function(b){b.css({position:"absolute",height:a(e.wrapper).height()})};var i=a.fn.controlSidebar;a.fn.controlSidebar=b,a.fn.controlSidebar.Constructor=h,a.fn.controlSidebar.noConflict=function(){return a.fn.controlSidebar=i,this},a(document).on("click",e.data,function(c){c&&c.preventDefault(),b.call(a(this),"toggle")})}(jQuery),function(a){"use strict";function b(b){return this.each(function(){var d=a(this),e=d.data(c);e||d.data(c,e=new f(d)),"string"==typeof b&&e.toggle(d)})}var c="lte.directchat",d={data:'[data-widget="chat-pane-toggle"]',box:".direct-chat"},e={open:"direct-chat-contacts-open"},f=function(a){this.element=a};f.prototype.toggle=function(a){a.parents(d.box).first().toggleClass(e.open)};var g=a.fn.directChat;a.fn.directChat=b,a.fn.directChat.Constructor=f,a.fn.directChat.noConflict=function(){return a.fn.directChat=g,this},a(document).on("click",d.data,function(c){c&&c.preventDefault(),b.call(a(this),"toggle")})}(jQuery),function(a){"use strict";function b(b){return this.each(function(){var e=a(this),f=e.data(c);if(!f){var h=a.extend({},d,e.data(),"object"==typeof b&&b);e.data(c,f=new g(h))}if("string"==typeof b){if(void 0===f[b])throw new Error("No method named "+b);f[b]()}})}var c="lte.layout",d={slimscroll:!0,resetHeight:!0},e={wrapper:".wrapper",contentWrapper:".content-wrapper",layoutBoxed:".layout-boxed",mainFooter:".main-footer",mainHeader:".main-header",sidebar:".sidebar",controlSidebar:".control-sidebar",fixed:".fixed",sidebarMenu:".sidebar-menu",logo:".main-header .logo"},f={fixed:"fixed",holdTransition:"hold-transition"},g=function(a){this.options=a,this.bindedResize=!1,this.activate()};g.prototype.activate=function(){this.fix(),this.fixSidebar(),a("body").removeClass(f.holdTransition),this.options.resetHeight&&a("body, html, "+e.wrapper).css({height:"auto","min-height":"100%"}),this.bindedResize||(a(window).resize(function(){this.fix(),this.fixSidebar(),a(e.logo+", "+e.sidebar).one("webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend",function(){this.fix(),this.fixSidebar()}.bind(this))}.bind(this)),this.bindedResize=!0),a(e.sidebarMenu).on("expanded.tree",function(){this.fix(),this.fixSidebar()}.bind(this)),a(e.sidebarMenu).on("collapsed.tree",function(){this.fix(),this.fixSidebar()}.bind(this))},g.prototype.fix=function(){a(e.layoutBoxed+" > "+e.wrapper).css("overflow","hidden");var b=a(e.mainFooter).outerHeight()||0,c=a(e.mainHeader).outerHeight()+b,d=a(window).height(),g=a(e.sidebar).height()||0;if(a("body").hasClass(f.fixed))a(e.contentWrapper).css("min-height",d-b);else{var h;d>=g?(a(e.contentWrapper).css("min-height",d-c),h=d-c):(a(e.contentWrapper).css("min-height",g),h=g);var i=a(e.controlSidebar);void 0!==i&&i.height()>h&&a(e.contentWrapper).css("min-height",i.height())}},g.prototype.fixSidebar=function(){if(!a("body").hasClass(f.fixed))return void(void 0!==a.fn.slimScroll&&a(e.sidebar).slimScroll({destroy:!0}).height("auto"));this.options.slimscroll&&void 0!==a.fn.slimScroll&&(a(e.sidebar).slimScroll({destroy:!0}).height("auto"),a(e.sidebar).slimScroll({height:a(window).height()-a(e.mainHeader).height()+"px",color:"rgba(0,0,0,0.2)",size:"3px"}))};var h=a.fn.layout;a.fn.layout=b,a.fn.layout.Constuctor=g,a.fn.layout.noConflict=function(){return a.fn.layout=h,this},a(window).on("load",function(){b.call(a("body"))})}(jQuery),function(a){"use strict";function b(b){return this.each(function(){var e=a(this),f=e.data(c);if(!f){var g=a.extend({},d,e.data(),"object"==typeof b&&b);e.data(c,f=new h(g))}"toggle"==b&&f.toggle()})}var c="lte.pushmenu",d={collapseScreenSize:767,expandOnHover:!1,expandTransitionDelay:200},e={collapsed:".sidebar-collapse",open:".sidebar-open",mainSidebar:".main-sidebar",contentWrapper:".content-wrapper",searchInput:".sidebar-form .form-control",button:'[data-toggle="push-menu"]',mini:".sidebar-mini",expanded:".sidebar-expanded-on-hover",layoutFixed:".fixed"},f={collapsed:"sidebar-collapse",open:"sidebar-open",mini:"sidebar-mini",expanded:"sidebar-expanded-on-hover",expandFeature:"sidebar-mini-expand-feature",layoutFixed:"fixed"},g={expanded:"expanded.pushMenu",collapsed:"collapsed.pushMenu"},h=function(a){this.options=a,this.init()};h.prototype.init=function(){(this.options.expandOnHover||a("body").is(e.mini+e.layoutFixed))&&(this.expandOnHover(),a("body").addClass(f.expandFeature)),a(e.contentWrapper).click(function(){a(window).width()<=this.options.collapseScreenSize&&a("body").hasClass(f.open)&&this.close()}.bind(this)),a(e.searchInput).click(function(a){a.stopPropagation()})},h.prototype.toggle=function(){var b=a(window).width(),c=!a("body").hasClass(f.collapsed);b<=this.options.collapseScreenSize&&(c=a("body").hasClass(f.open)),c?this.close():this.open()},h.prototype.open=function(){a(window).width()>this.options.collapseScreenSize?a("body").removeClass(f.collapsed).trigger(a.Event(g.expanded)):a("body").addClass(f.open).trigger(a.Event(g.expanded))},h.prototype.close=function(){a(window).width()>this.options.collapseScreenSize?a("body").addClass(f.collapsed).trigger(a.Event(g.collapsed)):a("body").removeClass(f.open+" "+f.collapsed).trigger(a.Event(g.collapsed))},h.prototype.expandOnHover=function(){a(e.mainSidebar).hover(function(){a("body").is(e.mini+e.collapsed)&&a(window).width()>this.options.collapseScreenSize&&this.expand()}.bind(this),function(){a("body").is(e.expanded)&&this.collapse()}.bind(this))},h.prototype.expand=function(){setTimeout(function(){a("body").removeClass(f.collapsed).addClass(f.expanded)},this.options.expandTransitionDelay)},h.prototype.collapse=function(){setTimeout(function(){a("body").removeClass(f.expanded).addClass(f.collapsed)},this.options.expandTransitionDelay)};var i=a.fn.pushMenu;a.fn.pushMenu=b,a.fn.pushMenu.Constructor=h,a.fn.pushMenu.noConflict=function(){return a.fn.pushMenu=i,this},a(document).on("click",e.button,function(c){c.preventDefault(),b.call(a(this),"toggle")}),a(window).on("load",function(){b.call(a(e.button))})}(jQuery),function(a){"use strict";function b(b){return this.each(function(){var e=a(this);if(!e.data(c)){var f=a.extend({},d,e.data(),"object"==typeof b&&b);e.data(c,new h(e,f))}})}var c="lte.tree",d={animationSpeed:500,accordion:!0,followLink:!1,trigger:".treeview a"},e={tree:".tree",treeview:".treeview",treeviewMenu:".treeview-menu",open:".menu-open, .active",li:"li",data:'[data-widget="tree"]',active:".active"},f={open:"menu-open",tree:"tree"},g={collapsed:"collapsed.tree",expanded:"expanded.tree"},h=function(b,c){this.element=b,this.options=c,a(this.element).addClass(f.tree),a(e.treeview+e.active,this.element).addClass(f.open),this._setUpListeners()};h.prototype.toggle=function(a,b){var c=a.next(e.treeviewMenu),d=a.parent(),g=d.hasClass(f.open);d.is(e.treeview)&&(this.options.followLink&&"#"!=a.attr("href")||b.preventDefault(),g?this.collapse(c,d):this.expand(c,d))},h.prototype.expand=function(b,c){var d=a.Event(g.expanded);if(this.options.accordion){var h=c.siblings(e.open),i=h.children(e.treeviewMenu);this.collapse(i,h)}c.addClass(f.open),b.slideDown(this.options.animationSpeed,function(){a(this.element).trigger(d)}.bind(this))},h.prototype.collapse=function(b,c){var d=a.Event(g.collapsed);b.find(e.open).removeClass(f.open),c.removeClass(f.open),b.slideUp(this.options.animationSpeed,function(){b.find(e.open+" > "+e.treeview).slideUp(),a(this.element).trigger(d)}.bind(this))},h.prototype._setUpListeners=function(){var b=this;a(this.element).on("click",this.options.trigger,function(c){b.toggle(a(this),c)})};var i=a.fn.tree;a.fn.tree=b,a.fn.tree.Constructor=h,a.fn.tree.noConflict=function(){return a.fn.tree=i,this},a(window).on("load",function(){a(e.data).each(function(){b.call(a(this))})})}(jQuery);
+
+/***/ }),
+
+/***/ "./public/backend/src/js/extend.js":
+/*!*****************************************!*\
+  !*** ./public/backend/src/js/extend.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * 联动选择下拉框 data-parent-id //默认上级值 data-parent //上级对象，和 parent-id二选一 data-url
+ * //加载数据的地址 data-param //加载数据的参数 data-value //默认初始值，并不代表事最终逻辑值 data-queue
+ * //顺序执行的对象队列
+ */
++function ($) {
+  function isNotEmptyObject(e) {
+    var t;
+
+    for (t in e) {
+      return true;
+    }
+
+    return false;
+  }
+
+  function assembleOptions(data, value) {
+    var options = '';
+
+    for (var p in data) {
+      var txt = data[p];
+
+      if (p == value) {
+        options += "<option value='" + p + "' selected >" + txt + "</option>";
+      } else {
+        options += "<option value='" + p + "'>" + txt + "</option>";
+      }
+    }
+
+    return options;
+  }
+
+  function process(queue) {
+    var select = queue.shift();
+    if (select == null) return;
+    $self = $(select);
+    var data = $self.data();
+    $self.empty(); // 情况自己
+
+    var param = {};
+
+    if (data.parentId != null && data.param) {
+      param[data.param] = data.parentId;
+    } else if (data.parent && data.param) {
+      var parent = $(data.parent);
+      var parent2 = $(parent.data('parent'));
+
+      if (parent && data.url && parent.val() != null) {
+        param[data.param] = parent.val();
+      } else if (parent2 && data.url && parent2.val() != null) {
+        param[data.param] = parent2.val();
+      }
+    } else {
+      alert('连级下拉框参数配置不正确:' + $self.attr('name'));
+    }
+
+    if (isNotEmptyObject(param)) {
+      $.getJSON(data.url, param, function (res) {
+        if (res.code == 0) {
+          $self.append(assembleOptions(res.data, data.value));
+          process(queue);
+        }
+      });
+    }
+  }
+
+  function getQueue() {
+    return $('select[data-linkage]').toArray();
+  }
+
+  function execute() {
+    var queue = getQueue();
+    process(queue);
+  }
+
+  $.fn.linkageSelect = function () {
+    $(document).off('change.site.linkage');
+    execute();
+    $(document).on('change.site.linkage', 'select[data-linkage]', function () {
+      var queue = $($(this).data('queue')).toArray();
+      process(queue);
+    });
+  };
+}(jQuery);
++function ($) {
+  function process(options) {
+    var _this = this;
+
+    options.data['timestamp'] = Math.round(new Date().getTime() / 1000);
+    $.ajax({
+      url: options.url,
+      method: options.method,
+      data: options.data,
+      dataType: options.dataType,
+      error: function error(xhr, textStatus, errorThrown) {
+        options.onTimeout.call(_this, options, xhr, textStatus, errorThrown);
+
+        if (options.repeat) {
+          setTimeout(function () {
+            process.call(_this, options);
+          }, options.interval);
+        }
+      },
+      success: function success(data, textStatus) {
+        if (textStatus == "success") {
+          // 请求成功
+          options.onSuccess.call(_this, data, textStatus, options);
+
+          if (options.repeat) {
+            var tm = setTimeout(function () {
+              process.call(_this, options);
+              clearTimeout(tm);
+            }, options.interval);
+          }
+        }
+      }
+    });
+  }
+
+  $.fn.longpoll = function (options) {
+    return this.each(function () {
+      var _this = $(this);
+
+      var opts = $.extend({}, $.fn.longpoll.Default, options, _this.data());
+
+      if (opts.now === true) {
+        process.call(_this, opts);
+      } else {
+        var tm = setTimeout(function () {
+          process.call(_this, opts);
+          clearTimeout(tm);
+        }, options.interval);
+      }
+    });
+  };
+
+  $.fn.longpoll.Default = {
+    now: true,
+    //是否立刻执行
+    interval: 2000,
+    dataType: 'text',
+    method: 'get',
+    data: {},
+    repeat: true,
+    onTimeout: $.noop,
+    onSuccess: $.noop
+  };
+}(jQuery);
++function ($) {
+  $.fn.batchProcess = function (options) {
+    return this.each(function () {
+      var _this = $(this);
+
+      var modeOpts = {};
+
+      switch (options.mode) {
+        case 'delete':
+        case 'quiet':
+          modeOpts.contentType = 'application/json; charset=UTF-8';
+          modeOpts.dataType = 'json';
+          break;
+
+        default:
+      }
+
+      var opts = $.extend({}, $.fn.batchProcess.Default, modeOpts, options, _this.data());
+
+      var url = _this.attr('href');
+
+      var hasQuery = url.indexOf('?') > -1;
+
+      _this.click(function (e) {
+        e.preventDefault();
+
+        if (opts.needConfirm == false || confirm(opts.confirm)) {
+          var _chkboxs = $('input[name=' + opts.key + '\\[\\]]:checked');
+
+          var idObjs = _chkboxs.map(function (idx, obj) {
+            return obj.value;
+          });
+
+          if (idObjs.length == 0) {
+            alert(opts.noSelectedMsg);
+          } else {
+            var ids = $.makeArray(idObjs);
+
+            if (hasQuery) {
+              url += '&id=' + ids.join();
+            } else {
+              url += '?id' + ids.join();
+            }
+
+            $.ajax({
+              url: url,
+              method: opts.method,
+              data: _this.data('param'),
+              dataType: opts.dataType,
+              contentType: opts.contentType,
+              success: function success(response) {
+                switch (opts.mode) {
+                  case 'delete':
+                    if (response.code == '200') {
+                      _chkboxs.each(function () {
+                        var tr = $(this).parents(opts.row);
+                        tr.fadeToggle('slow', function () {
+                          tr.remove();
+                          opts.onSuccess.call(_this, response, _chkboxs);
+                        });
+                      });
+                    }
+
+                    break;
+
+                  case 'modal':
+                    var modal = $(opts.modal);
+                    modal.find('.modal-content').html(response);
+                    modal.modal('show');
+                    opts.onSuccess.call(_this, response, _chkboxs);
+                    break;
+
+                  default:
+                    opts.onSuccess.call(_this, response, _chkboxs);
+                }
+              }
+            });
+          }
+        }
+      });
+    });
+  };
+
+  $.fn.batchProcess.Default = {
+    key: 'id',
+    row: 'tr',
+    noSelectedMsg: '请选择条目，否则不能进行操作',
+    confirm: '确定删除？',
+    needConfirm: true,
+    method: 'POST',
+    mode: 'delete',
+    modal: '#modal-dailog',
+    onSuccess: $.noop
+  };
+}(jQuery);
++function ($) {
+  $.fn.batchLoad = function (options) {
+    return this.each(function () {
+      var _this = $(this);
+
+      var opts = $.extend({}, $.fn.batchLoad.Default, options, _this.data());
+
+      var url = _this.attr('href');
+
+      var hasQuery = url.indexOf('?') > -1;
+
+      _this.click(function (e) {
+        e.preventDefault();
+        var idObjs = $('input[name=' + opts.key + '\\[\\]]:checked').map(function (idx, obj) {
+          return obj.value;
+        });
+
+        if (idObjs.length == 0) {
+          alert("请选择加载的条目，否则不能进行操作");
+        } else {
+          var ids = $.makeArray(idObjs);
+
+          if (hasQuery) {
+            url += '&id=' + ids.join();
+          } else {
+            url += '?id' + ids.join();
+          }
+
+          $.get(url, function (response) {
+            var modal = $(opts.modal);
+            modal.find('.modal-content').html(response);
+            modal.modal('show');
+          });
+        }
+      });
+    });
+  };
+
+  $.fn.batchLoad.Default = {
+    key: 'id',
+    modal: '#modal-dailog'
+  };
+}(jQuery);
++function ($) {
+  /**
+   * Create or Delete a Row of List
+   */
+  $.fn.listrowcd = function (options) {
+    return this.each(function () {
+      var _this = $(this);
+
+      var opts = $.extend({}, $.fn.listrowcd.Default, options, _this.data()); // delete button
+
+      _this.find(opts.delBtn).click(function (e) {
+        e.preventDefault();
+
+        var _delBtn = $(this);
+
+        var _row = _delBtn.parents(opts.row);
+
+        _row.fadeToggle('slow', function () {
+          _row.remove();
+        });
+      });
+
+      _this.find(opts.createBtn).click(function (e) {
+        e.preventDefault();
+
+        var _createBtn = $(this);
+
+        var _rows = _this.find(opts.row);
+
+        var _lastRow = $(_rows[_rows.length - 1]);
+
+        _lastRow.clone(true).insertAfter(_lastRow);
+      });
+    });
+  };
+
+  $.fn.listrowcd.Default = {
+    delBtn: '.btn-del',
+    createBtn: '.btn-create',
+    row: 'tr'
+  };
+}(jQuery);
+var App = {
+  extendSimpleModal: function extendSimpleModal(modalSelector) {
+    var modal = $(modalSelector);
+    modal.on('hidden.bs.modal', function (e) {
+      // 清空对象
+      $(e.target).data('bs.modal', null);
+    });
+    modal.on('show.bs.modal', function (e) {
+      var size = $(e.relatedTarget).data('modal-size');
+      $(e.target).find('.modal-dialog').removeClass('modal-sm modal-lg').addClass(size ? size : '');
+    });
+  }
+};
+var baiduTextAudio = new Audio();
+
+function speckText(url) {
+  //var url = "http://tts.baidu.com/text2audio?lan=zh&ctp=1&ie=UTF-8&vol=9&per=0&spd=4&pit=5&aue=3&&text=" + encodeURI(str);
+  baiduTextAudio.src = url;
+  baiduTextAudio.play();
+}
+
++function ($) {
+  function replaceIndex(clone) {
+    var regexID = /\-\d{1,}\-/gmi;
+    var regexName = /\[\d{1,}\]/gmi;
+    var size = this.data('index');
+    var html = clone.html().replace(regexName, '[' + size + ']').replace(regexID, '-' + size + '-');
+    size = size + 1;
+    this.data('index', size);
+    clone.html(html);
+    return clone;
+  }
+
+  $.fn.dynamicline = function (options) {
+    return this.each(function () {
+      var _container = $(this);
+
+      var opts = $.extend({}, $.fn.dynamicline.DEF, options, _container.data());
+
+      _container.on('click', '.delete-self', function (e) {
+        e.preventDefault();
+
+        var _this = $(this);
+
+        var target_obj = _this.parents(opts.target);
+
+        var targets = _container.find(opts.target);
+
+        if (targets.length > 2) {
+          target_obj.remove();
+        }
+      }).on('click', '.copy-self', function (e) {
+        e.preventDefault();
+
+        var _this = $(this);
+
+        var target_obj = _this.parents(opts.target);
+
+        var clone = target_obj.clone();
+        console.log(clone);
+
+        if (opts.onCopy) {
+          clone = opts.onCopy.call(_container, clone);
+        }
+
+        clone.insertAfter(target_obj);
+      });
+    });
+  };
+
+  $.fn.dynamicline.DEF = {
+    onCopy: replaceIndex
+  };
+}(jQuery);
+/**
+ * Created by dungang
+ */
+
++function ($) {
+  'use strict';
+
+  $.fn.selectBox = function () {
+    return this.each(function () {
+      var _this = $(this);
+
+      var id = _this.attr('id');
+
+      var sourceSearchInput = $('#' + id + '-source-search');
+      var targetSearchInput = $('#' + id + '-target-search');
+      var sourceSelect = $('#' + id + '-source');
+      var targetSelect = $('#' + id + '-target');
+      var yesButton = $('#' + id + '-btn-yes');
+      var noButton = $('#' + id + '-btn-no');
+      targetSelect.on('update', function () {
+        targetSelect.find('option').attr('selected', true);
+      });
+      sourceSearchInput.keyup(function () {
+        var filter = sourceSearchInput.val().trim();
+        sourceSelect.find('option').each(function () {
+          var _option = $(this);
+
+          if (_option.text().indexOf(filter) < 0) {
+            _option.attr('selected', false).css({
+              display: 'none'
+            });
+          } else {
+            _option.css({
+              display: 'block'
+            });
+          }
+        });
+      });
+      targetSearchInput.keyup(function () {
+        var filter = targetSearchInput.val().trim();
+        targetSelect.find('option').each(function () {
+          var _option = $(this);
+
+          if (_option.text().indexOf(filter) < 0) {
+            _option.attr('selected', false).css({
+              display: 'none'
+            });
+          } else {
+            _option.css({
+              display: 'block'
+            });
+          }
+        });
+        targetSelect.trigger('update');
+      });
+      yesButton.click(function () {
+        sourceSelect.find('option:selected').appendTo(targetSelect);
+        targetSelect.trigger('update');
+      });
+      noButton.click(function () {
+        targetSelect.find('option:selected').appendTo(sourceSelect);
+      });
+      targetSelect.trigger('update');
+    });
+  };
+}(jQuery);
+
+/***/ }),
+
+/***/ "./public/backend/src/js/main.js":
+/*!***************************************!*\
+  !*** ./public/backend/src/js/main.js ***!
+  \***************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var adminlte__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! adminlte */ "./node_modules/adminlte/dist/js/adminlte.min.js");
+/* harmony import */ var adminlte__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(adminlte__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _extend__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./extend */ "./public/backend/src/js/extend.js");
+/* harmony import */ var _extend__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_extend__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+/***/ }),
+
+/***/ "./public/backend/src/less/main.less":
+/*!*******************************************!*\
+  !*** ./public/backend/src/less/main.less ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed (from ./node_modules/css-loader/dist/cjs.js):\nModuleNotFoundError: Module not found: Error: Can't resolve '../../../../node_modules/adminlte/build/dist/img/boxed-bg.jpg' in 'D:\\projects\\workspace\\MMAdmin\\public\\backend\\src\\less'\n    at D:\\projects\\workspace\\MMAdmin\\node_modules\\webpack\\lib\\Compilation.js:925:10\n    at D:\\projects\\workspace\\MMAdmin\\node_modules\\webpack\\lib\\NormalModuleFactory.js:401:22\n    at D:\\projects\\workspace\\MMAdmin\\node_modules\\webpack\\lib\\NormalModuleFactory.js:130:21\n    at D:\\projects\\workspace\\MMAdmin\\node_modules\\webpack\\lib\\NormalModuleFactory.js:224:22\n    at D:\\projects\\workspace\\MMAdmin\\node_modules\\neo-async\\async.js:2830:7\n    at D:\\projects\\workspace\\MMAdmin\\node_modules\\neo-async\\async.js:6877:13\n    at D:\\projects\\workspace\\MMAdmin\\node_modules\\webpack\\lib\\NormalModuleFactory.js:214:25\n    at D:\\projects\\workspace\\MMAdmin\\node_modules\\enhanced-resolve\\lib\\Resolver.js:213:14\n    at D:\\projects\\workspace\\MMAdmin\\node_modules\\enhanced-resolve\\lib\\Resolver.js:285:5\n    at eval (eval at create (D:\\projects\\workspace\\MMAdmin\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:15:1)\n    at D:\\projects\\workspace\\MMAdmin\\node_modules\\enhanced-resolve\\lib\\UnsafeCachePlugin.js:44:7\n    at D:\\projects\\workspace\\MMAdmin\\node_modules\\enhanced-resolve\\lib\\Resolver.js:285:5\n    at eval (eval at create (D:\\projects\\workspace\\MMAdmin\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:15:1)\n    at D:\\projects\\workspace\\MMAdmin\\node_modules\\enhanced-resolve\\lib\\Resolver.js:285:5\n    at eval (eval at create (D:\\projects\\workspace\\MMAdmin\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:27:1)\n    at D:\\projects\\workspace\\MMAdmin\\node_modules\\enhanced-resolve\\lib\\DescriptionFilePlugin.js:67:43\n    at D:\\projects\\workspace\\MMAdmin\\node_modules\\enhanced-resolve\\lib\\Resolver.js:285:5\n    at eval (eval at create (D:\\projects\\workspace\\MMAdmin\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:16:1)\n    at D:\\projects\\workspace\\MMAdmin\\node_modules\\enhanced-resolve\\lib\\Resolver.js:285:5\n    at eval (eval at create (D:\\projects\\workspace\\MMAdmin\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:27:1)\n    at D:\\projects\\workspace\\MMAdmin\\node_modules\\enhanced-resolve\\lib\\DescriptionFilePlugin.js:67:43\n    at D:\\projects\\workspace\\MMAdmin\\node_modules\\enhanced-resolve\\lib\\Resolver.js:285:5\n    at eval (eval at create (D:\\projects\\workspace\\MMAdmin\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:16:1)\n    at D:\\projects\\workspace\\MMAdmin\\node_modules\\enhanced-resolve\\lib\\Resolver.js:285:5\n    at eval (eval at create (D:\\projects\\workspace\\MMAdmin\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:15:1)\n    at D:\\projects\\workspace\\MMAdmin\\node_modules\\enhanced-resolve\\lib\\DirectoryExistsPlugin.js:27:15\n    at D:\\projects\\workspace\\MMAdmin\\node_modules\\enhanced-resolve\\lib\\CachedInputFileSystem.js:85:15\n    at processTicksAndRejections (internal/process/task_queues.js:75:11)");
+
+/***/ }),
+
+/***/ "./themes/basic/assets/src/less/theme.less":
+/*!*************************************************!*\
+  !*** ./themes/basic/assets/src/less/theme.less ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ 0:
+/*!***************************************************************************************************************************!*\
+  !*** multi ./public/backend/src/js/main.js ./public/backend/src/less/main.less ./themes/basic/assets/src/less/theme.less ***!
+  \***************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(/*! D:\projects\workspace\MMAdmin\public\backend\src\js\main.js */"./public/backend/src/js/main.js");
+__webpack_require__(/*! D:\projects\workspace\MMAdmin\public\backend\src\less\main.less */"./public/backend/src/less/main.less");
+module.exports = __webpack_require__(/*! D:\projects\workspace\MMAdmin\themes\basic\assets\src\less\theme.less */"./themes/basic/assets/src/less/theme.less");
+
+
+/***/ })
+
+/******/ });

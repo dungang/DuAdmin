@@ -5,7 +5,7 @@ use yii\web\AssetBundle;
 
 class ThemeAsset extends AssetBundle {
 
-    public $sourcePath = '@app/themes/basic/assets';
+    public $sourcePath = '@app/themes/basic/assets/dist/css';
 
     public $css = [
         'theme.css'

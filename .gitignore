@@ -37,3 +37,5 @@ runtime
 node_modules
 .vscode
 backup
+/fonts
+/images
