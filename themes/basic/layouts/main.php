@@ -57,6 +57,7 @@ $this->params['logo'] = KitHelper::getSetting('site.logo');
             ]
         ];
         if (($frontMenus = Menu::getFrontMenus())) {
+            //print_r($frontMenus);die;
             foreach ($frontMenus as $frontMenu) {
                 if ($frontMenu['require_login'] && Yii::$app->user->isGuest) {
                     continue;
@@ -69,12 +70,6 @@ $this->params['logo'] = KitHelper::getSetting('site.logo');
             $menus[] = [
                 'label' => Yii::$app->user->identity->nick_name,
                 'items' => [
-                    [
-                        'label' => '我的服务',
-                        'url' => [
-                            '/finance/user-service/index'
-                        ]
-                    ],
                     [
                         'label' => '退出',
                         'url' => [

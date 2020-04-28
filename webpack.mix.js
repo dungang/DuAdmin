@@ -16,14 +16,12 @@ mix
         lessOptions: {
             paths: [path.resolve(__dirname, 'node_modules')],
           },
+    }).options({
+        processCssUrls:false
     })
     .js('public/backend/src/js/main.js', 'public/backend/dist/js')
     //前端主题 basic
-    .less('themes/basic/assets/src/less/theme.less', 'themes/basic/assets/dist/css', {
-        lessOptions: {
-            path: 'themes/basic/assets/dist/'
-        }
-    })
+    .less('themes/basic/assets/src/less/theme.less', 'themes/basic/assets/dist/css')
     .then(function () {
         del(['public/assets/*']);
     });

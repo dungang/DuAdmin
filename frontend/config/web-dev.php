@@ -40,7 +40,7 @@ $config = [
             //'suffix' => '.html',
             'enablePrettyUrl' => true,
             'rules' => [
-                '<slug:[\w \-]+>' => 'site/page/'
+                '<slug:[\w \-]+>' => 'site/page'
             ]
         ],
         'assetManager' => [

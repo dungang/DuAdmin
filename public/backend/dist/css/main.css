@@ -46,7 +46,7 @@ body {
   position: relative;
 }
 .layout-boxed {
-  background: url(/images/vendor/adminlte/dist/boxed-bg.jpg?7799dece2c79854f63f09e7dfa528b88) repeat fixed;
+  background: url('../../../../node_modules/adminlte/build/dist/img/boxed-bg.jpg') repeat fixed;
 }
 /*
  * Content Wrapper - contains the main content
@@ -243,7 +243,7 @@ a:focus {
   font-family: fontAwesome;
 }
 .main-header .sidebar-toggle:before {
-  content: "\F0C9";
+  content: "\f0c9";
 }
 .main-header .sidebar-toggle:hover {
   color: #fff;
@@ -329,7 +329,7 @@ a:focus {
   margin-right: 5px;
 }
 .content-header > .breadcrumb > li + li:before {
-  content: '>\A0';
+  content: '>\00a0';
 }
 @media (max-width: 991px) {
   .content-header > .breadcrumb {
@@ -4266,22 +4266,22 @@ a.desc:after {
   padding-left: 5px;
 }
 a.asc:after {
-  content: "\E151";
+  content: "\e151";
 }
 a.desc:after {
-  content: "\E152";
+  content: "\e152";
 }
 .sort-numerical a.asc:after {
-  content: "\E153";
+  content: "\e153";
 }
 .sort-numerical a.desc:after {
-  content: "\E154";
+  content: "\e154";
 }
 .sort-ordinal a.asc:after {
-  content: "\E155";
+  content: "\e155";
 }
 .sort-ordinal a.desc:after {
-  content: "\E156";
+  content: "\e156";
 }
 .grid-view th {
   white-space: nowrap;

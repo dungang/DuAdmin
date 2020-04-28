@@ -98,12 +98,13 @@ class KitHelper
         if (empty($url_parts['host']) && isset($url_parts['query'])) {
             $params = [];
             parse_str($url_parts['query'], $params);
-            if (isset($params['r'])) {
-                $r = '/' . $params['r'];
-                unset($params['r']);
-                array_unshift($params, $r);
-                return $params;
+            if (empty($params['r'])) {
+                $params['r'] = 'site/page';
             }
+            $r = '/' . $params['r'];
+            unset($params['r']);
+            array_unshift($params, $r);
+            return $params;
         } else {
             return $url;
         }
