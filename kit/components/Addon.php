@@ -113,8 +113,20 @@ class Addon extends Module
     public static function registerWebHookHandlers()
     {
     }
+
     public static function registerApiHookHandlers()
     {
+    }
+
+    public function registerFrontendTheme()
+    {
+        $this->on(self::EVENT_BEFORE_ACTION, function ($event) {
+            if (Yii::$app->view->theme) {
+                Yii::$app->view->theme->pathMap['@app/addons/' . Yii::$app->controller->module->id . '/views'] =
+                    Yii::$app->view->theme->basePath . '/addons/' . Yii::$app->controller->module->id;
+            }
+            //print_r(Yii::$app->view->theme->pathMap);
+        });
     }
 
     public function init()
@@ -133,7 +145,8 @@ class Addon extends Module
                     $this->registerAddonBackendHomeBreadscrumb();
                     break;
                 case Application::MODE_FRONTEND:
-                    $this->initViewPath(Yii::$app->mode);
+                    $this->initViewPath();
+                    $this->registerFrontendTheme();
                     $this->initFrontend();
                     Yii::$app->view->on(
                         View::EVENT_BEGIN_PAGE,
@@ -149,13 +162,22 @@ class Addon extends Module
 
     private function initControllerNamespace($mode)
     {
-        $this->controllerNamespace = $this->addonNamespaceBase . '\\' . $mode . '\\controllers';
+        if ($mode == Application::MODE_FRONTEND) {
+            $this->controllerNamespace = $this->addonNamespaceBase . '\\controllers';
+        } else {
+            $this->controllerNamespace = $this->addonNamespaceBase . '\\' . $mode . '\\controllers';
+        }
     }
 
-    private function initViewPath($mode)
+    private function initViewPath($mode = null)
     {
         $path = '@' . trim(str_replace('\\', '/', $this->addonNamespaceBase), '/');
-        $this->viewPath = $path . '/' . $mode . '/views';
+        if ($mode) {
+            $this->viewPath = $path . '/' . $mode . '/views';
+        } else {
+            //减少目录层次，方便theme管理
+            $this->viewPath = $path . '/views';
+        }
     }
 
     //     /**
