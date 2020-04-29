@@ -1213,6 +1213,20 @@ a.desc:after {
 .grid-view .summary {
   padding-bottom: 10px;
 }
+.block-bar,
+.block-bar-gray {
+  padding: 25px;
+}
+.block-bar h3,
+.block-bar-gray h3 {
+  text-align: center;
+}
+.block-bar {
+  background-color: white;
+}
+.block-bar-gray {
+  background-color: #eeeeee;
+}
 .btn-default.disabled,
 .btn-primary.disabled,
 .btn-success.disabled,
