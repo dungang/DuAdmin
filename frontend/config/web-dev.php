@@ -30,7 +30,7 @@ $config = [
             'theme'=> [
                 'basePath' => '@app/themes/basic',
                 'pathMap' => [
-                    '@app/frontend/views' => '@app/themes/basic'
+                    '@app/frontend/views' => '@app/themes/basic',
                 ]
             ]
         ],
