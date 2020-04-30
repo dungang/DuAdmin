@@ -22,6 +22,8 @@ class BaseAction extends Action
 
     const EVENT_AFTER_RUN = 'actionAfterRun';
 
+    const EVENT_BEFORE_RENDER = 'actionBeforeRender';
+
     /**
      * view 文件的名称
      *
@@ -238,6 +240,16 @@ class BaseAction extends Action
         return parent::beforeRun();
     }
 
+
+    /**
+     * 试图在渲染之前
+     *
+     * @return void
+     */
+    protected function beforeRender(){
+    
+        $this->trigger(self::EVENT_BEFORE_RENDER);
+    }
 
     /**
      * 计算跳转的参数或url

@@ -36,6 +36,7 @@ class UpdateModelAction extends BaseAction
                 if (!$this->successRediretUrl) {
                     $this->successRediretUrl = \Yii::$app->request->referrer;
                 }
+                $this->beforeRender();
                 return $this->controller->redirectOnSuccess($this->getSuccessRediretUrlWidthModel($model), "修改成功");
             }
 

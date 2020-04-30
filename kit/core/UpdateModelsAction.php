@@ -24,6 +24,7 @@ class UpdateModelsAction extends BaseAction
                         $model->attachBehaviors($this->modelBehaviors);
                         $model->load($this->composePostParams($model)) && $model->save(false);
                     }
+                    $this->beforeRender();
                     return $this->controller->redirectOnSuccess(\Yii::$app->request->referrer, "修改成功");
                 }
             );

@@ -11,6 +11,7 @@ class ViewModelAction extends BaseAction
         $model->attachBehaviors($this->modelBehaviors);
         $model->trigger('afterView');
         $this->data['model'] = $model;
+        $this->beforeRender();
         return $this->controller->render($this->viewName, $this->data);
     }
 }
