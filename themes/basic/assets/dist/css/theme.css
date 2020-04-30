@@ -672,7 +672,6 @@ a:active {
 .navbar-brand {
   float: left;
   height: 60px;
-  padding: 20px 15px;
   font-size: 18px;
   line-height: 20px;
 }
@@ -681,7 +680,7 @@ a:active {
   text-decoration: none;
 }
 .navbar-brand > img {
-  display: block;
+  display: inline-block;
 }
 @media (min-width: 768px) {
   .navbar > .container .navbar-brand,
@@ -913,8 +912,8 @@ a:active {
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
-  color: #555;
-  background-color: #eeeeee;
+  color: #FFF;
+  background-color: #e40909;
 }
 .navbar-default .navbar-nav > .disabled > a,
 .navbar-default .navbar-nav > .disabled > a:hover,
@@ -925,8 +924,8 @@ a:active {
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
-  color: #555;
-  background-color: #eeeeee;
+  color: #FFF;
+  background-color: #e40909;
 }
 @media (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
@@ -940,8 +939,8 @@ a:active {
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
-    color: #555;
-    background-color: #eeeeee;
+    color: #FFF;
+    background-color: #e40909;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a,
   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover,
@@ -955,7 +954,7 @@ a:active {
 }
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
-  background-color: #ddd;
+  background-color: #f95a5a;
 }
 .navbar-default .navbar-toggle .icon-bar {
   background-color: #888;
@@ -1122,7 +1121,7 @@ body {
 }
 .footer {
   height: 180px;
-  background-color: #d9534f;
+  background-color: #e40909;
   border-top: 1px solid #ddd;
   padding-top: 20px;
 }
@@ -1299,20 +1298,20 @@ fieldset[disabled] .btn-default.active {
   background-image: none;
 }
 .btn-primary {
-  background-color: #d9534f;
+  background-color: #e40909;
   background-repeat: repeat-x;
-  border-color: #d9534f;
+  border-color: #e40909;
 }
 .btn-primary:hover,
 .btn-primary:focus {
-  background-color: #c12e2a;
+  background-color: #a90707;
   background-position: 0 -15px;
-  border-color: #d9534f;
+  border-color: #e40909;
 }
 .btn-primary:active,
 .btn-primary.active {
-  background-color: #c12e2a;
-  border-color: #d9534f;
+  background-color: #a90707;
+  border-color: #e40909;
 }
 .btn-primary.disabled,
 .btn-primary[disabled],
@@ -1332,7 +1331,7 @@ fieldset[disabled] .btn-primary:active,
 .btn-primary.disabled.active,
 .btn-primary[disabled].active,
 fieldset[disabled] .btn-primary.active {
-  background-color: #c12e2a;
+  background-color: #a90707;
   background-image: none;
 }
 .btn-success {
@@ -1494,7 +1493,7 @@ fieldset[disabled] .btn-danger.active {
 .dropdown-menu > .active > a,
 .dropdown-menu > .active > a:hover,
 .dropdown-menu > .active > a:focus {
-  background-color: #d43f3a;
+  background-color: #cb0808;
 }
 .navbar-default {
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
@@ -1547,8 +1546,8 @@ fieldset[disabled] .btn-danger.active {
   background-repeat: repeat-x;
 }
 .progress-bar {
-  background-image: linear-gradient(to bottom, #d9534f 0%, #c9302c 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffd9534f', endColorstr='#ffc9302c', GradientType=0);
+  background-image: linear-gradient(to bottom, #e40909 0%, #b30707 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffe40909', endColorstr='#ffb30707', GradientType=0);
   background-repeat: repeat-x;
 }
 .progress-bar-success {
@@ -1581,11 +1580,11 @@ fieldset[disabled] .btn-danger.active {
 .list-group-item.active,
 .list-group-item.active:hover,
 .list-group-item.active:focus {
-  text-shadow: 0 -1px 0 #c9302c;
-  background-image: linear-gradient(to bottom, #d9534f 0%, #d23430 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffd9534f', endColorstr='#ffd23430', GradientType=0);
+  text-shadow: 0 -1px 0 #b30707;
+  background-image: linear-gradient(to bottom, #e40909 0%, #bf0808 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffe40909', endColorstr='#ffbf0808', GradientType=0);
   background-repeat: repeat-x;
-  border-color: #d23430;
+  border-color: #bf0808;
 }
 .list-group-item.active .badge,
 .list-group-item.active:hover .badge,

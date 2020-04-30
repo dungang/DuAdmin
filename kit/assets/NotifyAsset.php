@@ -6,7 +6,7 @@ use yii\web\AssetBundle;
 class NotifyAsset extends AssetBundle
 {
 
-    public $baseUrl = '@web/notifIt';
+    public $baseUrl = '@web/third/notifIt';
 
     public $js = [
         'js/notifIt.min.js'

@@ -42,7 +42,7 @@ $this->params['logo'] = KitHelper::getSetting('site.logo');
         <?php
         NavBar::begin([
             'brandLabel' => KitHelper::getSetting('site.name'),
-            // 'brandImage' => $this->params['logo'],
+            'brandImage' => $this->params['logo'],
             'brandUrl' => Yii::$app->homeUrl,
             'options' => [
                 'class' => 'navbar-default'
