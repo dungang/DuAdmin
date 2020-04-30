@@ -92,8 +92,19 @@ class BaseAction extends Action
      */
     public $successRediretUrl = false;
 
+    /**
+     * 文本消息
+     *
+     * @var string
+     */
     public $successMsg = '添加成功';
 
+    /**
+     * 输出到视图的数据
+     *
+     * @var array
+     */
+    public $data = [] ;
 
     public function init()
     {

@@ -1,4 +1,5 @@
 <?php
+
 namespace app\kit\core;
 
 use Yii;
@@ -19,7 +20,7 @@ class CreateModelsAction extends BaseAction
         $models = [
             $model
         ];
-        $data = [
+        $this->data = [
             'models' => $models
         ];
         // 动态绑定行为
@@ -44,11 +45,11 @@ class CreateModelsAction extends BaseAction
             }
 
             if ($loaded === false) {
-                return $this->controller->renderOnFail($this->viewName, $data, '可能表达的字段跟服务端不一致');
+                return $this->controller->renderOnFail($this->viewName, $this->data, '可能表达的字段跟服务端不一致');
             }
-            return $this->controller->renderOnFail($this->viewName, $data);
+            return $this->controller->renderOnFail($this->viewName, $this->data);
         }
 
-        return $this->controller->render($this->viewName, $data);
+        return $this->controller->render($this->viewName, $this->data);
     }
 }

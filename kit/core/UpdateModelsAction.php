@@ -1,4 +1,5 @@
 <?php
+
 namespace app\kit\core;
 
 use Yii;
@@ -12,7 +13,7 @@ class UpdateModelsAction extends BaseAction
         /* @var $models \yii\db\ActiveRecord[] */
         $ids = explode(',', $id);
         $models = $this->findModels($ids);
-        $data = [
+        $this->data = [
             'models' => $models
         ];
         try {
@@ -24,13 +25,13 @@ class UpdateModelsAction extends BaseAction
                         $model->load($this->composePostParams($model)) && $model->save(false);
                     }
                     return $this->controller->redirectOnSuccess(\Yii::$app->request->referrer, "修改成功");
-                });
+                }
+            );
         } catch (\Exception $e) {
             Yii::warning($e->getTraceAsString());
-            return $this->controller->renderOnException($this->viewName, $data);
+            return $this->controller->renderOnException($this->viewName, $this->data);
         }
 
-        return $this->controller->renderOnSuccess($this->viewName, $data);
+        return $this->controller->renderOnSuccess($this->viewName, $this->data);
     }
 }
-

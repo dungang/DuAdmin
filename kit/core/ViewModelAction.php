@@ -10,9 +10,8 @@ class ViewModelAction extends BaseAction
         // 动态绑定行为
         $model->attachBehaviors($this->modelBehaviors);
         $model->trigger('afterView');
-        return $this->controller->render($this->viewName, [
-            'model' => $model
-        ]);
+        $this->data['model'] = $model;
+        return $this->controller->render($this->viewName, $this->data);
     }
 }
 

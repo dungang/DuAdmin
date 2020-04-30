@@ -1,4 +1,5 @@
 <?php
+
 namespace app\kit\core;
 
 use Yii;
@@ -16,9 +17,9 @@ class CreateModelAction extends BaseAction
         /* @var $model \yii\db\ActiveRecord */
         $model = \Yii::createObject($this->modelClass);
         $model->load(\Yii::$app->request->queryParams);
-        
+
         $model->setAttributes($this->baseAttrs);
-        $data = [
+        $this->data = [
             'model' => $model
         ];
         // ajax表单验证
@@ -43,11 +44,11 @@ class CreateModelAction extends BaseAction
             }
 
             if ($loaded === false) {
-                return $this->controller->renderOnFail($this->viewName, $data, '可能表达的字段更服务端不一致');
+                return $this->controller->renderOnFail($this->viewName, $this->data, '可能表达的字段更服务端不一致');
             }
-            return $this->controller->renderOnFail($this->viewName, $data, $model->firstErrors);
+            return $this->controller->renderOnFail($this->viewName, $this->data, $model->firstErrors);
         }
 
-        return $this->controller->render($this->viewName, $data);
+        return $this->controller->render($this->viewName, $this->data);
     }
 }
