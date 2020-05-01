@@ -57,7 +57,6 @@ $this->params['logo'] = KitHelper::getSetting('site.logo');
             ]
         ];
         if (($frontMenus = Menu::getFrontMenus())) {
-            //print_r($frontMenus);die;
             foreach ($frontMenus as $frontMenu) {
                 if ($frontMenu['require_login'] && Yii::$app->user->isGuest) {
                     continue;
@@ -94,7 +93,6 @@ $this->params['logo'] = KitHelper::getSetting('site.logo');
                 ]
             ];
         }
-        // print_r($menus);die;
         echo Nav::widget([
             'options' => [
                 'class' => 'navbar-nav navbar-right'

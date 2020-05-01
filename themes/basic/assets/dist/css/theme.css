@@ -952,12 +952,17 @@ a:active {
 .navbar-default .navbar-toggle {
   border-color: #ddd;
 }
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #eeeeee;
+}
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
   background-color: #f95a5a;
+  border-color: #fff;
 }
-.navbar-default .navbar-toggle .icon-bar {
-  background-color: #888;
+.navbar-default .navbar-toggle:hover .icon-bar,
+.navbar-default .navbar-toggle:focus .icon-bar {
+  background-color: #fff;
 }
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
@@ -1121,7 +1126,7 @@ body {
 }
 .footer {
   height: 180px;
-  background-color: #e40909;
+  background-color: #b30707;
   border-top: 1px solid #ddd;
   padding-top: 20px;
 }
@@ -1225,6 +1230,33 @@ a.desc:after {
 }
 .block-bar-gray {
   background-color: #eeeeee;
+}
+.page-cover img {
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .page-cover img {
+    width: auto;
+  }
+}
+.breadcrumb {
+  margin-bottom: 0;
+}
+.nav .active {
+  background-color: #e40909;
+}
+.nav .active,
+.nav .active a {
+  color: white;
+}
+.product-list .product {
+  display: flex;
+}
+.product-list .product .cover {
+  width: 120px;
+}
+.product-list .product .info {
+  flex: 1;
 }
 .btn-default.disabled,
 .btn-primary.disabled,

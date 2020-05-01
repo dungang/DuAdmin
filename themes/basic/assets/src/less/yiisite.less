@@ -1,70 +1,83 @@
-@footer-min-height:180px; 
+@footer-min-height: 180px;
+
 html,
 body {
-    height: 100%;
+    height        : 100%;
     //  background: #f5f5f5;
 }
+
 .navbar-default {
     background-color: white;
 }
+
 .navbar {
-	border-radius: 0;
-	border: 0;
-}
-.wrap {
-    min-height: 100%;
-    height: auto;
-    margin: 0 auto -@footer-min-height;
-    padding: 0 0 @footer-min-height;
+    border-radius: 0;
+    border       : 0;
 }
 
-.wrap > .container {
+.wrap {
+    min-height: 100%;
+    height    : auto;
+    margin    : 0 auto -@footer-min-height;
+    padding   : 0 0 @footer-min-height;
+}
+
+.wrap>.container {
     padding: 0px 15px 20px;
 }
 
 .footer {
-    height: @footer-min-height;
-    background-color: @brand-primary;
-    border-top: 1px solid #ddd;
-    padding-top: 20px;
-    &,a,a:hover,a:active {
+    height          : @footer-min-height;
+    background-color: darken(@brand-primary,10%);
+    border-top      : 1px solid #ddd;
+    padding-top     : 20px;
+
+    &,
+    a,
+    a:hover,
+    a:active {
         color: white;
     }
 }
 
 .jumbotron {
-    text-align: center;
+    text-align      : center;
     background-color: transparent;
 }
 
 .jumbotron .btn {
     font-size: 21px;
-    padding: 14px 24px;
+    padding  : 14px 24px;
 }
 
 .not-set {
-    color: #c55;
+    color     : #c55;
     font-style: italic;
 }
 
 /* add sorting icons to gridview sort links */
-a.asc:after, a.desc:after {
-    position: relative;
-    top: 1px;
-    display: inline-block;
-    font-family: 'Glyphicons Halflings';
-    font-style: normal;
-    font-weight: normal;
-    line-height: 1;
+a.asc:after,
+a.desc:after {
+    position    : relative;
+    top         : 1px;
+    display     : inline-block;
+    font-family : 'Glyphicons Halflings';
+    font-style  : normal;
+    font-weight : normal;
+    line-height : 1;
     padding-left: 5px;
 }
 
 a.asc:after {
-    content: /*"\e113"*/ "\e151";
+    content:
+        /*"\e113"*/
+        "\e151";
 }
 
 a.desc:after {
-    content: /*"\e114"*/ "\e152";
+    content:
+        /*"\e114"*/
+        "\e152";
 }
 
 .sort-numerical a.asc:after {
@@ -88,40 +101,40 @@ a.desc:after {
 }
 
 .hint-block {
-    display: block;
+    display   : block;
     margin-top: 5px;
-    color: #999;
+    color     : #999;
 }
 
 .error-summary {
-    color: #a94442;
-    background: #fdf7f7;
+    color      : #a94442;
+    background : #fdf7f7;
     border-left: 3px solid #eed3d7;
-    padding: 10px 20px;
-    margin: 0 0 15px 0;
+    padding    : 10px 20px;
+    margin     : 0 0 15px 0;
 }
 
 /* align the logout "link" (button in form) of the navbar */
-.nav li > form > button.logout {
+.nav li>form>button.logout {
     padding: 15px;
-    border: none;
+    border : none;
 }
 
 @media(max-width:767px) {
-    .nav li > form > button.logout {
-        display:block;
+    .nav li>form>button.logout {
+        display   : block;
         text-align: left;
-        width: 100%;
-        padding: 10px 15px;
+        width     : 100%;
+        padding   : 10px 15px;
     }
 }
 
-.nav > li > form > button.logout:focus,
-.nav > li > form > button.logout:hover {
+.nav>li>form>button.logout:focus,
+.nav>li>form>button.logout:hover {
     text-decoration: none;
 }
 
-.nav > li > form > button.logout:focus {
+.nav>li>form>button.logout:focus {
     outline: none;
 }
 
@@ -132,8 +145,10 @@ a.desc:after {
     padding-bottom: 10px;
 }
 
-.block-bar,.block-bar-gray {
-    padding:25px;
+.block-bar,
+.block-bar-gray {
+    padding: 25px;
+
     h3 {
         text-align: center;
     }
@@ -141,9 +156,46 @@ a.desc:after {
 
 .block-bar {
     background-color: white;
-    
+
 }
+
 .block-bar-gray {
     background-color: @gray-lighter;
-    
+
+}
+
+.page-cover {
+    img {
+        width: 100%;
+        @media (min-width: @grid-float-breakpoint) {
+            width: auto;
+        }
+    }
+}
+
+.breadcrumb {
+    margin-bottom: 0;
+}
+
+.nav {
+    .active {
+        background-color: @brand-primary;
+        &,a{
+            color:white;
+        }
+    }
+}
+
+.product-list {
+    .product {
+        display: flex;
+        .cover {
+            width: 120px;
+
+        }
+        .info {
+            flex:1;
+            
+        }
+    }
 }
