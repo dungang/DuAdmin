@@ -56,10 +56,6 @@ class BaseAction extends Action
 
     /**
      * 固定的对象属性，
-     * 整合了之前的 findParams 和 assignParams
-     * 在很多场景下，findParams assignParams 是一直的所以没有必要使用两个参数来区分。
-     * 很难理解。
-     * 
      * 比如查询对象的时候必须在代码内部确定的属性。查询当前用户的数据，
      * 为什么要做这样的参数设置。
      * Yii有个优点也是缺点，模型load的时候可以任意覆盖，如果不约束就会有注入的风险，
@@ -72,20 +68,6 @@ class BaseAction extends Action
      * @var array|null
      */
     public $baseAttrs = null;
-
-    /**
-     * 条件查找参数
-     * @deprecated 请使用 baseAttrs
-     * @var array|null
-     */
-    public $findParams = null;
-
-    /**
-     * 固定赋值参数
-     * @deprecated 请使用 baseAttrs
-     * @var null|array
-     */
-    public $assignParams = null;
 
     /**
      * 成功操作的跳转地址，如果没有设置，则使用默认的
@@ -116,10 +98,10 @@ class BaseAction extends Action
         if (!empty($this->actionBehaviors)) {
             $this->attachBehaviors($this->actionBehaviors);
         }
-        if ($this->baseAttrs) {
-            $this->findParams = $this->baseAttrs;
-            $this->assignParams = $this->baseAttrs;
-        }
+        // if ($this->baseAttrs) {
+        //     $this->baseAttrs = $this->baseAttrs;
+        //     $this->baseAttrs = $this->baseAttrs;
+        // }
     }
 
     public function getActionBehaviors()
@@ -167,10 +149,10 @@ class BaseAction extends Action
      * @param Model $model
      * @return boolean
      */
-    protected function setAssignParams($model)
+    protected function setbaseAttrs($model)
     {
-        if ($this->assignParams) {
-            foreach ($this->assignParams as $field => $val) {
+        if ($this->baseAttrs) {
+            foreach ($this->baseAttrs as $field => $val) {
                 $model->{$field} = $val;
             }
         }
@@ -185,11 +167,11 @@ class BaseAction extends Action
     protected function composeGetParams($model)
     {
         $params = \Yii::$app->request->queryParams;
-        if ($this->findParams) {
+        if ($this->baseAttrs) {
             $formName = $model->formName();
             if (empty($params[$formName]))
                 $params[$formName] = [];
-            $params[$formName] = \array_merge($params[$formName], $this->findParams);
+            $params[$formName] = \array_merge($params[$formName], $this->baseAttrs);
         }
         return $params;
     }
@@ -204,15 +186,15 @@ class BaseAction extends Action
     protected function composePostParams($model, $multiple = false)
     {
         $params = \Yii::$app->request->post();
-        if ($this->assignParams) {
+        if ($this->baseAttrs) {
             $formName = $model->formName();
             if (empty($params[$formName]))
                 $params[$formName] = [];
             if ($multiple === false) {
-                $params[$formName] = \array_merge($params[$formName], $this->assignParams);
+                $params[$formName] = \array_merge($params[$formName], $this->baseAttrs);
             } else {
                 foreach ($params[$formName] as $i => $param) {
-                    $params[$formName][$i] = \array_merge($param, $this->assignParams);
+                    $params[$formName][$i] = \array_merge($param, $this->baseAttrs);
                 }
             }
         }
@@ -319,8 +301,8 @@ class BaseAction extends Action
                 $condition = array_merge($this->getPrimaryKeyCondition($class), $args ?: []);
 
                 //是否设置了查找的固定参数
-                if ($this->findParams) {
-                    $condition = \array_merge($condition, $this->findParams);
+                if ($this->baseAttrs) {
+                    $condition = \array_merge($condition, $this->baseAttrs);
                 }
                 $model = call_user_func(array(
                     $class,
@@ -361,8 +343,8 @@ class BaseAction extends Action
             ];
 
             //是否设置了查找的固定参数
-            if ($this->findParams) {
-                $cond = \array_merge($cond, $this->findParams);
+            if ($this->baseAttrs) {
+                $cond = \array_merge($cond, $this->baseAttrs);
             }
             $models = call_user_func(array(
                 $class,

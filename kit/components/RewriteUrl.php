@@ -6,6 +6,7 @@ use yii\web\UrlManager;
 use yii\web\UrlNormalizer;
 use yii\base\InvalidConfigException;
 use app\kit\models\Rewrite;
+use yii\helpers\ArrayHelper;
 use yii\web\Request;
 
 /**
@@ -17,6 +18,7 @@ class RewriteUrl extends UrlManager
     /**
      * 公共参数
      * 保证每一个url都包含的参数
+     * 
      * @var array|null
      */
     public $common_params = null;
@@ -54,7 +56,7 @@ class RewriteUrl extends UrlManager
             $this->cache = Yii::$app->get($this->cache, false);
         }
         if($this->from_db){
-            $this->rules = $this->getRulesFromDb();
+            $this->rules = ArrayHelper::merge($this->rules,$this->getRulesFromDb());
         }
         if (empty($this->rules)) {
             return;
