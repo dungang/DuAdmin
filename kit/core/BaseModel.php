@@ -17,7 +17,10 @@ class BaseModel extends ActiveRecord
      */
     const EVNT_BEFORE_SEARCH = 'beforeSearch';
 
-    protected $_map_cache_key = false;
+    /**
+     * 只查询没有标记删除的数据
+     */
+    protected $_query_only_undel = true;
 
     public function init()
     {
@@ -63,12 +66,9 @@ class BaseModel extends ActiveRecord
     public function delete()
     {
         if ($this->hasDeleteProperty()) {
-            // if ($this->beforeDelete()) {
             $this->is_del = 1;
             $result = $this->update(false);
-            //$this->afterDelete();
             return $result;
-            // }
         }
         return parent::delete();
     }

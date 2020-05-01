@@ -27,7 +27,7 @@ BackendAsset::register($this);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
+    <title><?= Html::encode('管理后台-' . $this->title) ?></title>
     <?php $this->head() ?>
 </head>
 <?php

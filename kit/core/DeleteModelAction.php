@@ -1,4 +1,5 @@
 <?php
+
 namespace app\kit\core;
 
 class DeleteModelAction extends BaseAction
@@ -26,4 +27,3 @@ class DeleteModelAction extends BaseAction
         }
     }
 }
-

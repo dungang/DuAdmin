@@ -91,6 +91,7 @@ class UserSearch extends User
             'status' => $this->status,
             'is_admin' => $this->is_admin,
             'is_super' => $this->is_super,
+            'is_del' => $this->is_del,
             'role' => $this->role
         ]);
         $query->andFilterWhere([
