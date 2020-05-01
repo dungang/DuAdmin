@@ -17,7 +17,7 @@ class ProfileController extends BackendController
         return [
             'index'=>[
                 'class' => 'app\kit\core\UpdateModelAction',
-                'findParams'=>[
+                'baseAttrs'=>[
                     'id'=>\Yii::$app->user->id,
                 ],
                 'modelClass' => [

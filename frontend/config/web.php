@@ -35,8 +35,10 @@ $config = [
         ],
         'urlManager' => [
             'class' => 'app\kit\components\RewriteUrl',
-            //'cache' => 'cache',
+            'cache' => 'cache',
+            'showScriptName'=>false,
             //'suffix' => '.html',
+            'from_db' => true,
             'enablePrettyUrl' => true,
             'rules' => [
                 '<slug:[\w \-]+>' => 'site/page/',

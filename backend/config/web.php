@@ -2,7 +2,7 @@
 
 use app\kit\core\Application;
 
-$db = require __DIR__ . '/db.php';
+$db = require __DIR__ . '/../../config/db.php';
 $config = [
     //'basePath' => dirname(__DIR__),
     'mode' => Application::MODE_BACKEND,

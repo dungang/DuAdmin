@@ -22,7 +22,7 @@ $this->registerMetaTag([
 
 <div class="login-box">
 	<div class="login-logo">
-		<?=Html::a(Html::encode(Yii::$app->name),['/backend'])?>
+		<?=Html::a(Html::encode($this->title),['/backend'])?>
 	</div>
 	<!-- /.login-logo -->
 	<div class="login-box-body">
