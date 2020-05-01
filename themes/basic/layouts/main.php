@@ -52,7 +52,7 @@ $this->params['logo'] = KitHelper::getSetting('site.logo');
             [
                 'label' => '首页',
                 'url' => [
-                    '/'
+                    '/site/index'
                 ]
             ]
         ];
@@ -69,6 +69,7 @@ $this->params['logo'] = KitHelper::getSetting('site.logo');
             'options' => [
                 'class' => 'navbar-nav navbar-right'
             ],
+            'activateParents'=>true,
             'items' => $menus
         ]);
         NavBar::end();
