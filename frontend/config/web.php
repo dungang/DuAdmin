@@ -4,11 +4,10 @@ use app\kit\core\Application;
 // 数据库配置放在具体的项目中是方便项目独立配置，项目之间相互隔离
 $db = require __DIR__ . '/../../config/db.php';
 $config = [
-    'mode'=> Application::MODE_FRONTEND,
+    'mode' => Application::MODE_FRONTEND,
     'controllerNamespace' => 'app\frontend\controllers',
-    'viewPath'=>'@app/frontend/views',
-    'modules'=>[
-    ],
+    'viewPath' => '@app/frontend/views',
+    'modules' => [],
     'components' => [
         'db' => $db,
         'log' => [
@@ -24,10 +23,10 @@ $config = [
                 ]
             ]
         ],
-        
+
         'view' => [
             'class' => 'app\kit\core\CoreView',
-            'theme'=> [
+            'theme' => [
                 'basePath' => '@app/themes/basic',
                 'pathMap' => [
                     '@app/frontend/views' => '@app/themes/basic'
@@ -40,7 +39,7 @@ $config = [
             //'suffix' => '.html',
             'enablePrettyUrl' => true,
             'rules' => [
-                '<slug:[\w \-]+>' => 'site/page/'
+                '<slug:[\w \-]+>' => 'site/page/',
             ]
         ],
         'assetManager' => [

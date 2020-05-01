@@ -3,7 +3,6 @@
 use app\addons\cms\widgets\ArticleShow;
 use app\addons\flash\widgets\Swiper;
 use app\addons\required\widgets\RequiredFormShow;
-use yii\helpers\Html;
 
 $this->title = '首页';
 ?>
@@ -11,26 +10,17 @@ $this->title = '首页';
     <?= Swiper::widget() ?>
 </div>
 
-<div class="block-bar">
-    <div class="container">
-        <h3>公司产品</h3>
-        <?= ArticleShow::widget([
-            'slug' => 'product',
-            'render_callback' => function ($article) {
-                return Html::tag('div', $article->title);
-            }
-        ]) ?>
-    </div>
-</div>
 <div class="block-bar-gray">
     <div class="container">
-        <h3>公司动态</h3>
-        <?= ArticleShow::widget([
-            'slug' => 'news',
-            'render_callback' => function ($article) {
-                return Html::tag('div', $article->title);
-            }
-        ]) ?>
+        <h3>公司产品</h3>
+        <div class="row">
+            <?= ArticleShow::widget([
+                'slug' => 'product-center',
+                'render_callback' => function ($product) {
+                    return $this->render('product-item', ['model' => $product]);
+                }
+            ]) ?>
+        </div>
     </div>
 </div>
 <div class="block-bar">

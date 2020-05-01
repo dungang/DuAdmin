@@ -29,12 +29,6 @@ $config = [
                 ]
             ]
         ],
-        'urlManager' => [
-            'class' => 'app\kit\components\RewriteUrl',
-            //'cache' => 'cache',
-            //'suffix' => '.html',
-            'enablePrettyUrl' => true,
-        ],
         'assetManager' => [
             'class' => 'app\kit\core\CoreAssetManager',
             'basePath' => '@app/public/assets'

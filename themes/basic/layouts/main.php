@@ -65,34 +65,34 @@ $this->params['logo'] = KitHelper::getSetting('site.logo');
                 $menus[] = $frontMenu;
             }
         }
-        if (!Yii::$app->user->isGuest) {
-            $menus[] = [
-                'label' => Yii::$app->user->identity->nick_name,
-                'items' => [
-                    [
-                        'label' => '退出',
-                        'url' => [
-                            '/site/logout'
-                        ],
-                        'linkOptions' => [
-                            'data-method' => 'post'
-                        ]
-                    ]
-                ]
-            ];
-        } else {
-            $menus[] = [
-                'label' => '登录',
-                'items' => [
-                    [
-                        'label' => '支付宝登录',
-                        'url' => [
-                            '/oauth/alipay'
-                        ]
-                    ]
-                ]
-            ];
-        }
+        // if (!Yii::$app->user->isGuest) {
+        //     $menus[] = [
+        //         'label' => Yii::$app->user->identity->nick_name,
+        //         'items' => [
+        //             [
+        //                 'label' => '退出',
+        //                 'url' => [
+        //                     '/site/logout'
+        //                 ],
+        //                 'linkOptions' => [
+        //                     'data-method' => 'post'
+        //                 ]
+        //             ]
+        //         ]
+        //     ];
+        // } else {
+        //     $menus[] = [
+        //         'label' => '登录',
+        //         'items' => [
+        //             [
+        //                 'label' => '支付宝登录',
+        //                 'url' => [
+        //                     '/oauth/alipay'
+        //                 ]
+        //             ]
+        //         ]
+        //     ];
+        // }
         echo Nav::widget([
             'options' => [
                 'class' => 'navbar-nav navbar-right'

@@ -1219,17 +1219,18 @@ a.desc:after {
 }
 .block-bar,
 .block-bar-gray {
-  padding: 25px;
+  padding: 30px;
 }
 .block-bar h3,
 .block-bar-gray h3 {
   text-align: center;
+  margin-bottom: 20px;
 }
 .block-bar {
   background-color: white;
 }
 .block-bar-gray {
-  background-color: #eeeeee;
+  background-color: #f1f1f1;
 }
 .page-cover img {
   width: 100%;
@@ -1257,6 +1258,18 @@ a.desc:after {
 }
 .product-list .product .info {
   flex: 1;
+}
+.thumbnail {
+  border-radius: 0;
+}
+.thumbnail .caption {
+  margin-left: -4px;
+  margin-right: -4px;
+  margin-bottom: -4px;
+  background-color: #e40909;
+}
+.thumbnail .caption h3 a {
+  color: white;
 }
 .btn-default.disabled,
 .btn-primary.disabled,

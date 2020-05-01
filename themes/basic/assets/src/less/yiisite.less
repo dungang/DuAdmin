@@ -147,10 +147,11 @@ a.desc:after {
 
 .block-bar,
 .block-bar-gray {
-    padding: 25px;
+    padding: 30px;
 
     h3 {
         text-align: center;
+        margin-bottom: 20px;
     }
 }
 
@@ -160,7 +161,7 @@ a.desc:after {
 }
 
 .block-bar-gray {
-    background-color: @gray-lighter;
+    background-color: lighten(@gray-lighter,1%);
 
 }
 
@@ -196,6 +197,21 @@ a.desc:after {
         .info {
             flex:1;
             
+        }
+    }
+}
+
+.thumbnail {
+    border-radius: 0;
+    .caption {
+        margin-left: -4px;
+        margin-right:-4px;
+        margin-bottom: -4px;
+        background-color: @brand-primary;
+        h3 {
+            a {
+                color:white;
+            }
         }
     }
 }
