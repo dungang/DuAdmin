@@ -13,7 +13,6 @@ $config = [
     'modules'=>[
         'task'=>'app\backend\task\TaskModule',
     ],
-    //'layoutPath'=>'@app/frontend/layout',
     'components' => [
         'db' => $db,
         'log' => [
