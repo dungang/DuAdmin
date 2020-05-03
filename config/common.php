@@ -19,6 +19,7 @@ $config = [
         'alternative' => '\app\kit\validators\AlternativeValidator', //二选一验证
     ],
     'modules' => [
+        'gq'=> 'app\addons\gq\Addon',
         'ocr' => 'app\addons\ocr\Addon',
         'theme' => 'app\addons\theme\Addon',
         'flash' => 'app\addons\flash\Addon',
