@@ -38,4 +38,18 @@ class ActiveRecord extends OriginActiveRecord
     {
         return static::findByCondition($condition)->forUpdate()->all();
     }
+
+    /**
+     * Executes callback provided in a transaction.
+     *
+     * @param callable $callback a valid PHP callback that performs the job. Accepts connection instance as parameter.
+     * @param string|null $isolationLevel The isolation level to use for this transaction.
+     * See [[Transaction::begin()]] for details.
+     * @throws \Exception|\Throwable if there is any exception during query. In this case the transaction will be rolled back.
+     * @return mixed result of callback function
+     */
+    public static function transaction(callable $callback, $isolationLevel = null) 
+    {
+        return Yii::$app->db->transaction($callback,$isolationLevel);
+    }
 }
