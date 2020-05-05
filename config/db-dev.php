@@ -1,6 +1,6 @@
 <?php
 return [
-    'class' => 'yii\db\Connection',
+    'class' => '\yii\db\Connection',
     'dsn' => 'mysql:host=localhost;dbname=baiyuan-cms',
     'username' => 'root',
     'password' => '',
