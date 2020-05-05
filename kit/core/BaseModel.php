@@ -2,10 +2,10 @@
 
 namespace app\kit\core;
 
-use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 use app\kit\behaviors\PropertyBehavior;
 use app\kit\events\BeforeSearchEvent;
+use app\kit\mysql\ActiveRecord;
 
 class BaseModel extends ActiveRecord
 {

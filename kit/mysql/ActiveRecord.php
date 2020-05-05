@@ -3,7 +3,7 @@
 namespace app\kit\mysql;
 
 use Yii;
-use yii\redis\ActiveRecord as BaseActiveRecord;
+use yii\db\ActiveRecord as BaseActiveRecord;
 
 class ActiveRecord extends BaseActiveRecord
 {

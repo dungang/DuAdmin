@@ -28,6 +28,7 @@ class Bootstrap implements BootstrapInterface
         //更换mysql的schema对象，支持for update 排他锁
         if($app->db) {
             $app->db->schemaMap['mysql'] = 'app\kit\mysql\Schema';
+            $app->db->schemaMap['mysqli'] = 'app\kit\mysql\Schema';
         }
         $this->whenAddonToAppReset($app);
         $this->dynamicRegistAddons($app);
