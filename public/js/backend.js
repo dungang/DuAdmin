@@ -170,7 +170,7 @@ function ($) {
 						if (hasQuery) {
 							url += '&id=' + ids.join();
 						} else {
-							url += '?id' + ids.join();
+							url += '?id=' + ids.join();
 						}
 
 						$.ajax({

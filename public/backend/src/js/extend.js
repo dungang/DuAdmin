@@ -158,7 +158,7 @@ function ($) {
 			_this.click(function (e) {
 				e.preventDefault();
 				if (opts.needConfirm == false || confirm(opts.confirm)) {
-					var _chkboxs = $('input[name=' + opts.key + '\\[\\]]:checked');
+					var _chkboxs = $(opts.target).find('input[name=' + opts.key + '\\[\\]]:checked');
 					var idObjs = _chkboxs.map(function (idx, obj) {
 						return obj.value;
 					});
@@ -170,7 +170,7 @@ function ($) {
 						if (hasQuery) {
 							url += '&id=' + ids.join();
 						} else {
-							url += '?id' + ids.join();
+							url += '?id=' + ids.join();
 						}
 
 						$.ajax({
