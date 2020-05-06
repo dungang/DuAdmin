@@ -25,7 +25,7 @@ class ActiveRecord extends OriginActiveRecord
      * @param $condition mixed
      * @return static|null ActiveRecord instance matching the condition, or `null` if nothing matches.
      */
-    public function findOneForUpdate($condition)
+    public static function findOneForUpdate($condition)
     {
         return static::findByCondition($condition)->forUpdate()->one();
     }
