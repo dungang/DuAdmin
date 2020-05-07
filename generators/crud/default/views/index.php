@@ -20,8 +20,10 @@ use app\kit\grids\PanelGridView;
 $this->title = <?= $generator->generateString($labelNames) ?>;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<?= $generator->enablePjax ? "<?php Pjax::begin(['id'=>'".Inflector::camel2id(StringHelper::basename($generator->modelClass))."-index']); ?>\n" : '' ?>
+<?php $id_prefix = Inflector::camel2id(StringHelper::basename($generator->modelClass))?>
+<?= $generator->enablePjax ? "<?php Pjax::begin(['id'=>'".$id_prefix."-index']); ?>\n" : '' ?>
 <?= "<?php  " ?>PanelGridView::begin([
+        'id' => '<?= $id_prefix . '-list'?>',
     	'intro' => '<?= $labelNames  ?>信息管理',
         'dataProvider' => $dataProvider,
         <?= !empty($generator->searchModelClass) ? "'filterModel' => \$searchModel,\n        'columns' => [\n" : "'columns' => [\n"; ?>
@@ -32,6 +34,7 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
         if (++$count < 6) {
             if($count == 1){
                 echo <<<AAA
+            ['class'=>'\yii\grid\CheckboxColumn'],
             [
                 'attribute' => '$name',
                 'format'=>'raw',
@@ -85,6 +88,7 @@ AAA;
        ]
     ]); ?>
 <?="<?= " ?>Html::a('<i class="fa fa-plus"></i> 添加', ['create'], ['class'=>'btn btn-sm btn-link','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
+<?="<?= " ?>Html::a('<i class="fa fa-trash"></i> 删除', ['delete'], ['class'=>'btn btn-sm btn-link del-all','data-target'=>'#<?= $id_prefix . '-list'?>']) ?>
 <?= "<?php PanelGridView::end() ?>\n"?>
 <?= $generator->enablePjax ? "<?php Pjax::end(); ?>\n" : '' ?>
 

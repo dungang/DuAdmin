@@ -61,7 +61,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                 ]
             ],
             'delete' => [
-                'class' => 'app\kit\core\DeleteModelAction',
+                'class' => 'app\kit\core\DeleteModelsAction',
                 'modelClass' => [
                     'class' => '<?=$modelName?>'
                 ]
