@@ -13,9 +13,9 @@ class AdminlteNavBar extends Widget
 
     public $logoUrl = '';
 
-    public $logoMiniLabel = '<b>A</b>LT';
+    public $logoMiniLabel = '<b>M</b>A';
 
-    public $logoLargeLabel = '<b>Admin</b>LTE';
+    public $logoLargeLabel = '<b>MM</b>Admin';
 
     public $navClass = 'navbar navbar-static-top';
 

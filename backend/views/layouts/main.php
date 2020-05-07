@@ -145,7 +145,7 @@ BackendAsset::register($this);
         <!-- Main Footer -->
         <footer class="main-footer">
             <!-- To the right -->
-            <div class="pull-right hidden-xs">蜗牛CMS</div>
+            <div class="pull-right hidden-xs">MMAdmin</div>
             <!-- Default to the left -->
             <strong>Copyright &copy; <?= date('Y') ?> <a href="#"><?= Html::encode(Setting::getSettings('site.name')) ?></a>.
             </strong> All rights reserved.
