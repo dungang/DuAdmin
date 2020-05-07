@@ -30,6 +30,12 @@ class AuthPermissionController extends BackendController
                     'class' => 'app\kit\models\AuthPermission'
                 ]
             ],
+            'batch-create' => [
+                'class' => 'app\kit\core\CreateModelsAction',
+                'modelClass' => [
+                    'class' => 'app\kit\models\AuthPermission'
+                ]
+            ],
             'update' => [
                 'class' => 'app\kit\core\UpdateModelAction',
                 'modelBehaviors' => [

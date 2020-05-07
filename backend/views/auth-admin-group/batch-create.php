@@ -12,11 +12,11 @@ $this->params['breadcrumbs'][] = $this->title;
 AjaxModalOrNormalPanelContent::begin([
     'intro' => '批量添加授权组信息',
 ]);
-$form = ActiveForm::begin(['id' => 'auth-group-form', 'enableAjaxValidation' => false]);
+$form = ActiveForm::begin(['id' => 'auth-group-batch-form', 'enableAjaxValidation' => false]);
 ?>
 <table id="data-form" class="table" data-index="<?=count($models)?>" data-target="tr">
     <tr>
-        <th>名称</th>
+        <th>类型</th>
         <th>编码</th>
         <th>类型</th>
         <th>后端</th>
