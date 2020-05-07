@@ -266,101 +266,6 @@ if("undefined"==typeof jQuery)throw new Error("AdminLTE requires jQuery");+funct
   };
 }(jQuery);
 +function ($) {
-  $.fn.batchProcess = function (options) {
-    return this.each(function () {
-      var _this = $(this);
-
-      var modeOpts = {};
-
-      switch (options.mode) {
-        case 'delete':
-        case 'quiet':
-          modeOpts.contentType = 'application/json; charset=UTF-8';
-          modeOpts.dataType = 'json';
-          break;
-
-        default:
-      }
-
-      var opts = $.extend({}, $.fn.batchProcess.Default, modeOpts, options, _this.data());
-
-      var url = _this.attr('href');
-
-      var hasQuery = url.indexOf('?') > -1;
-
-      _this.click(function (e) {
-        e.preventDefault();
-
-        if (opts.needConfirm == false || confirm(opts.confirm)) {
-          var _chkboxs = $(opts.target).find('input[name=' + opts.key + '\\[\\]]:checked');
-
-          var idObjs = _chkboxs.map(function (idx, obj) {
-            return obj.value;
-          });
-
-          if (idObjs.length == 0) {
-            alert(opts.noSelectedMsg);
-          } else {
-            var ids = $.makeArray(idObjs);
-
-            if (hasQuery) {
-              url += '&id=' + ids.join();
-            } else {
-              url += '?id=' + ids.join();
-            }
-
-            $.ajax({
-              url: url,
-              method: opts.method,
-              data: _this.data('param'),
-              dataType: opts.dataType,
-              contentType: opts.contentType,
-              success: function success(response) {
-                switch (opts.mode) {
-                  case 'delete':
-                    if (response.code == '200') {
-                      _chkboxs.each(function () {
-                        var tr = $(this).parents(opts.row);
-                        tr.fadeToggle('slow', function () {
-                          tr.remove();
-                          opts.onSuccess.call(_this, response, _chkboxs);
-                        });
-                      });
-                    }
-
-                    break;
-
-                  case 'modal':
-                    var modal = $(opts.modal);
-                    modal.find('.modal-content').html(response);
-                    modal.modal('show');
-                    opts.onSuccess.call(_this, response, _chkboxs);
-                    break;
-
-                  default:
-                    opts.onSuccess.call(_this, response, _chkboxs);
-                }
-              }
-            });
-          }
-        }
-      });
-    });
-  };
-
-  $.fn.batchProcess.Default = {
-    key: 'id',
-    row: 'tr',
-    noSelectedMsg: '请选择条目，否则不能进行操作',
-    confirm: '确定删除？',
-    needConfirm: true,
-    method: 'POST',
-    mode: 'delete',
-    modal: '#modal-dailog',
-    onSuccess: $.noop
-  };
-}(jQuery);
-+function ($) {
   $.fn.batchLoad = function (options) {
     return this.each(function () {
       var _this = $(this);
@@ -585,6 +490,31 @@ function speckText(url) {
     });
   };
 }(jQuery);
+$(document).on('click', '.del-all', function (e) {
+  e.preventDefault();
+  var that = $(this);
+  var data = that.data();
+  var ids = $(data.target).yiiGridView("getSelectedRows");
+
+  if (ids.length == 0) {
+    alert('请选择加载的条目，否则不能进行操作');
+  } else {
+    var ids_str = ids.join(",");
+
+    if (confirm('确认删除么？')) {
+      $.ajax({
+        method: "POST",
+        url: that.attr('url'),
+        data: {
+          id: ids_str
+        },
+        success: function success(msg) {
+          window.location.reload();
+        }
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -635,9 +565,9 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\www\MMAdmin\public\backend\src\js\main.js */"./public/backend/src/js/main.js");
-__webpack_require__(/*! D:\www\MMAdmin\public\backend\src\less\main.less */"./public/backend/src/less/main.less");
-module.exports = __webpack_require__(/*! D:\www\MMAdmin\themes\basic\assets\src\less\theme.less */"./themes/basic/assets/src/less/theme.less");
+__webpack_require__(/*! D:\projects\workspace\MMAdmin\public\backend\src\js\main.js */"./public/backend/src/js/main.js");
+__webpack_require__(/*! D:\projects\workspace\MMAdmin\public\backend\src\less\main.less */"./public/backend/src/less/main.less");
+module.exports = __webpack_require__(/*! D:\projects\workspace\MMAdmin\themes\basic\assets\src\less\theme.less */"./themes/basic/assets/src/less/theme.less");
 
 
 /***/ })

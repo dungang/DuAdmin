@@ -13,6 +13,7 @@ $this->title = '权限';
 $this->params['breadcrumbs'][] = $this->title;
 Pjax::begin(['id' => 'permission-index']);
 PanelGridView::begin([
+    'id'=> 'permission-list',
     'intro' => '权限标识。用户访问资源的时候实际就是路由的时候，系统会根据<strong>路由寻址到对应的权限标识</strong>，最后根据权限标识找到对应的角色，如果用户拥有该角色则表示可以访问改资源。',
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
@@ -66,8 +67,8 @@ echo PanelNavTabs::widget([
         ],
         [
             'name' => '<i class="fa fa-trash"></i> 删除',
-            'url' => ['delete', 'AuthPermission[group_name]' => $searchModel->group_name],
-            'options' => ['data-toggle' => 'modal', 'data-target' => '#modal-dailog']
+            'url' => ['delete'],
+            'options' => ['data-target' => '#permission-list','class'=>'del-all']
         ],
     ]
 ]);

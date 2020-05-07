@@ -76,223 +76,140 @@
 }(jQuery);
 
 +
-function ($) {
+	function ($) {
 
-	function process(options) {
-		var _this = this;
-		options.data['timestamp'] = Math.round(new Date().getTime() / 1000);
-		$.ajax({
-			url: options.url,
-			method: options.method,
-			data: options.data,
-			dataType: options.dataType,
-			error: function (xhr, textStatus, errorThrown) {
-				options.onTimeout.call(_this, options, xhr, textStatus, errorThrown);
-				if (options.repeat) {
-					setTimeout(function () {
-						process.call(_this, options)
-					}, options.interval);
-				}
-			},
-			success: function (data, textStatus) {
-				if (textStatus == "success") { // 请求成功
-					options.onSuccess.call(_this, data, textStatus, options);
+		function process(options) {
+			var _this = this;
+			options.data['timestamp'] = Math.round(new Date().getTime() / 1000);
+			$.ajax({
+				url: options.url,
+				method: options.method,
+				data: options.data,
+				dataType: options.dataType,
+				error: function (xhr, textStatus, errorThrown) {
+					options.onTimeout.call(_this, options, xhr, textStatus, errorThrown);
 					if (options.repeat) {
-						var tm = setTimeout(function () {
-							process.call(_this, options);
-							clearTimeout(tm);
+						setTimeout(function () {
+							process.call(_this, options)
 						}, options.interval);
 					}
+				},
+				success: function (data, textStatus) {
+					if (textStatus == "success") { // 请求成功
+						options.onSuccess.call(_this, data, textStatus, options);
+						if (options.repeat) {
+							var tm = setTimeout(function () {
+								process.call(_this, options);
+								clearTimeout(tm);
+							}, options.interval);
+						}
+					}
 				}
-			}
-		});
+			});
 
-	}
+		}
 
-	$.fn.longpoll = function (options) {
-		return this.each(function () {
-			var _this = $(this);
-			var opts = $.extend({}, $.fn.longpoll.Default, options, _this.data());
-			if (opts.now === true) {
-				process.call(_this, opts);
-			} else {
-				var tm = setTimeout(function () {
+		$.fn.longpoll = function (options) {
+			return this.each(function () {
+				var _this = $(this);
+				var opts = $.extend({}, $.fn.longpoll.Default, options, _this.data());
+				if (opts.now === true) {
 					process.call(_this, opts);
-					clearTimeout(tm);
-				}, options.interval);
-			}
-		});
-	};
+				} else {
+					var tm = setTimeout(function () {
+						process.call(_this, opts);
+						clearTimeout(tm);
+					}, options.interval);
+				}
+			});
+		};
 
-	$.fn.longpoll.Default = {
-		now: true, //是否立刻执行
-		interval: 2000,
-		dataType: 'text',
-		method: 'get',
-		data: {},
-		repeat: true,
-		onTimeout: $.noop,
-		onSuccess: $.noop
-	};
-}(jQuery);
+		$.fn.longpoll.Default = {
+			now: true, //是否立刻执行
+			interval: 2000,
+			dataType: 'text',
+			method: 'get',
+			data: {},
+			repeat: true,
+			onTimeout: $.noop,
+			onSuccess: $.noop
+		};
+	}(jQuery);
 
 +
-function ($) {
-	$.fn.batchProcess = function (options) {
-		return this.each(function () {
-			var _this = $(this);
-			var modeOpts = {};
-			switch (options.mode) {
-				case 'delete':
-				case 'quiet':
-					modeOpts.contentType = 'application/json; charset=UTF-8';
-					modeOpts.dataType = 'json';
-					break;
-				default:
-
-			}
-			var opts = $.extend({}, $.fn.batchProcess.Default, modeOpts, options, _this.data());
-
-			var url = _this.attr('href');
-			var hasQuery = url.indexOf('?') > -1;
-			_this.click(function (e) {
-				e.preventDefault();
-				if (opts.needConfirm == false || confirm(opts.confirm)) {
-					var _chkboxs = $(opts.target).find('input[name=' + opts.key + '\\[\\]]:checked');
-					var idObjs = _chkboxs.map(function (idx, obj) {
+	function ($) {
+		$.fn.batchLoad = function (options) {
+			return this.each(function () {
+				var _this = $(this);
+				var opts = $.extend({}, $.fn.batchLoad.Default, options, _this.data());
+				var url = _this.attr('href');
+				var hasQuery = url.indexOf('?') > -1;
+				_this.click(function (e) {
+					e.preventDefault();
+					var idObjs = $('input[name=' + opts.key + '\\[\\]]:checked').map(function (idx, obj) {
 						return obj.value;
 					});
 
 					if (idObjs.length == 0) {
-						alert(opts.noSelectedMsg);
+						alert("请选择加载的条目，否则不能进行操作");
 					} else {
 						var ids = $.makeArray(idObjs);
 						if (hasQuery) {
 							url += '&id=' + ids.join();
 						} else {
-							url += '?id=' + ids.join();
+							url += '?id' + ids.join();
 						}
 
-						$.ajax({
-							url: url,
-							method: opts.method,
-							data: _this.data('param'),
-							dataType: opts.dataType,
-							contentType: opts.contentType,
-							success: function (response) {
-								switch (opts.mode) {
-									case 'delete':
-										if (response.code == '200') {
-											_chkboxs.each(function () {
-												var tr = $(this).parents(opts.row);
-												tr.fadeToggle('slow', function () {
-													tr.remove();
-													opts.onSuccess.call(_this, response, _chkboxs);
-												});
-											});
-										}
-										break;
-									case 'modal':
-										var modal = $(opts.modal);
-										modal.find('.modal-content').html(response);
-										modal.modal('show');
-										opts.onSuccess.call(_this, response, _chkboxs);
-										break;
-									default:
-										opts.onSuccess.call(_this, response, _chkboxs);
-								}
-							}
+						$.get(url, function (response) {
+							var modal = $(opts.modal);
+							modal.find('.modal-content').html(response);
+							modal.modal('show');
 						});
+
 					}
-				}
-			});
-		});
-	};
-	$.fn.batchProcess.Default = {
-		key: 'id',
-		row: 'tr',
-		noSelectedMsg: '请选择条目，否则不能进行操作',
-		confirm: '确定删除？',
-		needConfirm: true,
-		method: 'POST',
-		mode: 'delete',
-		modal: '#modal-dailog',
-		onSuccess: $.noop
-	};
-}(jQuery); +
-function ($) {
-	$.fn.batchLoad = function (options) {
-		return this.each(function () {
-			var _this = $(this);
-			var opts = $.extend({}, $.fn.batchLoad.Default, options, _this.data());
-			var url = _this.attr('href');
-			var hasQuery = url.indexOf('?') > -1;
-			_this.click(function (e) {
-				e.preventDefault();
-				var idObjs = $('input[name=' + opts.key + '\\[\\]]:checked').map(function (idx, obj) {
-					return obj.value;
 				});
-
-				if (idObjs.length == 0) {
-					alert("请选择加载的条目，否则不能进行操作");
-				} else {
-					var ids = $.makeArray(idObjs);
-					if (hasQuery) {
-						url += '&id=' + ids.join();
-					} else {
-						url += '?id' + ids.join();
-					}
-
-					$.get(url, function (response) {
-						var modal = $(opts.modal);
-						modal.find('.modal-content').html(response);
-						modal.modal('show');
-					});
-
-				}
 			});
-		});
-	};
-	$.fn.batchLoad.Default = {
-		key: 'id',
-		modal: '#modal-dailog'
-	};
-}(jQuery);
+		};
+		$.fn.batchLoad.Default = {
+			key: 'id',
+			modal: '#modal-dailog'
+		};
+	}(jQuery);
 
 +
-function ($) {
-	/**
-	 * Create or Delete a Row of List
-	 */
-	$.fn.listrowcd = function (options) {
-		return this.each(function () {
-			var _this = $(this);
-			var opts = $.extend({}, $.fn.listrowcd.Default, options, _this.data());
-			// delete button
-			_this.find(opts.delBtn).click(function (e) {
-				e.preventDefault();
-				var _delBtn = $(this);
-				var _row = _delBtn.parents(opts.row);
-				_row.fadeToggle('slow', function () {
-					_row.remove();
+	function ($) {
+		/**
+		 * Create or Delete a Row of List
+		 */
+		$.fn.listrowcd = function (options) {
+			return this.each(function () {
+				var _this = $(this);
+				var opts = $.extend({}, $.fn.listrowcd.Default, options, _this.data());
+				// delete button
+				_this.find(opts.delBtn).click(function (e) {
+					e.preventDefault();
+					var _delBtn = $(this);
+					var _row = _delBtn.parents(opts.row);
+					_row.fadeToggle('slow', function () {
+						_row.remove();
+					});
+				});
+				_this.find(opts.createBtn).click(function (e) {
+					e.preventDefault();
+					var _createBtn = $(this);
+					var _rows = _this.find(opts.row);
+					var _lastRow = $(_rows[_rows.length - 1]);
+					_lastRow.clone(true).insertAfter(_lastRow);
 				});
 			});
-			_this.find(opts.createBtn).click(function (e) {
-				e.preventDefault();
-				var _createBtn = $(this);
-				var _rows = _this.find(opts.row);
-				var _lastRow = $(_rows[_rows.length - 1]);
-				_lastRow.clone(true).insertAfter(_lastRow);
-			});
-		});
-	};
+		};
 
-	$.fn.listrowcd.Default = {
-		delBtn: '.btn-del',
-		createBtn: '.btn-create',
-		row: 'tr',
-	};
-}(jQuery);
+		$.fn.listrowcd.Default = {
+			delBtn: '.btn-del',
+			createBtn: '.btn-create',
+			row: 'tr',
+		};
+	}(jQuery);
 
 
 
@@ -319,116 +236,139 @@ function speckText(url) {
 }
 
 +
-function ($) {
-	function replaceIndex(clone){
-		var regexID = /\-\d{1,}\-/gmi;
-		var regexName = /\[\d{1,}\]/gmi;
-		var size = this.data('index');
-		var html = clone.html().replace(regexName,'['+size+']').replace(regexID,'-'+size+'-');
-		size = size + 1;
-		this.data('index',size);
-		clone.html(html);
-		return clone;
-	}
+	function ($) {
+		function replaceIndex(clone) {
+			var regexID = /\-\d{1,}\-/gmi;
+			var regexName = /\[\d{1,}\]/gmi;
+			var size = this.data('index');
+			var html = clone.html().replace(regexName, '[' + size + ']').replace(regexID, '-' + size + '-');
+			size = size + 1;
+			this.data('index', size);
+			clone.html(html);
+			return clone;
+		}
 
-	$.fn.dynamicline = function (options) {
-		return this.each(function () {
-			var _container = $(this);
-			var opts = $.extend({}, $.fn.dynamicline.DEF, options, _container.data());
-			_container.on('click', '.delete-self', function (e) {
-				e.preventDefault();
-				var _this = $(this);
-				var target_obj = _this.parents(opts.target);
-				var targets = _container.find(opts.target);
-				if (targets.length > 2) {
-					target_obj.remove();
-				}
-			}).on('click', '.copy-self', function (e) {
-				e.preventDefault();
-				var _this = $(this);
-				var target_obj = _this.parents(opts.target);
-				var clone = target_obj.clone();
-				console.log(clone);
-				if(opts.onCopy) {
-					clone = opts.onCopy.call(_container,clone);
-				}
-				clone.insertAfter(target_obj);
-			})
-		});
-	};
-	
-	$.fn.dynamicline.DEF = {
-		onCopy: replaceIndex
-	};
-}(jQuery);
+		$.fn.dynamicline = function (options) {
+			return this.each(function () {
+				var _container = $(this);
+				var opts = $.extend({}, $.fn.dynamicline.DEF, options, _container.data());
+				_container.on('click', '.delete-self', function (e) {
+					e.preventDefault();
+					var _this = $(this);
+					var target_obj = _this.parents(opts.target);
+					var targets = _container.find(opts.target);
+					if (targets.length > 2) {
+						target_obj.remove();
+					}
+				}).on('click', '.copy-self', function (e) {
+					e.preventDefault();
+					var _this = $(this);
+					var target_obj = _this.parents(opts.target);
+					var clone = target_obj.clone();
+					console.log(clone);
+					if (opts.onCopy) {
+						clone = opts.onCopy.call(_container, clone);
+					}
+					clone.insertAfter(target_obj);
+				})
+			});
+		};
+
+		$.fn.dynamicline.DEF = {
+			onCopy: replaceIndex
+		};
+	}(jQuery);
 
 /**
  * Created by dungang
  */
 +function ($) {
 
-    'use strict';
+	'use strict';
 
-    $.fn.selectBox = function () {
-        return this.each(function () {
-            var _this = $(this);
-            var id = _this.attr('id');
-            var sourceSearchInput = $('#'+id+'-source-search');
-            var targetSearchInput = $('#'+id+'-target-search');
-            var sourceSelect = $('#'+id+'-source');
-            var targetSelect = $('#'+id+'-target');
-            var yesButton = $('#'+id+'-btn-yes');
-            var noButton = $('#'+id+'-btn-no');
+	$.fn.selectBox = function () {
+		return this.each(function () {
+			var _this = $(this);
+			var id = _this.attr('id');
+			var sourceSearchInput = $('#' + id + '-source-search');
+			var targetSearchInput = $('#' + id + '-target-search');
+			var sourceSelect = $('#' + id + '-source');
+			var targetSelect = $('#' + id + '-target');
+			var yesButton = $('#' + id + '-btn-yes');
+			var noButton = $('#' + id + '-btn-no');
 
-            targetSelect.on('update',function () {
-                targetSelect
-                    .find('option')
-                    .attr('selected',true);
-            });
+			targetSelect.on('update', function () {
+				targetSelect
+					.find('option')
+					.attr('selected', true);
+			});
 
-            sourceSearchInput.keyup(function () {
-                var filter = sourceSearchInput.val().trim();
-                sourceSelect.find('option').each(function () {
-                    var _option = $(this);
-                    if (_option.text().indexOf(filter) < 0) {
-                        _option.attr('selected',false)
-                            .css({display:'none'});
-                    } else {
-                        _option.css({display:'block'});
-                    }
-                });
-            });
+			sourceSearchInput.keyup(function () {
+				var filter = sourceSearchInput.val().trim();
+				sourceSelect.find('option').each(function () {
+					var _option = $(this);
+					if (_option.text().indexOf(filter) < 0) {
+						_option.attr('selected', false)
+							.css({ display: 'none' });
+					} else {
+						_option.css({ display: 'block' });
+					}
+				});
+			});
 
-            targetSearchInput.keyup(function () {
-                var filter = targetSearchInput.val().trim();
-                targetSelect.find('option').each(function () {
-                    var _option = $(this);
-                    if (_option.text().indexOf(filter) < 0) {
-                        _option.attr('selected',false)
-                            .css({display:'none'});
-                    } else {
-                        _option.css({display:'block'});
-                    }
-                });
-                targetSelect.trigger('update');
-            });
+			targetSearchInput.keyup(function () {
+				var filter = targetSearchInput.val().trim();
+				targetSelect.find('option').each(function () {
+					var _option = $(this);
+					if (_option.text().indexOf(filter) < 0) {
+						_option.attr('selected', false)
+							.css({ display: 'none' });
+					} else {
+						_option.css({ display: 'block' });
+					}
+				});
+				targetSelect.trigger('update');
+			});
 
-            yesButton.click(function () {
-                sourceSelect
-                    .find('option:selected')
-                    .appendTo(targetSelect);
-                targetSelect.trigger('update');
-            });
+			yesButton.click(function () {
+				sourceSelect
+					.find('option:selected')
+					.appendTo(targetSelect);
+				targetSelect.trigger('update');
+			});
 
-            noButton.click(function () {
-                targetSelect
-                    .find('option:selected')
-                    .appendTo(sourceSelect);
-            });
+			noButton.click(function () {
+				targetSelect
+					.find('option:selected')
+					.appendTo(sourceSelect);
+			});
 
-            targetSelect.trigger('update');
+			targetSelect.trigger('update');
 
-        });
-    };
+		});
+	};
 
 }(jQuery);
+
+$(document).on('click', '.del-all', function (e) {
+	e.preventDefault();
+	var that = $(this);
+	var data = that.data();
+	var ids = $(data.target).yiiGridView("getSelectedRows");
+	if (ids.length == 0) {
+		alert('请选择加载的条目，否则不能进行操作');
+	} else {
+		var ids_str = ids.join(",");
+		if (confirm('确认删除么？')) {
+			$.ajax({
+				method: "POST",
+				url: that.attr('url'),
+				data: { id: ids_str },
+				success: function (msg) {
+					window.location.reload();
+				}
+			});
+		}
+	}
+
+});
