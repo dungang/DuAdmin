@@ -499,15 +499,19 @@ $(document).on('click', '.del-all', function (e) {
   if (ids.length == 0) {
     alert('请选择加载的条目，否则不能进行操作');
   } else {
-    var ids_str = ids.join(",");
+    var params = {};
+
+    if (!data.pk) {
+      data.pk = 'id';
+    }
+
+    params[data.pk] = ids;
 
     if (confirm('确认删除么？')) {
       $.ajax({
         method: "POST",
-        url: that.attr('url'),
-        data: {
-          id: ids_str
-        },
+        url: that.attr('href'),
+        data: params,
         success: function success(msg) {
           window.location.reload();
         }
@@ -565,9 +569,9 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\projects\workspace\MMAdmin\public\backend\src\js\main.js */"./public/backend/src/js/main.js");
-__webpack_require__(/*! D:\projects\workspace\MMAdmin\public\backend\src\less\main.less */"./public/backend/src/less/main.less");
-module.exports = __webpack_require__(/*! D:\projects\workspace\MMAdmin\themes\basic\assets\src\less\theme.less */"./themes/basic/assets/src/less/theme.less");
+__webpack_require__(/*! D:\www\MMAdmin\public\backend\src\js\main.js */"./public/backend/src/js/main.js");
+__webpack_require__(/*! D:\www\MMAdmin\public\backend\src\less\main.less */"./public/backend/src/less/main.less");
+module.exports = __webpack_require__(/*! D:\www\MMAdmin\themes\basic\assets\src\less\theme.less */"./themes/basic/assets/src/less/theme.less");
 
 
 /***/ })

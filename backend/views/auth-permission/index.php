@@ -68,7 +68,7 @@ echo PanelNavTabs::widget([
         [
             'name' => '<i class="fa fa-trash"></i> 删除',
             'url' => ['delete'],
-            'options' => ['data-target' => '#permission-list','class'=>'del-all']
+            'options' => ['data-target' => '#permission-list','data-pk'=>'name','class'=>'del-all']
         ],
     ]
 ]);

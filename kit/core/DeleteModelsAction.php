@@ -22,12 +22,11 @@ class DeleteModelsAction extends BaseAction
         }
     }
 
-    public function run($id)
+    public function run()
     {
         /* @var $model \yii\db\ActiveRecord */
         /* @var $models \yii\db\ActiveRecord[] */
-        $ids = explode(',', $id);
-        $models = $this->findModels($ids);
+        $models = $this->findModels();
 
         try {
             Yii::$app->db->transaction(function ($db) use ($models) {

@@ -88,7 +88,7 @@ class BaseAction extends Action
      *
      * @var array
      */
-    public $data = [] ;
+    public $data = [];
 
     public function init()
     {
@@ -228,8 +228,9 @@ class BaseAction extends Action
      *
      * @return void
      */
-    protected function beforeRender(){
-    
+    protected function beforeRender()
+    {
+
         $this->trigger(self::EVENT_BEFORE_RENDER);
     }
 
@@ -264,8 +265,9 @@ class BaseAction extends Action
         if (method_exists($class, 'primaryKey')) {
             $primaryKey = $class::primaryKey();
             $cond = [];
+            $params = array_merge(\Yii::$app->request->get(), \Yii::$app->request->post());
             foreach ($primaryKey as $key) {
-                $cond[$key] = \Yii::$app->request->get($key);
+                $cond[$key] = isset($params[$key]) ? $params[$key] : null;
             }
             return $cond;
         }
@@ -273,7 +275,7 @@ class BaseAction extends Action
     }
 
     /**
-     * 查找一个模型对象实例
+     * 查找一个模型对象实例通过主键，自动获取主键
      *
      * @param boolean $createOneOnNotFound
      * @throws NotFoundHttpException
@@ -297,9 +299,7 @@ class BaseAction extends Action
                 unset($args['scenario']);
             }
             if ($class) {
-
                 $condition = array_merge($this->getPrimaryKeyCondition($class), $args ?: []);
-
                 //是否设置了查找的固定参数
                 if ($this->baseAttrs) {
                     $condition = \array_merge($condition, $this->baseAttrs);
@@ -324,13 +324,12 @@ class BaseAction extends Action
     }
 
     /**
-     * 根据多个id查找，目前该方法还不完善
+     * 根据PK查找，自动获取PK名称，目前该方法还不完善
      *
-     * @param array $ids
      * @throws NotFoundHttpException
      * @return mixed
      */
-    protected function findModels($ids)
+    protected function findModels()
     {
         $models = null;
         if ($this->modelClass) {
@@ -338,23 +337,24 @@ class BaseAction extends Action
             if (is_array($this->modelClass) && isset($this->modelClass['class'])) {
                 $class = $this->modelClass['class'];
             }
-            $cond = [
-                'id' => $ids
-            ];
-
-            //是否设置了查找的固定参数
-            if ($this->baseAttrs) {
-                $cond = \array_merge($cond, $this->baseAttrs);
+            $condition = $this->getPrimaryKeyCondition($class);
+            if ($condition && is_array($condition)) {
+                //是否设置了查找的固定参数
+                if ($this->baseAttrs) {
+                    $condition = \array_merge($condition, $this->baseAttrs);
+                }
+                $condition = $this->clearCond($condition);
+                if (!empty($condition)) {
+                    $models = call_user_func(array(
+                        $class,
+                        'findAll'
+                    ), $condition);
+                }
             }
-            $models = call_user_func(array(
-                $class,
-                'findAll'
-            ), $this->clearCond($cond));
         }
         if ($models !== null) {
             return $models;
         }
-
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 

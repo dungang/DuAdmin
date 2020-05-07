@@ -46,7 +46,7 @@ class AuthPermissionController extends BackendController
                 ]
             ],
             'delete' => [
-                'class' => 'app\kit\core\DeleteModelAction',
+                'class' => 'app\kit\core\DeleteModelsAction',
                 'modelBehaviors' => [
                     'app\backend\behaviors\CleanRbacBehavior',
                 ],

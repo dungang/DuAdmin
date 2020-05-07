@@ -355,15 +355,21 @@ $(document).on('click', '.del-all', function (e) {
 	var that = $(this);
 	var data = that.data();
 	var ids = $(data.target).yiiGridView("getSelectedRows");
+	
+
 	if (ids.length == 0) {
 		alert('请选择加载的条目，否则不能进行操作');
 	} else {
-		var ids_str = ids.join(",");
+		var params = {};
+		if(!data.pk){
+			data.pk = 'id';
+		}
+		params[data.pk] = ids;
 		if (confirm('确认删除么？')) {
 			$.ajax({
 				method: "POST",
-				url: that.attr('url'),
-				data: { id: ids_str },
+				url: that.attr('href'),
+				data: params,
 				success: function (msg) {
 					window.location.reload();
 				}
