@@ -31,9 +31,9 @@ $form = ActiveForm::begin(['id' => 'auth-group-batch-form', 'enableAjaxValidatio
             <td><?= $form->field($model, "[$i]title")->label(false) ?></td>
             <td><?= $form->field($model, "[$i]name")->label(false) ?></td>
             <td><?= $form->field($model, "[$i]type")->label(false)->dropDownList(['1' => '角色', '2' => '权限']) ?></td>
-            <td>
-                <a href="javascript:void(0);" class="delete-self btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
-                <a href="javascript:void(0);" class="copy-self btn btn-sm btn-success"><i class="fa fa-plus"></i></a>
+            <td width="90">
+                <a href="javascript:void(0);" class="delete-self btn btn-sm btn-link"><i class="fa fa-trash text-danger"></i></a>
+                <a href="javascript:void(0);" class="copy-self btn btn-sm btn-link"><i class="fa fa-plus"></i></a>
             </td>
         </tr>
     <?php endforeach; ?>

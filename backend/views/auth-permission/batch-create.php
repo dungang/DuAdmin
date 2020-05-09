@@ -29,9 +29,9 @@ $form = ActiveForm::begin(['id' => 'auth-permission-batch-form', 'enableAjaxVali
             <td><?= $form->field($model, "[$i]child")->label(false) ?></td>
             <td><?= $form->field($model, "[$i]description")->label(false) ?></td>
             <td><?= $form->field($model, "[$i]rule_name")->label(false) ?></td>
-            <td>
-                <a href="javascript:void(0);" class="delete-self btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
-                <a href="javascript:void(0);" class="copy-self btn btn-sm btn-success"><i class="fa fa-plus"></i></a>
+            <td width="90">
+                <a href="javascript:void(0);" class="delete-self btn btn-sm btn-link"><i class="fa fa-trash text-danger"></i></a>
+                <a href="javascript:void(0);" class="copy-self btn btn-sm btn-link"><i class="fa fa-plus"></i></a>
             </td>
         </tr>
     <?php endforeach; ?>
