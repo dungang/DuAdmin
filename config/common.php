@@ -1,7 +1,7 @@
 <?php
 $config = [
     'id' => 'base',
-    'name' => 'BY-CMS',
+    'name' => 'MMAdmin',
     'version' => 'beta',
     'basePath' => dirname(__DIR__),
     'bootstrap' => [
