@@ -98,10 +98,6 @@ class BaseAction extends Action
         if (!empty($this->actionBehaviors)) {
             $this->attachBehaviors($this->actionBehaviors);
         }
-        // if ($this->baseAttrs) {
-        //     $this->baseAttrs = $this->baseAttrs;
-        //     $this->baseAttrs = $this->baseAttrs;
-        // }
     }
 
     public function getActionBehaviors()

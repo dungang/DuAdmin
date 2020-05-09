@@ -38,6 +38,32 @@ class BaseModel extends ActiveRecord
     }
 
     /**
+     * Sets the attribute values in a massive way.
+     * @param array $values attribute values (name => value) to be assigned to the model.
+     * @param bool $safeOnly whether the assignments should only be done to the safe attributes.
+     * A safe attribute is one that is associated with a validation rule in the current [[scenario]].
+     * @see safeAttributes()
+     * @see attributes()
+     */
+    public function setAttributes($values, $safeOnly = true)
+    {
+        if (is_array($values)) {
+            $attributes = array_flip($safeOnly ? $this->safeAttributes() : $this->attributes());
+            foreach ($values as $name => $value) {
+                //以_at 结尾的字段都被当做时间戳字段，当前端传递过来的子是字符串则自动转换为时间戳
+                if ($value && strtolower(substr($name, -3)) == '_at' && !is_numeric($value)) {
+                    $value = strtotime($value);
+                }
+                if (isset($attributes[$name])) {
+                    $this->$name = $value;
+                } elseif ($safeOnly) {
+                    $this->onUnsafeAttribute($name, $value);
+                }
+            }
+        }
+    }
+
+    /**
      * 默认开启所有操作的事务
      */
     public function transactions()

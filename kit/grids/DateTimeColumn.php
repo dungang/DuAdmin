@@ -7,11 +7,18 @@ use app\kit\widgets\DatePicker;
 class DateTimeColumn extends DataColumn
 {
 
+    public $format = 'date';
+
     public $dateFormat = [
         'date' => 'yyyy-mm-dd',
         'datetime' => 'yyyy-mm-dd H:i:s'
     ];
 
+    public function init()
+    {
+        parent::init();
+        $this->headerOptions['width'] = '160px';
+    }
     /**
      *
      * {@inheritdoc}
