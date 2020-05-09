@@ -1,4 +1,5 @@
 <?php
+
 namespace app\kit\widgets;
 
 use app\kit\assets\DatePickerAsset;
@@ -51,13 +52,18 @@ class DatePicker extends InputWidget
         $this->registerPlugin('datepicker');
         if ($this->embed == false) {
             if ($this->hasModel()) {
-                if (is_numeric($this->model[$this->attribute])) {
-                    $this->model[$this->attribute] = date($this->convertFormat(), $this->model[$this->attribute]);
+                $value = $this->model[$this->attribute];
+                if (is_numeric($value)) {
+                    $this->model[$this->attribute] = date($this->convertFormat(), $value);
+                } else if (is_array($value)) {
+                    $this->model[$this->attribute] = date($this->convertFormat(), $value[0]);
                 }
                 return Html::activeTextInput($this->model, $this->attribute, $this->options);
             } else {
                 if (is_numeric($this->value)) {
                     $this->value = date($this->convertFormat(), $this->value);
+                } else if (is_array($this->value)) {
+                    $this->value = date($this->convertFormat(), $this->value[0]);
                 }
                 return Html::textInput($this->id, $this->value, $this->options);
             }
@@ -66,4 +72,3 @@ class DatePicker extends InputWidget
         }
     }
 }
-

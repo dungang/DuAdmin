@@ -51,8 +51,15 @@ class BaseModel extends ActiveRecord
             $attributes = array_flip($safeOnly ? $this->safeAttributes() : $this->attributes());
             foreach ($values as $name => $value) {
                 //以_at 结尾的字段都被当做时间戳字段，当前端传递过来的子是字符串则自动转换为时间戳
-                if ($value && strtolower(substr($name, -3)) == '_at' && !is_numeric($value)) {
-                    $value = strtotime($value);
+                if ($value && strtolower(substr($name, -3)) == '_at') {
+                    if (is_array($value)) {
+                        $value = array_map(function ($v) {
+                            return strtotime($v);
+                        }, $value);
+                    } else if (is_string($value)) {
+                        $value = strtotime($value);
+                        $value = [$value, strtotime('+1 day', strtotime(date('Y-m-d', $value)))];
+                    }
                 }
                 if (isset($attributes[$name])) {
                     $this->$name = $value;
@@ -61,6 +68,27 @@ class BaseModel extends ActiveRecord
                 }
             }
         }
+    }
+
+    /**
+     * between
+     *
+     * @param string $field
+     * @param string $value
+     * @return array
+     */
+    public function filterBetween($field, $value)
+    {
+        if ($value) {
+            if (is_array($value)) {
+                if (count($value) > 1) {
+                    return ['between', $field, $value[0], $value[1]];
+                } else {
+                    return ['>=', $field, $value[0]];
+                }
+            }
+        }
+        return [$field => $value];
     }
 
     /**

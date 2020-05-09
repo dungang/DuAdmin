@@ -1,4 +1,5 @@
 <?php
+
 namespace app\kit\grids;
 
 use yii\grid\DataColumn;
@@ -19,6 +20,16 @@ class DateTimeColumn extends DataColumn
         parent::init();
         $this->headerOptions['width'] = '160px';
     }
+
+    public function setValue($value)
+    {
+        if (is_array($value)) {
+            $this->value = $value[0];
+        } else {
+            $this->value = $value;
+        }
+    }
+    
     /**
      *
      * {@inheritdoc}
@@ -32,4 +43,3 @@ class DateTimeColumn extends DataColumn
         ]);
     }
 }
-
