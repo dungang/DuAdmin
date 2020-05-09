@@ -64,10 +64,27 @@ AAA;
         	],\n
 AAA;
                 
-            } else 
-            echo "            '" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
+            } else {
+                if(substr($column->name, -3) == '_at') {
+                    echo <<<DATE_FIELD
+                    [  
+                        'class' => 'app\kit\grids\DateTimeColumn',
+                        'attribute' => '$column->name',
+                    ],\n
+DATE_FIELD;
+                } else 
+                echo "            '" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
+            }
         } else {
-            echo "            //'" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
+            if(substr($column->name, -3) == '_at') {
+                echo <<<DATE_FIELD
+                //[  
+                //    'class' => 'app\kit\grids\DateTimeColumn',
+                //    'attribute' => '$column->name',
+                //],\n
+DATE_FIELD;
+            } else 
+                echo "            //'" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
         }
     }
 }

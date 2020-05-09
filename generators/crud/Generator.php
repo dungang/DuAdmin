@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -97,7 +98,7 @@ class Generator extends \app\generators\Generator
             'indexWidgetType' => '列表页面显示类型（小部件）',
             'searchModelClass' => '支持搜索的模型类',
             'enablePjax' => '是否开启Pjax功能',
-            'enableI18N'=>'是否支持国际化',
+            'enableI18N' => '是否支持国际化',
         ]);
     }
 
@@ -263,7 +264,7 @@ class Generator extends \app\generators\Generator
                 $dropDownOptions[$enumValue] = Inflector::humanize($enumValue);
             }
             return "\$form->field(\$model, '$attribute')->dropDownList("
-                . preg_replace("/\n\s*/", ' ', VarDumper::export($dropDownOptions)).", ['prompt' => ''])";
+                . preg_replace("/\n\s*/", ' ', VarDumper::export($dropDownOptions)) . ", ['prompt' => ''])";
         }
 
         if ($column->phpType !== 'string' || $column->size === null) {
@@ -304,27 +305,27 @@ class Generator extends \app\generators\Generator
         if ($column->phpType === 'boolean') {
             return 'boolean';
         }
-        
+
         if ($column->type === 'text') {
             return 'ntext';
         }
-        
+
         if (stripos($column->name, 'time') !== false && $column->phpType === 'integer') {
             return 'datetime';
         }
-        
+
         if (stripos($column->name, '_at') !== false && $column->phpType === 'integer') {
             return 'datetime';
         }
-        
+
         if (stripos($column->name, 'email') !== false) {
             return 'email';
         }
-        
+
         if (preg_match('/(\b|[_-])url(\b|[_-])/i', $column->name)) {
             return 'url';
         }
-        
+
         return 'text';
     }
 
@@ -432,10 +433,11 @@ class Generator extends \app\generators\Generator
 
         $likeConditions = [];
         $hashConditions = [];
+        $dateConditions = [];
         foreach ($columns as $column => $type) {
             //关于时间的忽略
-            if(substr($column,-3) == '_at') {
-                continue;
+            if (substr($column, -3) == '_at') {
+                $dateConditions[] = "->andFilterWhere(\$this->filterBetween('{$column}', \$this->{$column}))";
             }
             switch ($type) {
                 case Schema::TYPE_TINYINT:
@@ -455,7 +457,7 @@ class Generator extends \app\generators\Generator
                     break;
                 default:
                     $likeKeyword = $this->getClassDbDriverName() === 'pgsql' ? 'ilike' : 'like';
-                    $likeConditions[] = "->andFilterWhere(['{$likeKeyword}', '{$column}', \$this->{$column}])";                    
+                    $likeConditions[] = "->andFilterWhere(['{$likeKeyword}', '{$column}', \$this->{$column}])";
                     break;
             }
         }
@@ -465,6 +467,9 @@ class Generator extends \app\generators\Generator
             $conditions[] = "\$query->andFilterWhere([\n"
                 . str_repeat(' ', 12) . implode("\n" . str_repeat(' ', 12), $hashConditions)
                 . "\n" . str_repeat(' ', 8) . "]);\n";
+        }
+        if (!empty($dateConditions)) {
+            $conditions[] = "\$query" . implode("\n" . str_repeat(' ', 12), $dateConditions) . ";\n";
         }
         if (!empty($likeConditions)) {
             $conditions[] = "\$query" . implode("\n" . str_repeat(' ', 12), $likeConditions) . ";\n";
