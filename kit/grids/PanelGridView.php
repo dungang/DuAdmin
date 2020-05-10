@@ -1,4 +1,5 @@
 <?php
+
 namespace app\kit\grids;
 
 use yii\helpers\Html;
@@ -24,7 +25,7 @@ class PanelGridView extends GridView
      */
     public $intro;
 
-    public $panelClass = 'panel panel-adminlte';
+    public $panelClass = 'panel panel-adminlte grid-view';
 
     public $panelHeadingClass = 'panel-heading clearfix';
 

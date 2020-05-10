@@ -8,7 +8,6 @@ use yii\filters\VerbFilter;
 use yii\base\ActionEvent;
 use yii\helpers\Url;
 use yii\base\Event;
-use app\kit\models\EventHandler;
 
 class BaseController extends Controller
 {

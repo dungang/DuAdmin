@@ -334,12 +334,14 @@ class BaseAction extends Action
                 $class = $this->modelClass['class'];
             }
             $condition = $this->getPrimaryKeyCondition($class);
+            
             if ($condition && is_array($condition)) {
                 //是否设置了查找的固定参数
                 if ($this->baseAttrs) {
                     $condition = \array_merge($condition, $this->baseAttrs);
                 }
                 $condition = $this->clearCond($condition);
+                
                 if (!empty($condition)) {
                     $models = call_user_func(array(
                         $class,

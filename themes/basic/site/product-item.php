@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 /* @var $model app\addons\cms\models\Article */
 ?>
-<div class="col-sm-6 col-md-3">
+<div class="col-xs-6 col-sm-6 col-md-3">
     <div class="thumbnail">
         <?= Html::img($model->cover) ?>
         <div class="caption">

@@ -7,10 +7,7 @@
             <table class="table table-bordered table-striped">
                 <tr>
                     <th>CMS版本</th>
-                    <td> <?= Yii::$app->version ?>&nbsp;&nbsp;&nbsp;
-                        <a href="http://www.vintcms.com" target="_blank">
-                            发现新版本
-                        </a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <td> <?= Yii::$app->version ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                 </tr>
                 <tr>

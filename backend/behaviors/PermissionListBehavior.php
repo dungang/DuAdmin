@@ -23,7 +23,7 @@ class PermissionListBehavior extends Behavior
 
     public function beforeValidate($event)
     {
-        $is_backend = \Yii::$app->request->get('is_backend');
+        $is_backend = \Yii::$app->request->get('is_backend',-1);
 
         switch ($is_backend) {
             case 1:

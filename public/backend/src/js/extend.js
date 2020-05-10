@@ -349,7 +349,29 @@ function speckText(url) {
 	};
 
 }(jQuery);
-
+/**
+ * yiigridview的批量编辑，在按钮上添加.batch-edit样式，
+ * 该事件会更新按钮的url
+ */
+$(document).on('click','.grid-view',function(e){
+	var that = $(this);
+	var data = that.data();
+	if(data.batchEditBtn){
+		var btn = that.find(data.batchEditBtn);
+		if(btn.length>0) {
+			
+			var gridData = that.yiiGridView("data");
+			var field = escape(gridData.selectionColumn);
+			var reg = new RegExp('&?'+ field + '=[\/a-zA-Z0-9]+','g');
+			var baseUrl = btn.attr('href').replace(reg,'');
+			var ids = that.yiiGridView("getSelectedRows").map(function(id){
+				return field+'='+escape(id);
+			});
+			baseUrl = baseUrl + '&' + ids.join('&');
+			btn.attr('href',baseUrl);
+		}
+	}
+});
 $(document).on('click', '.del-all', function (e) {
 	e.preventDefault();
 	var that = $(this);

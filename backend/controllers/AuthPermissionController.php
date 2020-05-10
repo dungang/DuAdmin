@@ -18,7 +18,7 @@ class AuthPermissionController extends BackendController
                     'app\backend\behaviors\PermissionListBehavior',
                 ],
                 'modelClass' => [
-                    'class' => 'app\kit\models\AuthPermissionSearch'
+                    'class' => 'app\kit\models\AuthPermissionSearch',
                 ]
             ],
             'create' => [
@@ -41,6 +41,12 @@ class AuthPermissionController extends BackendController
                 'modelBehaviors' => [
                     'app\backend\behaviors\CleanRbacBehavior',
                 ],
+                'modelClass' => [
+                    'class' => 'app\kit\models\AuthPermission'
+                ]
+            ],
+            'batch-update' => [
+                'class' => 'app\kit\core\UpdateModelsAction',
                 'modelClass' => [
                     'class' => 'app\kit\models\AuthPermission'
                 ]

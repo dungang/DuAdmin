@@ -46,7 +46,7 @@ class CreateModelsAction extends BaseAction
 
             if ($loaded === false) {
                 $this->beforeRender();
-                return $this->controller->renderOnFail($this->viewName, $this->data, '可能表达的字段跟服务端不一致');
+                return $this->controller->renderOnFail($this->viewName, $this->data, '提交的字段跟服务端不一致');
             }
             return $this->controller->renderOnFail($this->viewName, $this->data);
         }

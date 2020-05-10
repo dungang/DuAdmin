@@ -31,9 +31,9 @@ abstract class BackendController extends BaseController {
 
     public function init() {
         parent::init();
-        BackendCtrInitedHook::emit($this);
-        $this->module->layoutPath = '@app/backend/views/layouts';
         $this->layout = 'main';
+        $this->module->layoutPath = '@app/backend/views/layouts';
+        BackendCtrInitedHook::emit($this);
     }
 
     public function behaviors() {
@@ -43,10 +43,4 @@ abstract class BackendController extends BaseController {
         array_unshift($behaviors,AccessFilter::className());
         return $behaviors;
     }
-
-    protected function loadBehaviors() {
-        return $this->loadConfig("behaviors-backend.php");
-    }
-
-
 }

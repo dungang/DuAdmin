@@ -22,9 +22,4 @@ abstract class FrontendController extends BaseController {
         $bs['post_rate_limit'] = 'app\kit\filters\PostRateLimitFilter';
         return $bs;
     }
-
-    protected function loadBehaviors() {
-        return $this->loadConfig("behaviors-frontend.php");
-    }
-
 }

@@ -1,8 +1,10 @@
 <?php
+
 namespace app\kit\widgets;
 
 use yii\base\Widget;
 use app\kit\helpers\KitHelper;
+use Yii;
 use yii\helpers\Html;
 
 /**
@@ -32,15 +34,26 @@ class AdminlteSideBarMenu extends Widget
 
     public function run()
     {
+
         $this->normalizeItems();
+        //权限过滤
+        $this->items = array_filter($this->items, function ($item) {
+            if (Yii::$app->user->getIdentity()->is_super) return true;
+            if (isset($item['r']) && $item['r'] != '/default/index') {
+                return Yii::$app->user->can($item['r']);
+            } else {
+                return true;
+            }
+        });
         $this->items = KitHelper::listToTree($this->items, $this->idKey, $this->pidKey);
         $html = $this->enableHeader ? Html::tag('li', $this->headerLabel, [
             'class' => 'header'
         ]) : '';
+        //url 为空 或者 是 '#' 的菜单没有子菜单 不显示
         foreach ($this->items as $item) {
             if (isset($item['items']) && is_array($item['items'])) {
                 $html .= $this->renderTreeItem($item);
-            } else {
+            } else if(!(empty($item['url']) || $item['url']=='#')) {
                 $html .= $this->renderItem($item);
             }
         }
@@ -82,12 +95,14 @@ class AdminlteSideBarMenu extends Widget
                             ], '___', $urlInfo['query']), $checkParams);
                             //检查路由前缀加分
                             if (isset($checkParams['r'])) {
-                                $counters[$i] +=\stripos(\ltrim($checkParams['r'],'/') , $routePrefix)===0?1:0;
+                                $route = \ltrim($checkParams['r'], '/');
+                                $item['r'] = '/' . $route;
+                                $counters[$i] += \stripos($route, $routePrefix) === 0 ? 1 : 0;
                             }
                             $counters[$i] += count(array_intersect_assoc($checkParams, $params));
                         }
                     }
-                }else {
+                } else {
                     $item['target'] = '_blank';
                 }
             }
@@ -116,7 +131,7 @@ class AdminlteSideBarMenu extends Widget
     protected function renderLink($item)
     {
         $icon = empty($item['icon']) ? '' : '<i class="' . $item['icon'] . '"></i> ';
-        return Html::a($icon . '<span>' . $item[$this->nameKey] . '</span>', $item[$this->urlKey],['target'=>$item['target']]);
+        return Html::a($icon . '<span>' . $item[$this->nameKey] . '</span>', $item[$this->urlKey], ['target' => $item['target']]);
     }
 
     protected function renderItem($item)
@@ -129,6 +144,7 @@ class AdminlteSideBarMenu extends Widget
 
     protected function renderTreeItem($item)
     {
+
         $active = $item[$this->activeKey] ? 'active' : '';
         $html = '';
         foreach ($item['items'] as $child) {
@@ -142,4 +158,3 @@ class AdminlteSideBarMenu extends Widget
         ]);
     }
 }
-
