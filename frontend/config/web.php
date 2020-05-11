@@ -27,6 +27,7 @@ $config = [
         'view' => [
             'class' => 'app\kit\core\CoreView',
             'theme' => [
+                'class' => 'app\kit\components\KitTheme',
                 'basePath' => '@app/themes/basic',
                 'pathMap' => [
                     '@app/frontend/views' => '@app/themes/basic'
@@ -47,7 +48,15 @@ $config = [
         'assetManager' => [
             'class' => 'app\kit\core\CoreAssetManager',
             'basePath' => '@app/public/assets'
-        ]
+        ],
+        'i18n' => [
+            'translations' => [
+                'app' => [
+                    'class' => '\yii\i18n\PhpMessageSource',
+                    'basePath' => '@app/frontend/messages',
+                ],
+            ],
+        ],
     ]
 ];
 

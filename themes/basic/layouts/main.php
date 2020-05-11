@@ -52,7 +52,7 @@ $this->params['logo'] = KitHelper::getSetting('site.logo');
         echo SwitchLanguage::widget();
         $menus = [
             [
-                'label' => '首页',
+                'label' => Yii::t('app','Home'),
                 'url' => [
                     '/site/index'
                 ]

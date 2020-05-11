@@ -31,7 +31,15 @@ $config = [
         'assetManager' => [
             'class' => 'app\kit\core\CoreAssetManager',
             'basePath' => '@app/public/assets'
-        ]
+        ],
+        'i18n' => [
+            'translations' => [
+                'app' => [
+                    'class' => '\yii\i18n\PhpMessageSource',
+                    'basePath' => '@app/backend/messages',
+                ],
+            ],
+        ],
     ]
 ];
 

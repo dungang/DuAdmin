@@ -45,7 +45,7 @@ $this->params['logo'] = KitHelper::getSetting('site.logo');
             ]);
             $menus = [
                 [
-                    'label' => '首页',
+                    'label' => Yii::t('app','Home'),
                     'url' => [
                         '/'
                     ]
@@ -110,12 +110,12 @@ $this->params['logo'] = KitHelper::getSetting('site.logo');
                 <?php
                 SimpleModal::begin([
                     'size' => 'modal-lg',
-                    'header' => '对话框',
+                    'header' => Yii::t('app' ,'Dialog'),
                     'options' => [
                         'id' => 'modal-dailog'
                     ]
                 ]);
-                echo "没有记录";
+                echo Yii::t('app','No Info');
                 SimpleModal::end();
                 ?>
             </div>

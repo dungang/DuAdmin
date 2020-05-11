@@ -48,22 +48,46 @@ class Addon extends Module
      */
     public $ignoreMode = false;
 
+    /**
+     * 初始化API
+     *
+     * @return void
+     */
     protected function initApi()
     {
         //初始化API的模块配置
         throw new NotSupportedException('不支持API服务');
     }
 
+    /**
+     * 初始化后端
+     *
+     * @return void
+     */
     protected function initBackend()
     {
         //初始化后端的模块配置
         throw new NotSupportedException('不支持后端服务');
     }
 
+    /**
+     * 初始化前端
+     *
+     * @return void
+     */
     protected function initFrontend()
     {
         //初始化前端的模块配置
         throw new NotSupportedException('不支持前端服务');
+    }
+
+    /**
+     * 初始化语言
+     *
+     * @return void
+     */
+    protected function initI18N(){
+
     }
 
     /**
@@ -131,6 +155,7 @@ class Addon extends Module
 
     public function init()
     {
+        $this->initI18N();
         if ($this->ignoreMode == false) {
             if (empty($this->addonNamespaceBase)) {
                 $reflector = new ReflectionClass(static::className());
