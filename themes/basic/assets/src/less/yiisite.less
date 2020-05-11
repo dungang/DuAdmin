@@ -28,7 +28,7 @@ body {
 
 .footer {
     height          : @footer-min-height;
-    background-color: darken(@brand-primary,10%);
+    background-color: darken(@brand-primary, 10%);
     border-top      : 1px solid #ddd;
     padding-top     : 20px;
 
@@ -147,10 +147,10 @@ a.desc:after {
 
 .block-bar,
 .block-bar-gray {
-    padding: 30px;
+    padding: 30px 0;
 
     h3 {
-        text-align: center;
+        text-align   : center;
         margin-bottom: 20px;
     }
 }
@@ -161,13 +161,14 @@ a.desc:after {
 }
 
 .block-bar-gray {
-    background-color: lighten(@gray-lighter,1%);
+    background-color: lighten(@gray-lighter, 1%);
 
 }
 
 .page-cover {
     img {
         width: 100%;
+
         @media (min-width: @grid-float-breakpoint) {
             width: auto;
         }
@@ -181,8 +182,10 @@ a.desc:after {
 .nav {
     .active {
         background-color: @brand-primary;
-        &,a{
-            color:white;
+
+        &,
+        a {
+            color: white;
         }
     }
 }
@@ -190,28 +193,51 @@ a.desc:after {
 .product-list {
     .product {
         display: flex;
+
         .cover {
             width: 120px;
 
         }
+
         .info {
-            flex:1;
-            
+            flex: 1;
+
         }
     }
 }
 
 .thumbnail {
     border-radius: 0;
-    border:0;
+    border       : 0;
+
+    .img-aspect-11 {
+        position   : relative;
+        width      : 50%;
+        padding-top: 50%;
+
+        img {
+            position: absolute;
+            top     : 0;
+            left    : 0;
+            bottom  : 0;
+            right   : 0;
+        }
+    }
+
     .caption {
-        margin-left: -4px;
-        margin-right:-4px;
-        margin-bottom: -4px;
+        margin-left     : -4px;
+        margin-right    : -4px;
+        margin-bottom   : -4px;
         background-color: @brand-primary;
+
         h3 {
+            margin  : 5px;
+            height  : 53px;
+            overflow: hidden;
+
             a {
-                color:white;
+                color    : white;
+                font-size: medium;
             }
         }
     }
