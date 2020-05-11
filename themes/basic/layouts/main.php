@@ -9,6 +9,7 @@ use app\kit\models\Setting;
 use app\kit\widgets\LazyLoad;
 use app\kit\widgets\Notify;
 use app\kit\widgets\SimpleModal;
+use app\kit\widgets\SwitchLanguage;
 use app\themes\basic\widgets\ThemeAsset;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -48,6 +49,7 @@ $this->params['logo'] = KitHelper::getSetting('site.logo');
                 'class' => 'navbar-default'
             ]
         ]);
+        echo SwitchLanguage::widget();
         $menus = [
             [
                 'label' => '首页',

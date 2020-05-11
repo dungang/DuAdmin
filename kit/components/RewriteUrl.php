@@ -1,4 +1,5 @@
 <?php
+
 namespace app\kit\components;
 
 use Yii;
@@ -19,20 +20,20 @@ class RewriteUrl extends UrlManager
      * 公共参数
      * 保证每一个url都包含的参数
      * 
-     * @var array|null
+     * @var array
      */
-    public $common_params = null;
-    
+    public $common_params = [];
+
     public $from_db = false;
- 
+
     /**
      * {@inheritDoc}
      * @see \yii\web\UrlManager::createUrl()
      */
     public function createUrl($params)
     {
-        if($this->common_params && \is_array($params)){
-            $params = array_merge($this->common_params,$params);
+        if ($this->common_params && \is_array($params)) {
+            $params = array_merge($this->common_params, $params);
         }
         return parent::createUrl($params);
     }
@@ -44,19 +45,19 @@ class RewriteUrl extends UrlManager
     {
         if ($this->normalizer !== false) {
             $this->normalizer = Yii::createObject($this->normalizer);
-            if (! $this->normalizer instanceof UrlNormalizer) {
+            if (!$this->normalizer instanceof UrlNormalizer) {
                 throw new InvalidConfigException('`' . get_class($this) . '::normalizer` should be an instance of `' . UrlNormalizer::className() . '` or its DI compatible configuration.');
             }
         }
 
-        if (! $this->enablePrettyUrl) {
+        if (!$this->enablePrettyUrl) {
             return;
         }
         if (is_string($this->cache)) {
             $this->cache = Yii::$app->get($this->cache, false);
         }
-        if($this->from_db){
-            $this->rules = ArrayHelper::merge($this->rules,$this->getRulesFromDb());
+        if ($this->from_db) {
+            $this->rules = ArrayHelper::merge($this->rules, $this->getRulesFromDb());
         }
         if (empty($this->rules)) {
             return;
@@ -77,7 +78,7 @@ class RewriteUrl extends UrlManager
             return null;
         }
     }
-    
+
     /**
      * 此处相对原版做了处理的顺序调整
      * Parses the user request.
@@ -117,14 +118,14 @@ class RewriteUrl extends UrlManager
                     []
                 ];
             }
-            
-            
-            if($this->enableStrictParsing) {
+
+
+            if ($this->enableStrictParsing) {
                 return false;
             }
-            
+
             Yii::debug('No matching URL rules. Using default URL parsing logic.', __METHOD__);
-            
+
             $pathInfo = $request->getPathInfo();
             $suffix = (string) $this->suffix;
             $normalized = false;
@@ -133,8 +134,8 @@ class RewriteUrl extends UrlManager
             }
             if ($suffix !== '' && $pathInfo !== '') {
                 $n = strlen($this->suffix);
-                if (substr_compare($pathInfo, $this->suffix, - $n, $n) === 0) {
-                    $pathInfo = substr($pathInfo, 0, - $n);
+                if (substr_compare($pathInfo, $this->suffix, -$n, $n) === 0) {
+                    $pathInfo = substr($pathInfo, 0, -$n);
                     if ($pathInfo === '') {
                         // suffix alone is not allowed
                         return false;
@@ -160,4 +161,3 @@ class RewriteUrl extends UrlManager
         }
     }
 }
-
