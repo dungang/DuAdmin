@@ -8,7 +8,7 @@ namespace app\backend\models;
  * @property int $user_id 用户
  * @property string $portals
  */
-class PortalPlace extends \app\kit\core\BaseModel
+class PortalPlace extends \app\mmadmin\core\BaseModel
 {
     /**
      * {@inheritdoc}

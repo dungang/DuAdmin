@@ -1,8 +1,8 @@
 <?php
 namespace app\backend\controllers;
 
-use app\kit\core\BackendController;
-use app\kit\components\FileUploader;
+use app\mmadmin\core\BackendController;
+use app\mmadmin\components\FileUploader;
 
 /**
  * 后台默认支持的文件和图片上传的功能

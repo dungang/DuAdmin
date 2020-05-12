@@ -3,7 +3,7 @@ namespace app\backend\controllers;
 
 use Yii;
 use app\backend\forms\LoginForm;
-use app\kit\core\BaseController;
+use app\mmadmin\core\BaseController;
 
 class LoginController extends BaseController
 {

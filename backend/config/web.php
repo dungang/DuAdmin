@@ -1,6 +1,6 @@
 <?php
 
-use app\kit\core\Application;
+use app\mmadmin\core\Application;
 
 $db = require __DIR__ . '/../../config/db.php';
 $config = [
@@ -31,7 +31,7 @@ $config = [
             ]
         ],
         'assetManager' => [
-            'class' => '\app\kit\core\CoreAssetManager'
+            'class' => '\app\mmadmin\core\CoreAssetManager'
         ],
         'i18n' => [
             'translations' => [

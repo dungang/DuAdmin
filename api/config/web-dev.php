@@ -1,6 +1,6 @@
 <?php
 
-use app\kit\core\Application;
+use app\mmadmin\core\Application;
 
 $db = require __DIR__ . '/../../config/db-dev.php';
 $config = [
@@ -40,7 +40,7 @@ $config = [
                     'encodeOptions' => JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE,
                 ],
             ],
-            'as responseJson' => '\app\kit\behaviors\ResponseJson'
+            'as responseJson' => '\app\mmadmin\behaviors\ResponseJson'
         ],
         'urlManager' => [
             'class' => '\yii\web\UrlManager',

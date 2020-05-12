@@ -1,7 +1,7 @@
 <?php
 namespace app\backend\components;
 
-use app\kit\core\BackendController;
+use app\mmadmin\core\BackendController;
 
 /**
  *
@@ -19,38 +19,38 @@ class SettingController extends BackendController
         
         return [
             'index' => [
-                'class' => 'app\kit\core\ListModelsAction',
+                'class' => 'app\mmadmin\core\ListModelsAction',
                 'viewName'=> $this->viewBasePath . 'index',
                 'modelClass' => [
-                    'class' => 'app\kit\models\SettingSearch',
+                    'class' => 'app\mmadmin\models\SettingSearch',
                     'category'=>$this->default_category
                 ]
             ],
             'create' => [
-                'class' => 'app\kit\core\CreateModelAction',
+                'class' => 'app\mmadmin\core\CreateModelAction',
                 'viewName'=> $this->viewBasePath . 'create',
                 'modelClass' => [
-                    'class' => 'app\kit\models\Setting'
+                    'class' => 'app\mmadmin\models\Setting'
                 ]
             ],
             'update' => [
-                'class' => 'app\kit\core\UpdateModelAction',
+                'class' => 'app\mmadmin\core\UpdateModelAction',
                 'viewName'=> $this->viewBasePath . 'update',
                 'modelClass' => [
-                    'class' => 'app\kit\models\Setting'
+                    'class' => 'app\mmadmin\models\Setting'
                 ]
             ],
             'view' => [
-                'class' => 'app\kit\core\ViewModelAction',
+                'class' => 'app\mmadmin\core\ViewModelAction',
                 'viewName'=> $this->viewBasePath . 'view',
                 'modelClass' => [
-                    'class' => 'app\kit\models\Setting'
+                    'class' => 'app\mmadmin\models\Setting'
                 ]
             ],
             'delete' => [
-                'class' => 'app\kit\core\DeleteModelAction',
+                'class' => 'app\mmadmin\core\DeleteModelAction',
                 'modelClass' => [
-                    'class' => 'app\kit\models\Setting'
+                    'class' => 'app\mmadmin\models\Setting'
                 ]
             ],
         ];

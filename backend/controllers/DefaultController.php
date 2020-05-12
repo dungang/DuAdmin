@@ -1,8 +1,8 @@
 <?php
 namespace app\backend\controllers;
 
-use app\kit\core\BackendController;
-use app\kit\models\Setting;
+use app\mmadmin\core\BackendController;
+use app\mmadmin\models\Setting;
 
 class DefaultController extends BackendController
 {
@@ -22,7 +22,7 @@ class DefaultController extends BackendController
     {
         return [
             'error' => [
-                'class' => 'app\kit\core\CoreErrorAction'
+                'class' => 'app\mmadmin\core\CoreErrorAction'
             ]
         ];
     }

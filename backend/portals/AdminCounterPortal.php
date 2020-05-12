@@ -3,7 +3,7 @@
 namespace app\backend\portals;
 
 use yii\base\Widget;
-use app\kit\models\User;
+use app\mmadmin\models\User;
 
 class AdminCounterPortal extends Widget
 {

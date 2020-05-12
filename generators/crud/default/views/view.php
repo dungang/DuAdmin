@@ -10,7 +10,7 @@ echo "<?php\n";
 ?>
 
 use yii\widgets\DetailView;
-use app\kit\widgets\AjaxModalOrNormalPanelContent;
+use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
 /* @var $model <?= ltrim($generator->modelClass, '\\') ?> */

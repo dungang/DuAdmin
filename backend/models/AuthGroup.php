@@ -10,7 +10,7 @@ namespace app\backend\models;
  * @property int $type 类型
  * @property bool $is_backend 是后台
  */
-class AuthGroup extends \app\kit\core\BaseModel
+class AuthGroup extends \app\mmadmin\core\BaseModel
 {
     /** 
      * 角色 

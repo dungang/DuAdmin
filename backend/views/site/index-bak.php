@@ -1,10 +1,10 @@
 <?php
-use app\kit\models\Setting;
+use app\mmadmin\models\Setting;
 use yii\data\ActiveDataProvider;
 use app\addons\cms\models\Article;
-use app\kit\grids\GridView;
+use app\mmadmin\grids\GridView;
 use yii\widgets\ListView;
-use app\kit\models\User;
+use app\mmadmin\models\User;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */

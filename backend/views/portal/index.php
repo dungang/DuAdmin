@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use app\kit\grids\PanelGridView;
+use app\mmadmin\grids\PanelGridView;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel app\backend\models\PortalSearch */
@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'is_static:boolean',
             'unlimited:boolean',
             [
-                'class' => '\app\kit\grids\ActionColumn',
+                'class' => '\app\mmadmin\grids\ActionColumn',
                 'buttonsOptions'=>[
                     'update'=>[
                         'data-toggle'=>'modal',

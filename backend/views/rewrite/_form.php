@@ -3,7 +3,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\kit\models\Rewrite */
+/* @var $model app\mmadmin\models\Rewrite */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 

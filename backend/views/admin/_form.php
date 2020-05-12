@@ -1,7 +1,7 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use app\kit\models\AuthItem;
+use app\mmadmin\models\AuthItem;
 
 /* @var $this yii\web\View */
 /* @var $model app\backend\forms\DynamicUser */

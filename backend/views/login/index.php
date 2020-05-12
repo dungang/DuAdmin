@@ -5,7 +5,7 @@
 /* @var $model \app\backend\forms\LoginForm */
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-use app\kit\models\Setting;
+use app\mmadmin\models\Setting;
 
 $this->title = '登录';
 $this->params['breadcrumbs'][] = $this->title;

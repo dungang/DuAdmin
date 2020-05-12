@@ -1,8 +1,8 @@
 <?php
 namespace app\backend\controllers;
 
-use app\kit\core\BackendController;
-use app\kit\helpers\CrontabHelper;
+use app\mmadmin\core\BackendController;
+use app\mmadmin\helpers\CrontabHelper;
 
 /**
  * CronController implements the CRUD actions for Cron model.
@@ -23,37 +23,37 @@ class CronController extends BackendController
     {
         return [
             'index' => [
-                'class' => 'app\kit\core\ListModelsAction',
+                'class' => 'app\mmadmin\core\ListModelsAction',
                 'modelClass' => [
-                    'class' => 'app\kit\models\CronSearch'
+                    'class' => 'app\mmadmin\models\CronSearch'
                 ]
             ],
             'create' => [
-                'class' => 'app\kit\core\CreateModelAction',
+                'class' => 'app\mmadmin\core\CreateModelAction',
                 'modelClass' => [
-                    'class' => 'app\kit\models\Cron'
+                    'class' => 'app\mmadmin\models\Cron'
                 ]
             ],
             'update' => [
-                'class' => 'app\kit\core\UpdateModelAction',
+                'class' => 'app\mmadmin\core\UpdateModelAction',
                 'modelClass' => [
-                    'class' => 'app\kit\models\Cron'
+                    'class' => 'app\mmadmin\models\Cron'
                 ]
             ],
             'view' => [
-                'class' => 'app\kit\core\ViewModelAction',
+                'class' => 'app\mmadmin\core\ViewModelAction',
                 'modelClass' => [
-                    'class' => 'app\kit\models\Cron'
+                    'class' => 'app\mmadmin\models\Cron'
                 ]
             ],
             'delete' => [
-                'class' => 'app\kit\core\DeleteModelAction',
+                'class' => 'app\mmadmin\core\DeleteModelAction',
                 'modelClass' => [
-                    'class' => 'app\kit\models\Cron'
+                    'class' => 'app\mmadmin\models\Cron'
                 ]
             ],
             'run' => [
-                'class' => '\app\kit\core\LoopAction',
+                'class' => '\app\mmadmin\core\LoopAction',
                 'beforeRunCallback' => [
                     $this,
                     'canStartCronProcess'

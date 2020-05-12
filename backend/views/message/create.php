@@ -1,5 +1,5 @@
 <?php
-use app\kit\widgets\AjaxModalOrNormalPanelContent;
+use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
 /* @var $model app\backend\models\Message */

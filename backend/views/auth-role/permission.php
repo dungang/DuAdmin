@@ -1,12 +1,12 @@
 <?php
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-use app\kit\widgets\AjaxModalOrNormalPanelContent;
-use app\kit\widgets\ZTree;
+use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
+use app\mmadmin\widgets\ZTree;
 use yii\web\JsExpression;
 
 /* @var $this yii\web\View */
-/* @var $model app\kit\models\AuthRole */
+/* @var $model app\mmadmin\models\AuthRole */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $rights array*/
 

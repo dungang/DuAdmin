@@ -1,10 +1,10 @@
 <?php
 use yii\helpers\Html;
-use app\kit\grids\PanelGridView;
+use app\mmadmin\grids\PanelGridView;
 use yii\widgets\Pjax;
-use app\kit\helpers\CrontabHelper;
+use app\mmadmin\helpers\CrontabHelper;
 /* @var $this yii\web\View */
-/* @var $searchModel app\kit\models\CronSearch */
+/* @var $searchModel app\mmadmin\models\CronSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '定时任务';
@@ -39,7 +39,7 @@ PanelGridView::begin(
             'is_active:boolean',
             'run_at:datetime',
             [
-                'class' => '\app\kit\grids\ActionColumn',
+                'class' => '\app\mmadmin\grids\ActionColumn',
                 'buttonsOptions' => [
                     'update' => [
                         'data-toggle' => 'modal',

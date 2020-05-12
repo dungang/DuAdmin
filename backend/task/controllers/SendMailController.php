@@ -1,9 +1,9 @@
 <?php
 namespace app\backend\task\controllers;
 
-use app\kit\core\TaskController;
-use app\kit\models\MailQueue;
-use app\kit\helpers\KitHelper;
+use app\mmadmin\core\TaskController;
+use app\mmadmin\models\MailQueue;
+use app\mmadmin\helpers\KitHelper;
 
 /**
  *
@@ -15,7 +15,7 @@ class SendMailController extends TaskController
     /**
      * (non-PHPdoc)
      *
-     * @see \app\kit\core\TaskController::execJob()
+     * @see \app\mmadmin\core\TaskController::execJob()
      */
     protected function execJob($param, $task)
     {

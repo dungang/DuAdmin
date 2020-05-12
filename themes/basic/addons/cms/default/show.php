@@ -1,9 +1,9 @@
 <?php
 
 use yii\helpers\Html;
-use app\kit\models\Setting;
-use app\kit\helpers\KitHelper;
-use app\kit\widgets\HighLight;
+use app\mmadmin\models\Setting;
+use app\mmadmin\helpers\KitHelper;
+use app\mmadmin\widgets\HighLight;
 
 /* @var $this yii\web\View */
 /* @var $model app\addons\cms\models\Article */
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = [
 ];
 $this->params['breadcrumbs'][] = $this->title;
 
-$user = app\kit\models\User::findOne([
+$user = app\mmadmin\models\User::findOne([
 	'id' => $model->user_id
 ]);
 

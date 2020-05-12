@@ -1,8 +1,8 @@
 <?php
-use app\kit\models\Setting;
-use app\kit\widgets\BackgroundVideo;
+use app\mmadmin\models\Setting;
+use app\mmadmin\widgets\BackgroundVideo;
 use yii\helpers\Url;
-use app\kit\helpers\KitHelper;
+use app\mmadmin\helpers\KitHelper;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */

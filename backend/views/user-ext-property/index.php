@@ -1,10 +1,10 @@
 <?php
 
 use yii\helpers\Html;
-use app\kit\grids\PanelGridView;
+use app\mmadmin\grids\PanelGridView;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
-/* @var $searchModel app\kit\models\UserExtPropertySearch */
+/* @var $searchModel app\mmadmin\models\UserExtPropertySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '用户扩展属性';
@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'input_type',
             'sort',
             [
-                'class' => '\app\kit\grids\ActionColumn',
+                'class' => '\app\mmadmin\grids\ActionColumn',
                 'buttonsOptions'=>[
                     'update'=>[
                         'data-toggle'=>'modal',

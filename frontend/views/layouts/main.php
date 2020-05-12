@@ -2,12 +2,12 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 use app\frontend\assets\AppAsset;
-use app\kit\helpers\KitHelper;
-use app\kit\models\Menu;
-use app\kit\models\Setting;
-use app\kit\widgets\LazyLoad;
-use app\kit\widgets\Notify;
-use app\kit\widgets\SimpleModal;
+use app\mmadmin\helpers\KitHelper;
+use app\mmadmin\models\Menu;
+use app\mmadmin\models\Setting;
+use app\mmadmin\widgets\LazyLoad;
+use app\mmadmin\widgets\Notify;
+use app\mmadmin\widgets\SimpleModal;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\Html;

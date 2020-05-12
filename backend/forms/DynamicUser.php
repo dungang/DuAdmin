@@ -2,11 +2,11 @@
 
 namespace app\backend\forms;
 
-use app\kit\behaviors\UploadedFileBehavior;
-use app\kit\models\User;
-use app\kit\core\BaseDynamicModel;
-use app\kit\models\UserExtValue;
-use app\kit\models\UserExtProperty;
+use app\mmadmin\behaviors\UploadedFileBehavior;
+use app\mmadmin\models\User;
+use app\mmadmin\core\BaseDynamicModel;
+use app\mmadmin\models\UserExtValue;
+use app\mmadmin\models\UserExtProperty;
 
 /**
  *
@@ -21,7 +21,7 @@ class DynamicUser extends BaseDynamicModel
 
     /**
      *
-     * @var \app\kit\models\User
+     * @var \app\mmadmin\models\User
      */
     public $model;
 
@@ -34,7 +34,7 @@ class DynamicUser extends BaseDynamicModel
             ]);
             //$this->model->is_admin = $this->is_admin;
         }
-        $this->model->attachBehavior('role-update', 'app\kit\behaviors\UpdateUserRoleBehavior');
+        $this->model->attachBehavior('role-update', 'app\mmadmin\behaviors\UpdateUserRoleBehavior');
         $this->model->attachBehavior('upload-avatar', [
             'class' => UploadedFileBehavior::className(),
             'after_create' => true,
@@ -160,7 +160,7 @@ class DynamicUser extends BaseDynamicModel
     /**
      *
      * {@inheritdoc}
-     * @see \app\kit\core\BaseDynamicModel::prepareDynmicProperties()
+     * @see \app\mmadmin\core\BaseDynamicModel::prepareDynmicProperties()
      */
     protected function prepareDynmicProperties()
     {
@@ -170,7 +170,7 @@ class DynamicUser extends BaseDynamicModel
     /**
      *
      * {@inheritdoc}
-     * @see \app\kit\core\BaseDynamicModel::prepareExtPropertyValueTable()
+     * @see \app\mmadmin\core\BaseDynamicModel::prepareExtPropertyValueTable()
      */
     protected function prepareExtPropertyValueTable()
     {
@@ -180,7 +180,7 @@ class DynamicUser extends BaseDynamicModel
     /**
      *
      * {@inheritdoc}
-     * @see \app\kit\core\BaseDynamicModel::prepareExtPropertyValueRow()
+     * @see \app\mmadmin\core\BaseDynamicModel::prepareExtPropertyValueRow()
      */
     protected function prepareExtPropertyValueRow($masterModel, $propertyModel)
     {
@@ -194,7 +194,7 @@ class DynamicUser extends BaseDynamicModel
     /**
      *
      * {@inheritdoc}
-     * @see \app\kit\core\BaseDynamicModel::prepareExtPropertyValues()
+     * @see \app\mmadmin\core\BaseDynamicModel::prepareExtPropertyValues()
      */
     protected function prepareExtPropertyValues($model)
     {
@@ -210,7 +210,7 @@ class DynamicUser extends BaseDynamicModel
     /**
      *
      * {@inheritdoc}
-     * @see \app\kit\core\BaseDynamicModel::prepareRulesAndLabelsAndHints()
+     * @see \app\mmadmin\core\BaseDynamicModel::prepareRulesAndLabelsAndHints()
      */
     protected function prepareRulesAndLabelsAndHints()
     {
@@ -231,7 +231,7 @@ class DynamicUser extends BaseDynamicModel
     /**
      *
      * {@inheritdoc}
-     * @see \app\kit\core\BaseDynamicModel::prepareExtPropertyValueFields()
+     * @see \app\mmadmin\core\BaseDynamicModel::prepareExtPropertyValueFields()
      */
     protected function prepareExtPropertyValueFields()
     {

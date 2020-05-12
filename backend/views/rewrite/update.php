@@ -1,9 +1,9 @@
 <?php
 
-use app\kit\widgets\AjaxModalOrNormalPanelContent;
+use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
-/* @var $model app\kit\models\Rewrite */
+/* @var $model app\mmadmin\models\Rewrite */
 
 $this->title = '更新';
 $this->params['breadcrumbs'][] = ['label' => 'URL重写', 'url' => ['index']];

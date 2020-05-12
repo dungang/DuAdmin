@@ -2,8 +2,8 @@
 
 namespace app\backend\controllers;
 
-use app\kit\core\BackendController;
-use app\kit\models\AuthPermission;
+use app\mmadmin\core\BackendController;
+use app\mmadmin\models\AuthPermission;
 use app\backend\models\AuthGroup;
 use yii\web\NotFoundHttpException;
 
@@ -16,7 +16,7 @@ class AuthAdminGroupController extends BackendController
     {
         return [
             'index' => [
-                'class' => 'app\kit\core\ListModelsAction',
+                'class' => 'app\mmadmin\core\ListModelsAction',
                 'baseAttrs' => [
                     'is_backend' => 1
                 ],
@@ -26,7 +26,7 @@ class AuthAdminGroupController extends BackendController
                 ]
             ],
             'create' => [
-                'class' => 'app\kit\core\CreateModelAction',
+                'class' => 'app\mmadmin\core\CreateModelAction',
                 'baseAttrs' => [
                     'is_backend' => 1
                 ],
@@ -35,7 +35,7 @@ class AuthAdminGroupController extends BackendController
                 ]
             ],
             'batch-create' => [
-                'class' => 'app\kit\core\CreateModelsAction',
+                'class' => 'app\mmadmin\core\CreateModelsAction',
                 'formName' => 'AuthGroup',
                 'baseAttrs' => [
                     'is_backend' => 1
@@ -45,13 +45,13 @@ class AuthAdminGroupController extends BackendController
                 ]
             ],
             'permission' => [
-                'class' => 'app\kit\core\ListModelsAction',
+                'class' => 'app\mmadmin\core\ListModelsAction',
                 'modelClass' => [
-                    'class' => 'app\kit\models\AuthPermissionSearch',
+                    'class' => 'app\mmadmin\models\AuthPermissionSearch',
                 ]
             ],
             'update' => [
-                'class' => 'app\kit\core\UpdateModelAction',
+                'class' => 'app\mmadmin\core\UpdateModelAction',
                 'baseAttrs' => [
                     'is_backend' => 1
                 ],
@@ -60,7 +60,7 @@ class AuthAdminGroupController extends BackendController
                 ]
             ],
             'view' => [
-                'class' => 'app\kit\core\ViewModelAction',
+                'class' => 'app\mmadmin\core\ViewModelAction',
                 'baseAttrs' => [
                     'is_backend' => 1
                 ],
@@ -69,7 +69,7 @@ class AuthAdminGroupController extends BackendController
                 ]
             ],
             'delete' => [
-                'class' => 'app\kit\core\DeleteModelAction',
+                'class' => 'app\mmadmin\core\DeleteModelAction',
                 'baseAttrs' => [
                     'is_backend' => 1
                 ],

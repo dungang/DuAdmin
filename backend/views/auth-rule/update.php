@@ -1,8 +1,8 @@
 <?php
-use app\kit\widgets\AjaxModalOrNormalPanelContent;
+use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
-/* @var $model app\kit\models\AuthRule */
+/* @var $model app\mmadmin\models\AuthRule */
 
 $this->title = '更新';
 $this->params['breadcrumbs'][] = [

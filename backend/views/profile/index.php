@@ -1,8 +1,8 @@
 <?php
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-use app\kit\widgets\JcropFileInput;
-use app\kit\widgets\AjaxModalOrNormalPanelContent;
+use app\mmadmin\widgets\JcropFileInput;
+use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
 /* @var $model app\backend\forms\DynamicUser */

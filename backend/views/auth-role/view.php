@@ -1,9 +1,9 @@
 <?php
 use yii\widgets\DetailView;
-use app\kit\widgets\AjaxModalOrNormalPanelContent;
+use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
-/* @var $model app\kit\models\AuthRole */
+/* @var $model app\mmadmin\models\AuthRole */
 
 $this->title = '查看';
 $this->params['breadcrumbs'][] = [

@@ -1,7 +1,7 @@
 <?php
 namespace app\backend\controllers;
 
-use app\kit\core\BackendController;
+use app\mmadmin\core\BackendController;
 
 /**
  * AuthPermissionController implements the CRUD actions for AuthPermission model.
@@ -13,57 +13,57 @@ class AuthPermissionController extends BackendController
     {
         return [
             'index' => [
-                'class' => 'app\kit\core\ListModelsAction',
+                'class' => 'app\mmadmin\core\ListModelsAction',
                 'modelBehaviors' => [
                     'app\backend\behaviors\PermissionListBehavior',
                 ],
                 'modelClass' => [
-                    'class' => 'app\kit\models\AuthPermissionSearch',
+                    'class' => 'app\mmadmin\models\AuthPermissionSearch',
                 ]
             ],
             'create' => [
-                'class' => 'app\kit\core\CreateModelAction',
+                'class' => 'app\mmadmin\core\CreateModelAction',
                 'modelBehaviors' => [
                     'app\backend\behaviors\CleanRbacBehavior',
                 ],
                 'modelClass' => [
-                    'class' => 'app\kit\models\AuthPermission'
+                    'class' => 'app\mmadmin\models\AuthPermission'
                 ]
             ],
             'batch-create' => [
-                'class' => 'app\kit\core\CreateModelsAction',
+                'class' => 'app\mmadmin\core\CreateModelsAction',
                 'modelClass' => [
-                    'class' => 'app\kit\models\AuthPermission'
+                    'class' => 'app\mmadmin\models\AuthPermission'
                 ]
             ],
             'update' => [
-                'class' => 'app\kit\core\UpdateModelAction',
+                'class' => 'app\mmadmin\core\UpdateModelAction',
                 'modelBehaviors' => [
                     'app\backend\behaviors\CleanRbacBehavior',
                 ],
                 'modelClass' => [
-                    'class' => 'app\kit\models\AuthPermission'
+                    'class' => 'app\mmadmin\models\AuthPermission'
                 ]
             ],
             'batch-update' => [
-                'class' => 'app\kit\core\UpdateModelsAction',
+                'class' => 'app\mmadmin\core\UpdateModelsAction',
                 'modelClass' => [
-                    'class' => 'app\kit\models\AuthPermission'
+                    'class' => 'app\mmadmin\models\AuthPermission'
                 ]
             ],
             'view' => [
-                'class' => 'app\kit\core\ViewModelAction',
+                'class' => 'app\mmadmin\core\ViewModelAction',
                 'modelClass' => [
-                    'class' => 'app\kit\models\AuthPermission'
+                    'class' => 'app\mmadmin\models\AuthPermission'
                 ]
             ],
             'delete' => [
-                'class' => 'app\kit\core\DeleteModelsAction',
+                'class' => 'app\mmadmin\core\DeleteModelsAction',
                 'modelBehaviors' => [
                     'app\backend\behaviors\CleanRbacBehavior',
                 ],
                 'modelClass' => [
-                    'class' => 'app\kit\models\AuthPermission'
+                    'class' => 'app\mmadmin\models\AuthPermission'
                 ]
             ]
         ];

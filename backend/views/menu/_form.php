@@ -1,10 +1,10 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use app\kit\models\Menu;
+use app\mmadmin\models\Menu;
 
 /* @var $this yii\web\View */
-/* @var $model app\kit\models\Menu */
+/* @var $model app\mmadmin\models\Menu */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 

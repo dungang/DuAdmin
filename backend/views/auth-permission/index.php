@@ -1,12 +1,12 @@
 <?php
 
 use yii\helpers\Html;
-use app\kit\grids\PanelGridView;
+use app\mmadmin\grids\PanelGridView;
 use yii\widgets\Pjax;
-use app\kit\widgets\PanelNavTabs;
+use app\mmadmin\widgets\PanelNavTabs;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\kit\models\AuthPermissionSearch */
+/* @var $searchModel app\mmadmin\models\AuthPermissionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '权限';
@@ -27,12 +27,12 @@ PanelGridView::begin([
         'description:ntext',
         'rule_name',
         [
-            'class' => 'app\kit\grids\FilterColumn',
+            'class' => 'app\mmadmin\grids\FilterColumn',
             'attribute' => 'group_name',
             'filter' => $this->params['groups'],
         ],
         [
-            'class' => 'app\kit\grids\ActionColumn',
+            'class' => 'app\mmadmin\grids\ActionColumn',
             'buttonsOptions' => [
                 'update' => [
                     'data-toggle' => 'modal',

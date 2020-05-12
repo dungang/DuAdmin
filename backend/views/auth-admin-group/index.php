@@ -1,9 +1,9 @@
 <?php
 
 use yii\helpers\Html;
-use app\kit\grids\PanelGridView;
+use app\mmadmin\grids\PanelGridView;
 use yii\widgets\Pjax;
-use app\kit\widgets\PanelNavTabs;
+use app\mmadmin\widgets\PanelNavTabs;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\backend\models\AuthGroupSearch */
@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
             }
         ],
         [
-            'class' => '\app\kit\grids\ActionColumn',
+            'class' => '\app\mmadmin\grids\ActionColumn',
             'buttonsOptions' => [
                 'update' => [
                     'data-toggle' => 'modal',

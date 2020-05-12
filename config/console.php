@@ -55,9 +55,9 @@ if (YII_ENV_DEV) {
             ],
             'model' => [
                 'class' => 'app\generators\model\Generator',
-                'baseClass' => 'app\kit\core\BaseModel',
-                'ns' => 'app\kit\models',
-                'queryNs' => 'app\kit\models'
+                'baseClass' => 'app\mmadmin\core\BaseModel',
+                'ns' => 'app\mmadmin\models',
+                'queryNs' => 'app\mmadmin\models'
             ],
             'addons' => [
                 'class' => 'app\generators\addons\Generator',

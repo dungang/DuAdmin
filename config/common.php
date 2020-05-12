@@ -6,7 +6,7 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => [
         'log',
-        'app\kit\components\Bootstrap'
+        'app\mmadmin\components\Bootstrap'
     ],
     'timeZone' => 'Asia/Shanghai',
     //'language' => 'zh-CN',
@@ -15,8 +15,8 @@ $config = [
         '@npm' => '@vendor/npm-asset'
     ],
     'validators' => [
-        'mobile' => '\app\kit\validators\MobileValidator', //手机验证
-        'alternative' => '\app\kit\validators\AlternativeValidator', //二选一验证
+        'mobile' => '\app\mmadmin\validators\MobileValidator', //手机验证
+        'alternative' => '\app\mmadmin\validators\AlternativeValidator', //二选一验证
     ],
     'modules' => [
         'gq'=> 'app\addons\gq\Addon',
@@ -34,7 +34,7 @@ $config = [
     ],
     'components' => [
         'view' => [
-            'class' => 'app\kit\core\CoreView',
+            'class' => 'app\mmadmin\core\CoreView',
         ],
         'request' => [
             'cookieValidationKey' => 'kdyagjkuduebfdglsgdls'
@@ -43,7 +43,7 @@ $config = [
             'class' => 'yii\caching\FileCache'
         ],
         'user' => [
-            'identityClass' => 'app\kit\models\User',
+            'identityClass' => 'app\mmadmin\models\User',
             'enableAutoLogin' => true,
             'loginUrl' => [
                 'login'
@@ -64,7 +64,7 @@ $config = [
             'timeFormat' => 'HH:mm:ss'
         ],
         'mailer' => [
-            'class' => 'app\kit\components\AppMailer'
+            'class' => 'app\mmadmin\components\AppMailer'
         ]
     ]
 ];

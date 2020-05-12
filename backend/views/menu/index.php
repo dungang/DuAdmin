@@ -1,10 +1,10 @@
 <?php
 use yii\helpers\Html;
-use app\kit\grids\PanelTreeGridView;
-use app\kit\widgets\PanelNavTabs;
+use app\mmadmin\grids\PanelTreeGridView;
+use app\mmadmin\widgets\PanelNavTabs;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\kit\models\MenuSearch */
+/* @var $searchModel app\mmadmin\models\MenuSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '导航';
@@ -32,7 +32,7 @@ PanelTreeGridView::begin([
         'url',
         'sort',
         [
-            'class' => '\app\kit\grids\ActionColumn',
+            'class' => '\app\mmadmin\grids\ActionColumn',
             'buttonsOptions' => [
                 'update' => [
                     'data-toggle' => 'modal',

@@ -1,12 +1,12 @@
 <?php
 use yii\helpers\Html;
-use app\kit\grids\PanelGridView;
+use app\mmadmin\grids\PanelGridView;
 use yii\widgets\Pjax;
-use app\kit\widgets\PanelNavTabs;
-use app\kit\models\Setting;
+use app\mmadmin\widgets\PanelNavTabs;
+use app\mmadmin\models\Setting;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\kit\models\SettingSearch */
+/* @var $searchModel app\mmadmin\models\SettingSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = \Yii::$app->controller->module->name . '设置';
@@ -37,7 +37,7 @@ PanelGridView::begin(
                 }
             ],
             [
-                'class' => '\app\kit\grids\ActionColumn',
+                'class' => '\app\mmadmin\grids\ActionColumn',
                 'buttonsOptions' => [
                     'update' => [
                         'data-toggle' => 'modal',

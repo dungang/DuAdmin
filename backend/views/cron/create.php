@@ -1,8 +1,8 @@
 <?php
-use app\kit\widgets\AjaxModalOrNormalPanelContent;
+use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
-/* @var $model app\kit\models\Cron */
+/* @var $model app\mmadmin\models\Cron */
 
 $this->title = '添加';
 $this->params['breadcrumbs'][] = ['label' => '定时任务', 'url' => ['index']];

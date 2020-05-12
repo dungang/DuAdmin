@@ -1,7 +1,7 @@
 <?php
 namespace app\backend\task;
 
-use app\kit\components\Addon;
+use app\mmadmin\components\Addon;
 
 /**
  *

@@ -2,7 +2,7 @@
 
 namespace app\backend\controllers;
 
-use app\kit\core\BackendController;
+use app\mmadmin\core\BackendController;
 
 
 /**
@@ -13,33 +13,33 @@ class ActionLogController extends BackendController
 	public function actions(){
 		return [
             'index' => [
-                'class' => 'app\kit\core\ListModelsAction',
+                'class' => 'app\mmadmin\core\ListModelsAction',
                 'modelClass' => [
-                    'class' => 'app\kit\models\ActionLogSearch'
+                    'class' => 'app\mmadmin\models\ActionLogSearch'
                 ]
             ],
             'create' => [
-                'class' => 'app\kit\core\CreateModelAction',
+                'class' => 'app\mmadmin\core\CreateModelAction',
                 'modelClass' => [
-                    'class' => 'app\kit\models\ActionLog'
+                    'class' => 'app\mmadmin\models\ActionLog'
                 ]
             ],
             'update' => [
-                'class' => 'app\kit\core\UpdateModelAction',
+                'class' => 'app\mmadmin\core\UpdateModelAction',
                 'modelClass' => [
-                    'class' => 'app\kit\models\ActionLog'
+                    'class' => 'app\mmadmin\models\ActionLog'
                 ]
             ],
             'view' => [
-                'class' => 'app\kit\core\ViewModelAction',
+                'class' => 'app\mmadmin\core\ViewModelAction',
                 'modelClass' => [
-                    'class' => 'app\kit\models\ActionLog'
+                    'class' => 'app\mmadmin\models\ActionLog'
                 ]
             ],
             'delete' => [
-                'class' => 'app\kit\core\DeleteModelAction',
+                'class' => 'app\mmadmin\core\DeleteModelAction',
                 'modelClass' => [
-                    'class' => 'app\kit\models\ActionLog'
+                    'class' => 'app\mmadmin\models\ActionLog'
                 ]
             ],
 		];

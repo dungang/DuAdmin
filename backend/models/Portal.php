@@ -12,7 +12,7 @@ namespace app\backend\models;
  * @property bool $is_static 是统计
  * @property bool $unlimited 无限制
  */
-class Portal extends \app\kit\core\BaseModel
+class Portal extends \app\mmadmin\core\BaseModel
 {
     /**
      * {@inheritdoc}

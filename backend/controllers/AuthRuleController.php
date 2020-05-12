@@ -1,7 +1,7 @@
 <?php
 namespace app\backend\controllers;
 
-use app\kit\core\BackendController;
+use app\mmadmin\core\BackendController;
 
 /**
  * AuthRuleController implements the CRUD actions for AuthRule model.
@@ -13,33 +13,33 @@ class AuthRuleController extends BackendController
     {
         return [
             'index' => [
-                'class' => 'app\kit\core\ListModelsAction',
+                'class' => 'app\mmadmin\core\ListModelsAction',
                 'modelClass' => [
-                    'class' => 'app\kit\models\AuthRuleSearch'
+                    'class' => 'app\mmadmin\models\AuthRuleSearch'
                 ]
             ],
             'create' => [
-                'class' => 'app\kit\core\CreateModelAction',
+                'class' => 'app\mmadmin\core\CreateModelAction',
                 'modelClass' => [
-                    'class' => 'app\kit\models\AuthRule'
+                    'class' => 'app\mmadmin\models\AuthRule'
                 ]
             ],
             'update' => [
-                'class' => 'app\kit\core\UpdateModelAction',
+                'class' => 'app\mmadmin\core\UpdateModelAction',
                 'modelClass' => [
-                    'class' => 'app\kit\models\AuthRule'
+                    'class' => 'app\mmadmin\models\AuthRule'
                 ]
             ],
             'view' => [
-                'class' => 'app\kit\core\ViewModelAction',
+                'class' => 'app\mmadmin\core\ViewModelAction',
                 'modelClass' => [
-                    'class' => 'app\kit\models\AuthRule'
+                    'class' => 'app\mmadmin\models\AuthRule'
                 ]
             ],
             'delete' => [
-                'class' => 'app\kit\core\DeleteModelAction',
+                'class' => 'app\mmadmin\core\DeleteModelAction',
                 'modelClass' => [
-                    'class' => 'app\kit\models\AuthRule'
+                    'class' => 'app\mmadmin\models\AuthRule'
                 ]
             ]
         ];

@@ -8,7 +8,7 @@ namespace app\backend\models;
  * @property string $role 角色
  * @property string $portals portals
  */
-class PortalPrivilege extends \app\kit\core\BaseModel
+class PortalPrivilege extends \app\mmadmin\core\BaseModel
 {
     /**
      * {@inheritdoc}

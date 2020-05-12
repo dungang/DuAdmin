@@ -37,31 +37,31 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
 	public function actions(){
 		return [
             'index' => [
-                'class' => 'app\kit\core\ListModelsAction',
+                'class' => 'app\mmadmin\core\ListModelsAction',
                 'modelClass' => [
                     'class' => '<?=$searchModelName?>'
                 ]
             ],
             'create' => [
-                'class' => 'app\kit\core\CreateModelAction',
+                'class' => 'app\mmadmin\core\CreateModelAction',
                 'modelClass' => [
                     'class' => '<?=$modelName?>'
                 ]
             ],
             'update' => [
-                'class' => 'app\kit\core\UpdateModelAction',
+                'class' => 'app\mmadmin\core\UpdateModelAction',
                 'modelClass' => [
                     'class' => '<?=$modelName?>'
                 ]
             ],
             'view' => [
-                'class' => 'app\kit\core\ViewModelAction',
+                'class' => 'app\mmadmin\core\ViewModelAction',
                 'modelClass' => [
                     'class' => '<?=$modelName?>'
                 ]
             ],
             'delete' => [
-                'class' => 'app\kit\core\DeleteModelsAction',
+                'class' => 'app\mmadmin\core\DeleteModelsAction',
                 'modelClass' => [
                     'class' => '<?=$modelName?>'
                 ]

@@ -2,9 +2,9 @@
 
 namespace app\frontend\controllers;
 
-use app\kit\core\FrontendController;
-use app\kit\helpers\KitHelper;
-use app\kit\hooks\FindSlugHook;
+use app\mmadmin\core\FrontendController;
+use app\mmadmin\helpers\KitHelper;
+use app\mmadmin\hooks\FindSlugHook;
 use yii\helpers\VarDumper;
 
 /**

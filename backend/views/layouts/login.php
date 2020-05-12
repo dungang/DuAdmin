@@ -3,7 +3,7 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 use yii\helpers\Html;
-use app\kit\assets\BackendAsset;
+use app\mmadmin\assets\BackendAsset;
 use app\backend\widgets\StartCron;
 BackendAsset::register($this);
 ?>

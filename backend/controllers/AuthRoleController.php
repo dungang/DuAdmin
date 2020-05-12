@@ -2,11 +2,11 @@
 namespace app\backend\controllers;
 
 use yii\helpers\ArrayHelper;
-use app\kit\models\AuthRole;
-use app\kit\core\BackendController;
+use app\mmadmin\models\AuthRole;
+use app\mmadmin\core\BackendController;
 use app\backend\models\AuthGroup;
-use app\kit\models\AuthPermission;
-use app\kit\models\AuthItemChild;
+use app\mmadmin\models\AuthPermission;
+use app\mmadmin\models\AuthItemChild;
 
 /**
  * RoleController implements the CRUD actions for Role model.
@@ -18,14 +18,14 @@ class AuthRoleController extends BackendController
     {
         return [
             'index' => [
-                'class' => 'app\kit\core\ListModelsAction',
+                'class' => 'app\mmadmin\core\ListModelsAction',
                 'modelClass' => [
-                    'class' => 'app\kit\models\AuthRoleSearch',
+                    'class' => 'app\mmadmin\models\AuthRoleSearch',
                     'group_name' => 'backend'
                 ]
             ],
             'create' => [
-                'class' => 'app\kit\core\CreateModelAction',
+                'class' => 'app\mmadmin\core\CreateModelAction',
                 'modelBehaviors' => [
                     'app\backend\behaviors\CleanRbacBehavior',
                 ],
@@ -33,11 +33,11 @@ class AuthRoleController extends BackendController
                     'type' => AuthRole::TYPE_ROLE
                 ],
                 'modelClass' => [
-                    'class' => 'app\kit\models\AuthRole'
+                    'class' => 'app\mmadmin\models\AuthRole'
                 ]
             ],
             'update' => [
-                'class' => 'app\kit\core\UpdateModelAction',
+                'class' => 'app\mmadmin\core\UpdateModelAction',
                 'modelBehaviors' => [
                     'app\backend\behaviors\CleanRbacBehavior',
                 ],
@@ -45,20 +45,20 @@ class AuthRoleController extends BackendController
                     'type' => AuthRole::TYPE_ROLE
                 ],
                 'modelClass' => [
-                    'class' => 'app\kit\models\AuthRole'
+                    'class' => 'app\mmadmin\models\AuthRole'
                 ]
             ],
             'view' => [
-                'class' => 'app\kit\core\ViewModelAction',
+                'class' => 'app\mmadmin\core\ViewModelAction',
                 'baseAttrs' => [
                     'type' => AuthRole::TYPE_ROLE
                 ],
                 'modelClass' => [
-                    'class' => 'app\kit\models\AuthRole'
+                    'class' => 'app\mmadmin\models\AuthRole'
                 ]
             ],
             'delete' => [
-                'class' => 'app\kit\core\DeleteModelAction',
+                'class' => 'app\mmadmin\core\DeleteModelAction',
                 'modelBehaviors' => [
                     'app\backend\behaviors\CleanRbacBehavior',
                 ],
@@ -66,7 +66,7 @@ class AuthRoleController extends BackendController
                     'type' => AuthRole::TYPE_ROLE
                 ],
                 'modelClass' => [
-                    'class' => 'app\kit\models\AuthRole'
+                    'class' => 'app\mmadmin\models\AuthRole'
                 ]
             ]
         ];

@@ -1,7 +1,7 @@
 <?php
 namespace app\backend\controllers;
 
-use app\kit\core\BackendController;
+use app\mmadmin\core\BackendController;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -16,7 +16,7 @@ class ProfileController extends BackendController
     public function actions(){
         return [
             'index'=>[
-                'class' => 'app\kit\core\UpdateModelAction',
+                'class' => 'app\mmadmin\core\UpdateModelAction',
                 'baseAttrs'=>[
                     'id'=>\Yii::$app->user->id,
                 ],

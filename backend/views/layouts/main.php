@@ -4,15 +4,15 @@
 
 use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
-use app\kit\widgets\Notify;
-use app\kit\widgets\SimpleModal;
-use app\kit\helpers\KitHelper;
-use app\kit\models\Setting;
-use app\kit\models\Menu;
-use app\kit\assets\BackendAsset;
-use app\kit\widgets\AdminlteNavBar;
-use app\kit\widgets\AdminlteSideBar;
-use app\kit\widgets\AdminlteSideBarMenu;
+use app\mmadmin\widgets\Notify;
+use app\mmadmin\widgets\SimpleModal;
+use app\mmadmin\helpers\KitHelper;
+use app\mmadmin\models\Setting;
+use app\mmadmin\models\Menu;
+use app\mmadmin\assets\BackendAsset;
+use app\mmadmin\widgets\AdminlteNavBar;
+use app\mmadmin\widgets\AdminlteSideBar;
+use app\mmadmin\widgets\AdminlteSideBarMenu;
 use app\backend\widgets\StartCron;
 
 BackendAsset::register($this);

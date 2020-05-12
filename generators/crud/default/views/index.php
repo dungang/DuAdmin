@@ -10,7 +10,7 @@ $labelNames = Inflector::pluralize(Inflector::camel2words(StringHelper::basename
 ?>
 
 use yii\helpers\Html;
-use app\kit\grids\PanelGridView;
+use app\mmadmin\grids\PanelGridView;
 <?= $generator->enablePjax ? 'use yii\widgets\Pjax;' : '' ?>
 
 /* @var $this yii\web\View */
@@ -68,7 +68,7 @@ AAA;
                 if(substr($column->name, -3) == '_at') {
                     echo <<<DATE_FIELD
                     [  
-                        'class' => 'app\kit\grids\DateTimeColumn',
+                        'class' => 'app\mmadmin\grids\DateTimeColumn',
                         'attribute' => '$column->name',
                     ],\n
 DATE_FIELD;
@@ -79,7 +79,7 @@ DATE_FIELD;
             if(substr($column->name, -3) == '_at') {
                 echo <<<DATE_FIELD
                 //[  
-                //    'class' => 'app\kit\grids\DateTimeColumn',
+                //    'class' => 'app\mmadmin\grids\DateTimeColumn',
                 //    'attribute' => '$column->name',
                 //],\n
 DATE_FIELD;
@@ -90,7 +90,7 @@ DATE_FIELD;
 }
 ?>
             [
-                'class' => '\app\kit\grids\ActionColumn',
+                'class' => '\app\mmadmin\grids\ActionColumn',
                 'buttonsOptions'=>[
                     'update'=>[
                         'data-toggle'=>'modal',

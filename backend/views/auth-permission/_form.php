@@ -1,10 +1,10 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use app\kit\models\AuthRule;
+use app\mmadmin\models\AuthRule;
 
 /* @var $this yii\web\View */
-/* @var $model app\kit\models\AuthPermission */
+/* @var $model app\mmadmin\models\AuthPermission */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 

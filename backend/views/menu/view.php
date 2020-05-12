@@ -1,10 +1,10 @@
 <?php
 
-use app\kit\widgets\DetailView;
-use app\kit\widgets\AjaxModalOrNormalPanelContent;
+use app\mmadmin\widgets\DetailView;
+use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
-/* @var $model app\kit\models\Menu */
+/* @var $model app\mmadmin\models\Menu */
 
 $this->title = '查看';
 $this->params['breadcrumbs'][] = ['label' => '菜单', 'url' => ['index']];

@@ -3,7 +3,7 @@
 namespace app\backend\controllers;
 
 
-use app\kit\core\BackendController;
+use app\mmadmin\core\BackendController;
 
 /**
  * MenuController implements the CRUD actions for Menu model.
@@ -14,34 +14,34 @@ class MenuController extends BackendController
 	public function actions(){
 		return [
             'index' => [
-                'class' => 'app\kit\core\ListModelsAction',
+                'class' => 'app\mmadmin\core\ListModelsAction',
                 'modelClass' => [
-                    'class' => 'app\kit\models\MenuSearch',
+                    'class' => 'app\mmadmin\models\MenuSearch',
                     'is_front'=>1,
                 ]
             ],
             'create' => [
-                'class' => 'app\kit\core\CreateModelAction',
+                'class' => 'app\mmadmin\core\CreateModelAction',
                 'modelClass' => [
-                    'class' => 'app\kit\models\Menu'
+                    'class' => 'app\mmadmin\models\Menu'
                 ]
             ],
             'update' => [
-                'class' => 'app\kit\core\UpdateModelAction',
+                'class' => 'app\mmadmin\core\UpdateModelAction',
                 'modelClass' => [
-                    'class' => 'app\kit\models\Menu'
+                    'class' => 'app\mmadmin\models\Menu'
                 ]
             ],
             'view' => [
-                'class' => 'app\kit\core\ViewModelAction',
+                'class' => 'app\mmadmin\core\ViewModelAction',
                 'modelClass' => [
-                    'class' => 'app\kit\models\Menu'
+                    'class' => 'app\mmadmin\models\Menu'
                 ]
             ],
             'delete' => [
-                'class' => 'app\kit\core\DeleteModelAction',
+                'class' => 'app\mmadmin\core\DeleteModelAction',
                 'modelClass' => [
-                    'class' => 'app\kit\models\Menu'
+                    'class' => 'app\mmadmin\models\Menu'
                 ]
             ],
 		];

@@ -1,6 +1,6 @@
 <?php
 
-use app\kit\core\Application;
+use app\mmadmin\core\Application;
 
 // 数据库配置放在具体的项目中是方便项目独立配置，项目之间相互隔离
 $db = require __DIR__ . '/../../config/db-dev.php';
@@ -29,7 +29,7 @@ $config = [
             ]
         ],
         'assetManager' => [
-            'class' => 'app\kit\core\CoreAssetManager',
+            'class' => 'app\mmadmin\core\CoreAssetManager',
             'basePath' => '@app/public/assets'
         ],
         'i18n' => [
@@ -61,9 +61,9 @@ if (YII_ENV_DEV) {
             ],
             'model' => [
                 'class' => 'app\generators\model\Generator',
-                'baseClass' => 'app\kit\core\BaseModel',
-                'ns' => 'app\kit\models',
-                'queryNs' => 'app\kit\models'
+                'baseClass' => 'app\mmadmin\core\BaseModel',
+                'ns' => 'app\mmadmin\models',
+                'queryNs' => 'app\mmadmin\models'
             ],
             'addons' => [
                 'class' => 'app\generators\addons\Generator'

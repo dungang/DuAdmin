@@ -1,10 +1,10 @@
 <?php
 use yii\helpers\Html;
-use app\kit\grids\PanelGridView;
+use app\mmadmin\grids\PanelGridView;
 use app\backend\models\AuthGroup;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\kit\models\AuthPermissionSearch */
+/* @var $searchModel app\mmadmin\models\AuthPermissionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $group = AuthGroup::findOne(['name' => $searchModel->group_name]);

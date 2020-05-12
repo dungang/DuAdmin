@@ -10,7 +10,7 @@ class GiteeProjectCommitsPortal extends Widget
     public function run(){
         
         $client  = new Client();
-        $resp = $client->get("https://gitee.com/dungang/yii2-fast-kit/graph/master.json")->send();
+        $resp = $client->get("https://gitee.com/dungang/yii2-fast-mmadmin/graph/master.json")->send();
         $html = 'No Data';
         if($resp->isOk) {
             $data = Json::decode($resp->content);

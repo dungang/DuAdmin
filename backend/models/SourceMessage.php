@@ -13,7 +13,7 @@ use Yii;
  *
  * @property Message[] $messages
  */
-class SourceMessage extends \app\kit\core\BaseModel
+class SourceMessage extends \app\mmadmin\core\BaseModel
 {
     /**
      * {@inheritdoc}

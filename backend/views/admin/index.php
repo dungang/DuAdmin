@@ -1,11 +1,11 @@
 <?php
 use yii\helpers\Html;
-use app\kit\grids\PanelGridView;
+use app\mmadmin\grids\PanelGridView;
 use yii\widgets\Pjax;
-use app\kit\models\AuthItem;
+use app\mmadmin\models\AuthItem;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\kit\models\UserSearch */
+/* @var $searchModel app\mmadmin\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '管理员';
@@ -33,14 +33,14 @@ PanelGridView::begin([
             'filter' => AuthItem::allIdToName('name', 'name', [
                 'type' => 1
             ]),
-            'class' => 'app\kit\grids\FilterColumn'
+            'class' => 'app\mmadmin\grids\FilterColumn'
         ],
         [
             'attribute' => 'is_super',
             'headerOptions' => [
                 'width' => '80px'
             ],
-            'class' => 'app\kit\grids\BoolColumn'
+            'class' => 'app\mmadmin\grids\BoolColumn'
         ],
         [
             'attribute' => 'status',
@@ -51,7 +51,7 @@ PanelGridView::begin([
                 0 => "<span class='text-danger'>未激活</span>",
                 10 => "<span class='text-success'>已激活</span>"
             ],
-            'class' => 'app\kit\grids\FilterColumn'
+            'class' => 'app\mmadmin\grids\FilterColumn'
         ],
 //         [
 //             'attribute' => 'created_at',
@@ -59,11 +59,11 @@ PanelGridView::begin([
 //             'headerOptions' => [
 //                 'width' => '120px'
 //             ],
-//             'class' => 'app\kit\grids\DateTimeColumn'
+//             'class' => 'app\mmadmin\grids\DateTimeColumn'
 //         ],
 
         [
-            'class' => 'app\kit\grids\ActionColumn',
+            'class' => 'app\mmadmin\grids\ActionColumn',
             'buttonsOptions' => [
                 'update' => [
                     'data-toggle' => 'modal',

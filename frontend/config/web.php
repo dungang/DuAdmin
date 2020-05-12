@@ -1,6 +1,6 @@
 <?php
 
-use app\kit\core\Application;
+use app\mmadmin\core\Application;
 // 数据库配置放在具体的项目中是方便项目独立配置，项目之间相互隔离
 $db = require __DIR__ . '/../../config/db.php';
 $config = [
@@ -25,9 +25,9 @@ $config = [
         ],
 
         'view' => [
-            'class' => 'app\kit\core\CoreView',
+            'class' => 'app\mmadmin\core\CoreView',
             'theme' => [
-                'class' => 'app\kit\components\KitTheme',
+                'class' => 'app\mmadmin\components\KitTheme',
                 'basePath' => '@app/themes/basic',
                 'pathMap' => [
                     '@app/frontend/views' => '@app/themes/basic'
@@ -35,7 +35,7 @@ $config = [
             ]
         ],
         'urlManager' => [
-            'class' => 'app\kit\components\RewriteUrl',
+            'class' => 'app\mmadmin\components\RewriteUrl',
             'cache' => 'cache',
             'showScriptName'=>false,
             //'suffix' => '.html',
@@ -46,7 +46,7 @@ $config = [
             ]
         ],
         'assetManager' => [
-            'class' => 'app\kit\core\CoreAssetManager',
+            'class' => 'app\mmadmin\core\CoreAssetManager',
             'basePath' => '@app/public/assets'
         ],
         'i18n' => [

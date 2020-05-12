@@ -1,0 +1,14 @@
+<?php
+namespace app\mmadmin\widgets;
+
+use yii\bootstrap\Widget;
+
+class ListRowCD extends Widget
+{
+
+    public function run()
+    {
+        $this->registerPlugin('listrowcd');
+    }
+}
+

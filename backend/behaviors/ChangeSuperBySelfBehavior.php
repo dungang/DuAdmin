@@ -3,7 +3,7 @@
 namespace app\backend\behaviors;
 
 use yii\base\Behavior;
-use app\kit\core\BaseModel;
+use app\mmadmin\core\BaseModel;
 use yii\web\ForbiddenHttpException;
 
 /**

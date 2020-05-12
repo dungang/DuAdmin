@@ -1,10 +1,10 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use app\kit\models\Setting;
+use app\mmadmin\models\Setting;
 
 /* @var $this yii\web\View */
-/* @var $model app\kit\models\Setting */
+/* @var $model app\mmadmin\models\Setting */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 

@@ -1,7 +1,7 @@
 <?php
 namespace app\api\controllers;
 
-use app\kit\core\BaseController;
+use app\mmadmin\core\BaseController;
 
 /**
  * Site controller

@@ -1,9 +1,9 @@
 <?php
 
-use app\kit\widgets\AjaxModalOrNormalPanelContent;
+use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this \yii\web\View */
-/* @var $models \app\kit\models\AuthPermission[] */
+/* @var $models \app\mmadmin\models\AuthPermission[] */
 
 $this->title = '批量更新';
 $this->params['breadcrumbs'][] = ['label' => '权限', 'url' => ['index']];

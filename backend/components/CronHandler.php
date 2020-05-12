@@ -2,11 +2,11 @@
 namespace app\backend\components;
 
 use Yii;
-use app\kit\core\ILongPollHandler;
-use app\kit\models\Cron;
+use app\mmadmin\core\ILongPollHandler;
+use app\mmadmin\models\Cron;
 use yii\httpclient\Client;
-use app\kit\components\Crontab;
-use app\kit\helpers\CrontabHelper;
+use app\mmadmin\components\Crontab;
+use app\mmadmin\helpers\CrontabHelper;
 
 /**
  * 检查cron 表中的定时任务的状态
@@ -25,14 +25,14 @@ class CronHandler extends ILongPollHandler
     {
         //初始化一个异步请求的HttpClient
         $this->_httpClient = new Client([
-            'transport' => '\app\kit\components\AsyncStreamTransport'
+            'transport' => '\app\mmadmin\components\AsyncStreamTransport'
         ]);
     }
 
     /**
      * (non-PHPdoc)
      *
-     * @see \app\kit\core\ILongPollHandler::process()
+     * @see \app\mmadmin\core\ILongPollHandler::process()
      */
     public function process()
     {

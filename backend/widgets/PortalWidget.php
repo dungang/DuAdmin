@@ -6,7 +6,7 @@ use yii\base\Widget;
 use app\backend\models\PortalPrivilege;
 use app\backend\models\Portal;
 use app\backend\models\PortalPlace;
-use app\kit\assets\JqueryUIAsset;
+use app\mmadmin\assets\JqueryUIAsset;
 
 class PortalWidget extends Widget
 {

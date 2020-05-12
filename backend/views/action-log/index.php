@@ -1,11 +1,11 @@
 <?php
 
-use app\kit\grids\PanelGridView;
+use app\mmadmin\grids\PanelGridView;
 use yii\widgets\Pjax;
-use app\kit\models\User;
+use app\mmadmin\models\User;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\kit\models\ActionLogSearch */
+/* @var $searchModel app\mmadmin\models\ActionLogSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '操作日志';
@@ -19,12 +19,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             'created_at:datetime',
             [
-                'class'=>'app\kit\grids\FilterColumn',
+                'class'=>'app\mmadmin\grids\FilterColumn',
                 'attribute'=>'user_id',
                 'filter'=> User::allIdToName('id','nick_name'),
             ],
             [
-                'class'=>'app\kit\grids\FilterColumn',
+                'class'=>'app\mmadmin\grids\FilterColumn',
                 'attribute'=>'method',
                 'filter'=> [
                     'POST'=>'POST',
@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             [
-                'class' => '\app\kit\grids\ActionColumn',
+                'class' => '\app\mmadmin\grids\ActionColumn',
                 'template'=>'{view}',
                 'buttonsOptions'=>[
                     'view'=>[

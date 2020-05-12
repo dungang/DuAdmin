@@ -2,7 +2,7 @@
 
 namespace app\backend\controllers;
 
-use app\kit\core\BackendController;
+use app\mmadmin\core\BackendController;
 
 /**
  * 管理员管理
@@ -14,16 +14,16 @@ class AdminController extends BackendController
     {
         return [
             'index' => [
-                'class' => 'app\kit\core\ListModelsAction',
+                'class' => 'app\mmadmin\core\ListModelsAction',
                 'baseAttrs' => [
                     'is_admin' => 1
                 ],
                 'modelClass' => [
-                    'class' => 'app\kit\models\UserSearch'
+                    'class' => 'app\mmadmin\models\UserSearch'
                 ]
             ],
             'create' => [
-                'class' => 'app\kit\core\CreateModelAction',
+                'class' => 'app\mmadmin\core\CreateModelAction',
                 'baseAttrs' => [
                     'is_admin' => 1
                 ],
@@ -33,7 +33,7 @@ class AdminController extends BackendController
                 ]
             ],
             'update' => [
-                'class' => 'app\kit\core\UpdateModelAction',
+                'class' => 'app\mmadmin\core\UpdateModelAction',
                 'modelBehaviors' => [
                     'super-do-self' => 'app\backend\behaviors\ChangeSuperBySelfBehavior'
                 ],
@@ -46,16 +46,16 @@ class AdminController extends BackendController
                 ]
             ],
             'view' => [
-                'class' => 'app\kit\core\ViewModelAction',
+                'class' => 'app\mmadmin\core\ViewModelAction',
                 'baseAttrs' => [
                     'is_admin' => 1
                 ],
                 'modelClass' => [
-                    'class' => 'app\kit\models\User'
+                    'class' => 'app\mmadmin\models\User'
                 ]
             ],
             'delete' => [
-                'class' => 'app\kit\core\DeleteModelAction',
+                'class' => 'app\mmadmin\core\DeleteModelAction',
                 'modelBehaviors' => [
                     'super-do-self' => 'app\backend\behaviors\ChangeSuperBySelfBehavior'
                 ],
@@ -63,7 +63,7 @@ class AdminController extends BackendController
                     'is_admin' => 1
                 ],
                 'modelClass' => [
-                    'class' => 'app\kit\models\User'
+                    'class' => 'app\mmadmin\models\User'
                 ]
             ]
         ];
