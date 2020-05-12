@@ -4,7 +4,7 @@ namespace app\mmadmin\widgets;
 
 use yii\widgets\InputWidget;
 use yii\helpers\Html;
-use app\mmadmin\helpers\KitHelper;
+use app\mmadmin\helpers\MAHelper;
 
 class DefaultEditor extends InputWidget
 {
@@ -29,7 +29,7 @@ class DefaultEditor extends InputWidget
 
     public static function getEditorClass()
     {
-        if ($class = KitHelper::getSetting('editor.default')) {
+        if ($class = MAHelper::getSetting('editor.default')) {
             return $class;
         }
         return 'app\mmadmin\widgets\DefaultEditor';

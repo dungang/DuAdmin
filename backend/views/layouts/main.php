@@ -6,7 +6,7 @@ use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use app\mmadmin\widgets\Notify;
 use app\mmadmin\widgets\SimpleModal;
-use app\mmadmin\helpers\KitHelper;
+use app\mmadmin\helpers\MAHelper;
 use app\mmadmin\models\Setting;
 use app\mmadmin\models\Menu;
 use app\mmadmin\assets\BackendAsset;
@@ -72,14 +72,14 @@ BackendAsset::register($this);
                 <li class="dropdown user user-menu">
                     <!-- Menu Toggle Button --> <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <!-- The user image in the navbar-->
-                        <?= KitHelper::img($user->avatar, ['class' => 'user-image', 'width' => 160, 'height' => 160]) ?>
+                        <?= MAHelper::img($user->avatar, ['class' => 'user-image', 'width' => 160, 'height' => 160]) ?>
                         <!-- hidden-xs hides the username on small devices so only the image appears. -->
                         <span class="hidden-xs"><?= $user->nick_name ?></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- The user image in the menu -->
                         <li class="user-header">
-                            <?= KitHelper::img($user->avatar, ['class' => 'img-circle', 'width' => 160, 'height' => 160]) ?>
+                            <?= MAHelper::img($user->avatar, ['class' => 'img-circle', 'width' => 160, 'height' => 160]) ?>
                             <p>
                                 <?= $user->nick_name ?>
                             </p>
@@ -104,7 +104,7 @@ BackendAsset::register($this);
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
             <div class="pull-left image">
-                <?= KitHelper::img($user->avatar, ['class' => 'img-circle', 'width' => '45px', 'height' => '45px']) ?>
+                <?= MAHelper::img($user->avatar, ['class' => 'img-circle', 'width' => '45px', 'height' => '45px']) ?>
             </div>
             <div class="pull-left info">
                 <p><?= Yii::$app->user->identity->nick_name ?></p>

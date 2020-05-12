@@ -2,7 +2,7 @@
 namespace app\mmadmin\core;
 
 use yii\base\DynamicModel;
-use app\mmadmin\helpers\KitHelper;
+use app\mmadmin\helpers\MAHelper;
 use yii\base\Model;
 
 /**
@@ -99,7 +99,7 @@ abstract class BaseDynamicModel extends DynamicModel
             $rows[] = $this->prepareExtPropertyValueRow($masterModel, $property);
         }
         if(count($rows)>0){
-            KitHelper::batchReplaceInto($this->prepareExtPropertyValueTable(), $this->prepareExtPropertyValueFields(), $rows);
+            MAHelper::batchReplaceInto($this->prepareExtPropertyValueTable(), $this->prepareExtPropertyValueFields(), $rows);
         }
     }
 

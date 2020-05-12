@@ -2,7 +2,7 @@
 
 namespace app\mmadmin\core;
 
-use app\mmadmin\helpers\KitHelper;
+use app\mmadmin\helpers\MAHelper;
 use yii\base\Arrayable;
 use yii\filters\auth\HttpBearerAuth;
 use yii\filters\RateLimiter;
@@ -54,7 +54,7 @@ class ApiController extends Controller
             } else {
                 $fields = $this->hiddenFields;
             }
-            $result = KitHelper::walkRecursiveRemove($result, function ($v, $k) use ($fields) {
+            $result = MAHelper::walkRecursiveRemove($result, function ($v, $k) use ($fields) {
                 return in_array($k, $fields);
             });
         }

@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use app\mmadmin\models\Setting;
-use app\mmadmin\helpers\KitHelper;
+use app\mmadmin\helpers\MAHelper;
 use app\mmadmin\widgets\HighLight;
 
 /* @var $this yii\web\View */
@@ -23,11 +23,11 @@ $user = app\mmadmin\models\User::findOne([
 
 $this->registerMetaTag([
 	'name' => 'keywords',
-	'content' => $model->keywords . ',' . KitHelper::getSetting('site.keywords')
+	'content' => $model->keywords . ',' . MAHelper::getSetting('site.keywords')
 ], 'keywords');
 $this->registerMetaTag([
 	'name' => 'description',
-	'content' => $model->description . ',' . KitHelper::getSetting('site.description')
+	'content' => $model->description . ',' . MAHelper::getSetting('site.description')
 ], 'description');
 ?>
 

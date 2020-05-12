@@ -62,7 +62,7 @@ class AuthHelper
      */
     public static function a($text, $url = null, $options = [])
     {
-        $tmp_url = KitHelper::normalizeUrl2Route($url);
+        $tmp_url = MAHelper::normalizeUrl2Route($url);
         if(is_array($tmp_url)) {
             $route = $tmp_url[0];
             unset($tmp_url[0]);

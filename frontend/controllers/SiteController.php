@@ -3,7 +3,7 @@
 namespace app\frontend\controllers;
 
 use app\mmadmin\core\FrontendController;
-use app\mmadmin\helpers\KitHelper;
+use app\mmadmin\helpers\MAHelper;
 use app\mmadmin\hooks\FindSlugHook;
 use yii\helpers\VarDumper;
 
@@ -19,11 +19,11 @@ class SiteController extends FrontendController
 
         $this->view->registerMetaTag([
             'name' => 'keywords',
-            'content' => KitHelper::getSetting('site.keywords')
+            'content' => MAHelper::getSetting('site.keywords')
         ], 'keywords');
         $this->view->registerMetaTag([
             'name' => 'description',
-            'content' => KitHelper::getSetting('site.description')
+            'content' => MAHelper::getSetting('site.description')
         ], 'description');
     }
 
@@ -57,7 +57,7 @@ class SiteController extends FrontendController
      */
     public function actionIndex()
     {
-        if ($url = KitHelper::getSetting("site.index-page")) {
+        if ($url = MAHelper::getSetting("site.index-page")) {
             return $this->redirect($url);
         } else {
             return $this->render("index");

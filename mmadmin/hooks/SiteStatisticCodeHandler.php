@@ -4,7 +4,7 @@ namespace app\mmadmin\hooks;
 
 use app\mmadmin\core\FrontendController;
 use yii\web\View;
-use app\mmadmin\helpers\KitHelper;
+use app\mmadmin\helpers\MAHelper;
 
 /**
  * 网站页面头部添加统计代码
@@ -27,7 +27,7 @@ class SiteStatisticCodeHandler extends Handler
     public function process($hook)
     {
         if ($this->isNotAjaxWithFrontend()) {
-            if ($statisticCode = KitHelper::getSetting('site.tongji')) {
+            if ($statisticCode = MAHelper::getSetting('site.tongji')) {
                 $view = \Yii::$app->view;
                 $view->registerJs($statisticCode, View::POS_HEAD);
             }

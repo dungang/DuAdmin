@@ -3,7 +3,7 @@ namespace app\mmadmin\widgets;
 
 use yii\base\Widget;
 use yii\helpers\Html;
-use app\mmadmin\helpers\KitHelper;
+use app\mmadmin\helpers\MAHelper;
 
 /**
  *
@@ -27,7 +27,7 @@ class PanelNavTabs extends Widget
     {
         if (! is_array($this->tabs))
             return '';
-        $this->tabs = KitHelper::reActiveItem($this->tabs);
+        $this->tabs = MAHelper::reActiveItem($this->tabs);
         if ($this->wrapper) {
             return Html::tag($this->wrapperTag, $this->renderTabs(), [
                 'class' => $this->wrapperClass

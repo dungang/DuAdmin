@@ -3,7 +3,7 @@
 /* @var $content string */
 
 use app\frontend\assets\AppAsset;
-use app\mmadmin\helpers\KitHelper;
+use app\mmadmin\helpers\MAHelper;
 use app\mmadmin\models\Menu;
 use app\mmadmin\models\Setting;
 use app\mmadmin\widgets\LazyLoad;
@@ -20,7 +20,7 @@ AppAsset::register($this);
 ThemeAsset::register($this);
 Notify::widget();
 LazyLoad::widget();
-$this->params['logo'] = KitHelper::getSetting('site.logo');
+$this->params['logo'] = MAHelper::getSetting('site.logo');
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -32,7 +32,7 @@ $this->params['logo'] = KitHelper::getSetting('site.logo');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title  . '-' . KitHelper::getSetting('site.name')) ?></title>
+    <title><?= Html::encode($this->title  . '-' . MAHelper::getSetting('site.name')) ?></title>
     <?php $this->head() ?>
 </head>
 
@@ -42,7 +42,7 @@ $this->params['logo'] = KitHelper::getSetting('site.logo');
     <div class="wrap">
         <?php
         NavBar::begin([
-            'brandLabel' => KitHelper::getSetting('site.name'),
+            'brandLabel' => MAHelper::getSetting('site.name'),
             'brandImage' => $this->params['logo'],
             'brandUrl' => Yii::$app->homeUrl,
             'options' => [
@@ -63,7 +63,7 @@ $this->params['logo'] = KitHelper::getSetting('site.logo');
                 if ($frontMenu['require_login'] && Yii::$app->user->isGuest) {
                     continue;
                 }
-                $frontMenu['url'] = KitHelper::normalizeUrl2Route($frontMenu['url']);
+                $frontMenu['url'] = MAHelper::normalizeUrl2Route($frontMenu['url']);
                 $menus[] = $frontMenu;
             }
         }

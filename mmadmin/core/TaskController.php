@@ -4,7 +4,7 @@ namespace app\mmadmin\core;
 
 use Yii;
 use app\mmadmin\models\Cron;
-use app\mmadmin\helpers\KitHelper;
+use app\mmadmin\helpers\MAHelper;
 use yii\web\Controller;
 
 /**
@@ -52,9 +52,9 @@ abstract class TaskController extends Controller
         if ($cron = Cron::findOne([
             'id' => $id
         ])) {
-            if (KitHelper::isDevMode() || $cron->token == $token) {
+            if (MAHelper::isDevMode() || $cron->token == $token) {
                 try {
-                    $this->execJob(KitHelper::parseText2Assoc($cron->param), $cron);
+                    $this->execJob(MAHelper::parseText2Assoc($cron->param), $cron);
                 } catch (\Exception $e) {
                     Yii::warning('定时任务执行异常：' . $cron->task . ',' . $e->getMessage(), __METHOD__);
                     Yii::warning($e->getTraceAsString(), __METHOD__);
@@ -63,7 +63,7 @@ abstract class TaskController extends Controller
                 }
                 //放在任务程序的后面，方便调试。
                 $cron->token = \Yii::$app->security->generateRandomString(32);
-                KitHelper::isDevMode() || $cron->save(false);
+                MAHelper::isDevMode() || $cron->save(false);
             }
         }
         return '';

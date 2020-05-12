@@ -3,7 +3,7 @@ namespace app\backend\task\controllers;
 
 use app\mmadmin\core\TaskController;
 use app\mmadmin\models\MailQueue;
-use app\mmadmin\helpers\KitHelper;
+use app\mmadmin\helpers\MAHelper;
 
 /**
  *
@@ -68,7 +68,7 @@ class SendMailController extends TaskController
 
     protected function enableSendEmailer()
     {
-        if (KitHelper::getSetting('email.host') && KitHelper::getSetting('email.username') && KitHelper::getSetting('email.password') && KitHelper::getSetting('email.port')) {
+        if (MAHelper::getSetting('email.host') && MAHelper::getSetting('email.username') && MAHelper::getSetting('email.password') && MAHelper::getSetting('email.port')) {
             return true;
         } else {
             return false;

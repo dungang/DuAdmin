@@ -1,7 +1,7 @@
 <?php
 namespace app\mmadmin\models;
 
-use app\mmadmin\helpers\KitHelper;
+use app\mmadmin\helpers\MAHelper;
 
 /**
  * This is the model class for table "menu".
@@ -134,7 +134,7 @@ class Menu extends \app\mmadmin\core\BaseModel
             ->orderBy('sort asc')
             ->all();
         if ($vars) {
-            $vars = KitHelper::listToTree($vars);
+            $vars = MAHelper::listToTree($vars);
         }
         return $vars;
     }
@@ -157,7 +157,7 @@ class Menu extends \app\mmadmin\core\BaseModel
             ->orderBy('sort asc')
             ->all();
         // if ($vars) {
-        // $vars = KitHelper::listToTree($vars);
+        // $vars = MAHelper::listToTree($vars);
         // }
         return $vars;
     }

@@ -579,7 +579,7 @@ class MobileDetect
         'MobileBot' => 'Googlebot-Mobile|AdsBot-Google-Mobile|YahooSeeker/M1A1-R2D2',
         'DesktopMode' => 'WPDesktop',
         'TV' => 'SonyDTV|HbbTV', // experimental
-        'WebKit' => '(webmmadmin)[ /]([\w.]+)',
+        'WebMA' => '(webmmadmin)[ /]([\w.]+)',
         // @todo: Include JXD consoles.
         'Console' => '\b(Nintendo|Nintendo WiiU|Nintendo 3DS|Nintendo Switch|PLAYSTATION|Xbox)\b',
         'Watch' => 'SM-V700'
@@ -1453,7 +1453,7 @@ class MobileDetect
             // UC Browser - Tested on Android 2.3 device
             (($this->is('UC Browser') || $this->is('Dolfin')) && $this->version('Android', self::VERSION_TYPE_FLOAT) >= 2.3) || 
 
-            // Kindle 3 and Fire  - Tested on the built-in WebKit browser for each
+            // Kindle 3 and Fire  - Tested on the built-in WebMA browser for each
             ($this->match('Kindle Fire') || $this->is('Kindle') && $this->version('Kindle', self::VERSION_TYPE_FLOAT) >= 3.0) || 
 
             // Nook Color 1.4.1 - Tested on original Nook Color, not Nook Tablet

@@ -2,7 +2,7 @@
 namespace app\mmadmin\widgets;
 
 use yii\base\Widget;
-use app\mmadmin\helpers\KitHelper;
+use app\mmadmin\helpers\MAHelper;
 
 /**
  *
@@ -15,7 +15,7 @@ class BootstrapMatchMobile extends Widget
 
     public function run()
     {
-        if(KitHelper::IsMobile()){
+        if(MAHelper::IsMobile()){
             $this->view->registerJs(
                 "$(function(){
                 $('{$this->container}').width($('{$this->container}').width()-30);

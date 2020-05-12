@@ -4,7 +4,7 @@ namespace app\mmadmin\widgets;
 use yii\base\Widget;
 use yii\helpers\Html;
 use yii\web\View;
-use app\mmadmin\helpers\KitHelper;
+use app\mmadmin\helpers\MAHelper;
 
 /**
  * 背景视频
@@ -31,7 +31,7 @@ class BackgroundVideo extends Widget
     public function run()
     {
         $this->getView()->registerCss($this->bgCss($this->id, $this->image));
-        if (KitHelper::IsMobile() == $this->mobile_support) {
+        if (MAHelper::IsMobile() == $this->mobile_support) {
             $this->getView()->on(View::EVENT_END_BODY, [
                 $this,
                 'renderVideo'

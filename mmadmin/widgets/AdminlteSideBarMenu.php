@@ -3,7 +3,7 @@
 namespace app\mmadmin\widgets;
 
 use yii\base\Widget;
-use app\mmadmin\helpers\KitHelper;
+use app\mmadmin\helpers\MAHelper;
 use Yii;
 use yii\helpers\Html;
 
@@ -45,7 +45,7 @@ class AdminlteSideBarMenu extends Widget
                 return true;
             }
         });
-        $this->items = KitHelper::listToTree($this->items, $this->idKey, $this->pidKey);
+        $this->items = MAHelper::listToTree($this->items, $this->idKey, $this->pidKey);
         $html = $this->enableHeader ? Html::tag('li', $this->headerLabel, [
             'class' => 'header'
         ]) : '';

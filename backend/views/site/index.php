@@ -2,7 +2,7 @@
 use app\mmadmin\models\Setting;
 use app\mmadmin\widgets\BackgroundVideo;
 use yii\helpers\Url;
-use app\mmadmin\helpers\KitHelper;
+use app\mmadmin\helpers\MAHelper;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
@@ -20,7 +20,7 @@ $this->registerMetaTag([
 	<div class="body-content" style="color: white;margin-top:40px;">
 		<div class="jumbotron">
 			<div class="h1">
-				<?=KitHelper::getSetting('site.name') ?><small
+				<?=MAHelper::getSetting('site.name') ?><small
 					style="vertical-align: top;">&reg;</small>
 			</div>
 			<p>『 为梦想创业而生 』</p>
