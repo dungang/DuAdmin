@@ -28,6 +28,9 @@ $config = [
                 ]
             ]
         ],
+        'urlManager' => [
+            'class' => 'app\mmadmin\components\BackendUrlManager',
+        ],
         'assetManager' => [
             'class' => 'app\mmadmin\core\CoreAssetManager',
             'basePath' => '@app/public/assets'

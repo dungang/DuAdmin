@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use app\mmadmin\grids\PanelGridView;
+
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel app\backend\models\MessageSearch */
@@ -13,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php Pjax::begin(['id'=>'message-index']); ?>
 <?php  PanelGridView::begin([
         'id' => 'message-list',
-    	'intro' => 'Messages信息管理',
+    	'intro' => Yii::t('ma','{0} Info Manage','Messages'),
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -41,8 +42,8 @@ $this->params['breadcrumbs'][] = $this->title;
         	]
        ]
     ]); ?>
-<?= Html::a('<i class="fa fa-plus"></i> 添加', ['create'], ['class'=>'btn btn-sm btn-link','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
-<?= Html::a('<i class="fa fa-trash"></i> 删除', ['delete'], ['class'=>'btn btn-sm btn-link del-all','data-target'=>'#message-list']) ?>
+<?= Html::a('<i class="fa fa-plus"></i> ' . Yii::t('ma','Create'), ['create'], ['class'=>'btn btn-sm btn-link','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
+<?= Html::a('<i class="fa fa-trash"></i> '. Yii::t('ma','Delete'), ['delete'], ['class'=>'btn btn-sm btn-link del-all','data-target'=>'#message-list']) ?>
 <?php PanelGridView::end() ?>
 <?php Pjax::end(); ?>
 

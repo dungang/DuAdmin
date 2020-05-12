@@ -4,10 +4,10 @@ use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
 /* @var $this yii\web\View */
 /* @var $model app\backend\models\SourceMessage */
 
-$this->title = '添加';
+$this->title = Yii::t('ma','Create');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Source Messages'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 echo AjaxModalOrNormalPanelContent::widget([
-    'intro'=>'添加Source Messages信息',
+    'intro'=> Yii::t('ma','Create {0} Info', Yii::t('app', 'Source Messages')),
     'content'=>$this->render('_form', ['model' => $model])
 ])?>

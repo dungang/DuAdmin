@@ -6,6 +6,7 @@ use app\mmadmin\core\Application;
 use app\mmadmin\hooks\ViewInitedHook;
 use Yii;
 use yii\base\BootstrapInterface;
+use yii\i18n\PhpMessageSource;
 
 /**
  * 以后这里的配置从其他的外部配置读取
@@ -25,8 +26,15 @@ class Bootstrap implements BootstrapInterface
      */
     public function bootstrap($app)
     {
+        //注册MMAdmin的多语言
+        $app->i18n->translations['ma'] = [
+            'class' => PhpMessageSource::className(),
+            'sourceLanguage' => Yii::$app->sourceLanguage,
+            'basePath' => '@app/mmadmin/messages'
+        ];
+
         //更换mysql的schema对象，支持for update 排他锁
-        if($app->db) {
+        if ($app->db) {
             $app->db->schemaMap['mysql'] = 'app\mmadmin\mysql\Schema';
             $app->db->schemaMap['mysqli'] = 'app\mmadmin\mysql\Schema';
         }

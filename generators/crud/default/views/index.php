@@ -11,6 +11,7 @@ $labelNames = Inflector::pluralize(Inflector::camel2words(StringHelper::basename
 
 use yii\helpers\Html;
 use app\mmadmin\grids\PanelGridView;
+
 <?= $generator->enablePjax ? 'use yii\widgets\Pjax;' : '' ?>
 
 /* @var $this yii\web\View */
@@ -24,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <?= $generator->enablePjax ? "<?php Pjax::begin(['id'=>'".$id_prefix."-index']); ?>\n" : '' ?>
 <?= "<?php  " ?>PanelGridView::begin([
         'id' => '<?= $id_prefix . '-list'?>',
-    	'intro' => '<?= $labelNames  ?>信息管理',
+    	'intro' => Yii::t('ma','{0} Info Manage','<?= $generator->generateString($labelNames) ?>'),
         'dataProvider' => $dataProvider,
         <?= !empty($generator->searchModelClass) ? "'filterModel' => \$searchModel,\n        'columns' => [\n" : "'columns' => [\n"; ?>
 <?php
@@ -104,8 +105,8 @@ DATE_FIELD;
         	]
        ]
     ]); ?>
-<?="<?= " ?>Html::a('<i class="fa fa-plus"></i> 添加', ['create'], ['class'=>'btn btn-sm btn-link','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
-<?="<?= " ?>Html::a('<i class="fa fa-trash"></i> 删除', ['delete'], ['class'=>'btn btn-sm btn-link del-all','data-target'=>'#<?= $id_prefix . '-list'?>']) ?>
+<?="<?= " ?>Html::a('<i class="fa fa-plus"></i> ' . Yii::t('ma','Create'), ['create'], ['class'=>'btn btn-sm btn-link','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
+<?="<?= " ?>Html::a('<i class="fa fa-trash"></i> '. Yii::t('ma','Delete'), ['delete'], ['class'=>'btn btn-sm btn-link del-all','data-target'=>'#<?= $id_prefix . '-list'?>']) ?>
 <?= "<?php PanelGridView::end() ?>\n"?>
 <?= $generator->enablePjax ? "<?php Pjax::end(); ?>\n" : '' ?>
 

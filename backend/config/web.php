@@ -33,6 +33,9 @@ $config = [
         'assetManager' => [
             'class' => '\app\mmadmin\core\CoreAssetManager'
         ],
+        'urlManager' => [
+            'class' => 'app\mmadmin\components\BackendUrlManager',
+        ],
         'i18n' => [
             'translations' => [
                 'app' => [

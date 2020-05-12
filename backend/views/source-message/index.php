@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use app\mmadmin\grids\PanelGridView;
+
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel app\backend\models\SourceMessageSearch */
@@ -13,19 +14,27 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php Pjax::begin(['id'=>'source-message-index']); ?>
 <?php  PanelGridView::begin([
         'id' => 'source-message-list',
-    	'intro' => 'Source Messages信息管理',
+    	'intro' => Yii::t('ma','{0} Info Manage',Yii::t('app', 'Source Messages')),
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
+            ['class'=>'\yii\grid\CheckboxColumn','options'=>['width'=>'50px']],
             [
-                'attribute' => 'id',
+                'attribute' => 'category',
                 'format'=>'raw',
                 'value'=>function($model,$key,$index,$column){
-                    return Html::a($model['id'],['view','id'=>$model['id']],['data-toggle'=>'modal','data-target'=>'#modal-dailog']);
+                    return Html::a($model['category'],['view','id'=>$model['id']],['data-toggle'=>'modal','data-target'=>'#modal-dailog']);
                 }
         	],
-            'category',
             'message:ntext',
+            [
+                'label'=>Yii::t('ma','Operation'),
+                'format'=>'raw',
+                'value' => function($model,$key,$index,$column) {
+                    return Html::a(Yii::t('ma','Manage {0}', Yii::t('app','Messages')),['/message/batch-manage','Message[id]'=>$model->id],
+                    ['class'=>'btn btn-sm btn-link','data-toggle'=>'modal','data-target'=>'#modal-dailog']);
+                }
+            ],
             [
                 'class' => '\app\mmadmin\grids\ActionColumn',
                 'buttonsOptions'=>[
@@ -41,8 +50,8 @@ $this->params['breadcrumbs'][] = $this->title;
         	]
        ]
     ]); ?>
-<?= Html::a('<i class="fa fa-plus"></i> 添加', ['create'], ['class'=>'btn btn-sm btn-link','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
-<?= Html::a('<i class="fa fa-trash"></i> 删除', ['delete'], ['class'=>'btn btn-sm btn-link del-all','data-target'=>'#source-message-list']) ?>
+<?= Html::a('<i class="fa fa-plus"></i> ' . Yii::t('ma','Create'), ['create'], ['class'=>'btn btn-sm btn-link','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
+<?= Html::a('<i class="fa fa-trash"></i> '. Yii::t('ma','Delete'), ['delete'], ['class'=>'btn btn-sm btn-link del-all','data-target'=>'#source-message-list']) ?>
 <?php PanelGridView::end() ?>
 <?php Pjax::end(); ?>
 
