@@ -36,11 +36,10 @@ $config = [
         'i18n' => [
             'translations' => [
                 'app' => [
-                    'class' => '\yii\i18n\PhpMessageSource',
-                    'basePath' => '@app/backend/messages',
+                    'class' => '\yii\i18n\DbMessageSource'
                 ],
             ],
-        ],
+        ]
     ]
 ];
 

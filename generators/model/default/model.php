@@ -19,6 +19,7 @@ echo "<?php\n";
 
 namespace <?= $generator->ns ?>;
 
+use Yii;
 /**
  * "<?= $generator->generateTableName($tableName) ?>"表的模型类.
  *
