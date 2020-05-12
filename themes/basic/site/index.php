@@ -25,7 +25,7 @@ $this->title = Yii::t('app','Home');
 </div>
 <div class="block-bar">
     <div class="container">
-        <h3><?= Yii::t('theme','CONTRACT US')?></h3>
+        <h3><?= Yii::t('theme','CONTACT US')?></h3>
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <?= RequiredFormShow::widget() ?>
