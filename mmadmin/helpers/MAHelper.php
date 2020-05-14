@@ -214,6 +214,7 @@ class MAHelper
      */
     public static function reActiveItem($items)
     {
+        if(empty($items)) return $items;
         // 获取请求的路由，是完整的，头部不会自动添加'/'
         $route = \Yii::$app->requestedRoute;
         $params = [];

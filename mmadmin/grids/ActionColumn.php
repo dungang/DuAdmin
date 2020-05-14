@@ -1,7 +1,9 @@
 <?php
+
 namespace app\mmadmin\grids;
 
 use Yii;
+use yii\db\ActiveQueryInterface;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\Column;
@@ -154,9 +156,9 @@ class ActionColumn extends Column
      */
     protected function initDefaultButtons()
     {
-        $this->initDefaultButton('view', 'eye','btn-default');
-        $this->initDefaultButton('update', 'edit','btn-success');
-        $this->initDefaultButton('delete', 'trash','btn-danger', [
+        $this->initDefaultButton('view', 'eye', 'btn-default');
+        $this->initDefaultButton('update', 'edit', 'btn-success');
+        $this->initDefaultButton('delete', 'trash', 'btn-danger', [
             'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
             'data-method' => 'post'
         ]);
@@ -173,9 +175,9 @@ class ActionColumn extends Column
      *            Array of additional options
      * @since 2.0.11
      */
-    protected function initDefaultButton($name, $iconName,$btnClass, $additionalOptions = [])
+    protected function initDefaultButton($name, $iconName, $btnClass, $additionalOptions = [])
     {
-        if (! isset($this->buttons[$name]) && strpos($this->template, '{' . $name . '}') !== false) {
+        if (!isset($this->buttons[$name]) && strpos($this->template, '{' . $name . '}') !== false) {
             $this->buttons[$name] = function ($url, $model, $key) use ($name, $iconName, $btnClass, $additionalOptions) {
                 switch ($name) {
                     case 'view':
@@ -195,7 +197,7 @@ class ActionColumn extends Column
                     'title' => $title,
                     'aria-label' => $title,
                     'data-pjax' => '0',
-                    'class'=>'btn btn-xs '.$btnClass,
+                    'class' => 'btn btn-xs ' . $btnClass,
                 ], $additionalOptions, $this->buttonOptions, $buttonOptions);
                 $icon = Html::tag('span', '', [
                     'class' => "fa fa-$iconName"
@@ -205,7 +207,8 @@ class ActionColumn extends Column
         }
     }
 
-    public function getRoute($action) {
+    public function getRoute($action)
+    {
         return $this->controller ? $this->controller . '/' . $action : $action;
     }
 
@@ -244,13 +247,19 @@ class ActionColumn extends Column
         if (is_callable($this->urlCreator)) {
             return call_user_func($this->urlCreator, $action, $model, $key, $index, $this);
         }
+
         if (is_array($key)) {
             $params = $key;
-        } else {
+        } else if ($this->grid->dataProvider->key) {
+            $params = [$this->grid->dataProvider->key => $key];
+        } else if ($model instanceof ActiveQueryInterface) {
             $keyNames = $model->primaryKey();
-            $params = [
-                $keyNames[0] => (string) $key
-            ];
+            $params = [];
+            foreach ($keyNames as $keyName) {
+                $params[$keyName] = $model[$keyName];
+            }
+        } else {
+            $params = ['id' => $key];
         }
         $params[0] = $this->getRoute($action);
 
