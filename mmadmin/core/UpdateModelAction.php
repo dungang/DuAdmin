@@ -42,6 +42,8 @@ class UpdateModelAction extends BaseAction
 
             if ($loaded === false) {
                 return $this->controller->renderOnFail($this->viewName, $this->data, '提交的字段更服务端不一致');
+            } else if ($model->hasErrors()) {
+                return $this->controller->renderOnFail($this->viewName, $this->data, array_values($model->getFirstErrors())[0]);
             }
             return $this->controller->renderOnFail($this->viewName, $this->data);
         }

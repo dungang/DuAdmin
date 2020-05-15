@@ -259,7 +259,7 @@ class BaseController extends Controller
      */
     public final function renderOnFail($view, $params = [], $message = '处理失败')
     {
-        return $this->thenRender('fail', $view, $params, $message);
+        return $this->thenRender('error', $view, $params, $message);
     }
 
     /**
@@ -271,7 +271,7 @@ class BaseController extends Controller
      */
     public final function renderWithoutViewOnFail($params = [], $message = '处理失败')
     {
-        return $this->thenRender('fail', null, $params, $message);
+        return $this->thenRender('error', null, $params, $message);
     }
 
     /**

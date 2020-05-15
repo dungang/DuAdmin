@@ -15,6 +15,7 @@ $config = [
         '@npm' => '@vendor/npm-asset'
     ],
     'validators' => [
+        'slug' => '\app\mmadmin\validators\SlugValidator',
         'mobile' => '\app\mmadmin\validators\MobileValidator', //手机验证
         'alternative' => '\app\mmadmin\validators\AlternativeValidator', //二选一验证
     ],

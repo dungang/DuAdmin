@@ -1,4 +1,5 @@
 <?php
+
 namespace app\mmadmin\widgets;
 
 use yii\base\Widget;
@@ -7,16 +8,6 @@ use yii\helpers\Json;
 
 class Notify extends Widget
 {
-
-    public $msg;
-
-    /**
-     * success,info,error,warning
-     *
-     * @var string
-     */
-    public $type = 'success';
-
     /**
      * center left right
      *
@@ -35,40 +26,42 @@ class Notify extends Widget
 
     public $clickable = false;
 
-    public $timeout = 2000;
-    
+    public $timeout = 5000;
+
+    //success, error, warning, info
     public $alertTypes = [
-        'error' => 'alert-danger',
-        'danger' => 'alert-danger',
-        'success' => 'alert-success',
-        'info' => 'alert-info',
-        'warning' => 'alert-warning'
+        'error' => 'error',
+        'danger' => 'error',
+        'exception' => 'error',
+        'fail' => 'error',
+        'success' => 'success',
+        'info' => 'info',
+        'warning' => 'warning'
     ];
-    
+
 
     public function run()
     {
         NotifyAsset::register($this->view);
         $session = \Yii::$app->session;
         $flashes = $session->getAllFlashes();
+        // print_r($flashes);
+        // die;
         foreach ($flashes as $type => $flash) {
-            if (! isset($this->alertTypes[$type])) {
-                continue;
+            if (isset($this->alertTypes[$type]) && $type = $this->alertTypes[$type]) {
+                foreach (array_values((array) $flash) as $message) {
+                    $this->renderNotify($type, $message);
+                }
             }
-            
-            foreach (array_values((array)$flash) as $message) {
-                $this->renderNotify($message);
-            }
-            
             $session->removeFlash($type);
         }
-        
     }
-    
-    public function renderNotify($msg){
+
+    public function renderNotify($type, $msg)
+    {
         $options = [
             'msg' => $msg,
-            'type' => $this->type,
+            'type' => $type,
             'position' => $this->position,
             // 'width'=>$this->width,
             // 'height'=>$this->height,
@@ -78,9 +71,8 @@ class Notify extends Widget
             'clickable' => $this->clickable,
             'timeout' => $this->timeout
         ];
-        
+
         $js = "notif(" . Json::htmlEncode($options) . ")";
         $this->view->registerJs($js);
     }
 }
-
