@@ -5,6 +5,7 @@ return [
     'Delete' => '删除',
     'Update' => '编辑',
     'Save' => '保存',
+    'Submit' => '提交',
     'List' => '列表',
     'View' => '查看',
     'Create {0}' => '添加{0}',

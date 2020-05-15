@@ -2,6 +2,7 @@
 
 namespace app\mmadmin\widgets;
 
+use app\mmadmin\helpers\MAHelper;
 use Yii;
 use yii\bootstrap\Widget;
 use yii\helpers\Html;
@@ -13,13 +14,13 @@ class SwitchLanguage extends Widget
     public $wrapper_end = '</li></ul>';
     public $gap = '</li><li>';
 
-    public $langs = [
-        'zh-CN' => '中文',
-        'en-US' => 'English',
-    ];
+    public $langs;
 
     public function run()
     {
+        if(empty($this->lang)) {
+            $this->langs = MAHelper::getSettingAssoc('site.i18n');
+        }
         $current_lang = Yii::$app->language;
         $current_route = Yii::$app->controller->route;
         $links = [];
@@ -27,7 +28,7 @@ class SwitchLanguage extends Widget
         array_unshift($params, $current_route);
 
         foreach ($this->langs as $lang => $name) {
-            $params['lang'] = $lang;
+            $params['_lang'] = $lang;
             if ($lang == $current_lang) {
                 $links[] = Html::a($name, $params, ['class' => 'switch-lang-link lang-active']);
             } else {

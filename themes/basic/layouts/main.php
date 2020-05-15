@@ -52,7 +52,7 @@ $this->params['logo'] = MAHelper::getSetting('site.logo');
         echo SwitchLanguage::widget();
         $menus = [
             [
-                'label' => Yii::t('app','Home'),
+                'label' => Yii::t('yii','Home'),
                 'url' => [
                     '/site/index'
                 ]

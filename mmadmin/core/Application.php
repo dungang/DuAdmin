@@ -21,8 +21,8 @@ class Application extends WebApplication
 
         //更加参数识别语言
         //需要 \app\mmadmin\components\RewriteUrl的支持
-        if ($lang = Yii::$app->request->get('lang')) {
-            Yii::$app->urlManager->common_params['lang'] = $lang;
+        if ($lang = Yii::$app->request->get('_lang')) {
+            Yii::$app->urlManager->common_params['_lang'] = $lang;
             $this->language = $lang;
         } else {
             // 根据浏览器识别语言

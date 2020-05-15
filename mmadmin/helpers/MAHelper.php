@@ -11,6 +11,7 @@ use app\mmadmin\events\CustomerEvent;
 use yii\base\Component;
 use app\mmadmin\models\MailQueue;
 use app\mmadmin\core\BackendController;
+use Yii;
 use yii\base\Arrayable;
 
 /**
@@ -214,7 +215,7 @@ class MAHelper
      */
     public static function reActiveItem($items)
     {
-        if(empty($items)) return $items;
+        if (empty($items)) return $items;
         // 获取请求的路由，是完整的，头部不会自动添加'/'
         $route = \Yii::$app->requestedRoute;
         $params = [];
@@ -505,5 +506,17 @@ class MAHelper
         $mail->time_to_send = $time;
         $mail->try_send = $try_times;
         return $mail->save(false);
+    }
+
+    public static function translation_link($category, $message)
+    {
+        return Html::a('<i class="fa fa-language"></i> ' . Yii::t('ma', 'Translation'), [
+            '/translation/setting',
+            'category' => $category, 'message' => $message
+        ],[
+            'class'=>'btn btn-sm btn-link',
+            'data-toggle'=>'modal',
+            'data-target'=>'#modal-dailog',
+        ]);
     }
 }
