@@ -282,6 +282,7 @@ class BaseAction extends Action
         /* @var $model ActiveRecord */
         $model = null;
         $scenario = Model::SCENARIO_DEFAULT;
+
         if ($this->modelClass) {
             if (is_string($this->modelClass)) {
                 $class = $this->modelClass;
@@ -289,13 +290,15 @@ class BaseAction extends Action
             } else if (is_array($this->modelClass) && isset($this->modelClass['class'])) {
                 $args = $this->modelClass;
                 $class = array_shift($args);
+            } else {
+                throw new InvalidConfigException();
             }
             if (isset($args['scenario'])) {
                 $scenario = $args['scenario'];
                 unset($args['scenario']);
             }
             if ($class) {
-                $condition = array_merge($this->getPrimaryKeyCondition($class), $args ?: []);
+                $condition = array_merge($args ?: [], $this->getPrimaryKeyCondition($class));
                 //是否设置了查找的固定参数
                 if ($this->baseAttrs) {
                     $condition = \array_merge($condition, $this->baseAttrs);
@@ -305,18 +308,24 @@ class BaseAction extends Action
                     'findOne'
                 ), $this->clearCond($condition));
             }
-        }
-        if ($model !== null) {
-            $model->setScenario($scenario);
-            return $model;
-        } else if ($createOneOnNotFound) {
-            return \Yii::createObject([
-                'class' => $this->modelClass,
-                'scenario' => $scenario
-            ]);
-        }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+            if ($model !== null) {
+                $model->setScenario($scenario);
+                foreach ($condition as $field => $val) {
+                    if ($model->$field === null) {
+                        $model->$field = $val;
+                    }
+                }
+                return $model;
+            } else if ($createOneOnNotFound) {
+                $condition['class'] = $this->modelClass;
+                $condition['scenario'] = $scenario;
+                return \Yii::createObject($condition);
+            }
+
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+        throw new InvalidConfigException();
     }
 
     /**
@@ -329,31 +338,50 @@ class BaseAction extends Action
     {
         $models = null;
         if ($this->modelClass) {
-            $class = $this->modelClass;
-            if (is_array($this->modelClass) && isset($this->modelClass['class'])) {
-                $class = $this->modelClass['class'];
+            if (is_string($this->modelClass)) {
+                $class = $this->modelClass;
+                $args = [];
+            } else if (is_array($this->modelClass) && isset($this->modelClass['class'])) {
+                $args = $this->modelClass;
+                $class = array_shift($args);
+            } else {
+                throw new InvalidConfigException();
             }
-            $condition = $this->getPrimaryKeyCondition($class);
-            
-            if ($condition && is_array($condition)) {
-                //是否设置了查找的固定参数
-                if ($this->baseAttrs) {
-                    $condition = \array_merge($condition, $this->baseAttrs);
-                }
-                $condition = $this->clearCond($condition);
-                
-                if (!empty($condition)) {
-                    $models = call_user_func(array(
-                        $class,
-                        'findAll'
-                    ), $condition);
+            if (isset($args['scenario'])) {
+                $scenario = $args['scenario'];
+                unset($args['scenario']);
+            }
+            if ($class) {
+                $condition = array_merge($args ?: [], $this->getPrimaryKeyCondition($class));
+                if ($condition && is_array($condition)) {
+                    //是否设置了查找的固定参数
+                    if ($this->baseAttrs) {
+                        $condition = \array_merge($condition, $this->baseAttrs);
+                    }
+                    $condition = $this->clearCond($condition);
+
+                    if (!empty($condition)) {
+                        $models = call_user_func(array(
+                            $class,
+                            'findAll'
+                        ), $condition);
+                    }
                 }
             }
+            if ($models !== null) {
+                return array_map(function ($model) use ($condition, $scenario) {
+                    $model->setScenario($scenario);
+                    foreach ($condition as $field => $val) {
+                        if ($model->$field === null) {
+                            $model->$field = $val;
+                        }
+                    }
+                    return $model;
+                }, $models);
+            }
+            throw new NotFoundHttpException('The requested page does not exist.');
         }
-        if ($models !== null) {
-            return $models;
-        }
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new InvalidConfigException();
     }
 
     private function clearCond($cond)

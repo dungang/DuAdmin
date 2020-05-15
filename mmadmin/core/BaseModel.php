@@ -140,6 +140,24 @@ class BaseModel extends ActiveRecord
         return $this->save(false);
     }
 
+
+    /**
+     * 复制属性
+     *
+     * @param \yii\base\Model $from_model
+     * @return void
+     */
+    public function copyAttrs($from_model)
+    {
+        $attrs = array_keys($this->getAttributes());
+        foreach ($attrs as $attr) {
+            if ($from_model->hasProperty($attr)) {
+                $this->$attr = $from_model->$attr;
+            }
+        }
+        return $this;
+    }
+
     /**
      * 搜索模型在收索前执行的事件，
      * 对参数和query做修改

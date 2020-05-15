@@ -16,9 +16,8 @@ class UpdateModelAction extends BaseAction
 
         /* @var $model \yii\db\ActiveRecord */
         $model = $this->findModel($this->createOneOnNotFound);
-
-        $model->getPrimaryKey();
         $model->load(\Yii::$app->request->queryParams);
+ 
         $this->data = [
             'model' => $model
         ];
