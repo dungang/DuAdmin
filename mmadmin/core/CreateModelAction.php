@@ -37,6 +37,7 @@ class CreateModelAction extends BaseAction
                 $this->trigger(self::EVENT_CREATE_SUCCESS, new CustomerEvent([
                     'payload' => $model
                 ]));
+
                 if (!$this->successRediretUrl) {
                     $this->successRediretUrl = \Yii::$app->request->referrer;
                 }
@@ -45,9 +46,11 @@ class CreateModelAction extends BaseAction
 
             if ($loaded === false) {
                 $this->beforeRender();
-                return $this->controller->renderOnFail($this->viewName, $this->data, '可能表达的字段更服务端不一致');
+                return $this->controller->renderOnFail($this->viewName, $this->data,  Yii::t('ma', 'Data fields error'));
+            } else if ($model->hasErrors()) {
+                return $this->controller->renderOnFail($this->viewName, $this->data, array_values($model->getFirstErrors())[0]);
             }
-            return $this->controller->renderOnFail($this->viewName, $this->data, $model->firstErrors);
+            return $this->controller->renderOnFail($this->viewName, $this->data);
         }
 
         return $this->controller->render($this->viewName, $this->data);

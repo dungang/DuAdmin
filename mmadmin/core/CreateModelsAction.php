@@ -15,8 +15,8 @@ class CreateModelsAction extends BaseAction
         $count = count(Yii::$app->request->post($this->formName, []));
         /* @var $model \yii\db\ActiveRecord */
         /* @var $models \yii\db\ActiveRecord[] */
-        $model = \Yii::createObject($this->modelClass);
-        $model->load(\Yii::$app->request->queryParams);
+        $model = Yii::createObject($this->modelClass);
+        $model->load(Yii::$app->request->queryParams);
         $models = [
             $model
         ];
@@ -26,8 +26,8 @@ class CreateModelsAction extends BaseAction
         // 动态绑定行为
         $model->attachBehaviors($this->modelBehaviors);
         for ($i = 1; $i < $count; $i++) {
-            $model = \Yii::createObject($this->modelClass);
-            $model->load(\Yii::$app->request->queryParams);
+            $model = Yii::createObject($this->modelClass);
+            $model->load(Yii::$app->request->queryParams);
             // 动态绑定行为
             $model->attachBehaviors($this->modelBehaviors);
             $models[] = $model;
@@ -41,12 +41,12 @@ class CreateModelsAction extends BaseAction
                         $model->save(false);
                     }
                 });
-                return $this->controller->redirectOnSuccess(\Yii::$app->request->referrer, $this->successMsg);
+                return $this->controller->redirectOnSuccess(Yii::$app->request->referrer, $this->successMsg);
             }
 
             if ($loaded === false) {
                 $this->beforeRender();
-                return $this->controller->renderOnFail($this->viewName, $this->data, '提交的字段跟服务端不一致');
+                return $this->controller->renderOnFail($this->viewName, $this->data, Yii::t('ma', 'Data fields error'));
             }
             return $this->controller->renderOnFail($this->viewName, $this->data);
         }

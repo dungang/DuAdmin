@@ -2,6 +2,7 @@
 
 namespace app\mmadmin\core;
 
+use Yii;
 use yii\base\Action;
 use yii\web\NotFoundHttpException;
 use yii\base\InvalidConfigException;
@@ -81,7 +82,7 @@ class BaseAction extends Action
      *
      * @var string
      */
-    public $successMsg = '添加成功';
+    public $successMsg;
 
     /**
      * 输出到视图的数据
@@ -97,6 +98,9 @@ class BaseAction extends Action
         }
         if (!empty($this->actionBehaviors)) {
             $this->attachBehaviors($this->actionBehaviors);
+        }
+        if (empty($this->successMsg)) {
+            $this->successMsg = Yii::t('ma', 'Create success');
         }
     }
 

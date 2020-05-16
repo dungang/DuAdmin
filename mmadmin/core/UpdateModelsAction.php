@@ -32,14 +32,14 @@ class UpdateModelsAction extends BaseAction
                             $this->successRediretUrl = \Yii::$app->request->referrer;
                         }
                         $this->beforeRender();
-                        return $this->controller->redirectOnSuccess($this->getSuccessRediretUrlWidthModel($model), "修改成功");
+                        return $this->controller->redirectOnSuccess($this->getSuccessRediretUrlWidthModel($model), Yii::t('ma', 'Update success'));
                         //return $this->controller->redirectOnSuccess(\Yii::$app->request->referrer, "修改成功");
                     }
                 );
             }
             if ($loaded === false) {
                 $this->beforeRender();
-                return $this->controller->renderOnFail($this->viewName, $this->data, '提交的字段跟服务端不一致');
+                return $this->controller->renderOnFail($this->viewName, $this->data, Yii::t('ma', 'Data fields error'));
             }
         } catch (\Exception $e) {
             Yii::warning($e->getTraceAsString());

@@ -17,7 +17,7 @@ class UpdateModelAction extends BaseAction
         /* @var $model \yii\db\ActiveRecord */
         $model = $this->findModel($this->createOneOnNotFound);
         $model->load(\Yii::$app->request->queryParams);
- 
+
         $this->data = [
             'model' => $model
         ];
@@ -36,11 +36,11 @@ class UpdateModelAction extends BaseAction
                     $this->successRediretUrl = \Yii::$app->request->referrer;
                 }
                 $this->beforeRender();
-                return $this->controller->redirectOnSuccess($this->getSuccessRediretUrlWidthModel($model), "修改成功");
+                return $this->controller->redirectOnSuccess($this->getSuccessRediretUrlWidthModel($model), Yii::t('ma', 'Update success'));
             }
 
             if ($loaded === false) {
-                return $this->controller->renderOnFail($this->viewName, $this->data, '提交的字段更服务端不一致');
+                return $this->controller->renderOnFail($this->viewName, $this->data, Yii::t('ma', 'Data fields error'));
             } else if ($model->hasErrors()) {
                 return $this->controller->renderOnFail($this->viewName, $this->data, array_values($model->getFirstErrors())[0]);
             }
