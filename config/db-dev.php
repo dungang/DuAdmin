@@ -5,7 +5,7 @@ return [
     'username' => 'root',
     'password' => '',
     'charset' => 'utf8mb4',
-    'tablePrefix'=>'bai_',
+    'tablePrefix'=>'ma_',
     // Schema cache options (for production environment)
     'enableSchemaCache' => true,
     'schemaCacheDuration' => 60,

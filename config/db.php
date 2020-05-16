@@ -6,7 +6,7 @@ return [
     'username' => 'docdada',
     'password' => 'docdada!@#83',
     'charset' => 'utf8mb4',
-    'tablePrefix'=>'bai_',
+    'tablePrefix'=>'ma_',
 
     // Schema cache options (for production environment)
     'enableSchemaCache' => true,

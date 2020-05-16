@@ -5,7 +5,7 @@ namespace app\backend\models;
 use Yii;
 
 /**
- * "bai_message"表的模型类.
+ * "ma_message"表的模型类.
  *
  * @property int $id
  * @property string $language
@@ -20,7 +20,7 @@ class Message extends \app\mmadmin\core\BaseModel
      */
     public static function tableName()
     {
-        return 'bai_message';
+        return '{{%pmessage}}';
     }
 
     /**

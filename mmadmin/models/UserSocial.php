@@ -3,7 +3,7 @@
 namespace app\mmadmin\models;
 
 /**
- * "bai_user_social"表的模型类.
+ * "ma_user_social"表的模型类.
  *
  * @property int $user_id 本地用户id
  * @property string $open_id 第三方id
@@ -16,7 +16,7 @@ class UserSocial extends \app\mmadmin\core\BaseModel
      */
     public static function tableName()
     {
-        return 'bai_user_social';
+        return 'ma_user_social';
     }
 
     /**

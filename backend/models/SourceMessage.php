@@ -5,7 +5,7 @@ namespace app\backend\models;
 use Yii;
 
 /**
- * "bai_source_message"表的模型类.
+ * "ma_source_message"表的模型类.
  *
  * @property int $id
  * @property string $category
@@ -20,7 +20,7 @@ class SourceMessage extends \app\mmadmin\core\BaseModel
      */
     public static function tableName()
     {
-        return 'bai_source_message';
+        return '{{%psource_message}}';
     }
 
     /**
