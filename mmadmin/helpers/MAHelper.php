@@ -64,6 +64,19 @@ class MAHelper
         }
     }
 
+    public static function getLanguagesTabsItem(array $route, $key = "language")
+    {
+        $langs = static::getSettingAssoc('site.i18n');
+        $items = [];
+        foreach ($langs as $lang => $text) {
+            $items[] = [
+                'name' => $text,
+                'url' => array_merge($route, [$key => $lang])
+            ];
+        }
+        return $items;
+    }
+
     /**
      * 递归移除元素
      * @param array|Arrable $array

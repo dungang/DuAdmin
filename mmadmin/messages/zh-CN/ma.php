@@ -23,5 +23,7 @@ return [
     'Permissions' => '权限',
     'Menu' => '菜单',
     'Menus' => '菜单',
-    'Language' => '语言'
+    'Language' => '语言',
+    'Created At' => '添加时间',
+    'Updated At' => '更新时间'
 ];
