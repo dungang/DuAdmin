@@ -31,8 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label'=>Yii::t('ma','Operation'),
                 'format'=>'raw',
                 'value' => function($model,$key,$index,$column) {
-                    return Html::a(Yii::t('ma','Manage {0}', Yii::t('app','Messages')),['/message/batch-manage','Message[id]'=>$model->id],
-                    ['class'=>'btn btn-sm btn-link','data-toggle'=>'modal','data-target'=>'#modal-dailog']);
+                    return Html::a(Yii::t('ma','Manage {0}', Yii::t('app','Messages')),['/message/index','Message[id]'=>$model->id],
+                    ['class'=>'btn btn-sm btn-link','data-pjax'=>'0']);
                 }
             ],
             [

@@ -18,13 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            [
-                'attribute' => 'id',
-                'format'=>'raw',
-                'value'=>function($model,$key,$index,$column){
-                    return Html::a($model['id'],['view','id'=>$model['id']],['data-toggle'=>'modal','data-target'=>'#modal-dailog']);
-                }
-        	],
+            'id',
             'language',
             'translation:ntext',
             [
@@ -43,7 +37,6 @@ $this->params['breadcrumbs'][] = $this->title;
        ]
     ]); ?>
 <?= Html::a('<i class="fa fa-plus"></i> ' . Yii::t('ma','Create'), ['create'], ['class'=>'btn btn-sm btn-link','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
-<?= Html::a('<i class="fa fa-trash"></i> '. Yii::t('ma','Delete'), ['delete'], ['class'=>'btn btn-sm btn-link del-all','data-target'=>'#message-list']) ?>
 <?php PanelGridView::end() ?>
 <?php Pjax::end(); ?>
 
