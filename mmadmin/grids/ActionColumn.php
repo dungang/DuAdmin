@@ -3,7 +3,7 @@
 namespace app\mmadmin\grids;
 
 use Yii;
-use yii\db\ActiveQueryInterface;
+use yii\db\ActiveRecordInterface;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\Column;
@@ -252,7 +252,7 @@ class ActionColumn extends Column
             $params = $key;
         } else if ($this->grid->dataProvider->key) {
             $params = [$this->grid->dataProvider->key => $key];
-        } else if ($model instanceof ActiveQueryInterface) {
+        } else if ($model instanceof ActiveRecordInterface) {
             $keyNames = $model->primaryKey();
             $params = [];
             foreach ($keyNames as $keyName) {
@@ -261,6 +261,7 @@ class ActionColumn extends Column
         } else {
             $params = ['id' => $key];
         }
+
         $params[0] = $this->getRoute($action);
 
         return Url::toRoute($params);

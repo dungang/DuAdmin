@@ -263,7 +263,12 @@ class BaseAction extends Action
             $cond = [];
             $params = array_merge(\Yii::$app->request->get(), \Yii::$app->request->post());
             foreach ($primaryKey as $key) {
-                $cond[$key] = isset($params[$key]) ? $params[$key] : null;
+                if (isset($params[$key])) {
+                    $cond[$key] = $params[$key];
+                }
+            }
+            if (empty($cond) && isset($params['id'])) {
+                $cond['id'] = $params['id'];
             }
             return $cond;
         }

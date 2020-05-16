@@ -18,7 +18,7 @@ class SwitchLanguage extends Widget
 
     public function run()
     {
-        if(empty($this->lang)) {
+        if (empty($this->lang)) {
             $this->langs = MAHelper::getSettingAssoc('site.i18n');
         }
         $current_lang = Yii::$app->language;

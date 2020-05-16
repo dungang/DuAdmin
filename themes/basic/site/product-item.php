@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-/* @var $model app\addons\cms\forms\ArticleContent */
+/* @var $model app\addons\cms\vo\ArticleContent */
 ?>
 <div class="col-xs-6 col-sm-6 col-md-3">
     <div class="thumbnail">
