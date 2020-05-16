@@ -34,7 +34,7 @@ INSERT INTO `ma_message` (`id`, `language`, `translation`) VALUES
 -- 导出  表 baiyuan-cms.ma_source_message 结构
 CREATE TABLE IF NOT EXISTS `ma_source_message` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `category` varchar(255) DEFAULT NULL,
+  `category` varchar(64) DEFAULT NULL,
   `message` text DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_source_message_category` (`category`)
