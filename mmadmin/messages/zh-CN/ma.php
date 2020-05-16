@@ -15,4 +15,13 @@ return [
     'View {0} Detail Info' => '查看信息：{0}',
     'Function Description' => '功能说明',
     'Manage {0}' => '管理{0}',
+    'Update success' => '更新成功',
+    'Create success' => '添加成功',
+    'Delete success' => '删除成功',
+    'Date field error' => '数据字段名称不正确',
+    'Permission' => '权限',
+    'Permissions' => '权限',
+    'Menu' => '菜单',
+    'Menus' => '菜单',
+    'Language' => '语言'
 ];
