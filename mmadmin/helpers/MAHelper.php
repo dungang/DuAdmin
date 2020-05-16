@@ -46,6 +46,24 @@ class MAHelper
         return (defined('YII_ENV') && YII_ENV == 'dev');
     }
 
+    public static function swtichLanguage($language = null)
+    {
+        //更加参数识别语言
+        //需要 \app\mmadmin\components\RewriteUrl的支持
+        if ($language || $language = Yii::$app->request->get('_lang')) {
+            Yii::$app->urlManager->common_params['_lang'] = $language;
+            Yii::$app->language = $language;
+        } else {
+            // 根据浏览器识别语言
+            if (($accept_langs = Yii::$app->request->acceptableLanguages) &&
+                is_array($accept_langs) &&
+                count($accept_langs) > 0
+            ) {
+                Yii::$app->language = Yii::$app->request->acceptableLanguages[0];
+            }
+        }
+    }
+
     /**
      * 递归移除元素
      * @param array|Arrable $array
@@ -513,10 +531,10 @@ class MAHelper
         return Html::a('<i class="fa fa-language"></i> ' . Yii::t('ma', 'Translation'), [
             '/translation/setting',
             'category' => $category, 'message' => $message
-        ],[
-            'class'=>'btn btn-sm btn-link',
-            'data-toggle'=>'modal',
-            'data-target'=>'#modal-dailog',
+        ], [
+            'class' => 'btn btn-sm btn-link',
+            'data-toggle' => 'modal',
+            'data-target' => '#modal-dailog',
         ]);
     }
 }
