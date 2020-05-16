@@ -97,7 +97,7 @@ $this->params['logo'] = MAHelper::getSetting('site.logo');
 
     <footer class="footer  text-center">
         <div class="container">
-            <p><?= Html::a('<i class="fa fa-user"></i>  关于我们', ['/about-us']) ?>
+            <p><?= Html::a('<i class="fa fa-user"></i>  ' . Yii::t('theme','About Us'), ['/about-us']) ?>
                 <?= date('Y') ?> &copy; <?= Html::encode(Setting::getSettings('site.company')) ?>
                 <?= Setting::getSettings('site.beian') ?> </p>
         </div>
