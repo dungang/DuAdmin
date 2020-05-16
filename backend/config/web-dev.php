@@ -40,6 +40,9 @@ $config = [
                 'app' => [
                     'class' => '\yii\i18n\DbMessageSource'
                 ],
+                'backend' => [
+                    'class' => '\yii\i18n\DbMessageSource'
+                ],
             ],
         ]
     ]

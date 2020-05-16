@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Html;
 use app\mmadmin\grids\PanelTreeGridView;
+use app\mmadmin\helpers\MAHelper;
 use app\mmadmin\widgets\PanelNavTabs;
 
 /* @var $this yii\web\View */
@@ -19,13 +20,20 @@ PanelTreeGridView::begin([
             'attribute' => 'name',
             'format' => 'raw',
             'value' => function ($model, $key, $index, $column) {
-                return Html::a('<i class="' . $model['icon'] . '"></i> ' . $model['name'], [
+                return Html::a('<i class="' . $model['icon'] . '"></i> ' . Yii::t('app',$model['name']), [
                     'view',
                     'id' => $model['id']
                 ], [
                     'data-toggle' => 'modal',
                     'data-target' => '#modal-dailog'
                 ]);
+            }
+        ],
+        [
+            'label' => Yii::t('ma', 'Translation'),
+            'format' => 'raw',
+            'value' => function ($model, $key, $index, $column) {
+                return MAHelper::translation_link('app', $model->name);
             }
         ],
         'require_login',

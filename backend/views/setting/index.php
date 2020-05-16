@@ -1,6 +1,8 @@
 <?php
+
 use yii\helpers\Html;
 use app\mmadmin\grids\PanelGridView;
+use app\mmadmin\helpers\MAHelper;
 use yii\widgets\Pjax;
 use app\mmadmin\widgets\PanelNavTabs;
 use app\mmadmin\models\Setting;
@@ -9,7 +11,7 @@ use app\mmadmin\models\Setting;
 /* @var $searchModel app\mmadmin\models\SettingSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = \Yii::$app->controller->module->name . '设置';
+$this->title = \Yii::$app->controller->module->name . Yii::t('ma', 'Settings');
 $this->params['breadcrumbs'][] = $this->title;
 Pjax::begin([
     'id' => 'setting-index'
@@ -22,18 +24,32 @@ PanelGridView::begin(
         'columns' => [
             'title',
             [
-                'attribute' => 'value',
-                'format'=>'raw',
+                'label' => Yii::t('ma', 'Translation'),
+                'format' => 'raw',
                 'value' => function ($model, $key, $index, $column) {
-                    $detail =  Html::a('查看详情', [
+                    return MAHelper::translation_link('backend', $model->title);
+                }
+            ],
+            [
+                'attribute' => 'value',
+                'format' => 'raw',
+                'value' => function ($model, $key, $index, $column) {
+                    $detail =  Html::a(Yii::t('ma', 'View Detail'), [
                         'view',
                         'name' => $model['name']
                     ], [
                         'data-toggle' => 'modal',
                         'data-target' => '#modal-dailog'
                     ]);
-                    return $model['val_type']=='STR'
-                        ?(strlen($model['value'])<128?$model['value']:$detail ):$detail;
+                    return $model['val_type'] == 'STR'
+                        ? (strlen($model['value']) < 128 ? $model['value'] : $detail) : $detail;
+                }
+            ],
+            [
+                'label' => Yii::t('ma', 'Translation'),
+                'format' => 'raw',
+                'value' => function ($model, $key, $index, $column) {
+                    return MAHelper::translation_link('app', $model->value);
                 }
             ],
             [
@@ -50,7 +66,8 @@ PanelGridView::begin(
                 ]
             ]
         ]
-    ]);
+    ]
+);
 
 if (\Yii::$app->controller->is_backend_module) {
     $tabs = [];
@@ -65,7 +82,7 @@ if (\Yii::$app->controller->is_backend_module) {
         ];
     }
     $tabs[] = [
-        'name' => '<i class="fa fa-edit"></i> 扩展分类',
+        'name' => '<i class="fa fa-edit"></i> ' . Yii::t('ma', 'Extend Category'),
         'url' => [
             'update',
             'name' => 'setting.category'
@@ -76,7 +93,7 @@ if (\Yii::$app->controller->is_backend_module) {
         ]
     ];
     $tabs[] = [
-        'name' => '<i class="fa fa-plus"></i> 添加设置',
+        'name' => '<i class="fa fa-plus"></i> ' . Yii::t('ma', 'Create'),
         'url' => [
             'create',
             'Setting[category]' => $searchModel->category
@@ -92,7 +109,7 @@ if (\Yii::$app->controller->is_backend_module) {
         'tabs' => $tabs
     ]);
 } else {
-    echo Html::a('<i class="fa fa-plus"></i> 添加设置', [
+    echo Html::a('<i class="fa fa-plus"></i> ' . Yii::t('ma', 'Create'), [
         'create',
         'Setting[category]' => $searchModel->category
     ], [
@@ -101,5 +118,5 @@ if (\Yii::$app->controller->is_backend_module) {
     ]);
 }
 
-PanelGridView::end()?>
-<?php Pjax::end()?>
+PanelGridView::end() ?>
+<?php Pjax::end() ?>

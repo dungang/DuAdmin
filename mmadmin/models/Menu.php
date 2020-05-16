@@ -1,7 +1,9 @@
 <?php
+
 namespace app\mmadmin\models;
 
 use app\mmadmin\helpers\MAHelper;
+use Yii;
 
 /**
  * This is the model class for table "menu".
@@ -125,33 +127,37 @@ class Menu extends \app\mmadmin\core\BaseModel
 
     public static function getFrontMenusData()
     {
-        $vars = self::find()->select('id,pid,name as label,url,icon,require_login')
+        return self::find()->select('id,pid,name as label,url,icon,require_login')
             ->where([
-            'is_front' => 1
-        ])
+                'is_front' => 1
+            ])
             ->indexBy('id')
             ->asArray()
             ->orderBy('sort asc')
             ->all();
-        if ($vars) {
-            $vars = MAHelper::listToTree($vars);
-        }
-        return $vars;
+        // if ($vars) {
+        //     $vars = MAHelper::listToTree($vars);
+        // }
+        // return $vars;
     }
 
     public static function getFrontMenus()
     {
-        return \Yii::$app->cache->getOrSet(self::CacheKeyFront, function () {
+        $menus =  \Yii::$app->cache->getOrSet(self::CacheKeyFront, function () {
             return self::getFrontMenusData();
         });
+        return MAHelper::listToTree(array_map(function($menu){
+            $menu['label'] = Yii::t('app',$menu['label']);
+            return $menu;
+        },$menus));
     }
 
     public static function getBackendMenusData()
     {
-        $vars = self::find()->select('id,pid,name label,url,icon,require_login')
+        $vars = self::find()->select('id,pid,name as label,url,icon,require_login')
             ->where([
-            'is_front' => 0
-        ])
+                'is_front' => 0
+            ])
             ->indexBy('id')
             ->asArray()
             ->orderBy('sort asc')
