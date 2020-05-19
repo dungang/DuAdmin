@@ -346,6 +346,7 @@ class BaseAction extends Action
     protected function findModels()
     {
         $models = null;
+        $scenario = Model::SCENARIO_DEFAULT;
         if ($this->modelClass) {
             if (is_string($this->modelClass)) {
                 $class = $this->modelClass;
@@ -356,6 +357,7 @@ class BaseAction extends Action
             } else {
                 throw new InvalidConfigException();
             }
+           
             if (isset($args['scenario'])) {
                 $scenario = $args['scenario'];
                 unset($args['scenario']);
@@ -379,7 +381,7 @@ class BaseAction extends Action
             }
             if ($models !== null) {
                 return array_map(function ($model) use ($condition, $scenario) {
-                    $model->setScenario($scenario);
+                    $scenario && $model->setScenario($scenario);
                     foreach ($condition as $field => $val) {
                         if ($model->$field === null) {
                             $model->$field = $val;

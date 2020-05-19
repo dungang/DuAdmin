@@ -14,6 +14,7 @@ class ListModelsAction extends BaseAction
     public function run()
     {
         $searchModel = \Yii::createObject($this->modelClass);
+    
         if ($searchModel->hasProperty("is_del") && $this->query_only_undel) {
             $searchModel->is_del = 0;
         }

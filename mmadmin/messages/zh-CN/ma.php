@@ -25,5 +25,8 @@ return [
     'Menus' => '菜单',
     'Language' => '语言',
     'Created At' => '添加时间',
-    'Updated At' => '更新时间'
+    'Updated At' => '更新时间',
+    'Translation' => '翻译',
+    'Settings' => '参数设置',
+    'View Detail' => '查看详情'
 ];

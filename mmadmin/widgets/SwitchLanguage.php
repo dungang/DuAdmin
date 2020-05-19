@@ -11,10 +11,14 @@ class SwitchLanguage extends Widget
 {
 
     public $wrapper_begin = '<ul class="navbar-nav nav"><li>';
+
     public $wrapper_end = '</li></ul>';
+
     public $gap = '</li><li>';
 
     public $langs;
+
+    public $route;
 
     public function run()
     {
@@ -22,17 +26,20 @@ class SwitchLanguage extends Widget
             $this->langs = MAHelper::getSettingAssoc('site.i18n');
         }
         $current_lang = Yii::$app->language;
-        $current_route = Yii::$app->controller->route;
-        $links = [];
-        $params = Yii::$app->request->queryParams;
-        array_unshift($params, $current_route);
+        if(!$this->route) {
+            $current_route = Yii::$app->controller->route;
+            $links = [];
+            $params = Yii::$app->request->queryParams;
+            array_unshift($params, $current_route);
+            $this->route = $params;
+        }
 
         foreach ($this->langs as $lang => $name) {
-            $params['_lang'] = $lang;
+            $this->route['_lang'] = $lang;
             if ($lang == $current_lang) {
-                $links[] = Html::a($name, $params, ['class' => 'switch-lang-link lang-active']);
+                $links[] = Html::a($name, $this->route, ['class' => 'switch-lang-link lang-active']);
             } else {
-                $links[] = Html::a($name, $params, ['class' => 'switch-lang-link']);
+                $links[] = Html::a($name, $this->route, ['class' => 'switch-lang-link']);
             }
         }
         return $this->wrapper_begin . implode($this->gap, $links)  . $this->wrapper_end;

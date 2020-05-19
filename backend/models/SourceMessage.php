@@ -20,7 +20,7 @@ class SourceMessage extends \app\mmadmin\core\BaseModel
      */
     public static function tableName()
     {
-        return '{{%psource_message}}';
+        return '{{%source_message}}';
     }
 
     /**

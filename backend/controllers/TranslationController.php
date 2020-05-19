@@ -26,26 +26,30 @@ class TranslationController extends BackendController
         ];
 
         $source_massage = SourceMessage::findOne($attrs);
-       
+
         if (empty($source_massage)) {
             $source_massage = new SourceMessage($attrs);
         }
         if (Yii::$app->request->isPost) {
-            SourceMessage::transaction(function ($db) use ($source_massage) {
+            return SourceMessage::transaction(function ($db) use ($source_massage) {
                 if ($source_massage->save()) {
                     Message::deleteAll(['id' => $source_massage->id]);
                     $messages = Yii::$app->request->post('Message', []);
-                   
+
                     $messages = array_map(function ($message) use ($source_massage) {
                         $message['id'] = $source_massage->id;
                         return $message;
                     }, $messages);
-                    foreach($messages as $message) {
-                        Yii::$app->db->createCommand()->insert(
-                            Message::tableName(),
-                            $message
-                        )->execute();
+                    foreach ($messages as $message) {
+                        if(!empty($message['translation'])) {
+                            Yii::$app->db->createCommand()->insert(
+                                Message::tableName(),
+                                $message
+                            )->execute();
+                        }
+                        
                     }
+                    return $this->redirectOnSuccess(Yii::$app->request->referrer);
                 }
             });
         }

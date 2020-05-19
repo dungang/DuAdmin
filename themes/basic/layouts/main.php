@@ -32,7 +32,7 @@ $this->params['logo'] = MAHelper::getSetting('site.logo');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title  . '-' . MAHelper::getSetting('site.name')) ?></title>
+    <title><?= Html::encode($this->title  . '-' . Yii::t('app',MAHelper::getSetting('site.name'))) ?></title>
     <?php $this->head() ?>
 </head>
 
@@ -42,14 +42,14 @@ $this->params['logo'] = MAHelper::getSetting('site.logo');
     <div class="wrap">
         <?php
         NavBar::begin([
-            'brandLabel' => MAHelper::getSetting('site.name'),
+            'brandLabel' => Yii::t('app',MAHelper::getSetting('site.name')),
             'brandImage' => $this->params['logo'],
-            'brandUrl' => Yii::$app->homeUrl,
+            'brandUrl' => ['/site/index'],
             'options' => [
                 'class' => 'navbar-default'
             ]
         ]);
-        echo SwitchLanguage::widget();
+        echo SwitchLanguage::widget(['route'=>['/site/index']]);
         $menus = [
             [
                 'label' => Yii::t('yii','Home'),
@@ -69,7 +69,7 @@ $this->params['logo'] = MAHelper::getSetting('site.logo');
         }
         echo Nav::widget([
             'options' => [
-                'class' => 'navbar-nav navbar-right'
+                'class' => 'navbar-nav navbar-right text-uppercase'
             ],
             'activateParents'=>true,
             'items' => $menus
@@ -85,12 +85,12 @@ $this->params['logo'] = MAHelper::getSetting('site.logo');
         <?php
         SimpleModal::begin([
             'size' => 'modal-lg',
-            'header' => '对话框',
+            'header' => Yii::t('ma','Dailog'),
             'options' => [
                 'id' => 'modal-dailog'
             ]
         ]);
-        echo "没有记录";
+        echo Yii::t('ma','No Data');
         SimpleModal::end();
         ?>
     </div>
@@ -98,7 +98,7 @@ $this->params['logo'] = MAHelper::getSetting('site.logo');
     <footer class="footer  text-center">
         <div class="container">
             <p><?= Html::a('<i class="fa fa-user"></i>  ' . Yii::t('theme','About Us'), ['/about-us']) ?>
-                <?= date('Y') ?> &copy; <?= Html::encode(Setting::getSettings('site.company')) ?>
+                <?= date('Y') ?> &copy; <?= Html::encode(Yii::t('app',Setting::getSettings('site.company'))) ?>
                 <?= Setting::getSettings('site.beian') ?> </p>
         </div>
     </footer>
