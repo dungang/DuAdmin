@@ -22,6 +22,8 @@ mix
     .js('public/backend/src/js/main.js', 'public/backend/dist/js')
     //前端主题 basic
     .less('themes/basic/assets/src/less/theme.less', 'themes/basic/assets/dist/css')
+    // 供求模块
+    .js('addons/gq/H5/src/main.js','addons/gq/H5/dist')
     .then(function () {
         del(['public/assets/*']);
     });
