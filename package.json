@@ -6,7 +6,11 @@
 		"dev": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
 		"watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
 		"hot": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-		"production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+		"production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+		"h5dev": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js --env.mixfile=webpack.h5",
+		"h5watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js --env.mixfile=webpack.h5",
+		"h5hot": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js --env.mixfile=webpack.h5",
+		"h5production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js --env.mixfile=webpack.h5"
 	},
 	"repository": {
 		"type": "git",
@@ -26,6 +30,8 @@
 		"laravel-mix": "^5.0.4",
 		"less": "^3.11.1",
 		"less-loader": "^6.0.0",
+		"postcss-px-to-viewport": "^1.1.1",
+		"postcss-pxtorem": "^5.1.1",
 		"vue-template-compiler": "^2.6.11"
 	},
 	"dependencies": {
@@ -33,6 +39,7 @@
 		"axios": "^0.19.2",
 		"font-awesome": "^4.7.0",
 		"vant": "^2.8.2",
-		"vue": "^2.6.11"
+		"vue": "^2.6.11",
+		"vue-router": "^3.2.0"
 	}
 }
