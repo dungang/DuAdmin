@@ -15,9 +15,9 @@ mix
     .less('public/backend/src/less/main.less', 'public/backend/dist/css', {
         lessOptions: {
             paths: [path.resolve(__dirname, 'node_modules')],
-          },
+        },
     }).options({
-        processCssUrls:false
+        processCssUrls: false
     })
     .js('public/backend/src/js/main.js', 'public/backend/dist/js')
     //前端主题 basic
