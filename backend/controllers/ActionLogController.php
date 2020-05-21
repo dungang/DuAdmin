@@ -15,31 +15,31 @@ class ActionLogController extends BackendController
             'index' => [
                 'class' => 'app\mmadmin\core\ListModelsAction',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\ActionLogSearch'
+                    'class' => 'app\backend\models\ActionLogSearch'
                 ]
             ],
             'create' => [
                 'class' => 'app\mmadmin\core\CreateModelAction',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\ActionLog'
+                    'class' => 'app\backend\models\ActionLog'
                 ]
             ],
             'update' => [
                 'class' => 'app\mmadmin\core\UpdateModelAction',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\ActionLog'
+                    'class' => 'app\backend\models\ActionLog'
                 ]
             ],
             'view' => [
                 'class' => 'app\mmadmin\core\ViewModelAction',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\ActionLog'
+                    'class' => 'app\backend\models\ActionLog'
                 ]
             ],
             'delete' => [
                 'class' => 'app\mmadmin\core\DeleteModelAction',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\ActionLog'
+                    'class' => 'app\backend\models\ActionLog'
                 ]
             ],
 		];

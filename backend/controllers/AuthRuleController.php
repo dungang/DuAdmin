@@ -15,31 +15,31 @@ class AuthRuleController extends BackendController
             'index' => [
                 'class' => 'app\mmadmin\core\ListModelsAction',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\AuthRuleSearch'
+                    'class' => 'app\backend\models\AuthRuleSearch'
                 ]
             ],
             'create' => [
                 'class' => 'app\mmadmin\core\CreateModelAction',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\AuthRule'
+                    'class' => 'app\backend\models\AuthRule'
                 ]
             ],
             'update' => [
                 'class' => 'app\mmadmin\core\UpdateModelAction',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\AuthRule'
+                    'class' => 'app\backend\models\AuthRule'
                 ]
             ],
             'view' => [
                 'class' => 'app\mmadmin\core\ViewModelAction',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\AuthRule'
+                    'class' => 'app\backend\models\AuthRule'
                 ]
             ],
             'delete' => [
                 'class' => 'app\mmadmin\core\DeleteModelAction',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\AuthRule'
+                    'class' => 'app\backend\models\AuthRule'
                 ]
             ]
         ];

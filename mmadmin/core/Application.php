@@ -4,6 +4,7 @@ namespace app\mmadmin\core;
 
 use app\mmadmin\helpers\MAHelper;
 use Yii;
+use yii\helpers\Url;
 use yii\validators\Validator;
 use yii\web\Application as WebApplication;
 
@@ -24,6 +25,13 @@ class Application extends WebApplication
         foreach ($this->validators as $name => $validator) {
             Validator::$builtInValidators[$name] = $validator;
         }
+    }
+
+    public function getHomeUrl()
+    {
+        //$url = parent::getHomeUrl();
+
+        return  Url::to(['/']);
     }
 
     public function isBackend()

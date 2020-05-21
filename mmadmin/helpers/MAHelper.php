@@ -405,7 +405,7 @@ class MAHelper
      * @param number $depth
      * @return string[]
      */
-    public static function dbQueryAsMapLikeTree($table, $textField, $filter = null, $idField = 'id', $parentField = 'pid', $parent_id = 0, $depth = 1)
+    public static function dbQueryAsMapLikeTree($table, $textField, $filter = null, $idField = 'id', $parentField = 'pid', $parent_id = 0, $depth = 1,$i18n_cate=null)
     {
         $items = (new Query())->select([
             $idField,
@@ -415,6 +415,12 @@ class MAHelper
             ->from($table)
             ->where($filter)
             ->all();
+        if($items && $i18n_cate !== null) {
+            $items = array_map(function($item) use ($textField,$i18n_cate) {
+                $item[$textField] = Yii::t($i18n_cate,$item[$textField]);
+                return $item;
+            },$items);
+        }
         return self::list2MapLikeTreeWithDepth($items, $textField, $idField, $parentField, $parent_id, $depth);
     }
 

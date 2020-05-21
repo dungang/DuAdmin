@@ -15,31 +15,31 @@ class UserExtPropertyController extends BackendController
             'index' => [
                 'class' => 'app\mmadmin\core\ListModelsAction',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\UserExtPropertySearch'
+                    'class' => 'app\backend\models\AdminExtPropertySearch'
                 ]
             ],
             'create' => [
                 'class' => 'app\mmadmin\core\CreateModelAction',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\UserExtProperty'
+                    'class' => 'app\backend\models\AdminExtProperty'
                 ]
             ],
             'update' => [
                 'class' => 'app\mmadmin\core\UpdateModelAction',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\UserExtProperty'
+                    'class' => 'app\backend\models\AdminExtProperty'
                 ]
             ],
             'view' => [
                 'class' => 'app\mmadmin\core\ViewModelAction',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\UserExtProperty'
+                    'class' => 'app\backend\models\AdminExtProperty'
                 ]
             ],
             'delete' => [
                 'class' => 'app\mmadmin\core\DeleteModelAction',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\UserExtProperty'
+                    'class' => 'app\backend\models\AdminExtProperty'
                 ]
             ],
 		];

@@ -15,6 +15,13 @@ $config = [
     ],
     'components' => [
         'db' => $db,
+        'user' => [
+            'identityClass' => '\app\backend\models\Admin',
+            'enableAutoLogin' => true,
+            'loginUrl' => [
+                'login'
+            ]
+        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [

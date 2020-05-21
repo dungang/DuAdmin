@@ -14,6 +14,13 @@ $config = [
     ],
     'components' => [
         'db' => $db,
+        'user' => [
+            'identityClass' => '\app\backend\models\Admin',
+            'enableAutoLogin' => true,
+            'loginUrl' => [
+                'login'
+            ]
+        ],
         'errorHandler' => [
             'errorAction' => 'site/error'
         ],

@@ -38,7 +38,7 @@ class AdminlteSideBarMenu extends Widget
         $this->normalizeItems();
         //权限过滤
         $this->items = array_filter($this->items, function ($item) {
-            if (Yii::$app->user->getIdentity()->is_super) return true;
+            if (Yii::$app->user->id === 1) return true;
             if (isset($item['r']) && $item['r'] != '/default/index') {
                 return Yii::$app->user->can($item['r']);
             } else {

@@ -43,13 +43,6 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache'
         ],
-        'user' => [
-            'identityClass' => 'app\mmadmin\models\User',
-            'enableAutoLogin' => true,
-            'loginUrl' => [
-                'login'
-            ]
-        ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
             // uncomment if you want to cache RBAC items hierarchy

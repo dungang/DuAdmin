@@ -1,8 +1,8 @@
 <?php
 
+use app\backend\models\Admin;
 use app\mmadmin\grids\PanelGridView;
 use yii\widgets\Pjax;
-use app\mmadmin\models\User;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\mmadmin\models\ActionLogSearch */
@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class'=>'app\mmadmin\grids\FilterColumn',
                 'attribute'=>'user_id',
-                'filter'=> User::allIdToName('id','nick_name'),
+                'filter'=> Admin::allIdToName('id','nick_name'),
             ],
             [
                 'class'=>'app\mmadmin\grids\FilterColumn',

@@ -21,7 +21,7 @@ class ProfileController extends BackendController
                     'id'=>\Yii::$app->user->id,
                 ],
                 'modelClass' => [
-                    'class' => 'app\backend\forms\DynamicUser',
+                    'class' => 'app\backend\models\Admin',
                 ]
             ]
         ];

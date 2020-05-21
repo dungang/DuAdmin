@@ -1,40 +1,56 @@
 <?php
+
+use app\mmadmin\widgets\JcropFileInput;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use app\mmadmin\models\AuthItem;
 
 /* @var $this yii\web\View */
-/* @var $model app\backend\forms\DynamicUser */
+/* @var $model app\backend\models\Admin */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="user-form">
+<div class="admin-form">
 
-    <?php $form = ActiveForm::begin(['id'=>'user-form','enableAjaxValidation' => true]); ?>
-
+    <?php $form = ActiveForm::begin(['id' => 'admin-form', 'enableAjaxValidation' => true]); ?>
     <div class="row">
-		<div class="col-md-6">
-        	<?= $form->field($model->model, 'username')->textInput() ?>
-            <?= $form->field($model->model, 'nick_name')->textInput() ?>
-            <?= $form->field($model->model, 'password')->textInput(['autocomplete'=>'off']) ?>
-    	</div>
-		<div class="col-md-6">
-            <?= $form->field($model->model, 'email')->textInput() ?>
-            <?= $form->field($model->model, 'mobile')->textInput() ?>
-            <?=$form->field($model->model, 'status')->dropDownList([0 => '未激活',10 => '已激活'])?>
-    	</div>
-    	 <?php foreach($model->getDynamicProperties() as $property):?>
-    		<div class="col-md-6">
-    		<?= $form->field($model, $property->field)->input($property->input_type) ?>
-    		</div>
-    	<?php endforeach;?>
-		<div class="col-md-12">
-    	<?= $form->field($model->model, 'role')->radioList(AuthItem::allIdToName('name','name',['type'=>1])) ?>
-    	</div>
-	</div>
+        <div class="col-md-6">
 
-	<div class="form-group">
-        <?= Html::submitButton('保存', ['class' => 'btn btn-success']) ?>
+            <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
+
+            <?= $form->field($model, 'nick_name')->textInput(['maxlength' => true]) ?>
+
+            <?= $form->field($model, 'password')->textInput(['maxlength' => true]) ?>
+
+            <?php
+            echo $form->field($model, 'avatar')->widget(JcropFileInput::className(), [
+                'cropInput' => '#crop',
+                'preview_h' => '200',
+                'preview_w' => '200',
+                'clientOptions' => [
+                    'setSelect' => [
+                        100,
+                        100,
+                        200,
+                        200
+                    ],
+                    'aspectRatio' => 1
+                    //'allowResize'=>false
+                ]
+            ]) ?>
+
+        </div>
+        <div class="col-md-6">
+
+            <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+
+            <?= $form->field($model, 'mobile')->textInput(['maxlength' => true]) ?>
+
+            <?= $form->field($model, 'status')->dropDownList([0 => Yii::t('backend', 'Unactive'), 10 => Yii::t('backend', 'Active')]) ?>
+
+            <div class="form-group">
+                <?= Html::submitButton('<i class="fa fa-save"></i> ' .  Yii::t('ma', 'Save'), ['class' => 'btn btn-success']) ?>
+            </div>
+        </div>
     </div>
 
     <?php ActiveForm::end(); ?>

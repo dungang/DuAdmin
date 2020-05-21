@@ -6,7 +6,7 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * RewriteSearch represents the model behind the search form of `app\mmadmin\models\Rewrite`.
+ * RewriteSearch represents the model behind the search form of `app\backend\models\Rewrite`.
  */
 class RewriteSearch extends Rewrite
 {

@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <?= $generator->enablePjax ? "<?php Pjax::begin(['id'=>'".$id_prefix."-index']); ?>\n" : '' ?>
 <?= "<?php  " ?>PanelGridView::begin([
         'id' => '<?= $id_prefix . '-list'?>',
-    	'intro' => Yii::t('ma','{0} Info Manage','<?= $generator->generateString($labelNames) ?>'),
+    	'intro' => Yii::t('ma','{0} Info Manage',<?= $generator->generateString($labelNames) ?>),
         'dataProvider' => $dataProvider,
         <?= !empty($generator->searchModelClass) ? "'filterModel' => \$searchModel,\n        'columns' => [\n" : "'columns' => [\n"; ?>
 <?php
@@ -56,6 +56,7 @@ AAA;
         if (++$count < 6) {
             if($count == 1){
                 echo <<<AAA
+            ['class'=>'\yii\grid\CheckboxColumn'],
             [
                 'attribute' => '$column->name',
                 'format'=>'raw',

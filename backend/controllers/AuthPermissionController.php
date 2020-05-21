@@ -18,7 +18,7 @@ class AuthPermissionController extends BackendController
                     'app\backend\behaviors\PermissionListBehavior',
                 ],
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\AuthPermissionSearch',
+                    'class' => 'app\backend\models\AuthPermissionSearch',
                 ]
             ],
             'create' => [
@@ -27,13 +27,13 @@ class AuthPermissionController extends BackendController
                     'app\backend\behaviors\CleanRbacBehavior',
                 ],
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\AuthPermission'
+                    'class' => 'app\backend\models\AuthPermission'
                 ]
             ],
             'batch-create' => [
                 'class' => 'app\mmadmin\core\CreateModelsAction',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\AuthPermission'
+                    'class' => 'app\backend\models\AuthPermission'
                 ]
             ],
             'update' => [
@@ -42,19 +42,19 @@ class AuthPermissionController extends BackendController
                     'app\backend\behaviors\CleanRbacBehavior',
                 ],
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\AuthPermission'
+                    'class' => 'app\backend\models\AuthPermission'
                 ]
             ],
             'batch-update' => [
                 'class' => 'app\mmadmin\core\UpdateModelsAction',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\AuthPermission'
+                    'class' => 'app\backend\models\AuthPermission'
                 ]
             ],
             'view' => [
                 'class' => 'app\mmadmin\core\ViewModelAction',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\AuthPermission'
+                    'class' => 'app\backend\models\AuthPermission'
                 ]
             ],
             'delete' => [
@@ -63,7 +63,7 @@ class AuthPermissionController extends BackendController
                     'app\backend\behaviors\CleanRbacBehavior',
                 ],
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\AuthPermission'
+                    'class' => 'app\backend\models\AuthPermission'
                 ]
             ]
         ];

@@ -2,11 +2,11 @@
 namespace app\backend\controllers;
 
 use yii\helpers\ArrayHelper;
-use app\mmadmin\models\AuthRole;
+use app\backend\models\AuthRole;
 use app\mmadmin\core\BackendController;
 use app\backend\models\AuthGroup;
-use app\mmadmin\models\AuthPermission;
-use app\mmadmin\models\AuthItemChild;
+use app\backend\models\AuthPermission;
+use app\backend\models\AuthItemChild;
 
 /**
  * RoleController implements the CRUD actions for Role model.
@@ -20,7 +20,7 @@ class AuthRoleController extends BackendController
             'index' => [
                 'class' => 'app\mmadmin\core\ListModelsAction',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\AuthRoleSearch',
+                    'class' => 'app\backend\models\AuthRoleSearch',
                     'group_name' => 'backend'
                 ]
             ],
@@ -33,7 +33,7 @@ class AuthRoleController extends BackendController
                     'type' => AuthRole::TYPE_ROLE
                 ],
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\AuthRole'
+                    'class' => 'app\backend\models\AuthRole'
                 ]
             ],
             'update' => [
@@ -45,7 +45,7 @@ class AuthRoleController extends BackendController
                     'type' => AuthRole::TYPE_ROLE
                 ],
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\AuthRole'
+                    'class' => 'app\backend\models\AuthRole'
                 ]
             ],
             'view' => [
@@ -54,7 +54,7 @@ class AuthRoleController extends BackendController
                     'type' => AuthRole::TYPE_ROLE
                 ],
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\AuthRole'
+                    'class' => 'app\backend\models\AuthRole'
                 ]
             ],
             'delete' => [
@@ -66,7 +66,7 @@ class AuthRoleController extends BackendController
                     'type' => AuthRole::TYPE_ROLE
                 ],
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\AuthRole'
+                    'class' => 'app\backend\models\AuthRole'
                 ]
             ]
         ];

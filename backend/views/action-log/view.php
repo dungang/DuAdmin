@@ -1,8 +1,8 @@
 <?php
 
+use app\backend\models\Admin;
 use yii\widgets\DetailView;
 use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
-use app\mmadmin\models\User;
 
 /* @var $this yii\web\View */
 /* @var $model app\mmadmin\models\ActionLog */
@@ -21,7 +21,7 @@ echo AjaxModalOrNormalPanelContent::widget([
             [
                 'attribute'=>'user_id',
                 'value'=>function($model){
-                    if($user = User::findOne(['id'=>$model->user_id])) {
+                    if($user = Admin::findOne(['id'=>$model->user_id])) {
                         return $user->nick_name;
                     }
                     return '';

@@ -7,13 +7,18 @@ use app\backend\models\PortalPrivilege;
 use app\backend\models\Portal;
 use app\backend\models\PortalPlace;
 use app\mmadmin\assets\JqueryUIAsset;
+use Yii;
 
 class PortalWidget extends Widget
 {
     public function run()
     {
         JqueryUIAsset::register($this->view);
-        $privilege = PortalPrivilege::findOne(['role' => \Yii::$app->user->identity->role]);
+        $roles = array_map(function($role){
+            return $role->name;
+        },Yii::$app->authManager->getRolesByUser(Yii::$app->user->id));
+        
+        $privilege = PortalPrivilege::findOne(['role' => $roles]);
         $query = Portal::find()->where(['unlimited' => 1]);
         if ($privilege && $privilege->portals) {
             $query->orWhere(['id' => explode(',', $privilege->portals)]);

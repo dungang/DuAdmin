@@ -18,10 +18,11 @@ class ChangeSuperBySelfBehavior extends Behavior
         ];
     }
 
-    public function onlyDoneBySuperSelf() {
-        if($this->owner->is_super) {
-            if($this->owner->id != \Yii::$app->user->id) {
-                throw new ForbiddenHttpException('超管只能自己修改自己的信息');
+    public function onlyDoneBySuperSelf()
+    {
+        if ($this->owner->id === 1) {
+            if ($this->owner->id != \Yii::$app->user->id) {
+                throw new ForbiddenHttpException();
             }
         }
     }

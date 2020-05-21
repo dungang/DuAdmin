@@ -1,45 +1,36 @@
 <?php
+
 use yii\widgets\DetailView;
 use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
+
 /* @var $this yii\web\View */
-/* @var $model app\mmadmin\models\User */
+/* @var $model app\backend\models\Admin */
 
-$this->title = '查看';
-$this->params['breadcrumbs'][] = [
-    'label' => '管理员',
-    'url' => [
-        'index'
-    ]
-];
-
+$this->title = $model->username;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Admins'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['breadcrumbs'][] = $model->username;
 
 echo AjaxModalOrNormalPanelContent::widget([
-    'intro' => '查看信息：' . $model->username,
+    'intro' => Yii::t('ma', 'View {0} Detail Info',$model->username),
     'content' => DetailView::widget([
-        'options'=>['class' => 'table table-bordered'],
-        'model' => $model,
-        'attributes' => [
-            'id',
+        	'options'=>['class' => 'table table-bordered'],
+            'model' => $model,
+            'attributes' => [
+                'id',
             'username',
             'nick_name',
+            'avatar',
             'email:email',
             'mobile',
-            'is_super',
-            'role',
-            [
-                'attribute' => 'status',
-                'value' => function ($model) {
-                    if ($model['status'] == 10) {
-                        return "激活";
-                    } else {
-                        return "未激活";
-                    }
-                }
+            'status',
+            'login_failure',
+            'login_time:datetime',
+            'login_ip',
+            'created_at:datetime',
+            'updated_at:datetime',
+            'is_del',
             ],
-            'created_at:date',
-            'updated_at:date'
-        ]
-    ])
-])?>
+        ])
+]);
+?>

@@ -6,7 +6,7 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * SettingSearch represents the model behind the search form of `app\mmadmin\models\Setting`.
+ * SettingSearch represents the model behind the search form of `app\backend\models\Setting`.
  */
 class SettingSearch extends Setting
 {

@@ -1,11 +1,12 @@
 <?php
+
 namespace app\mmadmin\filters;
 
+use app\backend\models\Admin;
 use Yii;
 use yii\base\ActionFilter;
 use yii\web\ForbiddenHttpException;
-use app\mmadmin\models\User;
-use app\mmadmin\models\ActionLog;
+use app\backend\models\ActionLog;
 use yii\helpers\Json;
 use app\mmadmin\core\LongPollAction;
 use app\mmadmin\core\LoopAction;
@@ -57,26 +58,23 @@ class AccessFilter extends ActionFilter
             }
 
             // step3. 如果是超级管理员
-            if ($user->is_super) {
+            if ($user->id === 1) {
                 return true;
             }
-            //必须是管理者属性的用户
-            if ($user->is_admin == 1) {
-                // step4. 如果是非激活用户
-                if ($user->status != User::STATUS_ACTIVE) {
-                    Yii::$app->user->logout();
-                    Yii::$app->getResponse()->redirect(Yii::$app->getHomeUrl());
+            // step4. 如果是非激活用户
+            if ($user->status != Admin::STATUS_ACTIVE) {
+                Yii::$app->user->logout();
+                Yii::$app->getResponse()->redirect(Yii::$app->getHomeUrl());
 
-                    // step5. 登录用户可以访问的actions
-                } else if (in_array($action->id, $controller->userActions)) {
+                // step5. 登录用户可以访问的actions
+            } else if (in_array($action->id, $controller->userActions)) {
+                return true;
+            } else {
+                // step6. 路由权限检查
+                $params = Yii::$app->request->isPost ? Yii::$app->request->getBodyParams() : Yii::$app->request->getQueryParams();
+                // 后台管理权限检查
+                if (\Yii::$app->user->can($route, $params)) {
                     return true;
-                } else {
-                    // step6. 路由权限检查
-                    $params = Yii::$app->request->isPost ? Yii::$app->request->getBodyParams() : Yii::$app->request->getQueryParams();
-                    // 后台管理权限检查
-                    if (\Yii::$app->user->can($route, $params)) {
-                        return true;
-                    }
                 }
             }
         }
@@ -96,12 +94,12 @@ class AccessFilter extends ActionFilter
         } else {
             if (!\Yii::$app->user->isGuest) {
                 $data = $_REQUEST;
-                unset($data['r'],$data['_csrf']);
+                unset($data['r'], $data['_csrf']);
                 $log = new ActionLog([
                     'user_id' => \Yii::$app->user->id,
                     'action' => $action->getUniqueId(),
                     'ip' => ip2long(\Yii::$app->request->getRemoteIP()),
-                    'method'=> strtoupper(\Yii::$app->request->method),
+                    'method' => strtoupper(\Yii::$app->request->method),
                     'data' => Json::encode($data)
                 ]);
                 $log->save(false);

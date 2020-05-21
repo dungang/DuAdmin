@@ -1,27 +1,15 @@
 <?php
+
 use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
-/* @var $model app\backend\forms\DynamicUser */
+/* @var $model app\backend\models\Admin */
 
-$this->title = '更新';
-$this->params['breadcrumbs'][] = [
-    'label' => '管理员',
-    'url' => [
-        'index'
-    ]
-];
-$this->params['breadcrumbs'][] = [
-    'label' => $model->model->username,
-    'url' => [
-        'view',
-        'id' => $model->id
-    ]
-];
+$this->title = Yii::t('ma','Update');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Admins'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = $this->title;
 echo AjaxModalOrNormalPanelContent::widget([
-    'intro' => '编辑管理员的基本信息',
-    'content' => $this->render('_form', [
-        'model' => $model
-    ])
+    'intro'=> Yii::t('ma','Update Info'),
+    'content'=>$this->render('_form', ['model' => $model])
 ])?>

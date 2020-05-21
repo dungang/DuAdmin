@@ -15,43 +15,39 @@ class AdminController extends BackendController
         return [
             'index' => [
                 'class' => 'app\mmadmin\core\ListModelsAction',
-                'baseAttrs' => [
-                    'is_admin' => 1
-                ],
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\UserSearch'
+                    'class' => 'app\backend\models\AdminSearch'
                 ]
             ],
             'create' => [
                 'class' => 'app\mmadmin\core\CreateModelAction',
-                'baseAttrs' => [
-                    'is_admin' => 1
+                'modelBehaviors' => [
+                    'set-password' => 'app\mmadmin\behaviors\PasswordBehavior',
+                    'upload-avatar' => function(){
+                        return $this->getUploadAvatarBehavior();
+                    }
                 ],
                 'modelClass' => [
-                    'class' => 'app\backend\forms\DynamicUser',
-                    'scenario' => 'manage',
+                    'class' => 'app\backend\models\Admin',
                 ]
             ],
             'update' => [
                 'class' => 'app\mmadmin\core\UpdateModelAction',
                 'modelBehaviors' => [
-                    'super-do-self' => 'app\backend\behaviors\ChangeSuperBySelfBehavior'
-                ],
-                'baseAttrs' => [
-                    'is_admin' => 1
+                    'super-do-self' => 'app\backend\behaviors\ChangeSuperBySelfBehavior',
+                    'set-password' => 'app\mmadmin\behaviors\PasswordBehavior',
+                    'upload-avatar' => function(){
+                        return $this->getUploadAvatarBehavior();
+                    }
                 ],
                 'modelClass' => [
-                    'class' => 'app\backend\forms\DynamicUser',
-                    'scenario' => 'manage',
+                    'class' => 'app\backend\models\Admin'
                 ]
             ],
             'view' => [
                 'class' => 'app\mmadmin\core\ViewModelAction',
-                'baseAttrs' => [
-                    'is_admin' => 1
-                ],
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\User'
+                    'class' => 'app\backend\models\Admin'
                 ]
             ],
             'delete' => [
@@ -59,11 +55,28 @@ class AdminController extends BackendController
                 'modelBehaviors' => [
                     'super-do-self' => 'app\backend\behaviors\ChangeSuperBySelfBehavior'
                 ],
-                'baseAttrs' => [
-                    'is_admin' => 1
-                ],
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\User'
+                    'class' => 'app\backend\models\Admin'
+                ]
+            ]
+        ];
+    }
+
+
+    protected function getUploadAvatarBehavior()
+    {
+        return [
+            'class' => 'app\mmadmin\behaviors\UploadedFileBehavior',
+            'fields' => [
+                'avatar' => [
+                    'thumbnails' => [
+                        [
+                            'width' => 200,
+                            'height' => 200,
+                            'mode' => 'inset'
+                        ]
+                    ],
+                    'mode' => 'inset'
                 ]
             ]
         ];
