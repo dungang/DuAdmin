@@ -43,12 +43,12 @@ class JcropFileInput extends InputWidget
         $this->clientOptions = ArrayHelper::merge([
             'boxHeight' => $this->preview_h,
             'boxWidth' => $this->preview_w,
-            'setSelect' => [
-                100,
-                100,
-                200,
-                200
-            ],
+            // 'setSelect' => [
+            //     100,
+            //     100,
+            //     200,
+            //     200
+            // ],
             'aspectRatio' => $ratio,
             'onSelect' => new JsExpression("function(c){
                 $('#{$this->crop_input_id}').val(JSON.stringify(c));

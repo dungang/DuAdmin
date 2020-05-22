@@ -30,8 +30,8 @@ use yii\widgets\ActiveForm;
                     'setSelect' => [
                         100,
                         100,
-                        200,
-                        200
+                        300,
+                        300
                     ],
                     'aspectRatio' => 1
                     //'allowResize'=>false

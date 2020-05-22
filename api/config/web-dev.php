@@ -8,6 +8,12 @@ $config = [
     'controllerNamespace' => 'app\api\controllers',
     'components' => [
         'db' => $db,
+        'user' => [
+            'identityClass' => '\app\mmadmin\models\User',
+            'enableAutoLogin'=>false,
+            'enableSession' => false,
+            'loginUrl' => null
+        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
@@ -20,11 +26,6 @@ $config = [
                     ]
                 ]
             ]
-        ],
-        'user' => [
-            'enableAutoLogin'=>false,
-            'enableSession' => false,
-            'loginUrl' => null
         ],
         'request' => [
             'parsers' => [

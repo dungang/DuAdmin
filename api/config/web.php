@@ -8,6 +8,13 @@ $config = [
     'controllerNamespace' => 'app\api\controllers',
     'components' => [
         'db' => $db,
+        'user' => [
+            'identityClass' => '\app\mmadmin\models\User',
+            'enableAutoLogin' => true,
+            'loginUrl' => [
+                'login'
+            ]
+        ],
         'errorHandler' => [
             'errorAction' => 'site/error'
         ],

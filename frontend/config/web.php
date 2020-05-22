@@ -10,6 +10,13 @@ $config = [
     'modules' => [],
     'components' => [
         'db' => $db,
+        'user' => [
+            'identityClass' => '\app\mmadmin\models\User',
+            'enableAutoLogin' => true,
+            'loginUrl' => [
+                'login'
+            ]
+        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
