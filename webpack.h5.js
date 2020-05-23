@@ -23,7 +23,7 @@ mix.options({
     // 供求模块
     .js('addons/gq/H5/src/main.js', 'addons/gq/H5/dist')
     .extract([
-        'vue', 'vue-router', 'axios', 'qs'
+        'vue', 'vue-router', 'axios', 'qs','vuex'
     ])
     .then(function () {
         del(['public/assets/*']);
