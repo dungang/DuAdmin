@@ -8,7 +8,7 @@ if (! in_array(@$_SERVER['REMOTE_ADDR'], [
     die('You are not allowed to access this file.');
 }
 // comment out the following two lines when deployed to production
-defined('YII_DEBUG') or define('YII_DEBUG', true);
+defined('YII_DEBUG') or define('YII_DEBUG', false);
 defined('YII_ENV') or define('YII_ENV', 'dev');
 
 //global $classLoader;
