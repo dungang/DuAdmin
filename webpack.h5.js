@@ -25,6 +25,9 @@ mix.options({
     .extract([
         'vue', 'vue-router', 'axios', 'qs','vuex'
     ])
+    .webpackConfig({
+
+    })
     .then(function () {
         del(['public/assets/*']);
     });
