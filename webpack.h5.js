@@ -10,20 +10,48 @@ let del = require('del');
  | file for your application, as well as bundling up your JS files.
  |
  */
-mix.options({
-    processCssUrls: false,
-    postCss: [
-        //require('postcss-px-to-viewport'),
-        require('postcss-pxtorem')({
-            rootValue: 37.5,
-            propList: ['*'],
-        })
-    ]
+mix.webpackConfig({
+    module: {
+        rules: [
+            {
+                test: /\.less$/,
+                use: [
+                    // ...其他 loader 配置
+                    {
+                        loader: 'less-loader',
+                        options: {
+                            // 若使用 less-loader@5，请移除 lessOptions 这一级，直接配置选项。
+                            lessOptions: {
+                                modifyVars: {
+                                    // 直接覆盖变量
+                                    'text-color': '#111',
+                                    'border-color': '#eee',
+                                    'blue' : '#ee0a24',
+                                    // 或者可以通过 less 文件覆盖（文件路径为绝对路径）
+                                    // hack: `true; @import "your-less-file-path.less";`,
+                                },
+                            },
+                        },
+                    },
+                ],
+            },
+        ],
+    }
 })
+    .options({
+        processCssUrls: false,
+        postCss: [
+            //require('postcss-px-to-viewport'),
+            require('postcss-pxtorem')({
+                rootValue: 37.5,
+                propList: ['*'],
+            })
+        ]
+    })
     // 供求模块
     .js('addons/gq/H5/src/main.js', 'addons/gq/H5/dist')
     .extract([
-        'vue', 'vue-router', 'axios', 'qs','vuex'
+        'vue', 'vue-router', 'axios', 'qs', 'vuex'
     ])
     .webpackConfig({
 
