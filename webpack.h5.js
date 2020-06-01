@@ -1,5 +1,6 @@
 let mix = require('laravel-mix');
 let del = require('del');
+let MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -26,7 +27,7 @@ mix.webpackConfig({
                                     // 直接覆盖变量
                                     'text-color': '#111',
                                     'border-color': '#eee',
-                                    'blue' : '#ee0a24',
+                                    'blue': '#ee0a24',
                                     // 或者可以通过 less 文件覆盖（文件路径为绝对路径）
                                     // hack: `true; @import "your-less-file-path.less";`,
                                 },
@@ -36,7 +37,12 @@ mix.webpackConfig({
                 ],
             },
         ],
-    }
+    },
+    plugins: [
+        new MomentLocalesPlugin({
+            localesToKeep: ['es-us', 'zh-cn'],
+        }),
+    ]
 })
     .options({
         processCssUrls: false,
@@ -51,11 +57,8 @@ mix.webpackConfig({
     // 供求模块
     .js('addons/gq/H5/src/main.js', 'addons/gq/H5/dist')
     .extract([
-        'vue', 'vue-router', 'axios', 'qs', 'vuex'
+        'vue', 'vue-router', 'axios', 'qs', 'vuex', 'moment'
     ])
-    .webpackConfig({
-
-    })
     .then(function () {
         del(['public/assets/*']);
     });
