@@ -1,13 +1,16 @@
 <?php
+
 namespace app\api\controllers;
 
-use app\mmadmin\core\BaseController;
+use app\mmadmin\core\ApiController;
 
 /**
  * Site controller
  */
-class SiteController extends BaseController
+class SiteController extends ApiController
 {
+    public $authExceptActions = ['error'];
+
     /**
      *
      * {@inheritdoc}
@@ -17,6 +20,12 @@ class SiteController extends BaseController
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction'
+            ],
+            'upload' => [
+                'class' => 'app\mmadmin\uploader\LocalUploadAction'
+            ],
+            'token' => [
+                'class' => 'app\mmadmin\uploader\TokenAction'
             ]
         ];
     }
