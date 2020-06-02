@@ -8,7 +8,6 @@ use yii\db\ActiveRecord as OriginActiveRecord;
 /**
  * 支持select for update 的activerecord
  * 
- * @method \app\mmadmin\mysql\ActiveQuery findByCondition($condition)
  */
 class ActiveRecord extends OriginActiveRecord
 {
@@ -19,6 +18,16 @@ class ActiveRecord extends OriginActiveRecord
     public static function find()
     {
         return Yii::createObject(ActiveQuery::className(), [get_called_class()]);
+    }
+
+    /**
+     * 根据条件查询
+     *
+     * @param array $condition
+     * @return \app\mmadmin\mysql\ActiveQuery
+     */
+    protected static function findByCondition($condition){
+        return parent::findByCondition($condition);
     }
 
     /**
