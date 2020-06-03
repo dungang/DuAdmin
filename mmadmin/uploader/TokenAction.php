@@ -14,13 +14,11 @@ class TokenAction extends Action
 
     public function run()
     {
-
         $driver = MAHelper::getSetting('uploader.driver');
-
         if (empty($driver) || strtolower($driver) == 'local') {
             return time();
         } else {
-            $class = '\\app\addons\\' . strtolower($driver) . '\\driver\\Token';
+            $class = '\\app\\addons\\' . strtolower($driver) . '\\driver\\Token';
             if (class_exists($class)) {
                 return call_user_func([$class, 'generate']);
             } else {
