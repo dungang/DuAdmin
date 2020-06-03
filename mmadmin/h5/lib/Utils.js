@@ -1,8 +1,7 @@
-export const compress = (image) => {
+export const compress = (image,maxH=160) => {
     return new Promise(function (resolve, reject) {
         try {
-            let img = new Image(),
-                maxH = 160;
+            let img = new Image();
             img.onload = () => {
                 let cvs = document.createElement('canvas'),
                     ctx = cvs.getContext('2d');
