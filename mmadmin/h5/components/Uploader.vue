@@ -1,5 +1,11 @@
 <template>
-  <van-uploader v-model="fileList" :after-read="afterRead" :max-count="maxCount" />
+  <van-uploader
+    v-model="fileList"
+    :after-read="afterRead"
+    :max-count="maxCount"
+    :deletable="deletable"
+    @delete="onDelete"
+  />
 </template>
 <script>
 import Vue from "vue";
@@ -44,10 +50,17 @@ export default {
   },
   data() {
     return {
-      fileList: this.ufiles
+      fileList: []
     };
   },
   methods: {
+    initFileList() {
+      if (this.ufiles) {
+        this.fileList = this.ufiles.map(url => {
+          return { url: url };
+        });
+      }
+    },
     afterRead(file) {
       if (MA && MA.uploader) {
         if (this.compress) {
@@ -60,7 +73,7 @@ export default {
       }
     },
     uploaderFile(file, data) {
-      this.$api.get("/site/token", {}, res => {
+      this.$api.get("/site/upload-token", {}, res => {
         if (res.status == 200) {
           let token = res.data;
           let form = new FormData();
@@ -75,10 +88,7 @@ export default {
             res => {
               file.url = MA.uploader.baseUrl + key;
               file.status = "done";
-              this.$emit(
-                "change",
-                this.fileList.map(item => item.url)
-              );
+              this.emitChange();
             },
             error => {
               file.status = "failed";
@@ -101,7 +111,32 @@ export default {
     getExtension(fileName) {
       var index = fileName.lastIndexOf(".");
       return fileName.substr(index + 1);
+    },
+    onDelete(file) {
+      this.$api.post("/site/upload-delete", { url: file.url }, res => {
+        if (res.status == 200) {
+          file.status = 'deleted';
+          this.fileList = this.fileList.filter(file=>{
+            return !file.status ;
+          })
+          this.emitChange();
+        }
+      });
+    },
+    emitChange() {
+      this.$emit(
+        "change",
+        this.fileList.map(item => item.url)
+      );
     }
+  },
+  watch: {
+    ufiles(val) {
+      this.initFileList();
+    }
+  },
+  created() {
+    this.initFileList();
   }
 };
 </script>

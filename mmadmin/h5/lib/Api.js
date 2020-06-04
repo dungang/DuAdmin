@@ -23,9 +23,9 @@ function upload(resource, data, success, error) {
     })
         .then(res => {
             if (res.status == 200) {
-                success(res.data);
+                success && success(res.data);
             } else {
-                error || error(res.data);
+                error && error(res.data);
             }
         })
         .catch(error => {
@@ -38,9 +38,9 @@ function get(resource, data, success, error) {
     Axios.get(resource, { params: data })
         .then(res => {
             if (res.data.status) {
-                success(res.data);
+                success && success(res.data);
             } else {
-                error || error(res.data);
+                error && error(res.data);
             }
         })
         .catch(error => {
@@ -53,9 +53,9 @@ function post(resource, data, success, error) {
     Axios.post(resource, data)
         .then(res => {
             if (res.data.status) {
-                success(res.data);
+                success && success(res.data);
             } else {
-                error || error(res.data);
+                error && error(res.data);
             }
         })
         .catch(error => {

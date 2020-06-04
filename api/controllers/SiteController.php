@@ -24,8 +24,11 @@ class SiteController extends ApiController
             'upload' => [
                 'class' => 'app\mmadmin\uploader\LocalUploadAction'
             ],
-            'token' => [
+            'upload-token' => [
                 'class' => 'app\mmadmin\uploader\TokenAction'
+            ],
+            'upload-delete' => [
+                'class' => 'app\mmadmin\uploader\DeleteAction'
             ]
         ];
     }
