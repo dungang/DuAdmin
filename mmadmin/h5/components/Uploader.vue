@@ -2,24 +2,28 @@
   <van-uploader v-model="fileList" :after-read="afterRead" :max-count="maxCount" />
 </template>
 <script>
-import Vue from 'vue'
-import { Uploader } from 'vant'
-import Moment from 'moment'
-import { compress } from '../lib/Utils'
-Vue.use(Uploader)
+import Vue from "vue";
+import { Uploader } from "vant";
+import Moment from "moment";
+import { compress } from "../lib/Utils";
+Vue.use(Uploader);
 export default {
-  model:{
-    prop: 'ufiles',
-    event: 'change'
+  model: {
+    prop: "ufiles",
+    event: "change"
   },
   props: {
+    deletable: {
+      type: Boolean,
+      default: true
+    },
     ufiles: {
       type: Array,
       default: []
     },
     dir: {
       type: String,
-      default: 'image'
+      default: "image"
     },
     compress: {
       type: Boolean,
@@ -41,60 +45,63 @@ export default {
   data() {
     return {
       fileList: this.ufiles
-    }
+    };
   },
   methods: {
     afterRead(file) {
       if (MA && MA.uploader) {
         if (this.compress) {
           compress(file.content, this.maxHeight).then(data => {
-            this.uploaderFile(file, data)
-          })
+            this.uploaderFile(file, data);
+          });
         } else {
-          this.uploaderFile(file, file.file)
+          this.uploaderFile(file, file.file);
         }
       }
     },
     uploaderFile(file, data) {
-      this.$api.get('/site/token', {}, res => {
+      this.$api.get("/site/token", {}, res => {
         if (res.status == 200) {
-          let token = res.data
-          let form = new FormData()
-          let key = this.getObjKey(file.name)
-          form.append(MA.uploader.keyName, key)
-          form.append('file', data)
-          form.append(MA.uploader.tokenName, token)
-          file.status = 'uploading'
+          let token = res.data;
+          let form = new FormData();
+          let key = this.getObjKey(file.file.name);
+          form.append(MA.uploader.keyName, key);
+          form.append("file", data);
+          form.append(MA.uploader.tokenName, token);
+          file.status = "uploading";
           this.$api.upload(
-            MA.uploader.resource,
+            MA.uploader.uploadUrl,
             form,
             res => {
-              file.url = MA.uploader.baseUrl + key
-              file.status = 'done'
-              this.$emit('change',this.fileList)
+              file.url = MA.uploader.baseUrl + key;
+              file.status = "done";
+              this.$emit(
+                "change",
+                this.fileList.map(item => item.url)
+              );
             },
             error => {
-              file.status = 'failed'
+              file.status = "failed";
             }
-          )
+          );
         }
-      })
+      });
     },
     getObjKey(fileName) {
       return (
         this.dir +
-        '/' +
-        Moment().format('L') +
-        '/' +
+        "/" +
+        Moment().format("L") +
+        "/" +
         Moment().valueOf() +
-        '.' +
+        "." +
         this.getExtension(fileName)
-      )
+      );
     },
     getExtension(fileName) {
-      var index = fileName.lastIndexOf('.')
-      return fileName.substr(index + 1)
+      var index = fileName.lastIndexOf(".");
+      return fileName.substr(index + 1);
     }
   }
-}
+};
 </script>

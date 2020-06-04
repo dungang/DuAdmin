@@ -4,7 +4,6 @@ namespace app\mmadmin\uploader;
 use Yii;
 use yii\base\Widget;
 use yii\helpers\Json;
-use yii\web\JsExpression;
 use yii\web\View;
 
 class  ConfigWidget extends Widget {
@@ -13,7 +12,9 @@ class  ConfigWidget extends Widget {
 
     public $tokenName = 'token';
 
-    public $resource = '';
+    public $uploadUrl = '';
+
+    public $deleteUrl = '';
 
     public $baseUrl = '';
 
@@ -30,7 +31,8 @@ class  ConfigWidget extends Widget {
             'uploader'=>[
                 'keyName' => $this->keyName,
                 'tokenName' => $this->tokenName,
-                'resource' => $this->resource,
+                'uploadUrl' => $this->uploadUrl,
+                'deleteUrl' => $this->deleteUrl,
                 'baseUrl' => $this->baseUrl . '/',
                 // 'getFileUrl'=> new JsExpression("function(response){
                 //     return '{$this->baseUrl}/'+ response.key;
