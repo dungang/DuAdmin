@@ -91,7 +91,7 @@ class Bootstrap implements BootstrapInterface
                     //加载类
                     call_user_func([$module, 'initAddon']);
                     //注册hook的处理器
-                    call_user_func([$module, 'registerHookHandlers']);
+                    call_user_func([$module, 'registerCommonHookHandlers']);
                 }
             }
         }

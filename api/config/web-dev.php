@@ -10,7 +10,7 @@ $config = [
         'db' => $db,
         'user' => [
             'identityClass' => '\app\mmadmin\models\User',
-            'enableAutoLogin'=>false,
+            'enableAutoLogin' => false,
             'enableSession' => false,
             'loginUrl' => null
         ],
@@ -54,4 +54,5 @@ $config = [
         ]
     ]
 ];
+
 return $config;
