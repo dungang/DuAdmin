@@ -1,6 +1,6 @@
 <template>
   <span>
-    <img v-bind="$attrs" :src="name" :style="{'border-radius':borderRadius+'px'}"  />
+    <img  :src="name" :style="{'border-radius':borderRadius+'rem','height':$attrs.height}"  />
   </span>
 </template>
 <script>
@@ -16,7 +16,6 @@ export default {
       return 0;
     }
   },
-  inheritAttrs: false
 };
 </script>
 <style scoped>
