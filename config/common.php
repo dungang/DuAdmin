@@ -20,6 +20,7 @@ $config = [
         'alternative' => '\app\mmadmin\validators\AlternativeValidator', //二选一验证
     ],
     'modules' => [
+        'tbk'=> 'app\addons\tbk\Addon',
         'gq'=> 'app\addons\gq\Addon',
         'ocr' => 'app\addons\ocr\Addon',
         'theme' => 'app\addons\theme\Addon',
