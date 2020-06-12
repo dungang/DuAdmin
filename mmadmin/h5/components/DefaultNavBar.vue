@@ -4,6 +4,7 @@
     :left-text="leftText"
     :right-text="rightText"
     left-arrow
+    :fixed="fixed"
     @click-left="onClickLeft"
     @click-right="onClickRight"
   />
@@ -25,6 +26,10 @@ export default {
     rightText: {
       type: String,
       default: ""
+    },
+    fixed: {
+      type: Boolean,
+      default: false,
     },
     onClickRight: {
       type: Function,
