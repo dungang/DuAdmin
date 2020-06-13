@@ -1,6 +1,6 @@
 <?php
 
-namespace app\backend\models;
+namespace app\mmadmin\models;
 
 /**
  * This is the ActiveQuery class for [[Cron]].
