@@ -3,7 +3,7 @@ namespace app\backend\components;
 
 use Yii;
 use app\mmadmin\core\ILongPollHandler;
-use app\mmadmin\models\Cron;
+use app\backend\models\Cron;
 use yii\httpclient\Client;
 use app\mmadmin\components\Crontab;
 use app\mmadmin\helpers\CrontabHelper;
@@ -62,10 +62,8 @@ class CronHandler extends ILongPollHandler
                     //更新任务的执行时间
                     $task->run_at = $cur;
                     $task->save(false);
-                    //获取决定路径的路由，保证地址的准确
-                    $route = '/' . ltrim($task->job_script, '/');
                     $url = Yii::$app->urlManager->createAbsoluteUrl([
-                        $route,
+                        '/task',
                         'id' => $task->id,
                         'token' => $task->token
                     ]);
