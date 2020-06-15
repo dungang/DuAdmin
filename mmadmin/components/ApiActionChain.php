@@ -201,4 +201,14 @@ class ApiActionChain extends Component
         }
         throw new ForbiddenHttpException($this->message, 403);
     }
+
+    public static function getNextPage($pageName='page'){
+        if($page = Yii::$app->request->get($pageName)) {
+            $page = intval($page);
+        }
+        if($page == 0) {
+            $page = 1;
+        }
+        return $page + 1;
+    }
 }

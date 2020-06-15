@@ -1,9 +1,9 @@
 <?php
 
-namespace app\mmadmin\core;
+namespace app\backend\controllers;
 
 use Yii;
-use app\mmadmin\models\Cron;
+use app\backend\models\Cron;
 use app\mmadmin\helpers\MAHelper;
 use yii\web\Controller;
 
@@ -13,7 +13,7 @@ use yii\web\Controller;
  *
  * @author dungang
  */
-abstract class TaskController extends Controller
+class TaskController extends Controller
 {
 
     public function init()
@@ -29,13 +29,6 @@ abstract class TaskController extends Controller
         ignore_user_abort(true);
     }
 
-    /**
-     * 执行任务的方法
-     *
-     * @param array $param 定时任务配置的参数
-     * @param Cron $task 当前任务实例对象
-     */
-    protected abstract function execJob($param, $task);
 
     /**
      * 默认的action 不可以修改和覆写
@@ -54,7 +47,13 @@ abstract class TaskController extends Controller
         ])) {
             if (MAHelper::isDevMode() || $cron->token == $token) {
                 try {
-                    $this->execJob(MAHelper::parseText2Assoc($cron->param), $cron);
+                    if (class_exists($cron->job_script)) {
+                        $instance = Yii::createObject($cron->job_script);
+                        call_user_func([$instance, 'handle'], MAHelper::parseText2Assoc($cron->param), $cron);
+                    } else {
+                        $cron->is_ok = false;
+                        $cron->error_msg = '脚本不存在';
+                    }
                 } catch (\Exception $e) {
                     Yii::warning('定时任务执行异常：' . $cron->task . ',' . $e->getMessage(), __METHOD__);
                     Yii::warning($e->getTraceAsString(), __METHOD__);

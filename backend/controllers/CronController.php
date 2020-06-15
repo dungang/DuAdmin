@@ -25,31 +25,31 @@ class CronController extends BackendController
             'index' => [
                 'class' => 'app\mmadmin\core\ListModelsAction',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\CronSearch'
+                    'class' => 'app\backend\models\CronSearch'
                 ]
             ],
             'create' => [
                 'class' => 'app\mmadmin\core\CreateModelAction',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\Cron'
+                    'class' => 'app\backend\models\Cron'
                 ]
             ],
             'update' => [
                 'class' => 'app\mmadmin\core\UpdateModelAction',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\Cron'
+                    'class' => 'app\backend\models\Cron'
                 ]
             ],
             'view' => [
                 'class' => 'app\mmadmin\core\ViewModelAction',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\Cron'
+                    'class' => 'app\backend\models\Cron'
                 ]
             ],
             'delete' => [
                 'class' => 'app\mmadmin\core\DeleteModelAction',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\Cron'
+                    'class' => 'app\backend\models\Cron'
                 ]
             ],
             'run' => [
