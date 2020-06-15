@@ -1,5 +1,5 @@
 <?php
-namespace app\backend\models;
+namespace app\mmadmin\models;
 
 /**
  * "cron"表的模型类.
