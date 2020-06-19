@@ -5,7 +5,6 @@ Vue.use(Toast);
 Axios.defaults.timeout = 5000;
 Axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 Axios.defaults.baseURL = document.querySelector('meta[api-gate]').getAttribute('api-gate');
-console.log(Axios.defaults.baseURL);
 Axios.interceptors.request.use(function (config) {
     Toast.loading({
         duration: 0,
@@ -68,9 +67,10 @@ Axios.interceptors.response.use(function (config) {
     Toast.clear()
     return config
 });
-
+let frontendUrl = document.querySelector('meta[frontend-gate]').getAttribute('frontend-gate');
 export default {
     get,
     post,
-    upload
+    upload,
+    frontendUrl,
 }
