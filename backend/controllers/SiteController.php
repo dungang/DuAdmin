@@ -25,6 +25,15 @@ class SiteController extends BaseController
                 'maxLength' => 4,
                 'minLength' => 4,
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null
+            ],
+            'upload' => [
+                'class' => 'app\mmadmin\uploader\LocalUploadAction'
+            ],
+            'upload-token' => [
+                'class' => 'app\mmadmin\uploader\TokenAction'
+            ],
+            'upload-delete' => [
+                'class' => 'app\mmadmin\uploader\DeleteAction'
             ]
         ];
     }

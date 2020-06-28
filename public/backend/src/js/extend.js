@@ -3,6 +3,22 @@
  * //加载数据的地址 data-param //加载数据的参数 data-value //默认初始值，并不代表事最终逻辑值 data-queue
  * //顺序执行的对象队列
  */
+Date.prototype.format = function (fmt) {
+    var o = {
+        "M+": this.getMonth() + 1, //月份
+        "d+": this.getDate(), //日
+        "h+": this.getHours(), //小时
+        "m+": this.getMinutes(), //分
+        "s+": this.getSeconds(), //秒
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+        "S": this.getMilliseconds() //毫秒
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+};
+
 + function ($) {
 
 	function isNotEmptyObject(e) {
@@ -279,6 +295,27 @@ function speckText(url) {
 		};
 	}(jQuery);
 
++ function($){
+	'use strict';
+
+	$.fn.sizeList = function(){
+		return this.each(function(){
+			var _this = $(this);
+			var hiddenInput = _this.find('input[type=hidden]');
+			var checkboxList = _this.find('input[type=checkbox]');
+			checkboxList.change(function(){
+				var items = [];
+				for(var i=0; i<checkboxList.length; i++){
+					if(checkboxList[i].checked) {
+						items.push(checkboxList[i].value);
+					}
+				}
+				hiddenInput.val(items.join(','));
+			});
+		});
+	};
+}(jQuery);
+
 /**
  * Created by dungang
  */
@@ -358,6 +395,7 @@ $(document).on('click','.grid-view',function(e){
 	var data = that.data();
 	if(data.batchEditBtn){
 		var btn = that.find(data.batchEditBtn);
+		console.log(btn)
 		if(btn.length>0) {
 			
 			var gridData = that.yiiGridView("data");
@@ -367,11 +405,24 @@ $(document).on('click','.grid-view',function(e){
 			var ids = that.yiiGridView("getSelectedRows").map(function(id){
 				return field+'='+escape(id);
 			});
+			btn.attr('items',ids.length);
 			baseUrl = baseUrl + '&' + ids.join('&');
 			btn.attr('href',baseUrl);
 		}
 	}
 });
+
+// $(document).on('click', '.batch-edit', function (e) {
+// 	e.preventDefault();
+// 	var that = $(this);
+// 	if (that.attr('items') && that.attr('items') > 0) {
+		
+// 	}  else {
+// 		alert('请选择加载的条目，否则不能进行操作');
+// 	}
+// });
+
+
 $(document).on('click', '.del-all', function (e) {
 	e.preventDefault();
 	var that = $(this);
@@ -399,4 +450,49 @@ $(document).on('click', '.del-all', function (e) {
 		}
 	}
 
+});
+
+
+$(document).on('click','.ajax-file-input button',function(e){
+
+	var fileInput = this.nextElementSibling;
+	var textInput = fileInput.parentElement.previousElementSibling;
+	var fileType = textInput.getAttribute('data-type');
+	var tokenUrl = textInput.getAttribute('data-token-url');
+	var cropper = textInput.getAttribute('data-cropper');
+	fileInput.onchange = function(e){
+		if(fileInput.multiple == false) {
+			var file = fileInput.files[0];
+			var index = file.name.lastIndexOf(".");
+			var extension = file.name.substr(index + 1);
+			var date = new Date();
+			var key = fileType + "/" + date.format("yyyy/MM/dd/") + date.getTime() +"."+extension;
+			
+			$.get(tokenUrl,function(token){
+				var formData = new FormData();
+				formData.append(MA.uploader.keyName, key);
+				formData.append("file", file);
+				formData.append(MA.uploader.tokenName, token);
+				$.ajax({
+					url:MA.uploader.uploadUrl,
+					dataType:'json',
+					type:'POST',
+					async: false,
+					data: formData,
+					processData : false, // 使数据不做处理
+					contentType : false, // 不要设置Content-Type请求头
+					success: function(data){
+						//if (data.hash) {
+							alert('上传成功！');
+							textInput.value = MA.uploader.baseUrl + key;
+						//}
+					},
+					error:function(response){
+						console.log(response);
+					}
+				});
+			});
+		}
+	}
+	fileInput.click();
 });

@@ -1,5 +1,5 @@
 {
-    "/addons/tbk/h5/dist/manifest.js": "/addons/tbk/h5/dist/manifest.js",
-    "/addons/tbk/h5/dist/storehouse.js": "/addons/tbk/h5/dist/storehouse.js",
-    "/addons/tbk/h5/dist/vendor.js": "/addons/tbk/h5/dist/vendor.js"
+    "/public/backend/dist/js/main.js": "/public/backend/dist/js/main.js",
+    "/public/backend/dist/css/main.css": "/public/backend/dist/css/main.css",
+    "/themes/basic/assets/dist/css/theme.css": "/themes/basic/assets/dist/css/theme.css"
 }

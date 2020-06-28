@@ -41,6 +41,12 @@ class UpdateModelsAction extends BaseAction
                 $this->beforeRender();
                 return $this->controller->renderOnFail($this->viewName, $this->data, Yii::t('ma', 'Data fields error'));
             }
+
+            foreach ($models as $model) {
+                if ($model->hasErrors()) {
+                    return $this->controller->renderOnFail($this->viewName, $this->data, array_values($model->getFirstErrors())[0]);
+                }
+            }
         } catch (\Exception $e) {
             Yii::warning($e->getTraceAsString());
             return $this->controller->renderOnException($this->viewName, $this->data);

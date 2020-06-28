@@ -4,6 +4,9 @@ return [
     'Create' => '添加',
     'Delete' => '删除',
     'Update' => '编辑',
+    'Batch Create' => '批量添加',
+    'Batch Delete' => '批量删除',
+    'Batch Update' => '批量编辑',
     'Save' => '保存',
     'Submit' => '提交',
     'List' => '列表',
@@ -28,5 +31,6 @@ return [
     'Updated At' => '更新时间',
     'Translation' => '翻译',
     'Settings' => '参数设置',
-    'View Detail' => '查看详情'
+    'View Detail' => '查看详情',
+    'Update Info' => '更新信息'
 ];

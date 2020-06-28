@@ -12,6 +12,7 @@ class CreateModelsAction extends BaseAction
 
     public function run()
     {
+        $data = Yii::$app->request->post($this->formName, []);
         $count = count(Yii::$app->request->post($this->formName, []));
         /* @var $model \yii\db\ActiveRecord */
         /* @var $models \yii\db\ActiveRecord[] */
@@ -47,6 +48,11 @@ class CreateModelsAction extends BaseAction
             if ($loaded === false) {
                 $this->beforeRender();
                 return $this->controller->renderOnFail($this->viewName, $this->data, Yii::t('ma', 'Data fields error'));
+            }
+            foreach($models as $model) {
+                if ($model->hasErrors()) {
+                    return $this->controller->renderOnFail($this->viewName, $this->data, array_values($model->getFirstErrors())[0]);
+                }
             }
             return $this->controller->renderOnFail($this->viewName, $this->data);
         }

@@ -13,7 +13,9 @@ $this->title = '权限';
 $this->params['breadcrumbs'][] = $this->title;
 Pjax::begin(['id' => 'permission-index']);
 PanelGridView::begin([
-    'options'=>['data-batch-edit-btn'=>'.batch-edit'],
+    'options' => [
+        'data-batch-edit-btn' => '.batch-edit',
+    ],
     'id' => 'permission-list',
     'intro' => '权限标识。用户访问资源的时候实际就是路由的时候，系统会根据<strong>路由寻址到对应的权限标识</strong>，最后根据权限标识找到对应的角色，如果用户拥有该角色则表示可以访问改资源。',
     'dataProvider' => $dataProvider,

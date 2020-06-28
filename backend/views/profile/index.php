@@ -1,9 +1,9 @@
 <?php
 
+use app\mmadmin\widgets\AjaxFileInput;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
-use app\mmadmin\widgets\JcropFileInput;
 
 /* @var $this yii\web\View */
 /* @var $model app\backend\forms\DynamicUser */
@@ -18,26 +18,10 @@ AjaxModalOrNormalPanelContent::begin([
 <?= Html::activeHiddenInput($model, 'username') ?>
 <div class="row">
     <div class="col-md-6">
-
-        <?php
-            echo $form->field($model, 'avatar')->widget(JcropFileInput::className(), [
-                'cropInput' => '#crop',
-                'preview_h' => '200',
-                'preview_w' => '200',
-                'clientOptions' => [
-                    'setSelect' => [
-                        100,
-                        100,
-                        200,
-                        200
-                    ],
-                    'aspectRatio' => 1
-                    //'allowResize'=>false
-                ]
-            ]) ?>
+        <?php echo $form->field($model, 'avatar')->widget(AjaxFileInput::className()) ?>
+        <?= $form->field($model, 'nick_name')->textInput(['maxlength' => true]) ?>
     </div>
     <div class="col-md-6"> 
-        <?= $form->field($model, 'nick_name')->textInput(['maxlength' => true]) ?>
 
         <?= $form->field($model, 'password')->textInput(['maxlength' => true]) ?>
     

@@ -118,9 +118,8 @@ class Admin extends BaseModel implements IdentityInterface
                 [
                     'avatar'
                 ],
-                'file',
-                'skipOnEmpty' => true,
-                'extensions' => 'png,jpg'
+                'string',
+                'max' => 128
             ]
         ];
     }

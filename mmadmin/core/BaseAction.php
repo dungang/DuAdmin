@@ -35,7 +35,7 @@ class BaseAction extends Action
     /**
      * action的行为
      *
-     * @var string
+     * @var array
      */
     protected $_actionBehaviors = [];
 
