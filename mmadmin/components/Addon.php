@@ -55,7 +55,6 @@ class Addon extends Module
      */
     protected function initApi()
     {
-        static::registerApiHookHandlers();
         //初始化API的模块配置
         throw new NotSupportedException('不支持API服务');
     }
@@ -67,8 +66,6 @@ class Addon extends Module
      */
     protected function initBackend()
     {
-        static::registerWebHookHandlers();
-        static::registerBackenHookHandlers();
         //初始化后端的模块配置
         throw new NotSupportedException('不支持后端服务');
     }
@@ -80,8 +77,6 @@ class Addon extends Module
      */
     protected function initFrontend()
     {
-        static::registerWebHookHandlers();
-        static::registerFrontHookHandlers();
         //初始化前端的模块配置
         throw new NotSupportedException('不支持前端服务');
     }
@@ -108,24 +103,6 @@ class Addon extends Module
         //LoaderHelper::addClassMap()
 
     }
-
-    // public static function registerHookHandlers()
-    // {
-    //     static::registerCommonHookHandlers();
-    //     switch (Yii::$app->mode) {
-    //         case Application::MODE_BACKEND:
-    //             static::registerWebHookHandlers();
-    //             static::registerBackenHookHandlers();
-    //             break;
-    //         case Application::MODE_FRONTEND:
-    //             static::registerWebHookHandlers();
-    //             static::registerFrontHookHandlers();
-    //             break;
-    //         case Application::MODE_API:
-    //             static::registerApiHookHandlers();
-    //             break;
-    //     }
-    // }
 
     public static function registerCommonHookHandlers()
     {

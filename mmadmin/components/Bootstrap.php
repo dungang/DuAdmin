@@ -82,6 +82,7 @@ class Bootstrap implements BootstrapInterface
      */
     protected function dynamicRegistAddons($app)
     {
+
         foreach (array_values($app->modules) as $module) {
             if (is_array($module)) {
                 $module = $module['class'];
@@ -92,6 +93,16 @@ class Bootstrap implements BootstrapInterface
                     call_user_func([$module, 'initAddon']);
                     //注册hook的处理器
                     call_user_func([$module, 'registerCommonHookHandlers']);
+
+                    if ($app->mode == Application::MODE_FRONTEND) {
+                        call_user_func([$module, 'registerWebHookHandlers']);
+                        call_user_func([$module, 'registerFrontHookHandlers']);
+                    } else if ($app->mode == Application::MODE_BACKEND) {
+                        call_user_func([$module, 'registerWebHookHandlers']);
+                        call_user_func([$module, 'registerBackenHookHandlers']);
+                    } else if ($app->mode == Application::MODE_API) {
+                        call_user_func([$module, 'registerApiHookHandlers']);
+                    }
                 }
             }
         }

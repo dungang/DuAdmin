@@ -1,0 +1,252 @@
+@footer-min-height: 180px;
+
+html,
+body {
+    height        : 100%;
+    //  background: #f5f5f5;
+}
+
+.navbar-default {
+    background-color: white;
+}
+
+.navbar {
+    border-radius: 0;
+    border       : 0;
+}
+
+.wrap {
+    min-height: 100%;
+    height    : auto;
+    margin    : 0 auto -@footer-min-height;
+    padding   : 0 0 @footer-min-height;
+}
+
+.wrap>.container {
+    padding: 0px 15px 20px;
+}
+
+.footer {
+    height          : @footer-min-height;
+    border-top      : 1px solid #ddd;
+    padding-top     : 20px;
+    //#gradient > .vertical(@start-color: @gray; @end-color: @gray-darker);
+    background-color: @gray-darker;
+    &,
+    a,
+    a:hover,
+    a:active {
+        color: white;
+    }
+}
+
+.jumbotron {
+    text-align      : center;
+    background-color: transparent;
+}
+
+.jumbotron .btn {
+    font-size: 21px;
+    padding  : 14px 24px;
+}
+
+.not-set {
+    color     : #c55;
+    font-style: italic;
+}
+
+/* add sorting icons to gridview sort links */
+a.asc:after,
+a.desc:after {
+    position    : relative;
+    top         : 1px;
+    display     : inline-block;
+    font-family : 'Glyphicons Halflings';
+    font-style  : normal;
+    font-weight : normal;
+    line-height : 1;
+    padding-left: 5px;
+}
+
+a.asc:after {
+    content:
+        /*"\e113"*/
+        "\e151";
+}
+
+a.desc:after {
+    content:
+        /*"\e114"*/
+        "\e152";
+}
+
+.sort-numerical a.asc:after {
+    content: "\e153";
+}
+
+.sort-numerical a.desc:after {
+    content: "\e154";
+}
+
+.sort-ordinal a.asc:after {
+    content: "\e155";
+}
+
+.sort-ordinal a.desc:after {
+    content: "\e156";
+}
+
+.grid-view th {
+    white-space: nowrap;
+}
+
+.hint-block {
+    display   : block;
+    margin-top: 5px;
+    color     : #999;
+}
+
+.error-summary {
+    color      : #a94442;
+    background : #fdf7f7;
+    border-left: 3px solid #eed3d7;
+    padding    : 10px 20px;
+    margin     : 0 0 15px 0;
+}
+
+/* align the logout "link" (button in form) of the navbar */
+.nav li>form>button.logout {
+    padding: 15px;
+    border : none;
+}
+
+@media(max-width:767px) {
+    .nav li>form>button.logout {
+        display   : block;
+        text-align: left;
+        width     : 100%;
+        padding   : 10px 15px;
+    }
+}
+
+.nav>li>form>button.logout:focus,
+.nav>li>form>button.logout:hover {
+    text-decoration: none;
+}
+
+.nav>li>form>button.logout:focus {
+    outline: none;
+}
+
+
+/* customer css */
+
+.grid-view .summary {
+    padding-bottom: 10px;
+}
+
+.block-bar,
+.block-bar-gray {
+    padding: 30px 0;
+
+    h3 {
+        text-align   : center;
+        margin-bottom: 40px;
+    }
+}
+
+.block-bar {
+    background-color: white;
+
+}
+
+.block-bar-gray {
+    background-color: lighten(@gray-lighter, 1%);
+
+}
+
+.page-cover {
+    img {
+        width: 100%;
+
+        @media (min-width: @grid-float-breakpoint) {
+            width: auto;
+        }
+    }
+}
+
+.breadcrumb {
+    margin-bottom: 0;
+}
+
+.nav {
+    .active {
+        background-color: @brand-primary;
+
+        &,
+        a {
+            color: white;
+        }
+    }
+
+    .lang-active {
+        &,
+        a {
+            color: @brand-primary !important;
+        }
+    }
+}
+
+.product-list {
+    .product {
+        display: flex;
+
+        .cover {
+            width: 120px;
+
+        }
+
+        .info {
+            flex: 1;
+
+        }
+    }
+}
+
+.thumbnail {
+    border-radius: 0;
+    border       : 0;
+
+    .img-aspect-11 {
+        position   : relative;
+        width      : 100%;
+        padding-top: 100%;
+        overflow   : hidden;
+
+        img {
+            position: absolute;
+            top     : 0;
+            left    : 0;
+            bottom  : 0;
+            right   : 0;
+            width   : 100%;
+        }
+    }
+
+    .caption {
+        margin-left     : -4px;
+        margin-right    : -4px;
+        margin-bottom   : -4px;
+        background-color: @brand-primary;
+
+        h3 {
+            margin  : 5px;
+            height  : 53px;
+            overflow: hidden;
+            a {
+                color    : white;
+                font-size: medium;
+            }
+        }
+    }
+}
