@@ -913,7 +913,7 @@ a:active {
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
-  color: #FFF;
+  color: #222222;
   background-color: #ffdc00;
 }
 .navbar-default .navbar-nav > .disabled > a,
@@ -925,7 +925,7 @@ a:active {
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
-  color: #FFF;
+  color: #222222;
   background-color: #ffdc00;
 }
 @media (max-width: 767px) {
@@ -940,7 +940,7 @@ a:active {
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
-    color: #FFF;
+    color: #222222;
     background-color: #ffdc00;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a,
@@ -1227,6 +1227,12 @@ a.desc:after {
   text-align: center;
   margin-bottom: 40px;
 }
+.block-bar h3 .h,
+.block-bar-gray h3 .h {
+  padding: 5px;
+  background-image: url(../images/yellow-bar-gb.png);
+  background-size: contain;
+}
 .block-bar {
   background-color: white;
 }
@@ -1294,7 +1300,7 @@ a.desc:after {
   overflow: hidden;
 }
 .thumbnail .caption h3 a {
-  color: white;
+  color: #222222;
   font-size: medium;
 }
 .btn-default.disabled,

@@ -23,7 +23,24 @@ mix
     // //前端主题 basic
     // .less('themes/basic/assets/src/less/theme.less', 'themes/basic/assets/dist/css')
     //前端主题 clothes
+    // .webpackConfig({
+    //     module: {
+    //         rules: [
+    //             {
+    //                 test: /\.(png|jpg|gif)$/,
+    //                 loaders: [{
+    //                     loader: 'url-loader',
+    //                     options: {
+    //                         mimetype: 'image/png'
+    //                     }
+    //                 }]
+    //             }
+    //         ]
+    //     }
+
+    // })
     .less('themes/clothes/assets/src/less/theme.less', 'themes/clothes/assets/dist/css')
+    .copy('themes/clothes/assets/src/images','themes/clothes/assets/dist/images')
     .then(function () {
         del(['public/assets/*']);
     });
