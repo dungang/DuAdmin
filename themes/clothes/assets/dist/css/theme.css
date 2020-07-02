@@ -1263,14 +1263,32 @@ a.desc:after {
 .nav .lang-active a {
   color: #ffdc00 !important;
 }
-.product-list .product {
+.cate-tabs .tabs {
   display: flex;
+  justify-content: center;
 }
-.product-list .product .cover {
-  width: 120px;
+.cate-tabs .tabs .tab {
+  flex-flow: column;
+  height: 98px;
+  width: 98px;
+  align-items: center;
+  border-radius: 4px;
+  text-align: center;
+  padding: 19px;
+  margin-left: 15px;
 }
-.product-list .product .info {
-  flex: 1;
+.cate-tabs .tabs .tab.active,
+.cate-tabs .tabs .tab:hover {
+  background-image: linear-gradient(180deg, #ffec6b, #ffdc00);
+}
+.cate-tabs .tabs .tab .icon {
+  line-height: 40px;
+}
+.cate-tabs .tabs .tab .icon i {
+  font-size: 36px;
+}
+.cate-tabs .tabs .tab .title {
+  line-height: 20px;
 }
 .thumbnail {
   border-radius: 0;

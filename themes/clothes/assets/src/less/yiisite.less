@@ -27,11 +27,12 @@ body {
 }
 
 .footer {
-    height          : @footer-min-height;
-    border-top      : 1px solid #ddd;
-    padding-top     : 20px;
+    height                              : @footer-min-height;
+    border-top                          : 1px solid #ddd;
+    padding-top                         : 20px;
     //#gradient > .vertical(@start-color: @gray; @end-color: @gray-darker);
-    background-color: @gray-darker;
+    background-color                    : @gray-darker;
+
     &,
     a,
     a:hover,
@@ -152,11 +153,12 @@ a.desc:after {
     h3 {
         text-align   : center;
         margin-bottom: 40px;
-        color: @gray-darker;
+        color        : @gray-darker;
+
         .h {
-            padding: 5px;
+            padding         : 5px;
             background-image: url(../images/yellow-bar-gb.png);
-            background-size: contain;
+            background-size : contain;
         }
     }
 }
@@ -196,25 +198,47 @@ a.desc:after {
     }
 
     .lang-active {
+
         &,
         a {
-            color: @brand-primary !important;
+            color: @brand-primary  !important;
         }
     }
 }
 
-.product-list {
-    .product {
-        display: flex;
+.cate-tabs {
 
-        .cover {
-            width: 120px;
+    .tabs {
+        display        : flex;
+        justify-content: center;
 
-        }
+        .tab {
+            flex-flow    : column;
+            height       : 98px;
+            width        : 98px;
+            align-items  : center;
+            border-radius: 4px;
+            text-align   : center;
+            padding      : 19px;
+            margin-left  : 15px;
 
-        .info {
-            flex: 1;
+            &.active,
+            &:hover {
+                background-image: linear-gradient(180deg, #ffec6b, #ffdc00)
+            }
 
+            .icon {
+                line-height: 40px;
+
+                i {
+
+                    font-size: 36px;
+                }
+            }
+
+            .title {
+                line-height: 20px;
+            }
         }
     }
 }
@@ -249,6 +273,7 @@ a.desc:after {
             margin  : 5px;
             height  : 53px;
             overflow: hidden;
+
             a {
                 color    : @gray-darker;
                 font-size: medium;

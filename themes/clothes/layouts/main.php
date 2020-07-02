@@ -9,13 +9,11 @@ use app\mmadmin\models\Setting;
 use app\mmadmin\widgets\LazyLoad;
 use app\mmadmin\widgets\Notify;
 use app\mmadmin\widgets\SimpleModal;
-use app\mmadmin\widgets\SwitchLanguage;
 use app\themes\clothes\widgets\ThemeAsset;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
-
 AppAsset::register($this);
 ThemeAsset::register($this);
 Notify::widget();
@@ -49,7 +47,6 @@ $this->params['logo'] = MAHelper::getSetting('site.logo');
                 'class' => 'navbar-default'
             ]
         ]);
-        echo SwitchLanguage::widget(['route'=>['/site/index']]);
         $menus = [
             [
                 'label' => Yii::t('yii','Home'),
