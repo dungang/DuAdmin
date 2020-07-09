@@ -129,7 +129,7 @@ $(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\projects\workspace\MMAdmin\themes\clothes\assets\src\js\theme.js */"./themes/clothes/assets/src/js/theme.js");
+module.exports = __webpack_require__(/*! D:\www\MMAdmin\themes\clothes\assets\src\js\theme.js */"./themes/clothes/assets/src/js/theme.js");
 
 
 /***/ })

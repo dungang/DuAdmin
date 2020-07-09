@@ -1356,6 +1356,17 @@ a.desc:after {
   color: #222222;
   font-size: medium;
 }
+.clothes-info .clothes-base {
+  display: flex;
+}
+.clothes-info .clothes-base .photos,
+.clothes-info .clothes-base .base {
+  flex: 1;
+}
+.clothes-info .clothes-base .main-pic {
+  width: 100%;
+  display: block;
+}
 .btn-default.disabled,
 .btn-primary.disabled,
 .btn-success.disabled,

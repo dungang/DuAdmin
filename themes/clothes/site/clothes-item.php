@@ -9,7 +9,7 @@ use yii\helpers\Html;
           <?= Html::img(empty($model['main_pic'])?'images/nopic.png':$model['main_pic']) ?>
         </div>
         <div class="caption">
-            <h3><?=Html::a($model['title'],['/clothes/detail','id'=>$model['id']])?></h3>
+            <h3><?=Html::a($model['title'],['/clothes/product/info','id'=>$model['id']])?></h3>
         </div>
     </div>
 </div>
