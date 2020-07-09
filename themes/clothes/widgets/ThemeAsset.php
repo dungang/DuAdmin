@@ -10,4 +10,6 @@ class ThemeAsset extends AssetBundle {
     public $css = [
         'css/theme.css'
     ];
+
+    public $js = ['js/theme.js'];
 }

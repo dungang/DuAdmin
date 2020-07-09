@@ -1276,19 +1276,48 @@ a.desc:after {
   text-align: center;
   padding: 19px;
   margin-left: 15px;
+  cursor: pointer;
+  margin-bottom: 15px;
 }
 .cate-tabs .tabs .tab.active,
 .cate-tabs .tabs .tab:hover {
   background-image: linear-gradient(180deg, #ffec6b, #ffdc00);
 }
-.cate-tabs .tabs .tab .icon {
-  line-height: 40px;
+.cate-tabs .tabs .tab .clothes-icon {
+  height: 40px;
 }
-.cate-tabs .tabs .tab .icon i {
-  font-size: 36px;
+.cate-tabs .tabs .tab .clothes-icon.tshirt {
+  background: url(../images/tshirt.png) no-repeat;
+  background-position: center;
+  background-size: contain;
 }
-.cate-tabs .tabs .tab .title {
+.cate-tabs .tabs .tab .clothes-icon.thinhoodie {
+  background: url(../images/thinhoodie.png) no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+.cate-tabs .tabs .tab .clothes-icon.hoodie {
+  background: url(../images/hoodie.png) no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+.cate-tabs .tabs .tab .clothes-icon.skiwear {
+  background: url(../images/skiwear.png) no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+.cate-tabs .tabs .tab .label {
   line-height: 20px;
+  color: #222222;
+}
+.cate-tabs .contents {
+  padding: 15px;
+}
+.cate-tabs .contents .content {
+  display: none;
+}
+.cate-tabs .contents .content.active {
+  display: block;
 }
 .thumbnail {
   border-radius: 0;
@@ -1312,7 +1341,7 @@ a.desc:after {
   margin-left: -4px;
   margin-right: -4px;
   margin-bottom: -4px;
-  background-color: #ffdc00;
+  background-color: white;
 }
 .thumbnail .caption h3 {
   margin: 5px;

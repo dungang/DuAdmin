@@ -1,5 +1,6 @@
 <?php
 
+use app\addons\clothes\widgets\NewestClothes;
 use app\addons\flash\widgets\Swiper;
 use app\addons\required\widgets\RequiredFormShow;
 
@@ -16,52 +17,52 @@ $this->title = Yii::t('app', 'Home');
             <div class="cate-tabs">
                 <div class="tabs">
                     <div class="tab active">
-                        <div class="icon">
-                            <i class="fa fa-user"></i>
-                        </div>
-                        <div class="title">
-                            用户
+                        <div class="clothes-icon tshirt"></div>
+                        <div class="label">
+                            T恤
                         </div>
                     </div>
                     <div class="tab">
-                        <div class="icon">
-                            <i class="fa fa-user"></i>
-                        </div>
-                        <div class="title">
-                            用户
+                        <div class="clothes-icon thinhoodie"></div>
+                        <div class="label">
+                            薄卫衣
                         </div>
                     </div>
                     <div class="tab">
-                        <div class="icon">
-                            <i class="fa fa-user"></i>
-                        </div>
-                        <div class="title">
-                            用户
+                        <div class="clothes-icon hoodie"></div>
+                        <div class="label">
+                            厚卫衣
                         </div>
                     </div>
                     <div class="tab">
-                        <div class="icon">
-                            <i class="fa fa-user"></i>
-                        </div>
-                        <div class="title">
-                            用户
+                        <div class="clothes-icon skiwear"></div>
+                        <div class="label">
+                            冲锋衣
                         </div>
                     </div>
-                    <div class="tab">
-                        <div class="icon">
-                            <i class="fa fa-user"></i>
-                        </div>
-                        <div class="title">
-                            用户
-                        </div>
+                </div>
+                <div class="contents">
+                    <div class="content">
+                        <?= NewestClothes::widget([
+                            'slug'=>'hoodie',
+                            'render_callback' => function ($clothes_item) {
+                                return $this->render('clothes-item', ['model' => $clothes_item]);
+                            }
+                        ]) ?>
                     </div>
-                    <div class="tab">
-                        <div class="icon">
-                            <i class="fa fa-user"></i>
-                        </div>
-                        <div class="title">
-                            用户
-                        </div>
+                    <div class="content">
+                    薄款卫衣
+                    </div>
+                    <div class="content">
+                        <?= NewestClothes::widget([
+                            'slug'=>'hoodie',
+                            'render_callback' => function ($clothes_item) {
+                                return $this->render('clothes-item', ['model' => $clothes_item]);
+                            }
+                        ]) ?>
+                    </div>
+                    <div class="content">
+                    冲锋衣
                     </div>
                 </div>
             </div>

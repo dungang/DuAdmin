@@ -40,6 +40,7 @@ mix
 
     // })
     .less('themes/clothes/assets/src/less/theme.less', 'themes/clothes/assets/dist/css')
+    .js('themes/clothes/assets/src/js/theme.js', 'themes/clothes/assets/dist/js')
     .copy('themes/clothes/assets/src/images','themes/clothes/assets/dist/images')
     .then(function () {
         del(['public/assets/*']);
