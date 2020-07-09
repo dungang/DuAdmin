@@ -1336,6 +1336,10 @@ a.desc:after {
   bottom: 0;
   right: 0;
   width: 100%;
+  transition: all 0.4s;
+}
+.thumbnail .img-aspect-11 img:hover {
+  transform: scale(1.06);
 }
 .thumbnail .caption {
   margin-left: -4px;

@@ -44,25 +44,35 @@ $this->title = Yii::t('app', 'Home');
                 <div class="contents">
                     <div class="content">
                         <?= NewestClothes::widget([
-                            'slug'=>'hoodie',
+                            'slug' => 'tshirt',
                             'render_callback' => function ($clothes_item) {
                                 return $this->render('clothes-item', ['model' => $clothes_item]);
                             }
                         ]) ?>
-                    </div>
-                    <div class="content">
-                    薄款卫衣
                     </div>
                     <div class="content">
                         <?= NewestClothes::widget([
-                            'slug'=>'hoodie',
+                            'slug' => 'thinhoodie',
                             'render_callback' => function ($clothes_item) {
                                 return $this->render('clothes-item', ['model' => $clothes_item]);
                             }
                         ]) ?>
                     </div>
                     <div class="content">
-                    冲锋衣
+                        <?= NewestClothes::widget([
+                            'slug' => 'hoodie',
+                            'render_callback' => function ($clothes_item) {
+                                return $this->render('clothes-item', ['model' => $clothes_item]);
+                            }
+                        ]) ?>
+                    </div>
+                    <div class="content">
+                        <?= NewestClothes::widget([
+                            'slug' => 'skiwear',
+                            'render_callback' => function ($clothes_item) {
+                                return $this->render('clothes-item', ['model' => $clothes_item]);
+                            }
+                        ]) ?>
                     </div>
                 </div>
             </div>

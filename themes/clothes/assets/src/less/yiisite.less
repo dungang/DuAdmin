@@ -259,14 +259,17 @@ a.desc:after {
 
             .label {
                 line-height: 20px;
-                color: @gray-darker;
+                color      : @gray-darker;
             }
         }
     }
+
     .contents {
         padding: 15px;
+
         .content {
             display: none;
+
             &.active {
                 display: block;
             }
@@ -277,7 +280,6 @@ a.desc:after {
 .thumbnail {
     border-radius: 0;
     border       : 0;
-
     .img-aspect-11 {
         position   : relative;
         width      : 100%;
@@ -291,6 +293,10 @@ a.desc:after {
             bottom  : 0;
             right   : 0;
             width   : 100%;
+            &:hover {
+                transform: scale(1.06);
+            }
+            transition: all .4s;
         }
     }
 
@@ -299,12 +305,10 @@ a.desc:after {
         margin-right    : -4px;
         margin-bottom   : -4px;
         background-color: white;
-
         h3 {
             margin  : 5px;
             height  : 53px;
             overflow: hidden;
-
             a {
                 color    : @gray-darker;
                 font-size: medium;
