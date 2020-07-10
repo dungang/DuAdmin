@@ -1,6 +1,6 @@
 {
     "/public/backend/dist/js/main.js": "/public/backend/dist/js/main.js",
     "/public/backend/dist/css/main.css": "/public/backend/dist/css/main.css",
-    "/themes/clothes/assets/dist/css/theme.css": "/themes/clothes/assets/dist/css/theme.css",
-    "/themes/clothes/assets/dist/js/theme.js": "/themes/clothes/assets/dist/js/theme.js"
+    "/themes/clothes/assets/dist/css/clothes.css": "/themes/clothes/assets/dist/css/clothes.css",
+    "/themes/clothes/assets/dist/js/clothes.js": "/themes/clothes/assets/dist/js/clothes.js"
 }

@@ -86,10 +86,10 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./themes/clothes/assets/src/js/theme.js":
-/*!***********************************************!*\
-  !*** ./themes/clothes/assets/src/js/theme.js ***!
-  \***********************************************/
+/***/ "./themes/clothes/assets/src/js/clothes.js":
+/*!*************************************************!*\
+  !*** ./themes/clothes/assets/src/js/clothes.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -123,13 +123,13 @@ $(document).ready(function () {
 /***/ }),
 
 /***/ 1:
-/*!*****************************************************!*\
-  !*** multi ./themes/clothes/assets/src/js/theme.js ***!
-  \*****************************************************/
+/*!*******************************************************!*\
+  !*** multi ./themes/clothes/assets/src/js/clothes.js ***!
+  \*******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\projects\workspace\MMAdmin\themes\clothes\assets\src\js\theme.js */"./themes/clothes/assets/src/js/theme.js");
+module.exports = __webpack_require__(/*! D:\projects\workspace\MMAdmin\themes\clothes\assets\src\js\clothes.js */"./themes/clothes/assets/src/js/clothes.js");
 
 
 /***/ })
