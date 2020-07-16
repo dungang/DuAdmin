@@ -2,6 +2,7 @@
 
 namespace app\mmadmin\uploader;
 
+use app\mmadmin\helpers\MAHelper;
 use Yii;
 use yii\base\Widget;
 use yii\helpers\Json;
@@ -19,6 +20,15 @@ class  ConfigWidget extends Widget
     public $deleteUrl = '';
 
     public $baseUrl = '';
+
+    public static function factory()
+    {
+        $driverName = MAHelper::getSetting('uploader.driver');
+        if (empty($driverName) || $driverName == 'local') {
+        } else {
+            call_user_func(['app\\addons\\' . $driverName . '\\widgets\\ConfigWidget', 'widget']);
+        }
+    }
 
     public function run()
     {

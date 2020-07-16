@@ -2,7 +2,6 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-use app\addons\qiniu\widgets\UploaderConfig;
 use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use app\mmadmin\widgets\Notify;
@@ -15,9 +14,10 @@ use app\mmadmin\widgets\AdminlteNavBar;
 use app\mmadmin\widgets\AdminlteSideBar;
 use app\mmadmin\widgets\AdminlteSideBarMenu;
 use app\backend\widgets\StartCron;
+use app\mmadmin\uploader\ConfigWidget;
 
 BackendAsset::register($this);
-UploaderConfig::widget();
+ConfigWidget::factory();
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

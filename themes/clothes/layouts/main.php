@@ -14,6 +14,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
+echo date('Y-m-d H:i:s',strtotime(date('Y-1-1')));die;
 AppAsset::register($this);
 ThemeAsset::register($this);
 Notify::widget();
@@ -36,7 +37,6 @@ $this->params['logo'] = MAHelper::getSetting('site.logo');
 
 <body>
     <?php $this->beginBody() ?>
-
     <div class="wrap">
         <?php
         NavBar::begin([
