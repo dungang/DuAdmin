@@ -681,10 +681,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./themes/clothes/assets/src/less/clothes.less":
-/*!*****************************************************!*\
-  !*** ./themes/clothes/assets/src/less/clothes.less ***!
-  \*****************************************************/
+/***/ "./themes/basic/assets/src/less/basic.less":
+/*!*************************************************!*\
+  !*** ./themes/basic/assets/src/less/basic.less ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -693,15 +693,15 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 0:
-/*!*******************************************************************************************************************************!*\
-  !*** multi ./public/backend/src/js/main.js ./public/backend/src/less/main.less ./themes/clothes/assets/src/less/clothes.less ***!
-  \*******************************************************************************************************************************/
+/*!***************************************************************************************************************************!*\
+  !*** multi ./public/backend/src/js/main.js ./public/backend/src/less/main.less ./themes/basic/assets/src/less/basic.less ***!
+  \***************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! D:\projects\workspace\MMAdmin\public\backend\src\js\main.js */"./public/backend/src/js/main.js");
 __webpack_require__(/*! D:\projects\workspace\MMAdmin\public\backend\src\less\main.less */"./public/backend/src/less/main.less");
-module.exports = __webpack_require__(/*! D:\projects\workspace\MMAdmin\themes\clothes\assets\src\less\clothes.less */"./themes/clothes/assets/src/less/clothes.less");
+module.exports = __webpack_require__(/*! D:\projects\workspace\MMAdmin\themes\basic\assets\src\less\basic.less */"./themes/basic/assets/src/less/basic.less");
 
 
 /***/ })

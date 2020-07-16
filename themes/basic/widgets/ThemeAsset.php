@@ -8,6 +8,6 @@ class ThemeAsset extends AssetBundle {
     public $sourcePath = '@app/themes/basic/assets/dist/css';
 
     public $css = [
-        'theme.css'
+        'basic.css'
     ];
 }
