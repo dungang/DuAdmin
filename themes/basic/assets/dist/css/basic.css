@@ -721,6 +721,7 @@ a:active {
   padding-top: 10px;
   padding-bottom: 10px;
   line-height: 20px;
+  font-weight: bolder;
 }
 @media (max-width: 767px) {
   .navbar-nav .open .dropdown-menu {
@@ -888,18 +889,18 @@ a:active {
   border-color: #eeeeee;
 }
 .navbar-default .navbar-brand {
-  color: #777;
+  color: #222222;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
-  color: #5e5e5e;
+  color: #090909;
   background-color: transparent;
 }
 .navbar-default .navbar-text {
-  color: #777;
+  color: #222222;
 }
 .navbar-default .navbar-nav > li > a {
-  color: #777;
+  color: #222222;
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
@@ -926,7 +927,7 @@ a:active {
 }
 @media (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-    color: #777;
+    color: #222222;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
@@ -966,13 +967,13 @@ a:active {
   border-color: #eeeeee;
 }
 .navbar-default .navbar-link {
-  color: #777;
+  color: #222222;
 }
 .navbar-default .navbar-link:hover {
   color: #333;
 }
 .navbar-default .btn-link {
-  color: #777;
+  color: #222222;
 }
 .navbar-default .btn-link:hover,
 .navbar-default .btn-link:focus {
