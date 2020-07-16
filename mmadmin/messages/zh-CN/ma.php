@@ -32,5 +32,5 @@ return [
     'Translation' => '翻译',
     'Settings' => '参数设置',
     'View Detail' => '查看详情',
-    'Update Info' => '更新信息'
+    'Update Info' => '更新信息',
 ];

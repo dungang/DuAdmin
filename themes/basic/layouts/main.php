@@ -32,7 +32,7 @@ $this->params['logo'] = MAHelper::getSetting('site.logo');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title  . '-' . Yii::t('app',MAHelper::getSetting('site.name'))) ?></title>
+    <title><?= Html::encode($this->title . '-' . Yii::t('app',MAHelper::getSetting('site.name'))) ?></title>
     <?php $this->head() ?>
 </head>
 

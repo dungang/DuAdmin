@@ -4,7 +4,7 @@ use app\addons\cms\widgets\ArticleShow;
 use app\addons\flash\widgets\Swiper;
 use app\addons\required\widgets\RequiredFormShow;
 
-$this->title = Yii::t('app','Home');
+$this->title = Yii::t('theme','Home');
 ?>
 <div style="margin-top:-20px;">
     <?= Swiper::widget() ?>
