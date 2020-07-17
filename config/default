@@ -1,0 +1,127 @@
+server {
+	listen       80;
+        server_name  www.geetask.com;
+        root         /var/www/geetask/web/;
+
+	index	index.php;
+
+        include /etc/nginx/default.d/*.conf;
+
+        location / {
+		try_files $uri $uri/ /index.php$is_args$args;
+        }
+	
+	location ~ \.php$ {
+		include fastcgi_params;
+		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+		fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
+		try_files $uri =404;
+	}
+		
+	location ~ /\.(ht|svn|git) {
+		deny all;
+	}
+}
+server {
+	listen       80;
+        server_name  www.xiangqiankeji.com xiangqiankeji.com;
+        root         /var/www/baiyuan-cms/public/;
+
+	index	index.php;
+
+        include /etc/nginx/default.d/*.conf;
+
+        location / {
+		try_files $uri $uri/ /index.php$is_args$args;
+        }
+	
+	location ~ \.php$ {
+		include fastcgi_params;
+		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+		fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
+		try_files $uri =404;
+	}
+		
+	location ~ /\.(ht|svn|git) {
+		deny all;
+	}
+}
+server {
+	listen	80;
+	server_name	docdada.com;
+	rewrite	^/(.*)$ http://www.docdada.com/$1 permanent;
+}
+
+server {
+	listen       80;
+        server_name  www.docdada.com;
+        root         /var/www/docdada/public/;
+
+	index	index.php;
+
+        include /etc/nginx/default.d/*.conf;
+
+        location / {
+		try_files $uri $uri/ /index.php$is_args$args;
+        }
+	
+	location ~ \.php$ {
+		include fastcgi_params;
+		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+		fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
+		try_files $uri =404;
+	}
+		
+	location ~ /\.(ht|svn|git) {
+		deny all;
+	}
+}
+
+server {
+	listen       80;
+        server_name  hwq.docdada.com;
+        root         /var/www/docdada/addons/taobaoke/;
+
+	index	index.php;
+
+        include /etc/nginx/default.d/*.conf;
+
+        location / {
+		try_files $uri $uri/ /index.php$is_args$args;
+        }
+	
+	location ~ \.php$ {
+		include fastcgi_params;
+		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+		fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
+		try_files $uri =404;
+	}
+		
+	location ~ /\.(ht|svn|git) {
+		deny all;
+	}
+}
+server {
+	listen       80;
+        server_name  dungang.site www.dungang.site;
+        root         /var/www/wp/;
+
+	index	index.php;
+
+        include /etc/nginx/default.d/*.conf;
+
+        location / {
+		try_files $uri $uri/ /index.php$is_args$args;
+        }
+	
+	location ~ \.php$ {
+		include fastcgi_params;
+		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+		fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
+		try_files $uri =404;
+	}
+		
+	location ~ /\.(ht|svn|git) {
+		deny all;
+	}
+}
