@@ -17,10 +17,6 @@ $this->params['breadcrumbs'][] = [
 ];
 $this->params['breadcrumbs'][] = $this->title;
 
-$user = app\mmadmin\models\User::findOne([
-	'id' => $model->user_id
-]);
-
 $this->registerMetaTag([
 	'name' => 'keywords',
 	'content' => $model->keywords . ',' . MAHelper::getSetting('site.keywords')

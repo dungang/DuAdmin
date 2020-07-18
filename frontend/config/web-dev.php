@@ -9,6 +9,12 @@ $config = [
     'viewPath' => '@app/frontend/views',
     'modules' => [],
     'components' => [
+        'request' => [
+            'cookieValidationKey' => 'dhkwehdihxlekdu@dkld',
+        ],
+        'session' =>[
+            'name'=>'MAFESESSION'
+        ],
         'db' => $db,
         'user' => [
             'identityClass' => '\app\mmadmin\models\User',

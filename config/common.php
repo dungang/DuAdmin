@@ -40,9 +40,6 @@ $config = [
         'view' => [
             'class' => 'app\mmadmin\core\CoreView',
         ],
-        'request' => [
-            'cookieValidationKey' => 'kdyagjkuduebfdglsgdls'
-        ],
         'cache' => [
             'class' => 'yii\caching\FileCache'
         ],

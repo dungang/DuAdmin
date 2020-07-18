@@ -9,9 +9,16 @@ $config = [
     'viewPath' => '@app/frontend/views',
     'modules' => [],
     'components' => [
+        'request' => [
+            'cookieValidationKey' => 'dhkwehdihxlekdu@dkld',
+        ],
+        'session' =>[
+            'name'=>'MAFESESSION'
+        ],
         'db' => $db,
         'user' => [
             'identityClass' => '\app\mmadmin\models\User',
+            'identityCookie' => ['name' => '_fe_id', 'httpOnly' => true],
             'enableAutoLogin' => true,
             'loginUrl' => [
                 'login'
