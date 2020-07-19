@@ -13,6 +13,9 @@ $config = [
         'task'=>'app\backend\task\TaskModule',
     ],
     'components' => [
+        'session' =>[
+            'name'=>'MMABESID'
+        ],
         'db' => $db,
         'user' => [
             'identityClass' => '\app\backend\models\Admin',

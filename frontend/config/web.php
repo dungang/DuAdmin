@@ -11,6 +11,7 @@ $config = [
     'components' => [
         'request' => [
             'cookieValidationKey' => 'dhkwehdihxlekdu@dkld',
+            'enableCsrfCookie' => false
         ],
         'session' =>[
             'name'=>'MAFESESSION'

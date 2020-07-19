@@ -560,7 +560,7 @@ a:active {
 }
 .navbar {
   position: relative;
-  min-height: 60px;
+  min-height: 100px;
   margin-bottom: 20px;
   border: 1px solid transparent;
 }
@@ -666,8 +666,8 @@ a:active {
 }
 .navbar-brand {
   float: left;
-  height: 60px;
-  padding: 10px 15px;
+  height: 100px;
+  padding: 20px 15px;
   font-size: 18px;
   line-height: 20px;
 }
@@ -677,7 +677,7 @@ a:active {
 }
 .navbar-brand > img {
   display: inline-block;
-  height: 40px;
+  height: 60px;
 }
 @media (min-width: 768px) {
   .navbar > .container .navbar-brand,
@@ -690,8 +690,8 @@ a:active {
   float: right;
   padding: 9px 10px;
   margin-right: 15px;
-  margin-top: 13px;
-  margin-bottom: 13px;
+  margin-top: 33px;
+  margin-bottom: 33px;
   background-color: transparent;
   background-image: none;
   border: 1px solid transparent;
@@ -715,7 +715,7 @@ a:active {
   }
 }
 .navbar-nav {
-  margin: 10px -15px;
+  margin: 20px -15px;
 }
 .navbar-nav > li > a {
   padding-top: 10px;
@@ -754,8 +754,8 @@ a:active {
     float: left;
   }
   .navbar-nav > li > a {
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 40px;
+    padding-bottom: 40px;
   }
 }
 .navbar-form {
@@ -765,8 +765,8 @@ a:active {
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
-  margin-top: 13px;
-  margin-bottom: 13px;
+  margin-top: 33px;
+  margin-bottom: 33px;
 }
 @media (min-width: 768px) {
   .navbar-form .form-group {
@@ -850,20 +850,20 @@ a:active {
   border-bottom-left-radius: 0;
 }
 .navbar-btn {
-  margin-top: 13px;
-  margin-bottom: 13px;
+  margin-top: 33px;
+  margin-bottom: 33px;
 }
 .navbar-btn.btn-sm {
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-top: 35px;
+  margin-bottom: 35px;
 }
 .navbar-btn.btn-xs {
-  margin-top: 19px;
-  margin-bottom: 19px;
+  margin-top: 39px;
+  margin-bottom: 39px;
 }
 .navbar-text {
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
 @media (min-width: 768px) {
   .navbar-text {
