@@ -69,11 +69,11 @@ abstract class Hook extends BaseObject
                     call_user_func($handler, $hook);
                     if (MAHelper::isDevMode()) {
                         $caller = (new ReflectionFunction($handler));
-                        Yii::trace($hookName . ' : callback in ' . $caller->getFileName() . ' on ' . $caller->getStartLine());
+                        Yii::debug($hookName . ' : callback in ' . $caller->getFileName() . ' on ' . $caller->getStartLine());
                     }
                 } else {
                     call_user_func([new $handler, 'process'], $hook);
-                    Yii::trace($hookName . ' : ' . $handler);
+                    Yii::debug($hookName . ' : ' . $handler);
                 }
                 if ($hook->stop) {
                     break;

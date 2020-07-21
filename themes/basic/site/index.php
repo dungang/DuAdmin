@@ -16,6 +16,7 @@ $this->title = Yii::t('theme','Home');
         <div class="row">
             <?= ArticleShow::widget([
                 'slug' => 'product-center',
+                'num' => 4,
                 'render_callback' => function ($product) {
                     return $this->render('product-item', ['model' => $product]);
                 }
