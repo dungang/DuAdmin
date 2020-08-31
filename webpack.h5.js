@@ -58,10 +58,11 @@ mix.webpackConfig({
         'vue', 'vue-router', 'axios', 'qs', 'vuex', 'moment'
     ])
     // 供求模块
-    //.js('addons/gq/H5/src/main.js', 'addons/gq/H5/dist')
-    // 淘客模块
-    //.js('addons/tbk/h5/src/main.js', 'addons/tbk/h5/dist')
-    .js('addons/tbk/h5/src/storehouse.js', 'addons/tbk/h5/dist')
+    .js('addons/gq/H5/src/main.js', 'addons/gq/H5/dist')
+    // 淘客首页
+    // .js('addons/tbk/h5/src/main.js', 'addons/tbk/h5/dist')
+    // 淘客会员
+    // .js('addons/tbk/h5/src/storehouse.js', 'addons/tbk/h5/dist')
     .then(function () {
         del(['public/assets/*']);
     });

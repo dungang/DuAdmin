@@ -23,6 +23,7 @@ $config = [
         'airline'=> 'app\addons\airline\Addon',
         'clothes'=> 'app\addons\clothes\Addon',
         'tbk'=> 'app\addons\tbk\Addon',
+        'pdd'=> 'app\addons\pdd\Addon',
         'gq'=> 'app\addons\gq\Addon',
         'ocr' => 'app\addons\ocr\Addon',
         'theme' => 'app\addons\theme\Addon',
