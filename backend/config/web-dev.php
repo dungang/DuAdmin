@@ -14,6 +14,10 @@ $config = [
         'task'=>'app\backend\task\TaskModule',
     ],
     'components' => [
+        'request' => [
+            'cookieValidationKey' => 'dhkwehdihxlekdu@dkld234',
+            'enableCsrfCookie' => false
+        ],
         'session' =>[
             'name'=>'MMABESID'
         ],

@@ -29,7 +29,8 @@
 		"yiisoft/yii2-queue": "^2.2",
 		"phpspec/php-diff": "^1.1",
 		"bacon/bacon-qr-code": "^1.0",
-		"damirka/yii2-jwt": "v0.2.1"
+		"damirka/yii2-jwt": "v0.2.1",
+		"zircote/swagger-php": "^3.0"
 	},
 	"require-dev": {
 		"yiisoft/yii2-debug": "~2.0"
