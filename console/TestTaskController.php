@@ -1,5 +1,5 @@
 <?php
-namespace app\commands;
+namespace app\console;
 
 use Exception;
 use Yii;

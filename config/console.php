@@ -7,7 +7,7 @@ $config = [
     'bootstrap' => [
         'log'
     ],
-    'controllerNamespace' => 'app\commands',
+    'controllerNamespace' => 'app\console',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset'

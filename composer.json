@@ -30,7 +30,8 @@
 		"phpspec/php-diff": "^1.1",
 		"bacon/bacon-qr-code": "^1.0",
 		"zircote/swagger-php": "^3.0",
-		"firebase/php-jwt": "^5.2"
+		"firebase/php-jwt": "^5.2",
+		"vlucas/phpdotenv": "^5.2"
 	},
 	"require-dev": {
 		"yiisoft/yii2-debug": "~2.0"
@@ -68,6 +69,6 @@
 	},
 	"repositories": [{
 		"type": "composer",
-		"url": "https://asset-packagist.org"
+		"url": "https://asset-packagist.cn"
 	}]
 }

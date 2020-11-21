@@ -1,5 +1,5 @@
 <?php
-namespace app\commands;
+namespace app\console;
 
 use app\addons\pdd\libs\PddClient;
 use yii\console\Controller;

@@ -1,5 +1,5 @@
 <?php
-namespace app\commands;
+namespace app\console;
 
 use app\addons\tbk\libs\TaobaokeClient;
 use yii\console\Controller;
