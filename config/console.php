@@ -1,6 +1,5 @@
 <?php
-$db = require 'db-dev.php';
-
+$db = require 'db.php';
 $config = [
     'id' => 'basic-console',
     'basePath' => dirname(__DIR__),

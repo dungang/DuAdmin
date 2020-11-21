@@ -1,5 +1,8 @@
 <?php
+
 namespace app\mmadmin\models;
+
+use app\backend\models\CronQuery;
 
 /**
  * "cron"表的模型类.

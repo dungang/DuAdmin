@@ -12,7 +12,7 @@ use yii\base\NotSupportedException;
  *
  * @property int $id
  * @property string $username 用户名
- * @property string $nick_name 姓名
+ * @property string $nickname 姓名
  * @property string $avatar 头像
  * @property string $auth_key 验证密钥
  * @property string $password_hash 密码hash
@@ -54,7 +54,7 @@ class Admin extends BaseModel implements IdentityInterface
         return [
             'id' => Yii::t('backend', 'ID'),
             'username' => Yii::t('backend', 'Username'),
-            'nick_name' => Yii::t('backend', 'Nick Name'),
+            'nickname' => Yii::t('backend', 'Nick Name'),
             'avatar' => Yii::t('backend', 'Avatar'),
             'auth_key' => Yii::t('backend', 'Auth Key'),
             'password' => Yii::t('backend', 'Password'),
@@ -82,7 +82,7 @@ class Admin extends BaseModel implements IdentityInterface
             [
                 [
                     'username',
-                    'nick_name',
+                    'nickname',
                     'email',
                     'mobile'
                 ],
@@ -192,7 +192,7 @@ class Admin extends BaseModel implements IdentityInterface
         if (empty($token)) {
             return false;
         }
-        $timestamp = (int) substr($token, strrpos($token, '_') + 1);
+        $timestamp = (int)substr($token, strrpos($token, '_') + 1);
         $expire = Yii::$app->params['user.passwordResetTokenExpire'];
         return $timestamp + $expire >= time();
     }

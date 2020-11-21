@@ -13,7 +13,7 @@ class m201121_084512_create_auth_tables extends Migration
     public function safeUp()
     {
         $tableOptions = 'CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci ENGINE=InnoDB';
-        $this->createTable('auth_rule', [
+        $this->createTable('{{%auth_rule}}', [
             'name' => $this->string(64)->notNull(),
             'data' => $this->binary(),
             'created_at' => $this->integer(),
@@ -21,7 +21,7 @@ class m201121_084512_create_auth_tables extends Migration
             'PRIMARY KEY ([[name]])',
         ], $tableOptions);
 
-        $this->createTable('auth_item', [
+        $this->createTable('{{%auth_item}}', [
             'name' => $this->string(64)->notNull(),
             'type' => $this->smallInteger()->notNull(),
             'description' => $this->text(),
@@ -31,24 +31,24 @@ class m201121_084512_create_auth_tables extends Migration
             'updated_at' => $this->integer(),
             'PRIMARY KEY ([[name]])',
         ], $tableOptions);
-        $this->addForeignKey('fk-auth_item-rule_name', 'auth_item', 'rule_name', 'auth_rule', 'name', 'SET NULL', 'CASCADE');
-        $this->createIndex('idx-auth_item-type', 'auth_item', 'type');
+        $this->addForeignKey('fk-auth_item-rule_name', '{{%auth_item}}', 'rule_name', '{{%auth_rule}}', 'name', 'SET NULL', 'CASCADE');
+        $this->createIndex('idx-auth_item-type', '{{%auth_item}}', 'type');
 
-        $this->createTable('auth_item_child', [
+        $this->createTable('{{%auth_item_child}}', [
             'parent' => $this->string(64)->notNull(),
             'child' => $this->string(64)->notNull(),
             'PRIMARY KEY ([[parent]], [[child]])',
         ], $tableOptions);
-        $this->addForeignKey('fk-auth_item_child-parent', 'auth_item_child', 'parent', 'auth_item', 'name', 'SET NULL', 'CASCADE');
-        $this->addForeignKey('fk-auth_item_child-child', 'auth_item_child', 'child', 'auth_item', 'name', 'SET NULL', 'CASCADE');
+        $this->addForeignKey('fk-auth_item_child-parent', '{{%auth_item_child}}', 'parent', '{{%auth_item}}', 'name', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('fk-auth_item_child-child', '{{%auth_item_child}}', 'child', '{{%auth_item}}', 'name', 'CASCADE', 'CASCADE');
 
-        $this->createTable('auth_assigment', [
+        $this->createTable('{{%auth_assignment}}', [
             'item_name' => $this->string(64)->notNull(),
             'user_id' => $this->string(64)->notNull(),
             'created_at' => $this->integer(),
             'PRIMARY KEY ([[item_name]], [[user_id]])',
         ], $tableOptions);
-        $this->addForeignKey('fk-auth_assigment-item_name', 'auth_assigment', 'item_name', 'auth_item', 'name', 'SET NULL', 'CASCADE');
+        $this->addForeignKey('fk-auth_assignment-item_name', '{{%auth_assignment}}', 'item_name', '{{%auth_item}}', 'name', 'CASCADE', 'CASCADE');
     }
 
     /**

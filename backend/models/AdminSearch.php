@@ -19,7 +19,7 @@ class AdminSearch extends Admin
     {
         return [
             [['id', 'status', 'login_failure', 'login_time', 'created_at', 'updated_at', 'is_del'], 'integer'],
-            [['username', 'nick_name', 'avatar', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'mobile', 'login_ip'], 'safe'],
+            [['username', 'nickname', 'avatar', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'mobile', 'login_ip'], 'safe'],
         ];
     }
 
@@ -75,7 +75,7 @@ class AdminSearch extends Admin
             ->andFilterWhere($this->filterBetween('updated_at', $this->updated_at));
 
         $query->andFilterWhere(['like', 'username', $this->username])
-            ->andFilterWhere(['like', 'nick_name', $this->nick_name])
+            ->andFilterWhere(['like', 'nickname', $this->nickname])
             ->andFilterWhere(['like', 'avatar', $this->avatar])
             ->andFilterWhere(['like', 'auth_key', $this->auth_key])
             ->andFilterWhere(['like', 'password_hash', $this->password_hash])
