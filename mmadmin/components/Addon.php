@@ -50,8 +50,7 @@ class Addon extends Module
 
     /**
      * 初始化API
-     *
-     * @return void
+     * @throws NotSupportedException
      */
     protected function initApi()
     {
@@ -61,8 +60,7 @@ class Addon extends Module
 
     /**
      * 初始化后端
-     *
-     * @return void
+     * @throws NotSupportedException
      */
     protected function initBackend()
     {
@@ -72,8 +70,7 @@ class Addon extends Module
 
     /**
      * 初始化前端
-     *
-     * @return void
+     * @throws NotSupportedException
      */
     protected function initFrontend()
     {
@@ -86,7 +83,8 @@ class Addon extends Module
      *
      * @return void
      */
-    protected function initI18N(){
+    protected function initI18N()
+    {
 
     }
 
@@ -135,12 +133,16 @@ class Addon extends Module
         });
     }
 
+    /**
+     * @throws NotSupportedException
+     * @throws \ReflectionException
+     */
     public function init()
     {
         $this->initI18N();
         if ($this->ignoreMode == false) {
             if (empty($this->addonNamespaceBase)) {
-                $reflector = new ReflectionClass(static::className());
+                $reflector = new ReflectionClass(get_called_class());
                 $this->addonNamespaceBase = $reflector->getNamespaceName();
             }
             $this->initControllerNamespace(Yii::$app->mode);
