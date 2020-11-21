@@ -14,12 +14,11 @@ $config = [
             'enableCsrfCookie' => false
         ],
         'session' =>[
-            'name'=>'MAFESESSION'
+            'name'=>'MMAFESID'
         ],
         'db' => $db,
         'user' => [
             'identityClass' => '\app\mmadmin\models\User',
-            'identityCookie' => ['name' => '_fe_id', 'httpOnly' => true],
             'enableAutoLogin' => true,
             'loginUrl' => [
                 'login'
@@ -45,19 +44,18 @@ $config = [
                 'class' => 'app\mmadmin\components\MATheme',
                 'basePath' => '@app/themes/basic',
                 'pathMap' => [
-                    '@app/frontend/views' => '@app/themes/basic'
+                    '@app/frontend/views' => '@app/themes/basic',
                 ]
             ]
         ],
         'urlManager' => [
             'class' => 'app\mmadmin\components\RewriteUrl',
-            'cache' => 'cache',
-            'showScriptName'=>false,
+            //'cache' => 'cache',
             //'suffix' => '.html',
-            'from_db' => true,
             'enablePrettyUrl' => true,
+            'from_db' => true,
             'rules' => [
-                '<slug:[\w \-]+>' => 'site/page/',
+                '<slug:[\w \-]+>' => 'site/page'
             ]
         ],
         'assetManager' => [
@@ -70,7 +68,7 @@ $config = [
                     'class' => '\yii\i18n\DbMessageSource'
                 ],
             ],
-        ]
+        ],
     ]
 ];
 
@@ -78,9 +76,10 @@ if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
-        'class' => 'yii\debug\Module',
+        'class' => 'yii\debug\Module'
+        // 'panels'=>['log' => ['class' => 'yii\debug\panels\LogPanel']],
         // uncomment the following to add your IP if you are not connecting from localhost.
-        'allowedIPs' => ['115.198.128.213','127.0.0.1', '::1'],
+        // 'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 }
 

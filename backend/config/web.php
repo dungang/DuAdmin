@@ -28,9 +28,6 @@ $config = [
                 'login'
             ]
         ],
-        'errorHandler' => [
-            'errorAction' => 'site/error'
-        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
@@ -44,11 +41,12 @@ $config = [
                 ]
             ]
         ],
-        'assetManager' => [
-            'class' => '\app\mmadmin\core\CoreAssetManager'
-        ],
         'urlManager' => [
             'class' => 'app\mmadmin\components\BackendUrlManager',
+        ],
+        'assetManager' => [
+            'class' => 'app\mmadmin\core\CoreAssetManager',
+            'basePath' => '@app/public/assets'
         ],
         'i18n' => [
             'translations' => [
@@ -67,9 +65,31 @@ if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
-        'class' => 'yii\debug\Module',
+        'class' => 'yii\debug\Module'
+        // 'panels'=>['log' => ['class' => 'yii\debug\panels\LogPanel']],
         // uncomment the following to add your IP if you are not connecting from localhost.
-        'allowedIPs' => ['115.198.128.213','127.0.0.1', '::1'],
+        // 'allowedIPs' => ['127.0.0.1', '::1'],
+    ];
+
+    $config['bootstrap'][] = 'gii';
+    $config['modules']['gii'] = [
+        'class' => 'app\generators\Module',
+        'generators' => [
+            'crud' => [
+                'class' => 'app\generators\crud\Generator'
+            ],
+            'model' => [
+                'class' => 'app\generators\model\Generator',
+                'baseClass' => 'app\mmadmin\core\BaseModel',
+                'ns' => 'app\mmadmin\models',
+                'queryNs' => 'app\mmadmin\models'
+            ],
+            'addons' => [
+                'class' => 'app\generators\addons\Generator'
+            ]
+        ]
+        // uncomment the following to add your IP if you are not connecting from localhost.
+        // 'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 }
 
