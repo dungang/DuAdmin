@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bc7b658870a43aff8dc23a53bb9c627a",
+    "content-hash": "36218409fa0cdd83efb1b61c29fc2937",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -219,55 +219,6 @@
                 "markdown-extra"
             ],
             "time": "2018-03-26T11:24:36+00:00"
-        },
-        {
-            "name": "damirka/yii2-jwt",
-            "version": "v0.2.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/damirka/yii2-jwt.git",
-                "reference": "4a2251b2ae0bee44e14b826d8c91a3a24ae59691"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/damirka/yii2-jwt/zipball/4a2251b2ae0bee44e14b826d8c91a3a24ae59691",
-                "reference": "4a2251b2ae0bee44e14b826d8c91a3a24ae59691",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
-            },
-            "require": {
-                "firebase/php-jwt": "~3.0.0",
-                "yiisoft/yii2": "~2.0.0"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "damirka\\JWT\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Damir Shamanaev",
-                    "email": "damirka.ru@gmail.com",
-                    "homepage": "https://github.com/damirka"
-                }
-            ],
-            "description": "Trait for easier JWT integration",
-            "homepage": "https://github.com/damirka/yii2-jwt",
-            "keywords": [
-                "jwt",
-                "yii"
-            ],
-            "time": "2016-08-16T08:29:41+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -532,16 +483,16 @@
         },
         {
             "name": "firebase/php-jwt",
-            "version": "v3.0.0",
+            "version": "v5.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/firebase/php-jwt.git",
-                "reference": "fa8a06e96526eb7c0eeaa47e4f39be59d21f16e1"
+                "reference": "feb0e820b8436873675fd3aca04f3728eb2185cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/firebase/php-jwt/zipball/fa8a06e96526eb7c0eeaa47e4f39be59d21f16e1",
-                "reference": "fa8a06e96526eb7c0eeaa47e4f39be59d21f16e1",
+                "url": "https://api.github.com/repos/firebase/php-jwt/zipball/feb0e820b8436873675fd3aca04f3728eb2185cb",
+                "reference": "feb0e820b8436873675fd3aca04f3728eb2185cb",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -552,6 +503,9 @@
             },
             "require": {
                 "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": ">=4.8 <=9"
             },
             "type": "library",
             "autoload": {
@@ -577,7 +531,11 @@
             ],
             "description": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP. Should conform to the current spec.",
             "homepage": "https://github.com/firebase/php-jwt",
-            "time": "2015-07-22T18:31:08+00:00"
+            "keywords": [
+                "jwt",
+                "php"
+            ],
+            "time": "2020-03-25T18:49:23+00:00"
         },
         {
             "name": "imagine/imagine",

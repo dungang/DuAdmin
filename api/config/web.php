@@ -30,6 +30,12 @@ $config = [
                 ]
             ]
         ],
+        'request' => [
+            'enableCookieValidation'=>false,
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ]
+        ],
         'assetManager' => [
             'class' => '\app\mmadmin\core\CoreAssetManager'
         ]

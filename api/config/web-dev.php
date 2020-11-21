@@ -28,6 +28,7 @@ $config = [
             ]
         ],
         'request' => [
+            'enableCookieValidation'=>false,
             'parsers' => [
                 'application/json' => 'yii\web\JsonParser',
             ]

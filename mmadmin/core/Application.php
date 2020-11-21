@@ -15,6 +15,7 @@ class Application extends WebApplication
     const MODE_FRONTEND = 'frontend';
     const MODE_API = 'api';
     public $mode = 'frontend';
+    public $jwtSecret = 'jwt-secret-key';
     public $validators = [];
 
     public function init()

@@ -55,7 +55,7 @@ ConfigWidget::factory();
      */
 ?>
 
-<body class="skin-green-light fixed sidebar-mini">
+<body class="skin-green fixed sidebar-mini">
     <?php
     $this->beginBody();
     $user = \Yii::$app->user->getIdentity();

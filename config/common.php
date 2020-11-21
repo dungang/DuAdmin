@@ -1,5 +1,5 @@
 <?php
-$config = [
+return [
     'id' => 'base',
     'name' => 'MMAdmin',
     'version' => 'beta',
@@ -64,5 +64,3 @@ $config = [
         ]
     ]
 ];
-
-return $config;

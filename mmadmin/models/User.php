@@ -3,13 +3,9 @@
 namespace app\mmadmin\models;
 
 use Yii;
-use yii\web\IdentityInterface;
-use app\mmadmin\core\BaseModel;
 use app\mmadmin\hooks\DeleteUserHook;
 use app\mmadmin\hooks\RegisterUserHook;
 use app\mmadmin\hooks\UpdateUserHook;
-use damirka\JWT\UserTrait;
-use yii\base\NotSupportedException;
 
 /**
  * "{{%user}}"表的模型类.
@@ -31,10 +27,8 @@ use yii\base\NotSupportedException;
  * @property int $updated_at 更新时间
  * @property int $is_del
  */
-class User extends BaseModel implements IdentityInterface
+class User extends JWTUser
 {
-    use UserTrait;
-
     const STATUS_DELETED = 0;
 
     const STATUS_ACTIVE = 10;
@@ -134,13 +128,13 @@ class User extends BaseModel implements IdentityInterface
         parent::init();
 
         $this->on(self::EVENT_AFTER_INSERT, function ($event) {
-            RegisterUserHook::emit($this,['user' => $this]);
+            RegisterUserHook::emit($this, ['user' => $this]);
         });
         $this->on(self::EVENT_AFTER_UPDATE, function ($event) {
-            UpdateUserHook::emit($this,['user' => $this]);
+            UpdateUserHook::emit($this, ['user' => $this]);
         });
         $this->on(self::EVENT_AFTER_DELETE, function ($event) {
-            DeleteUserHook::emit($this,['user' => $this]);
+            DeleteUserHook::emit($this, ['user' => $this]);
         });
     }
 
@@ -154,12 +148,6 @@ class User extends BaseModel implements IdentityInterface
             'id' => $id,
             'status' => self::STATUS_ACTIVE
         ]);
-    }
-
-    // Override this method
-    protected static function getSecretKey()
-    {
-        return Yii::$app->request->cookieValidationKey;
     }
 
     // And this one if you wish

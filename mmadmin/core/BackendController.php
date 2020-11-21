@@ -4,7 +4,6 @@ namespace app\mmadmin\core;
 
 use app\mmadmin\filters\AccessFilter;
 use app\mmadmin\hooks\BackendCtrInitedHook;
-use app\mmadmin\models\EventHandler;
 
 /**
  * 后端程序控制器基类
@@ -40,7 +39,7 @@ abstract class BackendController extends BaseController {
         $behaviors = parent::behaviors();
         //注册访问控制行为
         //必须把行为放在第一个位置
-        array_unshift($behaviors,AccessFilter::className());
+        array_unshift($behaviors,AccessFilter::class);
         return $behaviors;
     }
 }

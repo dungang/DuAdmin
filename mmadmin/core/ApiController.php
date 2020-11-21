@@ -22,22 +22,22 @@ class ApiController extends Controller
     {
         return [
             'corsFilter' => [
-                'class' => \yii\filters\Cors::className(),
-                // 'cors' => [
-                //     'Origin' => ['*'],
-                //     'Access-Control-Request-Method' => ['GET','POST', 'PUT','OPTIONS','HEAD'],
-                // ]
+                'class' => \yii\filters\Cors::class,
+                'cors' => [
+                    'Origin' => ['*'],
+                    'Access-Control-Request-Method' => ['GET','POST', 'PUT','OPTIONS','HEAD'],
+                ]
             ],
             'verbFilter' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => $this->verbs(),
             ],
             'authenticator' => [
-                'class' => HttpBearerAuth::className(),
+                'class' => HttpBearerAuth::class,
                 'except' => $this->authExceptActions
             ],
             'rateLimiter' => [
-                'class' => RateLimiter::className(),
+                'class' => RateLimiter::class,
             ],
         ];
     }
