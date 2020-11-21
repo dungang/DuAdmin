@@ -39,3 +39,4 @@ node_modules
 backup
 /fonts
 /images
+.env
