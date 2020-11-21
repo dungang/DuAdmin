@@ -9,14 +9,6 @@
 	"homepage": "http://www.baiyuan-teck.com/",
 	"type": "project",
 	"minimum-stability": "stable",
-	"provide": {
-		"bower-asset/jquery": "*",
-		"bower-asset/inputmask": "*",
-		"bower-asset/punycode": "*",
-		"bower-asset/yii2-pjax": "*",
-		"bower-asset/bootstrap": "*",
-		"bower-asset/typeahead.js": "*"
-	},
 	"require": {
 		"php": ">=5.4.0",
 		"yiisoft/yii2": "~2.0",
