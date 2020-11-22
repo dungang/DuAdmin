@@ -2,6 +2,7 @@
 
 namespace app\backend\models;
 
+use app\mmadmin\core\Authable;
 use Yii;
 use yii\web\IdentityInterface;
 use app\mmadmin\core\BaseModel;
@@ -20,6 +21,7 @@ use yii\base\NotSupportedException;
  * @property string $email 邮箱
  * @property string $mobile 手机
  * @property int $status 状态
+ * @property  int $is_super 超管
  * @property int $login_failure 登录失败次数
  * @property int $login_time 登录时间
  * @property string $login_ip 登录IP
@@ -27,7 +29,7 @@ use yii\base\NotSupportedException;
  * @property int $updated_at 更新时间
  * @property int $is_del
  */
-class Admin extends BaseModel implements IdentityInterface
+class Admin extends BaseModel implements IdentityInterface,Authable
 {
 
     const STATUS_DELETED = 0;
@@ -243,8 +245,8 @@ class Admin extends BaseModel implements IdentityInterface
 
     /**
      * Generates password hash from password and sets it to the model
-     *
-     * @param string $password
+     * @param $password
+     * @throws \yii\base\Exception
      */
     public function setPassword($password)
     {
@@ -256,6 +258,7 @@ class Admin extends BaseModel implements IdentityInterface
 
     /**
      * Generates "remember me" authentication key
+     * @throws \yii\base\Exception
      */
     public function generateAuthKey()
     {
@@ -264,6 +267,7 @@ class Admin extends BaseModel implements IdentityInterface
 
     /**
      * Generates new password reset token
+     * @throws \yii\base\Exception
      */
     public function generatePasswordResetToken()
     {
@@ -278,8 +282,26 @@ class Admin extends BaseModel implements IdentityInterface
         $this->password_reset_token = null;
     }
 
+    /**
+     * get User by access token
+     * @param mixed $token
+     * @param null $type
+     * @return null|void|IdentityInterface
+     * @throws NotSupportedException
+     */
     public static function findIdentityByAccessToken($token, $type = null)
     {
         throw new NotSupportedException('Method not support');
+    }
+
+    public function isSuperAdmin(): bool
+    {
+        return $this->is_super == 1;
+    }
+
+
+    public function isActiveAccount(): bool
+    {
+        return $this->status == static::STATUS_ACTIVE;
     }
 }

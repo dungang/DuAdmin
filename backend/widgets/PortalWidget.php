@@ -25,7 +25,7 @@ class PortalWidget extends Widget
         }
         $portals = $query->indexBy('id')->all();
 
-        if ($place = PortalPlace::findOne(['user_id' => \Yii::$app->user->id])) {
+        if ($place = PortalPlace::findOne(['admin_id' => \Yii::$app->user->id])) {
             $places = explode(',', $place->portals);
             $portals = array_filter($portals, function ($portal) use ($places) {
                 return in_array($portal->id, $places);

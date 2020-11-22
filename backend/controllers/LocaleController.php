@@ -6,9 +6,9 @@ use app\mmadmin\core\BackendController;
 
 
 /**
- * SourceMessageController implements the CRUD actions for SourceMessage model.
+ * LocaleController implements the CRUD actions for SourceMessage model.
  */
-class SourceMessageController extends BackendController
+class LocaleController extends BackendController
 {
 	public function actions(){
 		return [

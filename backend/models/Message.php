@@ -11,7 +11,7 @@ use Yii;
  * @property string $language
  * @property string $translation
  *
- * @property SourceMessage $id0
+ * @property SourceMessage $source
  */
 class Message extends \app\mmadmin\core\BaseModel
 {
@@ -53,9 +53,9 @@ class Message extends \app\mmadmin\core\BaseModel
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getId0()
+    public function getSource()
     {
-        return $this->hasOne(SourceMessage::className(), ['id' => 'id']);
+        return $this->hasOne(SourceMessage::class, ['id' => 'id']);
     }
 
     /**

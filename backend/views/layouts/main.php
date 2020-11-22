@@ -76,14 +76,14 @@ ConfigWidget::factory();
                         <!-- The user image in the navbar-->
                         <?= MAHelper::img($user->avatar, ['class' => 'user-image', 'width' => 160, 'height' => 160]) ?>
                         <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                        <span class="hidden-xs"><?= $user->nick_name ?></span>
+                        <span class="hidden-xs"><?= $user->nickname ?></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- The user image in the menu -->
                         <li class="user-header">
                             <?= MAHelper::img($user->avatar, ['class' => 'img-circle', 'width' => 160, 'height' => 160]) ?>
                             <p>
-                                <?= $user->nick_name ?>
+                                <?= $user->nickname ?>
                             </p>
                         </li>
                         <!-- Menu Footer-->
@@ -109,7 +109,7 @@ ConfigWidget::factory();
                 <?= MAHelper::img($user->avatar, ['class' => 'img-circle', 'width' => '45px', 'height' => '45px']) ?>
             </div>
             <div class="pull-left info">
-                <p><?= Yii::$app->user->identity->nick_name ?></p>
+                <p><?= Yii::$app->user->identity->nickname ?></p>
                 <!-- Status -->
                 <i class="fa fa-circle text-success"></i> 在线
             </div>

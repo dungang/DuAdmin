@@ -6,7 +6,7 @@ use yii\widgets\Pjax;
 use app\mmadmin\widgets\PanelNavTabs;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\mmadmin\models\AuthPermissionSearch */
+/* @var $searchModel app\backend\models\AuthPermissionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '权限';

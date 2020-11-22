@@ -61,8 +61,8 @@ class PropertyBehavior extends Behavior
         if ($this->_user) {
             $this->setOnce('creator_id', $this->_user->id, $model);
             $this->setEverytime('updator_id', $this->_user->id, $model);
-            $this->setOnce('creator', $this->_user->nick_name, $model);
-            $this->setEverytime('updator', $this->_user->nick_name, $model);
+            $this->setOnce('creator', $this->_user->nickname, $model);
+            $this->setEverytime('updator', $this->_user->nickname, $model);
         }
     }
 

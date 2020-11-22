@@ -49,13 +49,13 @@ class ActionColumn extends Column
      *      in the context of action column). They will be replaced by the corresponding button rendering callbacks
      *      specified in [[buttons]]. For example, the token `{view}` will be replaced by the result of
      *      the callback `buttons['view']`. If a callback cannot be found, the token will be replaced with an empty string.
-     *     
+     *
      *      As an example, to only have the view, and update button you can add the ActionColumn to your GridView columns as follows:
-     *     
+     *
      *      ```php
      *      ['class' => 'yii\grid\ActionColumn', 'template' => '{view} {update}'],
      *      ```
-     *     
+     *
      */
     public $template = '{view} {update} {delete}';
 
@@ -64,19 +64,19 @@ class ActionColumn extends Column
      * @var array button rendering callbacks. The array keys are the button names (without curly brackets),
      *      and the values are the corresponding button rendering callbacks. The callbacks should use the following
      *      signature:
-     *     
+     *
      *      ```php
      *      function ($url, $model, $key) {
      *      // return the button HTML code
      *      }
      *      ```
-     *     
+     *
      *      where `$url` is the URL that the column creates for the button, `$model` is the model object
      *      being rendered for the current row, and `$key` is the key of the model in the data provider array.
-     *     
+     *
      *      You can add further conditions to the button, for example only display it, when the model is
      *      editable (here assuming you have a status field that indicates that):
-     *     
+     *
      *      ```php
      *      [
      *      'update' => function ($url, $model, $key) {
@@ -93,15 +93,15 @@ class ActionColumn extends Column
      *      and the values are the boolean true/false or the anonymous function. When the button name is not specified in
      *      this array it will be shown by default.
      *      The callbacks must use the following signature:
-     *     
+     *
      *      ```php
      *      function ($model, $key, $index) {
      *      return $model->status === 'editable';
      *      }
      *      ```
-     *     
+     *
      *      Or you can pass a boolean value:
-     *     
+     *
      *      ```php
      *      [
      *      'update' => \Yii::$app->user->can('update'),
@@ -116,13 +116,13 @@ class ActionColumn extends Column
      * @var callable a callback that creates a button URL using the specified model information.
      *      The signature of the callback should be the same as that of [[createUrl()]]
      *      Since 2.0.10 it can accept additional parameter, which refers to the column instance itself:
-     *     
+     *
      *      ```php
      *      function (string $action, mixed $model, mixed $key, integer $index, ActionColumn $this) {
      *      //return string;
      *      }
      *      ```
-     *     
+     *
      *      If this property is not set, button URLs will be created using [[createUrl()]].
      */
     public $urlCreator;
@@ -156,9 +156,9 @@ class ActionColumn extends Column
      */
     protected function initDefaultButtons()
     {
-        $this->initDefaultButton('view', 'eye', 'btn-default');
-        $this->initDefaultButton('update', 'edit', 'btn-success');
-        $this->initDefaultButton('delete', 'trash', 'btn-danger', [
+        $this->initDefaultButton('view', 'eye', 'text-primary');
+        $this->initDefaultButton('update', 'edit', 'text-success');
+        $this->initDefaultButton('delete', 'trash', 'text-danger', [
             'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
             'data-method' => 'post'
         ]);
@@ -197,11 +197,12 @@ class ActionColumn extends Column
                     'title' => $title,
                     'aria-label' => $title,
                     'data-pjax' => '0',
-                    'class' => 'btn btn-xs ' . $btnClass,
+                    'class' => $btnClass,
+                    //'class' => 'btn btn-link btn-xs ' . $btnClass,
                 ], $additionalOptions, $this->buttonOptions, $buttonOptions);
                 $icon = Html::tag('span', '', [
                     'class' => "fa fa-$iconName"
-                ]);
+                ]) . $title;
                 return Html::a($icon, $url, $options);
             };
         }
@@ -273,21 +274,61 @@ class ActionColumn extends Column
      */
     protected function renderDataCellContent($model, $key, $index)
     {
-        return preg_replace_callback('/\\{([\w\-\/]+)\\}/', function ($matches) use ($model, $key, $index) {
-            $name = $matches[1];
+//        return preg_replace_callback('/\\{([\w\-\/]+)\\}/', function ($matches) use ($model, $key, $index) {
+//            $name = $matches[1];
+//
+//            if (isset($this->visibleButtons[$name])) {
+//                $isVisible = $this->visibleButtons[$name] instanceof \Closure ? call_user_func($this->visibleButtons[$name], $model, $key, $index) : $this->visibleButtons[$name];
+//            } else {
+//                $isVisible = true;
+//            }
+//
+//            if ($isVisible && isset($this->buttons[$name])) {
+//                $url = $this->createUrl($name, $model, $key, $index);
+//                return call_user_func($this->buttons[$name], $url, $model, $key);
+//            }
+//
+//            return '';
+//        }, $this->template);
+        return $this->renderDataCellContentWidthDropDown($model, $key, $index);
+    }
 
-            if (isset($this->visibleButtons[$name])) {
-                $isVisible = $this->visibleButtons[$name] instanceof \Closure ? call_user_func($this->visibleButtons[$name], $model, $key, $index) : $this->visibleButtons[$name];
-            } else {
-                $isVisible = true;
+    protected function renderDataCellContentWidthDropDown($model, $key, $index)
+    {
+        $matches = [];
+        if (preg_match_all('/\\{([\w\-\/]+)\\}/', $this->template, $matches)) {
+            $li_btns = "";
+            foreach ($matches[1] as $name) {
+                if (isset($this->visibleButtons[$name])) {
+                    $isVisible = $this->visibleButtons[$name] instanceof \Closure ? call_user_func($this->visibleButtons[$name], $model, $key, $index) : $this->visibleButtons[$name];
+                } else {
+                    $isVisible = true;
+                }
+
+                if ($isVisible && isset($this->buttons[$name])) {
+                    $url = $this->createUrl($name, $model, $key, $index);
+                    $li_btns .= '<li>' . call_user_func($this->buttons[$name], $url, $model, $key) . '</li>';
+                }
             }
-
-            if ($isVisible && isset($this->buttons[$name])) {
-                $url = $this->createUrl($name, $model, $key, $index);
-                return call_user_func($this->buttons[$name], $url, $model, $key);
+            if ($li_btns) {
+                return $this->renderDropDown($li_btns);
             }
+        }
+        return '';
+    }
 
-            return '';
-        }, $this->template);
+    protected function renderDropDown($menus)
+    {
+        return <<<DD
+<div class="dropdown">
+  <button class="btn btn-link btn-xs dropdown-toggle" type="button" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
+    <span class="fa fa-ellipsis-v"></span>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-right">
+  $menus
+  </ul>
+</div>
+DD;
+
     }
 }

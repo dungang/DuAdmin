@@ -26,13 +26,14 @@ class ZipHelper
      * @param \ZipArchive $zip
      * @param string $new_dir_name
      * @param string $directory
+     * @param array $excludes
      * @return void
      */
-    public static function zipDirectory($zip, $new_dir_name, $directory)
+    public static function zipDirectory($zip, $new_dir_name, $directory,$excludes=[])
     {
         if ($handle = opendir($directory)) {
             while (($file = readdir($handle)) !== false) {
-                if (is_dir($directory . $file) && $file != "." && $file != ".." && ! in_array($directory . $file . '/', $this->module->excludeDirectoryBackup))
+                if (is_dir($directory . $file) && $file != "." && $file != ".." && ! in_array($directory . $file . '/', $excludes))
                     self::zipDirectory($zip, $new_dir_name . $file . '/', $directory . $file . '/');
 
                 if (is_file($directory . $file))

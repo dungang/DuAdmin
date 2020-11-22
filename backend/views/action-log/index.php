@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class'=>'app\mmadmin\grids\FilterColumn',
                 'attribute'=>'user_id',
-                'filter'=> Admin::allIdToName('id','nick_name'),
+                'filter'=> Admin::allIdToName('id','nickname'),
             ],
             [
                 'class'=>'app\mmadmin\grids\FilterColumn',

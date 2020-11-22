@@ -12,7 +12,7 @@ class m201121_154833_create_portal_tables extends Migration
      */
     public function safeUp()
     {
-        $this->createIndex('{{%portal}}',[
+        $this->createTable('{{%portal}}',[
             'id' => $this->primaryKey(),
             'name' => $this->string(128)->notNull()->comment('名称'),
             'code' => $this->string(128)->notNull()->comment('代码类'),

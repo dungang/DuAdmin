@@ -10,7 +10,8 @@
 	"type": "project",
 	"minimum-stability": "stable",
 	"require": {
-		"php": ">=5.4.0",
+		"php": "~7.0",
+		"ext-zlib": "*",
 		"yiisoft/yii2": "~2.0",
 		"yiisoft/yii2-bootstrap": "~2.0",
 		"yiisoft/yii2-swiftmailer": "~2",
@@ -26,8 +27,7 @@
 		"vlucas/phpdotenv": "^5.2"
 	},
 	"require-dev": {
-		"yiisoft/yii2-debug": "~2.0",
-		"yiisoft/yii2-faker": "^2.0"
+		"yiisoft/yii2-debug": "~2.0"
 	},
 	"config": {
 		"process-timeout": 1800,
@@ -37,6 +37,11 @@
 				"npm-asset-library": "vendor/npm",
 				"bower-asset-library": "vendor/bower"
 			}
+		}
+	},
+	"autoload": {
+		"psr-4": {
+          "Addons\\": "./addons/"
 		}
 	},
 	"scripts": {

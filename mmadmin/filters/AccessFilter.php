@@ -3,6 +3,7 @@
 namespace app\mmadmin\filters;
 
 use app\backend\models\Admin;
+use app\mmadmin\core\Authable;
 use Yii;
 use yii\base\ActionFilter;
 use yii\web\ForbiddenHttpException;
@@ -30,6 +31,9 @@ class AccessFilter extends ActionFilter
      * @param \yii\base\Action $action
      *            将要执行的action
      * @return boolean 执行的action是否继续执行
+     * @throws ForbiddenHttpException
+     * @throws \Throwable
+     * @throws \yii\base\InvalidConfigException
      */
     public function beforeAction($action)
     {
@@ -47,7 +51,7 @@ class AccessFilter extends ActionFilter
         if (\Yii::$app->user->isGuest) {
             $this->denyAccess();
         } else {
-            /* @var User $user */
+            /* @var Authable $user */
             $user = Yii::$app->user->getIdentity();
 
             // step2. If user has been deleted, then destroy session and redirect to home page
@@ -58,11 +62,11 @@ class AccessFilter extends ActionFilter
             }
 
             // step3. 如果是超级管理员
-            if ($user->id === 1) {
+            if ($user->isSuperAdmin()) {
                 return true;
             }
             // step4. 如果是非激活用户
-            if ($user->status != Admin::STATUS_ACTIVE) {
+            if (!$user->isActiveAccount()) {
                 Yii::$app->user->logout();
                 Yii::$app->getResponse()->redirect(Yii::$app->getHomeUrl());
 

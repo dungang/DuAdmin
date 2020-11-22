@@ -63,8 +63,14 @@ class AdminlteSideBarMenu extends Widget
         ]);
     }
 
+    /**
+     * @throws \yii\base\InvalidConfigException
+     */
     protected function normalizeItems()
     {
+        if(empty($this->items)) {
+            return;
+        }
         $host = \Yii::$app->request->getHostName();
         $path = \Yii::$app->request->getPathInfo();
         $moduleId = (\Yii::$app->controller->module->id == \Yii::$app->id) ? '' : \Yii::$app->controller->module->id;

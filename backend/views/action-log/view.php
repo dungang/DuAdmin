@@ -22,7 +22,7 @@ echo AjaxModalOrNormalPanelContent::widget([
                 'attribute'=>'user_id',
                 'value'=>function($model){
                     if($user = Admin::findOne(['id'=>$model->user_id])) {
-                        return $user->nick_name;
+                        return $user->nickname;
                     }
                     return '';
                 }

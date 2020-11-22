@@ -18,7 +18,7 @@ class AdminSearch extends Admin
     public function rules()
     {
         return [
-            [['id', 'status', 'login_failure', 'login_time', 'created_at', 'updated_at', 'is_del'], 'integer'],
+            [['id', 'status', 'login_failure', 'login_time', 'created_at', 'updated_at'], 'integer'],
             [['username', 'nickname', 'avatar', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'mobile', 'login_ip'], 'safe'],
         ];
     }
@@ -68,7 +68,6 @@ class AdminSearch extends Admin
             'login_time' => $this->login_time,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'is_del' => $this->is_del,
         ]);
 
         $query->andFilterWhere($this->filterBetween('created_at', $this->created_at))
@@ -76,10 +75,6 @@ class AdminSearch extends Admin
 
         $query->andFilterWhere(['like', 'username', $this->username])
             ->andFilterWhere(['like', 'nickname', $this->nickname])
-            ->andFilterWhere(['like', 'avatar', $this->avatar])
-            ->andFilterWhere(['like', 'auth_key', $this->auth_key])
-            ->andFilterWhere(['like', 'password_hash', $this->password_hash])
-            ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'mobile', $this->mobile])
             ->andFilterWhere(['like', 'login_ip', $this->login_ip]);

@@ -2,7 +2,7 @@
 namespace app\backend\components;
 
 use yii\base\BootstrapInterface;
-use yii\web\Application;
+use app\mmadmin\core\Application;
 
 /**
  *
@@ -16,6 +16,7 @@ class BackendBootstrap implements BootstrapInterface
      *
      * @param Application $app
      *            the application currently running
+     * @throws \yii\base\InvalidConfigException
      * {@inheritdoc}
      * @see \yii\base\BootstrapInterface::bootstrap()
      */

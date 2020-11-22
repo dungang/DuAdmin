@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::a($model['username'],['view','id'=>$model['id']],['data-toggle'=>'modal','data-target'=>'#modal-dailog']);
                 }
         	],
-            'nick_name',
+            'nickname',
             'status',
             'login_failure',
             'login_time:datetime',

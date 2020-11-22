@@ -8,12 +8,12 @@ use yii\widgets\Pjax;
 /* @var $searchModel app\backend\models\SourceMessageSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Source Messages');
+$this->title = Yii::t('app', 'Locale');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<?php Pjax::begin(['id'=>'source-message-index']); ?>
+<?php Pjax::begin(['id'=>'locale-index']); ?>
 <?php  PanelGridView::begin([
-        'id' => 'source-message-list',
+        'id' => 'locale-list',
     	'intro' => Yii::t('ma','{0} Info Manage',Yii::t('app', 'Source Messages')),
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
