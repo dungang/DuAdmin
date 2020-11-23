@@ -4349,3 +4349,7 @@ a.desc:after {
 #modal-dailog .table {
   margin-bottom: 0;
 }
+.dropdown-menu > li > a {
+  color: inherit;
+  line-height: 30px;
+}

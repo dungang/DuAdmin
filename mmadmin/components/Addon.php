@@ -5,6 +5,7 @@ namespace app\mmadmin\components;
 use app\mmadmin\core\Application;
 use Yii;
 use yii\base\Module;
+use yii\helpers\Inflector;
 use yii\web\View;
 use ReflectionClass;
 use yii\base\NotSupportedException;
@@ -171,20 +172,21 @@ class Addon extends Module
 
     private function initControllerNamespace($mode)
     {
-        if ($mode == Application::MODE_FRONTEND) {
-            $this->controllerNamespace = $this->addonNamespaceBase . '\\controllers';
-        } else {
-            $this->controllerNamespace = $this->addonNamespaceBase . '\\' . $mode . '\\controllers';
-        }
+//        if ($mode == Application::MODE_FRONTEND) {
+//            $this->controllerNamespace = $this->addonNamespaceBase . '\\Controllers';
+//        } else {
+//            $this->controllerNamespace = $this->addonNamespaceBase . '\\' . $mode . '\\controllers';
+//        }
+        $this->controllerNamespace = $this->addonNamespaceBase . '\\Controllers'. '\\' . $mode ;
     }
 
     private function initViewPath($mode = null)
     {
-        $path = '@' . trim(str_replace('\\', '/', $this->addonNamespaceBase), '/');
+        $path = Yii::$app->basePath . '/addons/' . Inflector::id2camel($this->id);
         if ($mode) {
-            $this->viewPath = $path . '/' . $mode . '/views';
+            $this->viewPath = $path . '/views/' . strtolower($mode) ;
         } else {
-            //减少目录层次，方便theme管理
+            //减少目录层次，方便theme管理?
             $this->viewPath = $path . '/views';
         }
     }

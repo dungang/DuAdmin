@@ -11,13 +11,13 @@ use yii\web\Application as WebApplication;
 class Application extends WebApplication
 {
 
-    const MODE_BACKEND = 'backend';
+    const MODE_BACKEND = 'Backend';
 
-    const MODE_FRONTEND = 'frontend';
+    const MODE_FRONTEND = 'Frontend';
 
-    const MODE_API = 'api';
+    const MODE_API = 'Api';
 
-    public $mode = 'frontend';
+    public $mode = 'Frontend';
 
     public $jwtSecret = 'jwt-secret-key';
 

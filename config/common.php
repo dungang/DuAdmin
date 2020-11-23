@@ -20,23 +20,8 @@ return [
         'alternative' => '\app\mmadmin\validators\AlternativeValidator', //二选一验证
     ],
     'modules' => [
-        //'airline'=> 'app\addons\airline\Addon',
-        //'clothes'=> 'app\addons\clothes\Addon',
-        //'tbk'=> 'app\addons\tbk\Addon',
-        'pdd'=> 'app\addons\pdd\Addon',
-        'banxh'=> 'app\addons\banxh\Addon',
-        //'gq'=> 'app\addons\gq\Addon',
-        //'ocr' => 'app\addons\ocr\Addon',
-        'theme' => 'app\addons\theme\Addon',
-        'flash' => 'app\addons\flash\Addon',
-        'cms' => '\app\addons\cms\Addon',
-        'block' => '\app\addons\block\Addon',
-        'required' => '\app\addons\required\Addon',
-        'ueditor' => '\app\addons\ueditor\Addon',
-        'qiniu' => '\app\addons\qiniu\Addon',
-        'user' => '\app\addons\user\Addon',
-        'asset' => '\app\addons\asset\Addon',
-        'page' => '\app\addons\page\Addon'
+        'marketing-sms'=> '\Addons\MarketingSms\Addon',
+        'theme'=> '\Addons\Theme\Addon',
     ],
     'components' => [
         'view' => [
