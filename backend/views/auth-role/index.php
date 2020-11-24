@@ -6,7 +6,7 @@ use app\mmadmin\widgets\PanelNavTabs;
 use app\backend\models\AuthGroup;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\mmadmin\models\AuthItemSearch */
+/* @var $searchModel app\backend\models\AuthItemSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '角色';

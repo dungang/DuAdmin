@@ -9,12 +9,9 @@ $config = [
     'controllerNamespace' => 'app\backend\controllers',
     'viewPath' => '@app/backend/views',
     'defaultRoute' => 'default',
-    'modules'=>[
-        'task'=>'app\backend\task\TaskModule',
-    ],
     'components' => [
         'request' => [
-            'cookieValidationKey' => 'dhkwehdihxlekdu@dkld234',
+            'cookieValidationKey' => getenv('APP_KEY'),
             'enableCsrfCookie' => false
         ],
         'session' =>[

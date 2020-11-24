@@ -5,7 +5,7 @@ use app\mmadmin\grids\PanelGridView;
 use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\mmadmin\models\ActionLogSearch */
+/* @var $searchModel app\backend\models\ActionLogSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '操作日志';

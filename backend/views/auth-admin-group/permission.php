@@ -4,7 +4,7 @@ use app\mmadmin\grids\PanelGridView;
 use app\backend\models\AuthGroup;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\mmadmin\models\AuthPermissionSearch */
+/* @var $searchModel app\backend\models\AuthPermissionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $group = AuthGroup::findOne(['name' => $searchModel->group_name]);

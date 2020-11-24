@@ -12,16 +12,13 @@ return [
     //'language' => 'zh-CN',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm' => '@vendor/npm-asset'
+        '@npm' => '@vendor/npm-asset',
+        '@Addons' => '@app/addons'
     ],
     'validators' => [
         'slug' => '\app\mmadmin\validators\SlugValidator',
         'mobile' => '\app\mmadmin\validators\MobileValidator', //手机验证
         'alternative' => '\app\mmadmin\validators\AlternativeValidator', //二选一验证
-    ],
-    'modules' => [
-        'marketing-sms'=> '\Addons\MarketingSms\Addon',
-        'theme'=> '\Addons\Theme\Addon',
     ],
     'components' => [
         'view' => [

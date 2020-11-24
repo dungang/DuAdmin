@@ -9,6 +9,11 @@ use yii\di\Instance;
 use yii\web\Response;
 
 use function OpenApi\scan;
+use Symfony\Component\Finder\Finder;
+use yii\caching\Cache;
+use yii\base\InvalidConfigException;
+use yii\base\ExitException;
+use OpenApi\Annotations\OpenApi;
 
 /**
  * The api data output action.

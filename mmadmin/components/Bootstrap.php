@@ -6,6 +6,8 @@ use app\mmadmin\core\Application;
 use app\mmadmin\hooks\ViewInitedHook;
 use Yii;
 use yii\base\BootstrapInterface;
+use yii\helpers\BaseFileHelper;
+use yii\helpers\Inflector;
 use yii\i18n\PhpMessageSource;
 
 /**
@@ -77,34 +79,63 @@ class Bootstrap implements BootstrapInterface
 
     /**
      * 动态注册Addons
+     * 注册模块的加载器的资源包
+     * 注册模块事件处理器
      *
      * @param Application $app
      */
     protected function dynamicRegistAddons($app)
     {
 
-        foreach (array_values($app->modules) as $module) {
-            if (is_array($module)) {
-                $module = $module['class'];
-            }
-            if ($module && class_exists($module)) {
-                if (method_exists($module, 'initAddon')) {
+        $dirs = BaseFileHelper::findDirectories(Yii::$app->basePath . '/addons', [
+            'recursive' => false
+        ]);
+        foreach ($dirs as $name) {
+            $addonName = basename($name);
+            $id = Inflector::camel2id($addonName);
+            $app->setModule($id, ['class' => $addonClass = 'Addons\\' . $addonName . '\\Addon']);
+            if ($addonClass && class_exists($addonClass)) {
+                if (method_exists($addonClass, 'initAddon')) {
                     //加载类
-                    call_user_func([$module, 'initAddon']);
+                    call_user_func([$addonClass, 'initAddon']);
                     //注册hook的处理器
-                    call_user_func([$module, 'registerCommonHookHandlers']);
-
+                    call_user_func([$addonClass, 'registerCommonHookHandlers']);
+                    //根据不同的入口注册处理器
                     if ($app->mode == Application::MODE_FRONTEND) {
-                        call_user_func([$module, 'registerWebHookHandlers']);
-                        call_user_func([$module, 'registerFrontHookHandlers']);
+                        call_user_func([$addonClass, 'registerWebHookHandlers']);
+                        call_user_func([$addonClass, 'registerFrontHookHandlers']);
                     } else if ($app->mode == Application::MODE_BACKEND) {
-                        call_user_func([$module, 'registerWebHookHandlers']);
-                        call_user_func([$module, 'registerBackenHookHandlers']);
+                        call_user_func([$addonClass, 'registerWebHookHandlers']);
+                        call_user_func([$addonClass, 'registerBackenHookHandlers']);
                     } else if ($app->mode == Application::MODE_API) {
-                        call_user_func([$module, 'registerApiHookHandlers']);
+                        call_user_func([$addonClass, 'registerApiHookHandlers']);
                     }
                 }
             }
         }
+
+//        foreach (array_values($app->modules) as $module) {
+//            if (is_array($module)) {
+//                $module = $module['class'];
+//            }
+//            if ($module && class_exists($module)) {
+//                if (method_exists($module, 'initAddon')) {
+//                    //加载类
+//                    call_user_func([$module, 'initAddon']);
+//                    //注册hook的处理器
+//                    call_user_func([$module, 'registerCommonHookHandlers']);
+//
+//                    if ($app->mode == Application::MODE_FRONTEND) {
+//                        call_user_func([$module, 'registerWebHookHandlers']);
+//                        call_user_func([$module, 'registerFrontHookHandlers']);
+//                    } else if ($app->mode == Application::MODE_BACKEND) {
+//                        call_user_func([$module, 'registerWebHookHandlers']);
+//                        call_user_func([$module, 'registerBackenHookHandlers']);
+//                    } else if ($app->mode == Application::MODE_API) {
+//                        call_user_func([$module, 'registerApiHookHandlers']);
+//                    }
+//                }
+//            }
+//        }
     }
 }

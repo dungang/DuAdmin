@@ -15,7 +15,7 @@ class CronQuery extends \yii\db\ActiveQuery
     }*/
 
     /**
-     * {@inheritdoc}
+     * {@inheritdoc} 
      * @return Cron[]|array
      */
     public function all($db = null)

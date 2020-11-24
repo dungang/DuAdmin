@@ -3,7 +3,7 @@
 namespace app\backend\controllers;
 
 use app\mmadmin\core\BackendController;
-use app\mmadmin\models\AuthPermission;
+use app\backend\models\AuthPermission;
 use app\backend\models\AuthGroup;
 use yii\web\NotFoundHttpException;
 

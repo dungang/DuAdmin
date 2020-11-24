@@ -2,7 +2,7 @@
 use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
-/* @var $model app\mmadmin\models\AuthRole */
+/* @var $model app\backend\models\AuthRole */
 
 $this->title = '添加';
 $this->params['breadcrumbs'][] = [

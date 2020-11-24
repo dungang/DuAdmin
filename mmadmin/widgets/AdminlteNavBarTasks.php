@@ -1,5 +1,5 @@
 <?php
-namespace app\backend\widgets;
+namespace app\mmadmin\widgets;
 
 class AdminlteNavBarTasks extends AdminlteNavBarDropdownMenu
 {

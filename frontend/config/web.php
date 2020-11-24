@@ -7,7 +7,6 @@ $config = [
     'mode' => Application::MODE_FRONTEND,
     'controllerNamespace' => 'app\frontend\controllers',
     'viewPath' => '@app/frontend/views',
-    'modules' => [],
     'components' => [
         'request' => [
             'cookieValidationKey' => 'dhkwehdihxlekdu@dkld',

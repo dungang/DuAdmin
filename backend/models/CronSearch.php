@@ -8,7 +8,7 @@ use yii\data\ActiveDataProvider;
 /**
  * CronSearch represents the model behind the search form of `app\backend\models\Cron`.
  */
-class CronSearch extends Cron
+class CronSearch extends Cron 
 {
     /**
      * {@inheritdoc}

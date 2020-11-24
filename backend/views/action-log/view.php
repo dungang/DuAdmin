@@ -5,7 +5,7 @@ use yii\widgets\DetailView;
 use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
-/* @var $model app\mmadmin\models\ActionLog */
+/* @var $model app\backend\models\ActionLog */
 
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Action Logs', 'url' => ['index']];

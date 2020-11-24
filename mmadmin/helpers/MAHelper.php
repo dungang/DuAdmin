@@ -9,7 +9,6 @@ use app\mmadmin\components\MobileDetect;
 use app\mmadmin\models\Setting;
 use app\mmadmin\events\CustomerEvent;
 use yii\base\Component;
-use app\mmadmin\models\MailQueue;
 use app\mmadmin\core\BackendController;
 use Yii;
 use yii\base\Arrayable;
@@ -79,7 +78,7 @@ class MAHelper
 
     /**
      * 递归移除元素
-     * @param array|Arrable $array
+     * @param array|Arrayable $array
      * @param callable $callback
      * @return array
      */
@@ -532,18 +531,18 @@ class MAHelper
         ]));
     }
 
-    public static function sendMailerByQueue($from, $to, $subject, $body, $try_times = 1, $send_del = true, $time = null)
-    {
-        $mail = new MailQueue();
-        $mail->sender = $from;
-        $mail->recipient = $to;
-        $mail->subject = $subject;
-        $mail->content = $body;
-        $mail->del_after_send = $send_del;
-        $mail->time_to_send = $time;
-        $mail->try_send = $try_times;
-        return $mail->save(false);
-    }
+//     public static function sendMailerByQueue($from, $to, $subject, $body, $try_times = 1, $send_del = true, $time = null)
+//     {
+//         $mail = new \app\mmadmin\models\MailQueue();
+//         $mail->sender = $from;
+//         $mail->recipient = $to;
+//         $mail->subject = $subject;
+//         $mail->content = $body;
+//         $mail->del_after_send = $send_del;
+//         $mail->time_to_send = $time;
+//         $mail->try_send = $try_times;
+//         return $mail->save(false);
+//     }
 
     public static function translation_link($category, $message)
     {

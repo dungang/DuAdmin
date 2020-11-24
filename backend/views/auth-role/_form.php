@@ -2,10 +2,9 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\backend\models\AuthGroup;
-use app\mmadmin\models\AuthRole;
 
 /* @var $this yii\web\View */
-/* @var $model AuthRole */
+/* @var $model \app\backend\models\AuthRole */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 

@@ -6,7 +6,7 @@ use app\mmadmin\widgets\ZTree;
 use yii\web\JsExpression;
 
 /* @var $this yii\web\View */
-/* @var $model app\mmadmin\models\AuthRole */
+/* @var $model app\backend\models\AuthRole */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $rights array*/
 

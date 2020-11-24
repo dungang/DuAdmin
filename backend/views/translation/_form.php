@@ -6,7 +6,7 @@ use yii\helpers\Html;
 
 /* @var $this \yii\web\View */
 /* @var $source_message \app\backend\models\SourceMessage */
-/* @var $messages \app\backend\models\Messages[] */
+/* @var $messages app\backend\models\Message[] */
 
 $form = ActiveForm::begin(['id' => 'translate-message-batch-form', 'enableAjaxValidation' => false]);
 ?>

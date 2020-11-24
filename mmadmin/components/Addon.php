@@ -130,7 +130,6 @@ class Addon extends Module
                 Yii::$app->view->theme->pathMap['@app/addons/' . Yii::$app->controller->module->id . '/views'] =
                     Yii::$app->view->theme->basePath . '/addons/' . Yii::$app->controller->module->id;
             }
-            //print_r(Yii::$app->view->theme->pathMap);
         });
     }
 
@@ -172,11 +171,6 @@ class Addon extends Module
 
     private function initControllerNamespace($mode)
     {
-//        if ($mode == Application::MODE_FRONTEND) {
-//            $this->controllerNamespace = $this->addonNamespaceBase . '\\Controllers';
-//        } else {
-//            $this->controllerNamespace = $this->addonNamespaceBase . '\\' . $mode . '\\controllers';
-//        }
         $this->controllerNamespace = $this->addonNamespaceBase . '\\Controllers'. '\\' . $mode ;
     }
 
@@ -184,10 +178,10 @@ class Addon extends Module
     {
         $path = Yii::$app->basePath . '/addons/' . Inflector::id2camel($this->id);
         if ($mode) {
-            $this->viewPath = $path . '/views/' . strtolower($mode) ;
+            $this->viewPath = $path . '/resource/views/' . strtolower($mode) ;
         } else {
             //减少目录层次，方便theme管理?
-            $this->viewPath = $path . '/views';
+            $this->viewPath = $path . '/resource/views';
         }
     }
 
@@ -203,7 +197,8 @@ class Addon extends Module
      */
     protected function registerAddonFrontendAssetBundle()
     {
-        $class = '\\app\\addons\\' . Yii::$app->controller->module->id . '\\assets\\AddonAsset';
+
+        $class = $this->addonNamespaceBase. '\\Assets\\AddonAsset';
         if (class_exists($class)) {
             call_user_func([$class, 'register'], Yii::$app->view);
         }

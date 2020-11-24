@@ -4,6 +4,7 @@ namespace app\mmadmin\validators;
 
 use Yii;
 use yii\validators\Validator;
+use yii\base\Model;
 
 class SlugValidator extends Validator
 {

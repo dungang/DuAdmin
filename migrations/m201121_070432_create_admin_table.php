@@ -23,7 +23,7 @@ class m201121_070432_create_admin_table extends Migration
             'email' => $this->string(64)->null()->unique()->comment('邮箱'),
             'mobile' => $this->string(16)->null()->unique()->comment('手机'),
             'status' => $this->tinyInteger()->defaultValue(10)->comment('状态'),
-            'is_super' => $this->tinyInteger()->defaultValue(0)->comment('是否超光'),
+            'is_super' => $this->tinyInteger()->defaultValue(0)->comment('是否超管'),
             'login_time' => $this->integer()->null()->comment('上次登陆时间'),
             'login_failure' => $this->string(255)->null()->comment('登陆失败消息'),
             'login_ip' => $this->string(64)->null()->comment('登录IP'),
