@@ -9,7 +9,6 @@ use app\mmadmin\models\Setting;
 use app\mmadmin\widgets\LazyLoad;
 use app\mmadmin\widgets\Notify;
 use app\mmadmin\widgets\SimpleModal;
-use app\mmadmin\widgets\SwitchLanguage;
 use app\themes\basic\widgets\ThemeAsset;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -42,14 +41,13 @@ $this->params['logo'] = MAHelper::getSetting('site.logo');
     <div class="wrap">
         <?php
         NavBar::begin([
-            'brandLabel' => Yii::t('app',MAHelper::getSetting('site.name')),
-            'brandImage' => $this->params['logo'],
+            'brandLabel' => Yii::t('app',MAHelper::getSetting('site.name',Yii::$app->name)),
+            //'brandImage' => $this->params['logo'],
             'brandUrl' => ['/site/index'],
             'options' => [
                 'class' => 'navbar-default'
             ]
         ]);
-        echo SwitchLanguage::widget(['route'=>['/site/index']]);
         $menus = [
             [
                 'label' => Yii::t('yii','Home'),

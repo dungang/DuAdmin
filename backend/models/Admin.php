@@ -7,6 +7,7 @@ use Yii;
 use yii\web\IdentityInterface;
 use app\mmadmin\core\BaseModel;
 use yii\base\NotSupportedException;
+use app\mmadmin\core\Operator;
 
 /**
  * "{{%admin}}"表的模型类.
@@ -29,7 +30,7 @@ use yii\base\NotSupportedException;
  * @property int $updated_at 更新时间
  * @property int $is_del
  */
-class Admin extends BaseModel implements IdentityInterface,Authable
+class Admin extends BaseModel implements IdentityInterface,Authable,Operator
 {
 
     const STATUS_DELETED = 0;
@@ -303,5 +304,23 @@ class Admin extends BaseModel implements IdentityInterface,Authable
     public function isActiveAccount(): bool
     {
         return $this->status == static::STATUS_ACTIVE;
+    }
+    
+    /**
+     * {@inheritDoc}
+     * @see \app\mmadmin\core\Operator::getOperatorId()
+     */
+    public function getOperatorId()
+    {
+        return $this->id;
+    }
+    
+    /**
+     * {@inheritDoc}
+     * @see \app\mmadmin\core\Operator::getOperatorName()
+     */
+    public function getOperatorName()
+    {
+       return $this->nickname;
     }
 }

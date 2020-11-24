@@ -551,16 +551,9 @@ select[multiple].input-lg {
     font-size: 12px;
   }
 }
-a {
-  color: #555555;
-}
-a:hover,
-a:active {
-  color: #525252;
-}
 .navbar {
   position: relative;
-  min-height: 100px;
+  min-height: 70px;
   margin-bottom: 20px;
   border: 1px solid transparent;
 }
@@ -666,8 +659,8 @@ a:active {
 }
 .navbar-brand {
   float: left;
-  height: 100px;
-  padding: 20px 15px;
+  height: 70px;
+  padding: 25px 15px;
   font-size: 18px;
   line-height: 20px;
 }
@@ -676,8 +669,7 @@ a:active {
   text-decoration: none;
 }
 .navbar-brand > img {
-  display: inline-block;
-  height: 60px;
+  display: block;
 }
 @media (min-width: 768px) {
   .navbar > .container .navbar-brand,
@@ -690,8 +682,8 @@ a:active {
   float: right;
   padding: 9px 10px;
   margin-right: 15px;
-  margin-top: 33px;
-  margin-bottom: 33px;
+  margin-top: 18px;
+  margin-bottom: 18px;
   background-color: transparent;
   background-image: none;
   border: 1px solid transparent;
@@ -715,13 +707,12 @@ a:active {
   }
 }
 .navbar-nav {
-  margin: 20px -15px;
+  margin: 12.5px -15px;
 }
 .navbar-nav > li > a {
   padding-top: 10px;
   padding-bottom: 10px;
   line-height: 20px;
-  font-weight: bolder;
 }
 @media (max-width: 767px) {
   .navbar-nav .open .dropdown-menu {
@@ -754,8 +745,8 @@ a:active {
     float: left;
   }
   .navbar-nav > li > a {
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-top: 25px;
+    padding-bottom: 25px;
   }
 }
 .navbar-form {
@@ -765,8 +756,8 @@ a:active {
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
-  margin-top: 33px;
-  margin-bottom: 33px;
+  margin-top: 18px;
+  margin-bottom: 18px;
 }
 @media (min-width: 768px) {
   .navbar-form .form-group {
@@ -850,20 +841,20 @@ a:active {
   border-bottom-left-radius: 0;
 }
 .navbar-btn {
-  margin-top: 33px;
-  margin-bottom: 33px;
+  margin-top: 18px;
+  margin-bottom: 18px;
 }
 .navbar-btn.btn-sm {
-  margin-top: 35px;
-  margin-bottom: 35px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 .navbar-btn.btn-xs {
-  margin-top: 39px;
-  margin-bottom: 39px;
+  margin-top: 24px;
+  margin-bottom: 24px;
 }
 .navbar-text {
-  margin-top: 40px;
-  margin-bottom: 40px;
+  margin-top: 25px;
+  margin-bottom: 25px;
 }
 @media (min-width: 768px) {
   .navbar-text {
@@ -910,8 +901,8 @@ a:active {
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
-  color: #FFF;
-  background-color: #e40909;
+  color: #2559e4;
+  background-color: #FFF;
 }
 .navbar-default .navbar-nav > .disabled > a,
 .navbar-default .navbar-nav > .disabled > a:hover,
@@ -922,8 +913,8 @@ a:active {
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
-  color: #FFF;
-  background-color: #e40909;
+  color: #2559e4;
+  background-color: #FFF;
 }
 @media (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
@@ -937,8 +928,8 @@ a:active {
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
-    color: #FFF;
-    background-color: #e40909;
+    color: #2559e4;
+    background-color: #FFF;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a,
   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover,
@@ -950,16 +941,11 @@ a:active {
 .navbar-default .navbar-toggle {
   border-color: #ddd;
 }
-.navbar-default .navbar-toggle .icon-bar {
-  background-color: #eeeeee;
-}
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
-  background-color: #f95a5a;
-  border-color: #fff;
+  background-color: #809eef;
 }
-.navbar-default .navbar-toggle:hover .icon-bar,
-.navbar-default .navbar-toggle:focus .icon-bar {
+.navbar-default .navbar-toggle .icon-bar {
   background-color: #fff;
 }
 .navbar-default .navbar-collapse,
@@ -1087,21 +1073,6 @@ fieldset[disabled] .navbar-inverse .btn-link:hover,
 fieldset[disabled] .navbar-inverse .btn-link:focus {
   color: #444;
 }
-.dropdown-menu > li > a {
-  display: block;
-  padding: 3px 20px;
-  clear: both;
-  font-weight: 400;
-  line-height: 2.85714286;
-  color: #333333;
-  white-space: nowrap;
-}
-.dropdown-menu > li > a:hover,
-.dropdown-menu > li > a:focus {
-  color: #262626;
-  text-decoration: none;
-  background-color: #f5f5f5;
-}
 /*!
  * Bootstrap v3.4.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 Twitter, Inc.
@@ -1179,20 +1150,20 @@ fieldset[disabled] .btn-default.active {
   background-image: none;
 }
 .btn-primary {
-  background-color: #e40909;
+  background-color: #2559e4;
   background-repeat: repeat-x;
-  border-color: #e40909;
+  border-color: #2559e4;
 }
 .btn-primary:hover,
 .btn-primary:focus {
-  background-color: #a90707;
+  background-color: #1642b5;
   background-position: 0 -15px;
-  border-color: #e40909;
+  border-color: #2559e4;
 }
 .btn-primary:active,
 .btn-primary.active {
-  background-color: #a90707;
-  border-color: #e40909;
+  background-color: #1642b5;
+  border-color: #2559e4;
 }
 .btn-primary.disabled,
 .btn-primary[disabled],
@@ -1212,7 +1183,7 @@ fieldset[disabled] .btn-primary:active,
 .btn-primary.disabled.active,
 .btn-primary[disabled].active,
 fieldset[disabled] .btn-primary.active {
-  background-color: #a90707;
+  background-color: #1642b5;
   background-image: none;
 }
 .btn-success {
@@ -1374,12 +1345,19 @@ fieldset[disabled] .btn-danger.active {
 .dropdown-menu > .active > a,
 .dropdown-menu > .active > a:hover,
 .dropdown-menu > .active > a:focus {
-  background-color: #cb0808;
+  background-color: #1a4dd5;
 }
 .navbar-default {
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
   border-radius: 4px;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 5px rgba(0, 0, 0, 0.075);
+}
+.navbar-default .navbar-brand {
+  color: #2559e4;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:active {
+  color: #2559e4;
 }
 .navbar-brand,
 .navbar-nav > li > a {
@@ -1427,8 +1405,8 @@ fieldset[disabled] .btn-danger.active {
   background-repeat: repeat-x;
 }
 .progress-bar {
-  background-image: linear-gradient(to bottom, #e40909 0%, #b30707 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffe40909', endColorstr='#ffb30707', GradientType=0);
+  background-image: linear-gradient(to bottom, #2559e4 0%, #1845be 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff2559e4', endColorstr='#ff1845be', GradientType=0);
   background-repeat: repeat-x;
 }
 .progress-bar-success {
@@ -1461,11 +1439,11 @@ fieldset[disabled] .btn-danger.active {
 .list-group-item.active,
 .list-group-item.active:hover,
 .list-group-item.active:focus {
-  text-shadow: 0 -1px 0 #b30707;
-  background-image: linear-gradient(to bottom, #e40909 0%, #bf0808 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffe40909', endColorstr='#ffbf0808', GradientType=0);
+  text-shadow: 0 -1px 0 #1845be;
+  background-image: linear-gradient(to bottom, #2559e4 0%, #1949ca 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff2559e4', endColorstr='#ff1949ca', GradientType=0);
   background-repeat: repeat-x;
-  border-color: #bf0808;
+  border-color: #1949ca;
 }
 .list-group-item.active .badge,
 .list-group-item.active:hover .badge,
@@ -1480,13 +1458,6 @@ html,
 body {
   height: 100%;
 }
-.navbar-default {
-  background-color: white;
-}
-.navbar {
-  border-radius: 0;
-  border: 0;
-}
 .wrap {
   min-height: 100%;
   height: auto;
@@ -1498,7 +1469,7 @@ body {
 }
 .footer {
   height: 180px;
-  background-color: #222222;
+  background-color: #FFF;
   border-top: 1px solid #ddd;
   padding-top: 20px;
 }
@@ -1506,7 +1477,7 @@ body {
 .footer a,
 .footer a:hover,
 .footer a:active {
-  color: white;
+  color: #2559e4;
 }
 .jumbotron {
   text-align: center;
@@ -1616,7 +1587,7 @@ a.desc:after {
   margin-bottom: 0;
 }
 .nav .active {
-  background-color: #e40909;
+  background-color: #2559e4;
 }
 .nav .active,
 .nav .active a {
@@ -1624,7 +1595,7 @@ a.desc:after {
 }
 .nav .lang-active,
 .nav .lang-active a {
-  color: #e40909 !important;
+  color: #2559e4 !important;
 }
 .product-list .product {
   display: flex;
@@ -1657,7 +1628,7 @@ a.desc:after {
   margin-left: -4px;
   margin-right: -4px;
   margin-bottom: -4px;
-  background-color: #e40909;
+  background-color: #2559e4;
 }
 .thumbnail .caption h3 {
   margin: 5px;

@@ -3,6 +3,7 @@ namespace app\mmadmin\behaviors;
 
 use yii\base\Behavior;
 use app\mmadmin\core\BaseModel;
+use app\mmadmin\core\Operator;
 
 /**
  * 约定一下特殊的属性
@@ -24,7 +25,7 @@ class PropertyBehavior extends Behavior
     /**
      * 当前用户
      *
-     * @var \app\mmadmin\models\User
+     * @var Operator
      */
     private $_user;
 
@@ -59,10 +60,10 @@ class PropertyBehavior extends Behavior
         $this->setOnce('pid', 0, $model);
 
         if ($this->_user) {
-            $this->setOnce('creator_id', $this->_user->id, $model);
-            $this->setEverytime('updator_id', $this->_user->id, $model);
-            $this->setOnce('creator', $this->_user->nickname, $model);
-            $this->setEverytime('updator', $this->_user->nickname, $model);
+            $this->setOnce('creator_id', $this->_user->getOperatorId(), $model);
+            $this->setEverytime('updator_id', $this->_user->getOperatorId(), $model);
+            $this->setOnce('creator', $this->_user->getOperatorName(), $model);
+            $this->setEverytime('updator', $this->_user->getOperatorName(), $model);
         }
     }
 

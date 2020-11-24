@@ -4,9 +4,10 @@ use app\mmadmin\widgets\AjaxFileInput;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
+use app\backend\models\Admin;
 
 /* @var $this yii\web\View */
-/* @var $model app\backend\forms\DynamicUser */
+/* @var $model Admin */
 
 $this->title = Yii::t('backend', 'User Info');
 $this->params['breadcrumbs'][] = $this->title;

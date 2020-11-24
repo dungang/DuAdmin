@@ -179,9 +179,9 @@ class MAHelper
         ]);
     }
 
-    public static function getSetting($name)
+    public static function getSetting($name,$default=NULL)
     {
-        return Setting::getSettings($name);
+        return Setting::getSettings($name,$default);
     }
 
     public static function getSettingAry($name)
