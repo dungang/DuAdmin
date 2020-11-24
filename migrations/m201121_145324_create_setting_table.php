@@ -14,13 +14,38 @@ class m201121_145324_create_setting_table extends Migration
     {
         $this->createTable('{{%setting}}', [
             'name' => $this->string(64)->notNull()->comment('变量名'),
+            'parent'=> $this->string(64)->notNull()->comment('归属'),
             'title' => $this->string(64)->notNull()->comment('变量标题'),
             'value' => $this->text()->null()->comment('变量值'),
             'val_type' => $this->string(64)->notNull()->comment('值类型'),
             'hint' => $this->string(255)->null()->comment('变量介绍'),
             'category' => $this->string(64)->notNull()->defaultValue('base')->comment('变量标题')
         ]);
-        $this->addPrimaryKey('px-setting-name','{{%setting}}','name');
+        $this->addPrimaryKey('pk-setting-name','{{%setting}}','name');
+        $this->createIndex('idx-setting-parent', '{{%setting}}', 'parent');
+        $this->addCommentOnTable('{{%setting}}', '系统配置');
+        
+        //初始化配置
+        $this->batchInsert('{{%setting}}',
+            ['name','parent','title','value','val_type','hint','category'],
+            [
+                ['site.name','','网站名称','MMAdmin','STR','前台首页的网站名称','base'],
+                ['site.logo','','网站Logo','MMAdmin','IMAGE','前台首页的网站Logo','base'],
+                ['site.company','','公司名称','速麦科技','STR','前台首页的企业名称','base'],
+                ['site.phone','','联系电话','1555498106','STR','前台首页的电话号码','base'],
+                ['site.email','','电子邮箱','dungang@126.com','STR','前台首页的邮箱地址','base'],
+                ['site.keywords','','网站关键词','MMAdmin, CMS, PHPAdmin','STR','搜索优化的关键词','base'],
+                ['site.description','','网站介绍','极速开发后台框架','STR','搜索优化的简介','base'],
+                ['site.tongji','','网站统计','','STR','网站的统计JS代码','base'],
+                ['setting.category', '', '参数分类', "base:基本设置\r\nemail:邮件服务\r\nopenFeature:开放功能\r\n", '每行代表一个关联数组元素，key:val格式', 'ASSOC', 'base'],
+                ['email.host','', '邮件服务器', '', '可以是域名或者是IP地址', '', 'email'],
+                ['email.username', '', '邮件账号', '', '', 'STR', 'email'],
+                ['email.password', '','邮件密码', '', '', 'STR', 'email'],
+                ['email.port', '','邮件端口', '25', '', 'STR', 'email'],
+                ['email.useralias', '','邮件账号别名', '速麦科技', '', 'STR', 'email'],
+                ['system.storage.driver','','存储服务','Addons\\Qiniu\\Storage\\QiniuDriver', '七牛OSS存储', 'STR', 'openFeature'],
+                ['system.editor.driver','', '默认编辑器', 'Addons\\Ueditor\\Widget\\Ueditor', '百度编辑器', 'STR', 'openFeature'],
+            ]);
     }
 
     /**

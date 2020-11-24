@@ -42,9 +42,9 @@ class m201121_154833_create_portal_tables extends Migration
      */
     public function safeDown()
     {
-        echo "m201121_154833_create_portal_tables cannot be reverted.\n";
-
-        return false;
+        $this->dropTable('{{%portal}}');
+        $this->dropTable('{{%portal_place}}');
+        $this->dropTable('{{%portal_privilege}}');
     }
 
     /*

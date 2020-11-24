@@ -57,9 +57,10 @@ class m201121_084512_create_auth_tables extends Migration
      */
     public function safeDown()
     {
-        echo "m201121_084512_create_auth_tables cannot be reverted.\n";
-
-        return false;
+        $this->dropTable('{{%auth_assignment}}');
+        $this->dropTable('{{%auth_rule}}');
+        $this->dropTable('{{%auth_item_children}}');
+        $this->dropTable('{{%auth_item}}');
     }
 
     /*

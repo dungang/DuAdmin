@@ -30,9 +30,8 @@ class m201121_154919_create_source_message_tables extends Migration
      */
     public function safeDown()
     {
-        echo "m201121_154919_create_source_message_tables cannot be reverted.\n";
-
-        return false;
+        $this->dropTable('{{%source_message}}');
+        $this->dropTable('{{%message}}');
     }
 
     /*

@@ -5,6 +5,7 @@ namespace app\mmadmin\models;
  * This is the model class for table "setting".
  *
  * @property string $name 名称
+ * @property string $parent 归属
  * @property string $title 标题
  * @property string $value 值
  * @property string $hint 提示
@@ -51,6 +52,7 @@ class Setting extends \app\mmadmin\core\BaseModel
             [
                 [
                     'name',
+                    'parent',
                     'title',
                     'category'
                 ],
@@ -81,6 +83,7 @@ class Setting extends \app\mmadmin\core\BaseModel
     {
         return [
             'name' => '名称',
+            'parent' => '归属',
             'title' => '标题',
             'value' => '值',
             'hint' => '提示',
@@ -98,32 +101,35 @@ class Setting extends \app\mmadmin\core\BaseModel
     {
         return new SettingQuery(get_called_class());
     }
-    
+
     public function behaviors()
     {
         $b = parent::behaviors();
         $b['re-cache'] = [
             'class' => 'app\mmadmin\behaviors\ReCacheBehavior',
             'cache_keys' => [
-                self::CacheKey => [__CLASS__,'getSettingsData'],
+                self::CacheKey => [
+                    __CLASS__,
+                    'getSettingsData'
+                ]
             ]
         ];
         return $b;
     }
-    
-    public static function getSettingsData(){
+
+    public static function getSettingsData()
+    {
         return self::find()->indexBy('name')
-        ->asArray()
-        ->all();
+            ->asArray()
+            ->all();
     }
-    
+
     public static function getCacheSettings()
     {
-        return \Yii::$app->cache->getOrSet(self::CacheKey, function(){
+        return \Yii::$app->cache->getOrSet(self::CacheKey, function () {
             return self::getSettingsData();
         });
     }
-    
 
     public static function getSettingCatetory()
     {
@@ -175,8 +181,6 @@ class Setting extends \app\mmadmin\core\BaseModel
         $val = self::getSettings($name, '');
         return \explode("\n", trim($val));
     }
-    
-    
 
     public static function getSettings($name, $default = NULL)
     {
