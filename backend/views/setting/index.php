@@ -20,7 +20,15 @@ PanelGridView::begin(
         'intro' => '设置功能提高了系统的适应性，根据不同的场景和环境配置不同的变量值。',
         'dataProvider' => $dataProvider,
         'columns' => [
-            'title',
+            [
+                'attribute'=>'title',
+                'headerOptions'=>['width'=>'200px'],
+                'format' => 'raw',
+                'value' => function($model,$key,$index,$column){
+                    return $model['title'] . 
+                    ' <i class="fa fa-question-circle-o" title="'. $model['hint'] .'" data-toggle="tooltip" data-placement="top" ></i>';
+                }
+            ],
             [
                 'attribute' => 'value',
                 'format' => 'raw',
@@ -38,6 +46,7 @@ PanelGridView::begin(
             ],
             [
                 'class' => '\app\mmadmin\grids\ActionColumn',
+                'template' => '{view} {update}',
                 'buttonsOptions' => [
                     'update' => [
                         'data-toggle' => 'modal',

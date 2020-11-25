@@ -4353,3 +4353,10 @@ a.desc:after {
   color: inherit;
   line-height: 30px;
 }
+.action-column {
+  text-align: center;
+  width: 60px;
+}
+.action-column button {
+  width: 30px;
+}

@@ -37,14 +37,15 @@ class m201121_145324_create_setting_table extends Migration
                 ['site.keywords','','网站关键词','MMAdmin, CMS, PHPAdmin','STR','搜索优化的关键词','base'],
                 ['site.description','','网站介绍','极速开发后台框架','STR','搜索优化的简介','base'],
                 ['site.tongji','','网站统计','','STR','网站的统计JS代码','base'],
-                ['setting.category', '', '参数分类', "base:基本设置\r\nemail:邮件服务\r\nopenFeature:开放功能\r\n", '每行代表一个关联数组元素，key:val格式', 'ASSOC', 'base'],
-                ['email.host','', '邮件服务器', '', '可以是域名或者是IP地址', '', 'email'],
-                ['email.username', '', '邮件账号', '', '', 'STR', 'email'],
-                ['email.password', '','邮件密码', '', '', 'STR', 'email'],
-                ['email.port', '','邮件端口', '25', '', 'STR', 'email'],
-                ['email.useralias', '','邮件账号别名', '速麦科技', '', 'STR', 'email'],
-                ['system.storage.driver','','存储服务','Addons\\Qiniu\\Storage\\QiniuDriver', '七牛OSS存储', 'STR', 'openFeature'],
-                ['system.editor.driver','', '默认编辑器', 'Addons\\Ueditor\\Widget\\Ueditor', '百度编辑器', 'STR', 'openFeature'],
+                ['setting.category', '', '参数分类', "base:基本设置\r\nemail:邮件服务\r\nopenFeature:开放功能\r\n", 'ASSOC','每行代表一个关联数组元素，key:val格式',  'base'],
+                ['email.host','', '邮件服务器', '', 'STR', '可以是域名或者是IP地址', 'email'],
+                ['email.username', '', '邮件账号', '', 'STR', '', 'email'],
+                ['email.password', '','邮件密码', '', 'STR', '', 'email'],
+                ['email.port', '','邮件端口', '25','STR', '', 'email'],
+                ['email.useralias', '','邮件账号别名', '速麦科技', 'STR', '', 'email'],
+                ['site.index-page','','网站首页地址','','STR','可以根据业务配置网站的默认首页', 'openFeature'],
+                ['system.storage.driver','','存储服务','Addons\\Qiniu\\Storage\\QiniuDriver', 'STR', '七牛OSS存储', 'openFeature'],
+                ['system.editor.driver','', '默认编辑器', 'Addons\\Ueditor\\Widget\\Ueditor',  'STR', '百度编辑器','openFeature'],
             ]);
     }
 

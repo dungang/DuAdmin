@@ -4,12 +4,14 @@ $config = [
     'id' => 'basic-console',
     'basePath' => dirname(__DIR__),
     'bootstrap' => [
-        'log'
+        'log',
+        'app\mmadmin\components\Bootstrap'
     ],
     'controllerNamespace' => 'app\console',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm' => '@vendor/npm-asset'
+        '@npm' => '@vendor/npm-asset',
+        '@Addons' => '@app/addons'
     ],
     'components' => [
         'cache' => [

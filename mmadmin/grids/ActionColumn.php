@@ -32,6 +32,10 @@ class ActionColumn extends Column
     public $headerOptions = [
         'class' => 'action-column'
     ];
+    
+    public $contentOptions = [
+        'class' => 'action-column'
+    ];
 
     /**
      *
@@ -274,22 +278,6 @@ class ActionColumn extends Column
      */
     protected function renderDataCellContent($model, $key, $index)
     {
-//        return preg_replace_callback('/\\{([\w\-\/]+)\\}/', function ($matches) use ($model, $key, $index) {
-//            $name = $matches[1];
-//
-//            if (isset($this->visibleButtons[$name])) {
-//                $isVisible = $this->visibleButtons[$name] instanceof \Closure ? call_user_func($this->visibleButtons[$name], $model, $key, $index) : $this->visibleButtons[$name];
-//            } else {
-//                $isVisible = true;
-//            }
-//
-//            if ($isVisible && isset($this->buttons[$name])) {
-//                $url = $this->createUrl($name, $model, $key, $index);
-//                return call_user_func($this->buttons[$name], $url, $model, $key);
-//            }
-//
-//            return '';
-//        }, $this->template);
         return $this->renderDataCellContentWidthDropDown($model, $key, $index);
     }
 
