@@ -1,0 +1,51 @@
+<?php
+
+namespace Addons\{{ addonName }};
+
+use app\mmadmin\components\Addon as BaseAddon;
+
+class Addon extends BaseAddon {
+
+	/**
+	 * 开启后台功能
+	 *
+	 */
+    protected function initBackend()
+    {
+        $this->name = '{{ addonTitle }}';
+        $this->home = [
+            'label' => $this->name,
+            'url' => [
+                '/{{ addonId }}/default/index'
+            ]
+        ];
+        \Yii::$app->setHomeUrl([
+            '/{{ addonId }}'
+        ]);
+        // 插件如有自定义配置，使用如下配置
+        // $this->controllerMap = [
+        //     'setting' => [
+        //         'class' => 'app\backend\components\SettingController',
+        //         'default_category' => '{{ addonId }}'
+        //     ]
+        // ];
+    }
+    
+    // /**
+    // * 开启前台功能
+    // */
+    // protected function initFrontend(){}
+    
+    // /**
+    //  * 开启API功能
+    //  */
+    // protected function initApi(){}
+
+	/**
+	 * 系统在启动的时候会调用的静态方法
+	 */
+    public static function initAddon()
+    {
+        //注册vendor类加载目录等工作
+    }
+}

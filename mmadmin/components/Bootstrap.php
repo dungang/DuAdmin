@@ -58,8 +58,9 @@ class Bootstrap implements BootstrapInterface
         foreach ($dirs as $name) {
             $addonName = basename($name);
             $id = Inflector::camel2id($addonName);
-            $app->setModule($id, ['class' => $addonClass = 'Addons\\' . $addonName . '\\Addon']);
+            $addonClass = 'Addons\\' . $addonName . '\\Addon';
             if ($addonClass && class_exists($addonClass)) {
+                $app->setModule($id, ['class' => $addonClass]);
                 if (method_exists($addonClass, 'initAddon')) {
                     //加载类
                     call_user_func([$addonClass, 'initAddon']);
