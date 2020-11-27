@@ -1,9 +1,26 @@
 <?php
 
-use app\mmadmin\widgets\Swiper;
-
+/* @var yii\base\View  $this */
 $this->title = Yii::t('theme','Home');
 ?>
-<div style="margin-top:-20px;">
-    <?= Swiper::widget() ?>
+
+<div class="bg-primary jumbotron ">
+  <h1>Hello, world!</h1>
+  <p>For My Best Friends!</p>
+  <p><a class="btn btn-primary" href="#" role="button">Learn more</a></p>
+</div>
+<div class="jumbotron">
+  <h1>Hello, world!</h1>
+  <p>For My Best Friends!</p>
+  <p><a class="btn btn-primary" href="#" role="button">Learn more</a></p>
+</div>
+<div class="jumbotron">
+  <h1>Hello, world!</h1>
+  <p>For My Best Friends!</p>
+  <p><a class="btn btn-primary" href="#" role="button">Learn more</a></p>
+</div>
+<div class="jumbotron">
+  <h1>Hello, world!</h1>
+  <p>For My Best Friends!</p>
+  <p><a class="btn btn-primary" href="#" role="button">Learn more</a></p>
 </div>

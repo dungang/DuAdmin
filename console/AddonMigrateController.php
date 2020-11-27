@@ -10,6 +10,17 @@ use yii\console\Controller;
  */
 class AddonMigrateController extends Controller
 {
+    
+    /**
+     * 执行数据迁移
+     * @param string $addonName
+     */
+    public function actionIndex($addonName) {
+        $this->run("/migrate",[
+            'migrationPath' => '@Addons/' . $addonName . '/Migrations'
+        ]);
+    }
+    
     /**
      * 创建插件的数据迁移
      * @param string $addonName

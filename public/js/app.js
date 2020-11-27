@@ -64,4 +64,20 @@ $(document).ready(function(){
 	calcVideoSize();
 	$(window).on('resize onorientationchange',calcVideoSize);
 
+	$('.nav-affix').affix({
+	  offset: {
+	    top: 100,
+	    bottom: function () {
+	      return (this.bottom = $('.footer').outerHeight(true))
+	    }
+	  }
+	}).on('affixed.bs.affix',function(){
+		console.log('affix');
+		$(this).removeClass('navbar-inverse')
+		.addClass('navbar-default');
+	}).on("affixed-top.bs.affix",function(){
+		console.log('top')
+		$(this).removeClass('navbar-default')
+		.addClass('navbar-inverse');
+	})
 });

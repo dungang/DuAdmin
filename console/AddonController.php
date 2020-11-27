@@ -78,6 +78,7 @@ class AddonController extends Controller
                 'author' => "",
                 'version' => '1.0.0',
                 'intro' => Inflector::camel2words($addonName) . ' ' . $addonTitle,
+                'require' =>[],
                 'hasApi' => false,
                 'hasFrontend' => false,
                 'hasBackend' => true,
