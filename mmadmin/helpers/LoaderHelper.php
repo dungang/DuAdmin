@@ -131,22 +131,22 @@ class LoaderHelper
             $addonName = basename($name);
             $addonDir = \Yii::$app->basePath . '/addons/' . $addonName;
             $addonVendorComposerDir = $addonDir . '/vendor/composer';
-            $jsonFile = $addonDir. '/addon.json';
+            $jsonFile = $addonDir . '/addon.json';
             if (file_exists($jsonFile)) {
                 try {
                     $addon = json_decode(file_get_contents($jsonFile), true);
                     $addon['id'] = Inflector::camel2id($addonName);
                     $addon['mainClass'] = 'Addons\\' . $addonName . '\\Addon';
-                    if(file_exists($addonVendorComposerDir . '/autoload_classmap.php')) {
+                    if (file_exists($addonVendorComposerDir . '/autoload_classmap.php')) {
                         $addon['classMap'] = require $addonVendorComposerDir . '/autoload_classmap.php';
                     }
-                    if(file_exists($addonVendorComposerDir . '/autoload_namespaces.php')) {
+                    if (file_exists($addonVendorComposerDir . '/autoload_namespaces.php')) {
                         $addon['namespaces'] = require $addonVendorComposerDir . '/autoload_namespaces.php';
                     }
-                    if(file_exists($addonVendorComposerDir . '/autoload_psr4.php')) {
+                    if (file_exists($addonVendorComposerDir . '/autoload_psr4.php')) {
                         $addon['psr4'] = require $addonVendorComposerDir . '/autoload_psr4.php';
                     }
-                    if(file_exists($addonVendorComposerDir . '/autoload_files.php')) {
+                    if (file_exists($addonVendorComposerDir . '/autoload_files.php')) {
                         $addon['files'] = require $addonVendorComposerDir . '/autoload_files.php';
                     }
                     $addons[] = $addon;
@@ -157,6 +157,8 @@ class LoaderHelper
         }
         if ($is_prod_env) {
             file_put_contents($all_addons_json, json_encode($addons, JSON_FORCE_OBJECT | JSON_UNESCAPED_UNICODE));
+        } else {
+            file_put_contents($all_addons_json, json_encode($addons, JSON_PRETTY_PRINT | JSON_FORCE_OBJECT | JSON_UNESCAPED_UNICODE));
         }
         return $addons;
     }

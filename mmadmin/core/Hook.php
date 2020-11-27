@@ -36,19 +36,31 @@ abstract class Hook extends BaseObject
 
     /**
      * 注册监听hook的处理器
-     * @param app\mmadmin\hooks\Handler | callable  $handler
+     * @param string | callable  $handlerName
      * @param boolean $addHeader hook添加在头还是队列的尾
+     * @return void
      */
-    public static function registerHandler($handler, $addHeader = false)
+    public static function registerHandler($handlerName, $addHeader = false)
     {
-        $hookName = static::class;
+        static::registerHookHandler(get_called_class(), $handlerName, $addHeader);
+    }
+    
+    /**
+     * 注册监听hook的处理器
+     * @param string $hookName
+     * @param string | callable  $handlerName
+     * @param boolean $addHeader hook添加在头还是队列的尾
+     * @return void
+     */
+    public static function registerHookHandler(string $hookName, $handlerName,$addHeader = false) {
+        
         if (empty(self::$hooks[$hookName])) {
             self::$hooks[$hookName] = array();
         }
         if ($addHeader) {
-            array_unshift(self::$hooks[$hookName], $handler);
+            array_unshift(self::$hooks[$hookName], $handlerName);
         } else {
-            self::$hooks[$hookName][] = $handler;
+            self::$hooks[$hookName][] = $handlerName;
         }
     }
 
@@ -56,7 +68,7 @@ abstract class Hook extends BaseObject
      * 处罚hook
      * @param yii\base\BaseObject $owner 所有者
      * @param array $config 配置hook的属性
-     * @return Hook
+     * @return Hook|null
      */
     public static function emit($owner, $config = [])
     {

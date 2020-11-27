@@ -2,13 +2,11 @@
 namespace app\mmadmin\components;
 
 use app\mmadmin\core\Application;
-use app\mmadmin\hooks\ViewInitedHook;
 use Yii;
 use yii\base\BootstrapInterface;
-use yii\helpers\BaseFileHelper;
-use yii\helpers\Inflector;
 use yii\i18n\PhpMessageSource;
 use app\mmadmin\helpers\LoaderHelper;
+use app\mmadmin\core\Hook;
 
 /**
  * 以后这里的配置从其他的外部配置读取
@@ -43,18 +41,51 @@ class Bootstrap implements BootstrapInterface
         $this->dynamicParseAddons($app);
     }
 
+    /**
+     * 是否可以配置插件
+     *
+     * @param array $addon
+     * @return boolean
+     */
+    protected function canConfigAddon(array $addon)
+    {
+        if (RUNTIME_MODE === 'Frontend') {
+            return isset($addon['hasFrontend']) && $addon['hasFrontend'];
+        } else if (RUNTIME_MODE === 'Backend') {
+            return isset($addon['hasBackend']) && $addon['hasBackend'];
+        } else if (RUNTIME_MODE === 'Api') {
+            return isset($addon['hasApi']) && $addon['hasApi'];
+        }
+        return false;
+    }
+
     protected function dynamicParseAddons($app)
     {
         $addons = LoaderHelper::dynamicParseAddons();
+
         if (is_array($addons)) {
             foreach ($addons as $addon) {
                 // 1. 注册加载的类库
                 LoaderHelper::loadAddonLibs($addon);
                 // 2. 设置模块
-                $app->setModule($addon['id'], [
-                    'class' => $addon['mainClass']
-                ]);
-                // 3. 其他待定
+                if ($this->canConfigAddon($addon)) {
+                    $app->setModule($addon['id'], [
+                        'class' => $addon['mainClass']
+                    ]);
+                }
+                // 3. 绑定hook处理器
+                if (isset($addon['hooksMap']) && is_array($addon['hooksMap'])) {
+                    foreach ($addon['hooksMap'] as $hookName => $handlerNames) {
+                        if (is_array($handlerNames)) {
+                            foreach ($handlerNames as $handlerName) {
+                                Hook::registerHookHandler($hookName, $handlerName);
+                            }
+                        } else {
+                            Hook::registerHookHandler($hookName, $handlerNames);
+                        }
+                    }
+                }
+                // 4. 其他待定
             }
         }
     }

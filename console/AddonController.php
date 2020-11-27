@@ -123,6 +123,7 @@ class AddonController extends Controller
             }
             if ($create) {
                 $this->createAddon($addonName, $addonTitle, $addonDir, $dirs);
+                $this->runAction("json",[$addonName,$addonTitle]);
                 $this->stdout("插件创建成功" . PHP_EOL);
             }
         } catch (\Exception $e) {
