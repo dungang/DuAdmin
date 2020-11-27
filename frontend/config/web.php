@@ -51,7 +51,7 @@ $config = [
             'enablePrettyUrl' => true,
             'from_db' => true,
             'rules' => [
-                '<slug:[\w \-]+>' => 'site/page'
+                //'page/<slug:[\w \-]+>' => 'site/page'
             ]
         ],
         'assetManager' => [

@@ -1,16 +1,14 @@
 <?php
-
 namespace app\frontend\controllers;
 
-use app\mmadmin\core\FrontendController;
 use app\mmadmin\helpers\MAHelper;
 use app\mmadmin\hooks\FindSlugHook;
-use yii\helpers\VarDumper;
+use app\mmadmin\core\BaseController;
 
 /**
  * Site controller
  */
-class SiteController extends FrontendController
+class SiteController extends BaseController
 {
 
     public function init()
@@ -49,9 +47,9 @@ class SiteController extends FrontendController
 
     /**
      * Displays homepage.
-     * 
+     *
      * 检查是否有数据库级别的配置
-     * 
+     *
      *
      * @return string
      */
@@ -74,19 +72,22 @@ class SiteController extends FrontendController
     public function actionPage($slug = 'index')
     {
         // try to display action from controller
+ 
         try {
-            return $this->runAction($slug);
+            return $this->run('/'. $slug);
         } catch (\yii\base\InvalidRouteException $ex) {
+            \Yii::debug($ex->getMessage());die;
         }
 
         // try to display action from application
         try {
             return \Yii::$app->runAction($slug . '/');
-        } catch (\yii\base\InvalidRouteException $ex) {
-        }
+        } catch (\yii\base\InvalidRouteException $ex) {}
 
         // try to display static page from hook handler
-        $hook = FindSlugHook::emit($this, ['slug' => $slug]);
+        $hook = FindSlugHook::emit($this, [
+            'slug' => $slug
+        ]);
         if ($hook && $hook->payload) {
             return $hook->payload;
         }

@@ -73,6 +73,7 @@ class Bootstrap implements BootstrapInterface
                     $app->setModule($addon['id'], [
                         'class' => $addon['mainClass']
                     ]);
+                    \Yii::debug($addon);
                 }
                 // 3. 绑定hook处理器
                 if (isset($addon['hooksMap']) && is_array($addon['hooksMap'])) {

@@ -75,6 +75,7 @@ class AddonController extends Controller
             $addon = [
                 'name' => $addonTitle,
                 'type' => $type,
+                'author' => "",
                 'version' => '1.0.0',
                 'intro' => Inflector::camel2words($addonName) . ' ' . $addonTitle,
                 'hasApi' => false,

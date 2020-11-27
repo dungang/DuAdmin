@@ -2,7 +2,6 @@
 
 namespace app\mmadmin\filters;
 
-use app\backend\models\Admin;
 use app\mmadmin\core\Authable;
 use Yii;
 use yii\base\ActionFilter;
