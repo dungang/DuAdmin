@@ -7,6 +7,7 @@ use yii\base\BootstrapInterface;
 use yii\i18n\PhpMessageSource;
 use app\mmadmin\helpers\LoaderHelper;
 use app\mmadmin\core\Hook;
+use yii\validators\Validator;
 
 /**
  * 以后这里的配置从其他的外部配置读取
@@ -85,7 +86,13 @@ class Bootstrap implements BootstrapInterface
                         }
                     }
                 }
-                // 4. 其他待定
+                // 4 注册模块的表当验证器
+                if (isset($addon['validatorMap']) && is_array($addon['validatorMap'])) {
+                    foreach($addon['validatorMap'] as $name => $validator) {
+                        Validator::$builtInValidators[$name] = $validator; 
+                    }
+                }
+                // 5. 其他待定
             }
         }
     }

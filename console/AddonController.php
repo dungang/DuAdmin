@@ -81,7 +81,8 @@ class AddonController extends Controller
                 'hasFrontend' => false,
                 'hasBackend' => true,
                 'hasConsole' => false,
-                'hooksMap' =>[]
+                'hooksMap' =>[],
+                'validatorMap' =>[],
             ];
             $data = ArrayHelper::merge($addon, $oldJson);
             file_put_contents($addonJsonFile, json_encode($data, JSON_FORCE_OBJECT | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
