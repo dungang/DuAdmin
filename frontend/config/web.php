@@ -1,15 +1,12 @@
 <?php
-
-use app\mmadmin\core\Application;
 // 数据库配置放在具体的项目中是方便项目独立配置，项目之间相互隔离
 $db = require __DIR__ . '/../../config/db.php';
 $config = [
-    'mode' => Application::MODE_FRONTEND,
     'controllerNamespace' => 'app\frontend\controllers',
     'viewPath' => '@app/frontend/views',
     'components' => [
         'request' => [
-            'cookieValidationKey' => 'dhkwehdihxlekdu@dkld',
+            'cookieValidationKey' =>  getenv('APP_KEY'),
             'enableCsrfCookie' => false
         ],
         'session' =>[
@@ -17,7 +14,7 @@ $config = [
         ],
         'db' => $db,
         'user' => [
-            'identityClass' => '\app\mmadmin\models\User',
+            'identityClass' => '\app\frontend\models\User',
             'enableAutoLogin' => true,
             'loginUrl' => [
                 'login'

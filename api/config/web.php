@@ -1,10 +1,7 @@
 <?php
-
-use app\mmadmin\core\Application;
-
+// 数据库配置放在具体的项目中是方便项目独立配置，项目之间相互隔离
 $db = require __DIR__ . '/db.php';
 $config = [
-    'mode' => Application::MODE_API,
     'controllerNamespace' => 'app\api\controllers',
     'components' => [
         'db' => $db,

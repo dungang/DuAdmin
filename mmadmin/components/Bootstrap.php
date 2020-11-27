@@ -1,5 +1,4 @@
 <?php
-
 namespace app\mmadmin\components;
 
 use app\mmadmin\core\Application;
@@ -9,6 +8,7 @@ use yii\base\BootstrapInterface;
 use yii\helpers\BaseFileHelper;
 use yii\helpers\Inflector;
 use yii\i18n\PhpMessageSource;
+use app\mmadmin\helpers\LoaderHelper;
 
 /**
  * 以后这里的配置从其他的外部配置读取
@@ -28,45 +28,33 @@ class Bootstrap implements BootstrapInterface
      */
     public function bootstrap($app)
     {
-        //注册MMAdmin的多语言
+        // 注册MMAdmin的多语言
         $app->i18n->translations['ma'] = [
             'class' => PhpMessageSource::className(),
             'sourceLanguage' => Yii::$app->sourceLanguage,
             'basePath' => '@app/mmadmin/messages'
         ];
 
-        //更换mysql的schema对象，支持for update 排他锁
+        // 更换mysql的schema对象，支持for update 排他锁
         if ($app->db) {
             $app->db->schemaMap['mysql'] = 'app\mmadmin\mysql\Schema';
             $app->db->schemaMap['mysqli'] = 'app\mmadmin\mysql\Schema';
         }
-        $this->dynamicRegistAddons($app);
+        $this->dynamicParseAddons($app);
     }
 
-    /**
-     * 动态注册Addons
-     * 注册模块的加载器的资源包
-     * 注册模块事件处理器
-     *
-     * @param Application $app
-     */
-    protected function dynamicRegistAddons($app)
+    protected function dynamicParseAddons($app)
     {
-        $dirs = BaseFileHelper::findDirectories(Yii::$app->basePath . '/addons', [
-            'recursive' => false
-        ]);
-        foreach ($dirs as $name) {
-            $addonName = basename($name);
-            $id = Inflector::camel2id($addonName);
-            $addonClass = 'Addons\\' . $addonName . '\\Addon';
-            if ($addonClass && class_exists($addonClass)) {
-                $app->setModule($id, ['class' => $addonClass]);
-                if (method_exists($addonClass, 'initAddon')) {
-                    //加载类
-                    call_user_func([$addonClass, 'initAddon']);
-                    //注册hook的处理器
-                    call_user_func([$addonClass, 'registerCommonHookHandlers']);
-                }
+        $addons = LoaderHelper::dynamicParseAddons();
+        if (is_array($addons)) {
+            foreach ($addons as $addon) {
+                // 1. 注册加载的类库
+                LoaderHelper::loadAddonLibs($addon);
+                // 2. 设置模块
+                $app->setModule($addon['id'], [
+                    'class' => $addon['mainClass']
+                ]);
+                // 3. 其他待定
             }
         }
     }

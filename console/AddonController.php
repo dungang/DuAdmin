@@ -4,6 +4,8 @@ namespace app\console;
 use yii\console\Controller;
 use yii\helpers\Inflector;
 use yii\helpers\FileHelper;
+use yii\helpers\Console;
+use yii\helpers\ArrayHelper;
 
 /**
  *
@@ -21,8 +23,8 @@ class AddonController extends Controller
         $this->stdout("插件命令行说明：" . PHP_EOL);
         $this->stdout(PHP_EOL);
         $this->stdout("\t创建插件 addon/create AddonName 插件标题" . PHP_EOL);
-        $this->stdout("\t安装插件 addon/install AddonName " . PHP_EOL );
-        $this->stdout("\t卸载插件 addon/uninstall AddonName " . PHP_EOL );
+        $this->stdout("\t安装插件 addon/install AddonName " . PHP_EOL);
+        $this->stdout("\t卸载插件 addon/uninstall AddonName " . PHP_EOL);
         $this->stdout(PHP_EOL);
     }
 
@@ -43,13 +45,49 @@ class AddonController extends Controller
      */
     public function actionUninstall($addonName)
     {}
-    
+
     /**
      * 清除插件安装配置
-     *
      */
     public function actionClear($addonName)
     {}
+
+    /**
+     * 刷新配置文件
+     */
+    public function actionJson($addonName, $addonTitle, $type = "app")
+    {
+        $addonDir = \Yii::getAlias('@Addons/' . $addonName);
+        $addonJsonFile = $addonDir . DIRECTORY_SEPARATOR . 'addon.json';
+        $oldJson = [];
+        $writable = true;
+        if (file_exists($addonJsonFile)) {
+            $this->stdout("文件已经存在\n" . $addonJsonFile . "\n", Console::FG_YELLOW);
+            $writable = $this->confirm("是否覆盖？原先的数据会丢失");
+            try {
+                $oldJson = json_decode(file_get_contents($addonJsonFile), true);
+            } catch (\Exception $e) {
+                $this->stdout($addonJsonFile . "不是json文件\n", Console::FG_YELLOW);
+                $writable = $this->confirm("是否覆盖？原先的数据会丢失");
+            }
+        }
+        if ($writable) {
+            $addon = [
+                'name' => $addonTitle,
+                'type' => $type,
+                'version' => '1.0.0',
+                'intro' => Inflector::camel2words($addonName) . ' ' . $addonTitle,
+                'hasApi' => false,
+                'hasFrontend' => false,
+                'hasBackend' => true,
+                'hasConsole' => false,
+                'hooksMap' =>[]
+            ];
+            $data = ArrayHelper::merge($addon, $oldJson);
+            file_put_contents($addonJsonFile, json_encode($data, JSON_FORCE_OBJECT | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+            $this->stdout("创建成功\n" . $addonJsonFile . "\n\n", Console::FG_GREEN);
+        }
+    }
 
     /**
      * 创建插件

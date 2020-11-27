@@ -4,6 +4,7 @@ namespace app\console;
 use yii\console\controllers\MigrateController;
 use app\mmadmin\components\Addon;
 use yii\helpers\Inflector;
+use yii\base\NotSupportedException;
 
 /**
  * 执行所有的模块下的命令
@@ -32,5 +33,14 @@ class AllMigrateController extends MigrateController
                 }
             }
         }
+    }
+    
+    /**
+     * 
+     * {@inheritDoc}
+     * @see \yii\console\controllers\BaseMigrateController::actionCreate()
+     */
+    public function actionCreate($name){
+        throw new NotSupportedException();
     }
 }

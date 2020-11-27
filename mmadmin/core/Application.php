@@ -3,7 +3,6 @@
 namespace app\mmadmin\core;
 
 use app\mmadmin\helpers\MAHelper;
-use Yii;
 use yii\helpers\Url;
 use yii\validators\Validator;
 use yii\web\Application as WebApplication;
@@ -25,7 +24,11 @@ class Application extends WebApplication
 
     public function init()
     {
+        if(defined('RUNTIME_MODE')) {
+            $this->mode = RUNTIME_MODE;
+        }
         parent::init();
+        
         MAHelper::swtichLanguage();
         //注册自定义的验证器
         foreach ($this->validators as $name => $validator) {

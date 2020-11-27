@@ -1,6 +1,6 @@
 <?php
 
-namespace app\frontend\controllers;
+namespace app\api\controllers;
 
 use app\mmadmin\swagger\SwaggerApiAction;
 use app\mmadmin\swagger\SwaggerDocAction;

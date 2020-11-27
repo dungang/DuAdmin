@@ -1,4 +1,5 @@
 <?php
+define('RUNTIME_MODE', 'Api');
 require __DIR__ . '/../env.php';
 require __DIR__ . '/../vendor/yiisoft/yii2/Yii.php';
 require __DIR__ .'/../mmadmin/core/Application.php';
