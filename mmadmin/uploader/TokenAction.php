@@ -13,14 +13,14 @@ use yii\base\Action;
 class TokenAction extends Action
 {
 
-    public function run()
+    public function run($fileType='image')
     {
         $driver = MAHelper::getSetting('system.storage.driver');
         if (empty($driver) || strtolower($driver) == 'local') {
             $driver = "app\\mmadmin\\storage\\LocalDriver";
         }
         if (class_exists($driver)) {
-            return call_user_func([Yii::createObject($driver), 'generateToken']);
+            return call_user_func([Yii::createObject($driver), 'generateUploadToken'],$fileType);
         } else {
             throw new BizException('Uploader driver not exists', 404);
         }

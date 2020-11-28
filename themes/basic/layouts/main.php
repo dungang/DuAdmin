@@ -46,9 +46,6 @@ $this->params['logo'] = MAHelper::getSetting('site.logo');
             'brandUrl' => ['/site/index'],
             'options' => [
                 'class' => 'navbar-inverse nav-affix',
-//                 "data-spy" => "affix",
-//                 'data-offset-top'=>"60",
-//                 "data-offset-bottom"=>"200"
             ]
         ]);
         $menus = [
