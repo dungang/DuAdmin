@@ -20,7 +20,7 @@ AjaxModalOrNormalPanelContent::begin([
 <div class="row">
     <div class="col-md-6">
         <?php echo $form->field($model, 'avatar')->widget(AjaxFileInput::className()) ?>
-        <?= $form->field($model, 'nick_name')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'nickname')->textInput(['maxlength' => true]) ?>
     </div>
     <div class="col-md-6"> 
 

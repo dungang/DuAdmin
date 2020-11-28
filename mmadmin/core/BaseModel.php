@@ -25,6 +25,7 @@ class BaseModel extends ActiveRecord
     public function init()
     {
         parent::init();
+        //是否有软删除字段
         if ($this->hasDeleteProperty()) {
             $this->is_del = 0;
         }

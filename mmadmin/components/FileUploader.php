@@ -127,11 +127,11 @@ class FileUploader extends BaseObject
     public function init()
     {
         if (empty(self::$driver)) {
-            $driverName = MAHelper::getSetting('uploader.driver');
+            $driverName = MAHelper::getSetting('system.storage.driver');
             if (empty($driverName) || $driverName == 'local') {
                 $class = 'app\\mmadmin\\storage\\LocalDriver';
             } else {
-                $class = 'app\\addons\\' . $driverName . '\\driver\\Storage';
+                $class = $driverName;
             }
             self::$driver = \Yii::createObject($class);
         }

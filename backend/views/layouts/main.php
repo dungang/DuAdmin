@@ -14,10 +14,9 @@ use app\mmadmin\widgets\AdminlteNavBar;
 use app\mmadmin\widgets\AdminlteSideBar;
 use app\mmadmin\widgets\AdminlteSideBarMenu;
 use app\backend\widgets\StartCron;
-use app\mmadmin\uploader\ConfigWidget;
 
 BackendAsset::register($this);
-ConfigWidget::factory();
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

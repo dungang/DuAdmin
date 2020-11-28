@@ -44,7 +44,8 @@ class m201121_145324_create_setting_table extends Migration
                 ['email.port', '','邮件端口', '25','STR', '', 'email'],
                 ['email.useralias', '','邮件账号别名', '速麦科技', 'STR', '', 'email'],
                 ['site.index-page','','网站首页地址','','STR','可以根据业务配置网站的默认首页', 'openFeature'],
-                ['system.storage.driver','','存储服务','Addons\\Qiniu\\Storage\\QiniuDriver', 'STR', '七牛OSS存储', 'openFeature'],
+                ['system.storage.driver','','存储服务','Addons\\Qiniu\\Storage\\Driver', 'STR', '七牛OSS存储', 'openFeature'],
+                ['uploader.allow_extensions','', '上传文件扩展名', '.jpg,.png',  'ARRAY', '允许上传的文件后缀名','openFeature'],
                 ['system.editor.driver','', '默认编辑器', 'Addons\\Ueditor\\Widget\\Ueditor',  'STR', '百度编辑器','openFeature'],
             ]);
     }

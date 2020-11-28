@@ -133,7 +133,18 @@ abstract class IDriver extends BaseObject
      * 删除文件
      *
      * @param string $filename
+     * @return bool
      */
-    public abstract function delete($filename);
+    public abstract function delete(string $filename);
+    
+    /**
+     * 前端页面的配置
+     * 解决第三方oss的直传
+     * @return string
+     */
+    public abstract function configWidget();
+
+
+    public abstract function generateToken();
 }
 

@@ -5,6 +5,7 @@ namespace app\mmadmin\widgets;
 use yii\bootstrap\Html;
 use yii\bootstrap\InputWidget;
 use yii\helpers\Url;
+use app\mmadmin\uploader\ConfigWidget;
 
 class AjaxFileInput extends InputWidget
 {
@@ -13,6 +14,8 @@ class AjaxFileInput extends InputWidget
 
     public function run()
     {
+        //配置前端参数
+        ConfigWidget::factory();
         //$this->options['readonly'] = 'readonly';
         $this->options['data-type'] = $this->type;
         $this->options['data-token-url'] =  Url::to(['/site/upload-token']);

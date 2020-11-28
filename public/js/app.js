@@ -66,8 +66,8 @@ $(document).ready(function(){
 
 	$('.nav-affix').affix({
 	  offset: {
-	    top: 100,
-	    bottom: function () {
+	    top: 50,
+	    bottom: function() {
 	      return (this.bottom = $('.footer').outerHeight(true))
 	    }
 	  }

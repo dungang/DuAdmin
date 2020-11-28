@@ -3,6 +3,7 @@ namespace app\mmadmin\storage;
 
 use yii\helpers\FileHelper;
 use yii\imagine\BaseImage;
+use app\mmadmin\uploader\ConfigWidget;
 
 /**
  *
@@ -118,6 +119,15 @@ class LocalDriver extends IDriver
             $targetFile = $this->webroot . '/' . $filename;
             FileHelper::unlink($targetFile);
         }
+    }
+    
+    /**
+     *
+     * {@inheritdoc}
+     * @see \app\mmadmin\storage\IDriver::configWidget()
+     */
+    public function configWidget() {
+        ConfigWidget::widget();
     }
 }
 
