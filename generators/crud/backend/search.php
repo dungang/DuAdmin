@@ -7,7 +7,7 @@ use yii\helpers\StringHelper;
 
 
 /* @var $this yii\web\View */
-/* @var $generator yii\gii\generators\crud\Generator */
+/* @var $generator app\generators\crud\Generator */
 
 $modelClass = StringHelper::basename($generator->modelClass);
 $searchModelClass = StringHelper::basename($generator->searchModelClass);
@@ -15,8 +15,6 @@ if ($modelClass === $searchModelClass) {
     $modelAlias = $modelClass . 'Model';
 }
 $rules = $generator->generateSearchRules();
-$labels = $generator->generateSearchLabels();
-$searchAttributes = $generator->getSearchAttributes();
 $searchConditions = $generator->generateSearchConditions();
 
 echo "<?php\n";
@@ -24,6 +22,7 @@ echo "<?php\n";
 
 namespace <?= StringHelper::dirname(ltrim($generator->searchModelClass, '\\')) ?>;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use <?= ltrim($generator->modelClass, '\\') . (isset($modelAlias) ? " as $modelAlias" : "") ?>;
@@ -65,6 +64,9 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
         $query = <?= isset($modelAlias) ? $modelAlias : $modelClass ?>::find();
 
         // add conditions that should always apply here
+
+        // search before event
+        $this->beforeSearch($query,$params);    
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

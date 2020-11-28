@@ -68,22 +68,8 @@ if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => 'app\generators\Module',
-        'generators' => [
-            'crud' => [
-                'class' => 'app\generators\crud\Generator'
-            ],
-            'model' => [
-                'class' => 'app\generators\model\Generator',
-                'baseClass' => 'app\mmadmin\core\BaseModel',
-                'ns' => 'app\mmadmin\models',
-                'queryNs' => 'app\mmadmin\models'
-            ],
-            'addons' => [
-                'class' => 'app\generators\addons\Generator'
-            ]
-        ]
         // uncomment the following to add your IP if you are not connecting from localhost.
-        // 'allowedIPs' => ['127.0.0.1', '::1'],
+        'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 }
 

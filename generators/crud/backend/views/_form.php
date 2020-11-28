@@ -4,7 +4,7 @@ use yii\helpers\Inflector;
 use yii\helpers\StringHelper;
 
 /* @var $this yii\web\View */
-/* @var $generator yii\gii\generators\crud\Generator */
+/* @var $generator app\generators\crud\Generator */
 
 /* @var $model \yii\db\ActiveRecord */
 $model = new $generator->modelClass();
@@ -14,8 +14,8 @@ if (empty($safeAttributes)) {
 }
 
 echo "<?php\n";
+$formName = Inflector::camel2id(StringHelper::basename($generator->modelClass));
 ?>
-
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -24,9 +24,9 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form">
+<div class="<?= $formName ?>-form">
 
-    <?= "<?php " ?>$form = ActiveForm::begin(); ?>
+    <?= "<?php " ?>$form = ActiveForm::begin(['id'=>'<?= $formName ?>-form','enableAjaxValidation' => true]); ?>
 
 <?php foreach ($generator->getColumnNames() as $attribute) {
     if (in_array($attribute, $safeAttributes)) {
@@ -34,7 +34,7 @@ use yii\widgets\ActiveForm;
     }
 } ?>
     <div class="form-group">
-        <?= "<?= " ?>Html::submitButton(<?= $generator->generateString('Save') ?>, ['class' => 'btn btn-success']) ?>
+        <?= "<?= " ?>Html::submitButton('<i class="fa fa-save"></i> ' .  Yii::t('ma','Save'), ['class' => 'btn btn-success']) ?>
     </div>
 
     <?= "<?php " ?>ActiveForm::end(); ?>

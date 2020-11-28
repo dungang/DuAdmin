@@ -39,6 +39,10 @@ class Generator extends \app\generators\Generator
     public $baseControllerClass = 'yii\web\Controller';
     public $indexWidgetType = 'grid';
     public $searchModelClass = '';
+    public $templates = [
+        'backend'=>'@app/generators/crud/backend',
+        'frontend'=>'@app/generators/crud/frontend',
+    ];
     /**
      * @var bool whether to wrap the `GridView` or `ListView` widget with the `yii\widgets\Pjax` widget
      * @since 2.0.5
