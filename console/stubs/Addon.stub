@@ -30,22 +30,4 @@ class Addon extends BaseAddon {
         //     ]
         // ];
     }
-    
-    // /**
-    // * 开启前台功能
-    // */
-    // protected function initFrontend(){}
-    
-    // /**
-    //  * 开启API功能
-    //  */
-    // protected function initApi(){}
-
-	/**
-	 * 系统在启动的时候会调用的静态方法
-	 */
-    public static function initAddon()
-    {
-        //注册vendor类加载目录等工作
-    }
 }

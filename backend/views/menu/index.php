@@ -1,7 +1,6 @@
 <?php
 use yii\helpers\Html;
 use app\mmadmin\grids\PanelTreeGridView;
-use app\mmadmin\helpers\MAHelper;
 use app\mmadmin\widgets\PanelNavTabs;
 
 /* @var $this yii\web\View */

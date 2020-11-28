@@ -20,6 +20,17 @@ class AddonMigrateController extends Controller
             'migrationPath' => '@Addons/' . $addonName . '/Migrations'
         ]);
     }
+
+    /**
+     * 执行数据迁移撤回
+     * @param string $addonName
+     */
+    public function actionDown($addonName) {
+        echo "test",PHP_EOL;
+        $this->run("/migrate/down",[
+            'migrationPath' => '@Addons/' . $addonName . '/Migrations'
+        ]);
+    }
     
     /**
      * 创建插件的数据迁移
