@@ -29,13 +29,6 @@ PanelTreeGridView::begin([
                 ]);
             }
         ],
-        [
-            'label' => Yii::t('ma', 'Translation'),
-            'format' => 'raw',
-            'value' => function ($model, $key, $index, $column) {
-                return MAHelper::translation_link('app', $model->name);
-            }
-        ],
         'require_login',
         'url',
         'sort',
