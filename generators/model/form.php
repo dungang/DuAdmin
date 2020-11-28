@@ -10,7 +10,10 @@ echo $form->field($generator, 'tableName')->textInput(['table_prefix' => $genera
 echo $form->field($generator, 'modelClass');
 echo $form->field($generator, 'standardizeCapitals')->checkbox();
 echo $form->field($generator, 'ns');
-echo $form->field($generator, 'baseClass');
+echo $form->field($generator, 'baseClass')->dropDownList([
+    'app\mmadmin\core\BaseModel' => 'MMAdmin BaseModel',
+    'yii\db\ActiveRecord' => 'Yii ActiveRecord',
+]);
 echo $form->field($generator, 'db');
 echo $form->field($generator, 'useTablePrefix')->checkbox();
 echo $form->field($generator, 'generateRelations')->dropDownList([
