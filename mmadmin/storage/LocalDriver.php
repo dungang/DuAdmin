@@ -129,5 +129,6 @@ class LocalDriver extends IDriver
     public function configWidget() {
         ConfigWidget::widget();
     }
+    
 }
 
