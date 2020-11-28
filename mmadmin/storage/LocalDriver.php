@@ -1,4 +1,5 @@
 <?php
+
 namespace app\mmadmin\storage;
 
 use yii\helpers\FileHelper;
@@ -28,7 +29,7 @@ class LocalDriver extends IDriver
     {
         $dir = parent::initWritePath($fileType);
         $path = $this->webroot . '/' . $dir;
-        if (! is_dir($path)) {
+        if (!is_dir($path)) {
             FileHelper::createDirectory($path);
         }
         return $dir;
@@ -37,7 +38,7 @@ class LocalDriver extends IDriver
     protected function initOldFilePath($filePath)
     {
         $path = \dirname($this->webroot . '/' . $filePath);
-        if (! \is_dir($path)) {
+        if (!\is_dir($path)) {
             FileHelper::createDirectory($path);
         }
     }
@@ -93,15 +94,15 @@ class LocalDriver extends IDriver
      * {@inheritdoc}
      * @see \app\mmadmin\storage\IDriver::crop()
      */
-    public function crop($filePath, $file, $suffix, $width, $height, $x, $y,$final_width=null,$final_height=null)
+    public function crop($filePath, $file, $suffix, $width, $height, $x, $y, $final_width = null, $final_height = null)
     {
         $targetFile = $this->webroot . '/' . $filePath;
         $crop = BaseImage::crop($file->tempName, $width, $height, [
             $x,
             $y
         ]);
-        if($final_width && $final_height) {
-            $crop = BaseImage::resize($crop, $final_width, $final_height,true,true);
+        if ($final_width && $final_height) {
+            $crop = BaseImage::resize($crop, $final_width, $final_height, true, true);
         }
         $cropPath = $targetFile . $suffix;
         $crop->save($cropPath, $this->getImageQualities());
@@ -115,20 +116,33 @@ class LocalDriver extends IDriver
      */
     public function delete($filename)
     {
-        if (! \parse_url($filename, PHP_URL_SCHEME)) {
+        if (!\parse_url($filename, PHP_URL_SCHEME)) {
             $targetFile = $this->webroot . '/' . $filename;
             FileHelper::unlink($targetFile);
         }
     }
-    
+
     /**
      *
      * {@inheritdoc}
      * @see \app\mmadmin\storage\IDriver::configWidget()
      */
-    public function configWidget() {
+    public function configWidget()
+    {
         ConfigWidget::widget();
     }
-    
-}
 
+    /**
+     * 生成验证token和文件key(无后缀)
+     *
+     * @param string $fileType 前端传递的文件类型，默认是image
+     * @return array
+     */
+    public function generateUploadToken($fileType = 'image')
+    {
+        return [
+            'key' => 'uploads/' .$fileType .'/'. date('Y/m/d') . '/' . uniqid(),
+            'token' => time(),
+        ];
+    }
+}

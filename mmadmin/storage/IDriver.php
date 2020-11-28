@@ -145,6 +145,12 @@ abstract class IDriver extends BaseObject
     public abstract function configWidget();
 
 
-    public abstract function generateToken();
+    /**
+     * 生成验证token和文件key(无后缀)
+     *
+     * @param string $fileType 前端传递的文件类型，默认是image
+     * @return array
+     */
+    public abstract function generateUploadToken(string $fileType = 'image');
 }
 

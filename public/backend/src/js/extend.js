@@ -4,19 +4,19 @@
  * //顺序执行的对象队列
  */
 Date.prototype.format = function (fmt) {
-    var o = {
-        "M+": this.getMonth() + 1, //月份
-        "d+": this.getDate(), //日
-        "h+": this.getHours(), //小时
-        "m+": this.getMinutes(), //分
-        "s+": this.getSeconds(), //秒
-        "q+": Math.floor((this.getMonth() + 3) / 3), //季度
-        "S": this.getMilliseconds() //毫秒
-    };
-    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-    for (var k in o)
-        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-    return fmt;
+	var o = {
+		"M+": this.getMonth() + 1, //月份
+		"d+": this.getDate(), //日
+		"h+": this.getHours(), //小时
+		"m+": this.getMinutes(), //分
+		"s+": this.getSeconds(), //秒
+		"q+": Math.floor((this.getMonth() + 3) / 3), //季度
+		"S": this.getMilliseconds() //毫秒
+	};
+	if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+	for (var k in o)
+		if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+	return fmt;
 };
 
 + function ($) {
@@ -295,18 +295,18 @@ function speckText(url) {
 		};
 	}(jQuery);
 
-+ function($){
++ function ($) {
 	'use strict';
 
-	$.fn.sizeList = function(){
-		return this.each(function(){
+	$.fn.sizeList = function () {
+		return this.each(function () {
 			var _this = $(this);
 			var hiddenInput = _this.find('input[type=hidden]');
 			var checkboxList = _this.find('input[type=checkbox]');
-			checkboxList.change(function(){
+			checkboxList.change(function () {
 				var items = [];
-				for(var i=0; i<checkboxList.length; i++){
-					if(checkboxList[i].checked) {
+				for (var i = 0; i < checkboxList.length; i++) {
+					if (checkboxList[i].checked) {
 						items.push(checkboxList[i].value);
 					}
 				}
@@ -390,24 +390,24 @@ function speckText(url) {
  * yiigridview的批量编辑，在按钮上添加.batch-edit样式，
  * 该事件会更新按钮的url
  */
-$(document).on('click','.grid-view',function(e){
+$(document).on('click', '.grid-view', function (e) {
 	var that = $(this);
 	var data = that.data();
-	if(data.batchEditBtn){
+	if (data.batchEditBtn) {
 		var btn = that.find(data.batchEditBtn);
 		console.log(btn)
-		if(btn.length>0) {
-			
+		if (btn.length > 0) {
+
 			var gridData = that.yiiGridView("data");
 			var field = escape(gridData.selectionColumn);
-			var reg = new RegExp('&?'+ field + '=[\/a-zA-Z0-9]+','g');
-			var baseUrl = btn.attr('href').replace(reg,'');
-			var ids = that.yiiGridView("getSelectedRows").map(function(id){
-				return field+'='+escape(id);
+			var reg = new RegExp('&?' + field + '=[\/a-zA-Z0-9]+', 'g');
+			var baseUrl = btn.attr('href').replace(reg, '');
+			var ids = that.yiiGridView("getSelectedRows").map(function (id) {
+				return field + '=' + escape(id);
 			});
-			btn.attr('items',ids.length);
+			btn.attr('items', ids.length);
 			baseUrl = baseUrl + '&' + ids.join('&');
-			btn.attr('href',baseUrl);
+			btn.attr('href', baseUrl);
 		}
 	}
 });
@@ -416,7 +416,7 @@ $(document).on('click','.grid-view',function(e){
 // 	e.preventDefault();
 // 	var that = $(this);
 // 	if (that.attr('items') && that.attr('items') > 0) {
-		
+
 // 	}  else {
 // 		alert('请选择加载的条目，否则不能进行操作');
 // 	}
@@ -428,13 +428,13 @@ $(document).on('click', '.del-all', function (e) {
 	var that = $(this);
 	var data = that.data();
 	var ids = $(data.target).yiiGridView("getSelectedRows");
-	
+
 
 	if (ids.length == 0) {
 		alert('请选择加载的条目，否则不能进行操作');
 	} else {
 		var params = {};
-		if(!data.pk){
+		if (!data.pk) {
 			data.pk = 'id';
 		}
 		params[data.pk] = ids;
@@ -453,41 +453,42 @@ $(document).on('click', '.del-all', function (e) {
 });
 
 
-$(document).on('click','.ajax-file-input button',function(e){
+$(document).on('click', '.ajax-file-input button', function (e) {
 
 	var fileInput = this.nextElementSibling;
 	var textInput = fileInput.parentElement.previousElementSibling;
 	var fileType = textInput.getAttribute('data-type');
 	var tokenUrl = textInput.getAttribute('data-token-url');
 	var cropper = textInput.getAttribute('data-cropper');
-	fileInput.onchange = function(e){
-		if(fileInput.multiple == false) {
+	fileInput.onchange = function (e) {
+		if (fileInput.multiple == false) {
 			var file = fileInput.files[0];
 			var index = file.name.lastIndexOf(".");
 			var extension = file.name.substr(index + 1);
-			var date = new Date();
-			var key = fileType + "/" + date.format("yyyy/MM/dd/") + date.getTime() +"."+extension;
-			
-			$.get(tokenUrl,function(token){
+			//var date = new Date();
+			//var key = fileType + "/" + date.format("yyyy/MM/dd/") + date.getTime() +"."+extension;
+
+			$.get(tokenUrl, { fileType: fileType }, function (data) {
 				var formData = new FormData();
+				var key = data.key + "." + extension;
 				formData.append(MA.uploader.keyName, key);
 				formData.append("file", file);
-				formData.append(MA.uploader.tokenName, token);
+				formData.append(MA.uploader.tokenName, data.token);
 				$.ajax({
-					url:MA.uploader.uploadUrl,
-					dataType:'json',
-					type:'POST',
+					url: MA.uploader.uploadUrl,
+					dataType: 'json',
+					type: 'POST',
 					async: false,
 					data: formData,
-					processData : false, // 使数据不做处理
-					contentType : false, // 不要设置Content-Type请求头
-					success: function(data){
+					processData: false, // 使数据不做处理
+					contentType: false, // 不要设置Content-Type请求头
+					success: function (data) {
 						//if (data.hash) {
-							alert('上传成功！');
-							textInput.value = MA.uploader.baseUrl + key;
+						alert('上传成功！');
+						textInput.value = MA.uploader.baseUrl + key;
 						//}
 					},
-					error:function(response){
+					error: function (response) {
 						console.log(response);
 					}
 				});

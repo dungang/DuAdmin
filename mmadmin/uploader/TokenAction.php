@@ -17,17 +17,12 @@ class TokenAction extends Action
     {
         $driver = MAHelper::getSetting('system.storage.driver');
         if (empty($driver) || strtolower($driver) == 'local') {
-            return time();
-        } else {
-            if (class_exists($driver)) {
-                return call_user_func([Yii::createObject($driver), 'generateToken']);
-            } else {
-                throw new BizException('Uploader driver not exists', 404);
-            }
+            $driver = "app\\mmadmin\\storage\\LocalDriver";
         }
-    }
-
-    private function generateFileKey(){
-        
+        if (class_exists($driver)) {
+            return call_user_func([Yii::createObject($driver), 'generateToken']);
+        } else {
+            throw new BizException('Uploader driver not exists', 404);
+        }
     }
 }

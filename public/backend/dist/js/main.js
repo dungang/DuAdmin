@@ -616,14 +616,17 @@ $(document).on('click', '.ajax-file-input button', function (e) {
     if (fileInput.multiple == false) {
       var file = fileInput.files[0];
       var index = file.name.lastIndexOf(".");
-      var extension = file.name.substr(index + 1);
-      var date = new Date();
-      var key = fileType + "/" + date.format("yyyy/MM/dd/") + date.getTime() + "." + extension;
-      $.get(tokenUrl, function (token) {
+      var extension = file.name.substr(index + 1); //var date = new Date();
+      //var key = fileType + "/" + date.format("yyyy/MM/dd/") + date.getTime() +"."+extension;
+
+      $.get(tokenUrl, {
+        fileType: fileType
+      }, function (data) {
         var formData = new FormData();
+        var key = data.key + "." + extension;
         formData.append(MA.uploader.keyName, key);
         formData.append("file", file);
-        formData.append(MA.uploader.tokenName, token);
+        formData.append(MA.uploader.tokenName, data.token);
         $.ajax({
           url: MA.uploader.uploadUrl,
           dataType: 'json',
@@ -699,9 +702,9 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/dungang/Workspace/MMAdmin/public/backend/src/js/main.js */"./public/backend/src/js/main.js");
-__webpack_require__(/*! /home/dungang/Workspace/MMAdmin/public/backend/src/less/main.less */"./public/backend/src/less/main.less");
-module.exports = __webpack_require__(/*! /home/dungang/Workspace/MMAdmin/themes/basic/assets/src/less/basic.less */"./themes/basic/assets/src/less/basic.less");
+__webpack_require__(/*! D:\projects\workspace\MMAdmin\public\backend\src\js\main.js */"./public/backend/src/js/main.js");
+__webpack_require__(/*! D:\projects\workspace\MMAdmin\public\backend\src\less\main.less */"./public/backend/src/less/main.less");
+module.exports = __webpack_require__(/*! D:\projects\workspace\MMAdmin\themes\basic\assets\src\less\basic.less */"./themes/basic/assets/src/less/basic.less");
 
 
 /***/ })
