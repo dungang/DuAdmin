@@ -14,6 +14,7 @@ use app\mmadmin\widgets\AdminlteNavBar;
 use app\mmadmin\widgets\AdminlteSideBar;
 use app\mmadmin\widgets\AdminlteSideBarMenu;
 use app\backend\widgets\StartCron;
+use app\mmadmin\widgets\FloatThead;
 
 BackendAsset::register($this);
 
@@ -165,6 +166,7 @@ BackendAsset::register($this);
     SimpleModal::end();
     ?>
     <?= Notify::widget() ?>
+    <?= FloatThead::widget() ?>
     <?= StartCron::widget() ?>
     <?php $this->endBody() ?>
 </body>

@@ -702,9 +702,9 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\projects\workspace\MMAdmin\public\backend\src\js\main.js */"./public/backend/src/js/main.js");
-__webpack_require__(/*! D:\projects\workspace\MMAdmin\public\backend\src\less\main.less */"./public/backend/src/less/main.less");
-module.exports = __webpack_require__(/*! D:\projects\workspace\MMAdmin\themes\basic\assets\src\less\basic.less */"./themes/basic/assets/src/less/basic.less");
+__webpack_require__(/*! /home/dungang/Workspace/MMAdmin/public/backend/src/js/main.js */"./public/backend/src/js/main.js");
+__webpack_require__(/*! /home/dungang/Workspace/MMAdmin/public/backend/src/less/main.less */"./public/backend/src/less/main.less");
+module.exports = __webpack_require__(/*! /home/dungang/Workspace/MMAdmin/themes/basic/assets/src/less/basic.less */"./themes/basic/assets/src/less/basic.less");
 
 
 /***/ })

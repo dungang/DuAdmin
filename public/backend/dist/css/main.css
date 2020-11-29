@@ -4234,6 +4234,18 @@ table.text-center th {
   border-radius: 0px;
   border: 0px;
 }
+.panel-adminlte .nav-tabs-custom li {
+  border-top: 0;
+  margin-bottom: 0;
+  margin-right: 5px;
+}
+.panel-adminlte .nav-tabs-custom li.active > a,
+.panel-adminlte .nav-tabs-custom li.active > a:hover,
+.panel-adminlte .nav-tabs-custom li > a:hover {
+  background: #eee;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
 .panel-adminlte .pagination {
   display: inline-block;
   margin: 0px;
@@ -4334,18 +4346,6 @@ a.desc:after {
 #modal-dailog .modal-content th {
   font-weight: 100;
 }
-#modal-dailog .modal-header {
-  background-color: #fcf8e3;
-  color: #8a6d3b;
-  border: 0px;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-  padding: 10px 15px;
-}
-#modal-dailog .modal-header .modal-title {
-  font-weight: bold;
-  font-size: 14px;
-}
 #modal-dailog .table {
   margin-bottom: 0;
 }
@@ -4359,4 +4359,9 @@ a.desc:after {
 }
 .action-column button {
   width: 30px;
+}
+table thead,
+table tbody,
+table tfoot {
+  background: white;
 }

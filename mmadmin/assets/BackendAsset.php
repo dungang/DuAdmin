@@ -13,7 +13,7 @@ class BackendAsset extends AssetBundle
     ];
     
     public $js = [
-        'backend/dist/js/main.js',
+        'backend/dist/js/main.js'
     ];
     
     public $depends = [

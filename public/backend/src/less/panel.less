@@ -88,7 +88,18 @@
 		box-shadow: 0 0 0;
 		border-radius: @box-border-radius;
 		border: 0px;
-
+		li {
+			border-top: 0;
+		    margin-bottom: 0;
+		    margin-right: 5px;
+		}
+		li.active > a,
+		li.active > a:hover,
+		li > a:hover {
+			background: #eee;
+			border-top-left-radius: 5px;
+			border-top-right-radius: 5px;
+		}
 	}
 
 	

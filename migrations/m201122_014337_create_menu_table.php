@@ -38,7 +38,7 @@ class m201122_014337_create_menu_table extends Migration
             [10,0,'Settings','#',0,1,'fa fa-gears',110],
             [11,10,'Configures','?r=setting/index',0,1,'fa fa-cog',1],
             [12,10,'Locale and Language','?r=locale/index',0,1,'fa fa-language',2],
-            [13,10,'Assets','?r=asset/index',0,1,'fa fa-cogs',3],
+            [13,10,'Assets','?r=asset/manage',0,1,'fa fa-cogs',3],
             [14,10,'Url Pretty','?r=url-pretty/index',0,1,'fa fa-location-arrow',3],
             [20,0,'Marketing','#',0,1,'fa fa-gg-circle',40],
             [21,20,'Blocks','?r=block/index',0,1,'fa fa-clone',1],
