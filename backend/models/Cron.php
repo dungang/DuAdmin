@@ -17,6 +17,7 @@ use app\backend\models\CronQuery;
  * @property string $error_msg 错误信息
  * @property bool $is_ok 正常
  * @property bool $is_active 激活
+ * @property string $app 归属应用
  * @property int $run_at 执行时刻
  * @property int $created_at 添加时间
  * @property int $updated_at 更新时间
@@ -42,7 +43,8 @@ class Cron extends \app\mmadmin\core\BaseModel
         return [
             [
                 [
-                    'mhdmd'
+                    'mhdmd',
+                    'app'
                 ],
                 'required'
             ],
@@ -70,7 +72,8 @@ class Cron extends \app\mmadmin\core\BaseModel
             ],
             [
                 [
-                    'mhdmd'
+                    'mhdmd',
+                    'app'
                 ],
                 'string',
                 'max' => 128
@@ -112,6 +115,7 @@ class Cron extends \app\mmadmin\core\BaseModel
             'error_msg' => '错误信息',
             'is_ok' => '正常',
             'is_active' => '激活',
+            'app' => '归属应用',
             'run_at' => '执行时刻',
             'created_at' => '添加时间',
             'updated_at' => '更新时间'

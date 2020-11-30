@@ -17,7 +17,7 @@ class CronSearch extends Cron
     {
         return [
             [['id', 'run_at', 'created_at', 'updated_at'], 'integer'],
-            [['task', 'mhdmd', 'job_script', 'param', 'intro', 'token'], 'safe'],
+            [['task', 'mhdmd','app', 'job_script', 'param', 'intro', 'token'], 'safe'],
             [['is_ok', 'is_active'], 'boolean'],
         ];
     }
@@ -68,6 +68,7 @@ class CronSearch extends Cron
 
         $query->andFilterWhere(['like', 'task', $this->task])
             ->andFilterWhere(['like', 'mhdmd', $this->mhdmd])
+            ->andFilterWhere(['like', 'app', $this->app])
             ->andFilterWhere(['like', 'job_script', $this->job_script])
             ->andFilterWhere(['like', 'param', $this->param])
             ->andFilterWhere(['like', 'intro', $this->intro])
