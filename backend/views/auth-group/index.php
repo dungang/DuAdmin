@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'attribute' => 'title',
             'format' => 'raw',
             'value' => function ($model, $key, $index, $column) {
-                return Html::a($model['title'], ['view', 'id' => $model['name']], ['data-toggle' => 'modal', 'data-target' => '#modal-dailog']);
+                return Html::a($model['title'], ['view', 'name' => $model['name']], ['data-toggle' => 'modal', 'data-target' => '#modal-dailog']);
             }
         ],
         'name',

@@ -394,6 +394,14 @@ class BaseAction extends Action
         }
         throw new InvalidConfigException();
     }
+    
+    /**
+     * 判断是否是ajax请求，主要是区分表单的ajax验证
+     * @return boolean
+     */
+    protected function isAjaxNotPjax(){
+        return Yii::$app->request->isAjax && Yii::$app->request->isPjax === false;
+    }
 
     private function clearCond($cond)
     {

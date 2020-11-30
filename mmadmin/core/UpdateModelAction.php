@@ -23,7 +23,7 @@ class UpdateModelAction extends BaseAction
         ];
 
         // ajax表单验证
-        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+        if ($this->isAjaxNotPjax() && $model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
         }

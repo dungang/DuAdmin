@@ -10,7 +10,7 @@ use yii\web\NotFoundHttpException;
 /**
  * AuthGroupController implements the CRUD actions for AuthGroup model.
  */
-class AuthAdminGroupController extends BackendController
+class AuthGroupController extends BackendController
 {
     public function actions()
     {

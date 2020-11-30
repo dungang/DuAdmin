@@ -39,7 +39,8 @@ class AjaxModalOrNormalPanelContent extends AdminltePanel
     {
         if (\Yii::$app->request->isAjax) {
             return Html::tag('div', $this->content, [
-                'class' => 'modal-body'
+                'class' => 'modal-body',
+                'data-pjax-container' => '#simple-modal-pjax-container'
             ]);
         } else {
             return parent::renderContent();
