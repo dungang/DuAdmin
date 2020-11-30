@@ -47,7 +47,7 @@ class m201121_145324_create_setting_table extends Migration
                 ['system.storage.driver','','存储服务','', 'STR', '默认是本地存储', 'openFeature'],
                 ['sysltem.storate.local_driver','system.storage.driver','本地存储','app\\mmadmin\\storage\\LocalDriver', 'STR', '本地存储，默认存在目录public/uploads','openFeature'],
                 ['uploader.allow_extensions','', '上传文件扩展名', '.jpg,.png',  'ARRAY', '允许上传的文件后缀名','openFeature'],
-                ['system.editor.driver','', '默认编辑器', 'Addons\\Ueditor\\Widget\\Ueditor',  'STR', '百度编辑器','openFeature'],
+                ['system.editor.driver','', '默认编辑器', 'Addons\\Ueditor\\Widgets\\Ueditor',  'STR', '百度编辑器','openFeature'],
             ]);
     }
 

@@ -29,9 +29,9 @@ class DefaultEditor extends InputWidget
 
     public static function getEditorClass()
     {
-        if ($class = MAHelper::getSetting('editor.default')) {
+        if ($class = MAHelper::getSetting('system.editor.driver')) {
             return $class;
         }
-        return 'app\mmadmin\widgets\DefaultEditor';
+        return static::class;
     }
 }
