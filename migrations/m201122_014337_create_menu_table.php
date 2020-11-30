@@ -26,9 +26,9 @@ class m201122_014337_create_menu_table extends Migration
         $this->batchInsert('{{%menu}}',[
             'id','pid','name','url','is_front','require_login','icon','sort'
         ],[
-            [1,0,'Dashboard','?default/index',0,1,'fa fa-dashboard',1],
+            [1,0,'Dashboard','?r=default/index',0,1,'fa fa-dashboard',1],
             [2,0,'System','#',0,1,'fa fa-desktop',100],
-            [3,2,'Admin','?r=admin/index',0,1,'fa fa-user',1],
+            [3,2,'Administor','?r=administor/index',0,1,'fa fa-user',1],
             [4,2,'Roles','?r=auth-role/index',0,1,'fa fa-flag',2],
             [5,2,'Permissions','?r=auth-permission/index',0,1,'fa fa-lock',3],
             [6,2,'Auth Groups','?r=auth-group/index',0,1,'fa fa-puzzle-piece',4],
@@ -39,7 +39,8 @@ class m201122_014337_create_menu_table extends Migration
             [11,10,'Settings','?r=setting/index',0,1,'fa fa-cog',1],
             [12,10,'Locale and Language','?r=locale/index',0,1,'fa fa-language',2],
             [13,10,'Assets','?r=asset/manage',0,1,'fa fa-cogs',3],
-            [14,10,'Url Pretty','?r=url-pretty/index',0,1,'fa fa-location-arrow',3],
+            [14,10,'Url Pretty','?r=url-pretty/index',0,1,'fa fa-location-arrow',4],
+            [15,10,'Cron Jobs','?r=cron/index',0,1,'fa fa-tasks',5],
             [20,0,'Marketing','#',0,1,'fa fa-gg-circle',40],
             [21,20,'Blocks','?r=block/index',0,1,'fa fa-clone',1],
         ]);

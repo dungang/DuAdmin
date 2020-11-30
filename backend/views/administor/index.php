@@ -8,7 +8,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel app\backend\models\AdminSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('backend', 'Admins');
+$this->title = Yii::t('backend', 'Administors');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php Pjax::begin(['id'=>'admin-index']); ?>

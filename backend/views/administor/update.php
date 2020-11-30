@@ -6,7 +6,7 @@ use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
 /* @var $model app\backend\models\Admin */
 
 $this->title = Yii::t('ma','Update');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Admins'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Administors'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = $this->title;
 echo AjaxModalOrNormalPanelContent::widget([

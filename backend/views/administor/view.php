@@ -7,7 +7,7 @@ use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
 /* @var $model app\backend\models\Admin */
 
 $this->title = $model->username;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Admins'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Administors'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['breadcrumbs'][] = $model->username;
 
