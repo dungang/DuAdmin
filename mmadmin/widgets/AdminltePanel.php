@@ -46,18 +46,18 @@ class AdminltePanel extends Widget
     protected function renderPanelHeading()
     {
         $header = '';
-//         if ($this->intro) {
-//             if ($this->title) {
-//                 $header .= Html::tag('div', Yii::t('ma', $this->title), ['class' => $this->panelTitleClass]);
-//             }
-//             if (is_array($this->intro)) {
-//                 $header .= implode('', array_map(function ($intro) {
-//                     return Html::tag('p', $intro);
-//                 }, $this->intro));
-//             } else {
-//                 $header .= Html::tag('p', $this->intro);
-//             }
-//         }
+        if ($this->intro) {
+            if ($this->title) {
+                $header .= Html::tag('div', Yii::t('ma', $this->title), ['class' => $this->panelTitleClass]);
+            }
+            if (is_array($this->intro)) {
+                $header .= implode('', array_map(function ($intro) {
+                    return Html::tag('p', $intro);
+                }, $this->intro));
+            } else {
+                $header .= Html::tag('p', $this->intro);
+            }
+        }
         return $header ? Html::tag('div', $header, ['class' => $this->panelHeadingClass]) : '';
     }
 

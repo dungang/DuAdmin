@@ -483,7 +483,10 @@ class Generator extends \app\generators\Generator
         }
         if (!empty($likeConditions)) {
             $conditions[] = "\$query" . implode("\n" . str_repeat(' ', 12), $likeConditions) . ";\n";
+            //添加默认搜索的查询构建代码
+            $conditions[] = "\$query->andFilterWhere(['DEF_SEARCH',[],\Yii::\$app->request('default_search')])";
         }
+        
 
         return $conditions;
     }

@@ -146,6 +146,25 @@ a.desc:after {
 
 //--adminlte
 // bootstrap button
+@search-green: darken(@green, 5%);
+.default-search-box {
+	width:240px;
+	margin-right: 5px;
+	input {
+		border-top-left-radius: 30px;
+		border-bottom-left-radius: 30px;
+		border-color: @green;
+		&:focus,
+		&:hover {
+			border-color: @green;
+		}
+	}
+	.btn {
+		color:white;
+		border-color: @green;
+		background: @green;
+	}
+}
 
 .action-column {
 	text-align: center;

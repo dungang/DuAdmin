@@ -4455,6 +4455,24 @@ a.desc:after {
   color: inherit;
   line-height: 30px;
 }
+.default-search-box {
+  width: 240px;
+  margin-right: 5px;
+}
+.default-search-box input {
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  border-color: #2cac72;
+}
+.default-search-box input:focus,
+.default-search-box input:hover {
+  border-color: #2cac72;
+}
+.default-search-box .btn {
+  color: white;
+  border-color: #2cac72;
+  background: #2cac72;
+}
 .action-column {
   text-align: center;
   width: 60px;

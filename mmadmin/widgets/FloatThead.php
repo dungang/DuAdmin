@@ -15,7 +15,7 @@ class FloatThead extends Widget
     public $table = 'table';
 
     public $options = [
-//         'top'=>'50',
+         'top'=>'50',
 //         'scrollingTop'=>'400',
     ];
 
