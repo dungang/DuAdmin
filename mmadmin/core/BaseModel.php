@@ -51,17 +51,6 @@ class BaseModel extends ActiveRecord
         if (is_array($values)) {
             $attributes = array_flip($safeOnly ? $this->safeAttributes() : $this->attributes());
             foreach ($values as $name => $value) {
-                //以_at 结尾的字段都被当做时间戳字段，当前端传递过来的子是字符串则自动转换为时间戳
-                if ($value && strtolower(substr($name, -3)) == '_at') {
-                    if (is_array($value)) {
-                        $value = array_map(function ($v) {
-                            return strtotime($v);
-                        }, $value);
-                    } else if (is_string($value)) {
-                        $value = strtotime($value);
-                        $value = [$value, strtotime('+1 day', strtotime(date('Y-m-d', $value)))];
-                    }
-                }
                 if (isset($attributes[$name])) {
                     $this->$name = $value;
                 } elseif ($safeOnly) {

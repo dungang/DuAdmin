@@ -1,5 +1,4 @@
 <?php
-
 namespace app\mmadmin\widgets;
 
 use app\mmadmin\assets\DatePickerAsset;
@@ -15,9 +14,39 @@ use yii\helpers\Html;
  */
 class DatePicker extends InputWidget
 {
+
+    /**
+     * 是否嵌入到网页
+     * @var bool
+     */
     public $embed = false;
 
+    /**
+     * 格式化模板
+     * @var string
+     */
     public $format = 'yyyy-mm-dd';
+
+    /**
+     * 是否在输入框显示多个日期
+     *
+     * @var bool|int
+     */
+    public $multidate = false;
+
+    /**
+     * 多个日期的分隔符号
+     *
+     * @var string
+     */
+    public $multidateSeparator = '~';
+
+    /**
+     * 是否显示今日按钮
+     *
+     * @var bool
+     */
+    public $todayBtn = true;
 
     private $trans = array(
         'dd' => 'd',
@@ -25,6 +54,12 @@ class DatePicker extends InputWidget
         'yyyy' => 'Y',
         'd' => 'j'
     );
+    
+    public static function rangeConfig(){
+           return [
+               'multidate'=>2
+           ];
+    }
 
     public function init()
     {
@@ -40,11 +75,13 @@ class DatePicker extends InputWidget
     public function run()
     {
         $this->clientOptions = ArrayHelper::merge([
-            'autoclose' => true,
-            'zIndexOffset' => 10000,
-            'todayBtn' => 'linked',
+            'autoclose' => false,
+            'zIndexOffset' => 20,
+            'todayBtn' => $this->todayBtn,
             'todayHighlight' => true,
-            'clearBtn' => true
+            'clearBtn' => true,
+            'multidate' => $this->multidate,
+            'multidateSeparator' => $this->multidateSeparator
         ], $this->clientOptions);
         $this->clientOptions['language'] = \Yii::$app->language;
         $this->clientOptions['format'] = $this->format;

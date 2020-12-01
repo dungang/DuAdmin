@@ -1,5 +1,4 @@
 <?php
-
 namespace app\mmadmin\grids;
 
 use yii\grid\DataColumn;
@@ -9,6 +8,8 @@ class DateTimeColumn extends DataColumn
 {
 
     public $format = 'date';
+
+    public $isRange = true;
 
     public $dateFormat = [
         'date' => 'yyyy-mm-dd',
@@ -29,7 +30,7 @@ class DateTimeColumn extends DataColumn
             $this->value = $value;
         }
     }
-    
+
     /**
      *
      * {@inheritdoc}
@@ -39,7 +40,8 @@ class DateTimeColumn extends DataColumn
         return DatePicker::widget([
             'model' => $this->grid->filterModel,
             'attribute' => $this->attribute,
-            'format' => $this->dateFormat[$this->format]
+            'format' => $this->dateFormat[$this->format],
+            'multidate' => $this->isRange ? 2 : false
         ]);
     }
 }

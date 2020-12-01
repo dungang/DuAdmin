@@ -27,6 +27,7 @@ class Bootstrap implements BootstrapInterface
      */
     public function bootstrap($app)
     {
+
         // 注册MMAdmin的多语言
         $app->i18n->translations['ma'] = [
             'class' => PhpMessageSource::className(),
@@ -35,10 +36,17 @@ class Bootstrap implements BootstrapInterface
         ];
 
         // 更换mysql的schema对象，支持for update 排他锁
-        if ($app->db) {
-            $app->db->schemaMap['mysql'] = 'app\mmadmin\mysql\Schema';
-            $app->db->schemaMap['mysqli'] = 'app\mmadmin\mysql\Schema';
-        }
+        $app->db->schemaMap['mysql'] = 'app\mmadmin\mysql\Schema';
+        $app->db->schemaMap['mysqli'] = 'app\mmadmin\mysql\Schema';
+
+        // 增加自定义的DB查询条件表达式
+        $app->db->queryBuilder->setExpressionBuilders([
+            'app\mmadmin\db\DateRangeCondition' => 'app\mmadmin\db\DateRangeConditionBuilder'
+        ]);
+        $app->db->queryBuilder->setConditionClasses([
+            'DATE_RANGE' => 'app\mmadmin\db\DateRangeCondition'
+        ]);
+
         $this->dynamicParseAddons($app);
     }
 
@@ -89,8 +97,8 @@ class Bootstrap implements BootstrapInterface
                 }
                 // 4 注册模块的表当验证器
                 if (isset($addon['validatorMap']) && is_array($addon['validatorMap'])) {
-                    foreach($addon['validatorMap'] as $name => $validator) {
-                        Validator::$builtInValidators[$name] = $validator; 
+                    foreach ($addon['validatorMap'] as $name => $validator) {
+                        Validator::$builtInValidators[$name] = $validator;
                     }
                 }
                 // 5. 其他待定

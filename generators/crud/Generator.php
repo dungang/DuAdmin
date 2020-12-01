@@ -344,6 +344,11 @@ class Generator extends \app\generators\Generator
         }
         $types = [];
         foreach ($table->columns as $column) {
+            //处理时间字段（查询的时候传递的是日期格式的字符串）
+            if(substr($column->name,-3) == '_at'){
+                $types['safe'][] = $column->name;
+                continue;
+            }
             switch ($column->type) {
                 case Schema::TYPE_TINYINT:
                 case Schema::TYPE_SMALLINT:
@@ -439,9 +444,10 @@ class Generator extends \app\generators\Generator
         $hashConditions = [];
         $dateConditions = [];
         foreach ($columns as $column => $type) {
-            //关于时间的忽略
+            //处理时间字段（查询的时候传递的是日期格式的字符串）
             if (substr($column, -3) == '_at') {
-                $dateConditions[] = "->andFilterWhere(\$this->filterBetween('{$column}', \$this->{$column}))";
+                $dateConditions[] = "->andFilterWhere(['DATE_RANGE','{$column}',\$this->{$column}])";
+                continue;
             }
             switch ($type) {
                 case Schema::TYPE_TINYINT:
