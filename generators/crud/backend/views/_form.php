@@ -36,6 +36,7 @@ use yii\widgets\ActiveForm;
     </div>
     <div class="form-group">
         <?= "<?= " ?>Html::submitButton('<i class="fa fa-save"></i> ' .  Yii::t('ma','Save'), ['class' => 'btn btn-success']) ?>
+        <?= "<?= " ?>Html::resetButton('<i class="fa fa-reply"></i> ' .  Yii::t('ma','Reset'), ['class' => 'btn btn-default']) ?>
     </div>
 
     <?= "<?php " ?>ActiveForm::end(); ?>
