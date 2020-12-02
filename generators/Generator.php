@@ -370,7 +370,7 @@ abstract class Generator extends Model
             $this->addError($attribute, "The class name must contain fully qualified namespace name.");
         } else {
             $ns = substr($class, 0, $pos);
-            $path = Yii::getAlias('@' . str_replace('\\', '/', $ns), false);
+            $path = Yii::getAlias('@app/' . str_replace('\\', '/', $ns), false);
             if ($path === false) {
                 $this->addError($attribute, "The class namespace is invalid: $ns");
             } elseif (!is_dir($path)) {

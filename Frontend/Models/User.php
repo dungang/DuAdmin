@@ -297,7 +297,7 @@ class User extends BaseModel implements IdentityInterface,Authable,Operator
 
     public function isSuperAdmin(): bool
     {
-        return $this->is_super == 1;
+        return true;
     }
 
 

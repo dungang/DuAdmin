@@ -3,7 +3,7 @@
 $db = require __DIR__ . '/../../config/db.php';
 $config = [
     'controllerNamespace' => 'Frontend\Controllers',
-    'viewPath' => '@app/frontend/views',
+    'viewPath' => '@app/Frontend/views',
     'components' => [
         'request' => [
             'cookieValidationKey' =>  getenv('APP_KEY'),
@@ -40,7 +40,7 @@ $config = [
                 'class' => 'DuAdmin\Components\MATheme',
                 'basePath' => '@app/themes/basic',
                 'pathMap' => [
-                    '@app/frontend/views' => '@app/themes/basic',
+                    '@app/Frontend/views' => '@app/themes/basic',
                 ]
             ]
         ],

@@ -82,11 +82,11 @@ abstract class Addon extends Module
 
     public function registerFrontendTheme()
     {
-        $this->on(self::EVENT_BEFORE_ACTION, function ($event) {
             if (Yii::$app->view->theme) {
-                Yii::$app->view->theme->pathMap['@Addons/' . Yii::$app->controller->module->id . '/views'] = Yii::$app->view->theme->basePath . '/Addons/' . Yii::$app->controller->module->id;
+                $viewKey = Yii::$app->view->theme->basePath . '/Addons/' . Yii::$app->controller->module->id . '/views';
+                $viewAddon = Yii::$app->view->theme->basePath . '/Addons/' . Yii::$app->controller->module->id;
+                Yii::$app->view->theme->pathMap[ $viewKey] = $viewAddon;
             }
-        });
     }
 
     /**
@@ -114,7 +114,7 @@ abstract class Addon extends Module
                     $this->registerAddonBackendHomeBreadscrumb();
                     break;
                 case 'Frontend':
-                    $this->initViewPath();
+                    $this->initViewPath(Yii::$app->mode);
                     $this->registerFrontendTheme();
                     $this->initFrontend();
                     break;
