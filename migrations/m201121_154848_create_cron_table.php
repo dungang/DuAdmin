@@ -24,9 +24,9 @@ class m201121_154848_create_cron_table extends Migration
             'is_ok' => $this->boolean()->defaultValue(true)->comment('正常'),
             'is_active' => $this->boolean()->defaultValue(false)->comment('激活'),
             'app' => $this->string(128)->defaultValue('backend')->comment('归属应用'),
-            'run_at' => $this->integer()->null()->comment('执行时间'),
-            'created_at' => $this->integer()->null()->comment('添加时间'),
-            'updated_at' => $this->integer()->null()->comment('更新时间'),
+            'run_at' => $this->timestamp()->null()->comment('执行时间'),
+            'created_at' => $this->timestamp()->null()->comment('添加时间'),
+            'updated_at' => $this->timestamp()->null()->comment('更新时间'),
         ]);
     }
 

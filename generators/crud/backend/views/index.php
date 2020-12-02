@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'id' => '<?= $id_prefix . '-list'?>',
     	'intro' => Yii::t('ma','{0} Info Manage',<?= $generator->generateString($labelNames) ?>),
         'dataProvider' => $dataProvider,
-        <?= !empty($generator->searchModelClass) ? "'filterModel' => \$searchModel,\n        'columns' => [\n" : "'columns' => [\n"; ?>
+        'columns' => [
 <?php
 $count = 0;
 if (($tableSchema = $generator->getTableSchema()) === false) {

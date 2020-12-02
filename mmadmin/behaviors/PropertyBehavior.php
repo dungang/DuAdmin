@@ -52,7 +52,7 @@ class PropertyBehavior extends Behavior
      */
     public function beforeSave($event)
     {
-        $time = time();
+        $time = date('Y-m-d H:i:s');
         /* @var $model BaseModel */
         $model = $event->sender;
         $this->setOnce('created_at', $time, $model);

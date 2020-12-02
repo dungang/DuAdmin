@@ -24,11 +24,11 @@ class m201121_070432_create_admin_table extends Migration
             'mobile' => $this->string(16)->null()->unique()->comment('手机'),
             'status' => $this->tinyInteger()->defaultValue(10)->comment('状态'),
             'is_super' => $this->tinyInteger()->defaultValue(0)->comment('是否超管'),
-            'login_time' => $this->integer()->null()->comment('上次登陆时间'),
+            'login_time' => $this->timestamp()->null()->comment('上次登陆时间'),
             'login_failure' => $this->string(255)->null()->comment('登陆失败消息'),
             'login_ip' => $this->string(64)->null()->comment('登录IP'),
-            'created_at' => $this->integer()->null()->comment('添加时间'),
-            'updated_at' => $this->integer()->null()->comment('更新时间'),
+            'created_at' => $this->timestamp()->null()->comment('添加时间'),
+            'updated_at' => $this->timestamp()->null()->comment('更新时间'),
         ]);
 
         $this->insert('{{%admin}}',[
@@ -39,8 +39,8 @@ class m201121_070432_create_admin_table extends Migration
             'email' => 'admin@website',
             'status' => 10,
             'is_super' => 1,
-            'created_at' => time(),
-            'updated_at' => time()
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
         ]);
     }
 
