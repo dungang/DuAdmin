@@ -14,7 +14,7 @@ $config = [
         ],
         'db' => $db,
         'user' => [
-            'identityClass' => 'frontend\Models\\User',
+            'identityClass' => 'Frontend\Models\\User',
             'enableAutoLogin' => true,
             'loginUrl' => [
                 'login'

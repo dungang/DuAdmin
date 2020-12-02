@@ -1,6 +1,6 @@
 <?php
 
-namespace app\api\controllers;
+namespace Api\Controllers;
 
 use DuAdmin\Swagger\SwaggerApiAction;
 use DuAdmin\Swagger\SwaggerDocAction;

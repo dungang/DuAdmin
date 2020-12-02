@@ -32,7 +32,7 @@ class Bootstrap implements BootstrapInterface
         $app->i18n->translations['da'] = [
             'class' => PhpMessageSource::class,
             'sourceLanguage' => Yii::$app->sourceLanguage,
-            'basePath' => '@DuAdmin/messages'
+            'basePath' => $app->basePath . '/DuAdmin/messages'
         ];
 
         // 更换mysql的schema对象，支持for update 排他锁

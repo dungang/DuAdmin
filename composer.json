@@ -2,9 +2,9 @@
 	"name" : "baiyuan/yii2-fast-kit",
 	"description" : "yii2快速开发模板",
 	"keywords" : [
-		"baiyuan",
 		"yii2",
-		"fast develop template"
+		"fast develop template",
+		"duadmin"
 	],
 	"homepage" : "http://www.baiyuan-teck.com/",
 	"type" : "project",
@@ -49,7 +49,6 @@
 		]
 	},
 	"extra" : {
-		"DuAdmin\\scripts\\ComposerInstaller::createPublicAssets":{},
 		"yii\\composer\\Installer::postCreateProject" : {
 			"setPermission" : [{
 					"runtime" : "0777",
@@ -67,6 +66,21 @@
 	"repositories" : [{
 			"type" : "composer",
 			"url" : "https://asset-packagist.cn"
+		}
+	],
+	"autoload" : {
+		"psr-4" : {
+			"DuAdmin\\" : "DuAdmin",
+			"Backend\\" : "Backend",
+			"Frontend\\" : "Frontend",
+			"Api\\" : "Api",
+			"Addons\\" : "Addons",
+			"Console\\" : "Console"
+		}
+	},
+	"authors" : [{
+			"name" : "dun gang",
+			"email" : "dungang@126.com"
 		}
 	]
 }

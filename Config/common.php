@@ -1,10 +1,9 @@
 <?php
-$basePath = dirname(__DIR__);
 return [
     'id' => 'base',
     'name' => getenv('APP_NAME'),
     'version' => 'beta',
-    'basePath' => $basePath,
+    'basePath' => dirname(__DIR__),
     'bootstrap' => [
         'log',
         'DuAdmin\Components\Bootstrap'
@@ -14,12 +13,6 @@ return [
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
-        '@Addons' => $basePath . '/Addons',
-        '@DuAdmin' => $basePath . '/DuAdmin',
-        '@Backend' => $basePath . '/Backend',
-        '@Frontend' => $basePath . '/Frontend',
-        '@Api' => $basePath . '/Api',
-        '@Console' => $basePath . '/Console',
     ],
     'validators' => [
         'slug' => '\DuAdmin\Validators\SlugValidator',
