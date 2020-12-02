@@ -18,7 +18,7 @@ class AdminSearch extends Admin
     public function rules()
     {
         return [
-            [['id', 'status', 'login_failure', 'login_time', 'created_at', 'updated_at'], 'integer'],
+            [['id', 'status', 'login_failure', 'login_at', 'created_at', 'updated_at'], 'integer'],
             [['username', 'nickname', 'avatar', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'mobile', 'login_ip'], 'safe'],
         ];
     }
@@ -65,7 +65,7 @@ class AdminSearch extends Admin
             'id' => $this->id,
             'status' => $this->status,
             'login_failure' => $this->login_failure,
-            'login_time' => $this->login_time,
+            'login_at' => $this->login_at,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);

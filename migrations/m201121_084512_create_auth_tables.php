@@ -16,8 +16,8 @@ class m201121_084512_create_auth_tables extends Migration
         $this->createTable('{{%auth_rule}}', [
             'name' => $this->string(64)->notNull()->comment('名称'),
             'data' => $this->binary()->comment('数据'),
-            'created_at' => $this->timestamp()->comment('添加时间'),
-            'updated_at' => $this->timestamp()->comment('更新时间'),
+            'created_at' => $this->timestamp()->null()->comment('添加时间'),
+            'updated_at' => $this->timestamp()->null()->comment('更新时间'),
             'PRIMARY KEY ([[name]])',
         ], $tableOptions);
 
@@ -28,8 +28,8 @@ class m201121_084512_create_auth_tables extends Migration
             'rule_name' => $this->string(64)->comment('规则'),
             'group_name' => $this->string(128)->comment('组'),
             'data' => $this->binary()->comment('数据'),
-            'created_at' => $this->timestamp()->comment('添加时间'),
-            'updated_at' => $this->timestamp()->comment('更新时间'),
+            'created_at' => $this->timestamp()->null()->comment('添加时间'),
+            'updated_at' => $this->timestamp()->null()->comment('更新时间'),
             'PRIMARY KEY ([[name]])',
         ], $tableOptions);
         $this->addForeignKey('fk-auth_item-rule_name', '{{%auth_item}}', 'rule_name', '{{%auth_rule}}', 'name', 'SET NULL', 'CASCADE');

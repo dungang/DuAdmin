@@ -3,16 +3,16 @@
 use yii\db\Migration;
 
 /**
- * Handles the creation of table `{{%admin}}`.
+ * Handles the creation of table `{{%user}}`.
  */
-class m201121_070432_create_admin_table extends Migration
+class m201124_063347_create_user_table extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $this->createTable('{{%admin}}', [
+        $this->createTable('{{%user}}', [
             'id' => $this->primaryKey(),
             'username' => $this->string(32)->unique()->notNull()->comment("用户名"),
             'nickname' => $this->string(32)->null()->comment('昵称'),
@@ -23,22 +23,20 @@ class m201121_070432_create_admin_table extends Migration
             'email' => $this->string(64)->null()->unique()->comment('邮箱'),
             'mobile' => $this->string(16)->null()->unique()->comment('手机'),
             'status' => $this->tinyInteger()->defaultValue(10)->comment('状态'),
-            'is_super' => $this->tinyInteger()->defaultValue(0)->comment('是否超管'),
             'login_at' => $this->timestamp()->null()->comment('上次登陆时间'),
             'login_failure' => $this->string(255)->null()->comment('登陆失败消息'),
             'login_ip' => $this->string(64)->null()->comment('登录IP'),
             'created_at' => $this->timestamp()->null()->comment('添加时间'),
             'updated_at' => $this->timestamp()->null()->comment('更新时间'),
         ]);
-
-        $this->insert('{{%admin}}',[
-            'username' => 'admin',
-            'nickname' => 'Admin',
+        
+        $this->insert('{{%user}}',[
+            'username' => 'ma',
+            'nickname' => 'MA',
             'auth_key' => \Yii::$app->security->generateRandomString(),
-            'password_hash' => \Yii::$app->security->generatePasswordHash('admin'),
-            'email' => 'admin@website',
+            'password_hash' => \Yii::$app->security->generatePasswordHash('ma'),
+            'email' => 'mm@mmadmin',
             'status' => 10,
-            'is_super' => 1,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s')
         ]);
@@ -49,6 +47,6 @@ class m201121_070432_create_admin_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('{{%admin}}');
+        $this->dropTable('{{%user}}');
     }
 }

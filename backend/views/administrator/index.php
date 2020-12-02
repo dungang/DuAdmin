@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'nickname',
             'status',
             'login_failure',
-            'login_time:datetime',
+            'login_at:datetime',
             [
                 'class' => '\app\mmadmin\grids\ActionColumn',
                 'buttonsOptions'=>[
@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
 <?= Html::a('<i class="fa fa-plus"></i> ' . Yii::t('ma','Create'), ['create'], ['class'=>'btn btn-primary','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
 
-<?=app\mmadmin\widgets\DefaultSearchBox::widget(['action'=>['index']]) ?>
+<?=app\mmadmin\widgets\FullSearchBox::widget(['action'=>['index']]) ?>
 
 <?php PanelGridView::end() ?>
 <?php Pjax::end(); ?>

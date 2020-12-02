@@ -24,7 +24,7 @@ use app\mmadmin\core\Operator;
  * @property int $status 状态
  * @property  int $is_super 超管
  * @property int $login_failure 登录失败次数
- * @property int $login_time 登录时间
+ * @property int $login_at 登录时间
  * @property string $login_ip 登录IP
  * @property int $created_at 添加时间
  * @property int $updated_at 更新时间
@@ -67,7 +67,7 @@ class Admin extends BaseModel implements IdentityInterface,Authable,Operator
             'mobile' => Yii::t('backend', 'Mobile'),
             'status' => Yii::t('backend', 'Status'),
             'login_failure' => Yii::t('backend', 'Login Failure'),
-            'login_time' => Yii::t('backend', 'Login Time'),
+            'login_at' => Yii::t('backend', 'Login Time'),
             'login_ip' => Yii::t('backend', 'Login Ip'),
             'created_at' => Yii::t('backend', 'Created At'),
             'updated_at' => Yii::t('backend', 'Updated At'),
