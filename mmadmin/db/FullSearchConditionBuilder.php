@@ -7,7 +7,7 @@ use yii\db\conditions\LikeCondition;
 use yii\db\conditions\AndCondition;
 use yii\db\ExpressionBuilderTrait;
 
-class DefaultSearchConditionBuilder implements ExpressionBuilderInterface
+class FullSearchConditionBuilder implements ExpressionBuilderInterface
 {
     // Contains constructor and `queryBuilder` property.
     use ExpressionBuilderTrait;

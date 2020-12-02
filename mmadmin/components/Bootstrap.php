@@ -47,10 +47,10 @@ class Bootstrap implements BootstrapInterface
             'DATE_RANGE' => 'app\mmadmin\db\DateRangeCondition'
         ]);
         $app->db->queryBuilder->setExpressionBuilders([
-            'app\mmadmin\db\DefaultSearchCondition' => 'app\mmadmin\db\DefaultSearchConditionBuilder'
+            'app\mmadmin\db\FullSearchCondition' => 'app\mmadmin\db\FullSearchConditionBuilder'
         ]);
         $app->db->queryBuilder->setConditionClasses([
-            'DEF_SEARCH' => 'app\mmadmin\db\DefaultSearchCondition'
+            'FULL_SEARCH' => 'app\mmadmin\db\FullSearchCondition'
         ]);
 
         $this->dynamicParseAddons($app);

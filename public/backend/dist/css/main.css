@@ -4182,9 +4182,9 @@ table.text-center th {
 .pagination > li > a:focus,
 .pagination > li > span:focus {
   z-index: 2;
-  color: #72afd2;
-  background-color: #eeeeee;
-  border-color: #ddd;
+  color: white;
+  background-color: #2cac72;
+  border-color: #2cac72;
 }
 .pagination > li:first-child > a,
 .pagination > li:first-child > span {
@@ -4304,10 +4304,12 @@ table.text-center th {
 .panel-adminlte .panel-footer {
   border-top: 0;
   padding: 15px;
-  line-height: 1;
+  background-color: white;
+  text-align: center;
 }
-.panel-adminlte .panel-footer .grid-summary {
+.panel-adminlte .grid-summary {
   display: inline-block;
+  line-height: 34px;
 }
 .panel-adminlte .table {
   margin: 0px;
@@ -4455,20 +4457,20 @@ a.desc:after {
   color: inherit;
   line-height: 30px;
 }
-.default-search-box {
+.full-search-box {
   width: 240px;
   margin-right: 5px;
 }
-.default-search-box input {
+.full-search-box input {
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
   border-color: #2cac72;
 }
-.default-search-box input:focus,
-.default-search-box input:hover {
+.full-search-box input:focus,
+.full-search-box input:hover {
   border-color: #2cac72;
 }
-.default-search-box .btn {
+.full-search-box .btn {
   color: white;
   border-color: #2cac72;
   background: #2cac72;

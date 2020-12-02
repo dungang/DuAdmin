@@ -11,7 +11,7 @@ use yii\helpers\Url;
  * @author dungang<dungang@126.com>
  * @since 2020年12月1日
  */
-class DefaultSearchBox extends InputWidget
+class FullSearchBox extends InputWidget
 {
 
     /**
@@ -23,9 +23,9 @@ class DefaultSearchBox extends InputWidget
 
     public function init()
     {
-        $this->name = 'default_search';
+        $this->name = 'full_search';
         parent::init();
-        echo '<div class="default-search-box pull-left">';
+        echo '<div class="full-search-box pull-left">';
         echo Html::beginForm(Url::to($this->action), 'GET', $this->options);
     }
 
@@ -40,7 +40,7 @@ class DefaultSearchBox extends InputWidget
     {
         return <<<BOX
     <div class="input-group">
-      <input type="text" name="default_search" class="form-control" value="{$value}" placeholder="关键词搜索.">
+      <input type="text" name="full_search" class="form-control" value="{$value}" placeholder="关键词搜索.">
       <span class="input-group-btn">
         <button class="btn btn-default" type="submit" ><i class="fa fa-search"></i> 搜索</button>
       </span>

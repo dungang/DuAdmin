@@ -443,6 +443,7 @@ class Generator extends \app\generators\Generator
         $likeConditions = [];
         $hashConditions = [];
         $dateConditions = [];
+        $full_search_columns = [];
         foreach ($columns as $column => $type) {
             //处理时间字段（查询的时候传递的是日期格式的字符串）
             if (substr($column, -3) == '_at') {
@@ -468,6 +469,7 @@ class Generator extends \app\generators\Generator
                 default:
                     $likeKeyword = $this->getClassDbDriverName() === 'pgsql' ? 'ilike' : 'like';
                     $likeConditions[] = "->andFilterWhere(['{$likeKeyword}', '{$column}', \$this->{$column}])";
+                    $full_search_columns[] = "'{$column}'";
                     break;
             }
         }
@@ -484,7 +486,9 @@ class Generator extends \app\generators\Generator
         if (!empty($likeConditions)) {
             $conditions[] = "\$query" . implode("\n" . str_repeat(' ', 12), $likeConditions) . ";\n";
             //添加默认搜索的查询构建代码
-            $conditions[] = "\$query->andFilterWhere(['DEF_SEARCH',[],\Yii::\$app->request('default_search')])";
+            $conditions[] = "if (\$full_search = \Yii::\$app->request('full_search')) {\n"
+                . str_repeat(' ', 12) . "\$query->andFilterWhere(['FULL_SEARCH',[". implode(',',$full_search_columns) ."],\$full_search]);\n"
+                . str_repeat(' ', 8) . "}\n";
         }
         
 

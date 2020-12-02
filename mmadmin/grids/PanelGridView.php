@@ -35,7 +35,7 @@ class PanelGridView extends GridView
 
     private $_body_content = '';
 
-    public $layout = "{items}\n{summary}";
+    public $layout = "{items}\n{pager}";
 
     public function init()
     {
@@ -49,7 +49,7 @@ class PanelGridView extends GridView
 
     public function run()
     {
-        $this->_body_content = ob_get_clean() . Html::tag('div', parent::renderPager(), ['class' => 'pull-right']);
+        $this->_body_content = ob_get_clean() . Html::tag('div', parent::renderSummary(), ['class' => 'pull-right']);
         if (!empty($this->_body_content)) {
             $this->_body_content = Html::tag('div', $this->_body_content, ['class' => 'panel-tools']);
         }
@@ -88,11 +88,11 @@ class PanelGridView extends GridView
         ]);
     }
 
-    public function renderSummary()
+    public function renderPager()
     {
         // return '';
-        $summary = parent::renderSummary();
-        return empty($summary) ? '' : Html::tag('div', $summary, [
+        $pager = parent::renderPager();
+        return empty($pager) ? '' : Html::tag('div', $pager, [
             'class' => 'panel-footer'
         ]);
     }

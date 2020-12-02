@@ -20,13 +20,13 @@
       text-decoration: none;
       background-color: @pagination-bg;
       border: 1px solid @pagination-border;
-	  border-radius: 30px;
+	    border-radius: 30px;
       &:hover,
       &:focus {
         z-index: 2;
-        color: @pagination-hover-color;
-        background-color: @pagination-hover-bg;
-        border-color: @pagination-hover-border;
+        color: white; // @pagination-hover-color;
+        background-color: @green; //@pagination-hover-bg;
+        border-color: @green;//@pagination-hover-border;
       }
     }
     &:first-child {
@@ -34,14 +34,14 @@
       > span {
         margin-left: 0;
         //.border-left-radius(@border-radius-base);
-	    border-radius: 30px;
+	      border-radius: 30px;
       }
     }
     &:last-child {
       > a,
       > span {
         //.border-right-radius(@border-radius-base);
-	    border-radius: 30px;
+	      border-radius: 30px;
       }
     }
   }

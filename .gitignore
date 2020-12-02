@@ -36,6 +36,7 @@ public/assets
 runtime
 node_modules
 .vscode
+.vs
 backup
 /fonts
 /images

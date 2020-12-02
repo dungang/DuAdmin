@@ -8,7 +8,7 @@ use yii\db\conditions\ConditionInterface;
  * @author dungang<dungang@126.com>
  * @since 2020年12月1日
  */
-class DefaultSearchCondition implements ConditionInterface
+class FullSearchCondition implements ConditionInterface
 {
 
     /**
