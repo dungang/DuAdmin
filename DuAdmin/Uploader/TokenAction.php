@@ -3,7 +3,7 @@
 namespace DuAdmin\Uploader;
 
 use DuAdmin\Core\BizException;
-use DuAdmin\Helpers\MAHelper;
+use DuAdmin\Helpers\AppHelper;
 use Yii;
 use yii\base\Action;
 
@@ -15,7 +15,7 @@ class TokenAction extends Action
 
     public function run($fileType='image')
     {
-        $driver = MAHelper::getSetting('system.storage.driver');
+        $driver = AppHelper::getSetting('system.storage.driver');
         if (empty($driver) || strtolower($driver) == 'local') {
             $driver = "DuAdmin\\storage\\LocalDriver";
         }

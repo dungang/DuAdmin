@@ -2,7 +2,7 @@
 namespace DuAdmin\Uploader;
 
 use DuAdmin\Components\ApiActionChain;
-use DuAdmin\Helpers\MAHelper;
+use DuAdmin\Helpers\AppHelper;
 use Yii;
 use yii\base\Action;
 use yii\helpers\FileHelper;
@@ -17,7 +17,7 @@ class LocalUploadAction extends Action
 
     public function run()
     {
-        $allow_extensions = MAHelper::getSettingAry('uploader.allow_extensions');
+        $allow_extensions = AppHelper::getSettingAry('uploader.allow_extensions');
 
         return ApiActionChain::getInstance()->mustPost()
             ->setFields([

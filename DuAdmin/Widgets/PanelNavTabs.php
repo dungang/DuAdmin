@@ -3,7 +3,7 @@ namespace DuAdmin\Widgets;
 
 use yii\base\Widget;
 use yii\helpers\Html;
-use DuAdmin\Helpers\MAHelper;
+use DuAdmin\Helpers\AppHelper;
 
 /**
  *
@@ -27,7 +27,7 @@ class PanelNavTabs extends Widget
     {
         if (! is_array($this->tabs))
             return '';
-        $this->tabs = MAHelper::reActiveItem($this->tabs);
+        $this->tabs = AppHelper::reActiveItem($this->tabs);
         if ($this->wrapper) {
             return Html::tag($this->wrapperTag, $this->renderTabs(), [
                 'class' => $this->wrapperClass

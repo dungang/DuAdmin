@@ -2,7 +2,7 @@
 
 namespace DuAdmin\Core;
 
-use DuAdmin\Helpers\MAHelper;
+use DuAdmin\Helpers\AppHelper;
 use yii\helpers\Url;
 use yii\validators\Validator;
 use yii\web\Application as WebApplication;
@@ -29,7 +29,7 @@ class Application extends WebApplication
         }
         parent::init();
         
-        MAHelper::swtichLanguage();
+        AppHelper::swtichLanguage();
         //注册自定义的验证器
         foreach ($this->validators as $name => $validator) {
             Validator::$builtInValidators[$name] = $validator;

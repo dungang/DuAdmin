@@ -3,7 +3,7 @@
 namespace DuAdmin\Widgets;
 
 use yii\base\Widget;
-use DuAdmin\Helpers\MAHelper;
+use DuAdmin\Helpers\AppHelper;
 use Yii;
 use yii\helpers\Html;
 
@@ -45,7 +45,7 @@ class AdminlteSideBarMenu extends Widget
                 return true;
             }
         });
-        $this->items = MAHelper::listToTree($this->items, $this->idKey, $this->pidKey);
+        $this->items = AppHelper::listToTree($this->items, $this->idKey, $this->pidKey);
         $html = $this->enableHeader ? Html::tag('li', $this->headerLabel, [
             'class' => 'header'
         ]) : '';

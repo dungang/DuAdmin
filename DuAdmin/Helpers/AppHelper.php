@@ -18,7 +18,7 @@ use yii\base\Arrayable;
  *
  * @author dungang
  */
-class MAHelper
+class AppHelper
 {
 
     protected static $agent_detect;

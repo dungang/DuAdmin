@@ -3,7 +3,7 @@
 namespace DuAdmin\Uploader;
 
 use DuAdmin\Core\BizException;
-use DuAdmin\Helpers\MAHelper;
+use DuAdmin\Helpers\AppHelper;
 use DuAdmin\Storage\LocalDriver;
 use Yii;
 use yii\base\Action;
@@ -13,7 +13,7 @@ class DeleteAction extends  Action
 
     public function run()
     {
-        $driver = MAHelper::getSetting('uploader.driver');
+        $driver = AppHelper::getSetting('uploader.driver');
         $url = Yii::$app->request->post('url');
         if (empty($driver) || strtolower($driver) == 'local') {
             $driver = new LocalDriver();

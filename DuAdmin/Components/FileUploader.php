@@ -2,7 +2,7 @@
 
 namespace DuAdmin\Components;
 
-use DuAdmin\Helpers\MAHelper;
+use DuAdmin\Helpers\AppHelper;
 use yii\base\BaseObject;
 use DuAdmin\Models\Setting;
 use yii\web\UploadedFile;
@@ -127,7 +127,7 @@ class FileUploader extends BaseObject
     public function init()
     {
         if (empty(self::$driver)) {
-            $driverName = MAHelper::getSetting('system.storage.driver');
+            $driverName = AppHelper::getSetting('system.storage.driver');
             if (empty($driverName) || $driverName == 'local') {
                 $class = 'DuAdmin\\storage\\LocalDriver';
             } else {

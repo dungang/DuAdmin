@@ -2,7 +2,7 @@
 namespace DuAdmin\Core;
 
 use yii\base\DynamicModel;
-use DuAdmin\Helpers\MAHelper;
+use DuAdmin\Helpers\AppHelper;
 use yii\base\Model;
 
 /**
@@ -99,7 +99,7 @@ abstract class BaseDynamicModel extends DynamicModel
             $rows[] = $this->prepareExtPropertyValueRow($masterModel, $property);
         }
         if(count($rows)>0){
-            MAHelper::batchReplaceInto($this->prepareExtPropertyValueTable(), $this->prepareExtPropertyValueFields(), $rows);
+            AppHelper::batchReplaceInto($this->prepareExtPropertyValueTable(), $this->prepareExtPropertyValueFields(), $rows);
         }
     }
 

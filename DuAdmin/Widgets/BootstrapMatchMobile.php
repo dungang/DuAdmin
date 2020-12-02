@@ -2,7 +2,7 @@
 namespace DuAdmin\Widgets;
 
 use yii\base\Widget;
-use DuAdmin\Helpers\MAHelper;
+use DuAdmin\Helpers\AppHelper;
 
 /**
  *
@@ -15,7 +15,7 @@ class BootstrapMatchMobile extends Widget
 
     public function run()
     {
-        if(MAHelper::IsMobile()){
+        if(AppHelper::IsMobile()){
             $this->view->registerJs(
                 "$(function(){
                 $('{$this->container}').width($('{$this->container}').width()-30);

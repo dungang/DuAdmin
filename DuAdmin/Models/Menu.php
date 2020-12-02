@@ -2,7 +2,7 @@
 
 namespace DuAdmin\Models;
 
-use DuAdmin\Helpers\MAHelper;
+use DuAdmin\Helpers\AppHelper;
 use Yii;
 
 /**
@@ -136,7 +136,7 @@ class Menu extends \DuAdmin\Core\BaseModel
             ->orderBy('sort asc')
             ->all();
         // if ($vars) {
-        //     $vars = MAHelper::listToTree($vars);
+        //     $vars = AppHelper::listToTree($vars);
         // }
         // return $vars;
     }
@@ -146,7 +146,7 @@ class Menu extends \DuAdmin\Core\BaseModel
         $menus =  \Yii::$app->cache->getOrSet(self::CacheKeyFront, function () {
             return self::getFrontMenusData();
         });
-        return MAHelper::listToTree(array_map(function($menu){
+        return AppHelper::listToTree(array_map(function($menu){
             $menu['label'] = Yii::t('app',$menu['label']);
             return $menu;
         },$menus));
@@ -163,7 +163,7 @@ class Menu extends \DuAdmin\Core\BaseModel
             ->orderBy('sort asc')
             ->all();
         // if ($vars) {
-        // $vars = MAHelper::listToTree($vars);
+        // $vars = AppHelper::listToTree($vars);
         // }
         return $vars;
     }

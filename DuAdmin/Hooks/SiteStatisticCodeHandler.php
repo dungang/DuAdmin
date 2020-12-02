@@ -4,7 +4,7 @@ namespace DuAdmin\Hooks;
 
 use DuAdmin\Core\FrontendController;
 use yii\web\View;
-use DuAdmin\Helpers\MAHelper;
+use DuAdmin\Helpers\AppHelper;
 use Yii;
 
 /**
@@ -28,7 +28,7 @@ class SiteStatisticCodeHandler extends Handler
     public function process($hook)
     {
         if ($this->isNotAjaxWithFrontend()) {
-            if ($statisticCode = MAHelper::getSetting('site.tongji')) {
+            if ($statisticCode = AppHelper::getSetting('site.tongji')) {
                 $hook->owner->registerJs($statisticCode, View::POS_HEAD);
             }
         } else {

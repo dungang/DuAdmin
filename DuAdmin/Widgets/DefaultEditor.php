@@ -4,7 +4,7 @@ namespace DuAdmin\Widgets;
 
 use yii\widgets\InputWidget;
 use yii\helpers\Html;
-use DuAdmin\Helpers\MAHelper;
+use DuAdmin\Helpers\AppHelper;
 
 class DefaultEditor extends InputWidget
 {
@@ -29,7 +29,7 @@ class DefaultEditor extends InputWidget
 
     public static function getEditorClass()
     {
-        if ($class = MAHelper::getSetting('system.editor.driver')) {
+        if ($class = AppHelper::getSetting('system.editor.driver')) {
             return $class;
         }
         return static::class;

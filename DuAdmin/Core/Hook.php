@@ -2,7 +2,7 @@
 
 namespace DuAdmin\Core;
 
-use DuAdmin\Helpers\MAHelper;
+use DuAdmin\Helpers\AppHelper;
 use ReflectionFunction;
 use Yii;
 use yii\base\BaseObject;
@@ -79,7 +79,7 @@ abstract class Hook extends BaseObject
             foreach (self::$hooks[$hookName] as $handler) {
                 if (is_callable($handler)) {
                     call_user_func($handler, $hook);
-                    if (MAHelper::isDevMode()) {
+                    if (AppHelper::isDevMode()) {
                         $caller = (new ReflectionFunction($handler));
                         Yii::debug($hookName . ' : callback in ' . $caller->getFileName() . ' on ' . $caller->getStartLine());
                     }

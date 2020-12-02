@@ -2,7 +2,7 @@
 
 namespace DuAdmin\Core;
 
-use DuAdmin\Helpers\MAHelper;
+use DuAdmin\Helpers\AppHelper;
 use yii\base\Arrayable;
 use yii\filters\auth\HttpBearerAuth;
 use yii\filters\RateLimiter;
@@ -54,7 +54,7 @@ class ApiController extends Controller
             } else {
                 $fields = $this->hiddenFields;
             }
-            $result = MAHelper::walkRecursiveRemove($result, function ($v, $k) use ($fields) {
+            $result = AppHelper::walkRecursiveRemove($result, function ($v, $k) use ($fields) {
                 return in_array($k, $fields);
             });
         }

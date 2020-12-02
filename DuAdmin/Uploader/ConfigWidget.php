@@ -1,7 +1,7 @@
 <?php
 namespace DuAdmin\Uploader;
 
-use DuAdmin\Helpers\MAHelper;
+use DuAdmin\Helpers\AppHelper;
 use Yii;
 use yii\base\Widget;
 use yii\helpers\Json;
@@ -33,7 +33,7 @@ class ConfigWidget extends Widget
     public static function factory()
     {
         if (static::$called == false) {
-            $driverName = MAHelper::getSetting('system.storage.driver');
+            $driverName = AppHelper::getSetting('system.storage.driver');
             if (empty($driverName) || $driverName == 'local') {
                 static::widget();
             } else {

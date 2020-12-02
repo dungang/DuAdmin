@@ -2,7 +2,7 @@
 
 namespace DuAdmin\Widgets;
 
-use DuAdmin\Helpers\MAHelper;
+use DuAdmin\Helpers\AppHelper;
 use Yii;
 use yii\bootstrap\Widget;
 use yii\helpers\Html;
@@ -23,7 +23,7 @@ class SwitchLanguage extends Widget
     public function run()
     {
         if (empty($this->lang)) {
-            $this->langs = MAHelper::getSettingAssoc('site.i18n');
+            $this->langs = AppHelper::getSettingAssoc('site.i18n');
         }
         $current_lang = Yii::$app->language;
         if(!$this->route) {
