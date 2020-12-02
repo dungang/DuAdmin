@@ -7,7 +7,7 @@ use app\mmadmin\core\BackendController;
 /**
  * 管理员管理
  */
-class AdministorController extends BackendController
+class AdministratorController extends BackendController
 {
 
     public function actions()

@@ -1,69 +1,72 @@
 {
-	"name": "baiyuan/yii2-fast-kit",
-	"description": "yii2快速开发模板",
-	"keywords": [
+	"name" : "baiyuan/yii2-fast-kit",
+	"description" : "yii2快速开发模板",
+	"keywords" : [
 		"baiyuan",
 		"yii2",
 		"fast develop template"
 	],
-	"homepage": "http://www.baiyuan-teck.com/",
-	"type": "project",
-	"minimum-stability": "stable",
-	"require": {
-		"php": "~7.0",
-		"ext-zlib": "*",
-		"ext-openssl":"*",
-		"yiisoft/yii2": "~2.0",
-		"yiisoft/yii2-bootstrap": "~2.0",
-		"yiisoft/yii2-swiftmailer": "~2",
-		"yiisoft/yii2-httpclient": "~2.0",
-		"yiisoft/yii2-authclient": "^2.2",
-		"yiisoft/yii2-redis": "^2.0",
-		"yiisoft/yii2-imagine": "^2.1",
-		"yiisoft/yii2-queue": "^2.2",
-		"phpspec/php-diff": "^1.1",
-		"bacon/bacon-qr-code": "^1.0",
-		"zircote/swagger-php": "^3.0",
-		"firebase/php-jwt": "^5.2",
-		"vlucas/phpdotenv": "^5.2",
-		"symfony/finder": "^5.1"
+	"homepage" : "http://www.baiyuan-teck.com/",
+	"type" : "project",
+	"minimum-stability" : "stable",
+	"require" : {
+		"php" : "~7.0",
+		"ext-zlib" : "*",
+		"ext-openssl" : "*",
+		"yiisoft/yii2" : "~2.0",
+		"yiisoft/yii2-bootstrap" : "~2.0",
+		"yiisoft/yii2-swiftmailer" : "~2",
+		"yiisoft/yii2-httpclient" : "~2.0",
+		"yiisoft/yii2-authclient" : "^2.2",
+		"yiisoft/yii2-redis" : "^2.0",
+		"yiisoft/yii2-imagine" : "^2.1",
+		"yiisoft/yii2-queue" : "^2.2",
+		"phpspec/php-diff" : "^1.1",
+		"bacon/bacon-qr-code" : "^1.0",
+		"zircote/swagger-php" : "^3.0",
+		"firebase/php-jwt" : "^5.2",
+		"vlucas/phpdotenv" : "^5.2",
+		"symfony/finder" : "^5.1"
 	},
-	"require-dev": {
-		"yiisoft/yii2-debug": "~2.0"
+	"require-dev" : {
+		"yiisoft/yii2-debug" : "~2.0"
 	},
-	"config": {
-		"process-timeout": 1800,
-		"fxp-asset": {
-			"enabled": false,
-			"installer-paths": {
-				"npm-asset-library": "vendor/npm",
-				"bower-asset-library": "vendor/bower"
+	"config" : {
+		"process-timeout" : 1800,
+		"fxp-asset" : {
+			"enabled" : false,
+			"installer-paths" : {
+				"npm-asset-library" : "vendor/npm",
+				"bower-asset-library" : "vendor/bower"
 			}
 		}
 	},
-	"scripts": {
-		"post-install-cmd": "yii\\composer\\Installer::postInstall",
-		"post-create-project-cmd": [
+	"scripts" : {
+		"post-install-cmd" : "yii\\composer\\Installer::postInstall",
+		"post-create-project-cmd" : [
 			"yii\\composer\\Installer::postCreateProject",
 			"yii\\composer\\Installer::postInstall"
 		]
 	},
-	"extra": {
-		"yii\\composer\\Installer::postCreateProject": {
-			"setPermission": [{
-				"runtime": "0777",
-				"public/assets": "0777",
-				"yii": "0755"
-			}]
+	"extra" : {
+		"app\\mmadmin\\scripts\\ComposerInstaller::createPublicAssets":{},
+		"yii\\composer\\Installer::postCreateProject" : {
+			"setPermission" : [{
+					"runtime" : "0777",
+					"public/assets" : "0777",
+					"yii" : "0755"
+				}
+			]
 		},
-		"yii\\composer\\Installer::postInstall": {
-			"generateCookieValidationKey": [
+		"yii\\composer\\Installer::postInstall" : {
+			"generateCookieValidationKey" : [
 				"config/common.php"
 			]
 		}
 	},
-	"repositories": [{
-		"type": "composer",
-		"url": "https://asset-packagist.cn"
-	}]
+	"repositories" : [{
+			"type" : "composer",
+			"url" : "https://asset-packagist.cn"
+		}
+	]
 }

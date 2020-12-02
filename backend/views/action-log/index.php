@@ -53,6 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
         	]
        ]
     ]); ?>
+<?=app\mmadmin\widgets\DefaultSearchBox::widget(['action'=>['index']]) ?>
 <?php PanelGridView::end() ?>
 <?php Pjax::end(); ?>
 

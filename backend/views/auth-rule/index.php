@@ -34,6 +34,8 @@ PanelGridView::begin([
     ]
 ]);
 ?>
-<?= Html::a('<i class="fa fa-plus"></i> 添加', ['create'], ['class' => 'btn btn-sm btn-link','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
+<?= Html::a('<i class="fa fa-plus"></i> ' . Yii::t('ma','Create'), ['create'], ['class'=>'btn btn-primary','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
+
+<?=app\mmadmin\widgets\DefaultSearchBox::widget(['action'=>['index']]) ?>
 <?php PanelGridView::end()?>
 <?php Pjax::end()?>

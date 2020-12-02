@@ -6,9 +6,9 @@ use app\mmadmin\core\BackendController;
 
 
 /**
- * RewriteController implements the CRUD actions for Rewrite model.
+ * PrettyUrlController implements the CRUD actions for Rewrite model.
  */
-class RewriteController extends BackendController
+class PrettyUrlController extends BackendController
 {
 	public function actions(){
 		return [

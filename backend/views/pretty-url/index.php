@@ -43,8 +43,11 @@ $this->params['breadcrumbs'][] = $this->title;
         ]
     ]
 ]); ?>
-<?= Html::a('<i class="fa fa-plus"></i> 添加', ['create'], ['class' => 'btn btn-sm btn-link', 'data-toggle' => 'modal', 'data-target' => '#modal-dailog']) ?>
-<?= Html::a('<i class="fa fa-trash"></i> 删除', ['delete'], ['class' => 'btn btn-sm btn-link del-all', 'data-target' => '#rewrites-list']) ?>
+<?= Html::a('<i class="fa fa-plus"></i> ' . Yii::t('ma','Create'), ['create'], ['class'=>'btn btn-primary','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
+
+<?= Html::a('<i class="fa fa-trash"></i> '. Yii::t('ma','Delete'), ['delete'], ['class'=>'btn btn-danger del-all','data-target'=>'#source-message-list']) ?>
+
+<?=app\mmadmin\widgets\DefaultSearchBox::widget(['action'=>['index']]) ?>
 <?php PanelGridView::end() ?>
 <?php Pjax::end(); ?>
 
