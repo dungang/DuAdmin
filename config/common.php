@@ -1,28 +1,34 @@
 <?php
+$basePath = dirname(__DIR__);
 return [
     'id' => 'base',
-    'name' => 'MMAdmin',
+    'name' => getenv('APP_NAME'),
     'version' => 'beta',
-    'basePath' => dirname(__DIR__),
+    'basePath' => $basePath,
     'bootstrap' => [
         'log',
-        'app\mmadmin\components\Bootstrap'
+        'DuAdmin\Components\Bootstrap'
     ],
     'timeZone' => 'Asia/Shanghai',
     //'language' => 'zh-CN',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
-        '@Addons' => '@app/addons'
+        '@Addons' => $basePath . '/Addons',
+        '@DuAdmin' => $basePath . '/DuAdmin',
+        '@Backend' => $basePath . '/Backend',
+        '@Frontend' => $basePath . '/Frontend',
+        '@Api' => $basePath . '/Api',
+        '@Console' => $basePath . '/Console',
     ],
     'validators' => [
-        'slug' => '\app\mmadmin\validators\SlugValidator',
-        'mobile' => '\app\mmadmin\validators\MobileValidator', //手机验证
-        'alternative' => '\app\mmadmin\validators\AlternativeValidator', //二选一验证
+        'slug' => '\DuAdmin\Validators\SlugValidator',
+        'mobile' => '\DuAdmin\Validators\MobileValidator', //手机验证
+        'alternative' => '\DuAdmin\Validators\AlternativeValidator', //二选一验证
     ],
     'components' => [
         'view' => [
-            'class' => 'app\mmadmin\core\CoreView',
+            'class' => 'DuAdmin\Core\CoreView',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache'
@@ -42,7 +48,7 @@ return [
             'timeFormat' => 'HH:mm:ss'
         ],
         'mailer' => [
-            'class' => 'app\mmadmin\components\AppMailer'
+            'class' => 'DuAdmin\Components\AppMailer'
         ]
     ]
 ];

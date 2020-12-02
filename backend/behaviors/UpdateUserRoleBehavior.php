@@ -1,9 +1,9 @@
 <?php
 
-namespace app\backend\behaviors;
+namespace Backend\Behaviors;
 
 use yii\base\Behavior;
-use app\backend\models\Admin;
+use Backend\Models\Admin;
 
 class UpdateAdminRoleBehavior extends Behavior
 {

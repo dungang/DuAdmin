@@ -1,6 +1,6 @@
 <?php
 
-use app\mmadmin\helpers\MAHelper;
+use DuAdmin\Helpers\MAHelper;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 

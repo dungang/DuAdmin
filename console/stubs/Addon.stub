@@ -2,7 +2,7 @@
 
 namespace Addons\{{ addonName }};
 
-use app\mmadmin\components\Addon as BaseAddon;
+use DuAdmin\Components\Addon as BaseAddon;
 
 class Addon extends BaseAddon {
 
@@ -25,7 +25,7 @@ class Addon extends BaseAddon {
         // 插件如有自定义配置，使用如下配置
         // $this->controllerMap = [
         //     'setting' => [
-        //         'class' => 'app\backend\components\SettingController',
+        //         'class' => 'Backend\Components\SettingController',
         //         'default_category' => '{{ addonId }}'
         //     ]
         // ];

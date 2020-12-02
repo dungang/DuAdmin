@@ -2,8 +2,8 @@
 
 namespace app\api\controllers;
 
-use app\mmadmin\swagger\SwaggerApiAction;
-use app\mmadmin\swagger\SwaggerDocAction;
+use DuAdmin\Swagger\SwaggerApiAction;
+use DuAdmin\Swagger\SwaggerDocAction;
 use Yii;
 use yii\helpers\Url;
 use yii\web\Controller;

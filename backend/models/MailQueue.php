@@ -1,6 +1,6 @@
 <?php
 
-namespace app\backend\models;
+namespace Backend\Models;
 
 /**
  * "{{%mail_queue}}"表的模型类.
@@ -17,7 +17,7 @@ namespace app\backend\models;
  * @property int $sent_at 发送时间
  * @property int $created_at 添加时间
  */
-class MailQueue extends \app\mmadmin\core\BaseModel
+class MailQueue extends \DuAdmin\Core\BaseModel
 {
     /**
      * {@inheritdoc}

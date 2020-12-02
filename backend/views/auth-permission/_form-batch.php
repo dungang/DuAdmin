@@ -3,7 +3,7 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
 /* @var $this \yii\web\View */
-/* @var $models \app\backend\models\AuthPermission[] */
+/* @var $models \Backend\Models\AuthPermission[] */
 
 $form = ActiveForm::begin(['id' => 'auth-permission-batch-form', 'enableAjaxValidation' => false]);
 ?>

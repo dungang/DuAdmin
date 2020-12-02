@@ -1,8 +1,8 @@
 <?php
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
-use app\mmadmin\widgets\ZTree;
+use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
+use DuAdmin\Widgets\ZTree;
 use yii\web\JsExpression;
 
 /* @var $this yii\web\View */

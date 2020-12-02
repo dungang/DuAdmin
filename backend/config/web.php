@@ -3,7 +3,7 @@
 $db = require __DIR__ . '/../../config/db.php';
 $config = [
     //'basePath' => dirname(__DIR__),
-    'controllerNamespace' => 'app\backend\controllers',
+    'controllerNamespace' => 'Backend\Controllers',
     'viewPath' => '@app/backend/views',
     'defaultRoute' => 'default',
     'components' => [
@@ -12,11 +12,11 @@ $config = [
             'enableCsrfCookie' => false
         ],
         'session' =>[
-            'name'=>'MMABESID'
+            'name'=>'DJPBSID'
         ],
         'db' => $db,
         'user' => [
-            'identityClass' => '\app\backend\models\Admin',
+            'identityClass' => '\Backend\Models\Admin',
             'enableAutoLogin' => true,
             'loginUrl' => [
                 'login'
@@ -36,10 +36,10 @@ $config = [
             ]
         ],
         'urlManager' => [
-            'class' => 'app\mmadmin\components\BackendUrlManager',
+            'class' => 'DuAdmin\Components\BackendUrlManager',
         ],
         'assetManager' => [
-            'class' => 'app\mmadmin\core\CoreAssetManager',
+            'class' => 'DuAdmin\Core\CoreAssetManager',
             'basePath' => '@app/public/assets'
         ],
         'i18n' => [

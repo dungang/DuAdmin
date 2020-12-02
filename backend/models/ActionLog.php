@@ -1,6 +1,6 @@
 <?php
 
-namespace app\backend\models;
+namespace Backend\Models;
 
 /**
  * "{{%action_log}}"表的模型类.
@@ -13,7 +13,7 @@ namespace app\backend\models;
  * @property int $created_at 时间
  * @property string $data 数据
  */
-class ActionLog extends \app\mmadmin\core\BaseModel
+class ActionLog extends \DuAdmin\Core\BaseModel
 {
     /**
      * {@inheritdoc}

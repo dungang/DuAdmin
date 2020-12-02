@@ -2,13 +2,13 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-use app\frontend\assets\AppAsset;
-use app\mmadmin\helpers\MAHelper;
-use app\mmadmin\models\Menu;
-use app\mmadmin\models\Setting;
-use app\mmadmin\widgets\LazyLoad;
-use app\mmadmin\widgets\Notify;
-use app\mmadmin\widgets\SimpleModal;
+use Frontend\Assets\AppAsset;
+use DuAdmin\Helpers\MAHelper;
+use DuAdmin\Models\Menu;
+use DuAdmin\Models\Setting;
+use DuAdmin\Widgets\LazyLoad;
+use DuAdmin\Widgets\Notify;
+use DuAdmin\Widgets\SimpleModal;
 use app\themes\basic\widgets\ThemeAsset;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;

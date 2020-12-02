@@ -1,6 +1,6 @@
 <?php
 use yii\helpers\Html;
-use app\mmadmin\grids\PanelGridView;
+use DuAdmin\Grids\PanelGridView;
 use app\backend\models\AuthGroup;
 
 /* @var $this yii\web\View */

@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use app\mmadmin\grids\PanelGridView;
+use DuAdmin\Grids\PanelGridView;
 
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'login_failure',
             'login_at:datetime',
             [
-                'class' => '\app\mmadmin\grids\ActionColumn',
+                'class' => '\DuAdmin\Grids\ActionColumn',
                 'buttonsOptions'=>[
                     'update'=>[
                         'data-toggle'=>'modal',
@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
 <?= Html::a('<i class="fa fa-plus"></i> ' . Yii::t('ma','Create'), ['create'], ['class'=>'btn btn-primary','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
 
-<?=app\mmadmin\widgets\FullSearchBox::widget(['action'=>['index']]) ?>
+<?=DuAdmin\Widgets\FullSearchBox::widget(['action'=>['index']]) ?>
 
 <?php PanelGridView::end() ?>
 <?php Pjax::end(); ?>

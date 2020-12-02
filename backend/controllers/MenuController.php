@@ -1,9 +1,9 @@
 <?php
 
-namespace app\backend\controllers;
+namespace Backend\Controllers;
 
 
-use app\mmadmin\core\BackendController;
+use DuAdmin\Core\BackendController;
 
 /**
  * MenuController implements the CRUD actions for Menu model.
@@ -14,34 +14,34 @@ class MenuController extends BackendController
 	public function actions(){
 		return [
             'index' => [
-                'class' => 'app\mmadmin\core\ListModelsAction',
+                'class' => 'DuAdmin\Core\ListModelsAction',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\MenuSearch',
+                    'class' => 'DuAdmin\Models\MenuSearch',
                     'is_front'=>1,
                 ]
             ],
             'create' => [
-                'class' => 'app\mmadmin\core\CreateModelAction',
+                'class' => 'DuAdmin\Core\CreateModelAction',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\Menu'
+                    'class' => 'DuAdmin\Models\Menu'
                 ]
             ],
             'update' => [
-                'class' => 'app\mmadmin\core\UpdateModelAction',
+                'class' => 'DuAdmin\Core\UpdateModelAction',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\Menu'
+                    'class' => 'DuAdmin\Models\Menu'
                 ]
             ],
             'view' => [
-                'class' => 'app\mmadmin\core\ViewModelAction',
+                'class' => 'DuAdmin\Core\ViewModelAction',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\Menu'
+                    'class' => 'DuAdmin\Models\Menu'
                 ]
             ],
             'delete' => [
-                'class' => 'app\mmadmin\core\DeleteModelAction',
+                'class' => 'DuAdmin\Core\DeleteModelAction',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\Menu'
+                    'class' => 'DuAdmin\Models\Menu'
                 ]
             ],
 		];

@@ -2,10 +2,10 @@
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
-/* @var $model \app\frontend\forms\LoginForm */
+/* @var $model \Frontend\Forms\LoginForm */
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-use app\mmadmin\models\Setting;
+use DuAdmin\Models\Setting;
 
 $this->title = '登录';
 $this->params['breadcrumbs'][] = $this->title;

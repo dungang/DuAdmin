@@ -1,9 +1,9 @@
 <?php
 
-namespace app\backend\behaviors;
+namespace backend\Behaviors;
 
 use yii\base\Behavior;
-use app\mmadmin\core\BaseModel;
+use DuAdmin\Core\BaseModel;
 
 class CleanRbacBehavior extends Behavior
 {

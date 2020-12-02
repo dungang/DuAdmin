@@ -5,7 +5,7 @@
 /* @var $message string */
 /* @var $exception Exception */
 use yii\helpers\Html;
-use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
+use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 
 $this->title = '提示信息';
 AjaxModalOrNormalPanelContent::begin([

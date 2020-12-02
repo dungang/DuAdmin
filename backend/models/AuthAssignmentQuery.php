@@ -1,5 +1,5 @@
 <?php
-namespace app\backend\models;
+namespace Backend\Models;
 
 /**
  * This is the ActiveQuery class for [[AuthAssignment]].

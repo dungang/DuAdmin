@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace app\generators\components;
+namespace app\generators\Components;
 
 use app\generators\Generator;
 use yii\helpers\Json;

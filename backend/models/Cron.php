@@ -1,8 +1,8 @@
 <?php
 
-namespace app\backend\models;
+namespace Backend\Models;
 
-use app\backend\models\CronQuery;
+use Backend\ModelsnQuery;
 
 /**
  * "cron"表的模型类.
@@ -22,7 +22,7 @@ use app\backend\models\CronQuery;
  * @property int $created_at 添加时间
  * @property int $updated_at 更新时间
  */
-class Cron extends \app\mmadmin\core\BaseModel
+class Cron extends \DuAdmin\Core\BaseModel
 {
 
     /**

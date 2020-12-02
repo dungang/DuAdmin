@@ -3,7 +3,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\backend\models\AuthGroup */
+/* @var $model Backend\Models\AuthGroup */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 

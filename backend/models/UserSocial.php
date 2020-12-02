@@ -1,6 +1,6 @@
 <?php
 
-namespace app\backend\models;
+namespace Backend\Models;
 
 /**
  * "ma_user_social"表的模型类.
@@ -9,7 +9,7 @@ namespace app\backend\models;
  * @property string $open_id 第三方id
  * @property string $source 来源
  */
-class UserSocial extends \app\mmadmin\core\BaseModel
+class UserSocial extends \DuAdmin\Core\BaseModel
 {
     /**
      * {@inheritdoc}

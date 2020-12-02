@@ -1,12 +1,12 @@
 <?php
 
-namespace app\backend\widgets;
+namespace Backend\Widgets;
 
+use Backend\Models\Portal;
+use Backend\Models\PortalPlace;
 use yii\base\Widget;
-use app\backend\models\PortalPrivilege;
-use app\backend\models\Portal;
-use app\backend\models\PortalPlace;
-use app\mmadmin\assets\JqueryUIAsset;
+use Backend\Models\PortalPrivilege;
+use DuAdmin\Assets\JqueryUIAsset;
 use Yii;
 
 class PortalWidget extends Widget

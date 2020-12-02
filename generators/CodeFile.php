@@ -4,7 +4,7 @@ namespace app\generators;
 
 use Yii;
 use yii\base\BaseObject;
-use app\generators\components\DiffRendererHtmlInline;
+use app\generators\Components\DiffRendererHtmlInline;
 use yii\helpers\Html;
 
 /**

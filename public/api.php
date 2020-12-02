@@ -2,8 +2,8 @@
 define('RUNTIME_MODE', 'Api');
 require __DIR__ . '/../env.php';
 require __DIR__ . '/../vendor/yiisoft/yii2/Yii.php';
-require __DIR__ .'/../mmadmin/core/Application.php';
+require __DIR__ .'/../DuAdmin/Core/Application.php';
 $config = yii\helpers\ArrayHelper::merge(
-    require __DIR__ . '/../config/common.php', 
-    require __DIR__ . '/../api/config/web.php');
-(new \app\mmadmin\core\Application($config))->run();
+    require __DIR__ . '/../Config/common.php', 
+    require __DIR__ . '/../api/Config/web.php');
+(new \DuAdmin\Core\Application($config))->run();

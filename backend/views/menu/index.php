@@ -1,10 +1,10 @@
 <?php
 use yii\helpers\Html;
-use app\mmadmin\grids\PanelTreeGridView;
-use app\mmadmin\widgets\PanelNavTabs;
+use DuAdmin\Grids\PanelTreeGridView;
+use DuAdmin\Widgets\PanelNavTabs;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\mmadmin\models\MenuSearch */
+/* @var $searchModel DuAdmin\Models\MenuSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '导航';
@@ -32,7 +32,7 @@ PanelTreeGridView::begin([
         'url',
         'sort',
         [
-            'class' => '\app\mmadmin\grids\ActionColumn',
+            'class' => '\DuAdmin\Grids\ActionColumn',
             'buttonsOptions' => [
                 'update' => [
                     'data-toggle' => 'modal',

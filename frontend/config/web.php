@@ -2,7 +2,7 @@
 // 数据库配置放在具体的项目中是方便项目独立配置，项目之间相互隔离
 $db = require __DIR__ . '/../../config/db.php';
 $config = [
-    'controllerNamespace' => 'app\frontend\controllers',
+    'controllerNamespace' => 'Frontend\Controllers',
     'viewPath' => '@app/frontend/views',
     'components' => [
         'request' => [
@@ -10,11 +10,11 @@ $config = [
             'enableCsrfCookie' => false
         ],
         'session' =>[
-            'name'=>'MMAFESID'
+            'name'=>'DJPFSID'
         ],
         'db' => $db,
         'user' => [
-            'identityClass' => '\app\frontend\models\User',
+            'identityClass' => 'rontend\Models\\UseUser',
             'enableAutoLogin' => true,
             'loginUrl' => [
                 'login'
@@ -35,9 +35,9 @@ $config = [
         ],
 
         'view' => [
-            'class' => 'app\mmadmin\core\CoreView',
+            'class' => 'DuAdmin\Core\CoreView',
             'theme' => [
-                'class' => 'app\mmadmin\components\MATheme',
+                'class' => 'DuAdmin\Components\MATheme',
                 'basePath' => '@app/themes/basic',
                 'pathMap' => [
                     '@app/frontend/views' => '@app/themes/basic',
@@ -45,7 +45,7 @@ $config = [
             ]
         ],
         'urlManager' => [
-            'class' => 'app\mmadmin\components\RewriteUrl',
+            'class' => 'DuAdmin\Components\RewriteUrl',
             //'cache' => 'cache',
             //'suffix' => '.html',
             'enablePrettyUrl' => true,
@@ -55,7 +55,7 @@ $config = [
             ]
         ],
         'assetManager' => [
-            'class' => 'app\mmadmin\core\CoreAssetManager',
+            'class' => 'DuAdmin\Core\CoreAssetManager',
             'basePath' => '@app/public/assets'
         ],
         'i18n' => [

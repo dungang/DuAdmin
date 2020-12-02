@@ -1,10 +1,10 @@
 <?php
 
-namespace app\backend\controllers;
+namespace Backend\Controllers;
 
-use app\backend\models\Message;
-use app\backend\models\SourceMessage;
-use app\mmadmin\core\BackendController;
+use Backend\Models\Message;
+use Backend\Models\SourceMessage;
+use DuAdmin\Core\BackendController;
 use Yii;
 
 class TranslationController extends BackendController

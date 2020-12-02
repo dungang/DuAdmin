@@ -1,9 +1,9 @@
 <?php
 
-namespace app\backend\behaviors;
+namespace Backend\Behaviors;
 
 use yii\base\Behavior;
-use app\mmadmin\core\BaseModel;
+use DuAdmin\Core\BaseModel;
 use yii\web\ForbiddenHttpException;
 
 /**

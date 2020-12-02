@@ -1,6 +1,6 @@
 <?php
 
-use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
+use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this \yii\web\View */
 /* @var $models \app\backend\models\AuthPermission[] */

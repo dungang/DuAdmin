@@ -1,7 +1,7 @@
 <?php
-namespace app\backend\models;
+namespace Backend\Models;
 
-use app\mmadmin\core\BaseModel;
+use DuAdmin\Core\BaseModel;
 
 /**
  * This is the model class for table "auth_item".

@@ -37,7 +37,7 @@ class Generator extends \app\generators\Generator
     public $modelClass;
     public $controllerClass;
     public $viewPath;
-    public $baseControllerClass = 'app\mmadmin\core\BackendController';
+    public $baseControllerClass = 'DuAdmin\Core\BackendController';
     public $indexWidgetType = 'grid';
     public $searchModelClass = '';
     public $templates = [
@@ -255,11 +255,11 @@ class Generator extends \app\generators\Generator
         $column = $tableSchema->columns[$attribute];
 
         if(preg_match('/img|image|pic|pict|cover/', $column->name)) {
-            return "\$form->field(\$model, '$attribute')->widget('app\mmadmin\widgets\AjaxFileInput')";
+            return "\$form->field(\$model, '$attribute')->widget('DuAdmin\Widgets\AjaxFileInput')";
         } 
 
         if (substr($column->name,-3) ==='_at') {
-            return "\$form->field(\$model, '$attribute')->widget('app\mmadmin\widgets\DatePicker')";
+            return "\$form->field(\$model, '$attribute')->widget('DuAdmin\Widgets\DatePicker')";
         } 
 
         if ($column->phpType === 'boolean') {
@@ -308,9 +308,9 @@ class Generator extends \app\generators\Generator
         } else {
             $column = $tableSchema->columns[$attribute];
             if(preg_match('/img|image|pic|pict|cover/', $column->name)) {
-                $field = "\$form->field(\$model, '$attribute')->widget('app\mmadmin\widgets\AjaxFileInput')";
+                $field = "\$form->field(\$model, '$attribute')->widget('DuAdmin\Widgets\AjaxFileInput')";
             } else if (substr($column->name,-3)==='_at') {
-                $field = "\$form->field(\$model, '$attribute')->widget('app\mmadmin\widgets\DatePicker',['multidate'=>2])";
+                $field = "\$form->field(\$model, '$attribute')->widget('DuAdmin\Widgets\DatePicker',['multidate'=>2])";
             } else if ($column->phpType === 'boolean') {
                 $field = "\$form->field(\$model, '$attribute')->checkbox()";
             }

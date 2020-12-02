@@ -1,11 +1,11 @@
 <?php
-namespace app\backend\models;
+namespace Backend\Models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * AuthRoleSearch represents the model behind the search form of `app\backend\models\AuthRole`.
+ * AuthRoleSearch represents the model behind the search form of `Backend\Models\AuthRole`.
  */
 class AuthRoleSearch extends AuthRole
 {

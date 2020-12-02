@@ -1,5 +1,5 @@
 <?php
-namespace app\backend\models;
+namespace Backend\Models;
 
 /**
  * 系统权限

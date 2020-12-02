@@ -1,14 +1,14 @@
 <?php
 
-namespace app\backend\models;
+namespace Backend\Models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\backend\models\ActionLog;
+use Backend\Models\ActionLog;
 
 /**
- * ActionLogSearch represents the model behind the search form of `app\backend\models\ActionLog`.
+ * ActionLogSearch represents the model behind the search form of `Backend\Models\ActionLog`.
  */
 class ActionLogSearch extends ActionLog
 {

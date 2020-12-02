@@ -2,7 +2,7 @@
 
 namespace app\api\controllers;
 
-use app\mmadmin\core\ApiController;
+use DuAdmin\Core\ApiController;
 
 /**
  * Site controller
@@ -22,13 +22,13 @@ class SiteController extends ApiController
                 'class' => 'yii\web\ErrorAction'
             ],
             'upload' => [
-                'class' => 'app\mmadmin\uploader\LocalUploadAction'
+                'class' => 'DuAdmin\Uploader\LocalUploadAction'
             ],
             'upload-token' => [
-                'class' => 'app\mmadmin\uploader\TokenAction'
+                'class' => 'DuAdmin\Uploader\TokenAction'
             ],
             'upload-delete' => [
-                'class' => 'app\mmadmin\uploader\DeleteAction'
+                'class' => 'DuAdmin\Uploader\DeleteAction'
             ]
         ];
     }

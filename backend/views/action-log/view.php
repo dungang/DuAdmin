@@ -1,11 +1,11 @@
 <?php
 
-use app\backend\models\Admin;
+use Backend\Models\Admin;
 use yii\widgets\DetailView;
-use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
+use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
-/* @var $model app\backend\models\ActionLog */
+/* @var $model Backend\ModelsionLog */
 
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Action Logs', 'url' => ['index']];

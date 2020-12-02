@@ -1,9 +1,7 @@
 <?php
-namespace app\console;
+namespace Console;
 
 use yii\console\controllers\MigrateController;
-use app\mmadmin\components\Addon;
-use yii\helpers\Inflector;
 use yii\base\NotSupportedException;
 use yii\helpers\BaseFileHelper;
 
@@ -19,7 +17,7 @@ class AllMigrateController extends MigrateController
     public function init()
     {
         parent::init();
-        $dirs = BaseFileHelper::findDirectories(\Yii::$app->basePath . '/addons', [
+        $dirs = BaseFileHelper::findDirectories(\Yii::$app->basePath . '/Addons', [
             'recursive' => false
         ]);
         foreach ($dirs as $name) {

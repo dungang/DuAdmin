@@ -1,12 +1,12 @@
 <?php
-namespace app\backend\controllers;
+namespace Backend\Controllers;
 
 use yii\helpers\ArrayHelper;
-use app\backend\models\AuthRole;
-use app\mmadmin\core\BackendController;
-use app\backend\models\AuthGroup;
-use app\backend\models\AuthPermission;
-use app\backend\models\AuthItemChild;
+use Backend\Models\AuthRole;
+use DuAdmin\Core\BackendController;
+use Backend\Models\AuthGroup;
+use Backend\Models\AuthPermission;
+use Backend\Models\AuthItemChild;
 
 /**
  * RoleController implements the CRUD actions for Role model.
@@ -18,55 +18,55 @@ class AuthRoleController extends BackendController
     {
         return [
             'index' => [
-                'class' => 'app\mmadmin\core\ListModelsAction',
+                'class' => 'DuAdmin\Core\ListModelsAction',
                 'modelClass' => [
-                    'class' => 'app\backend\models\AuthRoleSearch',
+                    'class' => 'Backend\Models\AuthRoleSearch',
                     'group_name' => 'backend'
                 ]
             ],
             'create' => [
-                'class' => 'app\mmadmin\core\CreateModelAction',
+                'class' => 'DuAdmin\Core\CreateModelAction',
                 'modelBehaviors' => [
-                    'app\backend\behaviors\CleanRbacBehavior',
+                    'app\backend\Behaviors\CleanRbacBehavior',
                 ],
                 'baseAttrs' => [
                     'type' => AuthRole::TYPE_ROLE
                 ],
                 'modelClass' => [
-                    'class' => 'app\backend\models\AuthRole'
+                    'class' => 'Backend\Models\AuthRole'
                 ]
             ],
             'update' => [
-                'class' => 'app\mmadmin\core\UpdateModelAction',
+                'class' => 'DuAdmin\Core\UpdateModelAction',
                 'modelBehaviors' => [
-                    'app\backend\behaviors\CleanRbacBehavior',
+                    'app\backend\Behaviors\CleanRbacBehavior',
                 ],
                 'baseAttrs' => [
                     'type' => AuthRole::TYPE_ROLE
                 ],
                 'modelClass' => [
-                    'class' => 'app\backend\models\AuthRole'
+                    'class' => 'Backend\Models\AuthRole'
                 ]
             ],
             'view' => [
-                'class' => 'app\mmadmin\core\ViewModelAction',
+                'class' => 'DuAdmin\Core\ViewModelAction',
                 'baseAttrs' => [
                     'type' => AuthRole::TYPE_ROLE
                 ],
                 'modelClass' => [
-                    'class' => 'app\backend\models\AuthRole'
+                    'class' => 'Backend\Models\AuthRole'
                 ]
             ],
             'delete' => [
-                'class' => 'app\mmadmin\core\DeleteModelAction',
+                'class' => 'DuAdmin\Core\DeleteModelAction',
                 'modelBehaviors' => [
-                    'app\backend\behaviors\CleanRbacBehavior',
+                    'app\backend\Behaviors\CleanRbacBehavior',
                 ],
                 'baseAttrs' => [
                     'type' => AuthRole::TYPE_ROLE
                 ],
                 'modelClass' => [
-                    'class' => 'app\backend\models\AuthRole'
+                    'class' => 'Backend\Models\AuthRole'
                 ]
             ]
         ];

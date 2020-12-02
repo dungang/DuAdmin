@@ -1,11 +1,11 @@
 <?php
-namespace app\backend\models;
+namespace Backend\Models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * AuthItemSearch represents the model behind the search form of `app\backend\models\AuthItem`.
+ * AuthItemSearch represents the model behind the search form of `Backend\Models\AuthItem`.
  */
 class AuthItemSearch extends AuthItem
 {

@@ -4,17 +4,17 @@
 
 use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
-use app\mmadmin\widgets\Notify;
-use app\mmadmin\widgets\SimpleModal;
-use app\mmadmin\helpers\MAHelper;
-use app\mmadmin\models\Setting;
-use app\mmadmin\models\Menu;
-use app\mmadmin\assets\BackendAsset;
-use app\mmadmin\widgets\AdminlteNavBar;
-use app\mmadmin\widgets\AdminlteSideBar;
-use app\mmadmin\widgets\AdminlteSideBarMenu;
-use app\backend\widgets\StartCron;
-use app\mmadmin\widgets\FloatThead;
+use DuAdmin\Widgets\Notify;
+use DuAdmin\Widgets\SimpleModal;
+use DuAdmin\Helpers\MAHelper;
+use DuAdmin\Models\Setting;
+use DuAdmin\Models\Menu;
+use DuAdmin\Assets\BackendAsset;
+use DuAdmin\Widgets\AdminlteNavBar;
+use DuAdmin\Widgets\AdminlteSideBar;
+use DuAdmin\Widgets\AdminlteSideBarMenu;
+use Backend\Widgets\Startcron;
+use DuAdmin\Widgets\FloatThead;
 
 BackendAsset::register($this);
 
@@ -147,7 +147,7 @@ BackendAsset::register($this);
         <!-- Main Footer -->
         <footer class="main-footer">
             <!-- To the right -->
-            <div class="pull-right hidden-xs">MMAdmin</div>
+            <div class="pull-right hidden-xs">DUAdmin</div>
             <!-- Default to the left -->
             <strong>Copyright &copy; <?= date('Y') ?> <a href="#"><?= Html::encode(Setting::getSettings('site.name')) ?></a>.
             </strong> All rights reserved.

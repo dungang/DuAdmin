@@ -1,8 +1,8 @@
 <?php
-namespace app\backend\controllers;
+namespace Backend\Controllers;
 
-use app\mmadmin\core\BackendController;
-use app\mmadmin\helpers\CrontabHelper;
+use DuAdmin\Core\BackendController;
+use DuAdmin\Helpers\CrontabHelper;
 
 /**
  * CronController implements the CRUD actions for Cron model.
@@ -23,43 +23,43 @@ class CronController extends BackendController
     {
         return [
             'index' => [
-                'class' => 'app\mmadmin\core\ListModelsAction',
+                'class' => 'DuAdmin\Core\ListModelsAction',
                 'modelClass' => [
-                    'class' => 'app\backend\models\CronSearch'
+                    'class' => 'Backend\Models\CronSearch'
                 ]
             ],
             'create' => [
-                'class' => 'app\mmadmin\core\CreateModelAction',
+                'class' => 'DuAdmin\Core\CreateModelAction',
                 'modelClass' => [
-                    'class' => 'app\backend\models\Cron'
+                    'class' => 'Backend\Models\Cron'
                 ]
             ],
             'update' => [
-                'class' => 'app\mmadmin\core\UpdateModelAction',
+                'class' => 'DuAdmin\Core\UpdateModelAction',
                 'modelClass' => [
-                    'class' => 'app\backend\models\Cron'
+                    'class' => 'Backend\Models\Cron'
                 ]
             ],
             'view' => [
-                'class' => 'app\mmadmin\core\ViewModelAction',
+                'class' => 'DuAdmin\Core\ViewModelAction',
                 'modelClass' => [
-                    'class' => 'app\backend\models\Cron'
+                    'class' => 'Backend\Models\Cron'
                 ]
             ],
             'delete' => [
-                'class' => 'app\mmadmin\core\DeleteModelAction',
+                'class' => 'DuAdmin\Core\DeleteModelAction',
                 'modelClass' => [
-                    'class' => 'app\backend\models\Cron'
+                    'class' => 'Backend\Models\Cron'
                 ]
             ],
             'run' => [
-                'class' => '\app\mmadmin\core\LoopAction',
+                'class' => '\DuAdmin\Core\LoopAction',
                 'beforeRunCallback' => [
                     $this,
                     'canStartCronProcess'
                 ],
                 'debug' => false,
-                'longPollingHandlerClass' => '\app\backend\components\CronHandler'
+                'longPollingHandlerClass' => '\app\backend\Components\CronHandler'
             ]
         ];
     }

@@ -1,7 +1,7 @@
 <?php
-namespace app\backend\controllers;
+namespace Backend\Controllers;
 
-use app\mmadmin\core\BackendController;
+use DuAdmin\Core\BackendController;
 
 /**
  * AuthPermissionController implements the CRUD actions for AuthPermission model.
@@ -13,57 +13,57 @@ class AuthPermissionController extends BackendController
     {
         return [
             'index' => [
-                'class' => 'app\mmadmin\core\ListModelsAction',
+                'class' => 'DuAdmin\Core\ListModelsAction',
                 'modelBehaviors' => [
-                    'app\backend\behaviors\PermissionListBehavior',
+                    'Backend\Behaviors\PermissionListBehavior',
                 ],
                 'modelClass' => [
-                    'class' => 'app\backend\models\AuthPermissionSearch',
+                    'class' => 'Backend\Models\AuthPermissionSearch',
                 ]
             ],
             'create' => [
-                'class' => 'app\mmadmin\core\CreateModelAction',
+                'class' => 'DuAdmin\Core\CreateModelAction',
                 'modelBehaviors' => [
-                    'app\backend\behaviors\CleanRbacBehavior',
+                    'Backend\Behaviors\CleanRbacBehavior',
                 ],
                 'modelClass' => [
-                    'class' => 'app\backend\models\AuthPermission'
+                    'class' => 'Backend\Models\AuthPermission'
                 ]
             ],
             'batch-create' => [
-                'class' => 'app\mmadmin\core\CreateModelsAction',
+                'class' => 'DuAdmin\Core\CreateModelsAction',
                 'modelClass' => [
-                    'class' => 'app\backend\models\AuthPermission'
+                    'class' => 'Backend\Models\AuthPermission'
                 ]
             ],
             'update' => [
-                'class' => 'app\mmadmin\core\UpdateModelAction',
+                'class' => 'DuAdmin\Core\UpdateModelAction',
                 'modelBehaviors' => [
-                    'app\backend\behaviors\CleanRbacBehavior',
+                    'Backend\Behaviors\CleanRbacBehavior',
                 ],
                 'modelClass' => [
-                    'class' => 'app\backend\models\AuthPermission'
+                    'class' => 'Backend\Models\AuthPermission'
                 ]
             ],
             'batch-update' => [
-                'class' => 'app\mmadmin\core\UpdateModelsAction',
+                'class' => 'DuAdmin\Core\UpdateModelsAction',
                 'modelClass' => [
-                    'class' => 'app\backend\models\AuthPermission'
+                    'class' => 'Backend\Models\AuthPermission'
                 ]
             ],
             'view' => [
-                'class' => 'app\mmadmin\core\ViewModelAction',
+                'class' => 'DuAdmin\Core\ViewModelAction',
                 'modelClass' => [
-                    'class' => 'app\backend\models\AuthPermission'
+                    'class' => 'Backend\Models\AuthPermission'
                 ]
             ],
             'delete' => [
-                'class' => 'app\mmadmin\core\DeleteModelsAction',
+                'class' => 'DuAdmin\Core\DeleteModelsAction',
                 'modelBehaviors' => [
-                    'app\backend\behaviors\CleanRbacBehavior',
+                    'Backend\Behaviors\CleanRbacBehavior',
                 ],
                 'modelClass' => [
-                    'class' => 'app\backend\models\AuthPermission'
+                    'class' => 'Backend\Models\AuthPermission'
                 ]
             ]
         ];

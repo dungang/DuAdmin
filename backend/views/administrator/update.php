@@ -1,9 +1,9 @@
 <?php
 
-use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
+use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
-/* @var $model app\backend\models\Admin */
+/* @var $model Backend\Models\Admin */
 
 $this->title = Yii::t('ma','Update');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Administors'), 'url' => ['index']];

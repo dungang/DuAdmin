@@ -1,6 +1,6 @@
 <?php
 
-namespace app\backend\portals;
+namespace Backend\Portals;
 
 use yii\base\Widget;
 

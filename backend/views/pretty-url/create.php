@@ -1,8 +1,8 @@
 <?php
-use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
+use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
-/* @var $model app\mmadmin\models\Rewrite */
+/* @var $model DuAdmin\Models\Rewrite */
 
 $this->title = '添加';
 $this->params['breadcrumbs'][] = ['label' => 'Rewrites', 'url' => ['index']];

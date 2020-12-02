@@ -1,7 +1,7 @@
 <?php
 
 use yii\widgets\DetailView;
-use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
+use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
 /* @var $model app\backend\models\Cron */

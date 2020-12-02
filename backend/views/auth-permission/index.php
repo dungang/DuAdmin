@@ -1,9 +1,9 @@
 <?php
 
 use yii\helpers\Html;
-use app\mmadmin\grids\PanelGridView;
+use DuAdmin\Grids\PanelGridView;
 use yii\widgets\Pjax;
-use app\mmadmin\widgets\PanelNavTabs;
+use DuAdmin\Widgets\PanelNavTabs;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\backend\models\AuthPermissionSearch */
@@ -29,12 +29,12 @@ PanelGridView::begin([
         'description:ntext',
         'rule_name',
         [
-            'class' => 'app\mmadmin\grids\FilterColumn',
+            'class' => 'DuAdmin\Grids\FilterColumn',
             'attribute' => 'group_name',
             'filter' => $this->params['groups'],
         ],
         [
-            'class' => 'app\mmadmin\grids\ActionColumn',
+            'class' => 'DuAdmin\Grids\ActionColumn',
             'buttonsOptions' => [
                 'update' => [
                     'data-toggle' => 'modal',

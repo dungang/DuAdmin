@@ -1,9 +1,9 @@
 <?php
 
-use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
+use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
-/* @var $model app\mmadmin\models\Setting */
+/* @var $model DuAdmin\Models\Setting */
 
 $this->title = '更新';
 $this->params['breadcrumbs'][] = ['label' => \Yii::$app->controller->module->name . '设置', 'url' => ['index']];

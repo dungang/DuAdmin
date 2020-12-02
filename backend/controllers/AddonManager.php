@@ -1,7 +1,7 @@
 <?php
-namespace app\backend\controllers;
+namespace Backend\Controllers;
 
-use app\mmadmin\core\BackendController;
+use DuAdmin\Core\BackendController;
 
 /**
  *

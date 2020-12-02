@@ -1,13 +1,13 @@
 <?php
 
 use yii\helpers\Html;
-use app\mmadmin\grids\PanelGridView;
+use DuAdmin\Grids\PanelGridView;
 use yii\widgets\Pjax;
-use app\mmadmin\widgets\PanelNavTabs;
-use app\mmadmin\models\Setting;
+use DuAdmin\Widgets\PanelNavTabs;
+use DuAdmin\Models\Setting;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\mmadmin\models\SettingSearch */
+/* @var $searchModel DuAdmin\Models\SettingSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = \Yii::$app->controller->module->name . Yii::t('ma', 'Settings');
@@ -45,7 +45,7 @@ PanelGridView::begin(
                 }
             ],
             [
-                'class' => '\app\mmadmin\grids\ActionColumn',
+                'class' => '\DuAdmin\Grids\ActionColumn',
                 'template' => '{view} {update}',
                 'buttonsOptions' => [
                     'update' => [

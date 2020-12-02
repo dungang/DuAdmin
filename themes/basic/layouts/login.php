@@ -3,7 +3,7 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 use yii\helpers\Html;
-use app\frontend\assets\AppAsset;
+use Frontend\Assets\AppAsset;
 use app\themes\basic\widgets\ThemeAsset;
 AppAsset::register($this);
 ThemeAsset::register($this);

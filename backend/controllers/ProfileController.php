@@ -1,7 +1,7 @@
 <?php
-namespace app\backend\controllers;
+namespace Backend\Controllers;
 
-use app\mmadmin\core\BackendController;
+use DuAdmin\Core\BackendController;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -16,12 +16,12 @@ class ProfileController extends BackendController
     public function actions(){
         return [
             'index'=>[
-                'class' => 'app\mmadmin\core\UpdateModelAction',
+                'class' => 'DuAdmin\Core\UpdateModelAction',
                 'baseAttrs'=>[
                     'id'=>\Yii::$app->user->id,
                 ],
                 'modelClass' => [
-                    'class' => 'app\backend\models\Admin',
+                    'class' => 'Backend\Models\Admin',
                 ]
             ]
         ];

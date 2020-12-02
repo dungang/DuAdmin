@@ -1,12 +1,12 @@
 <?php
 use yii\helpers\Html;
-use app\mmadmin\grids\PanelGridView;
+use DuAdmin\Grids\PanelGridView;
 use yii\widgets\Pjax;
-use app\mmadmin\widgets\PanelNavTabs;
-use app\backend\models\AuthGroup;
+use DuAdmin\Widgets\PanelNavTabs;
+use Backend\Models\AuthGroup;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\backend\models\AuthItemSearch */
+/* @var $searchModel Backend\Models\AuthItemSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '角色';
@@ -45,7 +45,7 @@ PanelGridView::begin([
         ],
 
         [
-            'class' => '\app\mmadmin\grids\ActionColumn',
+            'class' => '\DuAdmin\Grids\ActionColumn',
             'buttonsOptions' => [
                 'update' => [
                     'data-toggle' => 'modal',

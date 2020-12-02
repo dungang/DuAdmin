@@ -1,6 +1,6 @@
 <?php
 
-namespace app\backend\models;
+namespace Backend\Models;
 
 use Yii;
 
@@ -13,7 +13,7 @@ use Yii;
  *
  * @property SourceMessage $source
  */
-class Message extends \app\mmadmin\core\BaseModel
+class Message extends \DuAdmin\Core\BaseModel
 {
     /**
      * {@inheritdoc}

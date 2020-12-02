@@ -1,6 +1,6 @@
 <?php
 
-namespace app\backend\models;
+namespace Backend\Models;
 
 /**
  * "{{%portal_place}}"表的模型类.
@@ -8,7 +8,7 @@ namespace app\backend\models;
  * @property int $user_id 用户
  * @property string $portals
  */
-class PortalPlace extends \app\mmadmin\core\BaseModel
+class PortalPlace extends \DuAdmin\Core\BaseModel
 {
     /**
      * {@inheritdoc}

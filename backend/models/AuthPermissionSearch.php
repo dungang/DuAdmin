@@ -1,11 +1,11 @@
 <?php
-namespace app\backend\models;
+namespace Backend\Models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * AuthPermissionSearch represents the model behind the search form of `app\backend\models\AuthPermission`.
+ * AuthPermissionSearch represents the model behind the search form of `Backend\Models\AuthPermission`.
  */
 class AuthPermissionSearch extends AuthPermission
 {

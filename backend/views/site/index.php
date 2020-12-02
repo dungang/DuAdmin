@@ -1,8 +1,8 @@
 <?php
-use app\mmadmin\models\Setting;
-use app\mmadmin\widgets\BackgroundVideo;
+use DuAdmin\Models\Setting;
+use DuAdmin\Widgets\BackgroundVideo;
 use yii\helpers\Url;
-use app\mmadmin\helpers\MAHelper;
+use DuAdmin\Helpers\MAHelper;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */

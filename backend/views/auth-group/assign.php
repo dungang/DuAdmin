@@ -1,6 +1,6 @@
 <?php
-use app\mmadmin\widgets\SelectBox;
-use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
+use DuAdmin\Widgets\SelectBox;
+use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 use yii\helpers\Html;
 
 $this->title = '权限分配组';

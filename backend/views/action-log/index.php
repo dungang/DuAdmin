@@ -1,11 +1,11 @@
 <?php
 
-use app\backend\models\Admin;
-use app\mmadmin\grids\PanelGridView;
+use Backend\Models\Admin;
+use DuAdmin\Grids\PanelGridView;
 use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\backend\models\ActionLogSearch */
+/* @var $searchModel Backend\ModelsionLogSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '操作日志';
@@ -19,12 +19,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             'created_at:datetime',
             [
-                'class'=>'app\mmadmin\grids\FilterColumn',
+                'class'=>'DuAdmin\Grids\FilterColumn',
                 'attribute'=>'user_id',
                 'filter'=> Admin::allIdToName('id','nickname'),
             ],
             [
-                'class'=>'app\mmadmin\grids\FilterColumn',
+                'class'=>'DuAdmin\Grids\FilterColumn',
                 'attribute'=>'method',
                 'filter'=> [
                     'POST'=>'POST',
@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             [
-                'class' => '\app\mmadmin\grids\ActionColumn',
+                'class' => '\DuAdmin\Grids\ActionColumn',
                 'template'=>'{view}',
                 'buttonsOptions'=>[
                     'view'=>[
@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
         	]
        ]
     ]); ?>
-<?=app\mmadmin\widgets\DefaultSearchBox::widget(['action'=>['index']]) ?>
+<?=DuAdmin\Widgets\FullSearchBox::widget(['action'=>['index']]) ?>
 <?php PanelGridView::end() ?>
 <?php Pjax::end(); ?>
 

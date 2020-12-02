@@ -1,9 +1,9 @@
 <?php
 
-namespace app\backend\tasks;
+namespace Backend\Tasks
 
-use app\backend\models\MailQueue;
-use app\mmadmin\helpers\MAHelper;
+use Backend\ModelslQueue;
+use DuAdmin\Helpers\MAHelper;
 use yii\base\BaseObject;
 
 class SendMail extends BaseObject

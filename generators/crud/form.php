@@ -8,10 +8,10 @@ echo $form->field($generator, 'searchModelClass');
 echo $form->field($generator, 'controllerClass');
 echo $form->field($generator, 'viewPath');
 echo $form->field($generator, 'baseControllerClass')->dropDownList([
-    'app\mmadmin\core\BackendController' => 'MMAdmin BackendController',
-    'app\mmadmin\core\FrontendController' => 'MMAdmin FrontendController',
-    'app\mmadmin\core\ApiController' => 'MMAdmin ApiController',
-    'app\mmadmin\core\BaseController' => 'MMAdmin BaseController',
+    'DuAdmin\Core\BackendController' => 'MMAdmin BackendController',
+    'DuAdmin\Core\FrontendController' => 'MMAdmin FrontendController',
+    'DuAdmin\Core\ApiController' => 'MMAdmin ApiController',
+    'DuAdmin\Core\BaseController' => 'MMAdmin BaseController',
     'yii\web\Controller' => 'Yii WebController',
 ]);
 echo $form->field($generator, 'indexWidgetType')->dropDownList([

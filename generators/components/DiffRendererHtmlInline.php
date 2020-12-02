@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace app\generators\components;
+namespace app\generators\Components;
 
 /**
  * Renders diff to HTML. Output adjusted to be copy-paste friendly.

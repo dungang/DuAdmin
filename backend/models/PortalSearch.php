@@ -1,14 +1,14 @@
 <?php
 
-namespace app\backend\models;
+namespace Backend\Models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\backend\models\Portal;
+use Backend\Models\Portal;
 
 /**
- * PortalSearch represents the model behind the search form of `app\backend\models\Portal`.
+ * PortalSearch represents the model behind the search form of `Backend\Models\Portal`.
  */
 class PortalSearch extends Portal
 {

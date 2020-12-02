@@ -1,7 +1,7 @@
 <?php
-namespace app\backend\controllers;
+namespace Backend\Controllers;
 
-use app\mmadmin\core\BaseController;
+use DuAdmin\Core\BaseController;
 
 /**
  * Site controller
@@ -27,13 +27,13 @@ class SiteController extends BaseController
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null
             ],
             'upload' => [
-                'class' => 'app\mmadmin\uploader\LocalUploadAction'
+                'class' => 'DuAdmin\Uploader\LocalUploadAction'
             ],
             'upload-token' => [
-                'class' => 'app\mmadmin\uploader\TokenAction'
+                'class' => 'DuAdmin\Uploader\TokenAction'
             ],
             'upload-delete' => [
-                'class' => 'app\mmadmin\uploader\DeleteAction'
+                'class' => 'DuAdmin\Uploader\DeleteAction'
             ]
         ];
     }

@@ -1,8 +1,8 @@
 <?php
 
-namespace app\backend\controllers;
+namespace Backend\Controllers;
 
-use app\mmadmin\core\BackendController;
+use DuAdmin\Core\BackendController;
 
 /**
  * 管理员管理
@@ -14,49 +14,49 @@ class AdministratorController extends BackendController
     {
         return [
             'index' => [
-                'class' => 'app\mmadmin\core\ListModelsAction',
+                'class' => 'DuAdmin\Core\ListModelsAction',
                 'modelClass' => [
-                    'class' => 'app\backend\models\AdminSearch'
+                    'class' => 'Backend\Models\AdminSearch'
                 ]
             ],
             'create' => [
-                'class' => 'app\mmadmin\core\CreateModelAction',
+                'class' => 'DuAdmin\Core\CreateModelAction',
                 'modelBehaviors' => [
-                    'set-password' => 'app\mmadmin\behaviors\PasswordBehavior',
+                    'set-password' => 'DuAdmin\Behaviors\PasswordBehavior',
                     'upload-avatar' => function(){
                         return $this->getUploadAvatarBehavior();
                     }
                 ],
                 'modelClass' => [
-                    'class' => 'app\backend\models\Admin',
+                    'class' => 'Backend\Models\Admin',
                 ]
             ],
             'update' => [
-                'class' => 'app\mmadmin\core\UpdateModelAction',
+                'class' => 'DuAdmin\Core\UpdateModelAction',
                 'modelBehaviors' => [
-                    'super-do-self' => 'app\backend\behaviors\ChangeSuperBySelfBehavior',
-                    'set-password' => 'app\mmadmin\behaviors\PasswordBehavior',
+                    'super-do-self' => 'app\backend\Behaviors\ChangeSuperBySelfBehavior',
+                    'set-password' => 'DuAdmin\Behaviors\PasswordBehavior',
                     'upload-avatar' => function(){
                         return $this->getUploadAvatarBehavior();
                     }
                 ],
                 'modelClass' => [
-                    'class' => 'app\backend\models\Admin'
+                    'class' => 'Backend\Models\Admin'
                 ]
             ],
             'view' => [
-                'class' => 'app\mmadmin\core\ViewModelAction',
+                'class' => 'DuAdmin\Core\ViewModelAction',
                 'modelClass' => [
-                    'class' => 'app\backend\models\Admin'
+                    'class' => 'Backend\Models\Admin'
                 ]
             ],
             'delete' => [
-                'class' => 'app\mmadmin\core\DeleteModelAction',
+                'class' => 'DuAdmin\Core\DeleteModelAction',
                 'modelBehaviors' => [
-                    'super-do-self' => 'app\backend\behaviors\ChangeSuperBySelfBehavior'
+                    'super-do-self' => 'app\backend\Behaviors\ChangeSuperBySelfBehavior'
                 ],
                 'modelClass' => [
-                    'class' => 'app\backend\models\Admin'
+                    'class' => 'Backend\Models\Admin'
                 ]
             ]
         ];
@@ -66,7 +66,7 @@ class AdministratorController extends BackendController
     protected function getUploadAvatarBehavior()
     {
         return [
-            'class' => 'app\mmadmin\behaviors\UploadedFileBehavior',
+            'class' => 'DuAdmin\Behaviors\UploadedFileBehavior',
             'fields' => [
                 'avatar' => [
                     'thumbnails' => [

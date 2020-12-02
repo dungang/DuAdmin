@@ -3,8 +3,8 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 use yii\helpers\Html;
-use app\mmadmin\assets\BackendAsset;
-use app\backend\widgets\StartCron;
+use DuAdmin\Assets\BackendAsset;
+use Backend\Widgets\Startcron;
 BackendAsset::register($this);
 ?>
 <?php $this->beginPage() ?>

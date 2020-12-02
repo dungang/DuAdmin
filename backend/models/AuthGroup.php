@@ -1,6 +1,6 @@
 <?php
 
-namespace app\backend\models;
+namespace Backend\Models;
 
 /**
  * "{{%auth_group}}"表的模型类.
@@ -10,7 +10,7 @@ namespace app\backend\models;
  * @property int $type 类型
  * @property bool $is_backend 是后台
  */
-class AuthGroup extends \app\mmadmin\core\BaseModel
+class AuthGroup extends \DuAdmin\Core\BaseModel
 {
     /** 
      * 角色 

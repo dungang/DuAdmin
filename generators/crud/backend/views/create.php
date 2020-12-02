@@ -8,7 +8,7 @@ use yii\helpers\StringHelper;
 $modelName = Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass)));
 echo "<?php\n";
 ?>
-use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
+use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
 /* @var $model <?= ltrim($generator->modelClass, '\\') ?> */

@@ -1,8 +1,8 @@
 <?php
-namespace app\backend\controllers;
+namespace Backend\Controllers;
 
-use app\mmadmin\core\BackendController;
-use app\mmadmin\models\Setting;
+use DuAdmin\Core\BackendController;
+use DuAdmin\Models\Setting;
 
 class DefaultController extends BackendController
 {
@@ -22,7 +22,7 @@ class DefaultController extends BackendController
     {
         return [
             'error' => [
-                'class' => 'app\mmadmin\core\CoreErrorAction'
+                'class' => 'DuAdmin\Core\CoreErrorAction'
             ]
         ];
     }

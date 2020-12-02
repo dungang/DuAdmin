@@ -1,11 +1,11 @@
 <?php
 
-use app\mmadmin\widgets\JcropFileInput;
+use DuAdmin\Widgets\JcropFileInput;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\backend\models\Admin */
+/* @var $model Backend\Models\Admin */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 

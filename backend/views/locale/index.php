@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use app\mmadmin\grids\PanelGridView;
+use DuAdmin\Grids\PanelGridView;
 
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             [
-                'class' => '\app\mmadmin\grids\ActionColumn',
+                'class' => '\DuAdmin\Grids\ActionColumn',
                 'buttonsOptions'=>[
                     'update'=>[
                         'data-toggle'=>'modal',
@@ -55,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?= Html::a('<i class="fa fa-trash"></i> '. Yii::t('ma','Delete'), ['delete'], ['class'=>'btn btn-danger del-all','data-target'=>'#locale-list']) ?>
 
-<?=app\mmadmin\widgets\DefaultSearchBox::widget(['action'=>['index']]) ?>
+<?=DuAdmin\Widgets\FullSearchBox::widget(['action'=>['index']]) ?>
 
 <?php PanelGridView::end() ?>
 <?php Pjax::end(); ?>

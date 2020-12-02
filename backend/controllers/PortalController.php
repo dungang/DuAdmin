@@ -1,8 +1,8 @@
 <?php
 
-namespace app\backend\controllers;
+namespace Backend\Controllers;
 
-use app\mmadmin\core\BackendController;
+use DuAdmin\Core\BackendController;
 
 
 /**
@@ -13,33 +13,33 @@ class PortalController extends BackendController
 	public function actions(){
 		return [
             'index' => [
-                'class' => 'app\mmadmin\core\ListModelsAction',
+                'class' => 'DuAdmin\Core\ListModelsAction',
                 'modelClass' => [
-                    'class' => 'app\backend\models\PortalSearch'
+                    'class' => 'Backend\Models\PortalSearch'
                 ]
             ],
             'create' => [
-                'class' => 'app\mmadmin\core\CreateModelAction',
+                'class' => 'DuAdmin\Core\CreateModelAction',
                 'modelClass' => [
-                    'class' => 'app\backend\models\Portal'
+                    'class' => 'Backend\Models\Portal'
                 ]
             ],
             'update' => [
-                'class' => 'app\mmadmin\core\UpdateModelAction',
+                'class' => 'DuAdmin\Core\UpdateModelAction',
                 'modelClass' => [
-                    'class' => 'app\backend\models\Portal'
+                    'class' => 'Backend\Models\Portal'
                 ]
             ],
             'view' => [
-                'class' => 'app\mmadmin\core\ViewModelAction',
+                'class' => 'DuAdmin\Core\ViewModelAction',
                 'modelClass' => [
-                    'class' => 'app\backend\models\Portal'
+                    'class' => 'Backend\Models\Portal'
                 ]
             ],
             'delete' => [
-                'class' => 'app\mmadmin\core\DeleteModelAction',
+                'class' => 'DuAdmin\Core\DeleteModelAction',
                 'modelClass' => [
-                    'class' => 'app\backend\models\Portal'
+                    'class' => 'Backend\Models\Portal'
                 ]
             ],
 		];

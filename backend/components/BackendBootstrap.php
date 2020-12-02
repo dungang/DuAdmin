@@ -1,8 +1,8 @@
 <?php
-namespace app\backend\components;
+namespace app\backend\Components;
 
 use yii\base\BootstrapInterface;
-use app\mmadmin\core\Application;
+use DuAdmin\Core\Application;
 
 /**
  *

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\backend\models;
+namespace Backend\Models;
 
 /**
  * "{{%portal_privilege}}"表的模型类.
@@ -8,7 +8,7 @@ namespace app\backend\models;
  * @property string $role 角色
  * @property string $portals portals
  */
-class PortalPrivilege extends \app\mmadmin\core\BaseModel
+class PortalPrivilege extends \DuAdmin\Core\BaseModel
 {
     /**
      * {@inheritdoc}

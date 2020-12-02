@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use app\generators\components\ActiveField;
+use app\generators\Components\ActiveField;
 
 /* @var $this yii\web\View */
 /* @var $generator \app\generators\Generator */

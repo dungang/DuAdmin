@@ -49,7 +49,7 @@
 		]
 	},
 	"extra" : {
-		"app\\mmadmin\\scripts\\ComposerInstaller::createPublicAssets":{},
+		"DuAdmin\\scripts\\ComposerInstaller::createPublicAssets":{},
 		"yii\\composer\\Installer::postCreateProject" : {
 			"setPermission" : [{
 					"runtime" : "0777",

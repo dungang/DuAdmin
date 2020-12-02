@@ -1,8 +1,8 @@
 <?php
 
-namespace app\backend\controllers;
+namespace Backend\Controllers;
 
-use app\mmadmin\core\BackendController;
+use DuAdmin\Core\BackendController;
 
 
 /**
@@ -13,33 +13,33 @@ class MessageController extends BackendController
 	public function actions(){
 		return [
             'index' => [
-                'class' => 'app\mmadmin\core\ListModelsAction',
+                'class' => 'DuAdmin\Core\ListModelsAction',
                 'modelClass' => [
-                    'class' => 'app\backend\models\MessageSearch'
+                    'class' => 'Backend\Models\MessageSearch'
                 ]
             ],
             'create' => [
-                'class' => 'app\mmadmin\core\CreateModelAction',
+                'class' => 'DuAdmin\Core\CreateModelAction',
                 'modelClass' => [
-                    'class' => 'app\backend\models\Message'
+                    'class' => 'Backend\Models\Message'
                 ]
             ],
             'update' => [
-                'class' => 'app\mmadmin\core\UpdateModelAction',
+                'class' => 'DuAdmin\Core\UpdateModelAction',
                 'modelClass' => [
-                    'class' => 'app\backend\models\Message'
+                    'class' => 'Backend\Models\Message'
                 ]
             ],
             'view' => [
-                'class' => 'app\mmadmin\core\ViewModelAction',
+                'class' => 'DuAdmin\Core\ViewModelAction',
                 'modelClass' => [
-                    'class' => 'app\backend\models\Message'
+                    'class' => 'Backend\Models\Message'
                 ]
             ],
             'delete' => [
-                'class' => 'app\mmadmin\core\DeleteModelsAction',
+                'class' => 'DuAdmin\Core\DeleteModelsAction',
                 'modelClass' => [
-                    'class' => 'app\backend\models\Message'
+                    'class' => 'Backend\Models\Message'
                 ]
             ],
 		];

@@ -6,7 +6,7 @@ $config = [
     'components' => [
         'db' => $db,
         'user' => [
-            'identityClass' => '\app\mmadmin\models\User',
+            'identityClass' => '\DuAdmin\Models\User',
             'enableAutoLogin' => false,
             'enableSession' => false,
             'loginUrl' => null
@@ -39,7 +39,7 @@ $config = [
                     'encodeOptions' => JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE,
                 ],
             ],
-            'as responseJson' => '\app\mmadmin\behaviors\ResponseJson'
+            'as responseJson' => '\DuAdmin\Behaviors\ResponseJson'
         ],
         'urlManager' => [
             'class' => '\yii\web\UrlManager',

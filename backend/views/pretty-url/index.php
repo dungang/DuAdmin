@@ -1,10 +1,10 @@
 <?php
 
 use yii\helpers\Html;
-use app\mmadmin\grids\PanelGridView;
+use DuAdmin\Grids\PanelGridView;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
-/* @var $searchModel app\mmadmin\models\RewriteSearch */
+/* @var $searchModel DuAdmin\Models\RewriteSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'URL重写';
@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'express',
         'route',
         [
-            'class' => '\app\mmadmin\grids\ActionColumn',
+            'class' => '\DuAdmin\Grids\ActionColumn',
             'buttonsOptions' => [
                 'update' => [
                     'data-toggle' => 'modal',
@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?= Html::a('<i class="fa fa-trash"></i> '. Yii::t('ma','Delete'), ['delete'], ['class'=>'btn btn-danger del-all','data-target'=>'#pretty-url-list']) ?>
 
-<?=app\mmadmin\widgets\DefaultSearchBox::widget(['action'=>['index']]) ?>
+<?=DuAdmin\Widgets\FullSearchBox::widget(['action'=>['index']]) ?>
 <?php PanelGridView::end() ?>
 <?php Pjax::end(); ?>
 

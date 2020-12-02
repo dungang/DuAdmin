@@ -6,7 +6,7 @@
  * Time: 下午9:36
  */
 
-namespace app\console;
+namespace Console;
 
 
 use yii\console\Controller;

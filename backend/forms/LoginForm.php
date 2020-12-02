@@ -1,9 +1,9 @@
 <?php
-namespace app\backend\forms;
+namespace Backend\Forms;
 
 use Yii;
 use yii\base\Model;
-use app\backend\models\Admin;
+use Backend\Models\Admin;
 
 /**
  * LoginForm is the model behind the login form.

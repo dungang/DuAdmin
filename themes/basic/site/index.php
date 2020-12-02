@@ -1,5 +1,5 @@
 <?php
-use app\mmadmin\widgets\DatePicker;
+use DuAdmin\Widgets\DatePicker;
 
 /* @var yii\web\View  $this */
 $this->title = Yii::t('theme', 'Home');

@@ -1,10 +1,10 @@
 <?php
 
-use app\mmadmin\widgets\AjaxFileInput;
+use DuAdmin\Widgets\AjaxFileInput;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
-use app\backend\models\Admin;
+use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
+use Backend\Models\Admin;
 
 /* @var $this yii\web\View */
 /* @var $model Admin */

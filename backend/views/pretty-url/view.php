@@ -1,10 +1,10 @@
 <?php
 
 use yii\widgets\DetailView;
-use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
+use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
-/* @var $model app\mmadmin\models\Rewrite */
+/* @var $model DuAdmin\Models\Rewrite */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'URL重写', 'url' => ['index']];

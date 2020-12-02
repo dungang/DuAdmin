@@ -1,10 +1,10 @@
 <?php
 
-namespace app\backend\controllers;
+namespace Backend\Controllers;
 
-use app\mmadmin\core\BackendController;
-use app\backend\models\AuthPermission;
-use app\backend\models\AuthGroup;
+use DuAdmin\Core\BackendController;
+use Backend\Models\AuthPermission;
+use Backend\Models\AuthGroup;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -16,65 +16,65 @@ class AuthGroupController extends BackendController
     {
         return [
             'index' => [
-                'class' => 'app\mmadmin\core\ListModelsAction',
+                'class' => 'DuAdmin\Core\ListModelsAction',
                 'baseAttrs' => [
                     'is_backend' => 1
                 ],
                 'modelClass' => [
-                    'class' => 'app\backend\models\AuthGroupSearch',
+                    'class' => 'Backend\Models\AuthGroupSearch',
                     'type' => 1
                 ]
             ],
             'create' => [
-                'class' => 'app\mmadmin\core\CreateModelAction',
+                'class' => 'DuAdmin\Core\CreateModelAction',
                 'baseAttrs' => [
                     'is_backend' => 1
                 ],
                 'modelClass' => [
-                    'class' => 'app\backend\models\AuthGroup'
+                    'class' => 'Backend\Models\AuthGroup'
                 ]
             ],
             'batch-create' => [
-                'class' => 'app\mmadmin\core\CreateModelsAction',
+                'class' => 'DuAdmin\Core\CreateModelsAction',
                 'formName' => 'AuthGroup',
                 'baseAttrs' => [
                     'is_backend' => 1
                 ],
                 'modelClass' => [
-                    'class' => 'app\backend\models\AuthGroup'
+                    'class' => 'Backend\Models\AuthGroup'
                 ]
             ],
             'permission' => [
-                'class' => 'app\mmadmin\core\ListModelsAction',
+                'class' => 'DuAdmin\Core\ListModelsAction',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\AuthPermissionSearch',
+                    'class' => 'DuAdmin\Models\AuthPermissionSearch',
                 ]
             ],
             'update' => [
-                'class' => 'app\mmadmin\core\UpdateModelAction',
+                'class' => 'DuAdmin\Core\UpdateModelAction',
                 'baseAttrs' => [
                     'is_backend' => 1
                 ],
                 'modelClass' => [
-                    'class' => 'app\backend\models\AuthGroup'
+                    'class' => 'Backend\Models\AuthGroup'
                 ]
             ],
             'view' => [
-                'class' => 'app\mmadmin\core\ViewModelAction',
+                'class' => 'DuAdmin\Core\ViewModelAction',
                 'baseAttrs' => [
                     'is_backend' => 1
                 ],
                 'modelClass' => [
-                    'class' => 'app\backend\models\AuthGroup'
+                    'class' => 'Backend\Models\AuthGroup'
                 ]
             ],
             'delete' => [
-                'class' => 'app\mmadmin\core\DeleteModelAction',
+                'class' => 'DuAdmin\Core\DeleteModelAction',
                 'baseAttrs' => [
                     'is_backend' => 1
                 ],
                 'modelClass' => [
-                    'class' => 'app\backend\models\AuthGroup'
+                    'class' => 'Backend\Models\AuthGroup'
                 ]
             ],
         ];

@@ -1,14 +1,14 @@
 <?php
 
-namespace app\backend\models;
+namespace Backend\Models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\backend\models\Message;
+use Backend\Models\Message;
 
 /**
- * MessageSearch represents the model behind the search form of `app\backend\models\Message`.
+ * MessageSearch represents the model behind the search form of `Backend\Models\Message`.
  */
 class MessageSearch extends Message
 {

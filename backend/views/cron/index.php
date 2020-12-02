@@ -1,8 +1,8 @@
 <?php
 use yii\helpers\Html;
-use app\mmadmin\grids\PanelGridView;
+use DuAdmin\Grids\PanelGridView;
 use yii\widgets\Pjax;
-use app\mmadmin\helpers\CrontabHelper;
+use DuAdmin\Helpers\CrontabHelper;
 /* @var $this yii\web\View */
 /* @var $searchModel app\backend\models\CronSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -61,7 +61,7 @@ PanelGridView::begin(
             'is_active:boolean',
             'run_at:datetime',
             [
-                'class' => '\app\mmadmin\grids\ActionColumn',
+                'class' => '\DuAdmin\Grids\ActionColumn',
                 'buttonsOptions' => [
                     'update' => [
                         'data-toggle' => 'modal',
@@ -79,7 +79,7 @@ PanelGridView::begin(
 
 <?= Html::a('<i class="fa fa-plus"></i> ' . Yii::t('ma','Create'), ['create'], ['class'=>'btn btn-primary','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
 
-<?=app\mmadmin\widgets\DefaultSearchBox::widget(['action'=>['index']]) ?>
+<?=DuAdmin\Widgets\FullSearchBox::widget(['action'=>['index']]) ?>
 
 <?php PanelGridView::end() ?>
 <?php Pjax::end(); ?>

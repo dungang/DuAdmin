@@ -3,7 +3,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\backend\models\Portal */
+/* @var $model Backend\Models\Portal */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 

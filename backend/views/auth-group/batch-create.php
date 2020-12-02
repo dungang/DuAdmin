@@ -1,5 +1,5 @@
 <?php
-use app\mmadmin\widgets\AjaxModalOrNormalPanelContent;
+use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 

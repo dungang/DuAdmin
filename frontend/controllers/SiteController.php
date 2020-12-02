@@ -1,9 +1,9 @@
 <?php
-namespace app\frontend\controllers;
+namespace Frontend\Controllers;
 
-use app\mmadmin\helpers\MAHelper;
-use app\mmadmin\hooks\FindSlugHook;
-use app\mmadmin\core\BaseController;
+use DuAdmin\Helpers\MAHelper;
+use DuAdmin\Hooks\FindSlugHook;
+use DuAdmin\Core\BaseController;
 
 /**
  * Site controller

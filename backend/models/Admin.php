@@ -1,13 +1,13 @@
 <?php
 
-namespace app\backend\models;
+namespace Backend\Models;
 
-use app\mmadmin\core\Authable;
+use DuAdmin\Core\Authable;
 use Yii;
 use yii\web\IdentityInterface;
-use app\mmadmin\core\BaseModel;
+use DuAdmin\Core\BaseModel;
 use yii\base\NotSupportedException;
-use app\mmadmin\core\Operator;
+use DuAdmin\Core\Operator;
 
 /**
  * "{{%admin}}"表的模型类.
@@ -308,7 +308,7 @@ class Admin extends BaseModel implements IdentityInterface,Authable,Operator
     
     /**
      * {@inheritDoc}
-     * @see \app\mmadmin\core\Operator::getOperatorId()
+     * @see \DuAdmin\Core\Operator::getOperatorId()
      */
     public function getOperatorId()
     {
@@ -317,7 +317,7 @@ class Admin extends BaseModel implements IdentityInterface,Authable,Operator
     
     /**
      * {@inheritDoc}
-     * @see \app\mmadmin\core\Operator::getOperatorName()
+     * @see \DuAdmin\Core\Operator::getOperatorName()
      */
     public function getOperatorName()
     {

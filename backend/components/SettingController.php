@@ -1,7 +1,7 @@
 <?php
-namespace app\backend\components;
+namespace app\backend\Components;
 
-use app\mmadmin\core\BackendController;
+use DuAdmin\Core\BackendController;
 
 /**
  *
@@ -19,38 +19,38 @@ class SettingController extends BackendController
         
         return [
             'index' => [
-                'class' => 'app\mmadmin\core\ListModelsAction',
+                'class' => 'DuAdmin\Core\ListModelsAction',
                 'viewName'=> $this->viewBasePath . 'index',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\SettingSearch',
+                    'class' => 'DuAdmin\Models\SettingSearch',
                     'category'=>$this->default_category
                 ]
             ],
             'create' => [
-                'class' => 'app\mmadmin\core\CreateModelAction',
+                'class' => 'DuAdmin\Core\CreateModelAction',
                 'viewName'=> $this->viewBasePath . 'create',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\Setting'
+                    'class' => 'DuAdmin\Models\Setting'
                 ]
             ],
             'update' => [
-                'class' => 'app\mmadmin\core\UpdateModelAction',
+                'class' => 'DuAdmin\Core\UpdateModelAction',
                 'viewName'=> $this->viewBasePath . 'update',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\Setting'
+                    'class' => 'DuAdmin\Models\Setting'
                 ]
             ],
             'view' => [
-                'class' => 'app\mmadmin\core\ViewModelAction',
+                'class' => 'DuAdmin\Core\ViewModelAction',
                 'viewName'=> $this->viewBasePath . 'view',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\Setting'
+                    'class' => 'DuAdmin\Models\Setting'
                 ]
             ],
             'delete' => [
-                'class' => 'app\mmadmin\core\DeleteModelAction',
+                'class' => 'DuAdmin\Core\DeleteModelAction',
                 'modelClass' => [
-                    'class' => 'app\mmadmin\models\Setting'
+                    'class' => 'DuAdmin\Models\Setting'
                 ]
             ],
         ];

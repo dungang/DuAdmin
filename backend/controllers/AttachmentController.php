@@ -1,8 +1,8 @@
 <?php
-namespace app\backend\controllers;
+namespace Backend\Controllers;
 
-use app\mmadmin\core\BackendController;
-use app\mmadmin\components\FileUploader;
+use DuAdmin\Core\BackendController;
+use DuAdmin\Components\FileUploader;
 
 /**
  * 后台默认支持的文件和图片上传的功能

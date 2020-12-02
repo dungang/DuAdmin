@@ -1,9 +1,9 @@
 <?php
-namespace app\backend\controllers;
+namespace Backend\Controllers;
 
 use Yii;
-use app\backend\forms\LoginForm;
-use app\mmadmin\core\BaseController;
+use Backend\Forms\LoginForm;
+use DuAdmin\Core\BaseController;
 
 class LoginController extends BaseController
 {

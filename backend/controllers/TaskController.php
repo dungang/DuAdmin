@@ -1,10 +1,10 @@
 <?php
 
-namespace app\backend\controllers;
+namespace Backend\Controllers;
 
 use Yii;
-use app\backend\models\Cron;
-use app\mmadmin\helpers\MAHelper;
+use Backend\Models\Cron;
+use DuAdmin\Helpers\MAHelper;
 use yii\web\Controller;
 
 /**
@@ -41,7 +41,7 @@ class TaskController extends Controller
      */
     public final function actionIndex($id, $token)
     {
-        Yii::trace('Validating One Task : ' . $id, __METHOD__);
+        Yii::debug('Validating One Task : ' . $id, __METHOD__);
         if ($cron = Cron::findOne([
             'id' => $id
         ])) {
