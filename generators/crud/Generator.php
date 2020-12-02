@@ -486,7 +486,7 @@ class Generator extends \app\generators\Generator
         if (!empty($likeConditions)) {
             $conditions[] = "\$query" . implode("\n" . str_repeat(' ', 12), $likeConditions) . ";\n";
             //添加默认搜索的查询构建代码
-            $conditions[] = "if (\$full_search = \Yii::\$app->request('full_search')) {\n"
+            $conditions[] = "if (\$full_search = Yii::\$app->request('full_search')) {\n"
                 . str_repeat(' ', 12) . "\$query->andFilterWhere(['FULL_SEARCH',[". implode(',',$full_search_columns) ."],\$full_search]);\n"
                 . str_repeat(' ', 8) . "}\n";
         }

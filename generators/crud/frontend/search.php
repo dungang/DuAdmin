@@ -24,7 +24,6 @@ echo "<?php\n";
 
 namespace <?= StringHelper::dirname(ltrim($generator->searchModelClass, '\\')) ?>;
 
-use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use <?= ltrim($generator->modelClass, '\\') . (isset($modelAlias) ? " as $modelAlias" : "") ?>;
 
@@ -50,7 +49,7 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
+        return parent::scenarios();
     }
 
     /**
