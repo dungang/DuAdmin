@@ -1,0 +1,33 @@
+<?php
+
+namespace Addons\{{ addonName }};
+
+use DuAdmin\Components\Addon as BaseAddon;
+
+class Addon extends BaseAddon {
+
+	/**
+	 * 开启后台功能
+	 *
+	 */
+    protected function initBackend()
+    {
+        $this->name = '{{ addonTitle }}';
+        $this->home = [
+            'label' => $this->name,
+            'url' => [
+                '/{{ addonId }}/default/index'
+            ]
+        ];
+        \Yii::$app->setHomeUrl([
+            '/{{ addonId }}'
+        ]);
+        // 插件如有自定义配置，使用如下配置
+        // $this->controllerMap = [
+        //     'setting' => [
+        //         'class' => 'Backend\Components\SettingController',
+        //         'default_category' => '{{ addonId }}'
+        //     ]
+        // ];
+    }
+}
