@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php Pjax::begin(['id' => 'rewrite-index']); ?>
 <?php PanelGridView::begin([
-    'id' => 'rewrites->list',
+    'id' => 'pretty-url-list',
     'intro' => 'URL重写信息管理，主要是重写前端的url，后台不可以不用考虑',
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ]); ?>
 <?= Html::a('<i class="fa fa-plus"></i> ' . Yii::t('ma','Create'), ['create'], ['class'=>'btn btn-primary','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
 
-<?= Html::a('<i class="fa fa-trash"></i> '. Yii::t('ma','Delete'), ['delete'], ['class'=>'btn btn-danger del-all','data-target'=>'#source-message-list']) ?>
+<?= Html::a('<i class="fa fa-trash"></i> '. Yii::t('ma','Delete'), ['delete'], ['class'=>'btn btn-danger del-all','data-target'=>'#pretty-url-list']) ?>
 
 <?=app\mmadmin\widgets\DefaultSearchBox::widget(['action'=>['index']]) ?>
 <?php PanelGridView::end() ?>

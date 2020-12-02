@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
     
 <?= Html::a('<i class="fa fa-plus"></i> ' . Yii::t('ma','Create'), ['create'], ['class'=>'btn btn-primary','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
 
-<?= Html::a('<i class="fa fa-trash"></i> '. Yii::t('ma','Delete'), ['delete'], ['class'=>'btn btn-danger del-all','data-target'=>'#source-message-list']) ?>
+<?= Html::a('<i class="fa fa-trash"></i> '. Yii::t('ma','Delete'), ['delete'], ['class'=>'btn btn-danger del-all','data-target'=>'#locale-list']) ?>
 
 <?=app\mmadmin\widgets\DefaultSearchBox::widget(['action'=>['index']]) ?>
 
