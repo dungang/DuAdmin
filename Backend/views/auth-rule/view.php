@@ -3,7 +3,7 @@ use yii\widgets\DetailView;
 use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
-/* @var $model app\backend\models\AuthRule */
+/* @var $model Backend\Models\AuthRule */
 
 $this->title = '查看';
 $this->params['breadcrumbs'][] = [

@@ -5,7 +5,7 @@ use DuAdmin\Grids\PanelGridView;
 
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
-/* @var $searchModel app\backend\models\MessageSearch */
+/* @var $searchModel Backend\Models\MessageSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('app', 'Messages');

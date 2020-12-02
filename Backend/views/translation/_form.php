@@ -5,8 +5,8 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
 /* @var $this \yii\web\View */
-/* @var $source_message \app\backend\models\SourceMessage */
-/* @var $messages app\backend\models\Message[] */
+/* @var $source_message Backend\Models\SourceMessage */
+/* @var $messages Backend\Models\Message[] */
 
 $form = ActiveForm::begin(['id' => 'translate-message-batch-form', 'enableAjaxValidation' => false]);
 ?>

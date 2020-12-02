@@ -6,7 +6,7 @@ use yii\widgets\Pjax;
 use DuAdmin\Widgets\PanelNavTabs;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\backend\models\AuthPermissionSearch */
+/* @var $searchModel Backend\Models\AuthPermissionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '权限';

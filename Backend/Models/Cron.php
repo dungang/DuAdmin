@@ -2,7 +2,7 @@
 
 namespace Backend\Models;
 
-use Backend\ModelsnQuery;
+
 
 /**
  * "cron"表的模型类.

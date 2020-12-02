@@ -4,7 +4,7 @@ use yii\widgets\DetailView;
 use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
-/* @var $model app\backend\models\SourceMessage */
+/* @var $model Backend\Models\SourceMessage */
 
 $this->title = $model->category;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Source Messages'), 'url' => ['index']];

@@ -4,7 +4,7 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
 /* @var $this \yii\web\View */
-/* @var $models app\backend\models\AuthGroup[] */
+/* @var $models Backend\Models\AuthGroup[] */
 
 $this->title = '批量添加';
 $this->params['breadcrumbs'][] = ['label' => '授权组', 'url' => ['index']];

@@ -2,7 +2,7 @@
 use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
-/* @var $model app\backend\models\Portal */
+/* @var $model Backend\Models\Portal */
 
 $this->title = '添加';
 $this->params['breadcrumbs'][] = ['label' => 'Portals', 'url' => ['index']];

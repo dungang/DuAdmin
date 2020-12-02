@@ -6,7 +6,7 @@ use DuAdmin\Widgets\ZTree;
 use yii\web\JsExpression;
 
 /* @var $this yii\web\View */
-/* @var $model app\backend\models\AuthRole */
+/* @var $model Backend\Models\AuthRole */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $rights array*/
 

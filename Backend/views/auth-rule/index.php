@@ -3,7 +3,7 @@ use yii\helpers\Html;
 use DuAdmin\Grids\PanelGridView;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
-/* @var $searchModel app\backend\models\AuthRuleSearch */
+/* @var $searchModel Backend\Models\AuthRuleSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '验证规则';

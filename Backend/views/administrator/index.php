@@ -5,7 +5,7 @@ use DuAdmin\Grids\PanelGridView;
 
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
-/* @var $searchModel app\backend\models\AdminSearch */
+/* @var $searchModel Backend\Models\AdminSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('backend', 'Administors');

@@ -3,7 +3,7 @@
 use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this \yii\web\View */
-/* @var $models \app\backend\models\AuthPermission[] */
+/* @var $models Backend\Models\AuthPermission[] */
 
 $this->title = '批量添加';
 $this->params['breadcrumbs'][] = ['label' => '权限', 'url' => ['index']];

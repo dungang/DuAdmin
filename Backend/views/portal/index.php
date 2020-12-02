@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use DuAdmin\Grids\PanelGridView;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
-/* @var $searchModel app\backend\models\PortalSearch */
+/* @var $searchModel Backend\Models\PortalSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Portals';

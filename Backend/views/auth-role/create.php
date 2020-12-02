@@ -2,7 +2,7 @@
 use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
-/* @var $model app\backend\models\AuthRole */
+/* @var $model Backend\Models\AuthRole */
 
 $this->title = '添加';
 $this->params['breadcrumbs'][] = [

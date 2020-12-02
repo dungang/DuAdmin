@@ -4,7 +4,7 @@ use yii\widgets\DetailView;
 use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
-/* @var $model app\backend\models\Cron */
+/* @var $model Backend\Models\Cron */
 
 $this->title = $model->task;
 $this->params['breadcrumbs'][] = ['label' => '定时任务', 'url' => ['index']];

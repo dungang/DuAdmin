@@ -6,7 +6,7 @@ use yii\widgets\Pjax;
 use DuAdmin\Widgets\PanelNavTabs;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\backend\models\AuthGroupSearch */
+/* @var $searchModel Backend\Models\AuthGroupSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '管理员授权组';

@@ -3,7 +3,7 @@
 use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
-/* @var $model app\backend\models\Message */
+/* @var $model Backend\Models\Message */
 
 $this->title = Yii::t('da','Update');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Messages'), 'url' => ['index']];

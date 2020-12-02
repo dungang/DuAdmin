@@ -2,7 +2,7 @@
 use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
-/* @var $model app\backend\models\Cron */
+/* @var $model Backend\Models\Cron */
 
 $this->title = '添加';
 $this->params['breadcrumbs'][] = ['label' => '定时任务', 'url' => ['index']];

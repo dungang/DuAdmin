@@ -4,7 +4,7 @@ use yii\widgets\DetailView;
 use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
-/* @var $model app\backend\models\AuthGroup */
+/* @var $model Backend\Models\AuthGroup */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => '授权组', 'url' => ['index']];

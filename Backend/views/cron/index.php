@@ -4,7 +4,7 @@ use DuAdmin\Grids\PanelGridView;
 use yii\widgets\Pjax;
 use DuAdmin\Helpers\CrontabHelper;
 /* @var $this yii\web\View */
-/* @var $searchModel app\backend\models\CronSearch */
+/* @var $searchModel Backend\Models\CronSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '定时任务';

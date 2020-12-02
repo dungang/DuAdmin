@@ -1,10 +1,10 @@
 <?php
 use yii\helpers\Html;
 use DuAdmin\Grids\PanelGridView;
-use app\backend\models\AuthGroup;
+use Backend\Models\AuthGroup;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\backend\models\AuthPermissionSearch */
+/* @var $searchModel Backend\Models\AuthPermissionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $group = AuthGroup::findOne(['name' => $searchModel->group_name]);
