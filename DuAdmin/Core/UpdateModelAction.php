@@ -36,11 +36,11 @@ class UpdateModelAction extends BaseAction
                     $this->successRediretUrl = \Yii::$app->request->referrer;
                 }
                 $this->beforeRender();
-                return $this->controller->redirectOnSuccess($this->getSuccessRediretUrlWidthModel($model), Yii::t('ma', 'Update success'));
+                return $this->controller->redirectOnSuccess($this->getSuccessRediretUrlWidthModel($model), Yii::t('da', 'Update success'));
             }
 
             if ($loaded === false) {
-                return $this->controller->renderOnFail($this->viewName, $this->data, Yii::t('ma', 'Data fields error'));
+                return $this->controller->renderOnFail($this->viewName, $this->data, Yii::t('da', 'Data fields error'));
             } else if ($model->hasErrors()) {
                 return $this->controller->renderOnFail($this->viewName, $this->data, array_values($model->getFirstErrors())[0]);
             }

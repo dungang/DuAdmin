@@ -21,8 +21,8 @@ class LocalUploadAction extends Action
 
         return ApiActionChain::getInstance()->mustPost()
             ->setFields([
-            'key' => Yii::t('ma', 'Save Key'),
-            'file' => Yii::t('ma', 'File')
+            'key' => Yii::t('da', 'Save Key'),
+            'file' => Yii::t('da', 'File')
         ])
             ->setFieldsRules([
             [

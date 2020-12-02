@@ -48,7 +48,7 @@ class AdminltePanel extends Widget
         $header = '';
         if ($this->intro) {
             if ($this->title) {
-                $header .= Html::tag('div', Yii::t('ma', $this->title), ['class' => $this->panelTitleClass]);
+                $header .= Html::tag('div', Yii::t('da', $this->title), ['class' => $this->panelTitleClass]);
             }
             if (is_array($this->intro)) {
                 $header .= implode('', array_map(function ($intro) {

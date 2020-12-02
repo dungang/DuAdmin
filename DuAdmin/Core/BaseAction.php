@@ -100,7 +100,7 @@ class BaseAction extends Action
             $this->attachBehaviors($this->actionBehaviors);
         }
         if (empty($this->successMsg)) {
-            $this->successMsg = Yii::t('ma', 'Create success');
+            $this->successMsg = Yii::t('da', 'Create success');
         }
     }
 

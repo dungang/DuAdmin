@@ -29,8 +29,8 @@ class Bootstrap implements BootstrapInterface
     {
 
         // 注册MMAdmin的多语言
-        $app->i18n->translations['ma'] = [
-            'class' => PhpMessageSource::className(),
+        $app->i18n->translations['da'] = [
+            'class' => PhpMessageSource::class,
             'sourceLanguage' => Yii::$app->sourceLanguage,
             'basePath' => '@DuAdmin/messages'
         ];

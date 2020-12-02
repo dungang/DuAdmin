@@ -46,7 +46,7 @@ class CreateModelAction extends BaseAction
 
             if ($loaded === false) {
                 $this->beforeRender();
-                return $this->controller->renderOnFail($this->viewName, $this->data,  Yii::t('ma', 'Data fields error'));
+                return $this->controller->renderOnFail($this->viewName, $this->data,  Yii::t('da', 'Data fields error'));
             } else if ($model->hasErrors()) {
                 return $this->controller->renderOnFail($this->viewName, $this->data, array_values($model->getFirstErrors())[0]);
             }

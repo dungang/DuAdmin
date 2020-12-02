@@ -546,7 +546,7 @@ class MAHelper
 
     public static function translation_link($category, $message)
     {
-        return Html::a('<i class="fa fa-language"></i> ' . Yii::t('ma', 'Translation'), [
+        return Html::a('<i class="fa fa-language"></i> ' . Yii::t('da', 'Translation'), [
             '/translation/setting',
             'category' => $category, 'message' => $message
         ], [
