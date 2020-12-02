@@ -8,7 +8,7 @@ $config = [
         'log',
         'DuAdmin\Components\Bootstrap'
     ],
-    'controllerNamespace' => 'app\console',
+    'controllerNamespace' => 'Console',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
