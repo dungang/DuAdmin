@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <?= $generator->enablePjax ? "<?php Pjax::begin(['id'=>'".$id_prefix."-index']); ?>\n" : '' ?>
 <?= "<?php  " ?>PanelGridView::begin([
         'id' => '<?= $id_prefix . '-list'?>',
-    	'intro' => Yii::t('ma','{0} Info Manage',<?= $generator->generateString($labelNames) ?>),
+    	'intro' => Yii::t('da','{0} Info Manage',<?= $generator->generateString($labelNames) ?>),
         'dataProvider' => $dataProvider,
         'columns' => [
 <?php
@@ -109,9 +109,9 @@ DATE_FIELD;
     ]); ?>
 <?= "<?= " ?>$this->render('_search', ['model' => $searchModel]); ?>
 
-<?="<?= " ?>Html::a('<i class="fa fa-plus"></i> ' . Yii::t('ma','Create'), ['create'], ['class'=>'btn btn-primary','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
+<?="<?= " ?>Html::a('<i class="fa fa-plus"></i> ' . Yii::t('da','Create'), ['create'], ['class'=>'btn btn-primary','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
 
-<?="<?= " ?>Html::a('<i class="fa fa-trash"></i> '. Yii::t('ma','Delete'), ['delete'], ['class'=>'btn btn-danger del-all','data-target'=>'#<?= $id_prefix . '-list'?>']) ?>
+<?="<?= " ?>Html::a('<i class="fa fa-trash"></i> '. Yii::t('da','Delete'), ['delete'], ['class'=>'btn btn-danger del-all','data-target'=>'#<?= $id_prefix . '-list'?>']) ?>
 
 <?="<?= " ?>FullSearchBox::widget(['action'=>['index']]) ?> 
 

@@ -27,7 +27,7 @@ class AuthRoleController extends BackendController
             'create' => [
                 'class' => 'DuAdmin\Core\CreateModelAction',
                 'modelBehaviors' => [
-                    'app\backend\Behaviors\CleanRbacBehavior',
+                    'Backend\Behaviors\CleanRbacBehavior',
                 ],
                 'baseAttrs' => [
                     'type' => AuthRole::TYPE_ROLE
@@ -39,7 +39,7 @@ class AuthRoleController extends BackendController
             'update' => [
                 'class' => 'DuAdmin\Core\UpdateModelAction',
                 'modelBehaviors' => [
-                    'app\backend\Behaviors\CleanRbacBehavior',
+                    'Backend\Behaviors\CleanRbacBehavior',
                 ],
                 'baseAttrs' => [
                     'type' => AuthRole::TYPE_ROLE
@@ -60,7 +60,7 @@ class AuthRoleController extends BackendController
             'delete' => [
                 'class' => 'DuAdmin\Core\DeleteModelAction',
                 'modelBehaviors' => [
-                    'app\backend\Behaviors\CleanRbacBehavior',
+                    'Backend\Behaviors\CleanRbacBehavior',
                 ],
                 'baseAttrs' => [
                     'type' => AuthRole::TYPE_ROLE

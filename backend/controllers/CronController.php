@@ -59,7 +59,7 @@ class CronController extends BackendController
                     'canStartCronProcess'
                 ],
                 'debug' => false,
-                'longPollingHandlerClass' => '\app\backend\Components\CronHandler'
+                'longPollingHandlerClass' => 'Backend\Components\CronHandler'
             ]
         ];
     }

@@ -2,7 +2,7 @@
 use DuAdmin\Models\Setting;
 use DuAdmin\Widgets\BackgroundVideo;
 use yii\helpers\Url;
-use DuAdmin\Helpers\MAHelper;
+use DuAdmin\Helpers\AppHelper;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
@@ -20,7 +20,7 @@ $this->registerMetaTag([
 	<div class="body-content" style="color: white;margin-top:40px;">
 		<div class="jumbotron">
 			<div class="h1">
-				<?=MAHelper::getSetting('site.name') ?><small
+				<?=AppHelper::getSetting('site.name') ?><small
 					style="vertical-align: top;">&reg;</small>
 			</div>
 			<p>『 为梦想创业而生 』</p>

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\frontend\models;
+namespace Frontend\Models;
 
 use DuAdmin\Core\Authable;
 use Yii;

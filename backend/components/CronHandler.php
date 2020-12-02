@@ -1,9 +1,9 @@
 <?php
-namespace app\backend\Components;
+namespace Backend\Components;
 
 use Yii;
 use DuAdmin\Core\ILongPollHandler;
-use app\backend\models\Cron;
+use Backend\Models\Cron;
 use yii\httpclient\Client;
 use DuAdmin\Components\Crontab;
 use DuAdmin\Helpers\CrontabHelper;

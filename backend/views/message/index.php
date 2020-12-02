@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php Pjax::begin(['id'=>'message-index']); ?>
 <?php  PanelGridView::begin([
         'id' => 'message-list',
-    	'intro' => Yii::t('ma','{0} Info Manage','Messages'),
+    	'intro' => Yii::t('da','{0} Info Manage','Messages'),
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
         	]
        ]
     ]); ?>
-<?= Html::a('<i class="fa fa-plus"></i> ' . Yii::t('ma','Create'), ['create'], ['class'=>'btn btn-primary','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
+<?= Html::a('<i class="fa fa-plus"></i> ' . Yii::t('da','Create'), ['create'], ['class'=>'btn btn-primary','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
 
 <?=DuAdmin\Widgets\FullSearchBox::widget(['action'=>['index']]) ?>
 

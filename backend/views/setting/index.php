@@ -10,7 +10,7 @@ use DuAdmin\Models\Setting;
 /* @var $searchModel DuAdmin\Models\SettingSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = \Yii::$app->controller->module->name . Yii::t('ma', 'Settings');
+$this->title = \Yii::$app->controller->module->name . Yii::t('da', 'Settings');
 $this->params['breadcrumbs'][] = $this->title;
 Pjax::begin([
     'id' => 'setting-index'
@@ -33,7 +33,7 @@ PanelGridView::begin(
                 'attribute' => 'value',
                 'format' => 'raw',
                 'value' => function ($model, $key, $index, $column) {
-                    $detail =  Html::a(Yii::t('ma', 'View Detail'), [
+                    $detail =  Html::a(Yii::t('da', 'View Detail'), [
                         'view',
                         'name' => $model['name']
                     ], [
@@ -76,7 +76,7 @@ if (\Yii::$app->controller->is_backend_module) {
     }
     if(defined('YII_ENV') && YII_ENV == 'dev') {
         $tabs[] = [
-            'name' => '<i class="fa fa-edit"></i> ' . Yii::t('ma', 'Extend Category'),
+            'name' => '<i class="fa fa-edit"></i> ' . Yii::t('da', 'Extend Category'),
             'url' => [
                 'update',
                 'name' => 'setting.category'

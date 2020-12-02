@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 $this->params['breadcrumbs'][] = $model-><?= $generator->getNameAttribute()?>;
 
 echo AjaxModalOrNormalPanelContent::widget([
-    'intro' => Yii::t('ma', 'View {0} Detail Info',$model-><?= $generator->getNameAttribute()?>),
+    'intro' => Yii::t('da', 'View {0} Detail Info',$model-><?= $generator->getNameAttribute()?>),
     'content' => DetailView::widget([
         	'options'=>['class' => 'table table-bordered'],
             'model' => $model,

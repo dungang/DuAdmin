@@ -1,7 +1,7 @@
 <?php
 namespace Backend\Controllers;
 
-use app\backend\Components\SettingController as ComponentsSettingController;
+use Backend\Components\SettingController as ComponentsSettingController;
 
 class SettingController extends ComponentsSettingController {
     

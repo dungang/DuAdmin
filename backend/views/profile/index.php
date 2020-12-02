@@ -12,7 +12,7 @@ use Backend\Models\Admin;
 $this->title = Yii::t('backend', 'User Info');
 $this->params['breadcrumbs'][] = $this->title;
 AjaxModalOrNormalPanelContent::begin([
-    'intro' => Yii::t('ma', 'Update {0}', $this->title)
+    'intro' => Yii::t('da', 'Update {0}', $this->title)
 ]) ?>
 
 <?php $form = ActiveForm::begin(['id' => 'profile-form', 'enableAjaxValidation' => true]); ?>
@@ -34,7 +34,7 @@ AjaxModalOrNormalPanelContent::begin([
 </div>
 
 <div class="form-group">
-    <?= Html::submitButton('<i class="fa fa-save"></i> ' .  Yii::t('ma', 'Save'), ['class' => 'btn btn-success btn-block']) ?>
+    <?= Html::submitButton('<i class="fa fa-save"></i> ' .  Yii::t('da', 'Save'), ['class' => 'btn btn-success btn-block']) ?>
 </div>
 
 <?php ActiveForm::end(); ?>

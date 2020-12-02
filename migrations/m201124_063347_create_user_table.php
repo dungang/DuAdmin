@@ -31,10 +31,10 @@ class m201124_063347_create_user_table extends Migration
         ]);
         
         $this->insert('{{%user}}',[
-            'username' => 'ma',
+            'username' => 'da',
             'nickname' => 'MA',
             'auth_key' => \Yii::$app->security->generateRandomString(),
-            'password_hash' => \Yii::$app->security->generatePasswordHash('ma'),
+            'password_hash' => \Yii::$app->security->generatePasswordHash('da'),
             'email' => 'mm@mmadmin',
             'status' => 10,
             'created_at' => date('Y-m-d H:i:s'),

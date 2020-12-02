@@ -2,7 +2,7 @@
 namespace Frontend\Controllers;
 
 use Yii;
-use Frontend\FormsinForm;
+use Frontend\Forms\LoginForm;
 use DuAdmin\Core\BaseController;
 
 class LoginController extends BaseController

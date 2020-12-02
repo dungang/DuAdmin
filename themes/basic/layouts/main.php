@@ -3,7 +3,7 @@
 /* @var $content string */
 
 use Frontend\Assets\AppAsset;
-use DuAdmin\Helpers\MAHelper;
+use DuAdmin\Helpers\AppHelper;
 use DuAdmin\Models\Menu;
 use DuAdmin\Models\Setting;
 use DuAdmin\Widgets\LazyLoad;
@@ -19,7 +19,7 @@ AppAsset::register($this);
 ThemeAsset::register($this);
 Notify::widget();
 LazyLoad::widget();
-$this->params['logo'] = MAHelper::getSetting('site.logo');
+$this->params['logo'] = AppHelper::getSetting('site.logo');
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -31,7 +31,7 @@ $this->params['logo'] = MAHelper::getSetting('site.logo');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title . '-' . Yii::t('app',MAHelper::getSetting('site.name'))) ?></title>
+    <title><?= Html::encode($this->title . '-' . Yii::t('app',AppHelper::getSetting('site.name'))) ?></title>
     <?php $this->head() ?>
 </head>
 
@@ -41,7 +41,7 @@ $this->params['logo'] = MAHelper::getSetting('site.logo');
     <div class="wrap">
         <?php
         NavBar::begin([
-            'brandLabel' => Yii::t('app',MAHelper::getSetting('site.name',Yii::$app->name)),
+            'brandLabel' => Yii::t('app',AppHelper::getSetting('site.name',Yii::$app->name)),
             //'brandImage' => $this->params['logo'],
             'brandUrl' => ['/site/index'],
             'options' => [
@@ -61,7 +61,7 @@ $this->params['logo'] = MAHelper::getSetting('site.logo');
                 if ($frontMenu['require_login'] && Yii::$app->user->isGuest) {
                     continue;
                 }
-                $frontMenu['url'] = MAHelper::normalizeUrl2Route($frontMenu['url']);
+                $frontMenu['url'] = AppHelper::normalizeUrl2Route($frontMenu['url']);
                 $menus[] = $frontMenu;
             }
         }
@@ -83,12 +83,12 @@ $this->params['logo'] = MAHelper::getSetting('site.logo');
         <?php
         SimpleModal::begin([
             'size' => 'modal-lg',
-            'header' => Yii::t('ma','Dailog'),
+            'header' => Yii::t('da','Dailog'),
             'options' => [
                 'id' => 'modal-dailog'
             ]
         ]);
-        echo Yii::t('ma','No Data');
+        echo Yii::t('da','No Data');
         SimpleModal::end();
         ?>
     </div>

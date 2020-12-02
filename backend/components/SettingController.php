@@ -1,5 +1,5 @@
 <?php
-namespace app\backend\Components;
+namespace Backend\Components;
 
 use DuAdmin\Core\BackendController;
 
@@ -13,7 +13,7 @@ class SettingController extends BackendController
     
     public $is_backend_module = false;
     
-    public $viewBasePath = '@app/backend/views/setting/';
+    public $viewBasePath = '@Backend/views/setting/';
     
     public function actions(){
         

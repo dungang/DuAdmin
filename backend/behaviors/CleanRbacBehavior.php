@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\Behaviors;
+namespace Backend\Behaviors;
 
 use yii\base\Behavior;
 use DuAdmin\Core\BaseModel;

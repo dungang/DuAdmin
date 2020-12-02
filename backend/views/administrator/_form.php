@@ -48,7 +48,7 @@ use yii\widgets\ActiveForm;
             <?= $form->field($model, 'status')->dropDownList([0 => Yii::t('backend', 'Unactive'), 10 => Yii::t('backend', 'Active')]) ?>
 
             <div class="form-group">
-                <?= Html::submitButton('<i class="fa fa-save"></i> ' .  Yii::t('ma', 'Save'), ['class' => 'btn btn-success']) ?>
+                <?= Html::submitButton('<i class="fa fa-save"></i> ' .  Yii::t('da', 'Save'), ['class' => 'btn btn-success']) ?>
             </div>
         </div>
     </div>

@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 $this->params['breadcrumbs'][] = $model->username;
 
 echo AjaxModalOrNormalPanelContent::widget([
-    'intro' => Yii::t('ma', 'View {0} Detail Info',$model->username),
+    'intro' => Yii::t('da', 'View {0} Detail Info',$model->username),
     'content' => DetailView::widget([
         	'options'=>['class' => 'table table-bordered'],
             'model' => $model,

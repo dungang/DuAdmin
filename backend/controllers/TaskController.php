@@ -4,7 +4,7 @@ namespace Backend\Controllers;
 
 use Yii;
 use Backend\Models\Cron;
-use DuAdmin\Helpers\MAHelper;
+use DuAdmin\Helpers\AppHelper;
 use yii\web\Controller;
 
 /**
@@ -45,11 +45,11 @@ class TaskController extends Controller
         if ($cron = Cron::findOne([
             'id' => $id
         ])) {
-            if (MAHelper::isDevMode() || $cron->token == $token) {
+            if (AppHelper::isDevMode() || $cron->token == $token) {
                 try {
                     if (class_exists($cron->job_script)) {
                         $instance = Yii::createObject($cron->job_script);
-                        call_user_func([$instance, 'handle'], MAHelper::parseText2Assoc($cron->param), $cron);
+                        call_user_func([$instance, 'handle'], AppHelper::parseText2Assoc($cron->param), $cron);
                     } else {
                         $cron->is_ok = false;
                         $cron->error_msg = '脚本不存在';
@@ -62,7 +62,7 @@ class TaskController extends Controller
                 }
                 //放在任务程序的后面，方便调试。
                 $cron->token = \Yii::$app->security->generateRandomString(32);
-                MAHelper::isDevMode() || $cron->save(false);
+                AppHelper::isDevMode() || $cron->save(false);
             }
         }
         return '';

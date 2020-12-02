@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'translation')->textarea(['rows' => 6]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('<i class="fa fa-save"></i> ' .  Yii::t('ma','Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('<i class="fa fa-save"></i> ' .  Yii::t('da','Save'), ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

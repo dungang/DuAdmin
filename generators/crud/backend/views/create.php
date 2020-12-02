@@ -13,10 +13,10 @@ use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 /* @var $this yii\web\View */
 /* @var $model <?= ltrim($generator->modelClass, '\\') ?> */
 
-$this->title = Yii::t('ma','Create');
+$this->title = Yii::t('da','Create');
 $this->params['breadcrumbs'][] = ['label' => <?= $generator->generateString($modelName) ?>, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 echo AjaxModalOrNormalPanelContent::widget([
-    'intro'=> Yii::t('ma','Create {0} Info',<?= $generator->generateString($modelName) ?>),
+    'intro'=> Yii::t('da','Create {0} Info',<?= $generator->generateString($modelName) ?>),
     'content'=>$this->render('_form', ['model' => $model])
 ])?>

@@ -46,8 +46,8 @@ foreach ($generator->getColumnNames() as $attribute) {
 ?>
 </div>
     <div class="form-group">
-        <?= "<?= " ?>Html::submitButton('<i class="fa fa-search"></i> ' .  Yii::t('ma','Search'), ['class' => 'btn btn-warning']) ?>
-        <?= "<?= " ?>Html::resetButton('<i class="fa fa-reply"></i> ' .  Yii::t('ma','Reset'), ['class' => 'btn btn-default']) ?>
+        <?= "<?= " ?>Html::submitButton('<i class="fa fa-search"></i> ' .  Yii::t('da','Search'), ['class' => 'btn btn-warning']) ?>
+        <?= "<?= " ?>Html::resetButton('<i class="fa fa-reply"></i> ' .  Yii::t('da','Reset'), ['class' => 'btn btn-default']) ?>
     </div>
 
     <?= "<?php " ?>ActiveForm::end(); ?>

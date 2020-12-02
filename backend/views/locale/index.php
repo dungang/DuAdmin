@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php Pjax::begin(['id'=>'locale-index']); ?>
 <?php  PanelGridView::begin([
         'id' => 'locale-list',
-    	'intro' => Yii::t('ma','{0} Info Manage',Yii::t('app', 'Source Messages')),
+    	'intro' => Yii::t('da','{0} Info Manage',Yii::t('app', 'Source Messages')),
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -28,10 +28,10 @@ $this->params['breadcrumbs'][] = $this->title;
         	],
             'message:ntext',
             [
-                'label'=>Yii::t('ma','Operation'),
+                'label'=>Yii::t('da','Operation'),
                 'format'=>'raw',
                 'value' => function($model,$key,$index,$column) {
-                    return Html::a(Yii::t('ma','Manage {0}', Yii::t('app','Messages')),['/message/index','MessageSearch[id]'=>$model->id],
+                    return Html::a(Yii::t('da','Manage {0}', Yii::t('app','Messages')),['/message/index','MessageSearch[id]'=>$model->id],
                     ['class'=>'btn btn-sm btn-link','data-pjax'=>'0']);
                 }
             ],
@@ -51,9 +51,9 @@ $this->params['breadcrumbs'][] = $this->title;
        ]
     ]); ?>
     
-<?= Html::a('<i class="fa fa-plus"></i> ' . Yii::t('ma','Create'), ['create'], ['class'=>'btn btn-primary','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
+<?= Html::a('<i class="fa fa-plus"></i> ' . Yii::t('da','Create'), ['create'], ['class'=>'btn btn-primary','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
 
-<?= Html::a('<i class="fa fa-trash"></i> '. Yii::t('ma','Delete'), ['delete'], ['class'=>'btn btn-danger del-all','data-target'=>'#locale-list']) ?>
+<?= Html::a('<i class="fa fa-trash"></i> '. Yii::t('da','Delete'), ['delete'], ['class'=>'btn btn-danger del-all','data-target'=>'#locale-list']) ?>
 
 <?=DuAdmin\Widgets\FullSearchBox::widget(['action'=>['index']]) ?>
 

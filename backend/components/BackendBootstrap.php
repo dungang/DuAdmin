@@ -1,5 +1,5 @@
 <?php
-namespace app\backend\Components;
+namespace Backend\Components;
 
 use yii\base\BootstrapInterface;
 use DuAdmin\Core\Application;

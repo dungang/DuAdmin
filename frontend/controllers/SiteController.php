@@ -1,7 +1,7 @@
 <?php
 namespace Frontend\Controllers;
 
-use DuAdmin\Helpers\MAHelper;
+use DuAdmin\Helpers\AppHelper;
 use DuAdmin\Hooks\FindSlugHook;
 use DuAdmin\Core\BaseController;
 
@@ -17,11 +17,11 @@ class SiteController extends BaseController
 
         $this->view->registerMetaTag([
             'name' => 'keywords',
-            'content' => MAHelper::getSetting('site.keywords')
+            'content' => AppHelper::getSetting('site.keywords')
         ], 'keywords');
         $this->view->registerMetaTag([
             'name' => 'description',
-            'content' => MAHelper::getSetting('site.description')
+            'content' => AppHelper::getSetting('site.description')
         ], 'description');
     }
 
@@ -55,7 +55,7 @@ class SiteController extends BaseController
      */
     public function actionIndex()
     {
-        if ($url = MAHelper::getSetting("site.index-page")) {
+        if ($url = AppHelper::getSetting("site.index-page")) {
             return $this->redirect($url);
         } else {
             return $this->render("index");
