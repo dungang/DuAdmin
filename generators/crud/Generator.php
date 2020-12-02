@@ -13,6 +13,7 @@ use yii\db\ActiveRecord;
 use yii\db\BaseActiveRecord;
 use yii\db\Schema;
 use app\generators\CodeFile;
+use yii\helpers\Html;
 use yii\helpers\Inflector;
 use yii\helpers\VarDumper;
 use yii\web\Controller;
@@ -237,7 +238,11 @@ class Generator extends \app\generators\Generator
      * @param string $attribute
      * @return string
      */
-    public function generateActiveField($attribute)
+
+    public function generateActiveField($attribute) {
+        return "'<div class=\"col-xs-6\">' . " . $this->generateActiveFieldRaw($attribute) . " . '</div>'";
+    }
+    public function generateActiveFieldRaw($attribute)
     {
         $tableSchema = $this->getTableSchema();
         if ($tableSchema === false || !isset($tableSchema->columns[$attribute])) {
@@ -285,17 +290,20 @@ class Generator extends \app\generators\Generator
      */
     public function generateActiveSearchField($attribute)
     {
+        
+        $field = "\$form->field(\$model, '$attribute')";
+
         $tableSchema = $this->getTableSchema();
         if ($tableSchema === false) {
-            return "\$form->field(\$model, '$attribute')";
+            $field =  "\$form->field(\$model, '$attribute')";
         }
 
         $column = $tableSchema->columns[$attribute];
         if ($column->phpType === 'boolean') {
-            return "\$form->field(\$model, '$attribute')->checkbox()";
+            $field = "\$form->field(\$model, '$attribute')->checkbox()";
         }
 
-        return "\$form->field(\$model, '$attribute')";
+        return "'<div class=\"col-xs-6\">' . " . $field  . " . '</div>'";
     }
 
     /**
@@ -486,7 +494,7 @@ class Generator extends \app\generators\Generator
         if (!empty($likeConditions)) {
             $conditions[] = "\$query" . implode("\n" . str_repeat(' ', 12), $likeConditions) . ";\n";
             //添加默认搜索的查询构建代码
-            $conditions[] = "if (\$full_search = Yii::\$app->request('full_search')) {\n"
+            $conditions[] = "if (\$full_search = Yii::\$app->request->get('full_search')) {\n"
                 . str_repeat(' ', 12) . "\$query->andFilterWhere(['FULL_SEARCH',[". implode(',',$full_search_columns) ."],\$full_search]);\n"
                 . str_repeat(' ', 8) . "}\n";
         }

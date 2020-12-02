@@ -8,7 +8,7 @@ use yii\helpers\StringHelper;
 
 echo "<?php\n";
 ?>
-
+use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -16,19 +16,24 @@ use yii\widgets\ActiveForm;
 /* @var $model <?= ltrim($generator->searchModelClass, '\\') ?> */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
+<?= "<?php " ?> \yii\bootstrap\Modal::begin([
+        'id' => '<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-search-modal',
+        'header' => '高级搜索',
+        'toggleButton' => ['label'=>'<i class="fa fa-search"></i> 高级搜索','class'=>'btn btn-warning'],
+    ]); ?>
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-search">
 
     <?= "<?php " ?>$form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
-<?php if ($generator->enablePjax): ?>
         'options' => [
-            'data-pjax' => 1
+    <?php if ($generator->enablePjax): ?>
+            'data-pjax' => 1,
+    <?php endif; ?>
+            'onsubmit' => "\$('#<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-search-modal').modal('hide')"
         ],
-<?php endif; ?>
     ]); ?>
-
+<div class="row">
 <?php
 $count = 0;
 foreach ($generator->getColumnNames() as $attribute) {
@@ -39,6 +44,7 @@ foreach ($generator->getColumnNames() as $attribute) {
     }
 }
 ?>
+</div>
     <div class="form-group">
         <?= "<?= " ?>Html::submitButton(<?= $generator->generateString('Search') ?>, ['class' => 'btn btn-primary']) ?>
         <?= "<?= " ?>Html::resetButton(<?= $generator->generateString('Reset') ?>, ['class' => 'btn btn-default']) ?>
@@ -47,3 +53,4 @@ foreach ($generator->getColumnNames() as $attribute) {
     <?= "<?php " ?>ActiveForm::end(); ?>
 
 </div>
+<?= "<?php " ?> Modal::end(); ?>

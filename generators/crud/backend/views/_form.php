@@ -27,12 +27,13 @@ use yii\widgets\ActiveForm;
 <div class="<?= $formName ?>-form">
 
     <?= "<?php " ?>$form = ActiveForm::begin(['id'=>'<?= $formName ?>-form','enableAjaxValidation' => true]); ?>
-
+    <div class="row">
 <?php foreach ($generator->getColumnNames() as $attribute) {
     if (in_array($attribute, $safeAttributes)) {
         echo "    <?= " . $generator->generateActiveField($attribute) . " ?>\n\n";
     }
 } ?>
+    </div>
     <div class="form-group">
         <?= "<?= " ?>Html::submitButton('<i class="fa fa-save"></i> ' .  Yii::t('ma','Save'), ['class' => 'btn btn-success']) ?>
     </div>
