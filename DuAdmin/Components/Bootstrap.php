@@ -39,15 +39,8 @@ class Bootstrap implements BootstrapInterface
         Yii::setAlias('@Frontend',$app->basePath . '/Frontend');
         Yii::setAlias('@Api',$app->basePath . '/Api');
         Yii::setAlias('@Console',$app->basePath . '/Console');
-
-        // 注册DUAdmin的多语言
-        $app->i18n->translations['da'] = [
-            'class' => PhpMessageSource::class,
-            'sourceLanguage' => Yii::$app->sourceLanguage,
-            'basePath' => $app->basePath . '/DuAdmin/messages'
-        ];
-
-
+        
+        
         // 更换mysql的schema对象，支持for update 排他锁
         $app->db->schemaMap['mysql'] = 'DuAdmin\Mysql\Schema';
         $app->db->schemaMap['mysqli'] = 'DuAdmin\Mysql\Schema';
@@ -65,7 +58,18 @@ class Bootstrap implements BootstrapInterface
         $app->db->queryBuilder->setConditionClasses([
             'FULL_SEARCH' => 'DuAdmin\Db\FullSearchCondition'
         ]);
+        
+        // 注册DUAdmin的多语言
+        $app->i18n->translations['da'] = [
+            'class' => PhpMessageSource::class,
+            'sourceLanguage' => Yii::$app->sourceLanguage,
+            'basePath' => $app->basePath . '/DuAdmin/messages'
+        ];
 
+        // 注册表单验证器
+        Validator::$builtInValidators['mobile'] = '\DuAdmin\Validators\MobileValidator'; //验证手机
+        Validator::$builtInValidators['alternative'] = '\DuAdmin\Validators\AlternativeValidator'; //二选一验证
+        Validator::$builtInValidators['slug'] = '\DuAdmin\Validators\SlugValidator';
         $this->dynamicParseAddons($app);
     }
 

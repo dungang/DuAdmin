@@ -4,21 +4,11 @@ namespace DuAdmin\Widgets;
 use yii\bootstrap\Modal;
 use yii\bootstrap\Html;
 use yii\widgets\PjaxAsset;
-use yii\widgets\Pjax;
 
 class SimpleModal extends Modal
 {
     
     public $enablePjax = true;
-    
-    public $pjaxContainer = '#simple-modal-pjax-container';
-    
-    public function init(){
-        if($this->enablePjax) {
-           $this->bodyOptions['data-pjax-container']=$this->pjaxContainer;
-        }
-        parent::init();
-    }
 
     public function run()
     {
@@ -47,11 +37,13 @@ class SimpleModal extends Modal
         $(e.target).find('.modal-dialog').removeClass('modal-sm modal-lg').addClass(size ? size : '');
     });
     //阻拦默认的表单提交事件，自动替换为pjax请求
-    modal.on('submit','form',function(event){
-        event.preventDefault();
-        console.log($(this));
-        $.pjax.submit(event,'[data-pjax-container="{$this->pjaxContainer}"]',{push:false});
-    });
+    if({$this->enablePjax}){
+        modal.on('submit','form',function(event){
+            event.preventDefault();
+            console.log($(this));
+            $.pjax.submit(event,'.modal-content',{push:false});
+        });
+    }
 })(jQuery, '{$selector}')
 JS;
     }
