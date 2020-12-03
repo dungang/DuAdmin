@@ -471,11 +471,11 @@ $(document).on('click', '.ajax-file-input button', function (e) {
 			$.get(tokenUrl, { fileType: fileType }, function (data) {
 				var formData = new FormData();
 				var key = data.key + "." + extension;
-				formData.append(MA.uploader.keyName, key);
+				formData.append(DUA.uploader.keyName, key);
 				formData.append("file", file);
-				formData.append(MA.uploader.tokenName, data.token);
+				formData.append(DUA.uploader.tokenName, data.token);
 				$.ajax({
-					url: MA.uploader.uploadUrl,
+					url: DUA.uploader.uploadUrl,
 					dataType: 'json',
 					type: 'POST',
 					async: false,
@@ -485,7 +485,7 @@ $(document).on('click', '.ajax-file-input button', function (e) {
 					success: function (data) {
 						//if (data.hash) {
 						alert('上传成功！');
-						textInput.value = MA.uploader.baseUrl + key;
+						textInput.value = DUA.uploader.baseUrl + key;
 						//}
 					},
 					error: function (response) {

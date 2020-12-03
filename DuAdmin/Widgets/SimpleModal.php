@@ -4,10 +4,15 @@ namespace DuAdmin\Widgets;
 use yii\bootstrap\Modal;
 use yii\bootstrap\Html;
 use yii\widgets\PjaxAsset;
-
+/**
+ * 简单模态框
+ * 支持pjax，由于模态框是bootstrap modal.load方法加载，替换的是.modal-content的子内容
+ * 所以 pjax必须用.modal-content做容器，否则就出现排版错误
+ * @author dungang
+ *
+ */
 class SimpleModal extends Modal
 {
-    
     public $enablePjax = true;
 
     public function run()

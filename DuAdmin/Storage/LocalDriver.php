@@ -141,7 +141,7 @@ class LocalDriver extends IDriver
     public function generateUploadToken($fileType = 'image')
     {
         return [
-            'key' => 'uploads/' .$fileType .'/'. date('Y/m/d') . '/' . uniqid(),
+            'key' => parent::initWritePath($fileType) . '/' . uniqid($fileType, true),
             'token' => time(),
         ];
     }

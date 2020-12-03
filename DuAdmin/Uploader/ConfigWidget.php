@@ -63,7 +63,7 @@ class ConfigWidget extends Widget
 
     public function configJs()
     {
-        return "window.MA = " . Json::encode([
+        return "window.DA = " . Json::encode([
             'uploader' => [
                 'keyName' => $this->keyName,
                 'tokenName' => $this->tokenName,
