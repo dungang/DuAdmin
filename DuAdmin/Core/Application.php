@@ -32,11 +32,11 @@ class Application extends WebApplication
         // 你也可以只使用 Composer 的自动加载，而不用 Yii 的自动加载。 
         // 不过这样做的话，类的加载效率会下降， 且你必须遵循 Composer 所设定的规则，
         // 从而让你的类满足可以被自动加载的要求。
-        \Yii::setAlias("@Addons", $this->basePath . "/Addons");
-        \Yii::setAlias("@Backend", $this->basePath . "/Backend");
-        \Yii::setAlias("@Frontend", $this->basePath . "/Frontend");
-        \Yii::setAlias("@Api", $this->basePath . "/Api");
-        \Yii::setAlias("@Console", $this->basePath . "/Console");
+//         \Yii::setAlias("@Addons", $this->basePath . "/Addons");
+//         \Yii::setAlias("@Backend", $this->basePath . "/Backend");
+//         \Yii::setAlias("@Frontend", $this->basePath . "/Frontend");
+//         \Yii::setAlias("@Api", $this->basePath . "/Api");
+//         \Yii::setAlias("@Console", $this->basePath . "/Console");
         parent::init();
         
         AppHelper::swtichLanguage();
