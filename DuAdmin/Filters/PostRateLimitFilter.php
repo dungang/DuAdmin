@@ -32,7 +32,7 @@ class PostRateLimitFilter extends Behavior
      *
      * @var string
      */
-    public $max_times = 10;
+    public $max_times = 50;
 
     /**
      * 默认是900毫秒

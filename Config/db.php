@@ -5,7 +5,7 @@ return [
     'username' => getenv('DB_USERNAME'),
     'password' => getenv('DB_PASSWORD'),
     'charset' => 'utf8mb4',
-    'tablePrefix'=>'ma_',
+    'tablePrefix'=>'da_',
     // Schema cache options (for production environment)
     'enableSchemaCache' => true,
     'schemaCacheDuration' => 60,

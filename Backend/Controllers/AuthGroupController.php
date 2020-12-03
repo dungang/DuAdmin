@@ -17,7 +17,7 @@ class AuthGroupController extends BackendController
         return [
             'index' => [
                 'class' => 'DuAdmin\Core\ListModelsAction',
-                'baseAttrs' => [
+                'modelImmutableAttrs' => [
                     'is_backend' => 1
                 ],
                 'modelClass' => [
@@ -27,7 +27,7 @@ class AuthGroupController extends BackendController
             ],
             'create' => [
                 'class' => 'DuAdmin\Core\CreateModelAction',
-                'baseAttrs' => [
+                'modelImmutableAttrs' => [
                     'is_backend' => 1
                 ],
                 'modelClass' => [
@@ -37,7 +37,7 @@ class AuthGroupController extends BackendController
             'batch-create' => [
                 'class' => 'DuAdmin\Core\CreateModelsAction',
                 'formName' => 'AuthGroup',
-                'baseAttrs' => [
+                'modelImmutableAttrs' => [
                     'is_backend' => 1
                 ],
                 'modelClass' => [
@@ -52,7 +52,7 @@ class AuthGroupController extends BackendController
             ],
             'update' => [
                 'class' => 'DuAdmin\Core\UpdateModelAction',
-                'baseAttrs' => [
+                'modelImmutableAttrs' => [
                     'is_backend' => 1
                 ],
                 'modelClass' => [
@@ -61,7 +61,7 @@ class AuthGroupController extends BackendController
             ],
             'view' => [
                 'class' => 'DuAdmin\Core\ViewModelAction',
-                'baseAttrs' => [
+                'modelImmutableAttrs' => [
                     'is_backend' => 1
                 ],
                 'modelClass' => [
@@ -70,7 +70,7 @@ class AuthGroupController extends BackendController
             ],
             'delete' => [
                 'class' => 'DuAdmin\Core\DeleteModelAction',
-                'baseAttrs' => [
+                'modelImmutableAttrs' => [
                     'is_backend' => 1
                 ],
                 'modelClass' => [

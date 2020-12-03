@@ -17,7 +17,7 @@ class ProfileController extends FrontendController
         return [
             'index'=>[
                 'class' => 'DuAdmin\Core\UpdateModelAction',
-                'baseAttrs'=>[
+                'modelImmutableAttrs'=>[
                     'id'=>\Yii::$app->user->id,
                 ],
                 'modelClass' => [
