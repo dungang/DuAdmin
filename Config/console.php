@@ -1,5 +1,4 @@
 <?php
-$baseDir = dirname(__DIR__);
 $db = require 'db.php';
 $config = [
     'id' => 'basic-console',
@@ -14,11 +13,6 @@ $config = [
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
-        '@Addons' => $baseDir . '/Addons',
-        '@Backend' => $baseDir . '/Backend',
-        '@Frontend' => $baseDir . '/Frontend',
-        '@Api' => $baseDir . '/Api',
-        '@Console' => $baseDir . '/Console',
     ],
     'components' => [
         'cache' => [
