@@ -60,7 +60,7 @@ class PostRateLimitFilter extends Behavior
     {
         if (self::$is_filtered === false) {
             self::$is_filtered = true;
-            if (\Yii::$app->request->isPost) {
+            if (\Yii::$app->request->isPost && !\Yii::$app->request->isAjax) {
                 $current_time = microtime(true);
                 if (! in_array(\Yii::$app->controller->route, $this->exclude_routes)) {
                     //超过不正常请求的次数上限
