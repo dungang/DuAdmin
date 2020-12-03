@@ -1,4 +1,5 @@
 <?php
+
 namespace Console;
 
 use yii\console\Controller;
@@ -6,6 +7,7 @@ use yii\helpers\Inflector;
 use yii\helpers\FileHelper;
 use yii\helpers\Console;
 use yii\helpers\ArrayHelper;
+use yii\helpers\VarDumper;
 
 /**
  *
@@ -35,7 +37,8 @@ class AddonController extends Controller
      *            插件名称
      */
     public function actionInstall($addonName)
-    {}
+    {
+    }
 
     /**
      * 卸载插件
@@ -44,13 +47,15 @@ class AddonController extends Controller
      *            插件名称
      */
     public function actionUninstall($addonName)
-    {}
+    {
+    }
 
     /**
      * 清除插件安装配置
      */
     public function actionClear($addonName)
-    {}
+    {
+    }
 
     /**
      * 刷新配置文件
@@ -78,14 +83,21 @@ class AddonController extends Controller
                 'author' => "",
                 'version' => '1.0.0',
                 'intro' => Inflector::camel2words($addonName) . ' ' . $addonTitle,
-                'require' =>[],
+                'require' => [],
+                'i18n' => [],
                 'hasApi' => false,
                 'hasFrontend' => false,
                 'hasBackend' => true,
                 'hasConsole' => false,
-                'hooksMap' =>[],
-                'validatorMap' =>[],
+                'hooksMap' => [],
+                'validatorMap' => [],
             ];
+            $message_category = 'addon_' . Inflector::camel2id($addonName, '_');
+            $message_file = $addonDir . '/resource/messages/zh-CN/' . $message_category . '.php';
+            echo $message_file,PHP_EOL;
+            if (file_exists($message_file)) {
+                $addon['i18n'][]=$message_category;
+            }
             $data = ArrayHelper::merge($addon, $oldJson);
             file_put_contents($addonJsonFile, json_encode($data, JSON_FORCE_OBJECT | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
             $this->stdout("创建成功\n" . $addonJsonFile . "\n\n", Console::FG_GREEN);
@@ -114,6 +126,7 @@ class AddonController extends Controller
         $dirs[] = $addonDir . '/Widgets';
         $dirs[] = $addonDir . '/resource';
         $dirs[] = $addonDir . '/resource/messages';
+        $dirs[] = $addonDir . '/resource/messages/zh-CN';
         $dirs[] = $addonDir . '/resource/views';
         $dirs[] = $addonDir . '/resource/views/backend';
         $dirs[] = $addonDir . '/resource/views/frontend';
@@ -126,7 +139,17 @@ class AddonController extends Controller
             }
             if ($create) {
                 $this->createAddon($addonName, $addonTitle, $addonDir, $dirs);
-                $this->runAction("json",[$addonName,$addonTitle]);
+                $addonMessageFile = $addonDir . '/resource/messages/zh-CN/addon_' . Inflector::camel2id($addonName, '_') . '.php';
+                $createMessage = true;
+                if (file_exists($addonMessageFile)) {
+                    $createMessage = $this->confirm('国际化消息文件已经存在，是否覆盖?');
+                }
+                if ($createMessage) {
+                    file_put_contents($addonMessageFile, "<?php\nreturn " . VarDumper::export([
+                        Inflector::camel2words($addonName) => $addonTitle
+                    ]) . ';');
+                }
+                $this->runAction("json", [$addonName, $addonTitle]);
                 $this->stdout("插件创建成功" . PHP_EOL);
             }
         } catch (\Exception $e) {
@@ -158,4 +181,3 @@ class AddonController extends Controller
         }
     }
 }
-

@@ -1,4 +1,5 @@
 <?php
+
 namespace DuAdmin\Components;
 
 use DuAdmin\Core\Application;
@@ -34,7 +35,7 @@ class Bootstrap implements BootstrapInterface
             'sourceLanguage' => Yii::$app->sourceLanguage,
             'basePath' => $app->basePath . '/DuAdmin/messages'
         ];
-        
+
 
         // 更换mysql的schema对象，支持for update 排他锁
         $app->db->schemaMap['mysql'] = 'DuAdmin\Mysql\Schema';
@@ -81,16 +82,28 @@ class Bootstrap implements BootstrapInterface
 
         if (is_array($Addons)) {
             foreach ($Addons as $addon) {
-                // 1. 注册加载的类库
+                // 注册加载的类库
                 LoaderHelper::loadAddonLibs($addon);
-                // 2. 设置模块
+                // 设置模块
                 if ($this->canConfigAddon($addon)) {
                     $app->setModule($addon['id'], [
                         'class' => $addon['mainClass']
                     ]);
+                    //调试查看加载的插件
                     \Yii::debug($addon);
                 }
-                // 3. 绑定hook处理器
+
+                // 设置模块的国际化消息文件
+                if (isset($addon['i18n']) && is_array($addon['i18n'])) {
+                    foreach ($addon['i18n'] as $category) {
+                        $app->i18n->translations[$category] = [
+                            'class' => PhpMessageSource::class,
+                            'basePath' => $app->basePath . '/Addons/' . $addon['addon'] . '/resource/messages'
+                        ];
+                    }
+                }
+
+                // 绑定hook处理器
                 if (isset($addon['hooksMap']) && is_array($addon['hooksMap'])) {
                     foreach ($addon['hooksMap'] as $hookName => $handlerNames) {
                         if (is_array($handlerNames)) {
@@ -102,13 +115,13 @@ class Bootstrap implements BootstrapInterface
                         }
                     }
                 }
-                // 4 注册模块的表当验证器
+                // 注册模块的表当验证器
                 if (isset($addon['validatorMap']) && is_array($addon['validatorMap'])) {
                     foreach ($addon['validatorMap'] as $name => $validator) {
                         Validator::$builtInValidators[$name] = $validator;
                     }
                 }
-                // 5. 其他待定
+                // 其他待定
             }
         }
     }

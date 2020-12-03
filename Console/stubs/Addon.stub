@@ -26,7 +26,7 @@ class Addon extends BaseAddon {
         // $this->controllerMap = [
         //     'setting' => [
         //         'class' => 'Backend\Components\SettingController',
-        //         'default_category' => '{{ addonId }}'
+        //         'default_category' => 'addon-{{ addonId }}'
         //     ]
         // ];
     }
