@@ -48,7 +48,7 @@ class UpdateModelsAction extends BaseAction
                 }
             }
         } catch (\Exception $e) {
-            Yii::warning($e->getTraceAsString());
+            Yii::error($e->getTraceAsString());
             return $this->controller->renderOnException($this->viewName, $this->data);
         }
 

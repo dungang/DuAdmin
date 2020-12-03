@@ -18,7 +18,6 @@ class CreateModelAction extends BaseAction
         $model = \Yii::createObject($this->modelClass);
         $model->load(\Yii::$app->request->queryParams);
 
-        $model->setAttributes($this->baseAttrs);
         $this->data = [
             'model' => $model
         ];

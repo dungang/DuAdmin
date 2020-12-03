@@ -4,10 +4,9 @@ use DuAdmin\Widgets\AjaxFileInput;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
-use Frontend\Models\User;
 
 /* @var $this yii\web\View */
-/* @var $model User */
+/* @var $model Frontend\Models\User */
 
 $this->title = Yii::t('app', 'User Info');
 $this->params['breadcrumbs'][] = $this->title;

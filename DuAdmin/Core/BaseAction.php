@@ -8,6 +8,7 @@ use yii\web\NotFoundHttpException;
 use yii\base\InvalidConfigException;
 use yii\base\Model;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  *
@@ -16,7 +17,7 @@ use yii\db\ActiveRecord;
  * @property array $modelBehaviors 模型的行为
  * @property array $actionBehaviors action的行为
  */
-class BaseAction extends Action
+abstract class BaseAction extends Action
 {
 
     const EVENT_BEFORE_RUN = 'actionBeforeRun';
@@ -64,11 +65,14 @@ class BaseAction extends Action
      * 随着业务的增加，对一个模型的需求就会出现不同场景（属性数量的不同）在rules方法章充满了各种场景，已经复杂的组合。
      * 还不入直接通过参数约束。
      * 
-     * 可以参考用户表（当会员和管理员同表的场景），用户表即代表了管理员也可以代表会员
+     * 比如：当会员和管理员同表的场景，用户表即代表了管理员也可以代表会员
      *
      * @var array|null
      */
-    public $baseAttrs = null;
+    public $modelImmutableAttrs = null;
+
+
+    public $modelScenario = 'default';
 
     /**
      * 成功操作的跳转地址，如果没有设置，则使用默认的
@@ -149,10 +153,10 @@ class BaseAction extends Action
      * @param Model $model
      * @return boolean
      */
-    protected function setbaseAttrs($model)
+    protected function overrideModelImmutableAttrs($model)
     {
-        if ($this->baseAttrs) {
-            foreach ($this->baseAttrs as $field => $val) {
+        if ($this->modelImmutableAttrs) {
+            foreach ($this->modelImmutableAttrs as $field => $val) {
                 $model->{$field} = $val;
             }
         }
@@ -167,11 +171,11 @@ class BaseAction extends Action
     protected function composeGetParams($model)
     {
         $params = \Yii::$app->request->queryParams;
-        if ($this->baseAttrs) {
+        if ($this->modelImmutableAttrs) {
             $formName = $model->formName();
             if (empty($params[$formName]))
                 $params[$formName] = [];
-            $params[$formName] = \array_merge($params[$formName], $this->baseAttrs);
+            $params[$formName] = ArrayHelper::merge($params[$formName], $this->modelImmutableAttrs);
         }
         return $params;
     }
@@ -186,15 +190,15 @@ class BaseAction extends Action
     protected function composePostParams($model, $multiple = false)
     {
         $params = \Yii::$app->request->post();
-        if ($this->baseAttrs) {
+        if ($this->modelImmutableAttrs) {
             $formName = $model->formName();
             if (empty($params[$formName]))
                 $params[$formName] = [];
             if ($multiple === false) {
-                $params[$formName] = \array_merge($params[$formName], $this->baseAttrs);
+                $params[$formName] = ArrayHelper::merge($params[$formName], $this->modelImmutableAttrs);
             } else {
                 foreach ($params[$formName] as $i => $param) {
-                    $params[$formName][$i] = \array_merge($param, $this->baseAttrs);
+                    $params[$formName][$i] = ArrayHelper::merge($param, $this->modelImmutableAttrs);
                 }
             }
         }
@@ -255,17 +259,17 @@ class BaseAction extends Action
     /**
      * 获取模型的主键，并自动装配了关系数组
      *
-     * @param \yii\db\ActiveRecordInterface $class
+     * @param \yii\db\ActiveRecordInterface $modelClass
      * @throws InvalidConfigException
      * @return mixed|bool
      */
-    protected function getPrimaryKeyCondition($class)
+    protected function getPrimaryKeyCondition($modelClass)
     {
         // query by primary key
-        if (method_exists($class, 'primaryKey')) {
-            $primaryKey = $class::primaryKey();
+        if (method_exists($modelClass, 'primaryKey')) {
+            $primaryKey = $modelClass::primaryKey();
             $cond = [];
-            $params = array_merge(\Yii::$app->request->get(), \Yii::$app->request->post());
+            $params = ArrayHelper::merge(\Yii::$app->request->get(), \Yii::$app->request->post());
             foreach ($primaryKey as $key) {
                 if (isset($params[$key])) {
                     $cond[$key] = $params[$key];
@@ -280,61 +284,58 @@ class BaseAction extends Action
     }
 
     /**
+     * 构建查询模型的参数
+     *
+     * @return array
+     */
+    protected function builderFindModelCondition()
+    {
+        if (is_string($this->modelClass)) {
+            // 如果模型类用了字符串参数
+            $modelClass = $this->modelClass;
+            $args = [];
+        } else if (is_array($this->modelClass) && isset($this->modelClass['class'])) {
+            // 如果模型类使用是数组构成（yii2规范，必须用class指定模型类）
+            $modelClass = $this->modelClass['class'];
+            $args = $this->modelClass;
+            $args['class'] = null;
+        } else {
+            throw new InvalidConfigException('Action must set modelClass');
+        }
+        //自动查找主键过滤条件
+        $condition = ArrayHelper::merge($args ?: [], $this->getPrimaryKeyCondition($modelClass));
+        //是否设置了查找的固定参数
+        if ($this->modelImmutableAttrs) {
+            $condition = ArrayHelper::merge($condition, $this->modelImmutableAttrs);
+        }
+        return [$modelClass, $this->clearNullCond($condition)];
+    }
+
+    /**
      * 查找一个模型对象实例通过主键，自动获取主键
      *
-     * @param boolean $createOneOnNotFound
+     * @param boolean $newOneOnNotFound
      * @throws NotFoundHttpException
      * @return mixed|object|ActiveRecord
      */
-    protected function findModel($createOneOnNotFound = false)
+    protected function findModel($newOneOnNotFound = false)
     {
-        /* @var $model ActiveRecord */
-        $model = null;
-        $scenario = Model::SCENARIO_DEFAULT;
-
-        if ($this->modelClass) {
-            if (is_string($this->modelClass)) {
-                $class = $this->modelClass;
-                $args = [];
-            } else if (is_array($this->modelClass) && isset($this->modelClass['class'])) {
-                $args = $this->modelClass;
-                $class = array_shift($args);
-            } else {
-                throw new InvalidConfigException();
-            }
-            if (isset($args['scenario'])) {
-                $scenario = $args['scenario'];
-                unset($args['scenario']);
-            }
-            if ($class) {
-                $condition = array_merge($args ?: [], $this->getPrimaryKeyCondition($class));
-                //是否设置了查找的固定参数
-                if ($this->baseAttrs) {
-                    $condition = \array_merge($condition, $this->baseAttrs);
-                }
-                $model = call_user_func(array(
-                    $class,
-                    'findOne'
-                ), $this->clearCond($condition));
-            }
-
-            if ($model !== null) {
-                $model->setScenario($scenario);
-                foreach ($condition as $field => $val) {
-                    if ($model->$field === null) {
-                        $model->$field = $val;
-                    }
-                }
-                return $model;
-            } else if ($createOneOnNotFound) {
-                $condition['class'] = $this->modelClass;
-                $condition['scenario'] = $scenario;
-                return \Yii::createObject($condition);
-            }
-
-            throw new NotFoundHttpException('The requested page does not exist.');
+        list($modelClass, $condition) = $this->builderFindModelCondition();
+        /* @var $model \yii\db\ActiveRecord */
+        $model = call_user_func(array(
+            $modelClass,
+            'findOne'
+        ), $condition);
+        if ($model !== null) {
+            $model->setScenario($this->modelScenario);
+            return $model;
+        } else if ($newOneOnNotFound) {
+            $model = \Yii::createObject($modelClass,$condition);
+            $model->setScenario($this->modelScenario);
+            return $model;
         }
-        throw new InvalidConfigException();
+
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 
     /**
@@ -345,65 +346,37 @@ class BaseAction extends Action
      */
     protected function findModels()
     {
-        $models = null;
-        $scenario = Model::SCENARIO_DEFAULT;
-        if ($this->modelClass) {
-            if (is_string($this->modelClass)) {
-                $class = $this->modelClass;
-                $args = [];
-            } else if (is_array($this->modelClass) && isset($this->modelClass['class'])) {
-                $args = $this->modelClass;
-                $class = array_shift($args);
-            } else {
-                throw new InvalidConfigException();
-            }
-           
-            if (isset($args['scenario'])) {
-                $scenario = $args['scenario'];
-                unset($args['scenario']);
-            }
-            if ($class) {
-                $condition = array_merge($args ?: [], $this->getPrimaryKeyCondition($class));
-                if ($condition && is_array($condition)) {
-                    //是否设置了查找的固定参数
-                    if ($this->baseAttrs) {
-                        $condition = \array_merge($condition, $this->baseAttrs);
-                    }
-                    $condition = $this->clearCond($condition);
-
-                    if (!empty($condition)) {
-                        $models = call_user_func(array(
-                            $class,
-                            'findAll'
-                        ), $condition);
-                    }
-                }
-            }
-            if ($models !== null) {
-                return array_map(function ($model) use ($condition, $scenario) {
-                    $scenario && $model->setScenario($scenario);
-                    foreach ($condition as $field => $val) {
-                        if ($model->$field === null) {
-                            $model->$field = $val;
-                        }
-                    }
-                    return $model;
-                }, $models);
-            }
-            throw new NotFoundHttpException('The requested page does not exist.');
+        list($modelClass, $condition) = $this->builderFindModelCondition();
+        /* @var $models \yii\db\ActiveRecord[] */
+        $models = call_user_func(array(
+            $modelClass,
+            'findAll'
+        ), $condition);
+        if ($models !== null) {
+            return array_map(function ($model) {
+                $model->setScenario($this->modelScenario);
+                return $model;
+            }, $models);
         }
-        throw new InvalidConfigException();
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
-    
+
     /**
      * 判断是否是ajax请求，主要是区分表单的ajax验证
      * @return boolean
      */
-    protected function isAjaxNotPjax(){
+    protected function isAjaxNotPjax()
+    {
         return Yii::$app->request->isAjax && Yii::$app->request->isPjax === false;
     }
 
-    private function clearCond($cond)
+    /**
+     * 清理null的参数
+     *
+     * @param array $cond
+     * @return array
+     */
+    protected function clearNullCond($cond)
     {
         return \array_filter($cond, function ($val) {
             return !\is_null($val);
