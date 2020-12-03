@@ -10,13 +10,27 @@ use DuAdmin\Uploader\ConfigWidget;
 class AjaxFileInput extends InputWidget
 {
 
+    /**
+     * 文件类型
+     *
+     * @var string
+     */
     public $type = "image";
+
+    /**
+     * 是否只读
+     *
+     * @var boolean
+     */
+    public $readOnly = false;
 
     public function run()
     {
         //配置前端参数
         ConfigWidget::factory();
-        //$this->options['readonly'] = 'readonly';
+        if($this->readOnly) {
+            $this->options['readonly'] = 'readonly';
+        }
         $this->options['data-type'] = $this->type;
         $this->options['data-token-url'] =  Url::to(['/site/upload-token']);
         $actionButton = '<span class="input-group-btn">

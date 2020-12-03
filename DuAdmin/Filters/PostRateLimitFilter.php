@@ -96,7 +96,7 @@ class PostRateLimitFilter extends Behavior
     protected function renderForm($controller, $model = null)
     {
         $model = $model ?: new PostRateLimitForm();
-        return $controller->renderFile('@DuAdmin/views/post-rate-limit-form.php', [
+        return $controller->renderFile(dirname(__DIR__) . '/views/post-rate-limit-form.php', [
             'model' => $model
         ]);
     }

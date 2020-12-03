@@ -330,7 +330,7 @@ abstract class BaseAction extends Action
             $model->setScenario($this->modelScenario);
             return $model;
         } else if ($newOneOnNotFound) {
-            $model = \Yii::createObject($modelClass,$condition);
+            $model = new $modelClass($condition);
             $model->setScenario($this->modelScenario);
             return $model;
         }
