@@ -168,14 +168,14 @@ class Generator extends \app\generators\Generator
      */
     public function generate()
     {
-        $controllerFile = Yii::getAlias('@app/' . str_replace('\\', '/', ltrim($this->controllerClass, '\\')) . '.php');
+        $controllerFile = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->controllerClass, '\\')) . '.php');
 
         $files = [
             new CodeFile($controllerFile, $this->render('controller.php')),
         ];
 
         if (!empty($this->searchModelClass)) {
-            $searchModel = Yii::getAlias('@app/' . str_replace('\\', '/', ltrim($this->searchModelClass, '\\') . '.php'));
+            $searchModel = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->searchModelClass, '\\') . '.php'));
             $files[] = new CodeFile($searchModel, $this->render('search.php'));
         }
 

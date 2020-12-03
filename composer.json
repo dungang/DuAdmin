@@ -8,7 +8,7 @@
 	],
 	"homepage" : "http://www.baiyuan-teck.com/",
 	"type" : "project",
-	"minimum-stability" : "stable",
+	"minimum-stability" : "dev",
 	"require" : {
 		"php" : "~7.0",
 		"ext-zlib" : "*",
@@ -42,7 +42,10 @@
 		}
 	},
 	"scripts" : {
-		"post-install-cmd" : "yii\\composer\\Installer::postInstall",
+		"post-install-cmd" : [
+			"DuAdmin\\Scripts\\ComposerInstaller::createPublicAssets",
+			"yii\\composer\\Installer::postInstall"
+		],
 		"post-create-project-cmd" : [
 			"yii\\composer\\Installer::postCreateProject",
 			"yii\\composer\\Installer::postInstall"
@@ -70,12 +73,7 @@
 	],
 	"autoload" : {
 		"psr-4" : {
-			"DuAdmin\\" : "DuAdmin",
-			"Backend\\" : "Backend",
-			"Frontend\\" : "Frontend",
-			"Api\\" : "Api",
-			"Addons\\" : "Addons",
-			"Console\\" : "Console"
+			"DuAdmin\\" : "DuAdmin"
 		}
 	},
 	"authors" : [{

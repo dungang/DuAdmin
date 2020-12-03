@@ -28,12 +28,13 @@ class Bootstrap implements BootstrapInterface
     public function bootstrap($app)
     {
 
-        // 注册MMAdmin的多语言
+        // 注册DUAdmin的多语言
         $app->i18n->translations['da'] = [
             'class' => PhpMessageSource::class,
             'sourceLanguage' => Yii::$app->sourceLanguage,
             'basePath' => $app->basePath . '/DuAdmin/messages'
         ];
+        
 
         // 更换mysql的schema对象，支持for update 排他锁
         $app->db->schemaMap['mysql'] = 'DuAdmin\Mysql\Schema';
