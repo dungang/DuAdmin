@@ -12,6 +12,7 @@ class m201121_145324_create_setting_table extends Migration
      */
     public function safeUp()
     {
+        $tableOptions = 'CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci ENGINE=MyISAM';
         $this->createTable('{{%setting}}', [
             'name' => $this->string(64)->notNull()->comment('变量名'),
             'parent'=> $this->string(64)->notNull()->comment('归属'),
@@ -20,7 +21,7 @@ class m201121_145324_create_setting_table extends Migration
             'val_type' => $this->string(64)->notNull()->comment('值类型'),
             'hint' => $this->string(255)->null()->comment('变量介绍'),
             'category' => $this->string(64)->notNull()->defaultValue('base')->comment('变量标题')
-        ]);
+        ],$tableOptions);
         $this->addPrimaryKey('pk-setting-name','{{%setting}}','name');
         $this->createIndex('idx-setting-parent', '{{%setting}}', 'parent');
         $this->addCommentOnTable('{{%setting}}', '系统配置');

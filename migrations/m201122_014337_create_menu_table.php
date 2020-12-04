@@ -12,6 +12,7 @@ class m201122_014337_create_menu_table extends Migration
      */
     public function safeUp()
     {
+        $tableOptions = 'CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci ENGINE=MyISAM';
         $this->createTable('{{%menu}}', [
             'id' => $this->primaryKey(),
             'pid' => $this->integer()->notNull()->comment('父菜单ID'),
@@ -21,7 +22,7 @@ class m201122_014337_create_menu_table extends Migration
             'require_login' => $this->boolean()->defaultValue(1)->comment('需要登录'),
             'icon' => $this->string(64)->null()->comment('ICON'),
             'sort' => $this->smallInteger()->defaultValue(0)->comment('排序'),
-        ]);
+        ],$tableOptions);
 
         $this->batchInsert('{{%menu}}',[
             'id','pid','name','url','is_front','require_login','icon','sort'

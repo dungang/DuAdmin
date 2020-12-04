@@ -156,15 +156,15 @@ class BaseModel extends ActiveRecord
      * @param array $params
      * @return void
      */
-    public function beforeSearch(&$query, &$params)
+    public function beforeSearch($query, &$params)
     {
         $event = new BeforeSearchEvent([
             'query' => $query,
             'params' => $params
         ]);
         $this->trigger(self::EVNT_BEFORE_SEARCH, $event);
-        $params = $event->params;
-        $query = $event->query;
+//         $params = $event->params;
+//         $query = $event->query;
     }
 
     public static function allIdToName($key = 'id', $val = 'name', $where = null, $orderBy = null)
