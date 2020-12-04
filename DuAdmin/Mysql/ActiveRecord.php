@@ -36,7 +36,7 @@ class ActiveRecord extends OriginActiveRecord
      */
     public static function findOneForUpdate($condition)
     {
-        return static::findByCondition($condition)->forUpdate()->one();
+        return static::findByCondition($condition)->forUpdate()->limit(1)->one();
     }
 
     /**

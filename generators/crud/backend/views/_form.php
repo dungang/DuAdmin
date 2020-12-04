@@ -30,6 +30,7 @@ use yii\widgets\ActiveForm;
     <div class="row">
 <?php foreach ($generator->getColumnNames() as $attribute) {
     if (in_array($attribute, $safeAttributes)) {
+        if(in_array($attribute,['created_at','updated_at'])) continue;
         echo "    <?= " . $generator->generateActiveField($attribute) . " ?>\n\n";
     }
 } ?>

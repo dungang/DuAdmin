@@ -13,7 +13,6 @@ use yii\db\ActiveRecord;
 use yii\db\BaseActiveRecord;
 use yii\db\Schema;
 use app\generators\CodeFile;
-use yii\helpers\Html;
 use yii\helpers\Inflector;
 use yii\helpers\VarDumper;
 use yii\web\Controller;
@@ -307,7 +306,9 @@ class Generator extends \app\generators\Generator
             $field =  "\$form->field(\$model, '$attribute')";
         } else {
             $column = $tableSchema->columns[$attribute];
-            if(preg_match('/img|image|pic|pict|cover/', $column->name)) {
+            if($column->type == 'text') {
+                $field = "\$form->field(\$model, '$attribute')->widget('DuAdmin\Widgets\DefaultEditor')";
+            } else if(preg_match('/img|image|pic|pict|cover/', $column->name)) {
                 $field = "\$form->field(\$model, '$attribute')->widget('DuAdmin\Widgets\AjaxFileInput')";
             } else if (substr($column->name,-3)==='_at') {
                 $field = "\$form->field(\$model, '$attribute')->widget('DuAdmin\Widgets\DatePicker',['multidate'=>2])";

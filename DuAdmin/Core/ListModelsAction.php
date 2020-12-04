@@ -13,8 +13,8 @@ class ListModelsAction extends BaseAction
 
     public function run()
     {
-        $searchModel = \Yii::createObject($this->modelClass);
-    
+        list($modelClass,$condition) = $this->builderFindModelCondition();
+        $searchModel = new $modelClass($condition);
         if ($searchModel->hasProperty("is_del") && $this->query_only_undel) {
             $searchModel->is_del = 0;
         }

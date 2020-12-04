@@ -322,10 +322,12 @@ abstract class BaseAction extends Action
     {
         list($modelClass, $condition) = $this->builderFindModelCondition();
         /* @var $model \yii\db\ActiveRecord */
-        $model = call_user_func(array(
-            $modelClass,
-            'findOne'
-        ), $condition);
+        // https://www.yiichina.com/doc/guide/2.0/db-active-record
+        // 提示： yii\db\ActiveRecord::findOne() 和 yii\db\ActiveQuery::one() 
+        // 都不会添加 LIMIT 1 到 生成的 SQL 语句中。
+        // 如果你的查询会返回很多行的数据， 你明确的应该加上 limit(1) 来提高性能，
+        // 比如 Customer::find()->limit(1)->one()。
+        $model = $modelClass::find()->where($condition)->limit(1)->one();
         if ($model !== null) {
             $model->setScenario($this->modelScenario);
             return $model;

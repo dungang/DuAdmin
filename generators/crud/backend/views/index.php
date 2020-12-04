@@ -70,10 +70,10 @@ AAA;
             } else {
                 if(substr($column->name, -3) == '_at') {
                     echo <<<DATE_FIELD
-                    [  
-                        'class' => 'DuAdmin\Grids\DateTimeColumn',
-                        'attribute' => '$column->name',
-                    ],\n
+            [  
+                'class' => 'DuAdmin\Grids\DateTimeColumn',
+                'attribute' => '$column->name',
+            ],\n
 DATE_FIELD;
                 } else 
                 echo "            '" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
@@ -81,10 +81,10 @@ DATE_FIELD;
         } else {
             if(substr($column->name, -3) == '_at') {
                 echo <<<DATE_FIELD
-                //[  
-                //    'class' => 'DuAdmin\Grids\DateTimeColumn',
-                //    'attribute' => '$column->name',
-                //],\n
+            [  
+                'class' => 'DuAdmin\Grids\DateTimeColumn',
+                'attribute' => '$column->name',
+            ],\n
 DATE_FIELD;
             } else 
                 echo "            //'" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
@@ -93,17 +93,7 @@ DATE_FIELD;
 }
 ?>
             [
-                'class' => '\DuAdmin\Grids\ActionColumn',
-                'buttonsOptions'=>[
-                    'update'=>[
-                        'data-toggle'=>'modal',
-                        'data-target'=>'#modal-dailog',
-                    ],
-                    'view'=>[
-                        'data-toggle'=>'modal',
-                        'data-target'=>'#modal-dailog',
-                    ],
-                ]
+                'class' => '\DuAdmin\Grids\ActionColumn'
         	]
        ]
     ]); ?>
