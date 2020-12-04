@@ -227,32 +227,7 @@ Date.prototype.format = function (fmt) {
 		};
 	}(jQuery);
 
-
-
-var App = {
-	extendSimpleModal: function (modalSelector) {
-		var modal = $(modalSelector);
-		modal.on('hidden.bs.modal', function (e) {
-			// 清空对象
-			$(e.target).data('bs.modal', null);
-		});
-		modal.on('show.bs.modal', function (e) {
-			var size = $(e.relatedTarget).data('modal-size');
-			$(e.target).find('.modal-dialog').removeClass('modal-sm modal-lg').addClass(size ? size : '');
-		});
-	}
-};
-
-var baiduTextAudio = new Audio();
-
-function speckText(url) {
-	//var url = "http://tts.baidu.com/text2audio?lan=zh&ctp=1&ie=UTF-8&vol=9&per=0&spd=4&pit=5&aue=3&&text=" + encodeURI(str);
-	baiduTextAudio.src = url;
-	baiduTextAudio.play();
-}
-
-+
-	function ($) {
++ function ($) {
 		function replaceIndex(clone) {
 			var regexID = /\-\d{1,}\-/gmi;
 			var regexName = /\[\d{1,}\]/gmi;
@@ -412,16 +387,6 @@ $(document).on('click', '.grid-view', function (e) {
 	}
 });
 
-// $(document).on('click', '.batch-edit', function (e) {
-// 	e.preventDefault();
-// 	var that = $(this);
-// 	if (that.attr('items') && that.attr('items') > 0) {
-
-// 	}  else {
-// 		alert('请选择加载的条目，否则不能进行操作');
-// 	}
-// });
-
 
 $(document).on('click', '.del-all', function (e) {
 	e.preventDefault();
@@ -465,9 +430,6 @@ $(document).on('click', '.ajax-file-input button', function (e) {
 			var file = fileInput.files[0];
 			var index = file.name.lastIndexOf(".");
 			var extension = file.name.substr(index + 1);
-			//var date = new Date();
-			//var key = fileType + "/" + date.format("yyyy/MM/dd/") + date.getTime() +"."+extension;
-
 			$.get(tokenUrl, { fileType: fileType }, function (data) {
 				var formData = new FormData();
 				var key = data.key + "." + extension;

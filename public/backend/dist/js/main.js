@@ -376,27 +376,6 @@ Date.prototype.format = function (fmt) {
     row: 'tr'
   };
 }(jQuery);
-var App = {
-  extendSimpleModal: function extendSimpleModal(modalSelector) {
-    var modal = $(modalSelector);
-    modal.on('hidden.bs.modal', function (e) {
-      // 清空对象
-      $(e.target).data('bs.modal', null);
-    });
-    modal.on('show.bs.modal', function (e) {
-      var size = $(e.relatedTarget).data('modal-size');
-      $(e.target).find('.modal-dialog').removeClass('modal-sm modal-lg').addClass(size ? size : '');
-    });
-  }
-};
-var baiduTextAudio = new Audio();
-
-function speckText(url) {
-  //var url = "http://tts.baidu.com/text2audio?lan=zh&ctp=1&ie=UTF-8&vol=9&per=0&spd=4&pit=5&aue=3&&text=" + encodeURI(str);
-  baiduTextAudio.src = url;
-  baiduTextAudio.play();
-}
-
 +function ($) {
   function replaceIndex(clone) {
     var regexID = /\-\d{1,}\-/gmi;
@@ -567,15 +546,7 @@ $(document).on('click', '.grid-view', function (e) {
       btn.attr('href', baseUrl);
     }
   }
-}); // $(document).on('click', '.batch-edit', function (e) {
-// 	e.preventDefault();
-// 	var that = $(this);
-// 	if (that.attr('items') && that.attr('items') > 0) {
-// 	}  else {
-// 		alert('请选择加载的条目，否则不能进行操作');
-// 	}
-// });
-
+});
 $(document).on('click', '.del-all', function (e) {
   e.preventDefault();
   var that = $(this);
@@ -616,19 +587,17 @@ $(document).on('click', '.ajax-file-input button', function (e) {
     if (fileInput.multiple == false) {
       var file = fileInput.files[0];
       var index = file.name.lastIndexOf(".");
-      var extension = file.name.substr(index + 1); //var date = new Date();
-      //var key = fileType + "/" + date.format("yyyy/MM/dd/") + date.getTime() +"."+extension;
-
+      var extension = file.name.substr(index + 1);
       $.get(tokenUrl, {
         fileType: fileType
       }, function (data) {
         var formData = new FormData();
         var key = data.key + "." + extension;
-        formData.append(MA.uploader.keyName, key);
+        formData.append(DUA.uploader.keyName, key);
         formData.append("file", file);
-        formData.append(MA.uploader.tokenName, data.token);
+        formData.append(DUA.uploader.tokenName, data.token);
         $.ajax({
-          url: MA.uploader.uploadUrl,
+          url: DUA.uploader.uploadUrl,
           dataType: 'json',
           type: 'POST',
           async: false,
@@ -640,7 +609,7 @@ $(document).on('click', '.ajax-file-input button', function (e) {
           success: function success(data) {
             //if (data.hash) {
             alert('上传成功！');
-            textInput.value = MA.uploader.baseUrl + key; //}
+            textInput.value = DUA.uploader.baseUrl + key; //}
           },
           error: function error(response) {
             console.log(response);
@@ -702,9 +671,9 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\projects\workspace\MMAdmin\public\backend\src\js\main.js */"./public/backend/src/js/main.js");
-__webpack_require__(/*! D:\projects\workspace\MMAdmin\public\backend\src\less\main.less */"./public/backend/src/less/main.less");
-module.exports = __webpack_require__(/*! D:\projects\workspace\MMAdmin\themes\basic\assets\src\less\basic.less */"./themes/basic/assets/src/less/basic.less");
+__webpack_require__(/*! D:\IT-SPACE\DUAdmin\public\backend\src\js\main.js */"./public/backend/src/js/main.js");
+__webpack_require__(/*! D:\IT-SPACE\DUAdmin\public\backend\src\less\main.less */"./public/backend/src/less/main.less");
+module.exports = __webpack_require__(/*! D:\IT-SPACE\DUAdmin\themes\basic\assets\src\less\basic.less */"./themes/basic/assets/src/less/basic.less");
 
 
 /***/ })
