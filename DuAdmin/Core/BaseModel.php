@@ -27,7 +27,7 @@ class BaseModel extends ActiveRecord
         parent::init();
         //是否有软删除字段
         if ($this->hasDeleteProperty()) {
-            $this->is_del = 0;
+            $this->isDel = 0;
         }
     }
 
@@ -93,13 +93,13 @@ class BaseModel extends ActiveRecord
 
     /**
      * 不是物理删除，而是状态删除
-     * 通知is_del字段来标记
+     * 通知isDel字段来标记
      *
      * @return boolean
      */
     protected function hasDeleteProperty()
     {
-        return $this->hasProperty("is_del");
+        return $this->hasProperty("isDel");
     }
 
     /**
@@ -110,7 +110,7 @@ class BaseModel extends ActiveRecord
     public function delete()
     {
         if ($this->hasDeleteProperty()) {
-            $this->is_del = 1;
+            $this->isDel = 1;
             $result = $this->update(false);
             return $result;
         }

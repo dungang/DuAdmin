@@ -7,12 +7,13 @@ use yii\db\ActiveRecord;
 use Backend\Models\AuthGroup;
 
 /**
- * 权限列表查询行为，通过is_backend参数动态绑定AuthPermissionSearch的group_name的查询值
+ * 权限列表查询行为，通过isBackend参数动态绑定AuthPermissionSearch的group_name的查询值
  * 并在视图中添加参数groups
+ * 在权限管理控制器中被使用
  */
 class PermissionListBehavior extends Behavior
 {
-    public $is_backend = 1;
+    public $isBackend = 1;
 
     public function events()
     {
@@ -23,21 +24,21 @@ class PermissionListBehavior extends Behavior
 
     public function beforeValidate($event)
     {
-        $is_backend = \Yii::$app->request->get('is_backend',-1);
+        $isBackend = \Yii::$app->request->get('isBackend',-1);
 
-        switch ($is_backend) {
+        switch ($isBackend) {
             case 1:
             case 0:
-                $this->bindGroupName($is_backend);
+                $this->bindGroupName($isBackend);
                 break;
             default:
                 \Yii::$app->view->params['groups']  = AuthGroup::allIdToName('name', 'title');
         }
     }
 
-    protected function bindGroupName($is_backend)
+    protected function bindGroupName($isBackend)
     {
-        $groups = AuthGroup::allIdToName('name', 'title', ['is_backend' => $is_backend]);
+        $groups = AuthGroup::allIdToName('name', 'title', ['isBackend' => $isBackend]);
         \Yii::$app->view->params['groups'] = $groups;
         if (empty($this->owner->group_name)) {
             $group_names = array_keys($groups);
