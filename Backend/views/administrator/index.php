@@ -1,14 +1,16 @@
 <?php
 
 use yii\helpers\Html;
+use DuAdmin\Helpers\AppHelper;
 use DuAdmin\Grids\PanelGridView;
+use DuAdmin\Widgets\FullSearchBox;
 
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel Backend\Models\AdminSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('backend', 'Administors');
+$this->title = Yii::t('backend', 'Admins');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php Pjax::begin(['id'=>'admin-index']); ?>
@@ -16,38 +18,53 @@ $this->params['breadcrumbs'][] = $this->title;
         'id' => 'admin-list',
     	'intro' => Yii::t('da','{0} Info Manage',Yii::t('backend', 'Admins')),
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'columns' => [
+            ['class'=>'\yii\grid\CheckboxColumn'],
             [
-                'attribute' => 'username',
+                'attribute' => 'id',
                 'format'=>'raw',
                 'value'=>function($model,$key,$index,$column){
-                    return Html::a($model['username'],['view','id'=>$model['id']],['data-toggle'=>'modal','data-target'=>'#modal-dailog']);
+                    return AppHelper::linkButtonWithSimpleModal($model['id'],['view','id'=>$model['id']]);
                 }
         	],
+            'username',
             'nickname',
-            'status',
-            'login_failure',
-            'login_at:datetime',
+            'avatar',
+            'authKey',
+            //'passwordHash',
+            //'passwordResetToken',
+            //'email:email',
+            //'mobile',
+            //'status:datetime',
+            //'isSuper',
+            [  
+                'class' => 'DuAdmin\Grids\DateTimeColumn',
+                'attribute' => 'loginAt',
+            ],
+            //'loginFailure',
+            //'loginIp',
+            [  
+                'class' => 'DuAdmin\Grids\DateTimeColumn',
+                'attribute' => 'createdAt',
+            ],
+            [  
+                'class' => 'DuAdmin\Grids\DateTimeColumn',
+                'attribute' => 'updatedAt',
+            ],
             [
                 'class' => '\DuAdmin\Grids\ActionColumn',
-                'buttonsOptions'=>[
-                    'update'=>[
-                        'data-toggle'=>'modal',
-                        'data-target'=>'#modal-dailog',
-                    ],
-                    'view'=>[
-                        'data-toggle'=>'modal',
-                        'data-target'=>'#modal-dailog',
-                    ],
-                ]
         	]
        ]
     ]); ?>
-<?= Html::a('<i class="fa fa-plus"></i> ' . Yii::t('da','Create'), ['create'], ['class'=>'btn btn-primary','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
+<?= $this->render('_search', ['model' => $searchModel]); ?>
 
-<?=DuAdmin\Widgets\FullSearchBox::widget(['action'=>['index']]) ?>
+<?= AppHelper::linkButtonWithSimpleModal('<i class="fa fa-plus"></i> ' . Yii::t('da','Create'), ['create'], ['class'=>'btn btn-primary']) ?>
+
+<?= Html::a('<i class="fa fa-trash"></i> '. Yii::t('da','Delete'), ['delete'], ['class'=>'btn btn-danger del-all','data-target'=>'#admin-list']) ?>
+
+<?= FullSearchBox::widget(['action'=>['index']]) ?> 
 
 <?php PanelGridView::end() ?>
+
 <?php Pjax::end(); ?>
 

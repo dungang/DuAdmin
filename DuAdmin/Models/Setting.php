@@ -9,7 +9,7 @@ namespace DuAdmin\Models;
  * @property string $title 标题
  * @property string $value 值
  * @property string $hint 提示
- * @property string $val_type 值类型
+ * @property string $valType 值类型
  * @property string $category 参数分类
  */
 class Setting extends \DuAdmin\Core\BaseModel
@@ -45,7 +45,7 @@ class Setting extends \DuAdmin\Core\BaseModel
             [
                 [
                     'value',
-                    'val_type'
+                    'valType'
                 ],
                 'string'
             ],
@@ -87,7 +87,7 @@ class Setting extends \DuAdmin\Core\BaseModel
             'title' => '标题',
             'value' => '值',
             'hint' => '提示',
-            'val_type' => '值类型',
+            'valType' => '值类型',
             'category' => '参数分类'
         ];
     }

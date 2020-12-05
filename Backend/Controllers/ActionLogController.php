@@ -18,26 +18,8 @@ class ActionLogController extends BackendController
                     'class' => 'Backend\Models\ActionLogSearch'
                 ]
             ],
-            'create' => [
-                'class' => 'DuAdmin\Core\CreateModelAction',
-                'modelClass' => [
-                    'class' => 'Backend\Models\ActionLog'
-                ]
-            ],
-            'update' => [
-                'class' => 'DuAdmin\Core\UpdateModelAction',
-                'modelClass' => [
-                    'class' => 'Backend\Models\ActionLog'
-                ]
-            ],
             'view' => [
                 'class' => 'DuAdmin\Core\ViewModelAction',
-                'modelClass' => [
-                    'class' => 'Backend\Models\ActionLog'
-                ]
-            ],
-            'delete' => [
-                'class' => 'DuAdmin\Core\DeleteModelAction',
                 'modelClass' => [
                     'class' => 'Backend\Models\ActionLog'
                 ]

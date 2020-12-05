@@ -3,6 +3,7 @@ use yii\helpers\Html;
 use DuAdmin\Grids\PanelGridView;
 use yii\widgets\Pjax;
 use DuAdmin\Helpers\CrontabHelper;
+use DuAdmin\Helpers\AppHelper;
 /* @var $this yii\web\View */
 /* @var $searchModel Backend\Models\CronSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -56,28 +57,18 @@ PanelGridView::begin(
                 }
             ],
             'mhdmd',
-            'job_script',
-            'is_ok:boolean',
-            'is_active:boolean',
-            'run_at:datetime',
+            'jobScript',
+            'isOk:boolean',
+            'isActive:boolean',
+            'runAt:datetime',
             [
                 'class' => '\DuAdmin\Grids\ActionColumn',
-                'buttonsOptions' => [
-                    'update' => [
-                        'data-toggle' => 'modal',
-                        'data-target' => '#modal-dailog'
-                    ],
-                    'view' => [
-                        'data-toggle' => 'modal',
-                        'data-target' => '#modal-dailog'
-                    ]
-                ]
             ]
         ]
     ]);
 ?>
 
-<?= Html::a('<i class="fa fa-plus"></i> ' . Yii::t('da','Create'), ['create'], ['class'=>'btn btn-primary','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
+<?= AppHelper::linkButtonWithSimpleModal('<i class="fa fa-plus"></i> ' . Yii::t('da','Create'), ['create'], ['class'=>'btn btn-primary']) ?>
 
 <?=DuAdmin\Widgets\FullSearchBox::widget(['action'=>['index']]) ?>
 

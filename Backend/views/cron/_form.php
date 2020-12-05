@@ -15,13 +15,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'mhdmd')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'job_script')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'jobScript')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'param')->textarea(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'intro')->textarea(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'is_active')->checkbox() ?>
+    <?= $form->field($model, 'isActive')->checkbox() ?>
 
     <div class="form-group">
         <?= Html::submitButton('<i class=\"fa fa-save\"></i> 保存', ['class' => 'btn btn-success']) ?>

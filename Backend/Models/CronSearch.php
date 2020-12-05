@@ -16,9 +16,9 @@ class CronSearch extends Cron
     public function rules()
     {
         return [
-            [['id', 'run_at', 'created_at', 'updated_at'], 'integer'],
-            [['task', 'mhdmd','app', 'job_script', 'param', 'intro', 'token'], 'safe'],
-            [['is_ok', 'is_active'], 'boolean'],
+            [['id' ], 'integer'],
+            [['task', 'mhdmd','app', 'jobScript', 'param', 'intro', 'token','runAt','createdAt', 'updatedAt'], 'safe'],
+            [['isOk', 'isActive'], 'boolean'],
         ];
     }
 
@@ -59,17 +59,17 @@ class CronSearch extends Cron
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'is_ok' => $this->is_ok,
-            'is_active' => $this->is_active,
-            'run_at' => $this->run_at,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'isOk' => $this->isOk,
+            'isActive' => $this->isActive,
+            'runAt' => $this->runAt,
+            'createdAt' => $this->createdAt,
+            'updatedAt' => $this->updatedAt,
         ]);
 
         $query->andFilterWhere(['like', 'task', $this->task])
             ->andFilterWhere(['like', 'mhdmd', $this->mhdmd])
             ->andFilterWhere(['like', 'app', $this->app])
-            ->andFilterWhere(['like', 'job_script', $this->job_script])
+            ->andFilterWhere(['like', 'jobScript', $this->jobScript])
             ->andFilterWhere(['like', 'param', $this->param])
             ->andFilterWhere(['like', 'intro', $this->intro])
             ->andFilterWhere(['like', 'token', $this->token]);

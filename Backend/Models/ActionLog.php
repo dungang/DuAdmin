@@ -2,15 +2,17 @@
 
 namespace Backend\Models;
 
+use Yii;
 /**
  * "{{%action_log}}"表的模型类.
  *
- * @property string $id
- * @property int $user_id 用户
+ * @property int $id
+ * @property int $userId 用户
  * @property string $action 行为
  * @property int $ip IP
- * @property string $method 请求
- * @property int $created_at 时间
+ * @property string $method 方法
+ * @property string $sourceType 来源::Backend:后台|Frontend:前台|Api:API
+ * @property string $createdAt 时间
  * @property string $data 数据
  */
 class ActionLog extends \DuAdmin\Core\BaseModel
@@ -29,10 +31,13 @@ class ActionLog extends \DuAdmin\Core\BaseModel
     public function rules()
     {
         return [
-            [['user_id', 'action'], 'required'],
-            [['user_id', 'ip', 'created_at'], 'integer'],
-            [['data','method'], 'string'],
-            [['action'], 'string', 'max' => 64],
+            [['userId'], 'required'],
+            [['userId', 'ip'], 'integer'],
+            [['createdAt'], 'safe'],
+            [['data'], 'string'],
+            [['action'], 'string', 'max' => 128],
+            [['method'], 'string', 'max' => 8],
+            [['sourceType'], 'string', 'max' => 16],
         ];
     }
 
@@ -42,13 +47,24 @@ class ActionLog extends \DuAdmin\Core\BaseModel
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'user_id' => '用户',
-            'action' => '行为',
-            'method' => '请求',
-            'ip' => 'IP',
-            'created_at' => '时间',
-            'data' => '数据',
+            'id' => Yii::t('backend', 'ID'),
+            'userId' => Yii::t('backend', 'User ID'),
+            'action' => Yii::t('backend', 'Action'),
+            'ip' => Yii::t('backend', 'Ip'),
+            'method' => Yii::t('backend', 'Method'),
+            'sourceType' => Yii::t('backend', 'Source Type'),
+            'createdAt' => Yii::t('da', 'Created At'),
+            'data' => Yii::t('backend', 'Data'),
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeHints()
+    {
+        return [
+            'sourceType' => 'Backend:后台|Frontend:前台|Api:API',
         ];
     }
 

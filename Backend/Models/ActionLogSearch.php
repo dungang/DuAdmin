@@ -3,7 +3,6 @@
 namespace Backend\Models;
 
 use Yii;
-use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use Backend\Models\ActionLog;
 
@@ -18,8 +17,8 @@ class ActionLogSearch extends ActionLog
     public function rules()
     {
         return [
-            [['id', 'user_id', 'ip', 'created_at'], 'integer'],
-            [['action', 'method','data'], 'safe'],
+            [['id', 'userId', 'ip'], 'integer'],
+            [['action', 'method', 'sourceType', 'createdAt', 'data'], 'safe'],
         ];
     }
 
@@ -29,7 +28,7 @@ class ActionLogSearch extends ActionLog
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
+        return parent::scenarios();
     }
 
     /**
@@ -45,13 +44,16 @@ class ActionLogSearch extends ActionLog
 
         // add conditions that should always apply here
 
+        // search before event
+        $this->beforeSearch($query,$params);    
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort' => [
-                'defaultOrder' => [
-                    'created_at' => SORT_DESC
-                ]
-            ]
+		    'sort' => [ 
+               'defaultOrder' => [ 
+                   'createdAt' => SORT_DESC 
+               ] 
+            ] 
         ]);
 
         $this->load($params);
@@ -65,13 +67,20 @@ class ActionLogSearch extends ActionLog
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'user_id' => $this->user_id,
+            'userId' => $this->userId,
             'ip' => $this->ip,
-            'created_at' => $this->created_at,
         ]);
 
+        $query->andFilterWhere(['DATE_RANGE','createdAt',$this->createdAt]);
+
         $query->andFilterWhere(['like', 'action', $this->action])
+            ->andFilterWhere(['like', 'method', $this->method])
+            ->andFilterWhere(['like', 'sourceType', $this->sourceType])
             ->andFilterWhere(['like', 'data', $this->data]);
+
+        if ($full_search = Yii::$app->request->get('full_search')) {
+            $query->andFilterWhere(['FULL_SEARCH',['action','method','sourceType','data'],$full_search]);
+        }
 
         return $dataProvider;
     }

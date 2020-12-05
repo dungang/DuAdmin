@@ -6,30 +6,33 @@ use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 /* @var $this yii\web\View */
 /* @var $model Backend\Models\Admin */
 
-$this->title = $model->username;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Administors'), 'url' => ['index']];
+$this->title = $model->id;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Admins'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-$this->params['breadcrumbs'][] = $model->username;
+$this->params['breadcrumbs'][] = $model->id;
 
 echo AjaxModalOrNormalPanelContent::widget([
-    'intro' => Yii::t('da', 'View {0} Detail Info',$model->username),
+    'intro' => Yii::t('da', 'View {0} Detail Info',$model->id),
     'content' => DetailView::widget([
         	'options'=>['class' => 'table table-bordered'],
             'model' => $model,
             'attributes' => [
                 'id',
             'username',
-            'nick_name',
+            'nickname',
             'avatar',
+            'authKey',
+            'passwordHash',
+            'passwordResetToken',
             'email:email',
             'mobile',
-            'status',
-            'login_failure',
-            'login_time:datetime',
-            'login_ip',
-            'created_at:datetime',
-            'updated_at:datetime',
-            'is_del',
+            'status:datetime',
+            'isSuper',
+            'loginAt',
+            'loginFailure',
+            'loginIp',
+            'createdAt',
+            'updatedAt',
             ],
         ])
 ]);

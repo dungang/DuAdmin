@@ -1,5 +1,4 @@
 <?php
-
 namespace Backend\Models;
 
 use DuAdmin\Core\Authable;
@@ -14,23 +13,23 @@ use DuAdmin\Core\Operator;
  *
  * @property int $id
  * @property string $username 用户名
- * @property string $nickname 姓名
+ * @property string $nickname 昵称
  * @property string $avatar 头像
- * @property string $auth_key 验证密钥
- * @property string $password_hash 密码hash
- * @property string $password_reset_token 密码重置token
+ * @property string $authKey 授权KEY
+ * @property string $passwordHash 密码hash
+ * @property string $passwordResetToken 密码重置token
  * @property string $email 邮箱
  * @property string $mobile 手机
  * @property int $status 状态
- * @property  int $is_super 超管
- * @property int $login_failure 登录失败次数
- * @property int $login_at 登录时间
- * @property string $login_ip 登录IP
- * @property int $created_at 添加时间
- * @property int $updated_at 更新时间
- * @property int $is_del
+ * @property int $isSuper 是否超管
+ * @property string $loginAt 上次登陆时间
+ * @property string $loginFailure 登陆失败消息
+ * @property string $loginIp 登录IP
+ * @property string $createdAt 添加时间
+ * @property string $updatedAt 更新时间
+ * @property int $isDel
  */
-class Admin extends BaseModel implements IdentityInterface,Authable,Operator
+class Admin extends BaseModel implements IdentityInterface, Authable, Operator
 {
 
     const STATUS_DELETED = 0;
@@ -57,21 +56,21 @@ class Admin extends BaseModel implements IdentityInterface,Authable,Operator
         return [
             'id' => Yii::t('backend', 'ID'),
             'username' => Yii::t('backend', 'Username'),
-            'nickname' => Yii::t('backend', 'Nick Name'),
+            'nickname' => Yii::t('backend', 'Nickname'),
             'avatar' => Yii::t('backend', 'Avatar'),
-            'auth_key' => Yii::t('backend', 'Auth Key'),
-            'password' => Yii::t('backend', 'Password'),
-            'password_hash' => Yii::t('backend', 'Password Hash'),
-            'password_reset_token' => Yii::t('backend', 'Password Reset Token'),
+            'authKey' => Yii::t('backend', 'Auth Key'),
+            'passwordHash' => Yii::t('backend', 'Password Hash'),
+            'passwordResetToken' => Yii::t('backend', 'Password Reset Token'),
             'email' => Yii::t('backend', 'Email'),
             'mobile' => Yii::t('backend', 'Mobile'),
             'status' => Yii::t('backend', 'Status'),
-            'login_failure' => Yii::t('backend', 'Login Failure'),
-            'login_at' => Yii::t('backend', 'Login Time'),
-            'login_ip' => Yii::t('backend', 'Login Ip'),
-            'created_at' => Yii::t('backend', 'Created At'),
-            'updated_at' => Yii::t('backend', 'Updated At'),
-            'is_del' => Yii::t('backend', 'Is Del'),
+            'isSuper' => Yii::t('backend', 'Is Super'),
+            'loginAt' => Yii::t('backend', 'Login At'),
+            'loginFailure' => Yii::t('backend', 'Login Failure'),
+            'loginIp' => Yii::t('backend', 'Login Ip'),
+            'createdAt' => Yii::t('da', 'Created At'),
+            'updatedAt' => Yii::t('da', 'Updated At'),
+            'isDel' => Yii::t('backend', 'Is Del')
         ];
     }
 
@@ -100,7 +99,7 @@ class Admin extends BaseModel implements IdentityInterface,Authable,Operator
             ],
             [
                 [
-                    'password',
+                    'password'
                 ],
                 'string'
             ],
@@ -174,11 +173,11 @@ class Admin extends BaseModel implements IdentityInterface,Authable,Operator
      */
     public static function findByPasswordResetToken($token)
     {
-        if (!static::isPasswordResetTokenValid($token)) {
+        if (! static::isPasswordResetTokenValid($token)) {
             return null;
         }
         return static::findOne([
-            'password_reset_token' => $token,
+            'passwordResetToken' => $token,
             'status' => self::STATUS_ACTIVE
         ]);
     }
@@ -195,7 +194,7 @@ class Admin extends BaseModel implements IdentityInterface,Authable,Operator
         if (empty($token)) {
             return false;
         }
-        $timestamp = (int)substr($token, strrpos($token, '_') + 1);
+        $timestamp = (int) substr($token, strrpos($token, '_') + 1);
         $expire = Yii::$app->params['user.passwordResetTokenExpire'];
         return $timestamp + $expire >= time();
     }
@@ -215,7 +214,7 @@ class Admin extends BaseModel implements IdentityInterface,Authable,Operator
      */
     public function getAuthKey()
     {
-        return $this->auth_key;
+        return $this->authKey;
     }
 
     /**
@@ -241,38 +240,42 @@ class Admin extends BaseModel implements IdentityInterface,Authable,Operator
      */
     public function validatePassword($password)
     {
-        return Yii::$app->security->validatePassword($password, $this->password_hash);
+        return Yii::$app->security->validatePassword($password, $this->passwordHash);
     }
 
     /**
      * Generates password hash from password and sets it to the model
-     * @param $password
+     *
+     * @param
+     *            $password
      * @throws \yii\base\Exception
      */
     public function setPassword($password)
     {
         $password = trim($password);
-        if (!empty($password)) {
-            $this->password_hash = Yii::$app->security->generatePasswordHash($password);
+        if (! empty($password)) {
+            $this->passwordHash = Yii::$app->security->generatePasswordHash($password);
         }
     }
 
     /**
      * Generates "remember me" authentication key
+     *
      * @throws \yii\base\Exception
      */
     public function generateAuthKey()
     {
-        $this->auth_key = Yii::$app->security->generateRandomString();
+        $this->authKey = Yii::$app->security->generateRandomString();
     }
 
     /**
      * Generates new password reset token
+     *
      * @throws \yii\base\Exception
      */
     public function generatePasswordResetToken()
     {
-        $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
+        $this->passwordResetToken = Yii::$app->security->generateRandomString() . '_' . time();
     }
 
     /**
@@ -280,11 +283,12 @@ class Admin extends BaseModel implements IdentityInterface,Authable,Operator
      */
     public function removePasswordResetToken()
     {
-        $this->password_reset_token = null;
+        $this->passwordResetToken = null;
     }
 
     /**
      * get User by access token
+     *
      * @param mixed $token
      * @param null $type
      * @return null|void|IdentityInterface
@@ -297,30 +301,31 @@ class Admin extends BaseModel implements IdentityInterface,Authable,Operator
 
     public function isSuperAdmin(): bool
     {
-        return $this->is_super == 1;
+        return $this->isSuper == 1;
     }
-
 
     public function isActiveAccount(): bool
     {
         return $this->status == static::STATUS_ACTIVE;
     }
-    
+
     /**
-     * {@inheritDoc}
+     *
+     * {@inheritdoc}
      * @see \DuAdmin\Core\Operator::getOperatorId()
      */
     public function getOperatorId()
     {
         return $this->id;
     }
-    
+
     /**
-     * {@inheritDoc}
+     *
+     * {@inheritdoc}
      * @see \DuAdmin\Core\Operator::getOperatorName()
      */
     public function getOperatorName()
     {
-       return $this->nickname;
+        return $this->nickname;
     }
 }

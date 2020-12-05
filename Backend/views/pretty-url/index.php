@@ -15,7 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
     'id' => 'pretty-url-list',
     'intro' => 'URL重写信息管理，主要是重写前端的url，后台不可以不用考虑',
     'dataProvider' => $dataProvider,
-    'filterModel' => $searchModel,
     'columns' => [
         ['class' => '\yii\grid\CheckboxColumn'],
         [

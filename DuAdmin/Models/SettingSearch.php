@@ -25,7 +25,7 @@ class SettingSearch extends Setting
                     'value',
                     'hint',
                     'category',
-                    'val_type'
+                    'valType'
                 ],
                 'safe'
             ]
@@ -69,7 +69,7 @@ class SettingSearch extends Setting
         // grid filtering conditions
         $query->andFilterWhere([
             'category' => $this->category,
-            'val_type' => $this->val_type
+            'valType' => $this->valType
         ]);
 
         // grid filtering conditions

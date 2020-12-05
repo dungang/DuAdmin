@@ -63,13 +63,13 @@ AAA;
                 'attribute' => '$column->name',
                 'format'=>'raw',
                 'value'=>function(\$model,\$key,\$index,\$column){
-                    return Html::a(\$model['$column->name'],['view','id'=>\$model['$column->name']],['data-toggle'=>'modal','data-target'=>'#modal-dailog']);
+                    return AppHelper::linkButtonWithSimpleModal(\$model['$column->name'],['view','id'=>\$model['$column->name']]);
                 }
         	],\n
 AAA;
                 
             } else {
-                if(substr($column->name, -3) == '_at') {
+                if(substr($column->name, -2) == 'At') {
                     echo <<<DATE_FIELD
             [  
                 'class' => 'DuAdmin\Grids\DateTimeColumn',
@@ -80,7 +80,7 @@ DATE_FIELD;
                 echo "            '" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
             }
         } else {
-            if(substr($column->name, -3) == '_at') {
+            if(substr($column->name, -2) == 'At') {
                 echo <<<DATE_FIELD
             [  
                 'class' => 'DuAdmin\Grids\DateTimeColumn',
@@ -94,15 +94,20 @@ DATE_FIELD;
 }
 ?>
             [
-                'class' => '\DuAdmin\Grids\ActionColumn'
+                'class' => '\DuAdmin\Grids\ActionColumn',
+<?php if(!$generator->enableCrudAction):?>
+				'template' => '{view}',
+<?php endif;?>
         	]
        ]
     ]); ?>
 <?= "<?= " ?>$this->render('_search', ['model' => $searchModel]); ?>
 
+<?php if ($generator->enableCrudAction): ?>
 <?="<?= " ?>AppHelper::<?=$generator->modalSize ?>('<i class="fa fa-plus"></i> ' . Yii::t('da','Create'), ['create'], ['class'=>'btn btn-primary']) ?>
 
 <?="<?= " ?>Html::a('<i class="fa fa-trash"></i> '. Yii::t('da','Delete'), ['delete'], ['class'=>'btn btn-danger del-all','data-target'=>'#<?= $id_prefix . '-list'?>']) ?>
+<?php endif;?>
 
 <?="<?= " ?>FullSearchBox::widget(['action'=>['index']]) ?> 
 

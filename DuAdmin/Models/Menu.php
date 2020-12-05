@@ -11,8 +11,8 @@ use Yii;
  * @property int $id
  * @property string $name 名称
  * @property string $url 链接
- * @property bool $is_front 是否前端
- * @property bool $require_login 需要登录
+ * @property bool $isFront 是否前端
+ * @property bool $requireLogin 需要登录
  * @property int $pid 父节点
  * @property string $icon 图标
  * @property int $sort 排序
@@ -48,8 +48,8 @@ class Menu extends \DuAdmin\Core\BaseModel
             ],
             [
                 [
-                    'is_front',
-                    'require_login'
+                    'isFront',
+                    'requireLogin'
                 ],
                 'boolean'
             ],
@@ -88,8 +88,8 @@ class Menu extends \DuAdmin\Core\BaseModel
             'id' => 'ID',
             'name' => '名称',
             'url' => '链接',
-            'is_front' => '是否前端',
-            'require_login' => '需要登录',
+            'isFront' => '是否前端',
+            'requireLogin' => '需要登录',
             'pid' => '父节点',
             'icon' => '图标',
             'sort' => '排序'
@@ -127,9 +127,9 @@ class Menu extends \DuAdmin\Core\BaseModel
 
     public static function getFrontMenusData()
     {
-        return self::find()->select('id,pid,name as label,url,icon,require_login')
+        return self::find()->select('id,pid,name as label,url,icon,requireLogin')
             ->where([
-                'is_front' => 1
+                'isFront' => 1
             ])
             ->indexBy('id')
             ->asArray()
@@ -154,9 +154,9 @@ class Menu extends \DuAdmin\Core\BaseModel
 
     public static function getBackendMenusData()
     {
-        $vars = self::find()->select('id,pid,name as label,url,icon,require_login')
+        $vars = self::find()->select('id,pid,name as label,url,icon,requireLogin')
             ->where([
-                'is_front' => 0
+                'isFront' => 0
             ])
             ->indexBy('id')
             ->asArray()

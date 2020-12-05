@@ -5,7 +5,6 @@
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
-
 namespace app\generators\crud;
 
 use Yii;
@@ -22,36 +21,71 @@ use yii\web\Controller;
  *
  * @property array $columnNames Model column names. This property is read-only.
  * @property string $controllerID The controller ID (without the module ID prefix). This property is
- * read-only.
+ *           read-only.
  * @property string $nameAttribute This property is read-only.
  * @property array $searchAttributes Searchable attributes. This property is read-only.
  * @property bool|\yii\db\TableSchema $tableSchema This property is read-only.
  * @property string $viewPath The controller view path. This property is read-only.
- *
+ *          
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
 class Generator extends \app\generators\Generator
 {
+
     public $modelClass;
+
     public $controllerClass;
+
     public $viewPath;
+
     public $baseControllerClass = 'DuAdmin\Core\BackendController';
+
     public $indexWidgetType = 'grid';
+
     public $searchModelClass = '';
+
     public $templates = [
-        'backend'=>'@app/generators/crud/backend',
-        'frontend'=>'@app/generators/crud/frontend',
+        'backend' => '@app/generators/crud/backend',
+        'frontend' => '@app/generators/crud/frontend'
     ];
+
     public $modalSize = 'linkButtonWithSimpleModal';
+
     /**
+     *
      * @var bool whether to wrap the `GridView` or `ListView` widget with the `yii\widgets\Pjax` widget
      * @since 2.0.5
      */
     public $enablePjax = false;
-
+    
+    /**
+     * 是否开启默认排序
+     * @var boolean
+     */
+    public $enableDefaultOrder = true;
+    
+    /**
+     * 默认排序的字段
+     * @var string
+     */
+    public $defaultOrderField = 'createdAt';
+    
+    /**
+     * 排序的顺序
+     * @var string
+     */
+    public $defaultOrder = 'SORT_DESC';
+    
+    
+    /**
+     * 是否支持增删改
+     * @var string
+     */
+    public $enableCrudAction = true;
 
     /**
+     *
      * {@inheritdoc}
      */
     public function getName()
@@ -60,6 +94,7 @@ class Generator extends \app\generators\Generator
     }
 
     /**
+     *
      * {@inheritdoc}
      */
     public function getDescription()
@@ -68,29 +103,138 @@ class Generator extends \app\generators\Generator
     }
 
     /**
+     *
      * {@inheritdoc}
      */
     public function rules()
     {
         return array_merge(parent::rules(), [
-            [['controllerClass', 'modelClass', 'searchModelClass', 'baseControllerClass'], 'filter', 'filter' => 'trim'],
-            [['modelClass', 'controllerClass', 'baseControllerClass', 'indexWidgetType'], 'required'],
-            [['searchModelClass'], 'compare', 'compareAttribute' => 'modelClass', 'operator' => '!==', 'message' => 'Search Model Class must not be equal to Model Class.'],
-            [['modelClass', 'controllerClass', 'baseControllerClass', 'searchModelClass'], 'match', 'pattern' => '/^[\w\\\\]*$/', 'message' => 'Only word characters and backslashes are allowed.'],
-            [['modelClass'], 'validateClass', 'params' => ['extends' => BaseActiveRecord::className()]],
-            [['baseControllerClass'], 'validateClass', 'params' => ['extends' => Controller::className()]],
-            [['controllerClass'], 'match', 'pattern' => '/Controller$/', 'message' => 'Controller class name must be suffixed with "Controller".'],
-            [['controllerClass'], 'match', 'pattern' => '/(^|\\\\)[A-Z][^\\\\]+Controller$/', 'message' => 'Controller class name must start with an uppercase letter.'],
-            [['controllerClass', 'searchModelClass'], 'validateNewClass'],
-            [['indexWidgetType'], 'in', 'range' => ['grid', 'list']],
-            [['modelClass'], 'validateModelClass'],
-            [['enableI18N', 'enablePjax'], 'boolean'],
-            [['messageCategory'], 'validateMessageCategory', 'skipOnEmpty' => false],
-            [['viewPath','modalSize'], 'safe'],
+            [
+                [
+                    'controllerClass',
+                    'modelClass',
+                    'searchModelClass',
+                    'baseControllerClass'
+                ],
+                'filter',
+                'filter' => 'trim'
+            ],
+            [
+                [
+                    'modelClass',
+                    'controllerClass',
+                    'baseControllerClass',
+                    'indexWidgetType'
+                ],
+                'required'
+            ],
+            [
+                [
+                    'searchModelClass'
+                ],
+                'compare',
+                'compareAttribute' => 'modelClass',
+                'operator' => '!==',
+                'message' => 'Search Model Class must not be equal to Model Class.'
+            ],
+            [
+                [
+                    'modelClass',
+                    'controllerClass',
+                    'baseControllerClass',
+                    'searchModelClass'
+                ],
+                'match',
+                'pattern' => '/^[\w\\\\]*$/',
+                'message' => 'Only word characters and backslashes are allowed.'
+            ],
+            [
+                [
+                    'modelClass'
+                ],
+                'validateClass',
+                'params' => [
+                    'extends' => BaseActiveRecord::className()
+                ]
+            ],
+            [
+                [
+                    'baseControllerClass'
+                ],
+                'validateClass',
+                'params' => [
+                    'extends' => Controller::className()
+                ]
+            ],
+            [
+                [
+                    'controllerClass'
+                ],
+                'match',
+                'pattern' => '/Controller$/',
+                'message' => 'Controller class name must be suffixed with "Controller".'
+            ],
+            [
+                [
+                    'controllerClass'
+                ],
+                'match',
+                'pattern' => '/(^|\\\\)[A-Z][^\\\\]+Controller$/',
+                'message' => 'Controller class name must start with an uppercase letter.'
+            ],
+            [
+                [
+                    'controllerClass',
+                    'searchModelClass'
+                ],
+                'validateNewClass'
+            ],
+            [
+                [
+                    'indexWidgetType'
+                ],
+                'in',
+                'range' => [
+                    'grid',
+                    'list'
+                ]
+            ],
+            [
+                [
+                    'modelClass'
+                ],
+                'validateModelClass'
+            ],
+            [
+                [
+                    'enableI18N',
+                    'enablePjax',
+                    'enableDefaultOrder',
+                    'enableCrudAction'
+                ],
+                'boolean'
+            ],
+            [
+                [
+                    'messageCategory'
+                ],
+                'validateMessageCategory',
+                'skipOnEmpty' => false
+            ],
+            [
+                [
+                    'viewPath',
+                    'modalSize',
+                    'defaultOrderField',
+                    'defaultOrder'
+                ],
+                'safe'
+            ]
         ]);
     }
 
     /**
+     *
      * {@inheritdoc}
      */
     public function attributeLabels()
@@ -105,10 +249,15 @@ class Generator extends \app\generators\Generator
             'enablePjax' => '是否开启Pjax功能',
             'enableI18N' => '是否支持国际化',
             'modalSize' => '模态框大小（bootstrap modal size）',
+            'enableDefaultOrder' => '是否支持默认搜索排序',
+            'defaultOrderField' => '默认搜索排序字段',
+            'defaultOrder' => '默认搜索排序顺序',
+            'enableCrudAction' => '是否支持增删改'
         ]);
     }
 
     /**
+     *
      * {@inheritdoc}
      */
     public function hints()
@@ -131,24 +280,31 @@ class Generator extends \app\generators\Generator
                 qualified namespaced class name, e.g., <code>app\models\PostSearch</code>.',
             'enablePjax' => 'This indicates whether the generator should wrap the <code>GridView</code> or <code>ListView</code>
                 widget on the index page with <code>yii\widgets\Pjax</code> widget. Set this to <code>true</code> if you want to get
-                sorting, filtering and pagination without page refreshing.',
+                sorting, filtering and pagination without page refreshing.'
         ]);
     }
 
     /**
+     *
      * {@inheritdoc}
      */
     public function requiredTemplates()
     {
-        return ['controller.php'];
+        return [
+            'controller.php'
+        ];
     }
 
     /**
+     *
      * {@inheritdoc}
      */
     public function stickyAttributes()
     {
-        return array_merge(parent::stickyAttributes(), ['baseControllerClass', 'indexWidgetType']);
+        return array_merge(parent::stickyAttributes(), [
+            'baseControllerClass',
+            'indexWidgetType'
+        ]);
     }
 
     /**
@@ -165,6 +321,7 @@ class Generator extends \app\generators\Generator
     }
 
     /**
+     *
      * {@inheritdoc}
      */
     public function generate()
@@ -172,10 +329,10 @@ class Generator extends \app\generators\Generator
         $controllerFile = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->controllerClass, '\\')) . '.php');
 
         $files = [
-            new CodeFile($controllerFile, $this->render('controller.php')),
+            new CodeFile($controllerFile, $this->render('controller.php'))
         ];
 
-        if (!empty($this->searchModelClass)) {
+        if (! empty($this->searchModelClass)) {
             $searchModel = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->searchModelClass, '\\') . '.php'));
             $files[] = new CodeFile($searchModel, $this->render('search.php'));
         }
@@ -183,6 +340,12 @@ class Generator extends \app\generators\Generator
         $viewPath = $this->getViewPath();
         $templatePath = $this->getTemplatePath() . '/views';
         foreach (scandir($templatePath) as $file) {
+            //忽略创建添加和编辑的页面
+            if($this->enableCrudAction == false) {
+                if(in_array($file,['_form.php','create.php','update.php'])){
+                    continue;
+                }
+            }
             if (empty($this->searchModelClass) && $file === '_search.php') {
                 continue;
             }
@@ -195,17 +358,19 @@ class Generator extends \app\generators\Generator
     }
 
     /**
+     *
      * @return string the controller ID (without the module ID prefix)
      */
     public function getControllerID()
     {
         $pos = strrpos($this->controllerClass, '\\');
-        $class = substr(substr($this->controllerClass, $pos + 1), 0, -10);
+        $class = substr(substr($this->controllerClass, $pos + 1), 0, - 10);
 
         return Inflector::camel2id($class);
     }
 
     /**
+     *
      * @return string the controller view path
      */
     public function getViewPath()
@@ -218,12 +383,13 @@ class Generator extends \app\generators\Generator
     }
 
     /**
+     *
      * @return string
      */
     public function getNameAttribute()
     {
         foreach ($this->getColumnNames() as $name) {
-            if (!strcasecmp($name, 'name') || !strcasecmp($name, 'title')) {
+            if (! strcasecmp($name, 'name') || ! strcasecmp($name, 'title')) {
                 return $name;
             }
         }
@@ -236,17 +402,58 @@ class Generator extends \app\generators\Generator
 
     /**
      * Generates code for active field
+     *
      * @param string $attribute
      * @return string
      */
-
-    public function generateActiveField($attribute) {
+    public function generateActiveField($attribute)
+    {
         return "'<div class=\"col-xs-6\">' . " . $this->generateActiveFieldRaw($attribute) . " . '</div>'";
     }
+
+    // 处理状态(status or Status结尾)和类型（type or Type结尾）的字段，根据comment处理
+    // 如果备注不是枚举定义的格式者忽略
+    // 比如格式, “值类型::IMAGE:图片|STR:字符串|ARRY:数组|ASSOC:关联数组|JSON:json字符串|HTML:html代码|P:段落”
+    // 留给后面的逻辑处理
+    protected function parseCommentToEnumValues($attribute, $column)
+    {
+        if ($column->name === 'status' 
+            || substr($column->name, - 6) === 'Status' 
+            || $column->name === 'type' 
+            || substr($column->name, - 6) === 'Type'
+            || substr($column->name,0,2) === 'is') {
+            if (strpos($column->comment, '|') !== false) {
+                // 分割字段备注
+                $pieces = explode("::", $column->comment);
+                // 移除备注他字段名称
+                array_shift($pieces);
+                // 还原剩下的备注信息
+                $comment = implode("::", $pieces);
+                $pieces = explode('|', $comment);
+                $dropDownOptions = [];
+                // 如不有一个不满足格式则退出
+                $isOk = true;
+                foreach ($pieces as $piece) {
+                    $keyName = explode(':', $piece);
+                    if (count($keyName) == 2) {
+                        $dropDownOptions[$keyName[0]] = $keyName[1];
+                    } else {
+                        $isOk = false;
+                        break;
+                    }
+                }
+                if ($isOk) {
+                    return "\$form->field(\$model, '$attribute')->dropDownList(" . preg_replace("/\n\s*/", ' ', VarDumper::export($dropDownOptions)) . ", ['prompt' => ''])";
+                }
+            }
+        }
+        return false;
+    }
+
     public function generateActiveFieldRaw($attribute)
     {
         $tableSchema = $this->getTableSchema();
-        if ($tableSchema === false || !isset($tableSchema->columns[$attribute])) {
+        if ($tableSchema === false || ! isset($tableSchema->columns[$attribute])) {
             if (preg_match('/^(password|pass|passwd|passcode)$/i', $attribute)) {
                 return "\$form->field(\$model, '$attribute')->passwordInput()";
             }
@@ -255,13 +462,17 @@ class Generator extends \app\generators\Generator
         }
         $column = $tableSchema->columns[$attribute];
 
-        if(preg_match('/img|image|pic|pict|cover/', $column->name)) {
-            return "\$form->field(\$model, '$attribute')->widget('DuAdmin\Widgets\AjaxFileInput')";
-        } 
+        if ($code = $this->parseCommentToEnumValues($attribute, $column)) {
+            return $code;
+        }
 
-        if (substr($column->name,-3) ==='_at') {
+        if (preg_match('/img|image|pic|pict|cover/', $column->name)) {
+            return "\$form->field(\$model, '$attribute')->widget('DuAdmin\Widgets\AjaxFileInput')";
+        }
+
+        if (substr($column->name, - 2) === 'At') {
             return "\$form->field(\$model, '$attribute')->widget('DuAdmin\Widgets\DatePicker')";
-        } 
+        }
 
         if ($column->phpType === 'boolean') {
             return "\$form->field(\$model, '$attribute')->checkbox()";
@@ -282,8 +493,7 @@ class Generator extends \app\generators\Generator
             foreach ($column->enumValues as $enumValue) {
                 $dropDownOptions[$enumValue] = Inflector::humanize($enumValue);
             }
-            return "\$form->field(\$model, '$attribute')->dropDownList("
-                . preg_replace("/\n\s*/", ' ', VarDumper::export($dropDownOptions)) . ", ['prompt' => ''])";
+            return "\$form->field(\$model, '$attribute')->dropDownList(" . preg_replace("/\n\s*/", ' ', VarDumper::export($dropDownOptions)) . ", ['prompt' => ''])";
         }
 
         if ($column->phpType !== 'string' || $column->size === null) {
@@ -295,30 +505,34 @@ class Generator extends \app\generators\Generator
 
     /**
      * Generates code for active search field
+     *
      * @param string $attribute
      * @return string
      */
     public function generateActiveSearchField($attribute)
     {
-        
         $field = "\$form->field(\$model, '$attribute')";
 
         $tableSchema = $this->getTableSchema();
         if ($tableSchema === false) {
-            $field =  "\$form->field(\$model, '$attribute')";
+            $field = "\$form->field(\$model, '$attribute')";
         } else {
             $column = $tableSchema->columns[$attribute];
-            if($column->type == 'text') {
-                $field = "\$form->field(\$model, '$attribute')->widget('DuAdmin\Widgets\DefaultEditor')";
-            } else if(preg_match('/img|image|pic|pict|cover/', $column->name)) {
-                $field = "\$form->field(\$model, '$attribute')->widget('DuAdmin\Widgets\AjaxFileInput')";
-            } else if (substr($column->name,-3)==='_at') {
-                $field = "\$form->field(\$model, '$attribute')->widget('DuAdmin\Widgets\DatePicker',['multidate'=>2])";
-            } else if ($column->phpType === 'boolean') {
-                $field = "\$form->field(\$model, '$attribute')->checkbox()";
+            if ($code = $this->parseCommentToEnumValues($attribute, $column)) {
+                $field = $code;
+            } else {
+                if ($column->type == 'text') {
+                    $field = "\$form->field(\$model, '$attribute')->widget('DuAdmin\Widgets\DefaultEditor')";
+                } else if (preg_match('/img|image|pic|pict|cover/', $column->name)) {
+                    $field = "\$form->field(\$model, '$attribute')->widget('DuAdmin\Widgets\AjaxFileInput')";
+                } else if (substr($column->name, - 2) === 'At') {
+                    $field = "\$form->field(\$model, '$attribute')->widget('DuAdmin\Widgets\DatePicker',['multidate'=>2])";
+                } else if ($column->phpType === 'boolean') {
+                    $field = "\$form->field(\$model, '$attribute')->checkbox()";
+                }
             }
         }
-        return "'<div class=\"col-xs-6\">' . " . $field  . " . '</div>'";
+        return "'<div class=\"col-xs-6\">' . " . $field . " . '</div>'";
     }
 
     /**
@@ -341,7 +555,7 @@ class Generator extends \app\generators\Generator
             return 'datetime';
         }
 
-        if (stripos($column->name, '_at') !== false && $column->phpType === 'integer') {
+        if (stripos($column->name, 'At') !== false && $column->phpType === 'integer') {
             return 'datetime';
         }
 
@@ -358,17 +572,20 @@ class Generator extends \app\generators\Generator
 
     /**
      * Generates validation rules for the search model.
+     *
      * @return array the generated validation rules
      */
     public function generateSearchRules()
     {
         if (($table = $this->getTableSchema()) === false) {
-            return ["[['" . implode("', '", $this->getColumnNames()) . "'], 'safe']"];
+            return [
+                "[['" . implode("', '", $this->getColumnNames()) . "'], 'safe']"
+            ];
         }
         $types = [];
         foreach ($table->columns as $column) {
-            //处理时间字段（查询的时候传递的是日期格式的字符串）
-            if(substr($column->name,-3) == '_at'){
+            // 处理时间字段（查询的时候传递的是日期格式的字符串）
+            if (substr($column->name, - 2) == 'At') {
                 $types['safe'][] = $column->name;
                 continue;
             }
@@ -407,6 +624,7 @@ class Generator extends \app\generators\Generator
     }
 
     /**
+     *
      * @return array searchable attributes
      */
     public function getSearchAttributes()
@@ -416,6 +634,7 @@ class Generator extends \app\generators\Generator
 
     /**
      * Generates the attribute labels for the search model.
+     *
      * @return array the generated attribute labels (name => label)
      */
     public function generateSearchLabels()
@@ -428,12 +647,12 @@ class Generator extends \app\generators\Generator
             if (isset($attributeLabels[$name])) {
                 $labels[$name] = $attributeLabels[$name];
             } else {
-                if (!strcasecmp($name, 'id')) {
+                if (! strcasecmp($name, 'id')) {
                     $labels[$name] = 'ID';
                 } else {
                     $label = Inflector::camel2words($name);
-                    if (!empty($label) && substr_compare($label, ' id', -3, 3, true) === 0) {
-                        $label = substr($label, 0, -3) . ' ID';
+                    if (! empty($label) && substr_compare($label, ' id', - 3, 3, true) === 0) {
+                        $label = substr($label, 0, - 3) . ' ID';
                     }
                     $labels[$name] = $label;
                 }
@@ -445,6 +664,7 @@ class Generator extends \app\generators\Generator
 
     /**
      * Generates search conditions
+     *
      * @return array
      */
     public function generateSearchConditions()
@@ -468,8 +688,8 @@ class Generator extends \app\generators\Generator
         $dateConditions = [];
         $full_search_columns = [];
         foreach ($columns as $column => $type) {
-            //处理时间字段（查询的时候传递的是日期格式的字符串）
-            if (substr($column, -3) == '_at') {
+            // 处理时间字段（查询的时候传递的是日期格式的字符串）
+            if (substr($column, - 2) == 'At') {
                 $dateConditions[] = "->andFilterWhere(['DATE_RANGE','{$column}',\$this->{$column}])";
                 continue;
             }
@@ -498,28 +718,24 @@ class Generator extends \app\generators\Generator
         }
 
         $conditions = [];
-        if (!empty($hashConditions)) {
-            $conditions[] = "\$query->andFilterWhere([\n"
-                . str_repeat(' ', 12) . implode("\n" . str_repeat(' ', 12), $hashConditions)
-                . "\n" . str_repeat(' ', 8) . "]);\n";
+        if (! empty($hashConditions)) {
+            $conditions[] = "\$query->andFilterWhere([\n" . str_repeat(' ', 12) . implode("\n" . str_repeat(' ', 12), $hashConditions) . "\n" . str_repeat(' ', 8) . "]);\n";
         }
-        if (!empty($dateConditions)) {
+        if (! empty($dateConditions)) {
             $conditions[] = "\$query" . implode("\n" . str_repeat(' ', 12), $dateConditions) . ";\n";
         }
-        if (!empty($likeConditions)) {
+        if (! empty($likeConditions)) {
             $conditions[] = "\$query" . implode("\n" . str_repeat(' ', 12), $likeConditions) . ";\n";
-            //添加默认搜索的查询构建代码
-            $conditions[] = "if (\$full_search = Yii::\$app->request->get('full_search')) {\n"
-                . str_repeat(' ', 12) . "\$query->andFilterWhere(['FULL_SEARCH',[". implode(',',$full_search_columns) ."],\$full_search]);\n"
-                . str_repeat(' ', 8) . "}\n";
+            // 添加默认搜索的查询构建代码
+            $conditions[] = "if (\$full_search = Yii::\$app->request->get('full_search')) {\n" . str_repeat(' ', 12) . "\$query->andFilterWhere(['FULL_SEARCH',[" . implode(',', $full_search_columns) . "],\$full_search]);\n" . str_repeat(' ', 8) . "}\n";
         }
-        
 
         return $conditions;
     }
 
     /**
      * Generates URL parameters
+     *
      * @return string
      */
     public function generateUrlParams()
@@ -549,6 +765,7 @@ class Generator extends \app\generators\Generator
 
     /**
      * Generates action parameters
+     *
      * @return string
      */
     public function generateActionParams()
@@ -565,6 +782,7 @@ class Generator extends \app\generators\Generator
 
     /**
      * Generates parameter tags for phpdoc
+     *
      * @return array parameter tags for phpdoc
      */
     public function generateActionParamComments()
@@ -575,13 +793,15 @@ class Generator extends \app\generators\Generator
         if (($table = $this->getTableSchema()) === false) {
             $params = [];
             foreach ($pks as $pk) {
-                $params[] = '@param ' . (strtolower(substr($pk, -2)) === 'id' ? 'integer' : 'string') . ' $' . $pk;
+                $params[] = '@param ' . (strtolower(substr($pk, - 2)) === 'id' ? 'integer' : 'string') . ' $' . $pk;
             }
 
             return $params;
         }
         if (count($pks) === 1) {
-            return ['@param ' . $table->columns[$pks[0]]->phpType . ' $id'];
+            return [
+                '@param ' . $table->columns[$pks[0]]->phpType . ' $id'
+            ];
         }
 
         $params = [];
@@ -594,6 +814,7 @@ class Generator extends \app\generators\Generator
 
     /**
      * Returns table schema for current model class or false if it is not an active record
+     *
      * @return bool|\yii\db\TableSchema
      */
     public function getTableSchema()
@@ -608,6 +829,7 @@ class Generator extends \app\generators\Generator
     }
 
     /**
+     *
      * @return array model column names
      */
     public function getColumnNames()
@@ -625,8 +847,9 @@ class Generator extends \app\generators\Generator
     }
 
     /**
+     *
      * @return string|null driver name of modelClass db connection.
-     * In case db is not instance of \yii\db\Connection null will be returned.
+     *         In case db is not instance of \yii\db\Connection null will be returned.
      * @since 2.0.6
      */
     protected function getClassDbDriverName()

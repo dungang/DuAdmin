@@ -42,6 +42,13 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                     'class' => '<?=$searchModelName?>'
                 ]
             ],
+            'view' => [
+                'class' => 'DuAdmin\Core\ViewModelAction',
+                'modelClass' => [
+                    'class' => '<?=$modelName?>'
+                ]
+            ],
+<?php if ($generator->enableCrudAction):?>
             'create' => [
                 'class' => 'DuAdmin\Core\CreateModelAction',
                 'modelClass' => [
@@ -54,18 +61,13 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                     'class' => '<?=$modelName?>'
                 ]
             ],
-            'view' => [
-                'class' => 'DuAdmin\Core\ViewModelAction',
-                'modelClass' => [
-                    'class' => '<?=$modelName?>'
-                ]
-            ],
             'delete' => [
                 'class' => 'DuAdmin\Core\DeleteModelsAction',
                 'modelClass' => [
                     'class' => '<?=$modelName?>'
                 ]
             ],
+<?php endif;?>
 		];
 	}
 }

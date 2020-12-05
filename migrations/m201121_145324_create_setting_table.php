@@ -18,7 +18,7 @@ class m201121_145324_create_setting_table extends Migration
             'parent'=> $this->string(64)->notNull()->comment('归属'),
             'title' => $this->string(64)->notNull()->comment('变量标题'),
             'value' => $this->text()->null()->comment('变量值'),
-            'val_type' => $this->string(64)->notNull()->comment('值类型'),
+            'valType' => $this->string(64)->notNull()->comment('值类型::IMAGE:图片|STR:字符串|ARRY:数组|ASSOC:关联数组|JSON:json字符串|HTML:html代码|P:段落'),
             'hint' => $this->string(255)->null()->comment('变量介绍'),
             'category' => $this->string(64)->notNull()->defaultValue('base')->comment('变量标题')
         ],$tableOptions);
@@ -28,7 +28,7 @@ class m201121_145324_create_setting_table extends Migration
         
         //初始化配置
         $this->batchInsert('{{%setting}}',
-            ['name','parent','title','value','val_type','hint','category'],
+            ['name','parent','title','value','valType','hint','category'],
             [
                 ['site.name','','网站名称','DUAdmin','STR','前台首页的网站名称','base'],
                 ['site.logo','','网站Logo','DUAdmin','IMAGE','前台首页的网站Logo','base'],

@@ -2,6 +2,7 @@
 
 namespace Backend\Models;
 
+use Yii;
 use yii\data\ActiveDataProvider;
 use Backend\Models\Admin;
 
@@ -16,8 +17,8 @@ class AdminSearch extends Admin
     public function rules()
     {
         return [
-            [['id', 'status', 'login_failure', 'login_at', 'created_at', 'updated_at'], 'integer'],
-            [['username', 'nickname', 'avatar', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'mobile', 'login_ip'], 'safe'],
+            [['id', 'status', 'isSuper'], 'integer'],
+            [['username', 'nickname', 'avatar', 'authKey', 'passwordHash', 'passwordResetToken', 'email', 'mobile', 'loginAt', 'loginFailure', 'loginIp', 'createdAt', 'updatedAt'], 'safe'],
         ];
     }
 
@@ -48,6 +49,11 @@ class AdminSearch extends Admin
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+		    'sort' => [ 
+               'defaultOrder' => [ 
+                   'createdAt' => SORT_DESC 
+               ] 
+            ] 
         ]);
 
         $this->load($params);
@@ -62,20 +68,27 @@ class AdminSearch extends Admin
         $query->andFilterWhere([
             'id' => $this->id,
             'status' => $this->status,
-            'login_failure' => $this->login_failure,
-            'login_at' => $this->login_at,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'isSuper' => $this->isSuper,
         ]);
 
-        $query->andFilterWhere($this->filterBetween('created_at', $this->created_at))
-            ->andFilterWhere($this->filterBetween('updated_at', $this->updated_at));
+        $query->andFilterWhere(['DATE_RANGE','loginAt',$this->loginAt])
+            ->andFilterWhere(['DATE_RANGE','createdAt',$this->createdAt])
+            ->andFilterWhere(['DATE_RANGE','updatedAt',$this->updatedAt]);
 
         $query->andFilterWhere(['like', 'username', $this->username])
             ->andFilterWhere(['like', 'nickname', $this->nickname])
+            ->andFilterWhere(['like', 'avatar', $this->avatar])
+            ->andFilterWhere(['like', 'authKey', $this->authKey])
+            ->andFilterWhere(['like', 'passwordHash', $this->passwordHash])
+            ->andFilterWhere(['like', 'passwordResetToken', $this->passwordResetToken])
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'mobile', $this->mobile])
-            ->andFilterWhere(['like', 'login_ip', $this->login_ip]);
+            ->andFilterWhere(['like', 'loginFailure', $this->loginFailure])
+            ->andFilterWhere(['like', 'loginIp', $this->loginIp]);
+
+        if ($full_search = Yii::$app->request->get('full_search')) {
+            $query->andFilterWhere(['FULL_SEARCH',['username','nickname','avatar','authKey','passwordHash','passwordResetToken','email','mobile','loginFailure','loginIp'],$full_search]);
+        }
 
         return $dataProvider;
     }

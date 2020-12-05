@@ -6,7 +6,7 @@ use Yii;
 use yii\base\Theme;
 use yii\i18n\PhpMessageSource;
 
-class MATheme extends Theme
+class DUATheme extends Theme
 {
 
     public $name = 'basic';

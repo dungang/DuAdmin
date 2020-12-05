@@ -392,6 +392,7 @@ class Generator extends \app\generators\Generator
                 'tableSchema' => $tableSchema,
                 'properties' => $this->generateProperties($tableSchema),
                 'labels' => $this->generateLabels($tableSchema),
+                'hints' => $this->generateHints($tableSchema),
                 'rules' => $this->generateRules($tableSchema),
                 'relations' => isset($relations[$tableName]) ? $relations[$tableName] : []
             ];
@@ -463,6 +464,28 @@ class Generator extends \app\generators\Generator
         }
 
         return $labels;
+    }
+    
+    /**
+     * Generates the attribute hints for the specified table.
+     * 
+     * 使用半角的冒号'::'分割，比如“基础信息::必须是https://开头的”
+     * 得到的hint = 必须是https://开头的
+     *
+     * @param \yii\db\TableSchema $table
+     *            the table schema
+     * @return array the generated attribute hints (name => hint)
+     */
+    public function generateHints($table) {
+        $hints = [];
+        foreach ($table->columns as $column) {
+            $pieces = explode('::', $column->comment);
+            array_shift($pieces);
+            if($pieces) {
+               $hints[$column->name] = implode('::', $pieces);
+           }
+        }
+        return $hints;
     }
 
     /**

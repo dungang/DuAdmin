@@ -16,7 +16,7 @@ use DuAdmin\Models\Setting;
     <?php endif;?>
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'val_type')->radioList(['STR'=>'字符串','ARRY'=>'数组','ASSOC'=>'关联数组','JSON'=>'json','HTML'=>'html','P'=>'段落']) ?>
+    <?= $form->field($model, 'valType')->radioList(['STR'=>'字符串','ARRY'=>'数组','ASSOC'=>'关联数组','JSON'=>'json','HTML'=>'html','P'=>'段落','IMAGE'=>'图片']) ?>
     <?= $form->field($model, 'value')->textarea(['rows' => 6]) ?>
     <?= $form->field($model, 'hint')->textInput(['maxlength' => true]) ?>
 

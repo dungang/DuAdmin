@@ -18,7 +18,7 @@ class MenuSearch extends Menu
         return [
             [['id', 'pid', 'sort'], 'integer'],
             [['name', 'url','icon'], 'safe'],
-            [['is_front','require_login'], 'boolean'],
+            [['isFront','requireLogin'], 'boolean'],
         ];
     }
 
@@ -64,8 +64,8 @@ class MenuSearch extends Menu
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'is_front' => $this->is_front,
-            'require_login' => $this->require_login,
+            'isFront' => $this->isFront,
+            'requireLogin' => $this->requireLogin,
             'pid' => $this->pid,
             'sort' => $this->sort,
         ]);

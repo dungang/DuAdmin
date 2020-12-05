@@ -99,10 +99,11 @@ class AccessFilter extends ActionFilter
                 $data = $_REQUEST;
                 unset($data['r'], $data['_csrf']);
                 $log = new ActionLog([
-                    'user_id' => \Yii::$app->user->id,
+                    'userId' => \Yii::$app->user->id,
                     'action' => $action->getUniqueId(),
                     'ip' => ip2long(\Yii::$app->request->getRemoteIP()),
                     'method' => strtoupper(\Yii::$app->request->method),
+                    'sourceType' => \Yii::$app->mode,
                     'data' => Json::encode($data)
                 ]);
                 $log->save(false);

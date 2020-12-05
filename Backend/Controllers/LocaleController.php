@@ -18,6 +18,12 @@ class LocaleController extends BackendController
                     'class' => 'Backend\Models\SourceMessageSearch'
                 ]
             ],
+            'view' => [
+                'class' => 'DuAdmin\Core\ViewModelAction',
+                'modelClass' => [
+                    'class' => 'Backend\Models\SourceMessage'
+                ]
+            ],
             'create' => [
                 'class' => 'DuAdmin\Core\CreateModelAction',
                 'modelClass' => [
@@ -26,12 +32,6 @@ class LocaleController extends BackendController
             ],
             'update' => [
                 'class' => 'DuAdmin\Core\UpdateModelAction',
-                'modelClass' => [
-                    'class' => 'Backend\Models\SourceMessage'
-                ]
-            ],
-            'view' => [
-                'class' => 'DuAdmin\Core\ViewModelAction',
                 'modelClass' => [
                     'class' => 'Backend\Models\SourceMessage'
                 ]
