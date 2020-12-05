@@ -25,4 +25,5 @@ echo $form->field($generator, 'modalSize')->dropDownList([
 ]);
 echo $form->field($generator, 'enableI18N')->checkbox();
 echo $form->field($generator, 'enablePjax')->checkbox();
-echo $form->field($generator, 'messageCategory');
+$messageCategories = array_keys(Yii::$app->i18n->translations);
+echo $form->field($generator, 'messageCategory')->dropDownList(array_combine($messageCategories, $messageCategories));
