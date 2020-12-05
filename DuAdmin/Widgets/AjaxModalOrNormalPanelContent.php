@@ -4,10 +4,15 @@ namespace DuAdmin\Widgets;
 use yii\helpers\Html;
 
 /**
+ * @author dungang<dungang@126.com>
+ * 
  * 当ajax请求的时候只输出内容，非ajax的输出panel的结构
+ * 输出的内容会被modal包装
+ * 如果不想被包装可以考虑使用父类 AdminltePanel
  */
 class AjaxModalOrNormalPanelContent extends AdminltePanel
 {
+
     public function run()
     {
         $content = ob_get_clean();

@@ -6,7 +6,7 @@ use yii\helpers\Html;
 use DuAdmin\Helpers\AppHelper;
 
 /**
- *
+ * 导航选项卡
  * @author dungang
  *        
  */
@@ -19,6 +19,10 @@ class PanelNavTabs extends Widget
 
     public $wrapperClass = 'nav-tabs-custom  tab-default';
 
+    /**
+     * 选项卡项目
+     * @var array
+     */
     public $tabs;
     
     public $tabClass = 'nav nav-tabs';

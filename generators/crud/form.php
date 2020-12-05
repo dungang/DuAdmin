@@ -18,6 +18,11 @@ echo $form->field($generator, 'indexWidgetType')->dropDownList([
     'grid' => 'GridView',
     'list' => 'ListView',
 ]);
+echo $form->field($generator, 'modalSize')->dropDownList([
+    'linkButtonWithSimpleModal' => '默认大小',
+    'linkButtonWithBigSimpleModal' => '大窗口',
+    'linkButtonWithSmallSimpleModal' => '小窗口',
+]);
 echo $form->field($generator, 'enableI18N')->checkbox();
 echo $form->field($generator, 'enablePjax')->checkbox();
 echo $form->field($generator, 'messageCategory');

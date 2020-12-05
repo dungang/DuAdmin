@@ -497,7 +497,11 @@ abstract class Generator extends Model
             } else {
                 $ph = '';
             }
-            $str = "Yii::t('" . $this->messageCategory . "', '" . $string . "'" . $ph . ")";
+            if(in_array($string,['Created At','Updated At'])) {
+                $str = "Yii::t('da', '" . $string . "'" . $ph . ")";
+            } else {
+                $str = "Yii::t('" . $this->messageCategory . "', '" . $string . "'" . $ph . ")";
+            }
         } else {
             // No I18N, replace placeholders by real words, if any
             if (!empty($placeholders)) {

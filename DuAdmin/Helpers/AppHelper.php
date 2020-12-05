@@ -1,15 +1,12 @@
 <?php
-
 namespace DuAdmin\Helpers;
 
 use yii\helpers\Html;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
-use DuAdmin\Components\MobileDetect;
 use DuAdmin\Models\Setting;
 use DuAdmin\Events\CustomerEvent;
 use yii\base\Component;
-use DuAdmin\Core\BackendController;
 use Yii;
 use yii\base\Arrayable;
 
@@ -25,19 +22,68 @@ class AppHelper
 
     /**
      * 是否是移动端
+     *
      * @return boolean
      */
     public static function IsMobile()
     {
         if (self::$agent_detect == null) {
-            self::$agent_detect = new MobileDetect();
+            self::$agent_detect = Yii::createObject('DuAdmin\Components\MobileDetect');
         }
         return self::$agent_detect->isMobile();
     }
 
-    public static function isBackend()
+    /**
+     * 显示一个默认大小的对话框的按钮
+     *
+     * @param string $text
+     * @param string|array $url
+     * @param array $options
+     * @return string
+     */
+    public static function linkButtonWithSimpleModal($text, $url, $options = [])
     {
-        return \Yii::$app->controller instanceof BackendController;
+        $options = array_merge([
+            'data-toggle' => 'modal',
+            'data-target' => '#modal-dailog'
+        ], $options);
+        return Html::a($text, $url, $options);
+    }
+
+    /**
+     * 显示一个小的对话框的按钮
+     *
+     * @param string $text
+     * @param string|array $url
+     * @param array $options
+     * @return string
+     */
+    public static function linkButtonWithSmallSimpleModal($text, $url, $options = [])
+    {
+        $options = array_merge([
+            'data-toggle' => 'modal',
+            'data-target' => '#modal-dailog',
+            'data-modal-size' => 'modal-sm'
+        ], $options);
+        return Html::a($text, $url, $options);
+    }
+
+    /**
+     * 显示一个大的对话框的按钮
+     *
+     * @param string $text
+     * @param string|array $url
+     * @param array $options
+     * @return string
+     */
+    public static function linkButtonWithBigSimpleModal($text, $url, $options = [])
+    {
+        $options = array_merge([
+            'data-toggle' => 'modal',
+            'data-target' => '#modal-dailog',
+            'data-modal-size' => 'modal-lg'
+        ], $options);
+        return Html::a($text, $url, $options);
     }
 
     public static function isDevMode()
@@ -47,17 +93,14 @@ class AppHelper
 
     public static function swtichLanguage($language = null)
     {
-        //更加参数识别语言
-        //需要 \DuAdmin\Components\RewriteUrl的支持
+        // 更加参数识别语言
+        // 需要 \DuAdmin\Components\RewriteUrl的支持
         if ($language || $language = Yii::$app->request->get('_lang')) {
             Yii::$app->urlManager->common_params['_lang'] = $language;
             Yii::$app->language = $language;
         } else {
             // 根据浏览器识别语言
-            if (($accept_langs = Yii::$app->request->acceptableLanguages) &&
-                is_array($accept_langs) &&
-                count($accept_langs) > 0
-            ) {
+            if (($accept_langs = Yii::$app->request->acceptableLanguages) && is_array($accept_langs) && count($accept_langs) > 0) {
                 Yii::$app->language = Yii::$app->request->acceptableLanguages[0];
             }
         }
@@ -70,7 +113,9 @@ class AppHelper
         foreach ($langs as $lang => $text) {
             $items[] = [
                 'name' => $text,
-                'url' => array_merge($route, [$key => $lang])
+                'url' => array_merge($route, [
+                    $key => $lang
+                ])
             ];
         }
         return $items;
@@ -78,6 +123,7 @@ class AppHelper
 
     /**
      * 递归移除元素
+     *
      * @param array|Arrayable $array
      * @param callable $callback
      * @return array
@@ -103,6 +149,7 @@ class AppHelper
 
     /**
      * 根据起始值，和长度，生产关系数组
+     *
      * @param number $start
      * @param number $size
      * @param string $textsuffix
@@ -111,7 +158,7 @@ class AppHelper
     public static function generateNumberMap($start = 1, $size = 12, $textsuffix = '')
     {
         $map = array();
-        for ($i = $start; $i <= $size; $i++) {
+        for ($i = $start; $i <= $size; $i ++) {
             $map[$i] = $i . $textsuffix;
         }
         return $map;
@@ -245,7 +292,8 @@ class AppHelper
      */
     public static function reActiveItem($items)
     {
-        if (empty($items)) return $items;
+        if (empty($items))
+            return $items;
         // 获取请求的路由，是完整的，头部不会自动添加'/'
         $route = \Yii::$app->requestedRoute;
         $params = [];
@@ -531,33 +579,34 @@ class AppHelper
         ]));
     }
 
-    //     public static function sendMailerByQueue($from, $to, $subject, $body, $try_times = 1, $send_del = true, $time = null)
-    //     {
-    //         $mail = new \DuAdmin\Models\MailQueue();
-    //         $mail->sender = $from;
-    //         $mail->recipient = $to;
-    //         $mail->subject = $subject;
-    //         $mail->content = $body;
-    //         $mail->del_after_send = $send_del;
-    //         $mail->time_to_send = $time;
-    //         $mail->try_send = $try_times;
-    //         return $mail->save(false);
-    //     }
-
+    // public static function sendMailerByQueue($from, $to, $subject, $body, $try_times = 1, $send_del = true, $time = null)
+    // {
+    // $mail = new \DuAdmin\Models\MailQueue();
+    // $mail->sender = $from;
+    // $mail->recipient = $to;
+    // $mail->subject = $subject;
+    // $mail->content = $body;
+    // $mail->del_after_send = $send_del;
+    // $mail->time_to_send = $time;
+    // $mail->try_send = $try_times;
+    // return $mail->save(false);
+    // }
     public static function translation_link($category, $message)
     {
         return Html::a('<i class="fa fa-language"></i> ' . Yii::t('da', 'Translation'), [
             '/translation/setting',
-            'category' => $category, 'message' => $message
+            'category' => $category,
+            'message' => $message
         ], [
             'class' => 'btn btn-sm btn-link',
             'data-toggle' => 'modal',
-            'data-target' => '#modal-dailog',
+            'data-target' => '#modal-dailog'
         ]);
     }
 
     /**
      * 取汉字的第一个字的首字母
+     *
      * @param string $str
      * @return string|null
      */
@@ -575,7 +624,7 @@ class AppHelper
         $s1 = @iconv('UTF-8', 'gb2312', $str);
         $s2 = @iconv('gb2312', 'UTF-8', $s1);
         $s = $s2 == $str ? $s1 : $str;
-        if (!isset($s[0]) || !isset($s[1])) {
+        if (! isset($s[0]) || ! isset($s[1])) {
             return '';
         }
 
@@ -585,73 +634,73 @@ class AppHelper
             return $str;
         }
 
-        if (($asc >= -20319 && $asc <= -20284) || $fir == 'A') {
+        if (($asc >= - 20319 && $asc <= - 20284) || $fir == 'A') {
             return 'A';
         }
-        if (($asc >= -20283 && $asc <= -19776) || $fir == 'B') {
+        if (($asc >= - 20283 && $asc <= - 19776) || $fir == 'B') {
             return 'B';
         }
-        if (($asc >= -19775 && $asc <= -19219) || $fir == 'C') {
+        if (($asc >= - 19775 && $asc <= - 19219) || $fir == 'C') {
             return 'C';
         }
-        if (($asc >= -19218 && $asc <= -18711) || $fir == 'D') {
+        if (($asc >= - 19218 && $asc <= - 18711) || $fir == 'D') {
             return 'D';
         }
-        if (($asc >= -18710 && $asc <= -18527) || $fir == 'E') {
+        if (($asc >= - 18710 && $asc <= - 18527) || $fir == 'E') {
             return 'E';
         }
-        if (($asc >= -18526 && $asc <= -18240) || $fir == 'F') {
+        if (($asc >= - 18526 && $asc <= - 18240) || $fir == 'F') {
             return 'F';
         }
-        if (($asc >= -18239 && $asc <= -17923) || $fir == 'G') {
+        if (($asc >= - 18239 && $asc <= - 17923) || $fir == 'G') {
             return 'G';
         }
-        if (($asc >= -17922 && $asc <= -17418) || $fir == 'H') {
+        if (($asc >= - 17922 && $asc <= - 17418) || $fir == 'H') {
             return 'H';
         }
-        if (($asc >= -17417 && $asc <= -16475) || $fir == 'J') {
+        if (($asc >= - 17417 && $asc <= - 16475) || $fir == 'J') {
             return 'J';
         }
-        if (($asc >= -16474 && $asc <= -16213) || $fir == 'K') {
+        if (($asc >= - 16474 && $asc <= - 16213) || $fir == 'K') {
             return 'K';
         }
-        if (($asc >= -16212 && $asc <= -15641) || $fir == 'L') {
+        if (($asc >= - 16212 && $asc <= - 15641) || $fir == 'L') {
             return 'L';
         }
-        if (($asc >= -15640 && $asc <= -15166) || $fir == 'M') {
+        if (($asc >= - 15640 && $asc <= - 15166) || $fir == 'M') {
             return 'M';
         }
-        if (($asc >= -15165 && $asc <= -14923) || $fir == 'N') {
+        if (($asc >= - 15165 && $asc <= - 14923) || $fir == 'N') {
             return 'N';
         }
-        if (($asc >= -14922 && $asc <= -14915) || $fir == 'O') {
+        if (($asc >= - 14922 && $asc <= - 14915) || $fir == 'O') {
             return 'O';
         }
-        if (($asc >= -14914 && $asc <= -14631) || $fir == 'P') {
+        if (($asc >= - 14914 && $asc <= - 14631) || $fir == 'P') {
             return 'P';
         }
-        if (($asc >= -14630 && $asc <= -14150) || $fir == 'Q') {
+        if (($asc >= - 14630 && $asc <= - 14150) || $fir == 'Q') {
             return 'Q';
         }
-        if (($asc >= -14149 && $asc <= -14091) || $fir == 'R') {
+        if (($asc >= - 14149 && $asc <= - 14091) || $fir == 'R') {
             return 'R';
         }
-        if (($asc >= -14090 && $asc <= -13319) || $fir == 'S') {
+        if (($asc >= - 14090 && $asc <= - 13319) || $fir == 'S') {
             return 'S';
         }
-        if (($asc >= -13318 && $asc <= -12839) || $fir == 'T') {
+        if (($asc >= - 13318 && $asc <= - 12839) || $fir == 'T') {
             return 'T';
         }
-        if (($asc >= -12838 && $asc <= -12557) || $fir == 'W') {
+        if (($asc >= - 12838 && $asc <= - 12557) || $fir == 'W') {
             return 'W';
         }
-        if (($asc >= -12556 && $asc <= -11848) || $fir == 'X') {
+        if (($asc >= - 12556 && $asc <= - 11848) || $fir == 'X') {
             return 'X';
         }
-        if (($asc >= -11847 && $asc <= -11056) || $fir == 'Y') {
+        if (($asc >= - 11847 && $asc <= - 11056) || $fir == 'Y') {
             return 'Y';
         }
-        if (($asc >= -11055 && $asc <= -10247) || $fir == 'Z') {
+        if (($asc >= - 11055 && $asc <= - 10247) || $fir == 'Z') {
             return 'Z';
         }
 

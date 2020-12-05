@@ -43,6 +43,7 @@ class Generator extends \app\generators\Generator
         'backend'=>'@app/generators/crud/backend',
         'frontend'=>'@app/generators/crud/frontend',
     ];
+    public $modalSize = 'linkButtonWithSimpleModal';
     /**
      * @var bool whether to wrap the `GridView` or `ListView` widget with the `yii\widgets\Pjax` widget
      * @since 2.0.5
@@ -85,7 +86,7 @@ class Generator extends \app\generators\Generator
             [['modelClass'], 'validateModelClass'],
             [['enableI18N', 'enablePjax'], 'boolean'],
             [['messageCategory'], 'validateMessageCategory', 'skipOnEmpty' => false],
-            ['viewPath', 'safe'],
+            [['viewPath','modalSize'], 'safe'],
         ]);
     }
 
@@ -103,6 +104,7 @@ class Generator extends \app\generators\Generator
             'searchModelClass' => '支持搜索的模型类',
             'enablePjax' => '是否开启Pjax功能',
             'enableI18N' => '是否支持国际化',
+            'modalSize' => '模态框大小（bootstrap modal size）',
         ]);
     }
 

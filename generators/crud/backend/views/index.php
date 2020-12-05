@@ -10,6 +10,7 @@ $labelNames = Inflector::pluralize(Inflector::camel2words(StringHelper::basename
 ?>
 
 use yii\helpers\Html;
+use DuAdmin\Helpers\AppHelper;
 use DuAdmin\Grids\PanelGridView;
 use DuAdmin\Widgets\FullSearchBox;
 
@@ -99,7 +100,7 @@ DATE_FIELD;
     ]); ?>
 <?= "<?= " ?>$this->render('_search', ['model' => $searchModel]); ?>
 
-<?="<?= " ?>Html::a('<i class="fa fa-plus"></i> ' . Yii::t('da','Create'), ['create'], ['class'=>'btn btn-primary','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
+<?="<?= " ?>AppHelper::<?=$generator->modalSize ?>('<i class="fa fa-plus"></i> ' . Yii::t('da','Create'), ['create'], ['class'=>'btn btn-primary']) ?>
 
 <?="<?= " ?>Html::a('<i class="fa fa-trash"></i> '. Yii::t('da','Delete'), ['delete'], ['class'=>'btn btn-danger del-all','data-target'=>'#<?= $id_prefix . '-list'?>']) ?>
 

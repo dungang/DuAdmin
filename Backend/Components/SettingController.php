@@ -11,6 +11,12 @@ class SettingController extends BackendController
 {
     public $default_category = 'base';
     
+    /**
+     * 是否后端模块
+     * 历史遗留参数，可能没有意义，待定
+     * @todo
+     * @var bool
+     */
     public $is_backend_module = false;
     
     public $viewBasePath = '@Backend/views/setting/';
