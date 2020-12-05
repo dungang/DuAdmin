@@ -3,7 +3,6 @@
 namespace Backend\Models;
 
 use Yii;
-use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use Backend\Models\SourceMessage;
 
@@ -29,7 +28,7 @@ class SourceMessageSearch extends SourceMessage
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
+        return parent::scenarios();
     }
 
     /**
@@ -50,6 +49,11 @@ class SourceMessageSearch extends SourceMessage
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+		    'sort' => [ 
+               'defaultOrder' => [ 
+                   'category' => SORT_DESC 
+               ] 
+            ] 
         ]);
 
         $this->load($params);
@@ -67,6 +71,10 @@ class SourceMessageSearch extends SourceMessage
 
         $query->andFilterWhere(['like', 'category', $this->category])
             ->andFilterWhere(['like', 'message', $this->message]);
+
+        if ($full_search = Yii::$app->request->get('full_search')) {
+            $query->andFilterWhere(['FULL_SEARCH',['category','message'],$full_search]);
+        }
 
         return $dataProvider;
     }

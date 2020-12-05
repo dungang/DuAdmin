@@ -1,59 +1,54 @@
 <?php
 
-use Backend\Models\Admin;
+use yii\helpers\Html;
+use DuAdmin\Helpers\AppHelper;
 use DuAdmin\Grids\PanelGridView;
-use yii\widgets\Pjax;
+use DuAdmin\Widgets\FullSearchBox;
 
+use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel Backend\Models\ActionLogSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '操作日志';
+$this->title = Yii::t('backend', 'Action Logs');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php Pjax::begin(['id'=>'action-log-index']); ?>
 <?php  PanelGridView::begin([
-    	'intro' => '操作日志信息管理',
+        'id' => 'action-log-list',
+    	'intro' => Yii::t('da','{0} Info Manage',Yii::t('backend', 'Action Logs')),
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'columns' => [
-            'created_at:datetime',
+            ['class'=>'\yii\grid\CheckboxColumn'],
             [
-                'class'=>'DuAdmin\Grids\FilterColumn',
-                'attribute'=>'user_id',
-                'filter'=> Admin::allIdToName('id','nickname'),
-            ],
-            [
-                'class'=>'DuAdmin\Grids\FilterColumn',
-                'attribute'=>'method',
-                'filter'=> [
-                    'POST'=>'POST',
-                    'GET'=>'GET',
-                    'PUT'=>'PUT',
-                    'OPTION'=>'OPTION',
-                    'HEAD'=>'HEAD'
-                ]
-            ],
-            'action',
-            [
-                'attribute'=>'ip',
-                'value'=>function($model){
-                    return long2ip($model->ip);
+                'attribute' => 'id',
+                'format'=>'raw',
+                'value'=>function($model,$key,$index,$column){
+                    return AppHelper::linkButtonWithSimpleModal($model['id'],['view','id'=>$model['id']]);
                 }
+        	],
+            'userId',
+            'action',
+            'ip',
+            'method',
+            //'sourceType',
+            [  
+                'class' => 'DuAdmin\Grids\DateTimeColumn',
+                'attribute' => 'createdAt',
             ],
+            //'data:ntext',
             [
                 'class' => '\DuAdmin\Grids\ActionColumn',
-                'template'=>'{view}',
-                'buttonsOptions'=>[
-                    'view'=>[
-                        'data-toggle'=>'modal',
-                        'data-target'=>'#modal-dailog',
-                    ],
-                ]
+				'template' => '{view}',
         	]
        ]
     ]); ?>
-<?=DuAdmin\Widgets\FullSearchBox::widget(['action'=>['index']]) ?>
+<?= $this->render('_search', ['model' => $searchModel]); ?>
+
+
+<?= FullSearchBox::widget(['action'=>['index']]) ?> 
+
 <?php PanelGridView::end() ?>
+
 <?php Pjax::end(); ?>
 
