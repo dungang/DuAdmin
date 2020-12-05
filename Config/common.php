@@ -14,11 +14,6 @@ return [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
     ],
-    'validators' => [
-        'slug' => '\DuAdmin\Validators\SlugValidator',
-        'mobile' => '\DuAdmin\Validators\MobileValidator', //手机验证
-        'alternative' => '\DuAdmin\Validators\AlternativeValidator', //二选一验证
-    ],
     'components' => [
         'view' => [
             'class' => 'DuAdmin\Core\CoreView',

@@ -33,6 +33,11 @@ use yii\web\Controller;
 class Generator extends \app\generators\Generator
 {
 
+    //引用的类
+    public $useFormClassies = [];
+    
+    public $useSearchFormClassies = [];
+    
     public $modelClass;
 
     public $controllerClass;
@@ -467,11 +472,13 @@ class Generator extends \app\generators\Generator
         }
 
         if (preg_match('/img|image|pic|pict|cover/', $column->name)) {
-            return "\$form->field(\$model, '$attribute')->widget('DuAdmin\Widgets\AjaxFileInput')";
+            $this->useFormClassies['DuAdmin\Widgets\AjaxFileInput'] = 1;
+            return "\$form->field(\$model, '$attribute')->widget(AjaxFileInput::class)";
         }
 
         if (substr($column->name, - 2) === 'At') {
-            return "\$form->field(\$model, '$attribute')->widget('DuAdmin\Widgets\DatePicker')";
+            $this->useFormClassies['DuAdmin\Widgets\DatePicker'] = 1;
+            return "\$form->field(\$model, '$attribute')->widget(DatePicker::class)";
         }
 
         if ($column->phpType === 'boolean') {
@@ -479,7 +486,8 @@ class Generator extends \app\generators\Generator
         }
 
         if ($column->type === 'text') {
-            return "\$form->field(\$model, '$attribute')->textarea(['rows' => 6])";
+            $this->useFormClassies['DuAdmin\Widgets\DefaultEditor'] = 1;
+            return "\$form->field(\$model, '$attribute')->widget(DefaultEditor::getEditorClass(),['mode' => DefaultEditor::MODE_RICH])";
         }
 
         if (preg_match('/^(password|pass|passwd|passcode)$/i', $column->name)) {
@@ -522,16 +530,18 @@ class Generator extends \app\generators\Generator
                 $field = $code;
             } else {
                 if ($column->type == 'text') {
-                    $field = "\$form->field(\$model, '$attribute')->widget('DuAdmin\Widgets\DefaultEditor')";
+                    $field = "\$form->field(\$model, '$attribute')->textarea(['rows' => 6])";
                 } else if (preg_match('/img|image|pic|pict|cover/', $column->name)) {
-                    $field = "\$form->field(\$model, '$attribute')->widget('DuAdmin\Widgets\AjaxFileInput')";
+                    return null;//"\$form->field(\$model, '$attribute')->widget('DuAdmin\Widgets\AjaxFileInput')";
                 } else if (substr($column->name, - 2) === 'At') {
-                    $field = "\$form->field(\$model, '$attribute')->widget('DuAdmin\Widgets\DatePicker',['multidate'=>2])";
+                    $this->useSearchFormClassies['DuAdmin\Widgets\DatePicker'] = 1 ;
+                    $field = "\$form->field(\$model, '$attribute')->widget(DatePicker::class,['multidate'=>2])";
                 } else if ($column->phpType === 'boolean') {
                     $field = "\$form->field(\$model, '$attribute')->checkbox()";
                 }
             }
         }
+        
         return "'<div class=\"col-xs-6\">' . " . $field . " . '</div>'";
     }
 

@@ -16,14 +16,7 @@ if (empty($safeAttributes)) {
 echo "<?php\n";
 $formName = Inflector::camel2id(StringHelper::basename($generator->modelClass));
 ?>
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
-
-/* @var $this yii\web\View */
-/* @var $model <?= ltrim($generator->modelClass, '\\') ?> */
-/* @var $form yii\widgets\ActiveForm */
-?>
-
+<?php $this->beginBlock('form');?>
 <div class="<?= $formName ?>-form">
 
     <?= "<?php " ?>$form = ActiveForm::begin(['id'=>'<?= $formName ?>-form','enableAjaxValidation' => true]); ?>
@@ -43,3 +36,15 @@ use yii\widgets\ActiveForm;
     <?= "<?php " ?>ActiveForm::end(); ?>
 
 </div>
+<?php $this->endBlock();?>
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+<?php foreach(array_keys($generator->useFormClassies) as $className): ?>
+use <?=$className?>;
+<?php endforeach;?>
+
+/* @var $this yii\web\View */
+/* @var $model <?= ltrim($generator->modelClass, '\\') ?> */
+/* @var $form yii\widgets\ActiveForm */
+?>
+<?= $this->blocks['form']?>

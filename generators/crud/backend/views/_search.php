@@ -8,14 +8,7 @@ use yii\helpers\StringHelper;
 
 echo "<?php\n";
 ?>
-use yii\bootstrap\Modal;
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
-
-/* @var $this yii\web\View */
-/* @var $model <?= ltrim($generator->searchModelClass, '\\') ?> */
-/* @var $form yii\widgets\ActiveForm */
-?>
+<?php $this->beginBlock('search');?>
 <?= "<?php " ?> \yii\bootstrap\Modal::begin([
         'id' => '<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-search-modal',
         'header' => '高级搜索',
@@ -37,7 +30,9 @@ use yii\widgets\ActiveForm;
 <?php
 
 foreach ($generator->getColumnNames() as $attribute) {
-    echo "    <?= " . $generator->generateActiveSearchField($attribute) . " ?>\n\n";
+    if($fieldInput = $generator->generateActiveSearchField($attribute)) {
+        echo "    <?= " . $fieldInput . " ?>\n\n";
+    }
 }
 ?>
 </div>
@@ -50,3 +45,16 @@ foreach ($generator->getColumnNames() as $attribute) {
 
 </div>
 <?= "<?php " ?> Modal::end(); ?>
+<?php $this->endBlock();?>
+use yii\bootstrap\Modal;
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+<?php foreach(array_keys($generator->useSearchFormClassies) as $className): ?>
+use <?=$className?>;
+<?php endforeach;?>
+
+/* @var $this yii\web\View */
+/* @var $model <?= ltrim($generator->searchModelClass, '\\') ?> */
+/* @var $form yii\widgets\ActiveForm */
+?>
+<?= $this->blocks['search']?>

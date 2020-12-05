@@ -10,25 +10,25 @@ use yii\base\NotSupportedException;
 use DuAdmin\Core\Operator;
 
 /**
- * "{{%admin}}"表的模型类.
+ * "{{%user}}"表的模型类.
  *
  * @property int $id
  * @property string $username 用户名
- * @property string $nickname 姓名
+ * @property string $nickname 昵称
  * @property string $avatar 头像
- * @property string $auth_key 验证密钥
- * @property string $password_hash 密码hash
- * @property string $password_reset_token 密码重置token
+ * @property string $authKey 授权KEY
+ * @property string $passwordHash 密码hash
+ * @property string $passwordResetToken 密码重置token
  * @property string $email 邮箱
  * @property string $mobile 手机
  * @property int $status 状态
- * @property  int $is_super 超管
- * @property int $login_failure 登录失败次数
- * @property int $login_at 登录时间
- * @property string $login_ip 登录IP
- * @property int $created_at 添加时间
- * @property int $updated_at 更新时间
- * @property int $is_del
+ * @property int $isSuper 是否超管
+ * @property string $loginAt 上次登陆时间
+ * @property string $loginFailure 登陆失败消息
+ * @property string $loginIp 登录IP
+ * @property string $createdAt 添加时间
+ * @property string $updatedAt 更新时间
+ * @property int $isDel
  */
 class User extends BaseModel implements IdentityInterface,Authable,Operator
 {
@@ -55,23 +55,23 @@ class User extends BaseModel implements IdentityInterface,Authable,Operator
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'username' => Yii::t('app', 'Username'),
-            'nickname' => Yii::t('app', 'Nick Name'),
-            'avatar' => Yii::t('app', 'Avatar'),
-            'auth_key' => Yii::t('app', 'Auth Key'),
-            'password' => Yii::t('app', 'Password'),
-            'password_hash' => Yii::t('app', 'Password Hash'),
-            'password_reset_token' => Yii::t('app', 'Password Reset Token'),
-            'email' => Yii::t('app', 'Email'),
-            'mobile' => Yii::t('app', 'Mobile'),
-            'status' => Yii::t('app', 'Status'),
-            'login_failure' => Yii::t('app', 'Login Failure'),
-            'login_at' => Yii::t('app', 'Login Time'),
-            'login_ip' => Yii::t('app', 'Login Ip'),
-            'created_at' => Yii::t('app', 'Created At'),
-            'updated_at' => Yii::t('app', 'Updated At'),
-            'is_del' => Yii::t('app', 'Is Del'),
+            'id' => Yii::t('frontend', 'ID'),
+            'username' => Yii::t('frontend', 'Username'),
+            'nickname' => Yii::t('frontend', 'Nickname'),
+            'avatar' => Yii::t('frontend', 'Avatar'),
+            'authKey' => Yii::t('frontend', 'Auth Key'),
+            'passwordHash' => Yii::t('frontend', 'Password Hash'),
+            'passwordResetToken' => Yii::t('frontend', 'Password Reset Token'),
+            'email' => Yii::t('frontend', 'Email'),
+            'mobile' => Yii::t('frontend', 'Mobile'),
+            'status' => Yii::t('frontend', 'Status'),
+            'isSuper' => Yii::t('frontend', 'Is Super'),
+            'loginAt' => Yii::t('frontend', 'Login At'),
+            'loginFailure' => Yii::t('frontend', 'Login Failure'),
+            'loginIp' => Yii::t('frontend', 'Login Ip'),
+            'createdAt' => Yii::t('da', 'Created At'),
+            'updatedAt' => Yii::t('da', 'Updated At'),
+            'isDel' => Yii::t('frontend', 'Is Del')
         ];
     }
 
@@ -178,7 +178,7 @@ class User extends BaseModel implements IdentityInterface,Authable,Operator
             return null;
         }
         return static::findOne([
-            'password_reset_token' => $token,
+            'passwordResetToken' => $token,
             'status' => self::STATUS_ACTIVE
         ]);
     }
@@ -215,7 +215,7 @@ class User extends BaseModel implements IdentityInterface,Authable,Operator
      */
     public function getAuthKey()
     {
-        return $this->auth_key;
+        return $this->authKey;
     }
 
     /**
@@ -241,7 +241,7 @@ class User extends BaseModel implements IdentityInterface,Authable,Operator
      */
     public function validatePassword($password)
     {
-        return Yii::$app->security->validatePassword($password, $this->password_hash);
+        return Yii::$app->security->validatePassword($password, $this->passwordHash);
     }
 
     /**
@@ -253,7 +253,7 @@ class User extends BaseModel implements IdentityInterface,Authable,Operator
     {
         $password = trim($password);
         if (!empty($password)) {
-            $this->password_hash = Yii::$app->security->generatePasswordHash($password);
+            $this->passwordHash = Yii::$app->security->generatePasswordHash($password);
         }
     }
 
@@ -263,7 +263,7 @@ class User extends BaseModel implements IdentityInterface,Authable,Operator
      */
     public function generateAuthKey()
     {
-        $this->auth_key = Yii::$app->security->generateRandomString();
+        $this->authKey = Yii::$app->security->generateRandomString();
     }
 
     /**
@@ -272,7 +272,7 @@ class User extends BaseModel implements IdentityInterface,Authable,Operator
      */
     public function generatePasswordResetToken()
     {
-        $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
+        $this->passwordResetToken = Yii::$app->security->generateRandomString() . '_' . time();
     }
 
     /**
@@ -280,7 +280,7 @@ class User extends BaseModel implements IdentityInterface,Authable,Operator
      */
     public function removePasswordResetToken()
     {
-        $this->password_reset_token = null;
+        $this->passwordResetToken = null;
     }
 
     /**
@@ -297,7 +297,7 @@ class User extends BaseModel implements IdentityInterface,Authable,Operator
 
     public function isSuperAdmin(): bool
     {
-        return true;
+        return $this->isSuper == 1;
     }
 
 

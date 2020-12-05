@@ -13,6 +13,7 @@ class m201124_063347_create_user_table extends Migration
     public function safeUp()
     {
         $this->createTable('{{%user}}', [
+            'id' => $this->bigPrimaryKey(),
             'username' => $this->string(32)->unique()->notNull()->comment("用户名"),
             'nickname' => $this->string(32)->null()->comment('昵称'),
             'avatar' => $this->string(255)->null()->comment('头像'),

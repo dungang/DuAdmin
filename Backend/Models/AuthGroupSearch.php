@@ -18,7 +18,7 @@ class AuthGroupSearch extends AuthGroup
     {
         return [
             [['name', 'title'], 'safe'],
-            [['type','is_backend'], 'integer'],
+            [['type','isBackend'], 'integer'],
         ];
     }
 
@@ -59,7 +59,7 @@ class AuthGroupSearch extends AuthGroup
         // grid filtering conditions
         $query->andFilterWhere([
             'type' => $this->type,
-            'is_backend' => $this->is_backend,
+            'isBackend' => $this->isBackend,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])

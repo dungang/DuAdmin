@@ -24,7 +24,7 @@ $form = ActiveForm::begin(['id' => 'auth-group-batch-form', 'enableAjaxValidatio
     </tr>
     <?php foreach ($models as $i => $model) : ?>
         <tr>
-            <td><?= $form->field($model, "[$i]is_backend")->label(false)->dropDownList([
+            <td><?= $form->field($model, "[$i]isBackend")->label(false)->dropDownList([
                 0=>'否',
                 1=>'是'
             ]) ?></td>

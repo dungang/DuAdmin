@@ -18,7 +18,7 @@ class AuthGroupController extends BackendController
             'index' => [
                 'class' => 'DuAdmin\Core\ListModelsAction',
                 'modelImmutableAttrs' => [
-                    'is_backend' => 1
+                    'isBackend' => 1
                 ],
                 'modelClass' => [
                     'class' => 'Backend\Models\AuthGroupSearch',
@@ -28,7 +28,7 @@ class AuthGroupController extends BackendController
             'create' => [
                 'class' => 'DuAdmin\Core\CreateModelAction',
                 'modelImmutableAttrs' => [
-                    'is_backend' => 1
+                    'isBackend' => 1
                 ],
                 'modelClass' => [
                     'class' => 'Backend\Models\AuthGroup'
@@ -38,7 +38,7 @@ class AuthGroupController extends BackendController
                 'class' => 'DuAdmin\Core\CreateModelsAction',
                 'formName' => 'AuthGroup',
                 'modelImmutableAttrs' => [
-                    'is_backend' => 1
+                    'isBackend' => 1
                 ],
                 'modelClass' => [
                     'class' => 'Backend\Models\AuthGroup'
@@ -53,7 +53,7 @@ class AuthGroupController extends BackendController
             'update' => [
                 'class' => 'DuAdmin\Core\UpdateModelAction',
                 'modelImmutableAttrs' => [
-                    'is_backend' => 1
+                    'isBackend' => 1
                 ],
                 'modelClass' => [
                     'class' => 'Backend\Models\AuthGroup'
@@ -62,7 +62,7 @@ class AuthGroupController extends BackendController
             'view' => [
                 'class' => 'DuAdmin\Core\ViewModelAction',
                 'modelImmutableAttrs' => [
-                    'is_backend' => 1
+                    'isBackend' => 1
                 ],
                 'modelClass' => [
                     'class' => 'Backend\Models\AuthGroup'
@@ -71,7 +71,7 @@ class AuthGroupController extends BackendController
             'delete' => [
                 'class' => 'DuAdmin\Core\DeleteModelAction',
                 'modelImmutableAttrs' => [
-                    'is_backend' => 1
+                    'isBackend' => 1
                 ],
                 'modelClass' => [
                     'class' => 'Backend\Models\AuthGroup'
@@ -90,7 +90,7 @@ class AuthGroupController extends BackendController
     public function actionAssign($group_name, $type = 1)
     {
 
-        if (($group = AuthGroup::findOne(['name' => $group_name])) && $group->is_backend == 1) {
+        if (($group = AuthGroup::findOne(['name' => $group_name])) && $group->isBackend == 1) {
             if ($names = \Yii::$app->request->post('name')) {
                 AuthPermission::updateAll(['group_name' => $group_name], [
                     'name' => $names

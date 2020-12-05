@@ -44,11 +44,8 @@ $config = [
         ],
         'i18n' => [
             'translations' => [
-                'app' => [
-                    'class' => '\yii\i18n\DbMessageSource'
-                ],
                 'backend' => [
-                    'class' => '\yii\i18n\DbMessageSource'
+                    'class' => '\yii\i18n\PhpMessageSource'
                 ],
             ],
         ]
