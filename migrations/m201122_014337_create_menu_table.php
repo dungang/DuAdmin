@@ -23,6 +23,7 @@ class m201122_014337_create_menu_table extends Migration
             'icon' => $this->string(64)->null()->comment('ICON'),
             'sort' => $this->smallInteger()->defaultValue(0)->comment('排序'),
         ],$tableOptions);
+        $this->addCommentOnTable('{{%menu}}','菜单');
 
         $this->batchInsert('{{%menu}}',[
             'id','pid','name','url','isFront','requireLogin','icon','sort'

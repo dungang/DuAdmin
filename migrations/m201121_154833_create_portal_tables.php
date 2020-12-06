@@ -20,11 +20,13 @@ class m201121_154833_create_portal_tables extends Migration
             'isStatic' => $this->boolean()->defaultValue(true)->comment('是否统计'),
             'unlimited' => $this->boolean()->defaultValue(false)->comment('是否无限制'),
         ]);
+        $this->addCommentOnTable('{{%portal}}','门户块');
 
         $this->createTable('{{%portal_place}}',[
             'adminId' => $this->integer()->notNull()->comment('管理员ID'),
             'portals' => $this->text()->null()->comment('Portals'),
         ]);
+        $this->addCommentOnTable('{{%portal_place}}','门户块位置');
 
         $this->addPrimaryKey('pk-portal_place-adminId','{{%portal_place}}','adminId');
 
@@ -32,6 +34,7 @@ class m201121_154833_create_portal_tables extends Migration
             'role' => $this->string(64)->notNull()->comment('角色'),
             'portals' => $this->text()->null()->comment('Portals'),
         ]);
+        $this->addCommentOnTable('{{%portal_privilege}}','门户块授权');
 
         $this->addPrimaryKey('pk-portal_privilege-role','{{%portal_privilege}}','role');
 

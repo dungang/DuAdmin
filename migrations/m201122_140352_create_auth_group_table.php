@@ -19,6 +19,7 @@ class m201122_140352_create_auth_group_table extends Migration
             'type' => $this->smallInteger()->defaultValue(1)->comment('类型'),
             'isBackend' => $this->boolean()->defaultValue(true)->comment('是否后台')
         ],$tableOptions);
+        $this->addCommentOnTable('{{%auth_group}}','权限组');
         $this->addPrimaryKey('pk-auth_group-name','{{%auth_group}}','name');
     }
 

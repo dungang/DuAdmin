@@ -18,12 +18,14 @@ class m201121_154919_create_source_message_tables extends Migration
             'category' => $this->string(255)->comment('类别'),
             'message' => $this->text()->comment('原文')
         ],$tableOptions);
+        $this->addCommentOnTable('{{%source_message}}','翻译源');
 
         $this->createTable('{{%message}}', [
             'id' => $this->primaryKey(),
             'language' => $this->string(16)->comment('语言'),
             'translation' => $this->text()->comment('翻译')
         ],$tableOptions);
+        $this->addCommentOnTable('{{%message}}','翻译');
     }
 
     /**

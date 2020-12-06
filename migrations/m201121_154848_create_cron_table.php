@@ -28,6 +28,7 @@ class m201121_154848_create_cron_table extends Migration
             'createdAt' => $this->timestamp()->null()->comment('添加时间'),
             'updatedAt' => $this->timestamp()->null()->comment('更新时间'),
         ]);
+        $this->addCommentOnTable('{{%cron}}','定时任务');
     }
 
     /**

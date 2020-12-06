@@ -30,6 +30,8 @@ class m201121_070432_create_admin_table extends Migration
             'createdAt' => $this->timestamp()->null()->comment('添加时间'),
             'updatedAt' => $this->timestamp()->null()->comment('更新时间'),
         ]);
+        
+        $this->addCommentOnTable('{{%admin}}','管理员');
 
         $this->insert('{{%admin}}',[
             'username' => 'admin',

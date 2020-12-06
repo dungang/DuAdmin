@@ -134,6 +134,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
         return [
             'model' => ['class' => 'app\generators\model\Generator'],
             'crud' => ['class' => 'app\generators\crud\Generator'],
+            'language' => ['class' => 'app\generators\language\Generator'],
         ];
     }
 

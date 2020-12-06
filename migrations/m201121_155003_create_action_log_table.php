@@ -23,6 +23,7 @@ class m201121_155003_create_action_log_table extends Migration
             'createdAt' => $this->timestamp()->null()->comment('时间'),
             'data' => $this->text()->comment('数据')
         ],$tableOptions);
+        $this->addCommentOnTable('{{%action_log}}','操作日志');
     }
 
     /**

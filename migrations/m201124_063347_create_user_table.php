@@ -30,6 +30,7 @@ class m201124_063347_create_user_table extends Migration
             'createdAt' => $this->timestamp()->null()->comment('添加时间'),
             'updatedAt' => $this->timestamp()->null()->comment('更新时间'),
         ]);
+        $this->addCommentOnTable('{{%user}}','用户');
         
         $this->insert('{{%user}}',[
             'username' => 'da',

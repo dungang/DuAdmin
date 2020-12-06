@@ -21,6 +21,7 @@ class m201121_151945_create_rewrite_table extends Migration
             'route' => $this->string(128)->notNull()->comment('路由'),
             'category' => $this->string(64)->notNull()->comment('归类'),
         ],$tableOptions);
+        $this->addCommentOnTable('{{%rewrite}}','URL美化');
     }
 
     /**

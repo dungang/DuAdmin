@@ -20,7 +20,9 @@ class m201121_084512_create_auth_tables extends Migration
             'updated_at' => $this->timestamp()->null()->comment('更新时间'),
             'PRIMARY KEY ([[name]])',
         ], $tableOptions);
-
+        
+        $this->addCommentOnTable('{{%auth_rule}}','权限规则');
+        
         $this->createTable('{{%auth_item}}', [
             'name' => $this->string(64)->notNull()->comment('名称'),
             'type' => $this->smallInteger()->notNull()->comment('类型'),
@@ -32,6 +34,7 @@ class m201121_084512_create_auth_tables extends Migration
             'updated_at' => $this->timestamp()->null()->comment('更新时间'),
             'PRIMARY KEY ([[name]])',
         ], $tableOptions);
+        $this->addCommentOnTable('{{%auth_item}}','权限');
         $this->addForeignKey('fk-auth_item-rule_name', '{{%auth_item}}', 'rule_name', '{{%auth_rule}}', 'name', 'SET NULL', 'CASCADE');
         $this->createIndex('idx-auth_item-type', '{{%auth_item}}', 'type');
 
@@ -40,6 +43,7 @@ class m201121_084512_create_auth_tables extends Migration
             'child' => $this->string(64)->notNull()->comment('下级'),
             'PRIMARY KEY ([[parent]], [[child]])',
         ], $tableOptions);
+        $this->addCommentOnTable('{{%auth_item_child}}','子权限');
         $this->addForeignKey('fk-auth_item_child-parent', '{{%auth_item_child}}', 'parent', '{{%auth_item}}', 'name', 'CASCADE', 'CASCADE');
         $this->addForeignKey('fk-auth_item_child-child', '{{%auth_item_child}}', 'child', '{{%auth_item}}', 'name', 'CASCADE', 'CASCADE');
 
@@ -49,6 +53,7 @@ class m201121_084512_create_auth_tables extends Migration
             'created_at' => $this->timestamp()->comment('添加时间'),
             'PRIMARY KEY ([[item_name]], [[user_id]])',
         ], $tableOptions);
+        $this->addCommentOnTable('{{%auth_assignment}}','授权');
         $this->addForeignKey('fk-auth_assignment-item_name', '{{%auth_assignment}}', 'item_name', '{{%auth_item}}', 'name', 'CASCADE', 'CASCADE');
     }
 
