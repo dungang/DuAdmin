@@ -42,7 +42,7 @@ class Generator extends BaseGenerator
 
     public function getName()
     {
-        return '中文翻译';
+        return '翻译';
     }
 
     public function rules()
