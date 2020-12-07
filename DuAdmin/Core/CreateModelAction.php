@@ -6,6 +6,7 @@ use Yii;
 use yii\bootstrap\ActiveForm;
 use yii\web\Response;
 use DuAdmin\Events\CustomerEvent;
+use DuAdmin\Helpers\AppHelper;
 
 class CreateModelAction extends BaseAction
 {
@@ -22,7 +23,7 @@ class CreateModelAction extends BaseAction
             'model' => $model
         ];
         // ajax表单验证
-        if ($this->isAjaxNotPjax() && $model->load(Yii::$app->request->post())) {
+        if (AppHelper::isAjaxValidationRequest() && $model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
         }
@@ -51,7 +52,7 @@ class CreateModelAction extends BaseAction
             }
             return $this->controller->renderOnFail($this->viewName, $this->data);
         }
-
+        
         return $this->controller->render($this->viewName, $this->data);
     }
 }

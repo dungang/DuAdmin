@@ -3,24 +3,26 @@ namespace DuAdmin\Assets;
 
 use yii\web\AssetBundle;
 
-class BackendAsset extends AssetBundle
+class DUAdminAsset extends AssetBundle
 {
     public $baseUrl = '@web';
     
     public $css = [
         'third/font-awesome/css/font-awesome.min.css',
-        'backend/dist/css/main.css'
+        'duadmin/dist/css/DUAdmin.css'
     ];
     
     public $js = [
-        'backend/dist/js/main.js'
+        'js/jquery.form.min.js',
+        'duadmin/dist/js/DUAdmin.js',
     ];
     
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapPluginAsset',
         'yii\validators\ValidationAsset',
-        'yii\widgets\ActiveFormAsset'
+        'yii\widgets\ActiveFormAsset',
+        'DuAdmin\Assets\NotifyAsset',
     ];
 }
 

@@ -5,6 +5,7 @@ namespace DuAdmin\Core;
 use Yii;
 use yii\bootstrap\ActiveForm;
 use yii\web\Response;
+use DuAdmin\Helpers\AppHelper;
 
 class UpdateModelAction extends BaseAction
 {
@@ -22,7 +23,7 @@ class UpdateModelAction extends BaseAction
         ];
 
         // ajax表单验证
-        if ($this->isAjaxNotPjax() && $model->load(Yii::$app->request->post())) {
+        if (AppHelper::isAjaxValidationRequest() && $model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
         }

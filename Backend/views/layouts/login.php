@@ -3,9 +3,9 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 use yii\helpers\Html;
-use DuAdmin\Assets\BackendAsset;
 use Backend\Widgets\Startcron;
-BackendAsset::register($this);
+use DuAdmin\Assets\DUAdminAsset;
+DUAdminAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

@@ -8,6 +8,7 @@ use yii\filters\VerbFilter;
 use yii\base\ActionEvent;
 use yii\helpers\Url;
 use yii\base\Event;
+use DuAdmin\Helpers\AppHelper;
 
 class BaseController extends Controller
 {
@@ -86,14 +87,24 @@ class BaseController extends Controller
         $event = new ActionEvent($action);
         $event->result = $result;
         $this->trigger(self::EVENT_AFTER_ACTION, $event);
+        //处理action返回的结果
+        //DuAdmin/Core/BaseController封装了很多控制器渲染的方法，
+        //很多都是返回的数组结构的结果
         if (is_array($result)) {
-            if (isset($result['view']) && !empty($result['view'])) {
-                $this->renderResult($event, $result);
-            } else if (isset($result['redirectUrl']) && !empty($result['redirectUrl'])) {
-                $event->result = \Yii::$app->getResponse()->redirect(Url::to($result['redirectUrl']), $result['statusCode']);
-            } else {
-                unset($result['view'], $result['redirectUrl']);
+            if(AppHelper::isAjaxFormSubmitRequest()) {
                 $event->result = $this->asJson($result);
+            } else {
+                //如果是数组
+                if (isset($result['view']) && !empty($result['view'])) {
+                    $this->renderResult($event, $result);
+                } else if (isset($result['redirectUrl']) && !empty($result['redirectUrl'])) {
+                    //如果是跳转
+                    $event->result = \Yii::$app->getResponse()->redirect(Url::to($result['redirectUrl']), $result['statusCode']);
+                } else {
+                    //默认的控制器的处理逻辑
+                    unset($result['view'], $result['redirectUrl']);
+                    $event->result = $this->asJson($result);
+                }
             }
         }
         return $event->result;

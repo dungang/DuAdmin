@@ -12,7 +12,6 @@ class CreateModelsAction extends BaseAction
 
     public function run()
     {
-        $data = Yii::$app->request->post($this->formName, []);
         $count = count(Yii::$app->request->post($this->formName, []));
         /* @var $model \yii\db\ActiveRecord */
         /* @var $models \yii\db\ActiveRecord[] */

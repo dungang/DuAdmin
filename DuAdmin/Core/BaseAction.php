@@ -1,5 +1,4 @@
 <?php
-
 namespace DuAdmin\Core;
 
 use Yii;
@@ -64,13 +63,12 @@ abstract class BaseAction extends Action
      * 不通过这种方式也是可以的，配置模型的安全属性，safe，但是这样会导致模型文件的维护复杂
      * 随着业务的增加，对一个模型的需求就会出现不同场景（属性数量的不同）在rules方法章充满了各种场景，已经复杂的组合。
      * 还不入直接通过参数约束。
-     * 
+     *
      * 比如：当会员和管理员同表的场景，用户表即代表了管理员也可以代表会员
      *
      * @var array|null
      */
     public $modelImmutableAttrs = null;
-
 
     public $modelScenario = 'default';
 
@@ -100,7 +98,7 @@ abstract class BaseAction extends Action
         if (empty($this->viewName)) {
             $this->viewName = $this->id;
         }
-        if (!empty($this->actionBehaviors)) {
+        if (! empty($this->actionBehaviors)) {
             $this->attachBehaviors($this->actionBehaviors);
         }
         if (empty($this->successMsg)) {
@@ -226,7 +224,6 @@ abstract class BaseAction extends Action
         return parent::beforeRun();
     }
 
-
     /**
      * 试图在渲染之前
      *
@@ -234,12 +231,12 @@ abstract class BaseAction extends Action
      */
     protected function beforeRender()
     {
-
         $this->trigger(self::EVENT_BEFORE_RENDER);
     }
 
     /**
      * 计算跳转的参数或url
+     *
      * @param BaseModel $model
      * @return mixed[]|string
      */
@@ -302,13 +299,16 @@ abstract class BaseAction extends Action
         } else {
             throw new InvalidConfigException('Action must set modelClass');
         }
-        //自动查找主键过滤条件
+        // 自动查找主键过滤条件
         $condition = ArrayHelper::merge($args ?: [], $this->getPrimaryKeyCondition($modelClass));
-        //是否设置了查找的固定参数
+        // 是否设置了查找的固定参数
         if ($this->modelImmutableAttrs) {
             $condition = ArrayHelper::merge($condition, $this->modelImmutableAttrs);
         }
-        return [$modelClass, $this->clearNullCond($condition)];
+        return [
+            $modelClass,
+            $this->clearNullCond($condition)
+        ];
     }
 
     /**
@@ -320,14 +320,16 @@ abstract class BaseAction extends Action
      */
     protected function findModel($newOneOnNotFound = false)
     {
-        list($modelClass, $condition) = $this->builderFindModelCondition();
+        list ($modelClass, $condition) = $this->builderFindModelCondition();
         /* @var $model \yii\db\ActiveRecord */
         // https://www.yiichina.com/doc/guide/2.0/db-active-record
-        // 提示： yii\db\ActiveRecord::findOne() 和 yii\db\ActiveQuery::one() 
+        // 提示： yii\db\ActiveRecord::findOne() 和 yii\db\ActiveQuery::one()
         // 都不会添加 LIMIT 1 到 生成的 SQL 语句中。
         // 如果你的查询会返回很多行的数据， 你明确的应该加上 limit(1) 来提高性能，
         // 比如 Customer::find()->limit(1)->one()。
-        $model = $modelClass::find()->where($condition)->limit(1)->one();
+        $model = $modelClass::find()->where($condition)
+            ->limit(1)
+            ->one();
         if ($model !== null) {
             $model->setScenario($this->modelScenario);
             return $model;
@@ -348,7 +350,7 @@ abstract class BaseAction extends Action
      */
     protected function findModels()
     {
-        list($modelClass, $condition) = $this->builderFindModelCondition();
+        list ($modelClass, $condition) = $this->builderFindModelCondition();
         /* @var $models \yii\db\ActiveRecord[] */
         $models = call_user_func(array(
             $modelClass,
@@ -363,14 +365,6 @@ abstract class BaseAction extends Action
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    /**
-     * 判断是否是ajax请求，主要是区分表单的ajax验证
-     * @return boolean
-     */
-    protected function isAjaxNotPjax()
-    {
-        return Yii::$app->request->isAjax && Yii::$app->request->isPjax === false;
-    }
 
     /**
      * 清理null的参数
@@ -381,7 +375,7 @@ abstract class BaseAction extends Action
     protected function clearNullCond($cond)
     {
         return \array_filter($cond, function ($val) {
-            return !\is_null($val);
+            return ! \is_null($val);
         });
     }
 }

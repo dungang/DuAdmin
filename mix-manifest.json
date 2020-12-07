@@ -1,5 +1,5 @@
 {
-    "/public/backend/dist/js/main.js": "/public/backend/dist/js/main.js",
-    "/public/backend/dist/css/main.css": "/public/backend/dist/css/main.css",
+    "/public/duadmin/dist/js/DUAdmin.js": "/public/duadmin/dist/js/DUAdmin.js",
+    "/public/duadmin/dist/css/DUAdmin.css": "/public/duadmin/dist/css/DUAdmin.css",
     "/themes/basic/assets/dist/css/basic.css": "/themes/basic/assets/dist/css/basic.css"
 }

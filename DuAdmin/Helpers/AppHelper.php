@@ -32,6 +32,34 @@ class AppHelper
         }
         return self::$agent_detect->isMobile();
     }
+    
+    /**
+     * 判断是否是ajax请求，主要是区分表单的ajax验证
+     *
+     * @return boolean
+     */
+    public static function isAjaxNotPjax()
+    {
+        return Yii::$app->request->isAjax && Yii::$app->request->isPjax === false;
+    }
+    
+    /**
+     * 表单验证通过之后发起的表单请求
+     * 是否ajax表单请求
+     * @return boolean
+     */
+    public static function isAjaxFormSubmitRequest(){
+        return Yii::$app->request->isAjax && isset(Yii::$app->request->headers['ajax-form']);
+    }
+    
+    /**
+     * 是否ajax验证请求
+     * @return boolean
+     */
+    public static function isAjaxValidationRequest()
+    {
+        return Yii::$app->request->isAjax && (Yii::$app->request->post('ajax') || Yii::$app->request->post('ajax'));
+    }
 
     /**
      * 显示一个默认大小的对话框的按钮

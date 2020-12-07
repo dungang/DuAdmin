@@ -12,14 +12,14 @@ let del = require('del');
  */
 mix
     //后台主题
-    .less('public/backend/src/less/main.less', 'public/backend/dist/css', {
+    .less('public/duadmin/src/less/DUAdmin.less', 'public/duadmin/dist/css', {
         lessOptions: {
             paths: [path.resolve(__dirname, 'node_modules')],
         },
     }).options({
         processCssUrls: false
     })
-    .js('public/backend/src/js/main.js', 'public/backend/dist/js')
+    .js('public/duadmin/src/js/DUAdmin.js', 'public/duadmin/dist/js')
     // //前端主题 basic
     .less('themes/basic/assets/src/less/basic.less', 'themes/basic/assets/dist/css')
     //前端主题 clothes

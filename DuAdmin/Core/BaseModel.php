@@ -1,14 +1,21 @@
 <?php
-
 namespace DuAdmin\Core;
 
 use yii\helpers\ArrayHelper;
 use DuAdmin\Behaviors\PropertyBehavior;
 use DuAdmin\Events\BeforeSearchEvent;
 use DuAdmin\Mysql\ActiveRecord;
+use JsonSerializable;
 
-class BaseModel extends ActiveRecord
+class BaseModel extends ActiveRecord implements JsonSerializable
 {
+
+    /**
+     * 对象json序列化的时候设置不显示的字段
+     *
+     * @var array
+     */
+    public $jsonHideFields = [];
 
     const EVENT_AFTER_VIEW = 'afterView';
 
@@ -22,10 +29,26 @@ class BaseModel extends ActiveRecord
      */
     protected $_query_only_undel = true;
 
+    /**
+     *
+     * {@inheritdoc}
+     * @see JsonSerializable::jsonSerialize()
+     */
+    public function jsonSerialize()
+    {
+        if (empty($this->jsonHideFields)) {
+            return $this->toArray();
+        } else {
+            return array_filter($this->toArray(), function ($key) {
+                return in_array($key, $this->jsonHideFields) == false;
+            }, ARRAY_FILTER_USE_KEY);
+        }
+    }
+
     public function init()
     {
         parent::init();
-        //是否有软删除字段
+        // 是否有软删除字段
         if ($this->hasDeleteProperty()) {
             $this->isDel = 0;
         }
@@ -40,9 +63,12 @@ class BaseModel extends ActiveRecord
 
     /**
      * Sets the attribute values in a massive way.
-     * @param array $values attribute values (name => value) to be assigned to the model.
-     * @param bool $safeOnly whether the assignments should only be done to the safe attributes.
-     * A safe attribute is one that is associated with a validation rule in the current [[scenario]].
+     *
+     * @param array $values
+     *            attribute values (name => value) to be assigned to the model.
+     * @param bool $safeOnly
+     *            whether the assignments should only be done to the safe attributes.
+     *            A safe attribute is one that is associated with a validation rule in the current [[scenario]].
      * @see safeAttributes()
      * @see attributes()
      */
@@ -72,13 +98,24 @@ class BaseModel extends ActiveRecord
         if ($value) {
             if (is_array($value)) {
                 if (count($value) > 1) {
-                    return ['between', $field, $value[0], $value[1]];
+                    return [
+                        'between',
+                        $field,
+                        $value[0],
+                        $value[1]
+                    ];
                 } else {
-                    return ['>=', $field, $value[0]];
+                    return [
+                        '>=',
+                        $field,
+                        $value[0]
+                    ];
                 }
             }
         }
-        return [$field => $value];
+        return [
+            $field => $value
+        ];
     }
 
     /**
@@ -117,8 +154,8 @@ class BaseModel extends ActiveRecord
         return parent::delete();
     }
 
-
     /**
+     *
      * @param array $counters
      * @return int
      */
@@ -129,7 +166,6 @@ class BaseModel extends ActiveRecord
         }
         return $this->save(false);
     }
-
 
     /**
      * 复制属性
@@ -163,8 +199,8 @@ class BaseModel extends ActiveRecord
             'params' => $params
         ]);
         $this->trigger(self::EVNT_BEFORE_SEARCH, $event);
-//         $params = $event->params;
-//         $query = $event->query;
+        // $params = $event->params;
+        // $query = $event->query;
     }
 
     public static function allIdToName($key = 'id', $val = 'name', $where = null, $orderBy = null)

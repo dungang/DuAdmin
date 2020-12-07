@@ -9,14 +9,14 @@ use DuAdmin\Widgets\SimpleModal;
 use DuAdmin\Helpers\AppHelper;
 use DuAdmin\Models\Setting;
 use DuAdmin\Models\Menu;
-use DuAdmin\Assets\BackendAsset;
+use DuAdmin\Assets\DUAdminAsset;
 use DuAdmin\Widgets\AdminlteNavBar;
 use DuAdmin\Widgets\AdminlteSideBar;
 use DuAdmin\Widgets\AdminlteSideBarMenu;
 use Backend\Widgets\Startcron;
 use DuAdmin\Widgets\FloatThead;
 
-BackendAsset::register($this);
+DUAdminAsset::register($this);
 
 ?>
 <?php $this->beginPage() ?>
@@ -32,29 +32,6 @@ BackendAsset::register($this);
     <title><?= Html::encode('管理后台-' . $this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<?php
-/*
-     * BODY TAG OPTIONS:
-     * =================
-     * Apply one or more of the following classes to get the
-     * desired effect
-     * |---------------------------------------------------------|
-     * | SKINS | skin-blue |
-     * | | skin-black |
-     * | | skin-purple |
-     * | | skin-yellow |
-     * | | skin-red |
-     * | | skin-green |
-     * |---------------------------------------------------------|
-     * |LAYOUT OPTIONS | fixed |
-     * | | layout-boxed |
-     * | | layout-top-nav |
-     * | | sidebar-collapse |
-     * | | sidebar-mini |
-     * |---------------------------------------------------------|
-     */
-?>
-
 <body class="skin-green fixed sidebar-mini">
     <?php
     $this->beginBody();

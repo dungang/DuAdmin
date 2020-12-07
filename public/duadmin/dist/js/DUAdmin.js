@@ -110,9 +110,27 @@ if("undefined"==typeof jQuery)throw new Error("AdminLTE requires jQuery");+funct
 
 /***/ }),
 
-/***/ "./public/backend/src/js/extend.js":
+/***/ "./public/duadmin/src/js/DUAdmin.js":
+/*!******************************************!*\
+  !*** ./public/duadmin/src/js/DUAdmin.js ***!
+  \******************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var adminlte__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! adminlte */ "./node_modules/adminlte/dist/js/adminlte.min.js");
+/* harmony import */ var adminlte__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(adminlte__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _extend__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./extend */ "./public/duadmin/src/js/extend.js");
+/* harmony import */ var _extend__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_extend__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+/***/ }),
+
+/***/ "./public/duadmin/src/js/extend.js":
 /*!*****************************************!*\
-  !*** ./public/backend/src/js/extend.js ***!
+  !*** ./public/duadmin/src/js/extend.js ***!
   \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
@@ -624,28 +642,10 @@ $(document).on('click', '.ajax-file-input button', function (e) {
 
 /***/ }),
 
-/***/ "./public/backend/src/js/main.js":
-/*!***************************************!*\
-  !*** ./public/backend/src/js/main.js ***!
-  \***************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var adminlte__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! adminlte */ "./node_modules/adminlte/dist/js/adminlte.min.js");
-/* harmony import */ var adminlte__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(adminlte__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _extend__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./extend */ "./public/backend/src/js/extend.js");
-/* harmony import */ var _extend__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_extend__WEBPACK_IMPORTED_MODULE_1__);
-
-
-
-/***/ }),
-
-/***/ "./public/backend/src/less/main.less":
-/*!*******************************************!*\
-  !*** ./public/backend/src/less/main.less ***!
-  \*******************************************/
+/***/ "./public/duadmin/src/less/DUAdmin.less":
+/*!**********************************************!*\
+  !*** ./public/duadmin/src/less/DUAdmin.less ***!
+  \**********************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -665,15 +665,15 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 0:
-/*!***************************************************************************************************************************!*\
-  !*** multi ./public/backend/src/js/main.js ./public/backend/src/less/main.less ./themes/basic/assets/src/less/basic.less ***!
-  \***************************************************************************************************************************/
+/*!*********************************************************************************************************************************!*\
+  !*** multi ./public/duadmin/src/js/DUAdmin.js ./public/duadmin/src/less/DUAdmin.less ./themes/basic/assets/src/less/basic.less ***!
+  \*********************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\IT-SPACE\DUAdmin\public\backend\src\js\main.js */"./public/backend/src/js/main.js");
-__webpack_require__(/*! D:\IT-SPACE\DUAdmin\public\backend\src\less\main.less */"./public/backend/src/less/main.less");
-module.exports = __webpack_require__(/*! D:\IT-SPACE\DUAdmin\themes\basic\assets\src\less\basic.less */"./themes/basic/assets/src/less/basic.less");
+__webpack_require__(/*! D:\projects\workspace\MMAdmin\public\duadmin\src\js\DUAdmin.js */"./public/duadmin/src/js/DUAdmin.js");
+__webpack_require__(/*! D:\projects\workspace\MMAdmin\public\duadmin\src\less\DUAdmin.less */"./public/duadmin/src/less/DUAdmin.less");
+module.exports = __webpack_require__(/*! D:\projects\workspace\MMAdmin\themes\basic\assets\src\less\basic.less */"./themes/basic/assets/src/less/basic.less");
 
 
 /***/ })

@@ -46,8 +46,14 @@ class SimpleModal extends Modal
     if({$this->enablePjax}){
         modal.on('submit','form',function(event){
             event.preventDefault();
-            modal.hide();
-            //$.pjax.submit(event,'.modal-content',{push:false});
+            $(event.target).ajaxSubmit({headers:{'AJAX-FORM':'FORM_SUBMIT'},success:function(data){
+            var type = "error";
+                if(data.status == 'success'){
+                    modal.modal('hide');
+                    type = "success";
+                }   
+                notif({type:type,msg:data.message,position:'center',timeout:3000});
+            }});
         });
     }
 })(jQuery, '{$selector}')
