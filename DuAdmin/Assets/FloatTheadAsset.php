@@ -6,6 +6,7 @@ use yii\web\AssetBundle;
 /**
  *
  * @author dungang
+ * https://mkoryak.github.io/floatThead/
  */
 class FloatTheadAsset extends AssetBundle
 {
