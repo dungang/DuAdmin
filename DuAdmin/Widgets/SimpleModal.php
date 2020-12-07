@@ -34,7 +34,8 @@ class SimpleModal extends Modal
     var modal = $(modalSelector);
     // 清空对象
     modal.on('hidden.bs.modal', function(e) {    
-        $(e.target).data('bs.modal', null);
+        modal.data('bs.modal', null);
+        modal.find('.modal-body').empty();
     });
     // 根据属性调整modal窗口大小
     modal.on('show.bs.modal', function(e) {
@@ -45,8 +46,8 @@ class SimpleModal extends Modal
     if({$this->enablePjax}){
         modal.on('submit','form',function(event){
             event.preventDefault();
-            console.log($(this));
-            $.pjax.submit(event,'.modal-content',{push:false});
+            modal.hide();
+            //$.pjax.submit(event,'.modal-content',{push:false});
         });
     }
 })(jQuery, '{$selector}')
