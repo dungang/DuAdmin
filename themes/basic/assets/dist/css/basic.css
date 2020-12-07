@@ -560,6 +560,7 @@ select[multiple].input-lg {
 .navbar.affix {
   width: 100%;
   position: fixed;
+  z-index: 999;
 }
 @media (min-width: 768px) {
   .navbar-header {
