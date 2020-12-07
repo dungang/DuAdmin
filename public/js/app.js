@@ -72,11 +72,9 @@ $(document).ready(function(){
 	    }
 	  }
 	}).on('affixed.bs.affix',function(){
-		console.log('affix');
 		$(this).removeClass('navbar-inverse')
 		.addClass('navbar-default');
 	}).on("affixed-top.bs.affix",function(){
-		console.log('top')
 		$(this).removeClass('navbar-default')
 		.addClass('navbar-inverse');
 	})

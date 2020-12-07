@@ -69,7 +69,7 @@ AAA;
 AAA;
                 
             } else {
-                if(substr($column->name, -2) == 'At') {
+                if(substr($column->name, -2) === 'At') {
                     echo <<<DATE_FIELD
             [  
                 'class' => 'DuAdmin\Grids\DateTimeColumn',
@@ -80,7 +80,7 @@ DATE_FIELD;
                 echo "            '" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
             }
         } else {
-            if(substr($column->name, -2) == 'At') {
+            if(substr($column->name, -2) === 'At') {
                 echo <<<DATE_FIELD
             [  
                 'class' => 'DuAdmin\Grids\DateTimeColumn',

@@ -38,6 +38,8 @@ class User extends BaseModel implements IdentityInterface,Authable,Operator
     const STATUS_ACTIVE = 10;
 
     public $password;
+    
+    public $jsonHideFields = ['authKey','passwordHash','passwordResetToken'];
 
     /**
      *
@@ -55,23 +57,23 @@ class User extends BaseModel implements IdentityInterface,Authable,Operator
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('frontend', 'ID'),
-            'username' => Yii::t('frontend', 'Username'),
-            'nickname' => Yii::t('frontend', 'Nickname'),
-            'avatar' => Yii::t('frontend', 'Avatar'),
-            'authKey' => Yii::t('frontend', 'Auth Key'),
-            'passwordHash' => Yii::t('frontend', 'Password Hash'),
-            'passwordResetToken' => Yii::t('frontend', 'Password Reset Token'),
-            'email' => Yii::t('frontend', 'Email'),
-            'mobile' => Yii::t('frontend', 'Mobile'),
-            'status' => Yii::t('frontend', 'Status'),
-            'isSuper' => Yii::t('frontend', 'Is Super'),
-            'loginAt' => Yii::t('frontend', 'Login At'),
-            'loginFailure' => Yii::t('frontend', 'Login Failure'),
-            'loginIp' => Yii::t('frontend', 'Login Ip'),
+            'id' => Yii::t('app', 'ID'),
+            'username' => Yii::t('app', 'Username'),
+            'nickname' => Yii::t('app', 'Nickname'),
+            'avatar' => Yii::t('app', 'Avatar'),
+            'authKey' => Yii::t('app', 'Auth Key'),
+            'passwordHash' => Yii::t('app', 'Password Hash'),
+            'passwordResetToken' => Yii::t('app', 'Password Reset Token'),
+            'email' => Yii::t('app', 'Email'),
+            'mobile' => Yii::t('app', 'Mobile'),
+            'status' => Yii::t('app', 'Status'),
+            'isSuper' => Yii::t('app', 'Is Super'),
+            'loginAt' => Yii::t('app', 'Login At'),
+            'loginFailure' => Yii::t('app', 'Login Failure'),
+            'loginIp' => Yii::t('app', 'Login Ip'),
             'createdAt' => Yii::t('da', 'Created At'),
             'updatedAt' => Yii::t('da', 'Updated At'),
-            'isDel' => Yii::t('frontend', 'Is Del')
+            'isDel' => Yii::t('da', 'Is Del')
         ];
     }
 

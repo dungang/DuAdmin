@@ -561,16 +561,16 @@ class Generator extends \app\generators\Generator
             return 'ntext';
         }
 
-        if (stripos($column->name, 'time') !== false && $column->phpType === 'integer') {
-            return 'datetime';
-        }
-
-        if (stripos($column->name, 'At') !== false && $column->phpType === 'integer') {
+        if (substr($column->name,-2) === 'At') {
             return 'datetime';
         }
 
         if (stripos($column->name, 'email') !== false) {
             return 'email';
+        }
+        
+        if(preg_match('/img|image|pic|pict|cover/', $column->name)) {
+            return 'image';
         }
 
         if (preg_match('/(\b|[_-])url(\b|[_-])/i', $column->name)) {
