@@ -72,13 +72,13 @@ class AddonController extends Controller
             $json['i18n'][] = $message_category;
             $json['i18n'] = array_unique($json['i18n']);
             file_put_contents($addonJsonFile, json_encode($json, JSON_FORCE_OBJECT | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
-  
+
             $msgDir = $addonDir . '/resource/messages/zh-CN/';
             $addonMessageFile = $msgDir . $message_category . '.php';
-            if(!is_dir($msgDir)) {
-               mkdir($msgDir,0775,true);
+            if (! is_dir($msgDir)) {
+                mkdir($msgDir, 0775, true);
             }
-            if(!file_exists($addonMessageFile)) {
+            if (! file_exists($addonMessageFile)) {
                 file_put_contents($addonMessageFile, "<?php\nreturn [\n];");
             }
             $this->stdout("激活成功\n" . $addonJsonFile . "\n\n", Console::FG_GREEN);
@@ -86,12 +86,50 @@ class AddonController extends Controller
             $this->stdout("激活失败！文件不存在\n" . $addonJsonFile . "\n\n", Console::FG_RED);
         }
     }
-    
+
+    /**
+     * 激活模块的属性 'hasApi','hasFrontend','hasBackend','hasConsole'
+     *
+     * @param string $addonName
+     * @param string $property
+     */
+    public function actionActive($addonName, $property)
+    {
+        $properties = [
+            'hasApi',
+            'hasFrontend',
+            'hasBackend',
+            'hasConsole'
+        ];
+        if (in_array($property, $properties)) {
+            $addonDir = \Yii::getAlias('@Addons/' . $addonName);
+            $addonJsonFile = $addonDir . DIRECTORY_SEPARATOR . 'addon.json';
+            if (file_exists($addonJsonFile)) {
+                $json = json_decode(file_get_contents($addonJsonFile), true);
+                $json[$property] = true;
+                file_put_contents($addonJsonFile, json_encode($json, JSON_FORCE_OBJECT | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+                $this->stdout("激活成功\n" . $addonJsonFile . "\n\n", Console::FG_GREEN);
+            } else {
+                $this->stdout("激活失败！文件不存在\n" . $addonJsonFile . "\n\n", Console::FG_RED);
+            }
+        } else {
+            $this->stdout("属性不存在!只能使用如下属性:\n" . implode(',', $properties) . "\n\n", Console::FG_RED);
+        }
+    }
+
+    /**
+     * 生成插件配置文件
+     */
+    public function actionConfig()
+    {
+        list ($addonName, $addonTitle, $addonType) = $this->confirmUserSelect();
+        $this->createAddonJsonFile($addonName, $addonTitle, $addonType);
+    }
 
     /**
      * 刷新配置文件
      */
-    public function actionJson($addonName, $addonTitle, $type = "app")
+    private function createAddonJsonFile($addonName, $addonTitle, $type = "app")
     {
         $addonDir = \Yii::getAlias('@Addons/' . $addonName);
         $addonJsonFile = $addonDir . DIRECTORY_SEPARATOR . 'addon.json';
@@ -135,6 +173,27 @@ class AddonController extends Controller
         }
     }
 
+    protected function confirmUserSelect()
+    {
+        $addonName = $this->prompt("请输入插件的目录名称", [
+            'required' => true
+        ]);
+        $addonTitle = $this->prompt("请输入插件的标题", [
+            'required' => true
+        ]);
+        $addonType = $this->select("请输入插件的类型", [
+            'app' => '完整商业逻辑的插件，比如blog',
+            'component' => '有部分商业逻辑，主要是辅助app的插件的功能，比如省份城市的插件',
+            'editor' => '编辑器，比如百度编辑器Ueditor',
+            'api' => '集成第三方的API,比如存储，支付，短信等'
+        ]);
+        return [
+            $addonName,
+            $addonTitle,
+            $addonType
+        ];
+    }
+
     /**
      * 创建插件
      *
@@ -143,8 +202,9 @@ class AddonController extends Controller
      * @param string $addonTitle
      *            插件标题
      */
-    public function actionCreate($addonName, $addonTitle)
+    public function actionCreate()
     {
+        list ($addonName, $addonTitle, $addonType) = $this->confirmUserSelect();
         $addonDir = \Yii::getAlias('@Addons/' . $addonName);
         $dirs = [
             $addonDir
@@ -180,10 +240,7 @@ class AddonController extends Controller
                         Inflector::camel2words($addonName) => $addonTitle
                     ]) . ';');
                 }
-                $this->runAction("json", [
-                    $addonName,
-                    $addonTitle
-                ]);
+                $this->createAddonJsonFile($addonName, $addonTitle, $addonType);
                 $this->stdout("插件创建成功" . PHP_EOL);
             }
         } catch (\Exception $e) {

@@ -431,12 +431,12 @@ class Generator extends \app\generators\Generator
     // 留给后面的逻辑处理
     protected function parseCommentToEnumValues($attribute, $column)
     {
-        if ($column->name == 'online'
-            || $column->name === 'status' 
-            || substr($column->name, - 6) === 'Status' 
-            || $column->name === 'type' 
-            || substr($column->name, - 6) === 'Type'
-            || substr($column->name,0,2) === 'is') {
+//         if ($column->name == 'online'
+//             || $column->name === 'status' 
+//             || substr($column->name, - 6) === 'Status' 
+//             || $column->name === 'type' 
+//             || substr($column->name, - 6) === 'Type'
+//             || substr($column->name,0,2) === 'is') {
             if (strpos($column->comment, '|') !== false) {
                 // 分割字段备注
                 $pieces = explode("::", $column->comment);
@@ -461,7 +461,7 @@ class Generator extends \app\generators\Generator
                     return "\$form->field(\$model, '$attribute')->dropDownList(" . preg_replace("/\n\s*/", ' ', VarDumper::export($dropDownOptions)) . ", ['prompt' => ''])";
                 }
             }
-        }
+        // }
         return false;
     }
 
@@ -641,6 +641,21 @@ class Generator extends \app\generators\Generator
         }
 
         return $rules;
+    }
+    
+    /**
+     * 是否有字符串字段
+     */
+    public function hasStringField(){
+        if($table = $this->getTableSchema()) {
+            foreach ($table->columns as $column) {
+                if(in_array($column->type, ['string','char','text'])) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
     }
 
     /**

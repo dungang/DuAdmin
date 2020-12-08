@@ -109,8 +109,9 @@ DATE_FIELD;
 <?="<?= " ?>Html::a('<i class="fa fa-trash"></i> '. Yii::t('da','Delete'), ['delete'], ['class'=>'btn btn-danger del-all','data-target'=>'#<?= $id_prefix . '-list'?>']) ?>
 <?php endif;?>
 
+<?php if($generator->hasStringField()): ?>
 <?="<?= " ?>FullSearchBox::widget(['action'=>['index']]) ?> 
-
+<?php endif;?>
 <?= "<?php PanelGridView::end() ?>\n"?>
 
 <?= $generator->enablePjax ? "<?php Pjax::end(); ?>\n" : '' ?>
