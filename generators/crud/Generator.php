@@ -422,7 +422,8 @@ class Generator extends \app\generators\Generator
     // 留给后面的逻辑处理
     protected function parseCommentToEnumValues($attribute, $column)
     {
-        if ($column->name === 'status' 
+        if ($column->name == 'online'
+            || $column->name === 'status' 
             || substr($column->name, - 6) === 'Status' 
             || $column->name === 'type' 
             || substr($column->name, - 6) === 'Type'
@@ -471,7 +472,7 @@ class Generator extends \app\generators\Generator
             return $code;
         }
 
-        if (preg_match('/img|image|pic|pict|cover/', $column->name)) {
+        if (preg_match('/img|image|pic|pict|cover|logo/', $column->name)) {
             $this->useFormClassies['DuAdmin\Widgets\AjaxFileInput'] = 1;
             return "\$form->field(\$model, '$attribute')->widget(AjaxFileInput::class)";
         }

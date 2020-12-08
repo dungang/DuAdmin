@@ -15,6 +15,7 @@ use yii\db\TableSchema;
 use app\generators\CodeFile;
 use yii\helpers\Inflector;
 use yii\base\NotSupportedException;
+use yii\helpers\FileHelper;
 
 /**
  * This generator will generate one or multiple ActiveRecord classes for the specified database table.
@@ -601,7 +602,21 @@ class Generator extends \app\generators\Generator
 
         return $rules;
     }
-
+    
+    public function getModelNamespaces(){
+        $ns = [
+            'Backend\\Models',
+            'Frontend\\Models',
+        ];
+        $dirs = FileHelper::findDirectories(\Yii::$app->basePath . '/Addons',['recursive'=>false]);
+        foreach($dirs as $dir) {
+            $addonName = basename($dir);
+            $ns[] = 'Addons\\' . $addonName . '\\Models';
+        }
+        return $ns;
+    } 
+    
+    
     /**
      * Generates relations using a junction table by adding an extra viaTable().
      *

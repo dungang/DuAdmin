@@ -8,6 +8,8 @@ use yii\base\InvalidConfigException;
 use yii\base\Model;
 use yii\helpers\VarDumper;
 use yii\web\View;
+use yii\helpers\FileHelper;
+use yii\helpers\Inflector;
 
 /**
  * This is the base class for all generator classes.
@@ -516,5 +518,23 @@ abstract class Generator extends Model
             }
         }
         return $str;
+    }
+    
+    /**
+     * 获取项目的可能的翻译消息类文件
+     * @return string[]
+     */
+    public function getMessageCatetories(){
+        $categories = [
+            'app',
+            'backend',
+            'frontend',
+        ];
+        $dirs = FileHelper::findDirectories(\Yii::$app->basePath . '/Addons',['recursive'=>false]);
+        foreach($dirs as $dir) {
+            $addonName = basename($dir);
+            $categories[] = 'addon_' . Inflector::camel2id($addonName,'_');
+        }
+        return $categories;
     }
 }
