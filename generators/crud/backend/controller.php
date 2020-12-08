@@ -38,12 +38,37 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
 		return [
             'index' => [
                 'class' => 'DuAdmin\Core\ListModelsAction',
+                // 'modelBehaviors' => [],
+                // 'actionBehaviors' => [],
+                // 'modelScenario' => 'default',
+                // 'successRediretUrl' => false,
+                // 'successMsg' => null,
+                // 'withModels' => [],
+<?php if ($generator->onlyQueryCurrentUser): ?>
+                'modelImmutableAttrs' => [
+                    'userId' => \Yii::$app->user->id,
+                ],
+<?php else:?>
+                // 'modelImmutableAttrs' => [],
+<?php endif;?>
                 'modelClass' => [
                     'class' => '<?=$searchModelName?>'
                 ]
             ],
             'view' => [
                 'class' => 'DuAdmin\Core\ViewModelAction',
+                // 'modelBehaviors' => [],
+                // 'actionBehaviors' => [],
+                // 'modelScenario' => 'default',
+                // 'successRediretUrl' => false,
+                // 'successMsg' => null,
+<?php if ($generator->onlyQueryCurrentUser): ?>
+                'modelImmutableAttrs' => [
+                    'userId' => \Yii::$app->user->id,
+                ],
+<?php else:?>
+                // 'modelImmutableAttrs' => [],
+<?php endif;?>
                 'modelClass' => [
                     'class' => '<?=$modelName?>'
                 ]
@@ -51,18 +76,54 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
 <?php if ($generator->enableCrudAction):?>
             'create' => [
                 'class' => 'DuAdmin\Core\CreateModelAction',
+                // 'modelBehaviors' => [],
+                // 'actionBehaviors' => [],
+                // 'modelScenario' => 'default',
+                // 'successRediretUrl' => false,
+                // 'successMsg' => null,
+<?php if ($generator->onlyQueryCurrentUser): ?>
+                'modelImmutableAttrs' => [
+                    'userId' => \Yii::$app->user->id,
+                ],
+<?php else:?>
+                // 'modelImmutableAttrs' => [],
+<?php endif;?>
                 'modelClass' => [
                     'class' => '<?=$modelName?>'
                 ]
             ],
             'update' => [
                 'class' => 'DuAdmin\Core\UpdateModelAction',
+                // 'modelBehaviors' => [],
+                // 'actionBehaviors' => [],
+                // 'modelScenario' => 'default',
+                // 'successRediretUrl' => false,
+                // 'successMsg' => null,
+<?php if ($generator->onlyQueryCurrentUser): ?>
+                'modelImmutableAttrs' => [
+                    'userId' => \Yii::$app->user->id,
+                ],
+<?php else:?>
+                // 'modelImmutableAttrs' => [],
+<?php endif;?>
                 'modelClass' => [
                     'class' => '<?=$modelName?>'
                 ]
             ],
             'delete' => [
                 'class' => 'DuAdmin\Core\DeleteModelsAction',
+                // 'modelBehaviors' => [],
+                // 'actionBehaviors' => [],
+                // 'modelScenario' => 'default',
+                // 'successRediretUrl' => false,
+                // 'successMsg' => null,
+<?php if ($generator->onlyQueryCurrentUser): ?>
+                'modelImmutableAttrs' => [
+                    'userId' => \Yii::$app->user->id,
+                ],
+<?php else:?>
+                // 'modelImmutableAttrs' => [],
+<?php endif;?>
                 'modelClass' => [
                     'class' => '<?=$modelName?>'
                 ]

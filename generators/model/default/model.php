@@ -35,6 +35,13 @@ use Yii;
  */
 class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . "\n" ?>
 {
+    ///**
+    // * 对象json序列化的时候设置不显示的字段
+    // *
+    // * @var array
+    // */
+    // public $jsonHideFields = [];
+
     /**
      * {@inheritdoc}
      */

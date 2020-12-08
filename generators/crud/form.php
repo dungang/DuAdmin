@@ -7,6 +7,7 @@ echo $form->field($generator, 'modelClass');
 echo $form->field($generator, 'searchModelClass');
 echo $form->field($generator, 'controllerClass');
 echo $form->field($generator, 'viewPath');
+echo $form->field($generator, 'onlyQueryCurrentUser')->checkbox();
 echo $form->field($generator, 'baseControllerClass')->dropDownList([
     'DuAdmin\Core\BackendController' => 'DUAdmin BackendController',
     'DuAdmin\Core\FrontendController' => 'DUAdmin FrontendController',

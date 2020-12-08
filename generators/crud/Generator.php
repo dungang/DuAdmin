@@ -50,6 +50,13 @@ class Generator extends \app\generators\Generator
 
     public $searchModelClass = '';
 
+    /**
+     * 设置是否在控制器上设置只查询当前用户的数据
+     *
+     * @var boolean
+     */
+    public $onlyQueryCurrentUser = false;
+
     public $templates = [
         'backend' => '@app/generators/crud/backend',
         'frontend' => '@app/generators/crud/frontend'
@@ -215,7 +222,8 @@ class Generator extends \app\generators\Generator
                     'enableI18N',
                     'enablePjax',
                     'enableDefaultOrder',
-                    'enableCrudAction'
+                    'enableCrudAction',
+                    'onlyQueryCurrentUser'
                 ],
                 'boolean'
             ],
@@ -257,7 +265,8 @@ class Generator extends \app\generators\Generator
             'enableDefaultOrder' => '是否支持默认搜索排序',
             'defaultOrderField' => '默认搜索排序字段',
             'defaultOrder' => '默认搜索排序顺序',
-            'enableCrudAction' => '是否支持增删改'
+            'enableCrudAction' => '是否支持增删改',
+            'onlyQueryCurrentUser' => '设置是否在控制器上设置只查询当前用户的数据'
         ]);
     }
 
