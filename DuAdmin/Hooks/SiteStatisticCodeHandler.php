@@ -2,7 +2,6 @@
 
 namespace DuAdmin\Hooks;
 
-use DuAdmin\Core\FrontendController;
 use yii\web\View;
 use DuAdmin\Helpers\AppHelper;
 use Yii;

@@ -26,7 +26,8 @@
 		"zircote/swagger-php" : "^3.0",
 		"firebase/php-jwt" : "^5.2",
 		"vlucas/phpdotenv" : "^5.2",
-		"symfony/finder" : "^5.1"
+		"symfony/finder" : "^5.1",
+		"overtrue/wechat": "^4.2"
 	},
 	"require-dev" : {
 		"yiisoft/yii2-debug" : "~2.0"
