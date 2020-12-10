@@ -3,9 +3,9 @@ namespace Frontend\Controllers;
 
 use Yii;
 use Frontend\Forms\LoginForm;
-use DuAdmin\Core\BaseController;
+use DuAdmin\Core\GuestController;
 
-class LoginController extends BaseController
+class LoginController extends GuestController
 {
 	public function init(){
 		parent::init();
