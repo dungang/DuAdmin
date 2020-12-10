@@ -537,4 +537,15 @@ abstract class Generator extends Model
         }
         return $categories;
     }
+    
+    /**
+     * 获取插件名称的所有列表
+     * @return array
+     */
+    public function getAddonNames(){
+        $dirs = FileHelper::findDirectories(\Yii::$app->basePath . '/Addons/',[
+            'recursive' => false
+        ]);
+        return array_map(function($dir){return basename($dir);},$dirs);
+    }
 }

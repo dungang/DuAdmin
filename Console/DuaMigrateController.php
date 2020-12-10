@@ -11,7 +11,7 @@ use yii\helpers\BaseFileHelper;
  * @author dungang
  *        
  */
-class AllMigrateController extends MigrateController
+class DuaMigrateController extends MigrateController
 {
 
     public function init()
