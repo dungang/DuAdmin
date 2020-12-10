@@ -40,7 +40,7 @@ $config = [
                 'class' => 'DuAdmin\Components\DUATheme',
                 'basePath' => '@app/themes/basic',
                 'pathMap' => [
-                    '@app/Frontend/views' => '@app/themes/basic',
+                    '@Frontend/views' => '@app/themes/basic',
                 ]
             ]
         ],

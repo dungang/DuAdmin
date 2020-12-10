@@ -43,7 +43,7 @@ class Generator extends BaseGenerator
      *
      * @var integer
      */
-    public $count = 20;
+    public $count = 5;
 
     public $db = 'db';
 
@@ -166,6 +166,10 @@ class Generator extends BaseGenerator
                 $map[$column->name] = 1;
                 continue;
             }
+            if (preg_match('/img|image|pic|pict|cover|logo/', $column->name)) {
+                $map[$column->name] = '$fk->url';
+                continue;
+            }
             if (substr($column->name, - 2) == 'No') {
                 $map[$column->name] = '$fk->uuid';
                 continue;
@@ -184,9 +188,13 @@ class Generator extends BaseGenerator
                     $map[$column->name] = '$fk->numberBetween(0,3)';
                     break;
                 case Schema::TYPE_SMALLINT:
+                    $map[$column->name] = '$fk->numberBetween(1,5)';
+                    break;
                 case Schema::TYPE_INTEGER:
+                    $map[$column->name] = '$fk->numberBetween(1,10)';
+                    break;
                 case Schema::TYPE_BIGINT:
-                    $map[$column->name] = '$fk->numberBetween(1,100)';
+                    $map[$column->name] = '$fk->numberBetween(1,20)';
                     break;
                 case Schema::TYPE_BOOLEAN:
                     $map[$column->name] = '$fk->numberBetween(0,1)';

@@ -3,12 +3,12 @@ namespace Frontend\Controllers;
 
 use DuAdmin\Helpers\AppHelper;
 use DuAdmin\Hooks\FindSlugHook;
-use DuAdmin\Core\BaseController;
+use DuAdmin\Core\GuestController;
 
 /**
  * Site controller
  */
-class SiteController extends BaseController
+class SiteController extends GuestController
 {
 
     public function init()

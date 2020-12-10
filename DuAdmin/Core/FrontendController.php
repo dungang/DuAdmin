@@ -12,6 +12,8 @@ use DuAdmin\Filters\AccessFilter;
  */
 abstract class FrontendController extends BaseController {
     
+    public $layout = "/frontend";
+    
     /**
      * 游客可以访问的action清单
      *
