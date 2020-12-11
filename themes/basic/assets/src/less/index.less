@@ -4,6 +4,7 @@ html,
 body {
     height        : 100%;
     //  background: #f5f5f5;
+	// background: #efefef;
 }
 
 
@@ -32,14 +33,20 @@ body {
     }
 }
 
-.jumbotron {
-    text-align      : center;
-    background-color: transparent;
-}
-
-.jumbotron .btn {
-    font-size: 21px;
-    padding  : 14px 24px;
+.dua {
+	.jumbotron {
+	    text-align      : center;
+	    background-color: transparent;
+		background-image: url(/images/banner-bg.jpg);
+		background-repeat: no-repeat;
+		background-size: cover;
+		height: 360px;
+	}
+	
+	.jumbotron .btn {
+	    font-size: 21px;
+	    padding  : 14px 24px;
+	}
 }
 
 .not-set {
@@ -132,6 +139,14 @@ a.desc:after {
 
 
 /* customer css */
+
+.border-primary {
+	border: 1px solid @brand-primary;
+}
+
+.border-light-primary {
+	border: 1px solid lighten(@brand-primary,25%);
+}
 
 .grid-view .summary {
     padding-bottom: 10px;

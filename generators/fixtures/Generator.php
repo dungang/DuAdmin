@@ -29,7 +29,7 @@ class Generator extends BaseGenerator
      *
      * @var string
      */
-    public $fixtureTemplatePath = "@Backend/tests/unit/fixtures";
+    public $fixtureTemplatePath = "@Backend/Tests/Unit/Fixtures";
 
     /**
      * 选择需要生成模板数据的表格
@@ -37,13 +37,6 @@ class Generator extends BaseGenerator
      * @var array
      */
     public $tables = [];
-
-    /**
-     * 数量
-     *
-     * @var integer
-     */
-    public $count = 5;
 
     public $db = 'db';
 
@@ -67,7 +60,6 @@ class Generator extends BaseGenerator
                 [
                     'language',
                     'fixtureTemplatePath',
-                    'count',
                     'tables'
                 ],
                 'required'
@@ -88,7 +80,6 @@ class Generator extends BaseGenerator
             'language' => '语言',
             'tables' => '数据表',
             'fixtureTemplatePath' => '模板数据生成路径',
-            'count' => '生成条数'
         ];
     }
 
@@ -159,7 +150,7 @@ class Generator extends BaseGenerator
         $map = [];
 
         foreach ($columns as $column) {
-            if (in_array($column->name,['id','createdAt','updatedAt'])) {
+            if (in_array($column->name,['id'/*,'createdAt','updatedAt'*/])) {
                 continue;
             }
             if ($column->name == 'userId') {
@@ -167,7 +158,7 @@ class Generator extends BaseGenerator
                 continue;
             }
             if (preg_match('/img|image|pic|pict|cover|logo/', $column->name)) {
-                $map[$column->name] = '$fk->url';
+                $map[$column->name] = '$fk->imageUrl()';
                 continue;
             }
             if (substr($column->name, - 2) == 'No') {
@@ -180,7 +171,7 @@ class Generator extends BaseGenerator
             }
             // 处理时间字段（查询的时候传递的是日期格式的字符串）
             if (substr($column->name, - 2) == 'At') {
-                $map[$column->name] = '$fk->datetime';
+                $map[$column->name] = 'date("Y-m-d H:i:s")';
                 continue;
             }
             switch ($column->type) {
@@ -203,17 +194,17 @@ class Generator extends BaseGenerator
                 case Schema::TYPE_DOUBLE:
                 case Schema::TYPE_DECIMAL:
                 case Schema::TYPE_MONEY:
-                    $map[$column->name] = '$fk->randomFloat(1,100)';
+                    $map[$column->name] = '$fk->randomFloat(2,1,8)';
                     break;
                 case Schema::TYPE_DATE:
-                    $map[$column->name] = '$fk->date';
+                    $map[$column->name] = '$fk->date()';
                     break;
                 case Schema::TYPE_TIME:
-                    $map[$column->name] = '$fk->time';
+                    $map[$column->name] = '$fk->time()';
                     break;
                 case Schema::TYPE_DATETIME:
                 case Schema::TYPE_TIMESTAMP:
-                    $map[$column->name] = '$fk->datetime';
+                    $map[$column->name] = 'date("Y-m-d H:i:s")';
                     break;
                 case Schema::TYPE_TEXT:
                     $map[$column->name] = '$fk->text(100)';
@@ -251,7 +242,7 @@ class Generator extends BaseGenerator
             $tableSchema = $schema->getTableSchema($tableName);
             $columns = $tableSchema->columns;
             $columnMap = $this->generateFixtuireColumnMap($columns);
-            $path = \Yii::getAlias($this->fixtureTemplatePath) . '/' . $this->language;
+            $path = \Yii::getAlias($this->fixtureTemplatePath);// . '/' . $this->language;
             if (is_dir($path) == false) {
                 FileHelper::createDirectory($path);
             }
@@ -259,8 +250,7 @@ class Generator extends BaseGenerator
             $file = $path . '/' . Inflector::id2camel(substr($tableName, $tablePixLength), '_') . '.php';
             $codeFiles[] = new CodeFile($file, $this->render('template.php', [
                 'columns' => $columnMap,
-                'locale' => $this->language,
-                'count' => $this->count
+                'locale' => $this->language
             ]));
         }
         return $codeFiles;
@@ -269,12 +259,12 @@ class Generator extends BaseGenerator
     public function findFixtureTemplatePaths()
     {
         $paths = [
-            '@Backend/tests/unit/fixtures',
-            '@Frontend/tests/unit/fixtures'
+            '@Backend/Tests/Unit/Fixtures/templates',
+            '@Frontend/Tests/Unit/Fixtures/templates'
         ];
         $addonNames = $this->getAddonNames();
         foreach ($addonNames as $name) {
-            $paths[] = '@Addons/' . $name . '/tests/unit/fixtures';
+            $paths[] = '@Addons/' . $name . '/Tests/Unit/Fixtures/templates';
         }
         return $paths;
     }

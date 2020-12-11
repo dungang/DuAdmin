@@ -7,12 +7,14 @@ $this->registerJs("$('.input-daterange input').each(function() {
     $(this).datepicker('clearDates');
 });")?>
 
+<div class="dua">
 <div class="bg-primary jumbotron">
 	<h1>Hello, world!</h1>
 	<p>For My Best Friends!</p>
 	<p>
 		<a class="btn btn-primary" href="#" role="button">Learn more</a>
 	</p>
+</div>
 </div>
 <div class="jumbotron">
 	<h1>Hello, world!</h1>
