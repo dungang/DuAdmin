@@ -1586,7 +1586,7 @@ body {
   padding: 0 0 180px;
 }
 .wrap > .container {
-  padding: 0px 15px 20px;
+  padding: 0px 15px 0px;
 }
 .footer {
   height: 180px;
@@ -1716,7 +1716,11 @@ a.desc:after {
     width: auto;
   }
 }
+a {
+  color: #232834;
+}
 .breadcrumb {
+  margin-top: 15px;
   margin-bottom: 0;
 }
 .nav .active {
