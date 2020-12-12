@@ -41,3 +41,4 @@ backup
 /fonts
 /images
 .env
+mix-manifest.json
