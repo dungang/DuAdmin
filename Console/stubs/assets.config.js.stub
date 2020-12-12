@@ -1,0 +1,12 @@
+exports.assets = {
+	src : 'resource/assets/src',
+	dist : 'resource/assets/dist',
+	less : [ {
+		src : 'less/{{ AddonNameId }}.less',
+		dist : 'css'
+	} ],
+	js : [ {
+		src : 'js/{{ AddonNameId }}.js',
+		dist : 'js'
+	} ]
+}

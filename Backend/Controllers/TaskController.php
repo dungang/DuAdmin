@@ -39,7 +39,7 @@ class TaskController extends Controller
      *            任务密钥
      * @return string
      */
-    public final function actionIndex($id, $token)
+    public function actionIndex($id, $token)
     {
         Yii::debug('Validating One Task : ' . $id, __METHOD__);
         if ($cron = Cron::findOne([
@@ -47,6 +47,7 @@ class TaskController extends Controller
         ])) {
             if (AppHelper::isDevMode() || $cron->token == $token) {
                 try {
+                    // 执行的任务是存在
                     if (class_exists($cron->job_script)) {
                         $instance = Yii::createObject($cron->job_script);
                         call_user_func([$instance, 'handle'], AppHelper::parseText2Assoc($cron->param), $cron);

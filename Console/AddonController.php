@@ -213,7 +213,9 @@ class AddonController extends Controller
         $dirs[] = $addonDir . '/Controllers/Frontend';
         $dirs[] = $addonDir . '/Controllers/Api';
         $dirs[] = $addonDir . '/Models';
+        $dirs[] = $addonDir . '/DO';
         $dirs[] = $addonDir . '/Hooks';
+        $dirs[] = $addonDir . '/Assets';
         $dirs[] = $addonDir . '/Widgets';
         $dirs[] = $addonDir . '/resource';
         $dirs[] = $addonDir . '/resource/messages';

@@ -36,7 +36,10 @@ echo $form->field($generator, 'generateLabelsFromComments')->checkbox();
 echo $form->field($generator, 'generateQuery')->checkbox();
 echo $form->field($generator, 'queryNs');
 echo $form->field($generator, 'queryClass');
-echo $form->field($generator, 'queryBaseClass');
+echo $form->field($generator, 'queryBaseClass')->dropDownList([
+    'DuAdmin\Mysql\ActiveQuery'=>'DuAdmin\Mysql\ActiveQuery',
+    'yii\db\ActiveRecord' => 'yii\db\ActiveRecord',
+]);
 echo $form->field($generator, 'enableI18N')->checkbox();
 $messageCategories = $generator->getMessageCatetories();
 echo $form->field($generator, 'messageCategory')->dropDownList(array_combine($messageCategories, $messageCategories));

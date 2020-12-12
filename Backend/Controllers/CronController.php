@@ -31,25 +31,25 @@ class CronController extends BackendController
             'create' => [
                 'class' => 'DuAdmin\Core\CreateModelAction',
                 'modelClass' => [
-                    'class' => 'Backend\Models\Cron'
+                    'class' => 'DuAdmin\Models\Cron'
                 ]
             ],
             'update' => [
                 'class' => 'DuAdmin\Core\UpdateModelAction',
                 'modelClass' => [
-                    'class' => 'Backend\Models\Cron'
+                    'class' => 'DuAdmin\Models\Cron'
                 ]
             ],
             'view' => [
                 'class' => 'DuAdmin\Core\ViewModelAction',
                 'modelClass' => [
-                    'class' => 'Backend\Models\Cron'
+                    'class' => 'DuAdmin\Models\Cron'
                 ]
             ],
             'delete' => [
                 'class' => 'DuAdmin\Core\DeleteModelAction',
                 'modelClass' => [
-                    'class' => 'Backend\Models\Cron'
+                    'class' => 'DuAdmin\Models\Cron'
                 ]
             ],
             'run' => [

@@ -7,10 +7,8 @@ use DuAdmin\Core\GuestController;
 
 class LoginController extends GuestController
 {
-	public function init(){
-		parent::init();
-		$this->layout='login';
-	}
+    
+    public $layout = 'login';
 	
     /**
      * Login action.
@@ -25,6 +23,9 @@ class LoginController extends GuestController
         
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            if($referrer = \Yii::$app->request->referrer) {
+                return $this->redirect($referrer);
+            }
             return $this->goHomeOnSuccess();
         } else {
             $model->password = '';

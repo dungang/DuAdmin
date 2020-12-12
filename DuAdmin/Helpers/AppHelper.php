@@ -279,6 +279,10 @@ class AppHelper
         return $arr['str'];
     }
 
+    /**
+     * 生成GUID
+     * @return string
+     */
     public static function GUID()
     {
         if (function_exists('com_create_guid') === true) {
@@ -286,6 +290,29 @@ class AppHelper
         }
 
         return sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
+    }
+    
+    /**
+     * 生成订单号1
+     * @return string
+     */
+    public static function createOrderNo1(){
+        return date('Ymd') . str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT);
+    }
+    /**
+     * 生成订单号2
+     * @return string
+     */
+    public static function createOrderNo2(){
+        return date('Ymd').substr(implode(NULL, array_map('ord', str_split(substr(uniqid(), 7, 13), 1))), 0, 8);
+    }
+    /**
+     * 生成订单号方法3
+     * @return string
+     */
+    public static function createOderNo3(){
+        $yCode = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J');
+        return $yCode[intval(date('Y')) - 2011] . strtoupper(dechex(date('m'))) . date('d') . substr(time(), -5) . substr(microtime(), 2, 5) . sprintf('%02d', rand(0, 99));
     }
 
     /**

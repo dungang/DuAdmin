@@ -3,7 +3,7 @@ namespace Backend\Components;
 
 use Yii;
 use DuAdmin\Core\ILongPollHandler;
-use Backend\Models\Cron;
+use DuAdmin\Models\Cron;
 use yii\httpclient\Client;
 use DuAdmin\Components\Crontab;
 use DuAdmin\Helpers\CrontabHelper;

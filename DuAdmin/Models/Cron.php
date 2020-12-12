@@ -1,6 +1,6 @@
 <?php
 
-namespace Backend\Models;
+namespace DuAdmin\Models;
 
 
 

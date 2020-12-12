@@ -3,7 +3,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model Backend\Models\Cron */
+/* @var $model DuAdmin\Models\Cron */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 

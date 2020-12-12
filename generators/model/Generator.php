@@ -34,13 +34,13 @@ class Generator extends \app\generators\Generator
 
     public $db = 'db';
 
-    public $ns = 'app\models';
+    public $ns = 'Backend\Models';
 
     public $tableName;
 
     public $modelClass;
 
-    public $baseClass = 'yii\db\ActiveRecord';
+    public $baseClass = 'DuAdmin\Core\BaseModel';
 
     public $generateRelations = self::RELATIONS_ALL;
 
@@ -56,11 +56,11 @@ class Generator extends \app\generators\Generator
 
     public $generateQuery = false;
 
-    public $queryNs = 'app\models';
+    public $queryNs = 'Backend\Models';
 
     public $queryClass;
 
-    public $queryBaseClass = 'yii\db\ActiveQuery';
+    public $queryBaseClass = 'DuAdmin\Mysql\ActiveQuery';
     
     
     /**
