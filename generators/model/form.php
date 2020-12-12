@@ -8,6 +8,15 @@ use app\generators\model\Generator;
 
 echo $form->field($generator, 'tableName')->textInput(['table_prefix' => $generator->getTablePrefix()]);
 echo $form->field($generator, 'modelClass');
+echo $form->field($generator, 'generateSearchModel')->checkbox();
+echo $form->field($generator, 'enableDefaultOrder')->checkbox();
+echo $form->field($generator,'defaultOrder')->dropDownList([
+    'SORT_DESC' => 'SORT_DESC(倒序)',
+    'SORT_ASC' => 'SORT_ASC(顺序)',
+]);
+
+echo $form->field($generator,'defaultOrderField');
+
 echo $form->field($generator, 'standardizeCapitals')->checkbox();
 $namespaces = $generator->getModelNamespaces();
 echo $form->field($generator, 'ns')->dropDownList(array_combine($namespaces, $namespaces));

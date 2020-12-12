@@ -61,6 +61,32 @@ class Generator extends \app\generators\Generator
     public $queryClass;
 
     public $queryBaseClass = 'yii\db\ActiveQuery';
+    
+    
+    /**
+     * 是否生成搜索器模型
+     * @var boolean
+     */
+    public $generateSearchModel = false;
+    
+    /**
+     * 是否开启默认排序
+     * @var boolean
+     */
+    public $enableDefaultOrder = true;
+    
+    /**
+     * 默认排序的字段
+     * @var string
+     */
+    public $defaultOrderField = 'createdAt';
+    
+    /**
+     * 排序的顺序
+     * @var string
+     */
+    public $defaultOrder = 'SORT_DESC';
+    
 
     /**
      *
@@ -111,7 +137,7 @@ class Generator extends \app\generators\Generator
                     return trim($value, '\\');
                 }
             ],
-
+            [['defaultOrderField','defaultOrder'],'string'],
             [
                 [
                     'db',
@@ -213,7 +239,9 @@ class Generator extends \app\generators\Generator
                     'useTablePrefix',
                     'useSchemaName',
                     'generateQuery',
-                    'generateRelationsFromCurrentSchema'
+                    'generateRelationsFromCurrentSchema',
+                    'generateSearchModel',
+                    'enableDefaultOrder',
                 ],
                 'boolean'
             ],
@@ -257,6 +285,10 @@ class Generator extends \app\generators\Generator
             'useSchemaName' => '指定Schema名称',
             'useTablePrefix' => '是否使用表格前缀',
             'enableI18N' => '是否支持国际化',
+            'generateSearchModel' => '是否生成搜索模型',
+            'enableDefaultOrder' => '搜索模型是否添加默认排序',
+            'defaultOrderField' => '搜索模型默认排序字段',
+            'defaultOrder' => '搜索模型默认排序顺序',
             'codeTemplate' => '代码模板'
         ]);
     }
@@ -304,6 +336,10 @@ class Generator extends \app\generators\Generator
                 if "Table Name" ends with asterisk, in which case multiple ActiveQuery classes will be generated.',
             'queryBaseClass' => 'This is the base class of the new ActiveQuery class. It should be a fully qualified namespaced class name.'
         ]);
+    }
+    
+    public function getSearchModelClass(){
+        return $this->ns . '\\' . $this->modelClass . 'Search';
     }
 
     /**
@@ -405,10 +441,21 @@ class Generator extends \app\generators\Generator
                 $params['modelClassName'] = $modelClassName;
                 $files[] = new CodeFile(Yii::getAlias('@' . str_replace('\\', '/', $this->queryNs)) . '/' . $queryClassName . '.php', $this->render('query.php', $params));
             }
+            
+            
+            if ($this->generateSearchModel && ! empty($this->searchModelClass)) {
+                $searchModel = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->searchModelClass, '\\') . '.php'));
+                $files[] = new CodeFile($searchModel, $this->render('search.php',[
+                    'searchConditions' => $this->generateSearchConditions($tableSchema),
+                    'searchRules' => $this->generateSearchRules($tableSchema),
+                ]));
+            }
+            
         }
-
+        
         return $files;
     }
+    
 
     /**
      * Generates the properties for the specified table.
@@ -616,6 +663,120 @@ class Generator extends \app\generators\Generator
         return $ns;
     } 
     
+    /**
+     * Generates validation rules for the search model.
+
+     * @param \yii\db\TableSchema $table
+     *            the table schema
+     * @return array the generated validation rules
+     */
+    public function generateSearchRules($table)
+    {
+        $types = [];
+        foreach ($table->columns as $column) {
+            // 处理时间字段（查询的时候传递的是日期格式的字符串）
+            if (substr($column->name, - 2) == 'At') {
+                $types['safe'][] = $column->name;
+                continue;
+            }
+            switch ($column->type) {
+                case Schema::TYPE_TINYINT:
+                case Schema::TYPE_SMALLINT:
+                case Schema::TYPE_INTEGER:
+                case Schema::TYPE_BIGINT:
+                    $types['integer'][] = $column->name;
+                    break;
+                case Schema::TYPE_BOOLEAN:
+                    $types['boolean'][] = $column->name;
+                    break;
+                case Schema::TYPE_FLOAT:
+                case Schema::TYPE_DOUBLE:
+                case Schema::TYPE_DECIMAL:
+                case Schema::TYPE_MONEY:
+                    $types['number'][] = $column->name;
+                    break;
+                case Schema::TYPE_DATE:
+                case Schema::TYPE_TIME:
+                case Schema::TYPE_DATETIME:
+                case Schema::TYPE_TIMESTAMP:
+                default:
+                    $types['safe'][] = $column->name;
+                    break;
+            }
+        }
+        
+        $rules = [];
+        foreach ($types as $type => $columns) {
+            $rules[] = "[['" . implode("', '", $columns) . "'], '$type']";
+        }
+        
+        return $rules;
+    }
+    
+    /**
+     * Generates search conditions
+     * @param \yii\db\TableSchema $table
+     *            the table schema
+     * @return array
+     */
+    public function generateSearchConditions($table)
+    {
+        $columns = [];
+
+        foreach ($table->columns as $column) {
+            $columns[$column->name] = $column->type;
+        }
+        
+        $likeConditions = [];
+        $hashConditions = [];
+        $dateConditions = [];
+        $full_search_columns = [];
+        foreach ($columns as $column => $type) {
+            // 处理时间字段（查询的时候传递的是日期格式的字符串）
+            if (substr($column, - 2) == 'At') {
+                $dateConditions[] = "->andFilterWhere(['DATE_RANGE','{$column}',\$this->{$column}])";
+                continue;
+            }
+            switch ($type) {
+                case Schema::TYPE_TINYINT:
+                case Schema::TYPE_SMALLINT:
+                case Schema::TYPE_INTEGER:
+                case Schema::TYPE_BIGINT:
+                case Schema::TYPE_BOOLEAN:
+                case Schema::TYPE_FLOAT:
+                case Schema::TYPE_DOUBLE:
+                case Schema::TYPE_DECIMAL:
+                case Schema::TYPE_MONEY:
+                case Schema::TYPE_DATE:
+                case Schema::TYPE_TIME:
+                case Schema::TYPE_DATETIME:
+                case Schema::TYPE_TIMESTAMP:
+                    $hashConditions[] = "'{$column}' => \$this->{$column},";
+                    break;
+                default:
+                    $db = $this->getDbConnection();
+                    $likeKeyword = $db->driverName === 'pgsql' ? 'ilike' : 'like';
+                    $likeConditions[] = "->andFilterWhere(['{$likeKeyword}', '{$column}', \$this->{$column}])";
+                    $full_search_columns[] = "'{$column}'";
+                    break;
+            }
+        }
+        
+        $conditions = [];
+        if (! empty($hashConditions)) {
+            $conditions[] = "\$query->andFilterWhere([\n" . str_repeat(' ', 12) . implode("\n" . str_repeat(' ', 12), $hashConditions) . "\n" . str_repeat(' ', 8) . "]);\n";
+        }
+        if (! empty($dateConditions)) {
+            $conditions[] = "\$query" . implode("\n" . str_repeat(' ', 12), $dateConditions) . ";\n";
+        }
+        if (! empty($likeConditions)) {
+            $conditions[] = "\$query" . implode("\n" . str_repeat(' ', 12), $likeConditions) . ";\n";
+            // 添加默认搜索的查询构建代码
+            $conditions[] = "if (\$full_search = Yii::\$app->request->get('full_search')) {\n" . str_repeat(' ', 12) . "\$query->andFilterWhere(['FULL_SEARCH',[" . implode(',', $full_search_columns) . "],\$full_search]);\n" . str_repeat(' ', 8) . "}\n";
+        }
+        
+        return $conditions;
+    }
     
     /**
      * Generates relations using a junction table by adding an extra viaTable().

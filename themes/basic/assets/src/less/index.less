@@ -34,13 +34,16 @@ body {
 }
 
 .dua {
-	.jumbotron {
-	    text-align      : center;
-	    background-color: transparent;
+	&.dua-banner {
 		background-image: url(/images/banner-bg.jpg);
 		background-repeat: no-repeat;
 		background-size: cover;
-		height: 360px;
+		background-position: center;
+	}
+	.jumbotron {
+	    //text-align      : center;
+	    background-color: transparent;
+		padding-right: 15px;
 	}
 	
 	.jumbotron .btn {

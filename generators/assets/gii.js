@@ -281,6 +281,13 @@ yii.gii = (function ($) {
                 $('#generator-queryclass').prop('disabled', $(this).is(':not(:checked)'));
             }).change();
 
+            // model generator: toggle query fields
+            $('form #generator-generatesearchmodel').change(function () {
+                $('form .field-generator-enabledefaultorder').toggle($(this).is(':checked'));
+                $('form .field-generator-defaultorderfield').toggle($(this).is(':checked'));
+                $('form .field-generator-defaultorder').toggle($(this).is(':checked'));
+            }).change();
+
             // hide message category when I18N is disabled
             $('form #generator-enablei18n').change(function () {
                 $('form .field-generator-messagecategory').toggle($(this).is(':checked'));
