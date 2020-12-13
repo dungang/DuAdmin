@@ -13,26 +13,27 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php Pjax::begin(['id'=>'cron-index']); ?>
 <div class="well bg-white no-border">
-    <?php list ($cron_status, $cron_traced_at) = CrontabHelper::prepareCronSetting();?>
+    <?php list ($cronStatus, $cronTracedAt, $isRunning) = CrontabHelper::prepareCronSetting();?>
     <p>
-		<strong>服务运行状态: </strong>
+		<strong>服务状态: </strong>
     <?php
 
-    echo intval($cron_status) > 0 ? '<span class="btn btn-xs btn-success">运行中 ... </span> ' . Html::a('<i class="fa  fa-stop"></i> 停止', [
+    echo intval($cronStatus) > 0 ? '<span class="btn btn-xs btn-success">已开启 </span> ' . Html::a('<i class="fa  fa-stop"></i> 停止', [
         'switch-service'
     ], [
         'class' => 'btn btn-default btn-xs',
         'id' => 'switch-service',
         'data-pjax' => '0'
-    ]) : '<span class="btn btn-xs btn-warning">已停止 </span> ' . Html::a('<i class="fa fa-play-circle"></i> 启动', [
+    ]) : '<span class="btn btn-xs btn-warning">已关闭 </span> ' . Html::a('<i class="fa fa-play-circle"></i> 启动', [
         'switch-service'
     ], [
         'class' => 'btn btn-default btn-xs',
         'id' => 'switch-service',
         'data-pjax' => '0'
     ])?></p>
-	<p>服务启动时间：<?= \Yii::$app->formatter->asDatetime($cron_status)?></p>
-	<p>最后执行时间：<?= \Yii::$app->formatter->asDatetime($cron_traced_at)?></p>
+	<p>服务运行状态：<?= $isRunning?'运行中...':'未运行'?></p>
+	<p>服务启动时间：<?= \Yii::$app->formatter->asDatetime($cronStatus)?></p>
+	<p>最后执行时间：<?= \Yii::$app->formatter->asDatetime($cronTracedAt)?></p>
 </div>
 <?php
 
@@ -50,17 +51,16 @@ PanelGridView::begin(
                         'view',
                         'id' => $model['id']
                     ], [
-                        'title' => $model['error_msg'],
+                        'title' => $model['errorMsg'],
                         'data-toggle' => 'modal',
                         'data-target' => '#modal-dailog'
                     ]);
                 }
             ],
             'mhdmd',
-            'jobScript',
             'isOk:boolean',
             'isActive:boolean',
-            'runAt:datetime',
+            'runAt',
             [
                 'class' => '\DuAdmin\Grids\ActionColumn',
             ]

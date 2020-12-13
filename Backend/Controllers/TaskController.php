@@ -3,7 +3,7 @@
 namespace Backend\Controllers;
 
 use Yii;
-use Backend\Models\Cron;
+use DuAdmin\Models\Cron;
 use DuAdmin\Helpers\AppHelper;
 use yii\web\Controller;
 

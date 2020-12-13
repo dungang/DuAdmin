@@ -22,19 +22,6 @@ $config = [
                 'login'
             ]
         ],
-        'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
-            'targets' => [
-                [
-                    'class' => 'yii\log\FileTarget',
-                    'logFile' => '@runtime/logs/backend/app.log',
-                    'levels' => [
-                        'error',
-                        'warning'
-                    ]
-                ]
-            ]
-        ],
         'urlManager' => [
             'class' => 'DuAdmin\Components\BackendUrlManager',
         ],
@@ -48,7 +35,16 @@ $config = [
                     'class' => '\yii\i18n\PhpMessageSource'
                 ],
             ],
-        ]
+        ],
+        'log' => [
+            'targets' => [
+                [
+                    'class' => 'yii\log\FileTarget',
+                    'logFile' => '@runtime/logs/backend/app.log',
+                    'levels' => explode(',', getenv('LOG_LEVELS'))
+                ]
+            ]
+        ],
     ]
 ];
 

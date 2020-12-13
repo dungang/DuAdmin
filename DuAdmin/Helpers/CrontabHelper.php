@@ -20,6 +20,9 @@ class CrontabHelper
      * 进程时钟周期记录的时间戳
      */
     const CRON_TRACED_AT_NAME = 'crontab.traced_at';
+    
+    
+    const CRON_IS_RUNNING = 'crontabl.is_running';
 
     /**
      * 数据存储的路径
@@ -91,7 +94,8 @@ class CrontabHelper
 
         return [
             $data[self::CRON_STATUS_NAME],
-            $data[self::CRON_TRACED_AT_NAME]
+            $data[self::CRON_TRACED_AT_NAME],
+            $data[self::CRON_IS_RUNNING]
         ];
     }
 
@@ -115,7 +119,8 @@ class CrontabHelper
     public static function activeCronStatus($cron_name = 'data')
     {
         self::writeCron([
-            self::CRON_STATUS_NAME => time()
+            self::CRON_STATUS_NAME => time(),
+            self::CRON_IS_RUNNING => 0,
         ], $cron_name);
     }
 
@@ -128,21 +133,54 @@ class CrontabHelper
     public static function unactiveCronStatus($cron_name = 'data')
     {
         self::writeCron([
-            self::CRON_STATUS_NAME => 0
+            self::CRON_STATUS_NAME => 0,
+            self::CRON_IS_RUNNING => 0,
         ], $cron_name);
     }
 
+    
     /**
      * 记录进程的时钟周期的时间
      *
      * @param string $cron_name 进程名称
      * @return void
      */
-    public static function tracedCron($cron_name = 'data')
+    public static function running($cron_name = 'data')
     {
         self::writeCron([
-            self::CRON_TRACED_AT_NAME => time()
+            self::CRON_TRACED_AT_NAME => time(),
+            self::CRON_IS_RUNNING => 1,
         ], $cron_name);
+    }
+    
+    /**
+     * 每分钟
+     * @param int $minutes 分钟
+     * return string
+     */
+    public static function everyMinutes($minutes = null){
+        if($minutes && is_numeric($minutes)) {
+            return '*/'.$minutes.' * * * *';
+        }
+        return '* * * * *';
+    }
+    
+    /**
+     *  每小时
+     * @param int $hours 小时
+     * return string
+     */
+    public static function everyHours($hours=1) {
+        
+        if(is_string($hours)) {
+            $hours = intval($hours);
+        }
+        
+        if(empty($hours)) {
+            $hours = 1;
+        }
+        return '* */'.$hours.' * * *';
+        
     }
 }
 

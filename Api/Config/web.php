@@ -12,15 +12,11 @@ $config = [
             'loginUrl' => null
         ],
         'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
                     'logFile' => '@runtime/logs/api/app.log',
-                    'levels' => [
-                        'error',
-                        'warning'
-                    ]
+                    'levels' => explode(',', getenv('LOG_LEVELS'))
                 ]
             ]
         ],

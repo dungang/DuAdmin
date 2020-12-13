@@ -12,8 +12,6 @@ use yii\base\Action;
 class LoopAction extends Action
 {
 
-    public $debug = false;
-
     /**
      * php线程睡眠间隔时间
      *
@@ -46,6 +44,7 @@ class LoopAction extends Action
 
     protected function beforeRun()
     {
+        \Yii::debug("before run","cron");
         if ($this->beforeRunCallback) {
             return call_user_func($this->beforeRunCallback);
         }
@@ -56,7 +55,6 @@ class LoopAction extends Action
     {
         $this->handler = \Yii::createObject([
             'class' => $this->longPollingHandlerClass,
-            'debug' => $this->debug
         ]);
     }
 

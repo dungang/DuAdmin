@@ -14,26 +14,12 @@ $config = [
         ],
         'db' => $db,
         'user' => [
-            'identityClass' => 'Frontend\Models\\User',
+            'identityClass' => 'Frontend\\Models\\User',
             'enableAutoLogin' => true,
             'loginUrl' => [
                 'login'
             ]
         ],
-        'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
-            'targets' => [
-                [
-                    'class' => 'yii\log\FileTarget',
-                    'logFile' => '@runtime/logs/frontend/app.log',
-                    'levels' => [
-                        'error',
-                        'warning'
-                    ]
-                ]
-            ]
-        ],
-
         'view' => [
             'class' => 'DuAdmin\Core\CoreView',
             'theme' => [
@@ -64,6 +50,15 @@ $config = [
                     'class' => '\yii\i18n\PhpMessageSource'
                 ],
             ],
+        ],
+        'log' => [
+            'targets' => [
+                [
+                    'class' => 'yii\log\FileTarget',
+                    'logFile' => '@runtime/logs/frontend/app.log',
+                    'levels' => explode(',', getenv('LOG_LEVELS'))
+                ]
+            ]
         ],
     ]
 ];

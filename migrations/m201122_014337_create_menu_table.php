@@ -42,6 +42,7 @@ class m201122_014337_create_menu_table extends Migration
             [12,10,'Locale and Language','?r=locale/index',0,1,'fa fa-language',2],
             [14,10,'Pretty Url','?r=pretty-url/index',0,1,'fa fa-location-arrow',4],
             [15,10,'Cron Jobs','?r=cron/index',0,1,'fa fa-tasks',5],
+            [16,10,'Addon Navigation','?r=addon-navigation/index',0,1,'fa fa-bars',6],
             [20,0,'Marketing','#',0,1,'fa fa-gg-circle',40],
             [21,20,'Blocks','?r=block/index',0,1,'fa fa-clone',1],
         ]);

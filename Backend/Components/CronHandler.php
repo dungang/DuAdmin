@@ -36,38 +36,39 @@ class CronHandler extends ILongPollHandler
      */
     public function process()
     {
+        
+        Yii::debug("enter cron");
         // 如果没有启动cron服务，则退出循环
         if (! CrontabHelper::getCronStatus()) {
             return true;
         }
-
+        Yii::debug("prepare cron");
         if ($tasks = Cron::findAll([
             'isActive' => true,
             'isOk' => true
         ])) {
             foreach ($tasks as $task) {
-
                 $time = null;
                 try {
                     $time = Crontab::parse($task->mhdmd);
                 } catch (\InvalidArgumentException $e) {
-                    Yii::warning('任务的cron表达式格式不正确,' . $e->getMessage(), __METHOD__);
-                    Yii::warning($e->getTraceAsString(), __METHOD__);
+                    Yii::error('任务的cron表达式格式不正确,' . $e->getMessage(), __METHOD__);
+                    Yii::error($e->getTraceAsString(), __METHOD__);
                     // 更新任务为is_ok=0;
-                    $this->debug || $task->goBad($e->getMessage());
+                    $this->debug() || $task->goBad($e->getMessage());
                     continue;
                 }
                 $cur = time();
                 if (\intval($time) <= $cur) {
                     // 更新任务的执行时间
-                    $task->run_at = $cur;
+                    $task->runAt = date('Y-m-d H:i:s',$cur);
                     $task->save(false);
                     $url = Yii::$app->urlManager->createAbsoluteUrl([
                         '/task',
                         'id' => $task->id,
                         'token' => $task->token
                     ]);
-                    Yii::info('Starting One Task : ' . $task->task . ': ' . $url, __METHOD__);
+                    Yii::debug('Starting One Task : ' . $task->task . ': ' . $url, __METHOD__);
                     // echo $url;die;
                     // 发送异步请求
                     $this->_httpClient->get($url)->send();
@@ -77,7 +78,7 @@ class CronHandler extends ILongPollHandler
         // 永远执行，不关闭
         // false 表示不退出循环，
         // true 表示退出循环
-        return $this->whenDebugNotLoop();
+        return $this->debug();
     }
 }
 

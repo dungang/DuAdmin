@@ -58,8 +58,7 @@ class CronController extends BackendController
                     $this,
                     'canStartCronProcess'
                 ],
-                'debug' => false,
-                'longPollingHandlerClass' => 'Backend\Components\CronHandler'
+                'longPollingHandlerClass' => '\Backend\Components\CronHandler'
             ]
         ];
     }
@@ -88,11 +87,11 @@ class CronController extends BackendController
      */
     public function canStartCronProcess()
     {
-        list ($status, $traced_at) = CrontabHelper::prepareCronSetting();
+        list ($status, $tracedAt, $isRunning) = CrontabHelper::prepareCronSetting();
         if ($status > 1) {
-            CrontabHelper::tracedCron();
-            //表示没有cron进程在运行，需要重新启动，如果超过1800秒【半小时】没更新时间，也重新启动
-            if (empty($traced_at) || intval($traced_at) + 1800 < time()) {
+            // 表示没有cron进程在运行，需要重新启动，如果超过1800秒【半小时】没更新时间，也重新启动
+            if (YII_DEBUG || $isRunning === 0 || intval($tracedAt) + 1800 < time()) {
+                CrontabHelper::running();
                 return true;
             }
         }

@@ -14,7 +14,7 @@ namespace DuAdmin\Models;
  * @property string $param 参数
  * @property string $intro 介绍
  * @property string $token 安全key
- * @property string $error_msg 错误信息
+ * @property string $errorMsg 错误信息
  * @property bool $isOk 正常
  * @property bool $isActive 激活
  * @property string $app 归属应用
@@ -61,7 +61,7 @@ class Cron extends \DuAdmin\Core\BaseModel
                     'createdAt',
                     'updatedAt'
                 ],
-                'integer'
+                'safe'
             ],
             [
                 [
@@ -83,7 +83,7 @@ class Cron extends \DuAdmin\Core\BaseModel
                     'jobScript',
                     'param',
                     'intro',
-                    'error_msg'
+                    'errorMsg'
                 ],
                 'string',
                 'max' => 255
@@ -126,7 +126,7 @@ class Cron extends \DuAdmin\Core\BaseModel
     {
         return [
             'intro' => '任务说明，最简洁的表达任务是干什么，需要特意注意的地方。',
-            'mhdmd' => 'linux crontab 表达式, * * * * * * (分 时 天 月 周 年)。',
+            'mhdmd' => 'linux crontab 表达式, * * * * * (分 时 天 月 周)。',
             'param' => '额外参数，每行表示一个传参，如：a:1。',
             'jobScript' => '任务脚本，指的是Yii的路由Id，比如：/backend/crons/index,如果路由的首个字符不是“/”,系统自动添加。'
         ];

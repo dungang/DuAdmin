@@ -1,0 +1,13 @@
+<?php
+
+namespace Addons\{{ addonName }};
+
+/**
+ * 定义插件的常量，比如状态值
+ */
+class {{ addonName }}Constants {
+
+	//const STATUS_INIT = 0;
+	
+	//public static $STATUS_TEXT = [0=>'初始化'];
+}

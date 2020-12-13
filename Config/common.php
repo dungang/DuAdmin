@@ -37,6 +37,17 @@ return [
         ],
         'mailer' => [
             'class' => 'DuAdmin\Components\AppMailer'
-        ]
+        ],
+        'log' => [
+            'traceLevel' => YII_DEBUG ? 3 : 0,
+            'targets' => [
+                [
+                    'class' => 'yii\log\FileTarget',
+                    'logFile' => '@runtime/logs/app/app.log',
+                    'levels' => explode(',', getenv('LOG_LEVELS'))
+                ]
+            ]
+        ],
+        
     ]
 ];
