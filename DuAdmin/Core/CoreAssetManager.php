@@ -58,7 +58,7 @@ class CoreAssetManager extends AssetManager
             $this->bundles = array_merge($this->bundles, $common, $bundles);
         }
         //print_r(self::$__assets);die;
-        Yii::trace(static::$__assets,__CLASS__);
+        //Yii::trace(static::$__assets,__CLASS__);
         return parent::getBundle($name, $publish);
     }
 }

@@ -64,7 +64,7 @@ class CronHandler extends ILongPollHandler
                     $task->runAt = date('Y-m-d H:i:s',$cur);
                     $task->save(false);
                     $url = Yii::$app->urlManager->createAbsoluteUrl([
-                        '/task',
+                        '/cron-task',
                         'id' => $task->id,
                         'token' => $task->token
                     ]);

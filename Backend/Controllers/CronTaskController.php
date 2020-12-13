@@ -13,7 +13,7 @@ use yii\web\Controller;
  *
  * @author dungang
  */
-class TaskController extends Controller
+class CronTaskController extends Controller
 {
 
     public function init()
@@ -48,21 +48,21 @@ class TaskController extends Controller
             if (AppHelper::isDevMode() || $cron->token == $token) {
                 try {
                     // 执行的任务是存在
-                    if (class_exists($cron->job_script)) {
-                        $instance = Yii::createObject($cron->job_script);
+                    if (class_exists($cron->jobScript)) {
+                        $instance = Yii::createObject($cron->jobScript);
                         call_user_func([$instance, 'handle'], AppHelper::parseText2Assoc($cron->param), $cron);
                     } else {
-                        $cron->is_ok = false;
-                        $cron->error_msg = '脚本不存在';
+                        $cron->isOk = false;
+                        $cron->errorMsg = '脚本不存在';
                     }
                 } catch (\Exception $e) {
-                    Yii::warning('定时任务执行异常：' . $cron->task . ',' . $e->getMessage(), __METHOD__);
-                    Yii::warning($e->getTraceAsString(), __METHOD__);
-                    $cron->is_ok = false;
-                    $cron->error_msg = $e->getMessage();
+                    Yii::error('定时任务执行异常：' . $cron->task . ',' . $e->getMessage(), __METHOD__);
+                    Yii::error($e->getTraceAsString(), __METHOD__);
+                    $cron->isOk = false;
+                    $cron->errorMsg = $e->getMessage();
                 }
                 //放在任务程序的后面，方便调试。
-                $cron->token = \Yii::$app->security->generateRandomString(32);
+                $cron->token = \Yii::$app->security->generateRandomString(8);
                 AppHelper::isDevMode() || $cron->save(false);
             }
         }

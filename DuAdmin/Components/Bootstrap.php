@@ -105,7 +105,7 @@ class Bootstrap implements BootstrapInterface
                         'class' => $addon['mainClass']
                     ]);
                     //调试查看加载的插件
-                    \Yii::debug($addon);
+                    //\Yii::debug($addon);
                 }
 
                 // 设置模块的国际化消息文件

@@ -35,6 +35,7 @@ class ActiveQuery extends BaseActiveQuery
             'username' => \Yii::$app->db->username,
             'password' => \Yii::$app->db->password,
             'charset' =>\ Yii::$app->db->charset,
+            'tablePrefix' =>\ Yii::$app->db->tablePrefix,
         ]);
         $unbufferedDb->open();
         $unbufferedDb->pdo->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
