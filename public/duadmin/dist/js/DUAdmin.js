@@ -682,10 +682,10 @@ $(document).on('click', '.ajax-file-input button', function (e) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\projects\workspace\MMAdmin\public\duadmin\src\js\DUAdmin.js */"./public/duadmin/src/js/DUAdmin.js");
-__webpack_require__(/*! D:\projects\workspace\MMAdmin\Addons\ServiceMarketing\resource\assets\src\less\service-marketing.less */"./Addons/ServiceMarketing/resource/assets/src/less/service-marketing.less");
-__webpack_require__(/*! D:\projects\workspace\MMAdmin\public\duadmin\src\less\DUAdmin.less */"./public/duadmin/src/less/DUAdmin.less");
-module.exports = __webpack_require__(/*! D:\projects\workspace\MMAdmin\themes\basic\assets\src\less\basic.less */"./themes/basic/assets/src/less/basic.less");
+__webpack_require__(/*! D:\IT-SPACE\DUAdmin\public\duadmin\src\js\DUAdmin.js */"./public/duadmin/src/js/DUAdmin.js");
+__webpack_require__(/*! D:\IT-SPACE\DUAdmin\Addons\ServiceMarketing\resource\assets\src\less\service-marketing.less */"./Addons/ServiceMarketing/resource/assets/src/less/service-marketing.less");
+__webpack_require__(/*! D:\IT-SPACE\DUAdmin\public\duadmin\src\less\DUAdmin.less */"./public/duadmin/src/less/DUAdmin.less");
+module.exports = __webpack_require__(/*! D:\IT-SPACE\DUAdmin\themes\basic\assets\src\less\basic.less */"./themes/basic/assets/src/less/basic.less");
 
 
 /***/ })
