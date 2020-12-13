@@ -106,6 +106,8 @@ DATE_FIELD;
 <?php if ($generator->enableCrudAction): ?>
 <?="<?= " ?>AppHelper::<?=$generator->modalSize ?>('<i class="fa fa-plus"></i> ' . Yii::t('da','Create'), ['create'], ['class'=>'btn btn-primary']) ?>
 
+<?="<?= " ?>Html::a('<i class="fa fa-refresh"></i> '. Yii::t('da','Refresh'), ['index'], ['class'=>'btn btn-info']) ?>
+
 <?="<?= " ?>Html::a('<i class="fa fa-trash"></i> '. Yii::t('da','Delete'), ['delete'], ['class'=>'btn btn-danger del-all','data-target'=>'#<?= $id_prefix . '-list'?>']) ?>
 <?php endif;?>
 

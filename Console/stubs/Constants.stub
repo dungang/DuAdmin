@@ -5,7 +5,7 @@ namespace Addons\{{ addonName }};
 /**
  * 定义插件的常量，比如状态值
  */
-class {{ addonName }}Constants {
+class Constants {
 
 	//const STATUS_INIT = 0;
 	

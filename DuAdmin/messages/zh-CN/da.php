@@ -9,6 +9,7 @@ return [
     'Batch Update' => '批量编辑',
     'Save' => '保存',
     'Submit' => '提交',
+    'Refresh' => '刷新',
     'List' => '列表',
     'View' => '查看',
     'Create {0}' => '添加{0}',
