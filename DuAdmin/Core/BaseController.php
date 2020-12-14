@@ -1,5 +1,4 @@
 <?php
-
 namespace DuAdmin\Core;
 
 use DuAdmin\Hooks\BaseCtrInitedHook;
@@ -49,6 +48,7 @@ class BaseController extends Controller
 
     /**
      * 动态加载其他得行为
+     *
      * @return null|array
      */
     protected function loadBehaviors()
@@ -58,6 +58,7 @@ class BaseController extends Controller
 
     /**
      * 加载配置
+     *
      * @param string $path
      * @return boolean|array
      */
@@ -87,21 +88,21 @@ class BaseController extends Controller
         $event = new ActionEvent($action);
         $event->result = $result;
         $this->trigger(self::EVENT_AFTER_ACTION, $event);
-        //处理action返回的结果
-        //DuAdmin/Core/BaseController封装了很多控制器渲染的方法，
-        //很多都是返回的数组结构的结果
+        // 处理action返回的结果
+        // DuAdmin/Core/BaseController封装了很多控制器渲染的方法，
+        // 很多都是返回的数组结构的结果
         if (is_array($result)) {
-            if(AppHelper::isAjaxFormSubmitRequest()) {
+            if (AppHelper::isAjaxFormSubmitRequest() || AppHelper::isAjaxJson()) {
                 $event->result = $this->asJson($result);
             } else {
-                //如果是数组
-                if (isset($result['view']) && !empty($result['view'])) {
+                // 如果是数组
+                if (isset($result['view']) && ! empty($result['view'])) {
                     $this->renderResult($event, $result);
-                } else if (isset($result['redirectUrl']) && !empty($result['redirectUrl'])) {
-                    //如果是跳转
+                } else if (isset($result['redirectUrl']) && ! empty($result['redirectUrl'])) {
+                    // 如果是跳转
                     $event->result = \Yii::$app->getResponse()->redirect(Url::to($result['redirectUrl']), $result['statusCode']);
                 } else {
-                    //默认的控制器的处理逻辑
+                    // 默认的控制器的处理逻辑
                     unset($result['view'], $result['redirectUrl']);
                     $event->result = $this->asJson($result);
                 }
@@ -121,7 +122,7 @@ class BaseController extends Controller
 
     private final function setFlash($status, $message)
     {
-        if (!\Yii::$app->request->isAjax) {
+        if (! \Yii::$app->request->isAjax) {
             if ($status == 'success') {
                 \Yii::$app->session->setFlash("success", $message);
             } else {
@@ -287,7 +288,8 @@ class BaseController extends Controller
 
     /**
      * 当异常的时候返回
-     * @param string $view 
+     *
+     * @param string $view
      * @param array $params
      * @param string $message
      * @return array
@@ -309,10 +311,24 @@ class BaseController extends Controller
         return $this->thenRender('exception', null, $params, $message);
     }
 
+    public function renderView($view, $params = [])
+    {
+        return [
+            'status' => 'success',
+            'view' => $view,
+            'data' => $params
+        ];
+    }
+
+    public function renderList($view, $params = [])
+    {
+        return $this->renderView($view, $params);
+    }
+
     public function render($view, $params = [])
     {
         if (\Yii::$app->request->isAjax) {
-            $result =  parent::renderAjax($view, $params);
+            $result = parent::renderAjax($view, $params);
             return $result;
         }
         return parent::render($view, $params);

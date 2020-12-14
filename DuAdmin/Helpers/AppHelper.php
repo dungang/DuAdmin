@@ -53,6 +53,14 @@ class AppHelper
     }
     
     /**
+     * ajax json 请求
+     * @return boolean
+     */
+    public static function isAjaxJson() {
+        return Yii::$app->request->isAjax && false !== strpos(Yii::$app->request->headers['accept'], 'application/json');
+    }
+    
+    /**
      * 是否ajax验证请求
      * @return boolean
      */

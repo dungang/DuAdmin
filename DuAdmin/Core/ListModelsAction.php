@@ -41,6 +41,6 @@ class ListModelsAction extends BaseAction
             'dataProvider' => $dataProvider
         ];
         $this->beforeRender();
-        return $this->controller->render($this->viewName, $this->data);
+        return $this->controller->renderList($this->viewName, $this->data);
     }
 }

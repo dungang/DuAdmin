@@ -312,9 +312,6 @@ abstract class BaseAction extends Action
             $condition = ArrayHelper::merge($condition, $this->modelImmutableAttrs);
         }
         unset($condition['class']);
-        if(empty($condition)) {
-            throw new BadRequestHttpException('Find model must set filters');
-        }
         return [
             $modelClass,
             $this->clearNullCond($condition)
@@ -331,6 +328,9 @@ abstract class BaseAction extends Action
     protected function findModel($newOneOnNotFound = false)
     {
         list ($modelClass, $condition) = $this->builderFindModelCondition();
+        if(empty($condition)) {
+            throw new BadRequestHttpException('Find model must set filters');
+        }
         /* @var $model \yii\db\ActiveRecord */
         // https://www.yiichina.com/doc/guide/2.0/db-active-record
         // 提示： yii\db\ActiveRecord::findOne() 和 yii\db\ActiveQuery::one()
@@ -361,6 +361,9 @@ abstract class BaseAction extends Action
     protected function findModels()
     {
         list ($modelClass, $condition) = $this->builderFindModelCondition();
+        if(empty($condition)) {
+            throw new BadRequestHttpException('Find model must set filters');
+        }
         /* @var $models \yii\db\ActiveRecord[] */
         $models = call_user_func(array(
             $modelClass,
