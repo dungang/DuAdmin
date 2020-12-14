@@ -8,6 +8,7 @@ use yii\base\InvalidConfigException;
 use yii\base\Model;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+use yii\web\BadRequestHttpException;
 
 /**
  *
@@ -246,7 +247,12 @@ abstract class BaseAction extends Action
             $url = [];
             $url[] = \array_shift($this->successRediretUrl);
             foreach ($this->successRediretUrl as $p => $f) {
-                $url[$p] = $model[$f];
+                if(is_numeric($p)) {
+                    $url[$f] = $model[$f];
+                } else {
+                    
+                    $url[$p] = $model[$f];
+                }
             }
             return $url;
         }
@@ -304,6 +310,10 @@ abstract class BaseAction extends Action
         // 是否设置了查找的固定参数
         if ($this->modelImmutableAttrs) {
             $condition = ArrayHelper::merge($condition, $this->modelImmutableAttrs);
+        }
+        unset($condition['class']);
+        if(empty($condition)) {
+            throw new BadRequestHttpException('Find model must set filters');
         }
         return [
             $modelClass,
