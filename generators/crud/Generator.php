@@ -69,7 +69,7 @@ class Generator extends \app\generators\Generator
      * @var bool whether to wrap the `GridView` or `ListView` widget with the `yii\widgets\Pjax` widget
      * @since 2.0.5
      */
-    public $enablePjax = false;
+    public $enablePjax = true;
 
     /**
      * 是否开启默认排序

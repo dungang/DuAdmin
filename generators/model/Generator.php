@@ -54,7 +54,7 @@ class Generator extends \app\generators\Generator
 
     public $useSchemaName = true;
 
-    public $generateQuery = false;
+    public $generateQuery = true;
 
     public $queryNs = 'Backend\Models';
 
