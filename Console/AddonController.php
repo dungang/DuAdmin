@@ -1,7 +1,6 @@
 <?php
 namespace Console;
 
-use yii\console\Controller;
 use yii\helpers\Inflector;
 use yii\helpers\FileHelper;
 use yii\helpers\Console;
@@ -13,7 +12,7 @@ use yii\helpers\VarDumper;
  * @author dungang
  *        
  */
-class AddonController extends Controller
+class AddonController extends BaseController
 {
 
     /**
@@ -23,38 +22,35 @@ class AddonController extends Controller
     {
         $this->stdout("插件命令行说明：" . PHP_EOL);
         $this->stdout(PHP_EOL);
-        $this->stdout("\t创建插件 addon/create AddonName 插件标题" . PHP_EOL);
-        $this->stdout("\t安装插件 addon/install AddonName " . PHP_EOL);
-        $this->stdout("\t卸载插件 addon/uninstall AddonName " . PHP_EOL);
+        $this->stdout("\t创建插件 addon/create" . PHP_EOL);
+        $this->stdout("\t安装插件 addon/install " . PHP_EOL);
+        $this->stdout("\t卸载插件 addon/uninstall " . PHP_EOL);
         $this->stdout(PHP_EOL);
     }
 
     /**
      * 安装插件
-     *
-     * @param string $addonName
-     *            插件名称
      */
-    public function actionInstall($addonName)
-    {}
+    public function actionInstall()
+    {
+        Console::output($this->selectOneAddonName());
+    }
 
     /**
      * 卸载插件
-     *
-     * @param string $addonName
-     *            插件名称
      */
-    public function actionUninstall($addonName)
-    {}
+    public function actionUninstall()
+    {
+        Console::output($this->selectOneAddonName());
+    }
 
     /**
      * 清除插件安装配置
-     *
-     * @param string $addonName
-     *            插件名称
      */
-    public function actionClear($addonName)
-    {}
+    public function actionClear()
+    {
+        Console::output($this->selectOneAddonName());
+    }
 
     /**
      * 激活模块支持i18n
@@ -62,8 +58,9 @@ class AddonController extends Controller
      * @param string $addonName
      *            插件名称
      */
-    public function actionI18n($addonName)
+    public function actionI18n()
     {
+        $addonName = $this->selectOneAddonName();
         $addonDir = \Yii::getAlias('@Addons/' . $addonName);
         $addonJsonFile = $addonDir . DIRECTORY_SEPARATOR . 'addon.json';
         if (file_exists($addonJsonFile)) {
@@ -89,31 +86,27 @@ class AddonController extends Controller
 
     /**
      * 激活模块的属性 'hasApi','hasFrontend','hasBackend','hasConsole'
-     *
-     * @param string $addonName
-     * @param string $property
      */
-    public function actionActive($addonName, $property)
+    public function actionActive()
     {
+        $addonName = $this->selectOneAddonName();
         $properties = [
             'hasApi',
             'hasFrontend',
             'hasBackend',
             'hasConsole'
         ];
-        if (in_array($property, $properties)) {
-            $addonDir = \Yii::getAlias('@Addons/' . $addonName);
-            $addonJsonFile = $addonDir . DIRECTORY_SEPARATOR . 'addon.json';
-            if (file_exists($addonJsonFile)) {
-                $json = json_decode(file_get_contents($addonJsonFile), true);
-                $json[$property] = true;
-                file_put_contents($addonJsonFile, json_encode($json, JSON_FORCE_OBJECT | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
-                $this->stdout("激活成功\n" . $addonJsonFile . "\n\n", Console::FG_GREEN);
-            } else {
-                $this->stdout("激活失败！文件不存在\n" . $addonJsonFile . "\n\n", Console::FG_RED);
-            }
+        $pid = $this->select("请选择要激活的属性,?列出所有选项", $properties);
+        $property = $properties[$pid];
+        $addonDir = \Yii::getAlias('@Addons/' . $addonName);
+        $addonJsonFile = $addonDir . DIRECTORY_SEPARATOR . 'addon.json';
+        if (file_exists($addonJsonFile)) {
+            $json = json_decode(file_get_contents($addonJsonFile), true);
+            $json[$property] = true;
+            file_put_contents($addonJsonFile, json_encode($json, JSON_FORCE_OBJECT | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+            $this->stdout("激活成功\n" . $addonJsonFile . "\n\n", Console::FG_GREEN);
         } else {
-            $this->stdout("属性不存在!只能使用如下属性:\n" . implode(',', $properties) . "\n\n", Console::FG_RED);
+            $this->stdout("激活失败！文件不存在\n" . $addonJsonFile . "\n\n", Console::FG_RED);
         }
     }
 
@@ -175,12 +168,8 @@ class AddonController extends Controller
 
     protected function confirmUserSelect()
     {
-        $addonName = $this->prompt("请输入插件的目录名称", [
-            'required' => true
-        ]);
-        $addonTitle = $this->prompt("请输入插件的标题", [
-            'required' => true
-        ]);
+        $addonName = $this->selectOneAddonName();
+        $addonTitle = Inflector::camel2words($addonName);
         $addonType = $this->select("请输入插件的类型", [
             'app' => '完整商业逻辑的插件，比如blog',
             'component' => '有部分商业逻辑，主要是辅助app的插件的功能，比如省份城市的插件',

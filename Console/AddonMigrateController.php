@@ -1,45 +1,52 @@
 <?php
 namespace Console;
 
-use yii\console\Controller;
-
 /**
  * 件的数据迁移
+ *
  * @author dungang
  *        
  */
-class AddonMigrateController extends Controller
+class AddonMigrateController extends BaseController
 {
-    
+
     /**
      * 执行数据迁移
-     * @param string $addonName
      */
-    public function actionIndex($addonName) {
-        $this->run("/migrate",[
+    public function actionIndex()
+    {
+        $addonName = $this->prompt("请输入插件的目录名称", [
+            'required' => true
+        ]);
+        $this->run("/migrate", [
             'migrationPath' => '@Addons/' . $addonName . '/Migrations'
         ]);
     }
 
     /**
      * 执行数据迁移撤回
-     * @param string $addonName
      */
-    public function actionDown($addonName) {
-        echo "test",PHP_EOL;
-        $this->run("/migrate/down",[
+    public function actionDown()
+    {
+        $addonName = $this->prompt("请输入插件的目录名称", [
+            'required' => true
+        ]);
+        echo "test", PHP_EOL;
+        $this->run("/migrate/down", [
             'migrationPath' => '@Addons/' . $addonName . '/Migrations'
         ]);
     }
-    
+
     /**
      * 创建插件的数据迁移
-     * @param string $addonName
-     * @param string $migrateName
      */
-    public function actionCreate($addonName,$migrateName){
-       
-        $this->run("/migrate/create",[
+    public function actionCreate()
+    {
+        $addonName = $this->selectOneAddonName();
+        $migrateName = $this->prompt("请输入数据迁移名称", [
+            'required' => true
+        ]);
+        $this->run("/migrate/create", [
             $migrateName,
             'migrationPath' => '@Addons/' . $addonName . '/Migrations'
         ]);

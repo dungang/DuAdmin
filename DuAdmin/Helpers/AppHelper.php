@@ -9,6 +9,7 @@ use DuAdmin\Events\CustomerEvent;
 use yii\base\Component;
 use Yii;
 use yii\base\Arrayable;
+use yii\helpers\FileHelper;
 
 /**
  * 系统工具类
@@ -768,5 +769,16 @@ class AppHelper
         }
 
         return '';
+    }
+    
+    /**
+     * 获取插件名称的所有列表
+     * @return array
+     */
+    public static function getAddonNames(){
+        $dirs = FileHelper::findDirectories(\Yii::$app->basePath . '/Addons/',[
+            'recursive' => false
+        ]);
+        return array_map(function($dir){return basename($dir);},$dirs);
     }
 }
