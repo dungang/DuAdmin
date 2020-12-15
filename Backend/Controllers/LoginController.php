@@ -25,10 +25,11 @@ class LoginController extends BaseController
         
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goHomeOnSuccess();
+            return $this->goBackOnSuccess();
         } else {
             $model->password = '';
-            
+            //只需要添加这句话就可以了
+            Yii::$app->user->setReturnUrl(Yii::$app->request->referrer);
             return $this->render('index', [
                 'model' => $model
             ]);

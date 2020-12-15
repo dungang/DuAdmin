@@ -19,8 +19,8 @@ class m201213_020534_create_addon_navigation_table extends Migration
             'url' => $this->string(255)->notNull()->defaultValue('#')->comment('地址::可以是内部和外部地址'),
             'app' => $this->string(32)->notNull()->defaultValue('frontend')->comment('所属APP::前台或后台或插件的Id'),
             'sort' => $this->smallInteger()->defaultValue(1)->comment('排序::从小到大顺序'),
-            'createdAt' => $this->timestamp()->null()->comment('添加时间'),
-            'updatedAt' => $this->timestamp()->null()->comment('更新时间'),
+            'createdAt' => $this->dateTime()->null()->comment('添加时间'),
+            'updatedAt' => $this->dateTime()->null()->comment('更新时间'),
         ]);
         $this->addCommentOnTable('{{%addon_navigation}}','前端导航');
     }

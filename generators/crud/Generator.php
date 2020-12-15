@@ -33,11 +33,11 @@ use yii\web\Controller;
 class Generator extends \app\generators\Generator
 {
 
-    //引用的类
+    // 引用的类
     public $useFormClassies = [];
-    
+
     public $useSearchFormClassies = [];
-    
+
     public $modelClass;
 
     public $controllerClass;
@@ -70,28 +70,31 @@ class Generator extends \app\generators\Generator
      * @since 2.0.5
      */
     public $enablePjax = false;
-    
+
     /**
      * 是否开启默认排序
+     *
      * @var boolean
      */
     public $enableDefaultOrder = true;
-    
+
     /**
      * 默认排序的字段
+     *
      * @var string
      */
     public $defaultOrderField = 'createdAt';
-    
+
     /**
      * 排序的顺序
+     *
      * @var string
      */
     public $defaultOrder = 'SORT_DESC';
-    
-    
+
     /**
      * 是否支持增删改
+     *
      * @var string
      */
     public $enableCrudAction = true;
@@ -354,9 +357,13 @@ class Generator extends \app\generators\Generator
         $viewPath = $this->getViewPath();
         $templatePath = $this->getTemplatePath() . '/views';
         foreach (scandir($templatePath) as $file) {
-            //忽略创建添加和编辑的页面
-            if($this->enableCrudAction == false) {
-                if(in_array($file,['_form.php','create.php','update.php'])){
+            // 忽略创建添加和编辑的页面
+            if ($this->enableCrudAction == false) {
+                if (in_array($file, [
+                    '_form.php',
+                    'create.php',
+                    'update.php'
+                ])) {
                     continue;
                 }
             }
@@ -431,36 +438,36 @@ class Generator extends \app\generators\Generator
     // 留给后面的逻辑处理
     protected function parseCommentToEnumValues($attribute, $column)
     {
-//         if ($column->name == 'online'
-//             || $column->name === 'status' 
-//             || substr($column->name, - 6) === 'Status' 
-//             || $column->name === 'type' 
-//             || substr($column->name, - 6) === 'Type'
-//             || substr($column->name,0,2) === 'is') {
-            if (strpos($column->comment, '|') !== false) {
-                // 分割字段备注
-                $pieces = explode("::", $column->comment);
-                // 移除备注他字段名称
-                array_shift($pieces);
-                // 还原剩下的备注信息
-                $comment = implode("::", $pieces);
-                $pieces = explode('|', $comment);
-                $dropDownOptions = [];
-                // 如不有一个不满足格式则退出
-                $isOk = true;
-                foreach ($pieces as $piece) {
-                    $keyName = explode(':', $piece);
-                    if (count($keyName) == 2) {
-                        $dropDownOptions[$keyName[0]] = $keyName[1];
-                    } else {
-                        $isOk = false;
-                        break;
-                    }
-                }
-                if ($isOk) {
-                    return "\$form->field(\$model, '$attribute')->dropDownList(" . preg_replace("/\n\s*/", ' ', VarDumper::export($dropDownOptions)) . ", ['prompt' => ''])";
+        // if ($column->name == 'online'
+        // || $column->name === 'status'
+        // || substr($column->name, - 6) === 'Status'
+        // || $column->name === 'type'
+        // || substr($column->name, - 6) === 'Type'
+        // || substr($column->name,0,2) === 'is') {
+        if (strpos($column->comment, '|') !== false) {
+            // 分割字段备注
+            $pieces = explode("::", $column->comment);
+            // 移除备注他字段名称
+            array_shift($pieces);
+            // 还原剩下的备注信息
+            $comment = implode("::", $pieces);
+            $pieces = explode('|', $comment);
+            $dropDownOptions = [];
+            // 如不有一个不满足格式则退出
+            $isOk = true;
+            foreach ($pieces as $piece) {
+                $keyName = explode(':', $piece);
+                if (count($keyName) == 2) {
+                    $dropDownOptions[$keyName[0]] = $keyName[1];
+                } else {
+                    $isOk = false;
+                    break;
                 }
             }
+            if ($isOk) {
+                return "\$form->field(\$model, '$attribute')->dropDownList(" . preg_replace("/\n\s*/", ' ', VarDumper::export($dropDownOptions)) . ", ['prompt' => ''])";
+            }
+        }
         // }
         return false;
     }
@@ -542,16 +549,16 @@ class Generator extends \app\generators\Generator
                 if ($column->type == 'text') {
                     $field = "\$form->field(\$model, '$attribute')->textarea(['rows' => 6])";
                 } else if (preg_match('/img|image|pic|pict|cover/', $column->name)) {
-                    return null;//"\$form->field(\$model, '$attribute')->widget('DuAdmin\Widgets\AjaxFileInput')";
+                    return null; // "\$form->field(\$model, '$attribute')->widget('DuAdmin\Widgets\AjaxFileInput')";
                 } else if (substr($column->name, - 2) === 'At') {
-                    $this->useSearchFormClassies['DuAdmin\Widgets\DatePicker'] = 1 ;
+                    $this->useSearchFormClassies['DuAdmin\Widgets\DatePicker'] = 1;
                     $field = "\$form->field(\$model, '$attribute')->widget(DatePicker::class,['multidate'=>2])";
                 } else if ($column->phpType === 'boolean') {
                     $field = "\$form->field(\$model, '$attribute')->checkbox()";
                 }
             }
         }
-        
+
         return "'<div class=\"col-xs-6\">' . " . $field . " . '</div>'";
     }
 
@@ -571,15 +578,34 @@ class Generator extends \app\generators\Generator
             return 'ntext';
         }
 
-        if (substr($column->name,-2) === 'At') {
+        if (in_array($column->name, [
+            'createdAt',
+            'updatedAt'
+        ])) {
+            return 'date';
+        }
+
+        if ($column->type === Schema::TYPE_DATE) {
+            return 'date';
+        }
+
+        if ($column->type === Schema::TYPE_TIME) {
+            return 'time';
+        }
+
+        if ($column->type === Schema::TYPE_TIMESTAMP) {
+            return 'datetime';
+        }
+
+        if ($column->type === Schema::TYPE_DATETIME) {
             return 'datetime';
         }
 
         if (stripos($column->name, 'email') !== false) {
             return 'email';
         }
-        
-        if(preg_match('/img|image|pic|pict|cover/', $column->name)) {
+
+        if (preg_match('/img|image|pic|pict|cover/', $column->name)) {
             return 'image';
         }
 
@@ -642,19 +668,24 @@ class Generator extends \app\generators\Generator
 
         return $rules;
     }
-    
+
     /**
      * 是否有字符串字段
      */
-    public function hasStringField(){
-        if($table = $this->getTableSchema()) {
+    public function hasStringField()
+    {
+        if ($table = $this->getTableSchema()) {
             foreach ($table->columns as $column) {
-                if(in_array($column->type, ['string','char','text'])) {
+                if (in_array($column->type, [
+                    'string',
+                    'char',
+                    'text'
+                ])) {
                     return true;
                 }
             }
         }
-        
+
         return false;
     }
 

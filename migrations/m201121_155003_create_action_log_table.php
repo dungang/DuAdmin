@@ -20,7 +20,7 @@ class m201121_155003_create_action_log_table extends Migration
             'ip'=>$this->integer()->null()->comment('IP'),
             'method' => $this->string(8)->comment('方法'),
             'sourceType' => $this->string(16)->comment('来源::Backend:后台|Frontend:前台|Api:API'),
-            'createdAt' => $this->timestamp()->null()->comment('时间'),
+            'createdAt' => $this->dateTime()->null()->comment('时间'),
             'data' => $this->text()->comment('数据')
         ],$tableOptions);
         $this->addCommentOnTable('{{%action_log}}','操作日志');

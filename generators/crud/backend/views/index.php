@@ -69,27 +69,14 @@ AAA;
 AAA;
                 
             } else {
-                if(substr($column->name, -2) === 'At') {
-                    echo <<<DATE_FIELD
-            [  
-                'class' => 'DuAdmin\Grids\DateTimeColumn',
-                'attribute' => '$column->name',
-            ],\n
-DATE_FIELD;
-                } else 
+              
                 echo "            '" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
             }
         } else {
-            if(substr($column->name, -2) === 'At') {
-                echo <<<DATE_FIELD
-            [  
-                'class' => 'DuAdmin\Grids\DateTimeColumn',
-                'attribute' => '$column->name',
-            ],\n
-DATE_FIELD;
-            } else 
-                echo "            //'" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
+   
+            echo "            //'" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
         }
+        
     }
 }
 ?>

@@ -184,7 +184,7 @@ class BaseController extends Controller
     public final function goBackOnSuccess($defaultUrl = null)
     {
         return $this->redirectOnSuccess(\Yii::$app->getUser()
-            ->getReturnUrl($defaultUrl));
+            ->getReturnUrl($defaultUrl),'登录成功');
     }
 
     public final function goBackOnFail($defaultUrl = null)

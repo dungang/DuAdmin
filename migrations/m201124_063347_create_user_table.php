@@ -24,11 +24,11 @@ class m201124_063347_create_user_table extends Migration
             'mobile' => $this->string(16)->null()->unique()->comment('手机'),
             'status' => $this->tinyInteger()->defaultValue(10)->comment('状态'),
             'isSuper' => $this->tinyInteger()->defaultValue(0)->comment('是否创始用户'),
-            'loginAt' => $this->timestamp()->null()->comment('上次登陆时间'),
+            'loginAt' => $this->dateTime()->null()->comment('上次登陆时间'),
             'loginFailure' => $this->string(255)->null()->comment('登陆失败消息'),
             'loginIp' => $this->string(64)->null()->comment('登录IP'),
-            'createdAt' => $this->timestamp()->null()->comment('添加时间'),
-            'updatedAt' => $this->timestamp()->null()->comment('更新时间'),
+            'createdAt' => $this->dateTime()->null()->comment('添加时间'),
+            'updatedAt' => $this->dateTime()->null()->comment('更新时间'),
         ]);
         $this->addCommentOnTable('{{%user}}','用户');
         

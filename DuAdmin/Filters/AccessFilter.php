@@ -1,5 +1,4 @@
 <?php
-
 namespace DuAdmin\Filters;
 
 use DuAdmin\Core\Authable;
@@ -46,7 +45,7 @@ class AccessFilter extends ActionFilter
         if (in_array($action->id, $controller->guestActions)) {
             return true;
         }
-        //如果检查通过，还继续，则不允许非游客访问
+        // 如果检查通过，还继续，则不允许非游客访问
         if (\Yii::$app->user->isGuest) {
             $this->denyAccess();
         } else {
@@ -54,7 +53,7 @@ class AccessFilter extends ActionFilter
             $user = Yii::$app->user->getIdentity();
 
             // step2. If user has been deleted, then destroy session and redirect to home page
-            //如果是后台控制器，
+            // 如果是后台控制器，
             if ($user === null) {
                 Yii::$app->getSession()->destroy();
                 $this->denyAccess();
@@ -65,7 +64,7 @@ class AccessFilter extends ActionFilter
                 return true;
             }
             // step4. 如果是非激活用户
-            if (!$user->isActiveAccount()) {
+            if (! $user->isActiveAccount()) {
                 Yii::$app->user->logout();
                 Yii::$app->getResponse()->redirect(Yii::$app->getHomeUrl());
 
@@ -95,7 +94,7 @@ class AccessFilter extends ActionFilter
         } else if ($action instanceof LoopAction) {
             return $result;
         } else {
-            if (!\Yii::$app->user->isGuest) {
+            if (! \Yii::$app->user->isGuest) {
                 $data = $_REQUEST;
                 unset($data['r'], $data['_csrf']);
                 $log = new ActionLog([
