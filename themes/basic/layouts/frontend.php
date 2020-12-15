@@ -143,7 +143,7 @@ DUAdminAsset::register($this);
     SimpleModal::end();
     ?>
     <?= Notify::widget() ?>
-    <?= FloatThead::widget() ?>
+    <?php //FloatThead::widget() ?>
     <?php $this->endBody() ?>
 </body>
 

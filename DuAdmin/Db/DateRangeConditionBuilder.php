@@ -25,11 +25,11 @@ class DateRangeConditionBuilder implements ExpressionBuilderInterface
             $len = count($dates);
             // 只有一个值，不是区间
             if ($len == 1) {
-                return $this->queryBuilder->buildCondition(new SimpleCondition($expression->getColumn(), '>=', strtotime($dates[0])), $params);
+                return $this->queryBuilder->buildCondition(new SimpleCondition($expression->getColumn(), '>=', $dates[0]), $params);
             } else if ($len == 2) {
                 return $this->queryBuilder->buildCondition(new AndCondition([
-                    new SimpleCondition($expression->getColumn(), '>=', strtotime($dates[0])),
-                    new SimpleCondition($expression->getColumn(), '<=', strtotime($dates[1] . ' 23:59:59'))
+                    new SimpleCondition($expression->getColumn(), '>=', $dates[0]),
+                    new SimpleCondition($expression->getColumn(), '<=', $dates[1])
                 ]), $params);
             } else {
                 throw new Exception('Db query expression error!');
