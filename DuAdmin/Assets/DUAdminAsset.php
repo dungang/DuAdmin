@@ -14,7 +14,9 @@ class DUAdminAsset extends AssetBundle
     
     public $js = [
         'js/jquery.form.min.js',
+        'js/holder.min.js',
         'duadmin/dist/js/DUAdmin.js',
+        
     ];
     
     public $depends = [
