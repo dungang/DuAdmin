@@ -10,7 +10,9 @@
 define('RUNTIME_MODE', 'Console');
 require __DIR__ . '/env.php';
 require __DIR__ . '/vendor/yiisoft/yii2/Yii.php';
-$config = require __DIR__ . '/config/console.php';
+$config = yii\helpers\ArrayHelper::merge(
+    require __DIR__ . '/Config/console.php', 
+    require __DIR__ . '/DuAdmin/config.php');
 $application = new yii\console\Application($config);
 $exitCode = $application->run();
 exit($exitCode);

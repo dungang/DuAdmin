@@ -166,9 +166,11 @@ class AddonController extends BaseController
         }
     }
 
-    protected function confirmUserSelect()
+    protected function confirmUserSelect($addonName=null)
     {
-        $addonName = $this->selectOneAddonName();
+        if(null == $addonName) {
+            $addonName = $this->selectOneAddonName();
+        } 
         $addonTitle = Inflector::camel2words($addonName);
         $addonType = $this->select("请输入插件的类型", [
             'app' => '完整商业逻辑的插件，比如blog',
@@ -193,7 +195,7 @@ class AddonController extends BaseController
      */
     public function actionCreate()
     {
-        list ($addonName, $addonTitle, $addonType) = $this->confirmUserSelect();
+        list ($addonName, $addonTitle, $addonType) = $this->confirmUserSelect($this->prompt('请输入插件名称'));
         $addonDir = \Yii::getAlias('@Addons/' . $addonName);
         $dirs = [
             $addonDir
@@ -202,7 +204,7 @@ class AddonController extends BaseController
         $dirs[] = $addonDir . '/Controllers/Frontend';
         $dirs[] = $addonDir . '/Controllers/Api';
         $dirs[] = $addonDir . '/Models';
-        $dirs[] = $addonDir . '/DO';
+        $dirs[] = $addonDir . '/Domains';
         $dirs[] = $addonDir . '/Hooks';
         $dirs[] = $addonDir . '/Assets';
         $dirs[] = $addonDir . '/Widgets';

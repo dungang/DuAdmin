@@ -1,4 +1,5 @@
 <?php
+$db = require 'db.php';
 return [
     'id' => 'base',
     'name' => getenv('APP_NAME'),
@@ -9,14 +10,15 @@ return [
         'DuAdmin\Components\Bootstrap'
     ],
     'timeZone' => 'Asia/Shanghai',
-    //'language' => 'zh-CN',
+    // 'language' => 'zh-CN',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm' => '@vendor/npm-asset',
+        '@npm' => '@vendor/npm-asset'
     ],
     'components' => [
+        'db' => $db,
         'view' => [
-            'class' => 'DuAdmin\Core\CoreView',
+            'class' => 'DuAdmin\Core\CoreView'
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache'
@@ -47,7 +49,6 @@ return [
                     'levels' => explode(',', getenv('LOG_LEVELS'))
                 ]
             ]
-        ],
-        
+        ]
     ]
 ];

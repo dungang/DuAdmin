@@ -1,6 +1,4 @@
 <?php
-// 数据库配置放在具体的项目中是方便项目独立配置，项目之间相互隔离
-$db = require __DIR__ . '/../../config/db.php';
 $config = [
     'controllerNamespace' => 'Frontend\Controllers',
     'viewPath' => '@app/Frontend/views',
@@ -12,7 +10,6 @@ $config = [
         'session' =>[
             'name'=>'DJPFSID'
         ],
-        'db' => $db,
         'user' => [
             'identityClass' => 'Frontend\\Models\\User',
             'enableAutoLogin' => true,
