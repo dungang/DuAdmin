@@ -4,15 +4,10 @@ use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 /* @var $this yii\web\View */
 /* @var $model Backend\Models\AuthPermission */
 
-$this->title = '添加';
-$this->params['breadcrumbs'][] = [
-    'label' => '权限',
-    'url' => [
-        'index'
-    ]
-];
+$this->title = Yii::t('da','Create');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Auth Permissions'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 echo AjaxModalOrNormalPanelContent::widget([
-    'intro'=>'添加权限的信息',
+    'intro'=> Yii::t('da','Create {0} Info',Yii::t('backend', 'Auth Permissions')),
     'content'=>$this->render('_form', ['model' => $model])
 ])?>

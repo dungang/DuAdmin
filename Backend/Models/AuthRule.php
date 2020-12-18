@@ -1,24 +1,29 @@
 <?php
+
 namespace Backend\Models;
 
 use Yii;
-use DuAdmin\Core\BaseModel;
-
 /**
- * This is the model class for table "auth_rule".
+ * "{{%auth_rule}}"表的模型类.
  *
- * @property string $name
- * @property resource $data
- * @property int $created_at
- * @property int $updated_at
+ * @property string $id ID
+ * @property string $name 描述
+ * @property resource $data 数据
+ * @property string $createdAt 添加时间
+ * @property string $updatedAt 更新时间
  *
  * @property AuthItem[] $authItems
  */
-class AuthRule extends BaseModel
+class AuthRule extends \DuAdmin\Core\BaseModel
 {
+    ///**
+    // * 对象json序列化的时候设置不显示的字段
+    // *
+    // * @var array
+    // */
+    // public $jsonHideFields = [];
 
     /**
-     *
      * {@inheritdoc}
      */
     public static function tableName()
@@ -27,88 +32,42 @@ class AuthRule extends BaseModel
     }
 
     /**
-     *
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [
-                [
-                    'name'
-                ],
-                'required'
-            ],
-            [
-                [
-                    'data'
-                ],
-                'string'
-            ],
-            [
-                [
-                    'created_at',
-                    'updated_at'
-                ],
-                'integer'
-            ],
-            [
-                [
-                    'name',
-                ],
-                'string',
-                'max' => 64
-            ],
-            [
-                [
-                    'name'
-                ],
-                'unique'
-            ]
+            [['id', 'name'], 'required'],
+            [['data'], 'string'],
+            [['createdAt', 'updatedAt'], 'safe'],
+            [['id', 'name'], 'string', 'max' => 64],
+            [['id'], 'unique'],
         ];
     }
 
     /**
-     *
      * {@inheritdoc}
      */
     public function attributeLabels()
     {
         return [
-            'name' => '名称',
-            'data' => '数据',
-            'created_at' => '添加时间',
-            'updated_at' => '更新时间'
+            'id' => Yii::t('backend', 'ID'),
+            'name' => Yii::t('backend', 'Name'),
+            'data' => Yii::t('backend', 'Data'),
+            'createdAt' => Yii::t('da', 'Created At'),
+            'updatedAt' => Yii::t('da', 'Updated At'),
         ];
     }
 
-    public function save($runValidation = true, $attributeNames = NULL)
-    {
-        if ($runValidation && $this->validate()) {
-            $rule = \Yii::createObject($this->name);
-            $rule->name = $this->name;
-            if ($this->isNewRecord) {
-                return \Yii::$app->authManager->add($rule);
-            } else {
-                return \Yii::$app->authManager->update($this->name, $rule);
-            }
-        }
-        return false;
-    }
-
     /**
-     *
      * @return \yii\db\ActiveQuery
      */
     public function getAuthItems()
     {
-        return $this->hasMany(AuthItem::className(), [
-            'rule_name' => 'name'
-        ]);
+        return $this->hasMany(AuthItem::className(), ['ruleId' => 'id']);
     }
 
     /**
-     *
      * {@inheritdoc}
      * @return AuthRuleQuery the active query used by this AR class.
      */
@@ -116,4 +75,25 @@ class AuthRule extends BaseModel
     {
         return new AuthRuleQuery(get_called_class());
     }
+
+    /**
+     * 保存规则
+     *
+     * @param boolean $runValidation
+     * @param array $attributeNames
+     * @return boolean
+     */
+    public function save($runValidation = true, $attributeNames = NULL) 
+    { 
+        if ($runValidation && $this->validate()) { 
+            $rule = \Yii::createObject($this->id); 
+            $rule->id = $this->id; 
+            if ($this->isNewRecord) { 
+                return \Yii::$app->authManager->add($rule); 
+            } else { 
+                return \Yii::$app->authManager->update($this->id, $rule); 
+            } 
+        } 
+        return false; 
+    } 
 }

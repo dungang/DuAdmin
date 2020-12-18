@@ -58,7 +58,7 @@ AAA;
         if (++$count < 6) {
             if($count == 1){
                 echo <<<AAA
-            ['class'=>'\yii\grid\CheckboxColumn'],
+            ['class'=>'\DuAdmin\Grids\CheckboxColumn','name'=>'id'],
             [
                 'attribute' => '$column->name',
                 'format'=>'raw',
@@ -88,6 +88,11 @@ AAA;
         	]
        ]
     ]); ?>
+
+<?php if($generator->hasStringField()): ?>
+<?="<?= " ?>FullSearchBox::widget(['action'=>['index']]) ?> 
+<?php endif;?>
+
 <?= "<?= " ?>$this->render('_search', ['model' => $searchModel]); ?>
 
 <?php if ($generator->enableCrudAction): ?>
@@ -96,10 +101,6 @@ AAA;
 <?="<?= " ?>Html::a('<i class="fa fa-refresh"></i> '. Yii::t('da','Refresh'), ['index'], ['class'=>'btn btn-info']) ?>
 
 <?="<?= " ?>Html::a('<i class="fa fa-trash"></i> '. Yii::t('da','Delete'), ['delete'], ['class'=>'btn btn-danger del-all','data-target'=>'#<?= $id_prefix . '-list'?>']) ?>
-<?php endif;?>
-
-<?php if($generator->hasStringField()): ?>
-<?="<?= " ?>FullSearchBox::widget(['action'=>['index']]) ?> 
 <?php endif;?>
 <?= "<?php PanelGridView::end() ?>\n"?>
 

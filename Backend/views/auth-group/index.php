@@ -1,99 +1,53 @@
 <?php
 
 use yii\helpers\Html;
+use DuAdmin\Helpers\AppHelper;
 use DuAdmin\Grids\PanelGridView;
-use yii\widgets\Pjax;
-use DuAdmin\Widgets\PanelNavTabs;
+use DuAdmin\Widgets\FullSearchBox;
 
+use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel Backend\Models\AuthGroupSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '管理员授权组';
+$this->title = Yii::t('backend', 'Auth Groups');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<?php Pjax::begin(['id' => 'auth-group-index']); ?>
-<?php PanelGridView::begin([
-    'intro' => '授权组信息管理，对权限验证没有任何的影响，只是为了优化维护授权的过程',
-    'dataProvider' => $dataProvider,
-    'filterModel' => $searchModel,
-    'columns' => [
-        [
-            'attribute' => 'title',
-            'format' => 'raw',
-            'value' => function ($model, $key, $index, $column) {
-                return Html::a($model['title'], ['view', 'name' => $model['name']], ['data-toggle' => 'modal', 'data-target' => '#modal-dailog']);
-            }
-        ],
-        'name',
-        [
-            'label' => '权限',
-            'format' => 'raw',
-            'value' => function ($model, $key, $index) {
-                return Html::a(
-                    '分配',
-                    [
-                        'permission',
-                        'AuthPermissionSearch[group_name]' => $model['name'],
-                        'AuthPermissionSearch[type]' => $model['type']
-                    ],
-                    [
-                        'data-pjax' => '0'
-                    ]
-                );
-            }
-        ],
-        [
-            'class' => '\DuAdmin\Grids\ActionColumn',
-            'buttonsOptions' => [
-                'update' => [
-                    'data-toggle' => 'modal',
-                    'data-target' => '#modal-dailog',
-                ],
-                'view' => [
-                    'data-toggle' => 'modal',
-                    'data-target' => '#modal-dailog',
-                ],
-            ]
-        ]
-    ]
-]);
-echo PanelNavTabs::widget([
-    'wrapper' => true,
-    'tabs' => [
-        [
-            'name' => '角色组',
-            'url' => [
-                'index',
-                'AuthGroupSearch[type]' => 1
-            ]
-        ],
-        [
-            'name' => '权限组',
-            'url' => [
-                'index',
-                'AuthGroupSearch[type]' => 2
-            ]
-        ],
-        [
-            'name' => '<i class="fa fa-plus"></i> 添加组',
-            'url' => [
-                'create',
-                'AuthGroup[type]' => $searchModel->type
-            ],
-            'options' => ['data-toggle' => 'modal', 'data-target' => '#modal-dailog']
-        ],
-        [
-            'name' => '<i class="fa fa-plus"></i> 批量添加组',
-            'url' => [
-                'batch-create',
-                'AuthGroup[type]' => $searchModel->type
-            ],
-            'options' => ['data-toggle' => 'modal', 'data-modal-size' => 'modal-lg', 'data-target' => '#modal-dailog']
-        ]
-    ]
-]);
-?>
+<?php Pjax::begin(['id'=>'auth-group-index']); ?>
+<?php  PanelGridView::begin([
+        'id' => 'auth-group-list',
+    	'intro' => Yii::t('da','{0} Info Manage',Yii::t('backend', 'Auth Groups')),
+        'dataProvider' => $dataProvider,
+        'columns' => [
+            ['class'=>'\DuAdmin\Grids\CheckboxColumn','name'=>'id'],
+            [
+                'attribute' => 'name',
+                'format'=>'raw',
+                'value'=>function($model,$key,$index,$column){
+                    return AppHelper::linkButtonWithSimpleModal($model['name'],['view','id'=>$model['id']]);
+                }
+        	],
+            'id',
+            'createdAt:date',
+            'updatedAt:date',
+            [
+                'class' => '\DuAdmin\Grids\ActionColumn',
+        	]
+       ]
+    ]); ?>
+
+<?= FullSearchBox::widget(['action'=>['index']]) ?> 
+
+<?= $this->render('_search', ['model' => $searchModel]); ?>
+
+<?= AppHelper::linkButtonWithSimpleModal('<i class="fa fa-plus"></i> ' . Yii::t('da','Create'), ['create'], ['class'=>'btn btn-primary']) ?>
+
+<?= AppHelper::linkButtonWithBigSimpleModal('<i class="fa fa-plus"></i> ' . Yii::t('da','Batch Create'), ['batch-create'], ['class'=>'btn btn-primary', ]) ?>
+
+<?= Html::a('<i class="fa fa-refresh"></i> '. Yii::t('da','Refresh'), ['index'], ['class'=>'btn btn-info']) ?>
+
+<?= Html::a('<i class="fa fa-trash"></i> '. Yii::t('da','Delete'), ['delete'], ['class'=>'btn btn-danger del-all','data-target'=>'#auth-group-list']) ?>
 <?php PanelGridView::end() ?>
+
 <?php Pjax::end(); ?>
 

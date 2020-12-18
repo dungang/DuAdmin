@@ -169,7 +169,7 @@ class Generator extends \app\generators\Generator
                 ],
                 'validateClass',
                 'params' => [
-                    'extends' => BaseActiveRecord::className()
+                    'extends' => BaseActiveRecord::class
                 ]
             ],
             [
@@ -178,7 +178,7 @@ class Generator extends \app\generators\Generator
                 ],
                 'validateClass',
                 'params' => [
-                    'extends' => Controller::className()
+                    'extends' => Controller::class
                 ]
             ],
             [

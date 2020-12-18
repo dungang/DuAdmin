@@ -9,18 +9,16 @@ $form = ActiveForm::begin(['id' => 'auth-permission-batch-form', 'enableAjaxVali
 ?>
 <table id="batch-data-form" class="table" data-index="<?= count($models) ?>" data-target="tr">
     <tr>
+        <th>ID</th>
         <th>名称</th>
-        <th>子权限</th>
-        <th>描述</th>
         <th>规则</th>
         <td></td>
     </tr>
     <?php foreach ($models as $i => $model) : ?>
         <tr>
+            <td><?= $form->field($model, "[$i]id")->label(false) ?></td>
             <td><?= $form->field($model, "[$i]name")->label(false) ?></td>
-            <td><?= $form->field($model, "[$i]child")->label(false) ?></td>
-            <td><?= $form->field($model, "[$i]description")->label(false) ?></td>
-            <td><?= $form->field($model, "[$i]rule_name")->label(false) ?></td>
+            <td><?= $form->field($model, "[$i]ruleId")->label(false) ?></td>
             <td width="90">
                 <a href="javascript:void(0);" class="delete-self btn btn-sm btn-link"><i class="fa fa-trash text-danger"></i></a>
                 <a href="javascript:void(0);" class="copy-self btn btn-sm btn-link"><i class="fa fa-plus"></i></a>

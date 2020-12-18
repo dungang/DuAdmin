@@ -2,68 +2,11 @@
 
 namespace Backend\Models;
 
-/**
- * "{{%auth_group}}"表的模型类.
- *
- * @property string $name 组
- * @property string $title 标题
- * @property int $type 类型
- */
-class AuthGroup extends \DuAdmin\Core\BaseModel
+use DuAdmin\Rbac\Item;
+class AuthGroup extends AuthItem
 {
-    /** 
-     * 角色 
-     * 
-     * @var integer 
-     */
-    const TYPE_ROLE = 1;
-
-    /** 
-     * 权限 
-     * 
-     * @var integer 
-     */
-    const TYPE_PERMISSION = 2;
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
+    public function init()
     {
-        return '{{%auth_group}}';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            [['name', 'title'], 'required'],
-            [['type'], 'integer'],
-            [['name', 'title'], 'string', 'max' => 128],
-            [['name'], 'unique'],
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'name' => '组',
-            'title' => '标题',
-            'type' => '类型',
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return AuthGroupQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new AuthGroupQuery(get_called_class());
+        $this->type = Item::TYPE_GROUP;
     }
 }

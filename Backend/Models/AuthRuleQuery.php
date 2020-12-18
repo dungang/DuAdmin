@@ -1,4 +1,5 @@
 <?php
+
 namespace Backend\Models;
 
 /**
@@ -6,18 +7,14 @@ namespace Backend\Models;
  *
  * @see AuthRule
  */
-class AuthRuleQuery extends \yii\db\ActiveQuery
+class AuthRuleQuery extends \DuAdmin\Mysql\ActiveQuery
 {
-
-    /*
-     * public function active()
-     * {
-     * return $this->andWhere('[[status]]=1');
-     * }
-     */
+    /*public function active()
+    {
+        return $this->andWhere('[[status]]=1');
+    }*/
 
     /**
-     *
      * {@inheritdoc}
      * @return AuthRule[]|array
      */
@@ -27,7 +24,6 @@ class AuthRuleQuery extends \yii\db\ActiveQuery
     }
 
     /**
-     *
      * {@inheritdoc}
      * @return AuthRule|array|null
      */

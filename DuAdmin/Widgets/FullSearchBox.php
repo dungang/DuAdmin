@@ -25,7 +25,7 @@ class FullSearchBox extends InputWidget
     {
         $this->name = 'full_search';
         parent::init();
-        echo '<div class="full-search-box pull-left">';
+        echo '<div class="full-search-box">';
         echo Html::beginForm(Url::to($this->action), 'GET', $this->options);
     }
 

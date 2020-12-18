@@ -17,16 +17,8 @@ return [
     ],
     'components' => [
         'db' => $db,
-        'view' => [
-            'class' => 'DuAdmin\Core\CoreView'
-        ],
         'cache' => [
             'class' => 'yii\caching\FileCache'
-        ],
-        'authManager' => [
-            'class' => 'yii\rbac\DbManager',
-            // uncomment if you want to cache RBAC items hierarchy
-            'cache' => 'cache'
         ],
         'errorHandler' => [
             'errorAction' => 'site/error'
@@ -36,9 +28,6 @@ return [
             'datetimeFormat' => 'yyyy-MM-dd HH:mm:ss',
             'dateFormat' => 'yyyy-MM-dd',
             'timeFormat' => 'HH:mm:ss'
-        ],
-        'mailer' => [
-            'class' => 'DuAdmin\Components\AppMailer'
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

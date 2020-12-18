@@ -1,7 +1,26 @@
 <?php
 use Backend\Widgets\PortalWidget;
+use DuAdmin\Widgets\AdminltePanel;
+use DuAdmin\Widgets\TreeList;
 
 $this->title = '看板';
 $this->params['breadcrumbs'][] = '看板';
 ?>
-<?= PortalWidget::widget() ?>
+<?php // PortalWidget::widget() ?>
+<?= AdminltePanel::widget([
+    'content' => TreeList::widget([
+        'items' => [
+            ['id'=>'1','title'=>'title1'],
+            ['id'=>'2','title'=>'title1','children'=>[
+                ['id'=>'5','title'=>'title5'],
+                ['id'=>'6','title'=>'title6'],
+            ]],
+            ['id'=>'4','title'=>'title4'],
+            ['id'=>'3','title'=>'title3'],
+            ],
+            'rowRender'=> function($item) {
+                return $item['title'];
+            }
+    ])
+])
+?>

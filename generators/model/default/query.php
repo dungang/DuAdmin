@@ -15,14 +15,14 @@
 /* @var $modelClassName string related model class name */
 
 $modelFullClassName = $modelClassName;
-if ($generator->ns !== $generator->queryNs) {
+if ($generator->ns !== $generator->ns) {
     $modelFullClassName = '\\' . $generator->ns . '\\' . $modelFullClassName;
 }
 
 echo "<?php\n";
 ?>
 
-namespace <?= $generator->queryNs ?>;
+namespace <?= $generator->ns ?>;
 
 /**
  * This is the ActiveQuery class for [[<?= $modelFullClassName ?>]].

@@ -1,25 +1,15 @@
 <?php
+
 use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
 /* @var $model Backend\Models\AuthRule */
 
-$this->title = '更新';
-$this->params['breadcrumbs'][] = [
-    'label' => '验证规则',
-    'url' => [
-        'index'
-    ]
-];
-$this->params['breadcrumbs'][] = [
-    'label' => $model->name,
-    'url' => [
-        'view',
-        'id' => $model->name
-    ]
-];
+$this->title = Yii::t('da','Update');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Auth Rules'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = $this->title;
 echo AjaxModalOrNormalPanelContent::widget([
-    'intro'=>'编辑验证规则的基本信息',
+    'intro'=> Yii::t('da','Update Info'),
     'content'=>$this->render('_form', ['model' => $model])
 ])?>

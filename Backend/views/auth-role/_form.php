@@ -1,25 +1,25 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use Backend\Models\AuthGroup;
 
 /* @var $this yii\web\View */
-/* @var $model \Backend\Models\AuthRole */
+/* @var $model Backend\Models\AuthRole */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
-<div class="role-form">
+<div class="auth-role-form">
 
     <?php $form = ActiveForm::begin(['id'=>'auth-role-form','enableAjaxValidation' => true]); ?>
+    <div class="row">
+    <?= '<div class="col-xs-6">' . $form->field($model, 'id')->textInput(['maxlength' => true]) . '</div>' ?>
 
-    <?= $form->field($model, 'group_name')->radioList(AuthGroup::allIdToName('name','title',['type'=>AuthGroup::TYPE_ROLE])) ?>
+    <?= '<div class="col-xs-6">' . $form->field($model, 'name')->textInput(['maxlength' => true]) . '</div>' ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= '<div class="col-xs-6">' . $form->field($model, 'data')->textInput() . '</div>' ?>
 
-    <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
-
+    </div>
     <div class="form-group">
-        <?= Html::submitButton('保存', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('<i class="fa fa-save"></i> ' .  Yii::t('da','Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::resetButton('<i class="fa fa-reply"></i> ' .  Yii::t('da','Reset'), ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

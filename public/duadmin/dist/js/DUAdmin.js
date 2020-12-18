@@ -550,32 +550,39 @@ Date.prototype.format = function (fmt) {
   };
 }(jQuery);
 /**
- * yiigridview的批量编辑，在按钮上添加.batch-edit样式，
+ * yiigridview的批量编辑，在按钮上添加.batch-update样式，
  * 该事件会更新按钮的url
  */
 
-$(document).on('click', '.grid-view', function (e) {
+$(document).on('click', '.batch-update', function (e) {
+  e.preventDefault();
   var that = $(this);
   var data = that.data();
+  var gridView = $(data.target);
+  var gridViewData = gridView.yiiGridView('data');
+  var field = escape(gridViewData.selectionColumn);
+  var ids = gridView.yiiGridView("getSelectedRows").map(function (id) {
+    return field + '=' + escape(id);
+  });
 
-  if (data.batchEditBtn) {
-    var btn = that.find(data.batchEditBtn);
-    console.log(btn);
-
-    if (btn.length > 0) {
-      var gridData = that.yiiGridView("data");
-      var field = escape(gridData.selectionColumn);
-      var reg = new RegExp('&?' + field + '=[\/a-zA-Z0-9]+', 'g');
-      var baseUrl = btn.attr('href').replace(reg, '');
-      var ids = that.yiiGridView("getSelectedRows").map(function (id) {
-        return field + '=' + escape(id);
-      });
-      btn.attr('items', ids.length);
-      baseUrl = baseUrl + '&' + ids.join('&');
-      btn.attr('href', baseUrl);
-    }
+  if (ids.length == 0) {
+    alert('请选择条目，否则不能进行操作');
+  } else {
+    var reg = new RegExp('&?' + field + '=[\/a-zA-Z0-9]+', 'g');
+    var baseUrl = that.data('url').replace(reg, '');
+    baseUrl = baseUrl + '&' + ids.join('&');
+    console.log(baseUrl);
+    that.attr('href', baseUrl);
+    $('#modal-dailog').modal({
+      remote: baseUrl
+    });
   }
 });
+/**
+ * 需要在data属性配置 gridview的id
+ * data-target="#gridviewId"
+ */
+
 $(document).on('click', '.del-all', function (e) {
   e.preventDefault();
   var that = $(this);
@@ -583,7 +590,7 @@ $(document).on('click', '.del-all', function (e) {
   var ids = $(data.target).yiiGridView("getSelectedRows");
 
   if (ids.length == 0) {
-    alert('请选择加载的条目，否则不能进行操作');
+    alert('请选择条目，否则不能进行操作');
   } else {
     var params = {};
 
@@ -605,6 +612,10 @@ $(document).on('click', '.del-all', function (e) {
     }
   }
 });
+/**
+ * ajax文件直传
+ */
+
 $(document).on('click', '.ajax-file-input button', function (e) {
   var fileInput = this.nextElementSibling;
   var textInput = fileInput.parentElement.previousElementSibling;

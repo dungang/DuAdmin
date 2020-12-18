@@ -1,4 +1,5 @@
 <?php
+
 namespace Backend\Models;
 
 /**
@@ -6,18 +7,14 @@ namespace Backend\Models;
  *
  * @see AuthAssignment
  */
-class AuthAssignmentQuery extends \yii\db\ActiveQuery
+class AuthAssignmentQuery extends \DuAdmin\Mysql\ActiveQuery
 {
-
-    /*
-     * public function active()
-     * {
-     * return $this->andWhere('[[status]]=1');
-     * }
-     */
+    /*public function active()
+    {
+        return $this->andWhere('[[status]]=1');
+    }*/
 
     /**
-     *
      * {@inheritdoc}
      * @return AuthAssignment[]|array
      */
@@ -27,7 +24,6 @@ class AuthAssignmentQuery extends \yii\db\ActiveQuery
     }
 
     /**
-     *
      * {@inheritdoc}
      * @return AuthAssignment|array|null
      */

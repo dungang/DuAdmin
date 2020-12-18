@@ -1,7 +1,7 @@
 <?php
+
 namespace Backend\Models;
 
-use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
@@ -26,18 +26,17 @@ class AuthPermissionSearch extends AuthPermission
         return [
             [
                 [
+                    'id',
                     'name',
-                    'group_name',
-                    'description',
-                    'rule_name',
+                    'ruleId',
                 ],
                 'safe'
             ],
             [
                 [
                     'type',
-                    'created_at',
-                    'updated_at'
+                    'createdAt',
+                    'updatedAt'
                 ],
                 'integer'
             ]
@@ -51,7 +50,7 @@ class AuthPermissionSearch extends AuthPermission
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
+        return parent::scenarios();
     }
 
     /**
@@ -82,28 +81,24 @@ class AuthPermissionSearch extends AuthPermission
         // grid filtering conditions
         $query->andFilterWhere([
             'type' => $this->type,
-            'group_name' => $this->group_name?:$this->_groups,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
         ]);
 
         $query->andFilterWhere([
             'like',
+            'id',
+            $this->id
+        ])
+        ->andFilterWhere([
+            'like',
             'name',
             $this->name
         ])
-            ->andFilterWhere([
-                'like',
-                'description',
-                $this->description
-            ])
-            ->andFilterWhere([
-                'like',
-                'rule_name',
-                $this->rule_name
-            ]);
-
-        $query->leftJoin(AuthItemChild::tableName(), self::tableName() . '.name = ' . AuthItemChild::tableName() . '.child')->andFilterWhere([
+        ->andFilterWhere([
+            'like',
+            'ruleId',
+            $this->ruleId
+        ]);
+        $query->leftJoin(AuthItemChild::tableName(), self::tableName() . '.id = ' . AuthItemChild::tableName() . '.child')->andFilterWhere([
             'parent' => isset($params['parent']) ? $params['parent'] : null
         ]);
 

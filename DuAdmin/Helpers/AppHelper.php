@@ -82,7 +82,8 @@ class AppHelper
     {
         $options = array_merge([
             'data-toggle' => 'modal',
-            'data-target' => '#modal-dailog'
+            'data-target' => '#modal-dailog',
+            'data-pjax' => '0',
         ], $options);
         return Html::a($text, $url, $options);
     }
@@ -100,7 +101,8 @@ class AppHelper
         $options = array_merge([
             'data-toggle' => 'modal',
             'data-target' => '#modal-dailog',
-            'data-modal-size' => 'modal-sm'
+            'data-modal-size' => 'modal-sm',
+            'data-pjax' => '0',
         ], $options);
         return Html::a($text, $url, $options);
     }
@@ -118,7 +120,8 @@ class AppHelper
         $options = array_merge([
             'data-toggle' => 'modal',
             'data-target' => '#modal-dailog',
-            'data-modal-size' => 'modal-lg'
+            'data-modal-size' => 'modal-lg',
+            'data-pjax' => '0',
         ], $options);
         return Html::a($text, $url, $options);
     }

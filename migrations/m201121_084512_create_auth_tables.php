@@ -14,28 +14,28 @@ class m201121_084512_create_auth_tables extends Migration
     {
         $tableOptions = 'CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci ENGINE=InnoDB';
         $this->createTable('{{%auth_rule}}', [
-            'name' => $this->string(64)->notNull()->comment('名称'),
-            'data' => $this->binary()->comment('数据'),
-            'created_at' => $this->dateTime()->null()->comment('添加时间'),
-            'updated_at' => $this->dateTime()->null()->comment('更新时间'),
-            'PRIMARY KEY ([[name]])',
+            'id' => $this->string(64)->notNull()->comment('ID'),
+            'name' => $this->string(64)->notNull()->comment('描述'),
+            'data' => $this->binary()->null()->comment('数据'),
+            'createdAt' => $this->dateTime()->null()->comment('添加时间'),
+            'updatedAt' => $this->dateTime()->null()->comment('更新时间'),
+            'PRIMARY KEY ([[id]])',
         ], $tableOptions);
         
         $this->addCommentOnTable('{{%auth_rule}}','权限规则');
         
         $this->createTable('{{%auth_item}}', [
-            'name' => $this->string(64)->notNull()->comment('名称'),
-            'type' => $this->smallInteger()->notNull()->comment('类型'),
-            'description' => $this->text()->comment('说明'),
-            'rule_name' => $this->string(64)->comment('规则'),
-            'group_name' => $this->string(128)->comment('组'),
-            'data' => $this->binary()->comment('数据'),
-            'created_at' => $this->dateTime()->null()->comment('添加时间'),
-            'updated_at' => $this->dateTime()->null()->comment('更新时间'),
-            'PRIMARY KEY ([[name]])',
+            'id' => $this->string(64)->notNull()->comment('ID::路由ID或者角色，组的英文表示'),
+            'type' => $this->smallInteger()->notNull()->comment('类型::1:角色|2:权限|3:组'),
+            'name' => $this->string(64)->comment('说明'),
+            'ruleId' => $this->string(64)->null()->comment('规则ID'),
+            'data' => $this->binary()->null()->comment('数据'),
+            'createdAt' => $this->dateTime()->null()->comment('添加时间'),
+            'updatedAt' => $this->dateTime()->null()->comment('更新时间'),
+            'PRIMARY KEY ([[id]])',
         ], $tableOptions);
         $this->addCommentOnTable('{{%auth_item}}','权限');
-        $this->addForeignKey('fk-auth_item-rule_name', '{{%auth_item}}', 'rule_name', '{{%auth_rule}}', 'name', 'SET NULL', 'CASCADE');
+        $this->addForeignKey('fk-auth_item-ruleId', '{{%auth_item}}', 'ruleId', '{{%auth_rule}}', 'id', 'SET NULL', 'CASCADE');
         $this->createIndex('idx-auth_item-type', '{{%auth_item}}', 'type');
 
         $this->createTable('{{%auth_item_child}}', [
@@ -44,17 +44,17 @@ class m201121_084512_create_auth_tables extends Migration
             'PRIMARY KEY ([[parent]], [[child]])',
         ], $tableOptions);
         $this->addCommentOnTable('{{%auth_item_child}}','子权限');
-        $this->addForeignKey('fk-auth_item_child-parent', '{{%auth_item_child}}', 'parent', '{{%auth_item}}', 'name', 'CASCADE', 'CASCADE');
-        $this->addForeignKey('fk-auth_item_child-child', '{{%auth_item_child}}', 'child', '{{%auth_item}}', 'name', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('fk-auth_item_child-parent', '{{%auth_item_child}}', 'parent', '{{%auth_item}}', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('fk-auth_item_child-child', '{{%auth_item_child}}', 'child', '{{%auth_item}}', 'id', 'CASCADE', 'CASCADE');
 
         $this->createTable('{{%auth_assignment}}', [
-            'item_name' => $this->string(64)->notNull()->comment('权限'),
-            'user_id' => $this->string(64)->notNull()->comment('用户ID'),
-            'created_at' => $this->dateTime()->comment('添加时间'),
-            'PRIMARY KEY ([[item_name]], [[user_id]])',
+            'itemId' => $this->string(64)->notNull()->comment('权限'),
+            'userId' => $this->string(64)->notNull()->comment('用户ID'),
+            'createdAt' => $this->dateTime()->comment('添加时间'),
+            'PRIMARY KEY ([[itemId]], [[userId]])',
         ], $tableOptions);
         $this->addCommentOnTable('{{%auth_assignment}}','授权');
-        $this->addForeignKey('fk-auth_assignment-item_name', '{{%auth_assignment}}', 'item_name', '{{%auth_item}}', 'name', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('fk-auth_assignment-item_name', '{{%auth_assignment}}', 'itemId', '{{%auth_item}}', 'id', 'CASCADE', 'CASCADE');
     }
 
     /**

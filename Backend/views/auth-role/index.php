@@ -1,85 +1,61 @@
 <?php
-use yii\helpers\Html;
-use DuAdmin\Grids\PanelGridView;
-use yii\widgets\Pjax;
-use DuAdmin\Widgets\PanelNavTabs;
-use Backend\Models\AuthGroup;
 
+use yii\helpers\Html;
+use DuAdmin\Helpers\AppHelper;
+use DuAdmin\Grids\PanelGridView;
+use DuAdmin\Widgets\FullSearchBox;
+
+use yii\widgets\Pjax;
 /* @var $this yii\web\View */
-/* @var $searchModel Backend\Models\AuthItemSearch */
+/* @var $searchModel Backend\Models\AuthRoleSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '角色';
+$this->title = Yii::t('backend', 'Auth Roles');
 $this->params['breadcrumbs'][] = $this->title;
-Pjax::begin(['id'=>'role-index']);
-PanelGridView::begin([
-    'intro'=>'角色标识的一组权限标识的集合。一个用户可以拥有等于或者多余0个角色，从而获取不同的权限范围。',
-    'dataProvider' => $dataProvider,
-    'filterModel' => $searchModel,
-    'columns' => [
-        [
-            'attribute' => 'name',
-            'format' => 'raw',
-            'value' => function ($model, $key, $index, $column) {
-                return Html::a($model['name'], [
-                    'view',
-                    'id' => $model['name']
-                ], [
-                    'data-toggle' => 'modal',
-                    'data-target' => '#modal-dailog'
-                ]);
-            }
-        ],
-        'description',
-        'group_name',
-        [
-            'label' => '权限',
-            'format' => 'raw',
-            'value' => function ($model) {
-                return Html::a('授权', [
-                    'permission',
-                    'name' => $model['name'],
-                    'group_name' => $model['group_name']
-                ]);
-            }
-        ],
-
-        [
-            'class' => '\DuAdmin\Grids\ActionColumn',
-            'buttonsOptions' => [
-                'update' => [
-                    'data-toggle' => 'modal',
-                    'data-target' => '#modal-dailog'
-                ],
-                'view' => [
-                    'data-toggle' => 'modal',
-                    'data-target' => '#modal-dailog'
-                ]
-            ]
-        ]
-    ]
-]);
-$tabs = array_map(function($group){
-    return [
-        'name'=>$group['title'],
-        'url' => [
-            'index',
-            'AuthRoleSearch[group_name]' => $group['name']
-        ]
-    ];
-},AuthGroup::findAll(['type'=>AuthGroup::TYPE_ROLE]));
-array_push($tabs,[
-    'name' => '<i class="fa fa-plus"></i> 添加角色',
-    'url' => [
-        'create',
-        'AuthRole[group_name]' => $searchModel->group_name,
-    ],
-    'options'=>['data-toggle'=>'modal','data-target'=>'#modal-dailog']
-]);
-echo PanelNavTabs::widget([
-    'wrapper'=>true,
-    'tabs' => $tabs
-]);   
 ?>
-<?php PanelGridView::end()?>
-<?php Pjax::end()?>
+<?php Pjax::begin(['id'=>'auth-role-index']); ?>
+<?php  PanelGridView::begin([
+        'id' => 'auth-role-list',
+    	'intro' => Yii::t('da','{0} Info Manage',Yii::t('backend', 'Auth Roles')),
+        'dataProvider' => $dataProvider,
+        'columns' => [
+            ['class'=>'\DuAdmin\Grids\CheckboxColumn','name'=>'id'],
+            [
+                'attribute' => 'name',
+                'format'=>'raw',
+                'value'=>function($model,$key,$index,$column){
+                    return AppHelper::linkButtonWithSimpleModal($model['name'],['view','id'=>$model['id']]);
+                }
+        	],
+            'id',
+            [
+                'label' => Yii::t('backend','Assignment'),
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return Html::a(Yii::t('backend','assignment'), [
+                        'permission',
+                        'id' => $model['id'],
+                    ]);
+                }
+            ],
+            //'createdAt:date',
+            //'updatedAt:date',
+            [
+                'class' => '\DuAdmin\Grids\ActionColumn',
+        	]
+       ]
+    ]); ?>
+
+<?= FullSearchBox::widget(['action'=>['index']]) ?> 
+
+<?= $this->render('_search', ['model' => $searchModel]); ?>
+
+<?= AppHelper::linkButtonWithSimpleModal('<i class="fa fa-plus"></i> ' . Yii::t('da','Create'), ['create'], ['class'=>'btn btn-primary']) ?>
+
+<?= Html::a('<i class="fa fa-refresh"></i> '. Yii::t('da','Refresh'), ['index'], ['class'=>'btn btn-info']) ?>
+
+<?= Html::a('<i class="fa fa-trash"></i> '. Yii::t('da','Delete'), ['delete'], ['class'=>'btn btn-danger del-all','data-target'=>'#auth-role-list']) ?>
+<?php PanelGridView::end() ?>
+
+<?php Pjax::end(); ?>
+

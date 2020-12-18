@@ -1,46 +1,36 @@
 <?php
+
 namespace Backend\Models;
 
-use DuAdmin\Core\BaseModel;
-
+use Yii;
 /**
- * This is the model class for table "auth_item".
+ * "{{%auth_item}}"表的模型类.
  *
- * @property string $name
- * @property int $type
- * @property  string $group_name
- * @property string $description
- * @property string $rule_name
- * @property resource $data
- * @property int $created_at
- * @property int $updated_at
+ * @property string $id ID::路由ID或者角色，组的英文表示
+ * @property int $type 类型::1:角色|2:权限|3:组
+ * @property string $name 说明
+ * @property string $ruleId 规则ID
+ * @property resource $data 数据
+ * @property string $createdAt 添加时间
+ * @property string $updatedAt 更新时间
  *
  * @property AuthAssignment[] $authAssignments
- * @property AuthRule $ruleName
+ * @property AuthRule $rule
  * @property AuthItemChild[] $authItemChildren
- * @property AuthItem[] $children
+ * @property AuthItemChild[] $authItemChildren0
  * @property AuthItem[] $parents
+ * @property AuthItem[] $children
  */
-class AuthItem extends BaseModel
+class AuthItem extends \DuAdmin\Core\BaseModel
 {
+    ///**
+    // * 对象json序列化的时候设置不显示的字段
+    // *
+    // * @var array
+    // */
+    // public $jsonHideFields = [];
 
     /**
-     * 角色
-     *
-     * @var integer
-     */
-    const TYPE_ROLE = 1;
-
-    /**
-     * 权限
-     *
-     * @var integer
-     */
-    const TYPE_PERMISSION = 2;
-
-
-    /**
-     *
      * {@inheritdoc}
      */
     public static function tableName()
@@ -49,155 +39,103 @@ class AuthItem extends BaseModel
     }
 
     /**
-     *
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [
-                [
-                    'name',
-                    'type'
-                ],
-                'required'
-            ],
-            [
-                [
-                    'type',
-                    'created_at',
-                    'updated_at'
-                ],
-                'integer'
-            ],
-            [
-                [
-                    'group_name',
-                    'description',
-                    'data'
-                ],
-                'string'
-            ],
-            [
-                [
-                    'name',
-                    'rule_name'
-                ],
-                'string',
-                'max' => 64
-            ],
-            [
-                [
-                    'name'
-                ],
-                'unique'
-            ],
-            [
-                [
-                    'rule_name'
-                ],
-                'exist',
-                'skipOnError' => true,
-                'targetClass' => AuthRule::className(),
-                'targetAttribute' => [
-                    'rule_name' => 'name'
-                ]
-            ],
-            [
-                'rule_name','default','value'=>null
-            ]
+            [['id', 'type'], 'required'],
+            [['type'], 'integer'],
+            [['data'], 'string'],
+            [['createdAt', 'updatedAt'], 'safe'],
+            [['id', 'name', 'ruleId'], 'string', 'max' => 64],
+            [['id'], 'unique'],
+            ['ruleId','default','value'=>null],
+            [['ruleId'], 'exist', 'skipOnError' => true, 'targetClass' => AuthRule::class, 'targetAttribute' => ['ruleId' => 'id']],
         ];
     }
 
     /**
-     *
      * {@inheritdoc}
      */
     public function attributeLabels()
     {
         return [
-            'name' => '名称',
-            'group_name' => '组',
-            'type' => '类型',
-            'description' => '介绍',
-            'rule_name' => '规则',
-            'data' => '数据',
-            'created_at' => '添加时间',
-            'updated_at' => '更新时间'
+            'id' => Yii::t('backend', 'ID'),
+            'type' => Yii::t('backend', 'Type'),
+            'name' => Yii::t('backend', 'Name'),
+            'ruleId' => Yii::t('backend', 'Rule ID'),
+            'data' => Yii::t('backend', 'Data'),
+            'createdAt' => Yii::t('da', 'Created At'),
+            'updatedAt' => Yii::t('da', 'Updated At'),
         ];
     }
 
     /**
-     *
+     * {@inheritdoc}
+     */
+    public function attributeHints()
+    {
+        return [
+            'id' => '路由ID或者角色，组的英文表示',
+            'type' => '1:角色|2:权限|3:组',
+        ];
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getAuthAssignments()
     {
-        return $this->hasMany(AuthAssignment::className(), [
-            'item_name' => 'name'
-        ]);
+        return $this->hasMany(AuthAssignment::class, ['itemId' => 'id']);
     }
 
     /**
-     *
      * @return \yii\db\ActiveQuery
      */
-    public function getRuleName()
+    public function getRule()
     {
-        return $this->hasOne(AuthRule::className(), [
-            'name' => 'rule_name'
-        ]);
+        return $this->hasOne(AuthRule::class, ['id' => 'ruleId']);
     }
 
     /**
-     *
      * @return \yii\db\ActiveQuery
      */
     public function getAuthItemChildren()
     {
-        return $this->hasMany(AuthItemChild::className(), [
-            'parent' => 'name'
-        ]);
+        return $this->hasMany(AuthItemChild::class, ['child' => 'id']);
     }
 
     /**
-     *
      * @return \yii\db\ActiveQuery
      */
-    public function getChildren()
+    public function getAuthItemChildren0()
     {
-        return $this->hasMany(AuthItem::className(), [
-            'name' => 'child'
-        ])->viaTable(AuthItemChild::tableName(), [
-            'parent' => 'name'
-        ]);
+        return $this->hasMany(AuthItemChild::class, ['parent' => 'id']);
     }
 
     /**
-     *
      * @return \yii\db\ActiveQuery
      */
     public function getParents()
     {
-        return $this->hasMany(AuthItem::className(), [
-            'name' => 'parent'
-        ])->viaTable(AuthItemChild::tableName(), [
-            'child' => 'name'
-        ]);
+        return $this->hasMany(AuthItem::class, ['id' => 'parent'])->viaTable('{{%auth_item_child}}', ['child' => 'id']);
     }
 
-    public static function allMap($key = 'name', $val = 'description', $where = null, $orderBy = null)
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getChildren()
     {
-        return parent::allIdToName($key, $val, $where, $orderBy);
+        return $this->hasMany(AuthItem::class, ['id' => 'child'])->viaTable('{{%auth_item_child}}', ['parent' => 'id']);
     }
 
-    public static function allIdToName($key = 'name', $val = 'description', $where = null, $orderBy = null)
+    /**
+     * {@inheritdoc}
+     * @return AuthItemQuery the active query used by this AR class.
+     */
+    public static function find()
     {
-        if ($where == null) {
-            $where = [];
-        } else {
-            $where['type'] = AuthItem::TYPE_ROLE;
-        }
-        return parent::allIdToName($key, $val, $where, $orderBy);
+        return new AuthItemQuery(get_called_class());
     }
 }

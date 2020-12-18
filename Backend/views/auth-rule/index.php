@@ -1,41 +1,52 @@
 <?php
+
 use yii\helpers\Html;
+use DuAdmin\Helpers\AppHelper;
 use DuAdmin\Grids\PanelGridView;
+use DuAdmin\Widgets\FullSearchBox;
+
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel Backend\Models\AuthRuleSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '验证规则';
+$this->title = Yii::t('backend', 'Auth Rules');
 $this->params['breadcrumbs'][] = $this->title;
-Pjax::begin(['id'=>'rule-index']);
-PanelGridView::begin([
-    'intro'=>'验证规则，不是表单验证，而是权限标识的增强，在验证某个权限标识的时候需要验证<strong>某些条件</strong>（可以理解为验证规则）。',
-    'dataProvider' => $dataProvider,
-    'filterModel' => $searchModel,
-    'columns' => [
-        [
-            'class' => 'yii\grid\SerialColumn'
-        ],
-        'name',
-        [
-            'class' => 'DuAdmin\Grids\ActionColumn',
-            'buttonsOptions' => [
-                'update' => [
-                    'data-toggle' => 'modal',
-                    'data-target' => '#modal-dailog'
-                ],
-                'view' => [
-                    'data-toggle' => 'modal',
-                    'data-target' => '#modal-dailog'
-                ]
-            ]
-        ]
-    ]
-]);
 ?>
-<?= Html::a('<i class="fa fa-plus"></i> ' . Yii::t('da','Create'), ['create'], ['class'=>'btn btn-primary','data-toggle'=>'modal','data-target'=>'#modal-dailog']) ?>
+<?php Pjax::begin(['id'=>'auth-rule-index']); ?>
+<?php  PanelGridView::begin([
+        'id' => 'auth-rule-list',
+    	'intro' => Yii::t('da','{0} Info Manage',Yii::t('backend', 'Auth Rules')),
+        'dataProvider' => $dataProvider,
+        'columns' => [
+            ['class'=>'\yii\grid\CheckboxColumn','name'=>'id'],
+            [
+                'attribute' => 'name',
+                'format'=>'raw',
+                'value'=>function($model,$key,$index,$column){
+                    return AppHelper::linkButtonWithSimpleModal($model['name'],['view','id'=>$model['id']]);
+                }
+        	],
+            'id',
+            'data',
+            'createdAt:date',
+            'updatedAt:date',
+            [
+                'class' => '\DuAdmin\Grids\ActionColumn',
+        	]
+       ]
+    ]); ?>
 
-<?=DuAdmin\Widgets\FullSearchBox::widget(['action'=>['index']]) ?>
-<?php PanelGridView::end()?>
-<?php Pjax::end()?>
+<?= FullSearchBox::widget(['action'=>['index']]) ?> 
+
+<?= $this->render('_search', ['model' => $searchModel]); ?>
+
+<?= AppHelper::linkButtonWithSimpleModal('<i class="fa fa-plus"></i> ' . Yii::t('da','Create'), ['create'], ['class'=>'btn btn-primary']) ?>
+
+<?= Html::a('<i class="fa fa-refresh"></i> '. Yii::t('da','Refresh'), ['index'], ['class'=>'btn btn-info']) ?>
+
+<?= Html::a('<i class="fa fa-trash"></i> '. Yii::t('da','Delete'), ['delete'], ['class'=>'btn btn-danger del-all','data-target'=>'#auth-rule-list']) ?>
+<?php PanelGridView::end() ?>
+
+<?php Pjax::end(); ?>
+

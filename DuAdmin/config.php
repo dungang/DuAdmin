@@ -14,14 +14,17 @@ return [
         '@Console' => '@app/Console',
     ],
     'components' => [
-    //扩展DB的能力
+        'view' => [
+            'class' => 'DuAdmin\Core\CoreView'
+        ],
+        //扩展DB的能力
         'db' => [
-            'schemaMap' =>[
+            'schemaMap' => [
                 'mysql' => 'DuAdmin\Mysql\Schema',
                 'mysqli' => 'DuAdmin\Mysql\Schema',
             ],
             'queryBuilder' => [
-                'expressionBuilders' =>[
+                'expressionBuilders' => [
                     'DuAdmin\Db\DateRangeCondition' => 'DuAdmin\Db\DateRangeConditionBuilder',
                     'DuAdmin\Db\FullSearchCondition' => 'DuAdmin\Db\FullSearchConditionBuilder'
                 ],
@@ -30,6 +33,9 @@ return [
                     'FULL_SEARCH' => 'DuAdmin\Db\FullSearchCondition'
                 ]
             ]
-        ]
+        ],
+        'mailer' => [
+            'class' => 'DuAdmin\Components\AppMailer'
+        ],
     ]
 ];

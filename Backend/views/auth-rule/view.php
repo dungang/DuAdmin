@@ -1,28 +1,28 @@
 <?php
+
 use yii\widgets\DetailView;
 use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
 /* @var $model Backend\Models\AuthRule */
 
-$this->title = '查看';
-$this->params['breadcrumbs'][] = [
-    'label' => '验证规则',
-    'url' => [
-        'index'
-    ]
-];
+$this->title = $model->name;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Auth Rules'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 $this->params['breadcrumbs'][] = $model->name;
 
 echo AjaxModalOrNormalPanelContent::widget([
-    'intro' => '查看验证规则信息：' . $model->name,
+    'intro' => Yii::t('da', 'View {0} Detail Info',$model->name),
     'content' => DetailView::widget([
-        'model' => $model,
-        'attributes' => [
+        	'options'=>['class' => 'table table-bordered'],
+            'model' => $model,
+            'attributes' => [
+                'id',
             'name',
             'data',
-            'created_at',
-            'updated_at'
-        ]
-    ])
-])?>
+            'createdAt:date',
+            'updatedAt:date',
+            ],
+        ])
+]);
+?>

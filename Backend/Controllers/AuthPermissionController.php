@@ -14,9 +14,6 @@ class AuthPermissionController extends BackendController
         return [
             'index' => [
                 'class' => 'DuAdmin\Core\ListModelsAction',
-                'modelBehaviors' => [
-                    'Backend\Behaviors\PermissionListBehavior',
-                ],
                 'modelClass' => [
                     'class' => 'Backend\Models\AuthPermissionSearch',
                 ]

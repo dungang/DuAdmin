@@ -56,7 +56,7 @@ class Generator extends \app\generators\Generator
 
     public $generateQuery = true;
 
-    public $queryNs = 'Backend\Models';
+    // public $queryNs = 'Backend\Models';
 
     public $queryClass;
 
@@ -120,7 +120,7 @@ class Generator extends \app\generators\Generator
                     'tableName',
                     'modelClass',
                     'baseClass',
-                    'queryNs',
+                    //'queryNs',
                     'queryClass',
                     'queryBaseClass'
                 ],
@@ -130,7 +130,7 @@ class Generator extends \app\generators\Generator
             [
                 [
                     'ns',
-                    'queryNs'
+                    //'queryNs'
                 ],
                 'filter',
                 'filter' => function ($value) {
@@ -144,7 +144,7 @@ class Generator extends \app\generators\Generator
                     'ns',
                     'tableName',
                     'baseClass',
-                    'queryNs',
+                   // 'queryNs',
                     'queryBaseClass'
                 ],
                 'required'
@@ -163,7 +163,7 @@ class Generator extends \app\generators\Generator
                 [
                     'ns',
                     'baseClass',
-                    'queryNs',
+                 //   'queryNs',
                     'queryBaseClass'
                 ],
                 'match',
@@ -187,7 +187,7 @@ class Generator extends \app\generators\Generator
             [
                 [
                     'ns',
-                    'queryNs'
+                //    'queryNs'
                 ],
                 'validateNamespace'
             ],
@@ -210,7 +210,7 @@ class Generator extends \app\generators\Generator
                 ],
                 'validateClass',
                 'params' => [
-                    'extends' => ActiveRecord::className()
+                    'extends' => ActiveRecord::class
                 ]
             ],
             [
@@ -219,7 +219,7 @@ class Generator extends \app\generators\Generator
                 ],
                 'validateClass',
                 'params' => [
-                    'extends' => ActiveQuery::className()
+                    'extends' => ActiveQuery::class
                 ]
             ],
             [
@@ -279,7 +279,7 @@ class Generator extends \app\generators\Generator
             'generateRelationsFromCurrentSchema' => '从当前的Schema中生成关联关系',
             'generateLabelsFromComments' => '数据库的注解作为标签',
             'generateQuery' => '生成 ActiveQuery',
-            'queryNs' => 'ActiveQuery的命名空间',
+            //'queryNs' => 'ActiveQuery的命名空间',
             'queryClass' => 'ActiveQuery类名',
             'queryBaseClass' => 'ActiveQuery的基类',
             'useSchemaName' => '指定Schema名称',
@@ -330,7 +330,7 @@ class Generator extends \app\generators\Generator
             'useSchemaName' => 'This indicates whether to include the schema name in the ActiveRecord class
                 when it\'s auto generated. Only non default schema would be used.',
             'generateQuery' => 'This indicates whether to generate ActiveQuery for the ActiveRecord class.',
-            'queryNs' => 'This is the namespace of the ActiveQuery class to be generated, e.g., <code>app\models</code>',
+           // 'queryNs' => 'This is the namespace of the ActiveQuery class to be generated, e.g., <code>app\models</code>',
             'queryClass' => 'This is the name of the ActiveQuery class to be generated. The class name should not contain
                 the namespace part as it is specified in "ActiveQuery Namespace". You do not need to specify the class name
                 if "Table Name" ends with asterisk, in which case multiple ActiveQuery classes will be generated.',
@@ -384,7 +384,7 @@ class Generator extends \app\generators\Generator
             'baseClass',
             'generateRelations',
             'generateLabelsFromComments',
-            'queryNs',
+            //'queryNs',
             'queryBaseClass',
             'useTablePrefix',
             'generateQuery'
@@ -439,7 +439,7 @@ class Generator extends \app\generators\Generator
             if ($queryClassName) {
                 $params['className'] = $queryClassName;
                 $params['modelClassName'] = $modelClassName;
-                $files[] = new CodeFile(Yii::getAlias('@' . str_replace('\\', '/', $this->queryNs)) . '/' . $queryClassName . '.php', $this->render('query.php', $params));
+                $files[] = new CodeFile(Yii::getAlias('@' . str_replace('\\', '/', $this->ns)) . '/' . $queryClassName . '.php', $this->render('query.php', $params));
             }
             
             
@@ -644,7 +644,7 @@ class Generator extends \app\generators\Generator
                 $targetAttributes[] = "'$key' => '$value'";
             }
             $targetAttributes = implode(', ', $targetAttributes);
-            $rules[] = "[['$attributes'], 'exist', 'skipOnError' => true, 'targetClass' => $refClassName::className(), 'targetAttribute' => [$targetAttributes]]";
+            $rules[] = "[['$attributes'], 'exist', 'skipOnError' => true, 'targetClass' => $refClassName::class, 'targetAttribute' => [$targetAttributes]]";
         }
 
         return $rules;
@@ -811,7 +811,7 @@ class Generator extends \app\generators\Generator
             $viaLink = $this->generateRelationLink($firstKey);
             $relationName = $this->generateRelationName($relations, $table0Schema, key($secondKey), true);
             $relations[$table0Schema->fullName][$relationName] = [
-                "return \$this->hasMany($className1::className(), $link)->viaTable('" . $this->generateTableName($table->name) . "', $viaLink);",
+                "return \$this->hasMany($className1::class, $link)->viaTable('" . $this->generateTableName($table->name) . "', $viaLink);",
                 $className1,
                 true
             ];
@@ -820,7 +820,7 @@ class Generator extends \app\generators\Generator
             $viaLink = $this->generateRelationLink($secondKey);
             $relationName = $this->generateRelationName($relations, $table1Schema, key($firstKey), true);
             $relations[$table1Schema->fullName][$relationName] = [
-                "return \$this->hasMany($className0::className(), $link)->viaTable('" . $this->generateTableName($table->name) . "', $viaLink);",
+                "return \$this->hasMany($className0::class, $link)->viaTable('" . $this->generateTableName($table->name) . "', $viaLink);",
                 $className0,
                 true
             ];
@@ -903,7 +903,7 @@ class Generator extends \app\generators\Generator
                     $link = $this->generateRelationLink(array_flip($refs));
                     $relationName = $this->generateRelationName($relations, $table, $fks[0], false);
                     $relations[$table->fullName][$relationName] = [
-                        "return \$this->hasOne($refClassName::className(), $link);",
+                        "return \$this->hasOne($refClassName::class, $link);",
                         $refClassName,
                         false
                     ];
@@ -913,7 +913,7 @@ class Generator extends \app\generators\Generator
                     $link = $this->generateRelationLink($refs);
                     $relationName = $this->generateRelationName($relations, $refTableSchema, $className, $hasMany);
                     $relations[$refTableSchema->fullName][$relationName] = [
-                        "return \$this->" . ($hasMany ? 'hasMany' : 'hasOne') . "($className::className(), $link);",
+                        "return \$this->" . ($hasMany ? 'hasMany' : 'hasOne') . "($className::class, $link);",
                         $className,
                         $hasMany
                     ];

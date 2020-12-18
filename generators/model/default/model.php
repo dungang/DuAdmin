@@ -105,7 +105,7 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
 <?php endforeach; ?>
 <?php if ($queryClassName): ?>
 <?php
-    $queryClassFullName = ($generator->ns === $generator->queryNs) ? $queryClassName : '\\' . $generator->queryNs . '\\' . $queryClassName;
+    $queryClassFullName = ($generator->ns === $generator->ns) ? $queryClassName : '\\' . $generator->ns . '\\' . $queryClassName;
     echo "\n";
 ?>
     /**

@@ -1,7 +1,8 @@
 <?php
+
 namespace Backend\Models;
 
-use yii\base\Model;
+use Yii;
 use yii\data\ActiveDataProvider;
 
 /**
@@ -9,38 +10,23 @@ use yii\data\ActiveDataProvider;
  */
 class AuthRuleSearch extends AuthRule
 {
-
     /**
-     *
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [
-                [
-                    'name',
-                ],
-                'safe'
-            ],
-            [
-                [
-                    'created_at',
-                    'updated_at'
-                ],
-                'integer'
-            ]
+            [['id', 'name', 'data', 'createdAt', 'updatedAt'], 'safe'],
         ];
     }
 
     /**
-     *
      * {@inheritdoc}
      */
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
+        return parent::scenarios();
     }
 
     /**
@@ -56,29 +42,37 @@ class AuthRuleSearch extends AuthRule
 
         // add conditions that should always apply here
 
+        // search before event
+        $this->beforeSearch($query,$params);    
+
         $dataProvider = new ActiveDataProvider([
-            'query' => $query
+            'query' => $query,
+		    'sort' => [ 
+               'defaultOrder' => [ 
+                   'createdAt' => SORT_DESC 
+               ] 
+            ] 
         ]);
 
         $this->load($params);
 
-        if (! $this->validate()) {
+        if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
         }
 
         // grid filtering conditions
-        $query->andFilterWhere([
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
-        ]);
+        $query->andFilterWhere(['DATE_RANGE','createdAt',$this->createdAt])
+            ->andFilterWhere(['DATE_RANGE','updatedAt',$this->updatedAt]);
 
-        $query->andFilterWhere([
-            'like',
-            'name',
-            $this->name
-        ]);
+        $query->andFilterWhere(['like', 'id', $this->id])
+            ->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'data', $this->data]);
+
+        if ($full_search = Yii::$app->request->get('full_search')) {
+            $query->andFilterWhere(['FULL_SEARCH',['id','name','data'],$full_search]);
+        }
 
         return $dataProvider;
     }

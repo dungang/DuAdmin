@@ -12,6 +12,11 @@ $config = [
         'session' =>[
             'name'=>'DJPBSID'
         ],
+        'authManager' => [
+            'class' => 'DuAdmin\Rbac\DbManager',
+            // uncomment if you want to cache RBAC items hierarchy
+            'cache' => 'cache'
+        ],
         'user' => [
             'identityClass' => '\Backend\Models\Admin',
             'enableAutoLogin' => true,

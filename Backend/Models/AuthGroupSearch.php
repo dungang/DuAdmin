@@ -2,7 +2,7 @@
 
 namespace Backend\Models;
 
-use yii\base\Model;
+use Yii;
 use yii\data\ActiveDataProvider;
 use Backend\Models\AuthGroup;
 
@@ -17,7 +17,7 @@ class AuthGroupSearch extends AuthGroup
     public function rules()
     {
         return [
-            [['name', 'title'], 'safe'],
+            [['id', 'name', 'ruleId', 'data', 'createdAt', 'updatedAt'], 'safe'],
             [['type'], 'integer'],
         ];
     }
@@ -28,7 +28,7 @@ class AuthGroupSearch extends AuthGroup
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
+        return parent::scenarios();
     }
 
     /**
@@ -44,8 +44,16 @@ class AuthGroupSearch extends AuthGroup
 
         // add conditions that should always apply here
 
+        // search before event
+        $this->beforeSearch($query,$params);    
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+		    'sort' => [ 
+               'defaultOrder' => [ 
+                   'createdAt' => SORT_DESC 
+               ] 
+            ] 
         ]);
 
         $this->load($params);
@@ -61,8 +69,17 @@ class AuthGroupSearch extends AuthGroup
             'type' => $this->type,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'title', $this->title]);
+        $query->andFilterWhere(['DATE_RANGE','createdAt',$this->createdAt])
+            ->andFilterWhere(['DATE_RANGE','updatedAt',$this->updatedAt]);
+
+        $query->andFilterWhere(['like', 'id', $this->id])
+            ->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'ruleId', $this->ruleId])
+            ->andFilterWhere(['like', 'data', $this->data]);
+
+        if ($full_search = Yii::$app->request->get('full_search')) {
+            $query->andFilterWhere(['FULL_SEARCH',['id','name','ruleId','data'],$full_search]);
+        }
 
         return $dataProvider;
     }

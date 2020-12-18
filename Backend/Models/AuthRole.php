@@ -1,12 +1,14 @@
 <?php
 namespace Backend\Models;
 
+use DuAdmin\Rbac\Item;
+
 class AuthRole extends AuthItem
 {
 
     public function init()
     {
-        $this->type = parent::TYPE_ROLE;
+        $this->type = Item::TYPE_ROLE;
     }
 }
 

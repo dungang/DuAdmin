@@ -1,23 +1,27 @@
 <?php
+
 namespace Backend\Models;
 
 use Yii;
-use DuAdmin\Core\BaseModel;
-
 /**
- * This is the model class for table "auth_assignment".
+ * "{{%auth_assignment}}"表的模型类.
  *
- * @property string $item_name
- * @property string $user_id
- * @property int $created_at
+ * @property string $itemId 权限
+ * @property string $userId 用户ID
+ * @property string $createdAt 添加时间
  *
- * @property AuthItem $itemName
+ * @property AuthItem $item
  */
-class AuthAssignment extends BaseModel
+class AuthAssignment extends \DuAdmin\Core\BaseModel
 {
+    ///**
+    // * 对象json序列化的时候设置不显示的字段
+    // *
+    // * @var array
+    // */
+    // public $jsonHideFields = [];
 
     /**
-     *
      * {@inheritdoc}
      */
     public static function tableName()
@@ -26,84 +30,40 @@ class AuthAssignment extends BaseModel
     }
 
     /**
-     *
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [
-                [
-                    'item_name',
-                    'user_id'
-                ],
-                'required'
-            ],
-            [
-                [
-                    'created_at'
-                ],
-                'integer'
-            ],
-            [
-                [
-                    'item_name',
-                    'user_id'
-                ],
-                'string',
-                'max' => 64
-            ],
-            [
-                [
-                    'item_name',
-                    'user_id'
-                ],
-                'unique',
-                'targetAttribute' => [
-                    'item_name',
-                    'user_id'
-                ]
-            ],
-            [
-                [
-                    'item_name'
-                ],
-                'exist',
-                'skipOnError' => true,
-                'targetClass' => AuthItem::className(),
-                'targetAttribute' => [
-                    'item_name' => 'name'
-                ]
-            ]
+            [['itemId', 'userId'], 'required'],
+            [['createdAt'], 'safe'],
+            [['itemId', 'userId'], 'string', 'max' => 64],
+            [['itemId', 'userId'], 'unique', 'targetAttribute' => ['itemId', 'userId']],
+            [['itemId'], 'exist', 'skipOnError' => true, 'targetClass' => AuthItem::className(), 'targetAttribute' => ['itemId' => 'id']],
         ];
     }
 
     /**
-     *
      * {@inheritdoc}
      */
     public function attributeLabels()
     {
         return [
-            'item_name' => 'Item Name',
-            'user_id' => 'User ID',
-            'created_at' => 'Created At'
+            'itemId' => Yii::t('backend', 'Item ID'),
+            'userId' => Yii::t('backend', 'User ID'),
+            'createdAt' => Yii::t('da', 'Created At'),
         ];
     }
 
     /**
-     *
      * @return \yii\db\ActiveQuery
      */
-    public function getItemName()
+    public function getItem()
     {
-        return $this->hasOne(AuthItem::className(), [
-            'name' => 'item_name'
-        ]);
+        return $this->hasOne(AuthItem::className(), ['id' => 'itemId']);
     }
 
     /**
-     *
      * {@inheritdoc}
      * @return AuthAssignmentQuery the active query used by this AR class.
      */

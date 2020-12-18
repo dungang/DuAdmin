@@ -16,21 +16,14 @@ $form = ActiveForm::begin(['id' => 'auth-group-batch-form', 'enableAjaxValidatio
 ?>
 <table id="data-form" class="table" data-index="<?=count($models)?>" data-target="tr">
     <tr>
-        <th>类型</th>
-        <th>编码</th>
-        <th>类型</th>
-        <th>后端</th>
+        <th>ID</th>
+        <th>名称</th>
         <td></td>
     </tr>
     <?php foreach ($models as $i => $model) : ?>
         <tr>
-            <td><?= $form->field($model, "[$i]isBackend")->label(false)->dropDownList([
-                0=>'否',
-                1=>'是'
-            ]) ?></td>
-            <td><?= $form->field($model, "[$i]title")->label(false) ?></td>
+            <td><?= $form->field($model, "[$i]id")->label(false) ?></td>
             <td><?= $form->field($model, "[$i]name")->label(false) ?></td>
-            <td><?= $form->field($model, "[$i]type")->label(false)->dropDownList(['1' => '角色', '2' => '权限']) ?></td>
             <td width="90">
                 <a href="javascript:void(0);" class="delete-self btn btn-sm btn-link"><i class="fa fa-trash text-danger"></i></a>
                 <a href="javascript:void(0);" class="copy-self btn btn-sm btn-link"><i class="fa fa-plus"></i></a>
