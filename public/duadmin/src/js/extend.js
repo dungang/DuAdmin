@@ -370,7 +370,6 @@ $(document).on('click', '.grid-view', function (e) {
 	var data = that.data();
 	if (data.batchEditBtn) {
 		var btn = that.find(data.batchEditBtn);
-		console.log(btn)
 		if (btn.length > 0) {
 
 			var gridData = that.yiiGridView("data");
