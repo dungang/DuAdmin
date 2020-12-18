@@ -8,7 +8,6 @@ namespace Backend\Models;
  * @property string $name 组
  * @property string $title 标题
  * @property int $type 类型
- * @property bool $is_backend 是后台
  */
 class AuthGroup extends \DuAdmin\Core\BaseModel
 {
@@ -42,7 +41,6 @@ class AuthGroup extends \DuAdmin\Core\BaseModel
         return [
             [['name', 'title'], 'required'],
             [['type'], 'integer'],
-            [['is_backend'], 'boolean'],
             [['name', 'title'], 'string', 'max' => 128],
             [['name'], 'unique'],
         ];
@@ -57,7 +55,6 @@ class AuthGroup extends \DuAdmin\Core\BaseModel
             'name' => '组',
             'title' => '标题',
             'type' => '类型',
-            'is_backend' => '后端',
         ];
     }
 

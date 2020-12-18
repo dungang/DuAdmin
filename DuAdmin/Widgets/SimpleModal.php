@@ -13,7 +13,7 @@ use yii\widgets\PjaxAsset;
  */
 class SimpleModal extends Modal
 {
-    public $enablePjax = true;
+    public $enableAjaxSubmit = true;
 
     public function run()
     {
@@ -39,14 +39,15 @@ class SimpleModal extends Modal
     });
     // 根据属性调整modal窗口大小
     modal.on('show.bs.modal', function(e) {
-        var size = $(e.relatedTarget).data('modal-size');
+        var targetBtn = $(e.relatedTarget);
+        var size = targetBtn.data('modal-size');
         $(e.target).find('.modal-dialog').removeClass('modal-sm modal-lg').addClass(size ? size : '');
     });
     //阻拦默认的表单提交事件，自动替换为pjax请求
-    if({$this->enablePjax}){
+    if({$this->enableAjaxSubmit}){
         modal.on('submit','form',function(event){
             event.preventDefault();
-            $(event.target).ajaxSubmit({headers:{'AJAX-FORM':'FORM_SUBMIT'},success:function(data){
+            $(event.target).ajaxSubmit({headers:{'AJAX-SUBMIT':'AJAX-SUBMIT'},success:function(data){
             var type = "error";
                 if(data.status == 'success'){
                     modal.modal('hide');

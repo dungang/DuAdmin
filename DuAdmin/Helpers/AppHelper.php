@@ -50,7 +50,7 @@ class AppHelper
      * @return boolean
      */
     public static function isAjaxFormSubmitRequest(){
-        return Yii::$app->request->isAjax && isset(Yii::$app->request->headers['ajax-form']);
+        return Yii::$app->request->isAjax && isset(Yii::$app->request->headers['ajax-submit']);
     }
     
     /**
