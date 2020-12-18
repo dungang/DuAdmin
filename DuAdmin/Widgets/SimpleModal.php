@@ -30,16 +30,18 @@ class SimpleModal extends Modal
     {
         return <<<JS
 (function($, modalSelector) {
-
     var modal = $(modalSelector);
+    var pjaxContainer = null;
     // 清空对象
     modal.on('hidden.bs.modal', function(e) {    
         modal.data('bs.modal', null);
         modal.find('.modal-body').empty();
+        pjaxContainer = null;
     });
     // 根据属性调整modal窗口大小
     modal.on('show.bs.modal', function(e) {
         var targetBtn = $(e.relatedTarget);
+        pjaxContainer = targetBtn.parents('[data-pjax-container]');
         var size = targetBtn.data('modal-size');
         $(e.target).find('.modal-dialog').removeClass('modal-sm modal-lg').addClass(size ? size : '');
     });
@@ -48,10 +50,15 @@ class SimpleModal extends Modal
         modal.on('submit','form',function(event){
             event.preventDefault();
             $(event.target).ajaxSubmit({headers:{'AJAX-SUBMIT':'AJAX-SUBMIT'},success:function(data){
-            var type = "error";
+                var type = "error";
                 if(data.status == 'success'){
+                    if(pjaxContainer){
+                        var pjaxId = pjaxContainer.attr('id');
+                        $.pjax.reload('#'+pjaxId);
+                    }
                     modal.modal('hide');
                     type = "success";
+                    
                 }   
                 notif({type:type,msg:data.message,position:'center',timeout:3000});
             }});
