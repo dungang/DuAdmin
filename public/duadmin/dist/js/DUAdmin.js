@@ -661,6 +661,35 @@ $(document).on('click', '.ajax-file-input button', function (e) {
 
   fileInput.click();
 });
+$(document).on('submit', '.enable-ajax-form form', function (event) {
+  event.preventDefault();
+  var aform = $(event.target);
+  var pjaxContainer = aform.parents('[data-pjax-container]');
+  aform.ajaxSubmit({
+    headers: {
+      'AJAX-SUBMIT': 'AJAX-SUBMIT'
+    },
+    success: function success(data) {
+      var type = "error";
+
+      if (data.status == 'success') {
+        if (pjaxContainer) {
+          var pjaxId = pjaxContainer.attr('id');
+          $.pjax.reload('#' + pjaxId);
+        }
+
+        type = "success";
+      }
+
+      notif({
+        type: type,
+        msg: data.message,
+        position: 'center',
+        timeout: 3000
+      });
+    }
+  });
+});
 
 /***/ }),
 

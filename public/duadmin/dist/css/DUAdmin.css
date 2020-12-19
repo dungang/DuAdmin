@@ -4523,8 +4523,18 @@ table tfoot {
 .dd-placeholder {
   display: block;
   position: relative;
-  margin: 2px 0;
+  margin: 0 0 4px;
   padding: 0;
+}
+.dd-item::last-child,
+.dd-empty::last-child,
+.dd-placeholder::last-child {
+  margin-bottom: 0;
+}
+.dd-item .dd-list,
+.dd-empty .dd-list,
+.dd-placeholder .dd-list {
+  margin-top: 4px;
 }
 .dd-handle {
   margin: 3px 0;
@@ -4816,4 +4826,16 @@ body.dd-dragging * {
 }
 .dd-item .action-column a {
   margin-left: 5px;
+}
+.dd-item .dd-handle,
+.dd-item .dd-placeholder,
+.dd-item .dd-content {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.dd-item .dd-handle-btn:before {
+  top: 12px;
+}
+.dd-item button:before {
+  top: 2px;
 }
