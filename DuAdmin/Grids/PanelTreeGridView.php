@@ -3,9 +3,20 @@ namespace DuAdmin\Grids;
 
 use yii\helpers\Html;
 
+/**
+ * 包装一个adminlte panel
+ *
+ * @author dungang
+ *        
+ */
 class PanelTreeGridView extends TreeGrid
 {
 
+    /**
+     * 面板标题
+     *
+     * @var string
+     */
     public $title = '功能说明';
 
     /**
@@ -35,7 +46,6 @@ class PanelTreeGridView extends TreeGrid
         parent::init();
         ob_start();
         ob_implicit_flush(false);
-        $this->dataProvider->pagination = false;
     }
 
     public function run()
@@ -55,7 +65,9 @@ class PanelTreeGridView extends TreeGrid
         $header = '';
         if ($this->intro) {
             if ($this->title) {
-                $header .= Html::tag('div', $this->title, ['class' => $this->panelTitleClass]);
+                $header .= Html::tag('div', $this->title, [
+                    'class' => $this->panelTitleClass
+                ]);
             }
             if (is_array($this->intro)) {
                 $header .= implode('', array_map(function ($intro) {
@@ -65,6 +77,8 @@ class PanelTreeGridView extends TreeGrid
                 $header .= Html::tag('p', $this->intro);
             }
         }
-        return $header ? Html::tag('div', $header, ['class' => $this->panelHeadingClass]) : '';
+        return $header ? Html::tag('div', $header, [
+            'class' => $this->panelHeadingClass
+        ]) : '';
     }
 }

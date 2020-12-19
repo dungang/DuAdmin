@@ -17,7 +17,7 @@ class AuthItemSearch extends AuthItem
     {
         return [
             [['id', 'name', 'ruleId', 'data', 'createdAt', 'updatedAt'], 'safe'],
-            [['type'], 'integer'],
+            [['type', 'sort'], 'integer'],
         ];
     }
 
@@ -66,6 +66,7 @@ class AuthItemSearch extends AuthItem
         // grid filtering conditions
         $query->andFilterWhere([
             'type' => $this->type,
+            'sort' => $this->sort,
         ]);
 
         $query->andFilterWhere(['DATE_RANGE','createdAt',$this->createdAt])

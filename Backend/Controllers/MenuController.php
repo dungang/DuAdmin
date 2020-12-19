@@ -17,9 +17,16 @@ class MenuController extends BackendController
                 'class' => 'DuAdmin\Core\ListModelsAction',
                 'modelClass' => [
                     'class' => 'DuAdmin\Models\MenuSearch',
-                    'is_front'=>1,
+                    'isFront'=>1,
                 ]
             ],
+		    'sort-list' => [
+		        'class' => 'DuAdmin\Core\SortableListAction',
+		        'modelClass' => [
+		            'class' => 'DuAdmin\Models\Menu',
+		            'isFront'=>0,
+		        ]
+		    ],
             'create' => [
                 'class' => 'DuAdmin\Core\CreateModelAction',
                 'modelClass' => [

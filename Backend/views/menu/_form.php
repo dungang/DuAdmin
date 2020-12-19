@@ -12,11 +12,11 @@ use DuAdmin\Models\Menu;
 
     <?php $form = ActiveForm::begin(['id'=>'sys-menu-form','enableAjaxValidation' => true]); ?>
 
-    <?= $form->field($model, 'is_front')->checkbox([]) ?>
+    <?= $form->field($model, 'isFront')->checkbox([]) ?>
     
-    <?= $form->field($model, 'require_login')->checkbox([]) ?>
+    <?= $form->field($model, 'requireLogin')->checkbox([]) ?>
 
-    <?=$form->field($model, 'pid')->dropDownList(Menu::allIdToName('id', 'name', ['pid' => 0,'is_front' => $model->is_front]), ['prompt' => ['text' => '','options' => ['value' => 0]]])?>
+    <?=$form->field($model, 'pid')->dropDownList(Menu::allIdToName('id', 'name', ['pid' => 0,'isFront' => $model->isFront]), ['prompt' => ['text' => '','options' => ['value' => 0]]])?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 

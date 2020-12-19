@@ -71,6 +71,10 @@ abstract class BaseAction extends Action
      */
     public $modelImmutableAttrs = null;
 
+    /**
+     * 模型场景
+     * @var string
+     */
     public $modelScenario = 'default';
 
     /**
@@ -288,10 +292,10 @@ abstract class BaseAction extends Action
 
     /**
      * 构建查询模型的参数
-     *
+     * @param $filter
      * @return array
      */
-    protected function builderFindModelCondition()
+    protected function builderFindModelCondition($fitler=[])
     {
         if (is_string($this->modelClass)) {
             // 如果模型类用了字符串参数
@@ -306,12 +310,13 @@ abstract class BaseAction extends Action
             throw new InvalidConfigException('Action must set modelClass');
         }
         // 自动查找主键过滤条件
-        $condition = ArrayHelper::merge($args ?: [], $this->getPrimaryKeyCondition($modelClass));
+        $condition = ArrayHelper::merge($args ?: [], $this->getPrimaryKeyCondition($modelClass),$fitler);
         // 是否设置了查找的固定参数
         if ($this->modelImmutableAttrs) {
             $condition = ArrayHelper::merge($condition, $this->modelImmutableAttrs);
         }
         unset($condition['class']);
+        
         return [
             $modelClass,
             $this->clearNullCond($condition)
@@ -322,12 +327,13 @@ abstract class BaseAction extends Action
      * 查找一个模型对象实例通过主键，自动获取主键
      *
      * @param boolean $newOneOnNotFound
+     * @param $filter
      * @throws NotFoundHttpException
      * @return mixed|object|ActiveRecord
      */
-    protected function findModel($newOneOnNotFound = false)
+    protected function findModel($newOneOnNotFound = false,$filter=[])
     {
-        list ($modelClass, $condition) = $this->builderFindModelCondition();
+        list ($modelClass, $condition) = $this->builderFindModelCondition($filter);
         if(empty($condition)) {
             throw new BadRequestHttpException('Find model must set filters');
         }
@@ -354,11 +360,11 @@ abstract class BaseAction extends Action
 
     /**
      * 根据PK查找，自动获取PK名称，目前该方法还不完善
-     *
+     * @param $filter
      * @throws NotFoundHttpException
      * @return mixed
      */
-    protected function findModels()
+    protected function findModels($filter=[])
     {
         list ($modelClass, $condition) = $this->builderFindModelCondition();
         if(empty($condition)) {

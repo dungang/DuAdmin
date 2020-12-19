@@ -204,7 +204,7 @@ class TreeGrid extends Widget
         if (!$this->parentColumnName) {
             throw new InvalidConfigException('The "parentColumnName" property must be specified"');
         }
-
+        $this->dataProvider->pagination = false;
         $this->initColumns();
     }
 

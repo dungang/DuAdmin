@@ -11,6 +11,7 @@ use Yii;
  * @property string $name 说明
  * @property string $ruleId 规则ID
  * @property resource $data 数据
+ * @property int $sort 排序
  * @property string $createdAt 添加时间
  * @property string $updatedAt 更新时间
  *
@@ -45,7 +46,7 @@ class AuthItem extends \DuAdmin\Core\BaseModel
     {
         return [
             [['id', 'type'], 'required'],
-            [['type'], 'integer'],
+            [['type', 'sort'], 'integer'],
             [['data'], 'string'],
             [['createdAt', 'updatedAt'], 'safe'],
             [['id', 'name', 'ruleId'], 'string', 'max' => 64],
@@ -66,6 +67,7 @@ class AuthItem extends \DuAdmin\Core\BaseModel
             'name' => Yii::t('backend', 'Name'),
             'ruleId' => Yii::t('backend', 'Rule ID'),
             'data' => Yii::t('backend', 'Data'),
+            'sort' => Yii::t('backend', 'Sort'),
             'createdAt' => Yii::t('da', 'Created At'),
             'updatedAt' => Yii::t('da', 'Updated At'),
         ];

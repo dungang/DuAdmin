@@ -30,6 +30,7 @@ class m201121_084512_create_auth_tables extends Migration
             'name' => $this->string(64)->comment('说明'),
             'ruleId' => $this->string(64)->null()->comment('规则ID'),
             'data' => $this->binary()->null()->comment('数据'),
+            'sort' => $this->smallInteger()->defaultValue(0)->comment('排序'),
             'createdAt' => $this->dateTime()->null()->comment('添加时间'),
             'updatedAt' => $this->dateTime()->null()->comment('更新时间'),
             'PRIMARY KEY ([[id]])',
@@ -41,6 +42,7 @@ class m201121_084512_create_auth_tables extends Migration
         $this->createTable('{{%auth_item_child}}', [
             'parent' => $this->string(64)->notNull()->comment('上级'),
             'child' => $this->string(64)->notNull()->comment('下级'),
+            'sort' => $this->smallInteger()->defaultValue(0)->comment('排序'),
             'PRIMARY KEY ([[parent]], [[child]])',
         ], $tableOptions);
         $this->addCommentOnTable('{{%auth_item_child}}','子权限');

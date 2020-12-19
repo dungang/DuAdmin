@@ -53,21 +53,21 @@ echo PanelNavTabs::widget([
             'name' => '前台菜单',
             'url' => [
                 '/menu/index',
-                'MenuSearch[is_front]' => 1
+                'MenuSearch[isFront]' => 1
             ]
         ],
         [
             'name' => '后台菜单',
             'url' => [
                 '/menu/index',
-                'MenuSearch[is_front]' => 0
+                'MenuSearch[isFront]' => 0
             ]
         ],
         [
             'name' => '<i class="fa fa-plus"></i> 添加菜单',
             'url' => [
                 'create',
-                'Menu[is_front]' => $searchModel->is_front
+                'Menu[isFront]' => $searchModel->isFront
             ],
             'options' => [
                 'data-toggle' => 'modal',

@@ -1,14 +1,24 @@
 <?php
-
 namespace DuAdmin\Widgets;
 
 use Yii;
 use yii\base\Widget;
 use yii\helpers\Html;
 
+/**
+ * 包装一个adminlte panel
+ *
+ * @author dungang
+ *        
+ */
 class AdminltePanel extends Widget
 {
 
+    /**
+     * 面板标题
+     *
+     * @var string
+     */
     public $title = 'Function Description';
 
     /**
@@ -42,13 +52,14 @@ class AdminltePanel extends Widget
         return $this->renderContent();
     }
 
-
     protected function renderPanelHeading()
     {
         $header = '';
         if ($this->intro) {
             if ($this->title) {
-                $header .= Html::tag('div', Yii::t('da', $this->title), ['class' => $this->panelTitleClass]);
+                $header .= Html::tag('div', Yii::t('da', $this->title), [
+                    'class' => $this->panelTitleClass
+                ]);
             }
             if (is_array($this->intro)) {
                 $header .= implode('', array_map(function ($intro) {
@@ -58,16 +69,22 @@ class AdminltePanel extends Widget
                 $header .= Html::tag('p', $this->intro);
             }
         }
-        return $header ? Html::tag('div', $header, ['class' => $this->panelHeadingClass]) : '';
+        return $header ? Html::tag('div', $header, [
+            'class' => $this->panelHeadingClass
+        ]) : '';
     }
 
     protected function renderBody()
     {
-        return Html::tag('div', $this->content, ['class' => $this->panelBodyClass]);
+        return Html::tag('div', $this->content, [
+            'class' => $this->panelBodyClass
+        ]);
     }
 
     protected function renderContent()
     {
-        return Html::tag('div', $this->renderPanelHeading() . $this->renderBody(), ['class' => $this->panelClass]);
+        return Html::tag('div', $this->renderPanelHeading() . $this->renderBody(), [
+            'class' => $this->panelClass
+        ]);
     }
 }
