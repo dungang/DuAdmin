@@ -5,6 +5,7 @@ use DuAdmin\Assets\NestableAsset;
 use yii\bootstrap\Widget;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use DuAdmin\Helpers\AppHelper;
 
 /**
  * 树列表
@@ -79,6 +80,7 @@ class TreeSortableList extends Widget
             $this->registChangeEvent();
             $this->registerPlugin('nestable');
         }
+        $this->listToTree();
         return Html::tag('div', $this->renderChildren($this->items), $this->options);
     }
 
@@ -116,6 +118,10 @@ class TreeSortableList extends Widget
             'class' => 'dd-item dd-anim',
             'data-id' => $item['id']
         ]);
+    }
+    
+    private function listToTree() {
+        $this->items = AppHelper::listToTree($this->items,'id','pid','children');
     }
 
     private function registChangeEvent()

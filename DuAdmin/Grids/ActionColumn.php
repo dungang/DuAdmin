@@ -267,6 +267,7 @@ class ActionColumn extends Column
                 $defaultOptions['data-toggle'] = 'modal';
                 $defaultOptions['data-target'] = $this->modalTarget;
             }
+
             $options = array_merge($defaultOptions, $additionalOptions, $this->buttonOptions, $buttonOptions);
             $icon = Html::tag('span', '', [
                 'class' => "fa fa-$iconName"

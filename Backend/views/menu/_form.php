@@ -6,11 +6,12 @@ use DuAdmin\Models\Menu;
 /* @var $this yii\web\View */
 /* @var $model DuAdmin\Models\Menu */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $action array  */
 ?>
 
 <div class="menu-form">
 
-    <?php $form = ActiveForm::begin(['id'=>'sys-menu-form','enableAjaxValidation' => true]); ?>
+    <?php $form = ActiveForm::begin(['id'=>'sys-menu-form','enableAjaxValidation' => true,'action'=>$action]); ?>
 
     <?= $form->field($model, 'isFront')->checkbox([]) ?>
     
@@ -27,7 +28,7 @@ use DuAdmin\Models\Menu;
     <?= $form->field($model, 'sort')->textInput() ?>
 
     <div class="form-group">
-        <?= Html::submitButton('保存', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('<i class="fa fa-save"></i> ' . Yii::t('da','Create'), ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

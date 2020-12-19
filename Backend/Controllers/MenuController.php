@@ -13,18 +13,17 @@ class MenuController extends BackendController
 {
 	public function actions(){
 		return [
-            'index' => [
-                'class' => 'DuAdmin\Core\ListModelsAction',
-                'modelClass' => [
-                    'class' => 'DuAdmin\Models\MenuSearch',
-                    'isFront'=>1,
-                ]
-            ],
-		    'sort-list' => [
-		        'class' => 'DuAdmin\Core\SortableListAction',
+		    'index' => [
+		        'class' => '\DuAdmin\Core\SortableListAction',
 		        'modelClass' => [
 		            'class' => 'DuAdmin\Models\Menu',
 		            'isFront'=>0,
+		        ]
+		    ],
+		    'sorts' => [
+		        'class' => '\DuAdmin\Core\SortableAction',
+		        'modelClass' => [
+		            'class' => 'DuAdmin\Models\Menu',
 		        ]
 		    ],
             'create' => [

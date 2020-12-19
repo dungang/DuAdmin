@@ -28,8 +28,14 @@
 .dd-placeholder {
     display: block;
     position: relative;
-    margin: 2px 0;
-    padding: 0;
+    margin: 0 0 4px;
+    padding:0;
+	&::last-child {
+		margin-bottom: 0;
+	}
+	.dd-list {
+		margin-top: 4px;
+	}
 }
 
 .dd-handle {
@@ -348,5 +354,17 @@ body.dd-dragging * {
 		a {
 			margin-left: 5px;
 		}
+	}
+	.dd-handle,
+	.dd-placeholder,
+	.dd-content {
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+	.dd-handle-btn:before {
+		top: 12px;
+	}
+	button:before {
+		top: 2px;
 	}
 }

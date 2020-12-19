@@ -22,5 +22,5 @@ $this->params['breadcrumbs'][] = ['label' => $model-><?= $generator->getNameAttr
 $this->params['breadcrumbs'][] = $this->title;
 echo AjaxModalOrNormalPanelContent::widget([
     'intro'=> Yii::t('da','Update Info'),
-    'content'=>$this->render('_form', ['model' => $model])
+    'content'=>$this->render('_form', ['model' => $model,'aciton'=>['update']])
 ])?>

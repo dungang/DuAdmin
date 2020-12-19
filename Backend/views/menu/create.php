@@ -9,5 +9,5 @@ $this->params['breadcrumbs'][] = ['label' => '菜单', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 echo AjaxModalOrNormalPanelContent::widget([
     'intro'=>'添加菜单信息',
-    'content'=>$this->render('_form', ['model' => $model])
+    'content'=>$this->render('_form', ['model' => $model,'aciton'=>['create']])
 ])?>

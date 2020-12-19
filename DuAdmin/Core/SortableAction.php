@@ -115,7 +115,7 @@ class SortableAction extends BaseAction
             $model->save(false);
         }
         if (isset($item['children']) && is_array($item['children'])) {
-            $this->updateChildren($item['children'], item['id']);
+            $this->updateChildren($item['children'], $item['id']);
         }
     }
 }

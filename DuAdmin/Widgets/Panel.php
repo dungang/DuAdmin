@@ -10,7 +10,7 @@ class Panel extends Widget
      * html attributes
      * @var array
      */
-    public $options = ['class'=>'panel panel-adminlte'];
+    public $options = ['class'=>'panel panel-info'];
     
     public $title;
 
