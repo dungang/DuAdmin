@@ -191,6 +191,10 @@ class ActionColumn extends Column
      * @var array
      */
     public $buttonsOptions = [];
+    
+    public $tagName = 'td';
+    
+    public $enableDropDown = true;
 
     /**
      *
@@ -366,13 +370,60 @@ class ActionColumn extends Column
     }
 
     /**
+     * Renders a data cell.
+     * @param mixed $model the data model being rendered
+     * @param mixed $key the key associated with the data model
+     * @param int $index the zero-based index of the data item among the item array returned by [[GridView::dataProvider]].
+     * @return string the rendering result
+     */
+    public function renderDataCell($model, $key, $index)
+    {
+        if ($this->contentOptions instanceof \Closure) {
+            $options = call_user_func($this->contentOptions, $model, $key, $index, $this);
+        } else {
+            $options = $this->contentOptions;
+        }
+        
+        return Html::tag($this->tagName, $this->renderDataCellContent($model, $key, $index), $options);
+    }
+    
+    
+    /**
      *
      * {@inheritdoc}
      */
     protected function renderDataCellContent($model, $key, $index)
     {
-        // 使用下拉列表的形式展示编辑相关的按钮
-        return $this->renderDataCellContentWidthDropDown($model, $key, $index);
+        if($this->enableDropDown) {
+            // 使用下拉列表的形式展示编辑相关的按钮
+            return $this->renderDataCellContentWidthDropDown($model, $key, $index);
+        } else {
+            return $this->renderDataCellContentLine($model, $key, $index);
+        }
+    }
+    
+    /**
+     *
+     * {@inheritdoc}
+     */
+    protected function renderDataCellContentLine($model, $key, $index)
+    {
+        return preg_replace_callback('/\\{([\w\-\/]+)\\}/', function ($matches) use ($model, $key, $index) {
+            $name = $matches[1];
+            
+            if (isset($this->visibleButtons[$name])) {
+                $isVisible = $this->visibleButtons[$name] instanceof \Closure ? call_user_func($this->visibleButtons[$name], $model, $key, $index) : $this->visibleButtons[$name];
+            } else {
+                $isVisible = true;
+            }
+            
+            if ($isVisible && isset($this->buttons[$name])) {
+                $url = $this->createUrl($name, $model, $key, $index);
+                return call_user_func($this->buttons[$name], $url, $model, $key);
+            }
+            
+            return '';
+        }, $this->template);
     }
 
     protected function renderDataCellContentWidthDropDown($model, $key, $index)

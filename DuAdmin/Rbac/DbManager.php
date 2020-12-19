@@ -9,6 +9,7 @@ use yii\db\Connection;
 use yii\db\Expression;
 use yii\db\Query;
 use yii\di\Instance;
+use yii\caching\Cache;
 
 /**
  * DbManager represents an authorization manager that stores authorization information in database.
@@ -77,7 +78,7 @@ class DbManager extends BaseManager
     public $cache;
     /**
      * @var string the key used to store RBAC data in cache
-     * @see cache
+     * @see Cache
      * @since 2.0.3
      */
     public $cacheKey = 'rbac';

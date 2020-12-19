@@ -24,6 +24,7 @@ class DUAdminAsset extends AssetBundle
         'yii\bootstrap\BootstrapPluginAsset',
         'yii\validators\ValidationAsset',
         'yii\widgets\ActiveFormAsset',
+        'DuAdmin\Assets\GoogleFontsSourceSansProAsset',
         'DuAdmin\Assets\NotifyAsset',
     ];
 }

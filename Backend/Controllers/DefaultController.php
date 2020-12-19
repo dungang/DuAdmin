@@ -23,7 +23,11 @@ class DefaultController extends BackendController
         return [
             'error' => [
                 'class' => 'DuAdmin\Core\CoreErrorAction'
+            ],
+            'sorts' => [
+                'class' => 'DuAdmin\Core\SortableAction'
             ]
+            
         ];
     }
 

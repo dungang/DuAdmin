@@ -1,14 +1,15 @@
 <?php
 use Backend\Widgets\PortalWidget;
 use DuAdmin\Widgets\AdminltePanel;
-use DuAdmin\Widgets\TreeList;
-
+use DuAdmin\Widgets\TreeSortableList;
+use yii\web\View;
+/* @var $this View */
 $this->title = '看板';
 $this->params['breadcrumbs'][] = '看板';
 ?>
 <?php // PortalWidget::widget() ?>
 <?= AdminltePanel::widget([
-    'content' => TreeList::widget([
+    'content' => TreeSortableList::widget([
         'items' => [
             ['id'=>'1','title'=>'title1'],
             ['id'=>'2','title'=>'title1','children'=>[
