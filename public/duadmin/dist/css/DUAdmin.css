@@ -4489,6 +4489,9 @@ a.desc:after {
 .action-column button {
   width: 30px;
 }
+.action-column .fa {
+  margin-right: 2px;
+}
 table thead,
 table tbody,
 table tfoot {
@@ -4520,7 +4523,7 @@ table tfoot {
 .dd-placeholder {
   display: block;
   position: relative;
-  margin: 0;
+  margin: 2px 0;
   padding: 0;
 }
 .dd-handle {
@@ -4705,7 +4708,7 @@ body.dd-dragging * {
   /*box-shadow: .5em 0, 1em 0, 0 .5em, .5em .5em, 1em .5em, 0 1em, .5em 1em, 1em 1em;*/
 }
 .dd-content {
-  padding: 5px 0 0 35px;
+  padding: 5px 15px 0 35px;
   min-height: 30px;
   vertical-align: middle;
 }
@@ -4805,4 +4808,12 @@ body.dd-dragging * {
 }
 .dd3-handle:hover {
   background: #ddd;
+}
+.dd-item .action-column {
+  display: inline-block;
+  width: auto;
+  float: right !important;
+}
+.dd-item .action-column a {
+  margin-left: 5px;
 }
