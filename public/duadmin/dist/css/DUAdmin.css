@@ -4264,6 +4264,9 @@ table.text-center th {
 .panel .small-box {
   margin-bottom: 0px;
 }
+.panel-wrap {
+  margin-bottom: 10px;
+}
 .panel-adminlte {
   /* NAV TABS */
 }
