@@ -3,6 +3,7 @@ namespace DuAdmin\Helpers;
 
 use yii\helpers\FileHelper;
 use yii\helpers\Json;
+use yii\helpers\ArrayHelper;
 
 /**
  * 类定时任务进程管理工具类
@@ -22,7 +23,7 @@ class CrontabHelper
     const CRON_TRACED_AT_NAME = 'crontab.traced_at';
     
     
-    const CRON_IS_RUNNING = 'crontabl.is_running';
+    const CRON_IS_RUNNING = 'crontab.is_running';
 
     /**
      * 数据存储的路径
@@ -56,16 +57,18 @@ class CrontabHelper
             }
             \file_put_contents($file, Json::encode([
                 self::CRON_STATUS_NAME => 0,
-                self::CRON_TRACED_AT_NAME => 0
+                self::CRON_TRACED_AT_NAME => 0,
+                self::CRON_IS_RUNNING => 0
             ]));
         }
         if ($data = \file_get_contents($file)) {
-            return Json::decode($data);
+            $data =  Json::decode($data);
         }
-        return [
+        return ArrayHelper::merge([
             self::CRON_STATUS_NAME => 0,
-            self::CRON_TRACED_AT_NAME => 0
-        ];
+            self::CRON_TRACED_AT_NAME => 0,
+            self::CRON_IS_RUNNING => 0
+        ], $data);
     }
 
     /**

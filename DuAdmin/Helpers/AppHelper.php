@@ -425,12 +425,11 @@ class AppHelper
      *            parent标记字段
      * @param string $child
      *            子节点字段
-     * @param
-     *            int
+     * @param  int|string $root
      * @return array
      * @author gang.dun <dungang@huluwa.cc>
      */
-    public static function listToTree($list, $pk = 'id', $pid = 'pid', $child = 'items', $root = 0)
+    public static function listToTree($list, $pk = 'id', $pid = 'pid', $child = 'items', $root = '0')
     {
         // 创建Tree
         $tree = array();
@@ -443,7 +442,8 @@ class AppHelper
             foreach ($list as $key => $data) {
                 // 判断是否存在parent
                 $parentId = $data[$pid];
-                if ($root == $parentId) {
+                //yii  query asArray int all to string 
+                if ($root === $parentId) {
                     $tree[] = &$list[$key];
                 } else {
                     if (isset($refer[$parentId])) {

@@ -48,7 +48,7 @@ class AdminltePanel extends Widget
     public function run()
     {
         $content = ob_get_clean();
-        $this->content = $content . $this->content;
+        $this->content =  '<div class="panel-wrap">' .  $content . '</div>' . $this->content;
         return $this->renderContent();
     }
 

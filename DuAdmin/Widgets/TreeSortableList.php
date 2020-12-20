@@ -108,7 +108,7 @@ class TreeSortableList extends Widget
             $column = \Yii::createObject($this->actionColumn);
             $content .= $column->renderDataCell($item, $key, $index);
         }
-        $itemInfo = "<div class='dd-handle dd-handle-btn  dd-bg'></div><div class='dd-content bord-all dd-bg'>".$content."</div>";
+        $itemInfo = "<div class='dd-handle dd-handle-btn  dd-bg'></div><div class='dd-content bord-all dd-bg'>" . $content . "</div>";
 
         if (isset($item['children']) && is_array($item['children'])) {
 
@@ -116,12 +116,23 @@ class TreeSortableList extends Widget
         }
         return Html::tag('li', $itemInfo, [
             'class' => 'dd-item dd-anim',
-            'data-id' => $item['id']
+            'data-id' => $item['id'],
+            'data-pid' => $item['pid']
         ]);
     }
-    
-    private function listToTree() {
-        $this->items = AppHelper::listToTree($this->items,'id','pid','children');
+
+    private function listToTree()
+    {
+        // $this->items = array_map(function($item){
+        // return $item->toArray();
+        // },$this->items);
+        $this->items = array_map(function ($item) {
+            if (! isset($item['pid'])) {
+                $item['pid'] = '0';
+            }
+            return $item;
+        }, $this->items);
+        $this->items = AppHelper::listToTree($this->items, 'id', 'pid', 'children');
     }
 
     private function registChangeEvent()
@@ -133,14 +144,14 @@ class TreeSortableList extends Widget
     {
         $url = Url::to($this->url);
         return <<<UPDATE
-function(e,target){
-    var list = $(this);
-    var sorts = list.nestable("serialize");
-    console.log(sorts);
-    $.post('{$url}',{sorts:sorts},function(data){
-        console.log(data);
-    });
-}
-UPDATE;
+        function(e,target){
+            var list = $(this);
+            var sorts = list.nestable("serialize");
+            console.log(sorts);
+            $.post('{$url}',{sorts:sorts},function(data){
+                console.log(data);
+            });
+        }
+        UPDATE;
     }
 }

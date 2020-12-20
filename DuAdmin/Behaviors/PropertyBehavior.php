@@ -57,7 +57,7 @@ class PropertyBehavior extends Behavior
         $model = $event->sender;
         $this->setOnce('createdAt', $time, $model);
         $this->setEverytime('updatedAt', $time, $model);
-        $this->setOnce('pid', 0, $model);
+        //$this->setOnce('pid', 0, $model);
 
         if ($this->_user) {
             $this->setOnce('creatorId', $this->_user->getOperatorId(), $model);

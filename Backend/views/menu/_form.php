@@ -7,6 +7,7 @@ use DuAdmin\Models\Menu;
 /* @var $model DuAdmin\Models\Menu */
 /* @var $form yii\widgets\ActiveForm */
 /* @var $action array  */
+//$action = isset($action)?$action:'';
 ?>
 
 <div class="menu-form">

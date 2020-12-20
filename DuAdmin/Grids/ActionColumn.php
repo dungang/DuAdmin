@@ -349,7 +349,7 @@ class ActionColumn extends Column
     {
         if (is_array($key)) {
             $params = $key;
-        } else if ($this->grid->dataProvider->key) {
+        } else if ($this->grid && $this->grid->dataProvider->key) {
             // 设置了特定的key的情况
             $params = [
                 $this->grid->dataProvider->key => $key
