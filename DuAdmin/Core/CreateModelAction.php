@@ -1,5 +1,4 @@
 <?php
-
 namespace DuAdmin\Core;
 
 use Yii;
@@ -27,18 +26,18 @@ class CreateModelAction extends BaseAction
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
         }
-        // 动态绑定行为
-        $model->attachBehaviors($this->modelBehaviors);
 
         // 执行表单提交
         if ($this->isPost()) {
+            // 动态绑定行为
+            $model->attachBehaviors($this->modelBehaviors);
             if (($loaded = $model->load($this->composePostParams($model))) && $model->save()) {
 
                 $this->trigger(self::EVENT_CREATE_SUCCESS, new CustomerEvent([
                     'payload' => $model
                 ]));
 
-                if (!$this->successRediretUrl) {
+                if (! $this->successRediretUrl) {
                     $this->successRediretUrl = \Yii::$app->request->referrer;
                 }
                 return $this->controller->redirectOnSuccess($this->getSuccessRediretUrlWidthModel($model), $this->successMsg);
@@ -46,13 +45,13 @@ class CreateModelAction extends BaseAction
 
             if ($loaded === false) {
                 $this->beforeRender();
-                return $this->controller->renderOnFail($this->viewName, $this->data,  Yii::t('da', 'Data fields error'));
+                return $this->controller->renderOnFail($this->viewName, $this->data, Yii::t('da', 'Data fields error'));
             } else if ($model->hasErrors()) {
                 return $this->controller->renderOnFail($this->viewName, $this->data, array_values($model->getFirstErrors())[0]);
             }
             return $this->controller->renderOnFail($this->viewName, $this->data);
         }
-        
+
         return $this->controller->render($this->viewName, $this->data);
     }
 }

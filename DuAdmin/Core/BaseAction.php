@@ -274,7 +274,7 @@ abstract class BaseAction extends Action
     {
         // query by primary key
         if (method_exists($modelClass, 'primaryKey')) {
-            $primaryKey = $modelClass::primaryKey();
+            $primaryKey = call_user_func([$modelClass,'primaryKey']);
             $cond = [];
             $params = ArrayHelper::merge(\Yii::$app->request->get(), \Yii::$app->request->post());
             foreach ($primaryKey as $key) {

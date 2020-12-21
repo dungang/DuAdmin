@@ -38,39 +38,18 @@ class AuthPermission extends AuthItem
     {
         $this->type = Item::TYPE_PERMISSION;
 
-        $this->on(AuthItem::EVENT_AFTER_INSERT, [
-            $this,
-            'savePid'
-        ]);
-        $this->on(AuthItem::EVENT_AFTER_UPDATE, [
-            $this,
-            'savePid'
-        ]);
+        // 这个事件比较特殊，如果要绑定只在模型内绑定
+        // 模型实例化绑定就迟到
+        // 绑定的方式可以是直接监听或者通过行为绑定了
         $this->on(AuthItem::EVENT_AFTER_FIND, [
             $this,
-            'findTypePermissionPid'
+            'findPermissionPid'
         ]);
     }
 
-    /**
-     * 保存pid，实际上是建立在auth_item_child添加父子关系
-     *
-     * @param \yii\db\AfterSaveEvent $event
-     */
-    public function savePid($event)
+    public function findPermissionPid()
     {
-        if ($this->pid) {
-            if (! AuthItemChild::findAll([
-                'parent' => $this->pid,
-                'child' => $this->id
-            ])) {
-                $relation = new AuthItemChild();
-                $relation->parent = $this->pid;
-                $relation->child = $this->id;
-                $relation->sort = $this->sort;
-                $relation->save(false);
-            }
-        }
+        $this->pid = $this->findTypePermissionPid();
     }
 
     /**
@@ -80,7 +59,7 @@ class AuthPermission extends AuthItem
     {
         $t1 = AuthItemChild::tableName();
         $t2 = AuthItem::tableName();
-        $this->pid = AuthItemChild::find()->innerJoin($t2, $t1 . ".parent=" . $t2 . ".id")
+        return AuthItemChild::find()->innerJoin($t2, $t1 . ".parent=" . $t2 . ".id")
             ->where([
             $t2 . ".type" => $this->type,
             $t1 . ".child" => $this->id

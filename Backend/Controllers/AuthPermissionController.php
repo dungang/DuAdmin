@@ -15,27 +15,28 @@ class AuthPermissionController extends BackendController
             'index' => [
                 'class' => 'DuAdmin\Core\ListModelsAction',
                 'modelClass' => [
-                    'class' => 'Backend\Models\AuthPermissionSearch',
+                    'class' => 'Backend\Models\AuthPermissionSearch'
                 ]
             ],
             'tree-list' => [
                 'class' => '\DuAdmin\Core\SortableListAction',
                 'viaModelClass' => 'Backend\Models\AuthItemChild',
                 'modelClass' => [
-                    'class' => '\Backend\Models\AuthPermission',
+                    'class' => '\Backend\Models\AuthPermission'
                 ]
             ],
             'sorts' => [
                 'class' => '\DuAdmin\Core\SortableAction',
                 'viaModelClass' => 'Backend\Models\AuthItemChild',
                 'modelClass' => [
-                    'class' => 'Backend\Models\AuthPermission',
+                    'class' => 'Backend\Models\AuthPermission'
                 ]
             ],
             'create' => [
                 'class' => 'DuAdmin\Core\CreateModelAction',
                 'modelBehaviors' => [
-                    'Backend\Behaviors\CleanRbacBehavior',
+                    'sync-permission-pid' => '\Backend\Behaviors\AuthItemSyncVirtualPidBehavior',
+                    'clean-cache' => 'Backend\Behaviors\CleanRbacBehavior',
                 ],
                 'modelClass' => [
                     'class' => 'Backend\Models\AuthPermission'
@@ -50,7 +51,8 @@ class AuthPermissionController extends BackendController
             'update' => [
                 'class' => 'DuAdmin\Core\UpdateModelAction',
                 'modelBehaviors' => [
-                    'Backend\Behaviors\CleanRbacBehavior',
+                    'sync-permission-pid' => '\Backend\Behaviors\AuthItemSyncVirtualPidBehavior',
+                    'clean-cache' => 'Backend\Behaviors\CleanRbacBehavior',
                 ],
                 'modelClass' => [
                     'class' => 'Backend\Models\AuthPermission'
@@ -71,7 +73,7 @@ class AuthPermissionController extends BackendController
             'delete' => [
                 'class' => 'DuAdmin\Core\DeleteModelsAction',
                 'modelBehaviors' => [
-                    'Backend\Behaviors\CleanRbacBehavior',
+                    'Backend\Behaviors\CleanRbacBehavior'
                 ],
                 'modelClass' => [
                     'class' => 'Backend\Models\AuthPermission'
