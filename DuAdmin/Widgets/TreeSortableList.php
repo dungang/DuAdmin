@@ -119,7 +119,7 @@ class TreeSortableList extends Widget
             if (is_string($this->checkName)) {
                 $name = $this->checkName . '[]';
             }
-            $selection = '<span class="tree-check-box">' . Html::checkbox($name, $checked) . '</span>';
+            $selection = '<span class="tree-check-box">' . Html::checkbox($name, $checked,['value'=>$item['id']]) . '</span>';
             $content = $selection . $content;
         }
         // 渲染 action 按钮

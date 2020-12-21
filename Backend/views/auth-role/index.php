@@ -33,7 +33,7 @@ AdminltePanel::begin([
                             'template' => '{permissions}',
                             'buttons' => [
                                 'permissions' => function ($url, $model, $key) {
-                                    return AppHelper::linkButtonWithSimpleModal('<i class="fa fa-key"></i> ' . Yii::t('backend', 'Permissions'),['permissions','roleId'=>$model['id']], [
+                                    return AppHelper::linkButtonWithSimpleModal('<i class="fa fa-key"></i> ' . Yii::t('backend', 'Permissions'),['permissions','AuthRole[id]'=>$model['id']], [
                                         'class' => 'btn btn-link btn-xs'
                                     ]);
                                 }

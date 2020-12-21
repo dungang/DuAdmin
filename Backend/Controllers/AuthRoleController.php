@@ -31,9 +31,6 @@ class AuthRoleController extends BackendController
                 'actionBehaviors' => [
                     'checked-permission' => '\Backend\Behaviors\RoleCheckedPermissionBehavior'
                 ],
-                'mustQueryStringAttrs' => [
-                    'roleId'
-                ],
                 'modelClass' => [
                     'class' => '\Backend\Models\AuthPermission'
                 ]
@@ -83,25 +80,28 @@ class AuthRoleController extends BackendController
      */
     public function actionAssignment($parent)
     {
-        AuthItemChild::deleteAll([
-            'parent' => $parent
-        ]);
+        \Yii::$app->db->transaction(function ($db) use ($parent) {
+            AuthItemChild::deleteAll([
+                'parent' => $parent
+            ]);
+            $relations = [];
+            $permission = \yii::$app->request->post('permission');
 
-        $relations = [];
-        $permission = \yii::$app->request->post('permission');
-        foreach ($permission as $child) {
-            $relations[] = [
-                $parent,
-                $child
-            ];
-        }
+            foreach ($permission as $child) {
+                $relations[] = [
+                    $parent,
+                    $child
+                ];
+            }
 
-        \Yii::$app->db->createCommand()->batchInsert(AuthItemChild::tableName(), [
-            'parent',
-            'child'
-        ], $relations);
+            \Yii::$app->db->createCommand()
+                ->batchInsert(AuthItemChild::tableName(), [
+                'parent',
+                'child'
+            ], $relations)->execute();
 
-        \Yii::$app->cache->delete('rbac');
+            \Yii::$app->cache->delete('rbac');
+        });
 
         return $this->redirectOnSuccess([
             'index'

@@ -18,22 +18,11 @@ use DuAdmin\Rbac\Item;
  * @author dungang
  *        
  * @property string|integer $pid
- * @property string $roleId;
  */
 class AuthPermission extends AuthItem
 {
 
     public $pid;
-    
-    
-    public function getRoleId(){
-        return $this->id;
-    }
-    
-    public function setRoleId($roleId){
-        $this->id = $roleId;
-    }
-    
 
     public function rules()
     {

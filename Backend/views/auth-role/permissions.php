@@ -6,12 +6,13 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $models \Backend\Models\AuthPermission[] */
 /* @var $model \Backend\Models\AuthPermission */
+/* @var $role \Backend\Models\AuthRole */
 
 $this->title = Yii::t('backend', 'Auth Permissions');
 $this->params['breadcrumbs'][] = $this->title;
 echo Html::beginForm([
     'assignment',
-    'parent' => $model->roleId
+    'parent' => $role->id
 ],'post',['id'=>'role-assignment-permissions']);
 AjaxModalOrNormalPanelContent::begin([
     'id' => 'auth-permission-tree',
