@@ -472,7 +472,12 @@
             var plugin = $(this).data("nestable");
 
             if (!plugin) {
-                $(this).data("nestable", new Plugin(this, params));
+				plugin = new Plugin(this, params);
+                $(this).data("nestable", plugin);
+				//初始化立刻存储序列化的数据
+				//@author dungang
+				//@date 2020-12-21
+				$(this).data("serialize",plugin.serialize());
                 $(this).data("nestable-id", new Date().getTime());
             } else {
                 if (typeof params === 'string' && typeof plugin[params] === 'function') {

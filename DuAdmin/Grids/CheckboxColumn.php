@@ -76,7 +76,8 @@ class CheckboxColumn extends Column
      */
     public $cssClass;
 
-
+    public $tagName = 'td';
+    
     /**
      * {@inheritdoc}
      * @throws \yii\base\InvalidConfigException if [[name]] is not set.
@@ -94,6 +95,24 @@ class CheckboxColumn extends Column
         $this->registerClientScript();
     }
 
+    /**
+     * Renders a data cell.
+     * @param mixed $model the data model being rendered
+     * @param mixed $key the key associated with the data model
+     * @param int $index the zero-based index of the data item among the item array returned by [[GridView::dataProvider]].
+     * @return string the rendering result
+     */
+    public function renderDataCell($model, $key, $index)
+    {
+        if ($this->contentOptions instanceof \Closure) {
+            $options = call_user_func($this->contentOptions, $model, $key, $index, $this);
+        } else {
+            $options = $this->contentOptions;
+        }
+        
+        return Html::tag($this->tagName, $this->renderDataCellContent($model, $key, $index), $options);
+    }
+    
     /**
      * Renders the header cell content.
      * The default implementation simply renders [[header]].

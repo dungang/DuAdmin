@@ -60,13 +60,8 @@ AdminltePanel::begin([
 
 <?= AppHelper::linkButtonWithBigSimpleModal('<i class="fa fa-plus"></i> ' . Yii::t('da','Batch Create'), ['batch-create'], ['class'=>'btn btn-primary', ]) ?>
 
-<?= Html::a('<i class="fa fa-edit"></i> ' . Yii::t('da','Batch Update'), ['#'], [
-        'data-url' => Url::to(['batch-update']),
-        'class'=>'btn btn-success batch-update','data-modal-size' => 'modal-lg','data-target'=>'#auth-permission-list']) ?>
-
 <?= Html::a('<i class="fa fa-refresh"></i> '. Yii::t('da','Refresh'), ['index'], ['class'=>'btn btn-info']) ?>
 
-<?= Html::a('<i class="fa fa-trash"></i> '. Yii::t('da','Delete'), ['delete'], ['class'=>'btn btn-danger del-all','data-target'=>'#auth-permission-list']) ?>
 <?php
 AdminltePanel::end();
 Pjax::end()?>

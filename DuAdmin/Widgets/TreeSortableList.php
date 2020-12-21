@@ -15,6 +15,8 @@ use DuAdmin\Helpers\AppHelper;
 class TreeSortableList extends Widget
 {
 
+    public $showHeader = false;
+
     /**
      * 树的深度 默认是2
      *
@@ -42,6 +44,13 @@ class TreeSortableList extends Widget
      * @var array
      */
     public $items = [];
+
+    /**
+     * 多选
+     *
+     * @var boolean
+     */
+    public $checkColumn = false;
 
     public $url = [
         'sorts'
@@ -103,17 +112,29 @@ class TreeSortableList extends Widget
         } else {
             $content = '';
         }
+        // 渲染 多选checkbox
+        if ($this->checkColumn) {
+            $checked = false;
+            if (isset($item['checked'])) {
+                $checked = $item['checked'];
+            }
+            $selection = '<span class="tree-check-box">' . Html::checkbox('id[]', $checked) . '</span>';
+            $content = $selection . $content;
+        }
+        // 渲染 action 按钮
         if ($this->actionColumn) {
             /* @var \DuAdmin\Grids\ActionColumn $column  */
             $column = \Yii::createObject($this->actionColumn);
             $content .= $column->renderDataCell($item, $key, $index);
         }
+
         $itemInfo = "<div class='dd-handle dd-handle-btn  dd-bg'></div><div class='dd-content bord-all dd-bg'>" . $content . "</div>";
 
         if (isset($item['children']) && is_array($item['children'])) {
 
             $itemInfo .= $this->renderChildren($item['children']);
         }
+
         return Html::tag('li', $itemInfo, [
             'class' => 'dd-item dd-anim',
             'data-id' => $item['id'],
@@ -146,12 +167,18 @@ class TreeSortableList extends Widget
         return <<<UPDATE
         function(e,target){
             var list = $(this);
+            var serializeData = JSON.stringify(list.data('serialize'));
+            console.log(serializeData);
             var sorts = list.nestable("serialize");
-            console.log(sorts);
-            $.post('{$url}',{sorts:sorts},function(data){
-                console.log(data);
-            });
+            if(serializeData == JSON.stringify(sorts)) {
+                console.log('list no change');    
+            } else {
+                list.data('serialize') = sorts;
+                $.post('{$url}',{sorts:sorts},function(data){
+                    //console.log(data);
+                });
+            }
         }
-        UPDATE;
+ UPDATE;
     }
 }
