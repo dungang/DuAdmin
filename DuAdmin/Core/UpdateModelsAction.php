@@ -1,9 +1,11 @@
 <?php
-
 namespace DuAdmin\Core;
 
 use Yii;
 use yii\base\Model;
+use DuAdmin\Helpers\AppHelper;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
 
 class UpdateModelsAction extends BaseAction
 {
@@ -16,26 +18,31 @@ class UpdateModelsAction extends BaseAction
         $this->data = [
             'models' => $models
         ];
+        $loaded = Model::loadMultiple($models, $this->composePostParams($models[0], true));
         try {
-            if (
-                ($loaded = Model::loadMultiple($models, $this->composePostParams($models[0], true))) &&
-                Model::validateMultiple($models)
-            ) {
-                return Yii::$app->db->transaction(
-                    function ($db) use ($models) {
-                        foreach ($models as $i => $model) {
-                            // 动态绑定行为
-                            $model->attachBehaviors($this->modelBehaviors);
-                            $model->save(false);
-                        }
-                        if (!$this->successRediretUrl) {
-                            $this->successRediretUrl = \Yii::$app->request->referrer;
-                        }
-                        $this->beforeRender();
-                        return $this->controller->redirectOnSuccess($this->getSuccessRediretUrlWidthModel($model), Yii::t('da', 'Update success'));
-                        //return $this->controller->redirectOnSuccess(\Yii::$app->request->referrer, "修改成功");
+            // ajax表单验证
+            if (AppHelper::isAjaxValidationRequest()) {
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return call_user_func_array([
+                    ActiveForm::class,
+                    'validate'
+                ], $models);
+            }
+
+            if ($loaded && Model::validateMultiple($models)) {
+                return Yii::$app->db->transaction(function ($db) use ($models) {
+                    foreach ($models as $i => $model) {
+                        // 动态绑定行为
+                        $model->attachBehaviors($this->modelBehaviors);
+                        $model->save(false);
                     }
-                );
+                    if (! $this->successRediretUrl) {
+                        $this->successRediretUrl = \Yii::$app->request->referrer;
+                    }
+                    $this->beforeRender();
+                    return $this->controller->redirectOnSuccess($this->getSuccessRediretUrlWidthModel($model), Yii::t('da', 'Update success'));
+                    // return $this->controller->redirectOnSuccess(\Yii::$app->request->referrer, "修改成功");
+                });
             }
             if ($loaded === false) {
                 $this->beforeRender();
