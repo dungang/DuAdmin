@@ -9,5 +9,5 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Auth Roles'), 'u
 $this->params['breadcrumbs'][] = $this->title;
 echo AjaxModalOrNormalPanelContent::widget([
     'intro'=> Yii::t('da','Create {0} Info',Yii::t('backend', 'Auth Roles')),
-    'content'=>$this->render('_form', ['model' => $model])
+    'content'=>$this->render('_form', ['model' => $model,'action'=>['create']])
 ])?>

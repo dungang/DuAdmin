@@ -50,18 +50,8 @@ class CreateModelsAction extends BaseAction
         return $this->controller->render($this->viewName, $this->data);
     }
 
-    public function discoverFormName()
-    {
-        if (is_array($this->modelClass)) {
-            $className = $this->modelClass['class'];
-        } else {
-            $className = $this->modelClass;
-        }
-        $pieces = explode('\\', $className);
-        return array_pop($pieces);
-    }
 
-    public function discoverModels()
+    private function discoverModels()
     {
         $formName = $this->discoverFormName();
         $count = count(Yii::$app->request->post($formName, []));

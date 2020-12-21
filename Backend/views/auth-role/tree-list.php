@@ -20,7 +20,7 @@ Pjax::begin([
 
 AdminltePanel::begin([
     'id' => 'auth-role-tree',
-    'intro' => Yii::t('da', '{0} Info Manage', Yii::t('backend', 'Auth Roles')),
+    'intro' => Yii::t('da','{0} Info Manage',Yii::t('backend', 'Auth Roles')),
     'content' => Row::widget([
         'children' => [
             Column::widget([
@@ -29,16 +29,6 @@ AdminltePanel::begin([
                     TreeSortableList::widget([
                         'maxDepth' => 1,
                         'items' => $models,
-                        'actionColumn' => [
-                            'template' => '{permissions}',
-                            'buttons' => [
-                                'permissions' => function ($url, $model, $key) {
-                                    return AppHelper::linkButtonWithSimpleModal('<i class="fa fa-key"></i> ' . Yii::t('backend', 'Permissions'),['permissions','roleId'=>$model['id']], [
-                                        'class' => 'btn btn-link btn-xs'
-                                    ]);
-                                }
-                            ]
-                        ],
                         'rowRender' => function ($item) {
                             $content = $item['name'];
                             return $content;
@@ -65,13 +55,13 @@ AdminltePanel::begin([
             ])
         ]
     ])
-]);
+    ]);
 ?>
 
 <?= AppHelper::linkButtonWithSimpleModal('<i class="fa fa-plus"></i> ' . Yii::t('da','Create'), ['create'], ['class'=>'btn btn-primary']) ?>
 
 <?= Html::a('<i class="fa fa-refresh"></i> '. Yii::t('da','Refresh'), ['index'], ['class'=>'btn btn-info']) ?>
 
-<?php
+<?php 
 AdminltePanel::end();
 Pjax::end()?>

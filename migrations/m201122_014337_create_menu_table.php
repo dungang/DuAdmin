@@ -33,7 +33,6 @@ class m201122_014337_create_menu_table extends Migration
             [3,2,'Administrator','?r=administrator/index',0,1,'fa fa-user',1],
             [4,2,'Roles','?r=auth-role/index',0,1,'fa fa-flag',2],
             [5,2,'Permissions','?r=auth-permission/index',0,1,'fa fa-lock',3],
-            [6,2,'Auth Groups','?r=auth-group/index',0,1,'fa fa-puzzle-piece',4],
             [7,2,'Rules','?r=auth-rule/index',0,1,'fa fa-key',5],
             [8,2,'Menus','?r=menu/index',0,1,'fa fa-bars',6],
             [9,2,'Logs','?r=action-log/index',0,1,'fa fa-road',6],

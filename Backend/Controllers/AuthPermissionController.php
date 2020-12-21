@@ -13,12 +13,6 @@ class AuthPermissionController extends BackendController
     {
         return [
             'index' => [
-                'class' => 'DuAdmin\Core\ListModelsAction',
-                'modelClass' => [
-                    'class' => 'Backend\Models\AuthPermissionSearch'
-                ]
-            ],
-            'tree-list' => [
                 'class' => '\DuAdmin\Core\SortableListAction',
                 'viaModelClass' => 'Backend\Models\AuthItemChild',
                 'modelClass' => [

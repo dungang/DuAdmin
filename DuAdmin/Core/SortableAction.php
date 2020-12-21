@@ -151,7 +151,10 @@ class SortableAction extends BaseAction
             'id' => $item['id']
         ]);
         if ($model) {
-            $model->pid = $parentId;
+            //1层深度的时候可能没有pid
+            if($model->hasProperty('pid')) {
+                $model->pid = $parentId;
+            }
             $model->sort = $sort;
             $model->save(false);
         }

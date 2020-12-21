@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
 ?>
 <div class="auth-role-form">
 
-    <?php $form = ActiveForm::begin(['id'=>'auth-role-form','enableAjaxValidation' => true]); ?>
+    <?php $form = ActiveForm::begin(['id'=>'auth-role-form','enableAjaxValidation' => true,'action'=>$action]); ?>
     <div class="row">
     <?= '<div class="col-xs-6">' . $form->field($model, 'id')->textInput(['maxlength' => true]) . '</div>' ?>
 

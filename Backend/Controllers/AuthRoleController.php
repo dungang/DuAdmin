@@ -2,6 +2,7 @@
 namespace Backend\Controllers;
 
 use DuAdmin\Core\BackendController;
+use Backend\Models\AuthItemChild;
 
 /**
  * RoleController implements the CRUD actions for Role model.
@@ -13,15 +14,34 @@ class AuthRoleController extends BackendController
     {
         return [
             'index' => [
-                'class' => 'DuAdmin\Core\ListModelsAction',
+                'class' => '\DuAdmin\Core\SortableListAction',
                 'modelClass' => [
-                    'class' => 'Backend\Models\AuthRoleSearch',
+                    'class' => '\Backend\Models\AuthRole'
+                ]
+            ],
+            'sorts' => [
+                'class' => '\DuAdmin\Core\SortableAction',
+                'modelClass' => [
+                    'class' => 'Backend\Models\AuthRole'
+                ]
+            ],
+            'permissions' => [
+                'class' => '\DuAdmin\Core\SortableListAction',
+                'viaModelClass' => 'Backend\Models\AuthItemChild',
+                'actionBehaviors' => [
+                    'checked-permission' => '\Backend\Behaviors\RoleCheckedPermissionBehavior'
+                ],
+                'mustQueryStringAttrs' => [
+                    'roleId'
+                ],
+                'modelClass' => [
+                    'class' => '\Backend\Models\AuthPermission'
                 ]
             ],
             'create' => [
                 'class' => 'DuAdmin\Core\CreateModelAction',
                 'modelBehaviors' => [
-                    'Backend\Behaviors\CleanRbacBehavior',
+                    '\Backend\Behaviors\CleanRbacBehavior'
                 ],
                 'modelClass' => [
                     'class' => 'Backend\Models\AuthRole'
@@ -30,7 +50,7 @@ class AuthRoleController extends BackendController
             'update' => [
                 'class' => 'DuAdmin\Core\UpdateModelAction',
                 'modelBehaviors' => [
-                    'Backend\Behaviors\CleanRbacBehavior',
+                    'Backend\Behaviors\CleanRbacBehavior'
                 ],
                 'modelClass' => [
                     'class' => 'Backend\Models\AuthRole'
@@ -45,12 +65,46 @@ class AuthRoleController extends BackendController
             'delete' => [
                 'class' => 'DuAdmin\Core\DeleteModelAction',
                 'modelBehaviors' => [
-                    'Backend\Behaviors\CleanRbacBehavior',
+                    'Backend\Behaviors\CleanRbacBehavior'
                 ],
                 'modelClass' => [
                     'class' => 'Backend\Models\AuthRole'
                 ]
             ]
         ];
+    }
+
+    /**
+     * 角色授权
+     *
+     * @param string $parent
+     * @param string[] $permission
+     * @return mixed|number[]|string[]
+     */
+    public function actionAssignment($parent)
+    {
+        AuthItemChild::deleteAll([
+            'parent' => $parent
+        ]);
+
+        $relations = [];
+        $permission = \yii::$app->request->post('permission');
+        foreach ($permission as $child) {
+            $relations[] = [
+                $parent,
+                $child
+            ];
+        }
+
+        \Yii::$app->db->createCommand()->batchInsert(AuthItemChild::tableName(), [
+            'parent',
+            'child'
+        ], $relations);
+
+        \Yii::$app->cache->delete('rbac');
+
+        return $this->redirectOnSuccess([
+            'index'
+        ], '授权成功');
     }
 }

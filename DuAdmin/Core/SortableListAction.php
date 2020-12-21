@@ -19,8 +19,13 @@ class SortableListAction extends BaseAction
     public function run()
     {
         $model = \Yii::createObject($this->modelClass);
-        $model->load(\Yii::$app->request->get());
-        list ($modelClass, $condition) = $this->builderFindModelCondition($model->attributes);
+    
+        $filter = array_filter($model->attributes,function($attr){
+           return $attr !== null; 
+        });
+        list ($modelClass, $condition) = $this->builderFindModelCondition($filter);
+      
+        $model->load($condition);
         $activeQuery = $modelClass::find();
         if ($this->viaModelClass) {
             $t1 = call_user_func([
@@ -43,12 +48,15 @@ class SortableListAction extends BaseAction
         $models = $activeQuery->where($condition)
             ->asArray()
             ->orderBy('sort')
-            //->indexBy('id') AppHelper::listToTree() 会处理
-            ->all();
-        return $this->controller->render($this->id, [
+            ->
+        // ->indexBy('id') AppHelper::listToTree() 会处理
+        all();
+        $this->data = [
             'models' => $models,
             'model' => $model
-        ]);
+        ];
+        $this->beforeRender();
+        return $this->controller->render($this->id, $this->data);
     }
 }
 

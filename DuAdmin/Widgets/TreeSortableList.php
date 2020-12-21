@@ -6,6 +6,7 @@ use yii\bootstrap\Widget;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use DuAdmin\Helpers\AppHelper;
+use yii\helpers\ArrayHelper;
 
 /**
  * 树列表
@@ -46,11 +47,11 @@ class TreeSortableList extends Widget
     public $items = [];
 
     /**
-     * 多选
+     * 多选的字段名称
      *
-     * @var boolean
+     * @var string
      */
-    public $checkColumn = false;
+    public $checkName = null;
 
     public $url = [
         'sorts'
@@ -68,11 +69,7 @@ class TreeSortableList extends Widget
      *
      * @var boolean|array
      */
-    public $actionColumn = [
-        'class' => 'DuAdmin\Grids\ActionColumn',
-        'tagName' => 'div',
-        'enableDropDown' => false
-    ];
+    public $actionColumn = [];
 
     public $options = [
         'class' => 'dd'
@@ -113,18 +110,27 @@ class TreeSortableList extends Widget
             $content = '';
         }
         // 渲染 多选checkbox
-        if ($this->checkColumn) {
+        if ($this->checkName) {
             $checked = false;
             if (isset($item['checked'])) {
                 $checked = $item['checked'];
             }
-            $selection = '<span class="tree-check-box">' . Html::checkbox('id[]', $checked) . '</span>';
+            $name = 'id[]';
+            if (is_string($this->checkName)) {
+                $name = $this->checkName . '[]';
+            }
+            $selection = '<span class="tree-check-box">' . Html::checkbox($name, $checked) . '</span>';
             $content = $selection . $content;
         }
         // 渲染 action 按钮
         if ($this->actionColumn) {
+            $actionColumn = ArrayHelper::merge([
+                'class' => '\DuAdmin\Grids\ActionColumn',
+                'tagName' => 'div',
+                'enableDropDown' => false
+            ], $this->actionColumn);
             /* @var \DuAdmin\Grids\ActionColumn $column  */
-            $column = \Yii::createObject($this->actionColumn);
+            $column = \Yii::createObject($actionColumn);
             $content .= $column->renderDataCell($item, $key, $index);
         }
 
@@ -173,7 +179,7 @@ class TreeSortableList extends Widget
             if(serializeData == JSON.stringify(sorts)) {
                 console.log('list no change');    
             } else {
-                list.data('serialize') = sorts;
+                list.data('serialize',sorts);
                 $.post('{$url}',{sorts:sorts},function(data){
                     //console.log(data);
                 });

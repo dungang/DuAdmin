@@ -72,7 +72,15 @@ abstract class BaseAction extends Action
     public $modelImmutableAttrs = null;
 
     /**
+     * 必须传递的属性
+     *
+     * @var null|array
+     */
+    public $mustQueryStringAttrs = null;
+
+    /**
      * 模型场景
+     *
      * @var string
      */
     public $modelScenario = 'default';
@@ -100,6 +108,7 @@ abstract class BaseAction extends Action
 
     public function init()
     {
+        $this->checkQueryStringAttrs();
         if (empty($this->viewName)) {
             $this->viewName = $this->id;
         }
@@ -251,10 +260,10 @@ abstract class BaseAction extends Action
             $url = [];
             $url[] = \array_shift($this->successRediretUrl);
             foreach ($this->successRediretUrl as $p => $f) {
-                if(is_numeric($p)) {
+                if (is_numeric($p)) {
                     $url[$f] = $model[$f];
                 } else {
-                    
+
                     $url[$p] = $model[$f];
                 }
             }
@@ -274,9 +283,13 @@ abstract class BaseAction extends Action
     {
         // query by primary key
         if (method_exists($modelClass, 'primaryKey')) {
-            $primaryKey = call_user_func([$modelClass,'primaryKey']);
+            $primaryKey = call_user_func([
+                $modelClass,
+                'primaryKey'
+            ]);
             $cond = [];
             $params = ArrayHelper::merge(\Yii::$app->request->get(), \Yii::$app->request->post());
+           
             foreach ($primaryKey as $key) {
                 if (isset($params[$key])) {
                     $cond[$key] = $params[$key];
@@ -292,10 +305,12 @@ abstract class BaseAction extends Action
 
     /**
      * 构建查询模型的参数
-     * @param $filter
+     *
+     * @param
+     *            $filter
      * @return array
      */
-    protected function builderFindModelCondition($fitler=[])
+    protected function builderFindModelCondition($fitler = [])
     {
         if (is_string($this->modelClass)) {
             // 如果模型类用了字符串参数
@@ -310,13 +325,14 @@ abstract class BaseAction extends Action
             throw new InvalidConfigException('Action must set modelClass');
         }
         // 自动查找主键过滤条件
-        $condition = ArrayHelper::merge($args ?: [], $this->getPrimaryKeyCondition($modelClass),$fitler);
+        $condition = ArrayHelper::merge($args ?: [], $this->getPrimaryKeyCondition($modelClass), $fitler);
+      
         // 是否设置了查找的固定参数
         if ($this->modelImmutableAttrs) {
             $condition = ArrayHelper::merge($condition, $this->modelImmutableAttrs);
         }
         unset($condition['class']);
-        
+
         return [
             $modelClass,
             $this->clearNullCond($condition)
@@ -327,14 +343,15 @@ abstract class BaseAction extends Action
      * 查找一个模型对象实例通过主键，自动获取主键
      *
      * @param boolean $newOneOnNotFound
-     * @param $filter
+     * @param
+     *            $filter
      * @throws NotFoundHttpException
      * @return mixed|object|ActiveRecord
      */
-    protected function findModel($newOneOnNotFound = false,$filter=[])
+    protected function findModel($newOneOnNotFound = false, $filter = [])
     {
         list ($modelClass, $condition) = $this->builderFindModelCondition($filter);
-        if(empty($condition)) {
+        if (empty($condition)) {
             throw new BadRequestHttpException('Find model must set filters');
         }
         /* @var $model \yii\db\ActiveRecord */
@@ -360,14 +377,16 @@ abstract class BaseAction extends Action
 
     /**
      * 根据PK查找，自动获取PK名称，目前该方法还不完善
-     * @param $filter
+     *
+     * @param
+     *            $filter
      * @throws NotFoundHttpException
      * @return mixed
      */
-    protected function findModels($filter=[])
+    protected function findModels($filter = [])
     {
         list ($modelClass, $condition) = $this->builderFindModelCondition();
-        if(empty($condition)) {
+        if (empty($condition)) {
             throw new BadRequestHttpException('Find model must set filters');
         }
         /* @var $models \yii\db\ActiveRecord[] */
@@ -384,7 +403,6 @@ abstract class BaseAction extends Action
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-
     /**
      * 清理null的参数
      *
@@ -396,5 +414,37 @@ abstract class BaseAction extends Action
         return \array_filter($cond, function ($val) {
             return ! \is_null($val);
         });
+    }
+
+    /**
+     * 自动发现formName
+     *
+     * @return mixed
+     */
+    protected function discoverFormName()
+    {
+        if (is_array($this->modelClass)) {
+            $className = $this->modelClass['class'];
+        } else {
+            $className = $this->modelClass;
+        }
+        $pieces = explode('\\', $className);
+        return array_pop($pieces);
+    }
+
+    /**
+     * 检查querystring必须传递的参数
+     *
+     * @throws BadRequestHttpException
+     */
+    protected function checkQueryStringAttrs()
+    {
+        if ($this->mustQueryStringAttrs && is_array($this->mustQueryStringAttrs)) {
+            foreach ($this->mustQueryStringAttrs as $field) {
+                if (\Yii::$app->request->queryParams[$field] === null) {
+                    throw new BadRequestHttpException('Lost Query Params');
+                }
+            }
+        }
     }
 }
