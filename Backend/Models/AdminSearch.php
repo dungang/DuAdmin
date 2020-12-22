@@ -4,7 +4,6 @@ namespace Backend\Models;
 
 use Yii;
 use yii\data\ActiveDataProvider;
-use Backend\Models\Admin;
 
 /**
  * AdminSearch represents the model behind the search form of `Backend\Models\Admin`.
@@ -18,7 +17,7 @@ class AdminSearch extends Admin
     {
         return [
             [['id', 'status', 'isSuper'], 'integer'],
-            [['username', 'nickname', 'avatar', 'authKey', 'passwordHash', 'passwordResetToken', 'email', 'mobile', 'loginAt', 'loginFailure', 'loginIp', 'createdAt', 'updatedAt'], 'safe'],
+            [['username', 'nickname', 'avatar', 'email', 'mobile', 'loginAt', 'loginFailure', 'loginIp', 'createdAt', 'updatedAt'], 'safe'],
         ];
     }
 
@@ -78,16 +77,13 @@ class AdminSearch extends Admin
         $query->andFilterWhere(['like', 'username', $this->username])
             ->andFilterWhere(['like', 'nickname', $this->nickname])
             ->andFilterWhere(['like', 'avatar', $this->avatar])
-            ->andFilterWhere(['like', 'authKey', $this->authKey])
-            ->andFilterWhere(['like', 'passwordHash', $this->passwordHash])
-            ->andFilterWhere(['like', 'passwordResetToken', $this->passwordResetToken])
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'mobile', $this->mobile])
             ->andFilterWhere(['like', 'loginFailure', $this->loginFailure])
             ->andFilterWhere(['like', 'loginIp', $this->loginIp]);
 
         if ($full_search = Yii::$app->request->get('full_search')) {
-            $query->andFilterWhere(['FULL_SEARCH',['username','nickname','avatar','authKey','passwordHash','passwordResetToken','email','mobile','loginFailure','loginIp'],$full_search]);
+            $query->andFilterWhere(['FULL_SEARCH',['username','nickname','avatar','email','mobile','loginFailure','loginIp'],$full_search]);
         }
 
         return $dataProvider;

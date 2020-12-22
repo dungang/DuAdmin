@@ -44,10 +44,10 @@ class JcropFileInput extends InputWidget
             'boxHeight' => $this->preview_h,
             'boxWidth' => $this->preview_w,
             // 'setSelect' => [
-            //     100,
-            //     100,
-            //     200,
-            //     200
+            // 100,
+            // 100,
+            // 200,
+            // 200
             // ],
             'aspectRatio' => $ratio,
             'onSelect' => new JsExpression("function(c){
@@ -58,21 +58,23 @@ class JcropFileInput extends InputWidget
         return $html;
     }
 
-
-
     protected function renderFileInputHtml()
     {
         $html = '';
         if ($this->hasModel()) {
-            if (!isset($this->field->form->options['enctype'])) {
+            if (! isset($this->field->form->options['enctype'])) {
                 $this->field->form->options['enctype'] = 'multipart/form-data';
             }
             $this->crop_input_id = $this->attribute . '_crop';
-            $html = Html::hiddenInput($this->crop_input_id, null, ['id' => $this->crop_input_id]);
+            $html = Html::hiddenInput($this->crop_input_id, null, [
+                'id' => $this->crop_input_id
+            ]);
             $html .= Html::activeFileInput($this->model, $this->attribute, $this->options);
         } else {
             $this->crop_input_id = $this->this->crop_input_id . '_crop';
-            $html = Html::hiddenInput($this->crop_input_id, null, ['id' => $this->crop_input_id]);
+            $html = Html::hiddenInput($this->crop_input_id, null, [
+                'id' => $this->crop_input_id
+            ]);
             $html .= Html::fileInput($this->name, $this->value, $this->options);
         }
         return $html;
@@ -84,7 +86,7 @@ class JcropFileInput extends InputWidget
         $content = '';
         if ($this->hasModel() && ($this->model->{$this->attribute})) {
             $content = Html::img($this->model->{$this->attribute}, [
-                'width'=>'100%'
+                'width' => '100%'
             ]);
         }
         return Html::tag('div', $content, [
@@ -95,8 +97,7 @@ class JcropFileInput extends InputWidget
     protected function addJsEvent()
     {
         $options = Json::encode($this->clientOptions);
-        $this->view->registerJs(
-            "$('#{$this->options['id']}').on('change',function(event){
+        $this->view->registerJs("$('#{$this->options['id']}').on('change',function(event){
                 var file  = event.target.files[0];
                 var reader = new FileReader();
                 reader.addEventListener('load', function () {
@@ -106,7 +107,6 @@ class JcropFileInput extends InputWidget
                     $(img).Jcrop({$options});
                 });
                 reader.readAsDataURL(file);
-            })"
-        );
+            })");
     }
 }

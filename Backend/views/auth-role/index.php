@@ -9,8 +9,8 @@ use DuAdmin\Helpers\AppHelper;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $models DuAdmin\Models\Menu[] */
-/* @var $model DuAdmin\Models\Menu */
+/* @var $models Backend\Models\AuthRole[] */
+/* @var $model Backend\Models\AuthRole */
 
 $this->title = Yii::t('backend', 'Auth Roles');
 $this->params['breadcrumbs'][] = $this->title;

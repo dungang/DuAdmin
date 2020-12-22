@@ -28,6 +28,10 @@ use DuAdmin\Core\Operator;
  * @property string $createdAt 添加时间
  * @property string $updatedAt 更新时间
  * @property int $isDel
+ * 
+ * @property AuthRole[] $roles
+ * 
+ * @property AuthAssignment[] $assignments
  */
 class Admin extends BaseModel implements IdentityInterface, Authable, Operator
 {
@@ -327,5 +331,14 @@ class Admin extends BaseModel implements IdentityInterface, Authable, Operator
     public function getOperatorName()
     {
         return $this->nickname;
+    }
+    
+    public function getRoles() {
+        return $this->hasMany(AuthRole::class, ['id'=>'itemId'])
+        ->via('assignments');
+    }
+    
+    public function getAssignments(){
+        return $this->hasMany(AuthAssignment::class, ['userId'=>'id']);
     }
 }

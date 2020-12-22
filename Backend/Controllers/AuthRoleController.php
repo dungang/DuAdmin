@@ -84,21 +84,25 @@ class AuthRoleController extends BackendController
             AuthItemChild::deleteAll([
                 'parent' => $parent
             ]);
-            $relations = [];
-            $permission = \yii::$app->request->post('permission');
 
-            foreach ($permission as $child) {
-                $relations[] = [
-                    $parent,
-                    $child
-                ];
+            if ($permission = \yii::$app->request->post('permission')) {
+
+                $relations = [];
+
+                foreach ($permission as $child) {
+                    $relations[] = [
+                        $parent,
+                        $child
+                    ];
+                }
+
+                \Yii::$app->db->createCommand()
+                    ->batchInsert(AuthItemChild::tableName(), [
+                    'parent',
+                    'child'
+                ], $relations)
+                    ->execute();
             }
-
-            \Yii::$app->db->createCommand()
-                ->batchInsert(AuthItemChild::tableName(), [
-                'parent',
-                'child'
-            ], $relations)->execute();
 
             \Yii::$app->cache->delete('rbac');
         });
