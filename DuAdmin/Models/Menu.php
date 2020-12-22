@@ -12,7 +12,7 @@ use Yii;
  * @property string $name 名称
  * @property string $url 链接
  * @property bool $isFront 是否前端
- * @property bool $requireLogin 需要登录
+ * @property bool $requireAuth 需要登录
  * @property int $pid 父节点
  * @property string $icon 图标
  * @property int $sort 排序
@@ -49,7 +49,7 @@ class Menu extends \DuAdmin\Core\BaseModel
             [
                 [
                     'isFront',
-                    'requireLogin'
+                    'requireAuth'
                 ],
                 'boolean'
             ],
@@ -89,7 +89,7 @@ class Menu extends \DuAdmin\Core\BaseModel
             'name' => '名称',
             'url' => '链接',
             'isFront' => '是否前端',
-            'requireLogin' => '需要登录',
+            'requireAuth' => '需要登录',
             'pid' => '父节点',
             'icon' => '图标',
             'sort' => '排序'
@@ -127,7 +127,7 @@ class Menu extends \DuAdmin\Core\BaseModel
 
     public static function getFrontMenusData()
     {
-        return self::find()->select('id,pid,name as label,url,icon,requireLogin')
+        return self::find()->select('id,pid,name as label,url,icon,requireAuth')
             ->where([
                 'isFront' => 1
             ])
@@ -154,7 +154,7 @@ class Menu extends \DuAdmin\Core\BaseModel
 
     public static function getBackendMenusData()
     {
-        $vars = self::find()->select('id,pid,name as label,url,icon,requireLogin')
+        $vars = self::find()->select('id,pid,name as label,url,icon,requireAuth')
             ->where([
                 'isFront' => 0
             ])

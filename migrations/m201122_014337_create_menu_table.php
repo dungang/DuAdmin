@@ -19,7 +19,7 @@ class m201122_014337_create_menu_table extends Migration
             'name' => $this->string(64)->notNull()->comment('菜单名'),
             'url' => $this->string(128)->notNull()->defaultValue('#')->comment('链接'),
             'isFront' => $this->boolean()->defaultValue(1)->comment('是否前端'),
-            'requireLogin' => $this->boolean()->defaultValue(1)->comment('需要登录'),
+            'requireAuth' => $this->boolean()->defaultValue(1)->comment('需要鉴权'),
             'icon' => $this->string(64)->null()->comment('ICON'),
             'sort' => $this->smallInteger()->defaultValue(0)->comment('排序'),
         ],$tableOptions);
@@ -34,7 +34,7 @@ class m201122_014337_create_menu_table extends Migration
 //         $this->addPrimaryKey('pk-auth_role_menu-roleId-menuId', '{{%auth_role_menu}}', ['roleId','menuId']);
 
         $this->batchInsert('{{%menu}}',[
-            'id','pid','name','url','isFront','requireLogin','icon','sort'
+            'id','pid','name','url','isFront','requireAuth','icon','sort'
         ],[
             [1,0,'Dashboard','?r=default/index',0,1,'fa fa-dashboard',1],
             [2,0,'System','#',0,1,'fa fa-desktop',100],

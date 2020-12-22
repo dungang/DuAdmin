@@ -18,7 +18,7 @@ class MenuSearch extends Menu
         return [
             [['id', 'pid', 'sort'], 'integer'],
             [['name', 'url','icon'], 'safe'],
-            [['isFront','requireLogin'], 'boolean'],
+            [['isFront','requireAuth'], 'boolean'],
         ];
     }
 
@@ -65,7 +65,7 @@ class MenuSearch extends Menu
         $query->andFilterWhere([
             'id' => $this->id,
             'isFront' => $this->isFront,
-            'requireLogin' => $this->requireLogin,
+            'requireAuth' => $this->requireAuth,
             'pid' => $this->pid,
             'sort' => $this->sort,
         ]);

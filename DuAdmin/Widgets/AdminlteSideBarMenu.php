@@ -40,11 +40,12 @@ class AdminlteSideBarMenu extends Widget
         $user = Yii::$app->user->identity;
         if (! $user->isSuperAdmin()) {
             $this->items = array_filter($this->items, function ($item) {
-                if (isset($item['r']) && $item['r'] != '/default/index') {
-                    return Yii::$app->authManager->checkAccessWithoutRule($user->id, trim($item['r'], '/'));
-                } else {
-                    return true;
+                if ($item['requireAuth']) {
+                    if (isset($item['r']) && $item['r'] != '/default/index') {
+                        return Yii::$app->authManager->checkAccessWithoutRule($user->id, trim($item['r'], '/'));
+                    }
                 }
+                return true;
             });
         }
         $this->items = AppHelper::listToTree($this->items, $this->idKey, $this->pidKey);

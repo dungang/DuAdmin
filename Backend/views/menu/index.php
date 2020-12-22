@@ -29,8 +29,8 @@ AdminltePanel::begin([
                         'items' => $models,
                         'rowRender' => function ($item) {
                             $content = '<i class="' . $item['icon'] . '"></i> ' . $item['name'];
-                            if (empty($item['requireLogin'])) {
-                                $content .= ' <span class="label label-primary label-xs">访客</span>';
+                            if (empty($item['requireAuth'])) {
+                                $content .= ' <span class="label label-danger label-xs">不用鉴权</span>';
                             }
                             return $content;
                         }

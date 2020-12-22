@@ -16,7 +16,7 @@ use DuAdmin\Models\Menu;
 
     <?= $form->field($model, 'isFront')->checkbox([]) ?>
     
-    <?= $form->field($model, 'requireLogin')->checkbox([]) ?>
+    <?= $form->field($model, 'requireAuth')->checkbox([]) ?>
 
     <?=$form->field($model, 'pid')->dropDownList(Menu::allIdToName('id', 'name', ['pid' => 0,'isFront' => $model->isFront]), ['prompt' => ['text' => '','options' => ['value' => 0]]])?>
 
