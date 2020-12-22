@@ -119,11 +119,14 @@ class TreeSortableList extends Widget
             if (is_string($this->checkName)) {
                 $name = $this->checkName . '[]';
             }
-            $selection = '<span class="tree-check-box">' . Html::checkbox($name, $checked,['value'=>$item['id']]) . '</span>';
+            $selection = '<span class="tree-check-box">' . Html::checkbox($name, $checked, [
+                'value' => $item['id']
+            ]) . '</span>';
             $content = $selection . $content;
         }
         // 渲染 action 按钮
-        if ($this->actionColumn) {
+        if (is_array($this->actionColumn)) {
+
             $actionColumn = ArrayHelper::merge([
                 'class' => '\DuAdmin\Grids\ActionColumn',
                 'tagName' => 'div',
@@ -174,7 +177,6 @@ class TreeSortableList extends Widget
         function(e,target){
             var list = $(this);
             var serializeData = JSON.stringify(list.data('serialize'));
-            console.log(serializeData);
             var sorts = list.nestable("serialize");
             if(serializeData == JSON.stringify(sorts)) {
                 console.log('list no change');    

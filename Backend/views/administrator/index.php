@@ -43,9 +43,10 @@ PanelGridView::begin([
                 $names = [];
                 if ($model->isSuper) {
                     $names[] = '<span class="label label-danger">' . Yii::t('backend', 'Is Super') . '</span>';
-                }
-                foreach ($model->roles as $role) {
-                    $names[] = '<span class="label label-success">' . $role->name . '</span>';
+                } else {
+                    foreach ($model->roles as $role) {
+                        $names[] = '<span class="label label-success">' . $role->name . '</span>';
+                    }
                 }
                 return implode(',', $names);
             }
@@ -71,7 +72,12 @@ PanelGridView::begin([
                         'userId' => $model->id
                     ]);
                 }
-            ]
+            ],
+//             'visibleButtons' => [
+//                 'roles' => function ($model, $key, $index) {
+//                     return empty($model->isSuper);
+//                 }
+//             ]
         ]
     ]
 ]);

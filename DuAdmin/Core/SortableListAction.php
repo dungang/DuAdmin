@@ -3,6 +3,7 @@ namespace DuAdmin\Core;
 
 use DuAdmin\Mysql\ActiveQuery;
 use DuAdmin\Mysql\Query;
+use yii\helpers\ArrayHelper;
 
 /**
  * 排序列表action
@@ -38,13 +39,15 @@ class SortableListAction extends BaseAction
         $filter = array_filter($model->attributes, function ($attr) {
             return $attr !== null;
         });
-        list ($modelClass, $condition) = $this->builderFindModelCondition($filter);
 
-        $model->load($condition);
+        list ($modelClass, $condition) = $this->builderFindModelCondition($filter);
+        if ($params = \Yii::$app->request->get($this->discoverFormName())) {
+            $condition = ArrayHelper::merge($condition, $params);
+        }
         /* @var $activeQuery ActiveQuery */
         $activeQuery = $modelClass::find();
-        
-        //使用中间表建立父子关系
+
+        // 使用中间表建立父子关系
         if ($this->viaModelClass) {
             $t1 = call_user_func([
                 $modelClass,

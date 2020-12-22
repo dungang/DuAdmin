@@ -41,7 +41,6 @@ AdminltePanel::begin([
                 'children' => [
                     Box::widget([
                         'enableAjaxForm' => true,
-                        'title' => Yii::t('da', 'Create {0}', Yii::t('backend', 'Auth Permission')),
                         'children' => [
                             $this->render('_form', [
                                 'model' => $model,

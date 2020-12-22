@@ -1,7 +1,5 @@
 <?php
-
 namespace Backend\Controllers;
-
 
 use DuAdmin\Core\BackendController;
 
@@ -11,21 +9,23 @@ use DuAdmin\Core\BackendController;
 class MenuController extends BackendController
 
 {
-	public function actions(){
-		return [
-		    'index' => [
-		        'class' => '\DuAdmin\Core\SortableListAction',
-		        'modelClass' => [
-		            'class' => 'DuAdmin\Models\Menu',
-		            'isFront'=>0,
-		        ]
-		    ],
-		    'sorts' => [
-		        'class' => '\DuAdmin\Core\SortableAction',
-		        'modelClass' => [
-		            'class' => 'DuAdmin\Models\Menu',
-		        ]
-		    ],
+
+    public function actions()
+    {
+        return [
+            'index' => [
+                'class' => '\DuAdmin\Core\SortableListAction',
+                'modelClass' => [
+                    'class' => 'DuAdmin\Models\Menu',
+                    'isFront' => 0
+                ]
+            ],
+            'sorts' => [
+                'class' => '\DuAdmin\Core\SortableAction',
+                'modelClass' => [
+                    'class' => 'DuAdmin\Models\Menu'
+                ]
+            ],
             'create' => [
                 'class' => 'DuAdmin\Core\CreateModelAction',
                 'modelClass' => [
@@ -49,7 +49,7 @@ class MenuController extends BackendController
                 'modelClass' => [
                     'class' => 'DuAdmin\Models\Menu'
                 ]
-            ],
-		];
-	}
+            ]
+        ];
+    }
 }

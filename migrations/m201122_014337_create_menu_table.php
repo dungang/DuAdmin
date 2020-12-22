@@ -24,6 +24,14 @@ class m201122_014337_create_menu_table extends Migration
             'sort' => $this->smallInteger()->defaultValue(0)->comment('排序'),
         ],$tableOptions);
         $this->addCommentOnTable('{{%menu}}','菜单');
+        
+        //待定
+        $this->createTable('{{%auth_role_menu}}', [
+            'roleId' => $this->string(64)->notNull()->comment('角色ID'),
+            'menuId' => $this->integer()->notNull()->comment('菜单ID'),
+        ],$tableOptions);
+        $this->addCommentOnTable('{{%auth_role_menu}}','角色菜单');
+        $this->addPrimaryKey('pk-auth_role_menu-roleId-menuId', '{{%auth_role_menu}}', ['roleId','menuId']);
 
         $this->batchInsert('{{%menu}}',[
             'id','pid','name','url','isFront','requireLogin','icon','sort'

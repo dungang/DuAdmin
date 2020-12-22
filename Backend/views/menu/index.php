@@ -42,7 +42,6 @@ AdminltePanel::begin([
                 'children' => [
                     Box::widget([
                         'enableAjaxForm' => true,
-                        'title' => Yii::t('da', 'Create {0}', Yii::t('backend', 'Menu')),
                         'children' => [
                             $this->render('_form', [
                                 'model' => $model,
@@ -61,17 +60,17 @@ echo PanelNavTabs::widget([
     'wrapper' => true,
     'tabs' => [
         [
-            'name' => '前台菜单',
-            'url' => [
-                'index',
-                'Menu[isFront]' => 1
-            ]
-        ],
-        [
             'name' => '后台菜单',
             'url' => [
                 'index',
                 'Menu[isFront]' => 0
+            ]
+        ],
+        [
+            'name' => '前台菜单',
+            'url' => [
+                'index',
+                'Menu[isFront]' => 1
             ]
         ]
     ]

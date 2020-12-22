@@ -5,6 +5,7 @@ use yii\helpers\Html;
 
 /**
  * 参考adminlte box 样式
+ *
  * @author dungang<dungang@126.com>
  * @since 2020-12-19
  */
@@ -45,15 +46,19 @@ class Box extends Layoutable
 
     public function renderHead()
     {
-        $classes = [
-            'box-header'
-        ];
-        if ($this->headWidthBorder) {
-            $classes[] = 'width-border';
+        if ($this->title) {
+
+            $classes = [
+                'box-header'
+            ];
+            if ($this->headWidthBorder) {
+                $classes[] = 'width-border';
+            }
+            return Html::tag('div', $this->title, [
+                'class' => implode(' ', $classes)
+            ]);
         }
-        return Html::tag('div', $this->title, [
-            'class' => implode(' ', $classes)
-        ]);
+        return '';
     }
 
     public function renderBody($content)
