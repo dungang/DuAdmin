@@ -18,5 +18,5 @@ $this->params['breadcrumbs'][] = ['label' => <?= $generator->generateString($mod
 $this->params['breadcrumbs'][] = $this->title;
 echo AjaxModalOrNormalPanelContent::widget([
     'intro'=> Yii::t('da','Create {0} Info',<?= $generator->generateString($modelName) ?>),
-    'content'=>$this->render('_form', ['model' => $model,'aciton'=>['create']])
+    'content'=>$this->render('_form', ['model' => $model,'action'=>['create']])
 ])?>

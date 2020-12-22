@@ -48,7 +48,7 @@ class Generator extends \app\generators\Generator
 
     public $generateLabelsFromComments = false;
 
-    public $useTablePrefix = false;
+    public $useTablePrefix = true;
 
     public $standardizeCapitals = false;
 
@@ -87,6 +87,10 @@ class Generator extends \app\generators\Generator
      */
     public $defaultOrder = 'SORT_DESC';
     
+    public function init() {
+        parent::init();
+        \Yii::setAlias("@DuAdmin", "@app/DuAdmin");
+    }
 
     /**
      *
@@ -654,6 +658,7 @@ class Generator extends \app\generators\Generator
         $ns = [
             'Backend\\Models',
             'Frontend\\Models',
+            'DuAdmin\\Models',
         ];
         $dirs = FileHelper::findDirectories(\Yii::$app->basePath . '/Addons',['recursive'=>false]);
         foreach($dirs as $dir) {

@@ -89,7 +89,7 @@ class Menu extends \DuAdmin\Core\BaseModel
             'name' => '名称',
             'url' => '链接',
             'isFront' => '是否前端',
-            'requireAuth' => '需要登录',
+            'requireAuth' => '需要鉴权',
             'pid' => '父节点',
             'icon' => '图标',
             'sort' => '排序'
