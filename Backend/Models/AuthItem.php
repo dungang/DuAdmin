@@ -45,6 +45,9 @@ class AuthItem extends \DuAdmin\Core\BaseModel
     public function rules()
     {
         return [
+            ['id','filter','filter'=>function($value){
+                return trim($value,'/');
+            }],
             [['id', 'type'], 'required'],
             [['type', 'sort'], 'integer'],
             [['data'], 'string'],

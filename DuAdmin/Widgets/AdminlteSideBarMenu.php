@@ -1,11 +1,11 @@
 <?php
-
 namespace DuAdmin\Widgets;
 
 use yii\base\Widget;
 use DuAdmin\Helpers\AppHelper;
 use Yii;
 use yii\helpers\Html;
+use DuAdmin\Core\Authable;
 
 /**
  * 指支持2层菜单
@@ -34,26 +34,28 @@ class AdminlteSideBarMenu extends Widget
 
     public function run()
     {
-
         $this->normalizeItems();
-        //权限过滤
-        $this->items = array_filter($this->items, function ($item) {
-            if (Yii::$app->user->id === 1) return true;
-            if (isset($item['r']) && $item['r'] != '/default/index') {
-                return Yii::$app->user->can($item['r']);
-            } else {
-                return true;
-            }
-        });
+        // 权限过滤
+        /* @var Authable $user */
+        $user = Yii::$app->user->identity;
+        if (! $user->isSuperAdmin()) {
+            $this->items = array_filter($this->items, function ($item) {
+                if (isset($item['r']) && $item['r'] != '/default/index') {
+                    return Yii::$app->authManager->checkAccessWithoutRule($user->id, trim($item['r'], '/'));
+                } else {
+                    return true;
+                }
+            });
+        }
         $this->items = AppHelper::listToTree($this->items, $this->idKey, $this->pidKey);
         $html = $this->enableHeader ? Html::tag('li', $this->headerLabel, [
             'class' => 'header'
         ]) : '';
-        //url 为空 或者 是 '#' 的菜单没有子菜单 不显示
+        // url 为空 或者 是 '#' 的菜单没有子菜单 不显示
         foreach ($this->items as $item) {
             if (isset($item['items']) && is_array($item['items'])) {
                 $html .= $this->renderTreeItem($item);
-            } else if(!(empty($item['url']) || $item['url']=='#')) {
+            } else if (! (empty($item['url']) || $item['url'] == '#')) {
                 $html .= $this->renderItem($item);
             }
         }
@@ -64,11 +66,12 @@ class AdminlteSideBarMenu extends Widget
     }
 
     /**
+     *
      * @throws \yii\base\InvalidConfigException
      */
     protected function normalizeItems()
     {
-        if(empty($this->items)) {
+        if (empty($this->items)) {
             return;
         }
         $host = \Yii::$app->request->getHostName();
@@ -99,7 +102,7 @@ class AdminlteSideBarMenu extends Widget
                                 '[',
                                 ']'
                             ], '___', $urlInfo['query']), $checkParams);
-                            //检查路由前缀加分
+                            // 检查路由前缀加分
                             if (isset($checkParams['r'])) {
                                 $route = \ltrim($checkParams['r'], '/');
                                 $item['r'] = '/' . $route;
@@ -137,7 +140,9 @@ class AdminlteSideBarMenu extends Widget
     protected function renderLink($item)
     {
         $icon = empty($item['icon']) ? '' : '<i class="' . $item['icon'] . '"></i> ';
-        return Html::a($icon . '<span>' . $item[$this->nameKey] . '</span>', $item[$this->urlKey], ['target' => $item['target']]);
+        return Html::a($icon . '<span>' . $item[$this->nameKey] . '</span>', $item[$this->urlKey], [
+            'target' => $item['target']
+        ]);
     }
 
     protected function renderItem($item)
@@ -150,7 +155,6 @@ class AdminlteSideBarMenu extends Widget
 
     protected function renderTreeItem($item)
     {
-
         $active = $item[$this->activeKey] ? 'active' : '';
         $html = '';
         foreach ($item['items'] as $child) {

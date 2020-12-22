@@ -29,7 +29,7 @@ class AuthItemSyncVirtualPidBehavior extends Behavior
      */
     public function createOne($event)
     {
-        if ($this->pid) {
+        if ($this->owner->pid) {
             $this->createRelation($event->owner);
         }
     }

@@ -33,7 +33,7 @@ class AppHelper
         }
         return self::$agent_detect->isMobile();
     }
-    
+
     /**
      * 判断是否是ajax请求，主要是区分表单的ajax验证
      *
@@ -43,26 +43,31 @@ class AppHelper
     {
         return Yii::$app->request->isAjax && Yii::$app->request->isPjax === false;
     }
-    
+
     /**
      * 表单验证通过之后发起的表单请求
      * 是否ajax表单请求
+     *
      * @return boolean
      */
-    public static function isAjaxFormSubmitRequest(){
+    public static function isAjaxFormSubmitRequest()
+    {
         return Yii::$app->request->isAjax && isset(Yii::$app->request->headers['ajax-submit']);
     }
-    
+
     /**
      * ajax json 请求
+     *
      * @return boolean
      */
-    public static function isAjaxJson() {
+    public static function isAjaxJson()
+    {
         return Yii::$app->request->isAjax && false !== strpos(Yii::$app->request->headers['accept'], 'application/json');
     }
-    
+
     /**
      * 是否ajax验证请求
+     *
      * @return boolean
      */
     public static function isAjaxValidationRequest()
@@ -83,7 +88,7 @@ class AppHelper
         $options = array_merge([
             'data-toggle' => 'modal',
             'data-target' => '#modal-dailog',
-            'data-pjax' => '0',
+            'data-pjax' => '0'
         ], $options);
         return Html::a($text, $url, $options);
     }
@@ -102,7 +107,7 @@ class AppHelper
             'data-toggle' => 'modal',
             'data-target' => '#modal-dailog',
             'data-modal-size' => 'modal-sm',
-            'data-pjax' => '0',
+            'data-pjax' => '0'
         ], $options);
         return Html::a($text, $url, $options);
     }
@@ -121,7 +126,7 @@ class AppHelper
             'data-toggle' => 'modal',
             'data-target' => '#modal-dailog',
             'data-modal-size' => 'modal-lg',
-            'data-pjax' => '0',
+            'data-pjax' => '0'
         ], $options);
         return Html::a($text, $url, $options);
     }
@@ -293,6 +298,7 @@ class AppHelper
 
     /**
      * 生成GUID
+     *
      * @return string
      */
     public static function GUID()
@@ -303,28 +309,36 @@ class AppHelper
 
         return sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
     }
-    
+
     /**
      * 生成订单号1
+     *
      * @return string
      */
-    public static function createOrderNo1(){
+    public static function createOrderNo1()
+    {
         return date('Ymd') . str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT);
     }
+
     /**
      * 生成订单号2
+     *
      * @return string
      */
-    public static function createOrderNo2(){
-        return date('Ymd').substr(implode(NULL, array_map('ord', str_split(substr(uniqid(), 7, 13), 1))), 0, 8);
+    public static function createOrderNo2()
+    {
+        return date('Ymd') . substr(implode(NULL, array_map('ord', str_split(substr(uniqid(), 7, 13), 1))), 0, 8);
     }
+
     /**
      * 生成订单号方法3
+     *
      * @return string
      */
-    public static function createOderNo3(){
-        $yCode = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J');
-        return $yCode[intval(date('Y')) - 2011] . strtoupper(dechex(date('m'))) . date('d') . substr(time(), -5) . substr(microtime(), 2, 5) . sprintf('%02d', rand(0, 99));
+    public static function createOderNo3()
+    {
+        $yCode = [ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J' ];
+        return $yCode[intval(date('Y')) - 2011] . strtoupper(dechex(date('m'))) . date('d') . substr(time(), - 5) . substr(microtime(), 2, 5) . sprintf('%02d', rand(0, 99));
     }
 
     /**
@@ -425,7 +439,7 @@ class AppHelper
      *            parent标记字段
      * @param string $child
      *            子节点字段
-     * @param  int|string $root
+     * @param int|string $root
      * @return array
      * @author gang.dun <dungang@huluwa.cc>
      */
@@ -442,7 +456,7 @@ class AppHelper
             foreach ($list as $key => $data) {
                 // 判断是否存在parent
                 $parentId = $data[$pid];
-                //yii  query asArray int all to string 
+                // yii query asArray int all to string
                 if ($root === $parentId) {
                     $tree[] = &$list[$key];
                 } else {
@@ -773,15 +787,19 @@ class AppHelper
 
         return '';
     }
-    
+
     /**
      * 获取插件名称的所有列表
+     *
      * @return array
      */
-    public static function getAddonNames(){
-        $dirs = FileHelper::findDirectories(\Yii::$app->basePath . '/Addons/',[
+    public static function getAddonNames()
+    {
+        $dirs = FileHelper::findDirectories(\Yii::$app->basePath . '/Addons/', [
             'recursive' => false
         ]);
-        return array_map(function($dir){return basename($dir);},$dirs);
+        return array_map(function ($dir) {
+            return basename($dir);
+        }, $dirs);
     }
 }
