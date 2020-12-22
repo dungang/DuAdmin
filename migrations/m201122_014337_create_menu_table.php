@@ -25,6 +25,18 @@ class m201122_014337_create_menu_table extends Migration
         ],$tableOptions);
         $this->addCommentOnTable('{{%menu}}','菜单');
         
+        $this->createTable('{{%navigation}}', [
+            'id' => $this->primaryKey(),
+            'pid' => $this->integer()->notNull()->comment('父导航D'),
+            'name' => $this->string(64)->notNull()->comment('导航名'),
+            'url' => $this->string(128)->notNull()->defaultValue('#')->comment('链接'),
+            'requireLogin' => $this->boolean()->defaultValue(1)->comment('需要登录'),
+            'icon' => $this->string(64)->null()->comment('ICON'),
+            'app' => $this->string(64)->notNull()->defaultValue('frontend')->comment('应用::默认是前端'),
+            'sort' => $this->smallInteger()->defaultValue(0)->comment('排序'),
+        ],$tableOptions);
+        $this->addCommentOnTable('{{%navigation}}','前端导航');
+        
         //待定
 //         $this->createTable('{{%auth_role_menu}}', [
 //             'roleId' => $this->string(64)->notNull()->comment('角色ID'),
