@@ -29,10 +29,10 @@ class m201122_014337_create_menu_table extends Migration
             'id' => $this->primaryKey(),
             'pid' => $this->integer()->notNull()->comment('父导航D'),
             'name' => $this->string(64)->notNull()->comment('导航名'),
-            'url' => $this->string(128)->notNull()->defaultValue('#')->comment('链接'),
+            'url' => $this->string(128)->notNull()->defaultValue('#')->comment('地址::可以是内部和外部地址'),
             'requireLogin' => $this->boolean()->defaultValue(1)->comment('需要登录'),
             'icon' => $this->string(64)->null()->comment('ICON'),
-            'app' => $this->string(64)->notNull()->defaultValue('frontend')->comment('应用::默认是前端'),
+            'app' => $this->string(64)->notNull()->defaultValue('frontend')->comment('所属APP::前台或后台或插件的Id'),
             'sort' => $this->smallInteger()->defaultValue(0)->comment('排序'),
         ],$tableOptions);
         $this->addCommentOnTable('{{%navigation}}','前端导航');
@@ -61,9 +61,9 @@ class m201122_014337_create_menu_table extends Migration
             [12,10,'Locale and Language','?r=locale/index',0,1,'fa fa-language',2],
             [14,10,'Pretty Url','?r=pretty-url/index',0,1,'fa fa-location-arrow',4],
             [15,10,'Cron Jobs','?r=cron/index',0,1,'fa fa-tasks',5],
-            [16,10,'Addon Navigation','?r=addon-navigation/index',0,1,'fa fa-bars',6],
             [20,0,'Marketing','#',0,1,'fa fa-gg-circle',40],
-            [21,20,'Blocks','?r=block/index',0,1,'fa fa-clone',1],
+            [22,20,'Blocks','?r=block/index',0,1,'fa fa-clone',2],
+            [23,0,'Addons','?r=addon/index',0,1,'fa fa-puzzle-piece',100],
         ]);
     }
 

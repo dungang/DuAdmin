@@ -137,6 +137,7 @@ class LoaderHelper
                     $addon = json_decode(file_get_contents($jsonFile), true);
                     $addon['id'] = Inflector::camel2id($addonName);
                     $addon['addon'] = $addonName;
+                    $addon['hasSetting'] = isset($addon['hasSetting'])?:false;
                     $addon['mainClass'] = 'Addons\\' . $addonName . '\\Addon';
                     if (file_exists($addonVendorComposerDir . '/autoload_classmap.php')) {
                         $addon['classMap'] = require $addonVendorComposerDir . '/autoload_classmap.php';
