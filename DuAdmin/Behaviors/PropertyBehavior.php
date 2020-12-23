@@ -11,11 +11,8 @@ use DuAdmin\Core\Operator;
  * 比如，
  * createdAt, 添加时间
  * updatedAt, 更新时间
- * creatorId, 添加人
- * updatorId, 更新人
- * creator, 创建人的名称
- * updator, 更新人的名称
- * pid, 父类
+ * createdBy, 添加人
+ * updatedBy, 更新人
  *
  * @author dungang
  */
@@ -60,10 +57,10 @@ class PropertyBehavior extends Behavior
         //$this->setOnce('pid', 0, $model);
 
         if ($this->_user) {
-            $this->setOnce('creatorId', $this->_user->getOperatorId(), $model);
-            $this->setEverytime('updatorId', $this->_user->getOperatorId(), $model);
-            $this->setOnce('creator', $this->_user->getOperatorName(), $model);
-            $this->setEverytime('updator', $this->_user->getOperatorName(), $model);
+            $this->setOnce('createdBy', $this->_user->getOperatorId(), $model);
+            $this->setEverytime('updatedBy', $this->_user->getOperatorId(), $model);
+//             $this->setOnce('creator', $this->_user->getOperatorName(), $model);
+//             $this->setEverytime('updator', $this->_user->getOperatorName(), $model);
         }
     }
 
