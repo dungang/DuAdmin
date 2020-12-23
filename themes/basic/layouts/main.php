@@ -4,7 +4,6 @@
 
 use Frontend\Assets\AppAsset;
 use DuAdmin\Helpers\AppHelper;
-use DuAdmin\Models\Menu;
 use DuAdmin\Models\Setting;
 use DuAdmin\Widgets\LazyLoad;
 use DuAdmin\Widgets\Notify;
@@ -14,6 +13,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
+use DuAdmin\Models\Navigation;
 
 AppAsset::register($this);
 ThemeAsset::register($this);
@@ -56,13 +56,13 @@ $this->params['logo'] = AppHelper::getSetting('site.logo');
                 ]
             ]
         ];
-        if (($frontMenus = Menu::getFrontMenus())) {
-            foreach ($frontMenus as $frontMenu) {
-                if ($frontMenu['require_login'] && Yii::$app->user->isGuest) {
+        if (($navigations = Navigation::getNavigation())) {
+            foreach ($navigations as $navigation) {
+                if ($navigation['requireLogin'] && Yii::$app->user->isGuest) {
                     continue;
                 }
-                $frontMenu['url'] = AppHelper::normalizeUrl2Route($frontMenu['url']);
-                $menus[] = $frontMenu;
+                $navigation['url'] = AppHelper::normalizeUrl2Route($navigation['url']);
+                $menus[] = $navigation;
             }
         }
         echo Nav::widget([

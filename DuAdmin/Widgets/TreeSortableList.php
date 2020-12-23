@@ -86,8 +86,12 @@ class TreeSortableList extends Widget
             $this->registChangeEvent();
             $this->registerPlugin('nestable');
         }
-        $this->listToTree();
-        return Html::tag('div', $this->renderChildren($this->items), $this->options);
+        if($this->items) {
+            $this->listToTree();
+            return Html::tag('div', $this->renderChildren($this->items), $this->options);
+        } else {
+            return Html::tag('div', Html::tag('div',\Yii::t('yii', 'No results found.'),['class'=>'empty']), $this->options);
+        }
     }
 
     private function renderChildren($items)
