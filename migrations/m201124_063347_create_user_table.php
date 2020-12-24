@@ -37,7 +37,7 @@ class m201124_063347_create_user_table extends Migration
             'nickname' => 'DuJiaoPai',
             'authKey' => \Yii::$app->security->generateRandomString(),
             'passwordHash' => \Yii::$app->security->generatePasswordHash('da'),
-            'email' => 'djp@duadmin',
+            'email' => 'dungang@126.com',
             'isSuper' =>1,
             'status' => 10,
             'createdAt' => date('Y-m-d H:i:s'),

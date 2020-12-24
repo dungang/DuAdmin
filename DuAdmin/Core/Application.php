@@ -6,7 +6,15 @@ use DuAdmin\Helpers\AppHelper;
 use yii\helpers\Url;
 use yii\validators\Validator;
 use yii\web\Application as WebApplication;
+use DuAdmin\Components\ActionLog;
 
+/**
+ * 
+ * @author dungang<dungang@126.com>
+ * @since 2020-12-24
+ * 
+ * @property ActionLog $actionLog
+ */
 class Application extends WebApplication
 {
 

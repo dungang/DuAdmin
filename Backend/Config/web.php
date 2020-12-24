@@ -17,6 +17,9 @@ $config = [
             // uncomment if you want to cache RBAC items hierarchy
             'cache' => 'cache'
         ],
+        'actionLog' => [
+            'class' => 'DuAdmin\Components\ActionLog' 
+        ],
         'user' => [
             'identityClass' => '\Backend\Models\Admin',
             'enableAutoLogin' => true,

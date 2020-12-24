@@ -5,11 +5,6 @@ use DuAdmin\Core\Authable;
 use Yii;
 use yii\base\ActionFilter;
 use yii\web\ForbiddenHttpException;
-use Backend\Models\ActionLog;
-use yii\helpers\Json;
-use DuAdmin\Core\LongPollAction;
-use DuAdmin\Core\LoopAction;
-use yii\web\ErrorAction;
 
 /**
  * 替代默认的ACF
@@ -87,28 +82,11 @@ class AccessFilter extends ActionFilter
 
     public function afterAction($action, $result)
     {
-        if ($action instanceof ErrorAction) {
-            return $result;
-        } else if ($action instanceof LongPollAction) {
-            return $result;
-        } else if ($action instanceof LoopAction) {
-            return $result;
-        } else {
-            if (! \Yii::$app->user->isGuest) {
-                $data = $_REQUEST;
-                unset($data['r'], $data['_csrf']);
-                $log = new ActionLog([
-                    'userId' => \Yii::$app->user->id,
-                    'action' => $action->getUniqueId(),
-                    'ip' => ip2long(\Yii::$app->request->getRemoteIP()),
-                    'method' => strtoupper(\Yii::$app->request->method),
-                    'sourceType' => \Yii::$app->mode,
-                    'data' => Json::encode($data)
-                ]);
-                $log->save(false);
-            }
-            return $result;
+        //获取操作日志组件
+        if ($actionLog = \Yii::$app->get('actionLog', false)) {
+            $actionLog->recordLog();
         }
+        return $result;
     }
 
     /**
