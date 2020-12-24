@@ -110,7 +110,7 @@ class Menu extends \DuAdmin\Core\BaseModel
     {
         $b = parent::behaviors();
         $b['cleanCache'] = [
-            'class' => 'DuAdmin\Behaviors\ReCacheBehavior',
+            'class' => '\DuAdmin\Behaviors\ReCacheBehavior',
             'cache_keys' => [
                 self::CacheKeyFront => [
                     __CLASS__,

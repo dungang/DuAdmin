@@ -29,7 +29,9 @@ class PropertyBehavior extends Behavior
     public function init()
     {
         parent::init();
-        $this->_user = \Yii::$app->user->getIdentity();
+        if ($user = \Yii::$app->get('user', false)) {
+            $this->_user = $user->getIdentity();
+        }
     }
 
     public function events()
@@ -54,13 +56,13 @@ class PropertyBehavior extends Behavior
         $model = $event->sender;
         $this->setOnce('createdAt', $time, $model);
         $this->setEverytime('updatedAt', $time, $model);
-        //$this->setOnce('pid', 0, $model);
+        // $this->setOnce('pid', 0, $model);
 
         if ($this->_user) {
             $this->setOnce('createdBy', $this->_user->getOperatorId(), $model);
             $this->setEverytime('updatedBy', $this->_user->getOperatorId(), $model);
-//             $this->setOnce('creator', $this->_user->getOperatorName(), $model);
-//             $this->setEverytime('updator', $this->_user->getOperatorName(), $model);
+            // $this->setOnce('creator', $this->_user->getOperatorName(), $model);
+            // $this->setEverytime('updator', $this->_user->getOperatorName(), $model);
         }
     }
 
