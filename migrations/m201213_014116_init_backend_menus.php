@@ -5,7 +5,7 @@ use DuAdmin\Helpers\InstallerHelper;
 /**
  * Class m201225_014116_init_backend_menus
  */
-class m201225_014116_init_backend_menus extends Migration
+class m201213_014116_init_backend_menus extends Migration
 {
 
     /**

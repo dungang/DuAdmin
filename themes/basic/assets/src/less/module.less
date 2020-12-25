@@ -1,0 +1,29 @@
+.module {
+	position:relative;
+	&.place-holder {
+		text-align: center;
+		padding:30px 0;
+		content: '这是初始占位';
+	}
+	.edit-bar {
+		display:none;
+	}
+	&:hover {
+		&.edit {
+			border:1px solid #999;
+			margin: -1px;
+			
+		}
+		.edit-bar {
+			display:block;
+			content: ' ';
+			padding: 2px;
+			background-color: #999;
+			cursor: pointer;
+			text-align: center;
+			width: 100%;
+			position:absolute;
+			bottom: 0;
+		}
+	}
+}

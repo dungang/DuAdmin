@@ -29,29 +29,22 @@ class SettingController extends BackendController
             'index' => [
                 'class' => 'DuAdmin\Core\ListModelsAction',
                 'viewName' => $this->viewBasePath . 'index',
-                'modelImmutableAttrs' => [
-                    'category' => $this->default_category
-                ],
                 'modelClass' => [
-                    'class' => 'DuAdmin\Models\SettingSearch'
+                    'class' => 'DuAdmin\Models\SettingSearch',
+                    'category' => $this->default_category
                 ]
             ],
             'create' => [
                 'class' => 'DuAdmin\Core\CreateModelAction',
                 'viewName' => $this->viewBasePath . 'create',
-                'modelImmutableAttrs' => [
-                    'category' => $this->default_category
-                ],
                 'modelClass' => [
-                    'class' => 'DuAdmin\Models\Setting'
+                    'class' => 'DuAdmin\Models\Setting',
+                    'category' => $this->default_category
                 ]
             ],
             'update' => [
                 'class' => 'DuAdmin\Core\UpdateModelAction',
                 'viewName' => $this->viewBasePath . 'update',
-                'modelImmutableAttrs' => [
-                    'category' => $this->default_category
-                ],
                 'modelClass' => [
                     'class' => 'DuAdmin\Models\Setting'
                 ]
@@ -59,20 +52,14 @@ class SettingController extends BackendController
             'view' => [
                 'class' => 'DuAdmin\Core\ViewModelAction',
                 'viewName' => $this->viewBasePath . 'view',
-                'modelImmutableAttrs' => [
-                    'category' => $this->default_category
-                ],
                 'modelClass' => [
                     'class' => 'DuAdmin\Models\Setting'
                 ]
             ],
             'delete' => [
                 'class' => 'DuAdmin\Core\DeleteModelAction',
-                'modelImmutableAttrs' => [
-                    'category' => $this->default_category
-                ],
                 'modelClass' => [
-                    'class' => 'DuAdmin\Models\Setting'
+                    'class' => 'DuAdmin\Models\Setting',
                 ]
             ]
         ];

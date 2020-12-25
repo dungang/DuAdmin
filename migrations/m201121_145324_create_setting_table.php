@@ -49,6 +49,7 @@ class m201121_145324_create_setting_table extends Migration
                 ['sysltem.storate.local_driver','system.storage.driver','本地存储','DuAdmin\\Storage\\LocalDriver', 'STR', '本地存储，默认存在目录public/uploads','open-feature'],
                 ['uploader.allow_extensions','', '上传文件扩展名', '.jpg,.png',  'ARRAY', '允许上传的文件后缀名','open-feature'],
                 ['system.editor.driver','', '默认编辑器', 'Addons\\Ueditor\\Widgets\\Ueditor',  'STR', '百度编辑器','open-feature'],
+                ['system.flash.widget','', '默认轮播小部件', '',  'STR', '修改位轮播小部件的类名','open-feature'],
             ]);
     }
 
