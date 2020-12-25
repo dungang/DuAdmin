@@ -28,7 +28,7 @@ $config = [
             ]
         ],
         'urlManager' => [
-            'class' => 'DuAdmin\Components\BackendUrlManager',
+            'class' => 'DuAdmin\Components\DuaUrlManager',
         ],
         'assetManager' => [
             'class' => 'DuAdmin\Core\CoreAssetManager',

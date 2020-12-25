@@ -6,6 +6,7 @@ use DuAdmin\Helpers\AppHelper;
 use Yii;
 use yii\helpers\Html;
 use DuAdmin\Core\Authable;
+use yii\helpers\Url;
 
 /**
  * 指支持2层菜单
@@ -35,6 +36,7 @@ class AdminlteSideBarMenu extends Widget
     public function run()
     {
         $this->normalizeItems();
+
         // 权限过滤
         /* @var Authable $user */
         $user = Yii::$app->user->identity;
@@ -75,45 +77,65 @@ class AdminlteSideBarMenu extends Widget
         if (empty($this->items)) {
             return;
         }
-        $host = \Yii::$app->request->getHostName();
-        $path = \Yii::$app->request->getPathInfo();
-        $moduleId = (\Yii::$app->controller->module->id == \Yii::$app->id) ? '' : \Yii::$app->controller->module->id;
-        $routePrefix = $moduleId ? $moduleId . '/' . \Yii::$app->controller->id : \Yii::$app->controller->id;
+        $controllerUniueId = \Yii::$app->controller->uniqueId;
 
         $params = [];
         parse_str(str_replace([
             '[',
             ']'
-        ], '___', \Yii::$app->request->queryString), $params);
+        ], [
+            '***',
+            '**'
+        ], \Yii::$app->request->queryString), $params);
         $counters = [];
 
         // 算分
         foreach ($this->items as $i => &$item) {
             $item[$this->activeKey] = false;
             $item['target'] = '_self';
-            if ($url = $item[$this->urlKey]) {
-                $urlInfo = parse_url($url);
-                if (empty($urlInfo['host']) || $host == $urlInfo['host']) {
-                    $counters[$i] = 1;
-                    if (empty($urlInfo['path']) || $path == $urlInfo['path']) {
-                        $counters[$i] += 1;
+            if ($item['isOuter']) {
+                $item['target'] = '_blank';
+                continue;
+            } else {
+                if ($url = $item[$this->urlKey]) {
+                    $urlInfo = parse_url($url);
+                    if (isset($urlInfo['path'])) {
+                        // 路径就是route
+                        $route = $urlInfo['path'];
+                        $counters[$i] = 1;
+                        // 检查路由前缀加分
+                        $counters[$i] += \stripos($route, $controllerUniueId) === 0 ? 1 : 0;
+                        $queryParams = [
+                            $urlInfo['path']
+                        ];
                         if (isset($urlInfo['query'])) {
-                            $checkParams = [];
+
                             \parse_str(\str_replace([
                                 '[',
                                 ']'
-                            ], '___', $urlInfo['query']), $checkParams);
-                            // 检查路由前缀加分
-                            if (isset($checkParams['r'])) {
-                                $route = \ltrim($checkParams['r'], '/');
-                                $item['r'] = '/' . $route;
-                                $counters[$i] += \stripos($route, $routePrefix) === 0 ? 1 : 0;
-                            }
-                            $counters[$i] += count(array_intersect_assoc($checkParams, $params));
+                            ], [
+                                '***',
+                                '**'
+                            ], $urlInfo['query']), $queryParams);
+
+                            $counters[$i] += count(array_intersect_assoc($queryParams, $params));
+                            $queryKeys = array_map(function ($keyName) {
+                                return \str_replace([
+                                    '***',
+                                    '**'
+                                ], [
+                                    '[',
+                                    ']'
+                                ], $keyName);
+                            }, array_keys($queryParams));
+                            $queryParams = array_combine($queryKeys, array_values($queryParams));
+                            array_unshift($queryParams, $urlInfo['path']);
                         }
+                        $queryParams[0] = '/' . $queryParams[0];
+                        $item[$this->urlKey] = Url::to($queryParams);
+                    } else {
+                        continue;
                     }
-                } else {
-                    $item['target'] = '_blank';
                 }
             }
         }

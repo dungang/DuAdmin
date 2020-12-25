@@ -7,7 +7,7 @@ namespace DuAdmin\Models;
  *
  * @see Menu
  */
-class MenuQuery extends \yii\db\ActiveQuery
+class MenuQuery extends \DuAdmin\Mysql\ActiveQuery
 {
     /*public function active()
     {

@@ -2,11 +2,11 @@
 
 namespace DuAdmin\Models;
 
-use yii\base\Model;
+use Yii;
 use yii\data\ActiveDataProvider;
 
 /**
- * MenuSearch represents the model behind the search form of `Backend\Models\Menu`.
+ * MenuSearch represents the model behind the search form of `DuAdmin\Models\Menu`.
  */
 class MenuSearch extends Menu
 {
@@ -16,9 +16,8 @@ class MenuSearch extends Menu
     public function rules()
     {
         return [
-            [['id', 'pid', 'sort'], 'integer'],
-            [['name', 'url','icon'], 'safe'],
-            [['isFront','requireAuth'], 'boolean'],
+            [['id', 'pid', 'isFront', 'isOuter', 'requireAuth', 'sort'], 'integer'],
+            [['name', 'url', 'icon', 'app'], 'safe'],
         ];
     }
 
@@ -28,7 +27,7 @@ class MenuSearch extends Menu
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
+        return parent::scenarios();
     }
 
     /**
@@ -44,13 +43,16 @@ class MenuSearch extends Menu
 
         // add conditions that should always apply here
 
+        // search before event
+        $this->beforeSearch($query,$params);    
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort' => [
-                'defaultOrder' => [
-                    'sort' => SORT_ASC,
-                ]
-            ],
+		    'sort' => [ 
+               'defaultOrder' => [ 
+                   'sort' => SORT_ASC 
+               ] 
+            ] 
         ]);
 
         $this->load($params);
@@ -64,15 +66,21 @@ class MenuSearch extends Menu
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'isFront' => $this->isFront,
-            'requireAuth' => $this->requireAuth,
             'pid' => $this->pid,
+            'isFront' => $this->isFront,
+            'isOuter' => $this->isOuter,
+            'requireAuth' => $this->requireAuth,
             'sort' => $this->sort,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'url', $this->url])
-            ->andFilterWhere(['like', 'icon', $this->icon]);
+            ->andFilterWhere(['like', 'icon', $this->icon])
+            ->andFilterWhere(['like', 'app', $this->app]);
+
+        if ($full_search = Yii::$app->request->get('full_search')) {
+            $query->andFilterWhere(['FULL_SEARCH',['name','url','icon','app'],$full_search]);
+        }
 
         return $dataProvider;
     }
