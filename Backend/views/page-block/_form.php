@@ -1,0 +1,37 @@
+<?php
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+
+/* @var $this yii\web\View */
+/* @var $model DuAdmin\Models\PageBlock */
+/* @var $form yii\widgets\ActiveForm */
+?>
+<div class="page-block-form">
+
+    <?php $form = ActiveForm::begin(['id'=>'page-block-form','enableAjaxValidation' => true,'action'=>$action]); ?>
+    <div class="row">
+    <?= '<div class="col-xs-6">' . $form->field($model, 'title')->textInput(['maxlength' => true]) . '</div>' ?>
+
+    <?= '<div class="col-xs-6">' . $form->field($model, 'showTitle')->textInput(['maxlength' => true]) . '</div>' ?>
+
+    <?= '<div class="col-xs-6">' . $form->field($model, 'size')->textInput() . '</div>' ?>
+
+    <?= '<div class="col-xs-6">' . $form->field($model, 'background')->textInput(['maxlength' => true]) . '</div>' ?>
+
+    <?= '<div class="col-xs-6">' . $form->field($model, 'isActive')->dropDownList([ 1 => '是', 0 => '否', ], ['prompt' => '']) . '</div>' ?>
+
+    <?= '<div class="col-xs-6">' . $form->field($model, 'widget')->textInput(['maxlength' => true]) . '</div>' ?>
+
+    <?= '<div class="col-xs-6">' . $form->field($model, 'sourceApp')->textInput(['maxlength' => true]) . '</div>' ?>
+
+    <?= '<div class="col-xs-6">' . $form->field($model, 'sort')->textInput() . '</div>' ?>
+
+    </div>
+    <div class="form-group">
+        <?= Html::submitButton('<i class="fa fa-save"></i> ' .  Yii::t('da','Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::resetButton('<i class="fa fa-reply"></i> ' .  Yii::t('da','Reset'), ['class' => 'btn btn-default']) ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
+
+</div>
