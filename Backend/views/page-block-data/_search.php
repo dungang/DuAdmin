@@ -28,7 +28,15 @@ use DuAdmin\Widgets\DatePicker;
 
     <?= '<div class="col-xs-6">' . $form->field($model, 'blockId') . '</div>' ?>
 
-    <?= '<div class="col-xs-6">' . $form->field($model, 'showTitle') . '</div>' ?>
+    <?= '<div class="col-xs-6">' . $form->field($model, 'title') . '</div>' ?>
+
+    <?= '<div class="col-xs-6">' . $form->field($model, 'intro')->textarea(['rows' => 6]) . '</div>' ?>
+
+    <?= '<div class="col-xs-6">' . $form->field($model, 'url') . '</div>' ?>
+
+    <?= '<div class="col-xs-6">' . $form->field($model, 'isOuterUrl')->dropDownList([ 1 => '是', 0 => '否', ], ['prompt' => '']) . '</div>' ?>
+
+    <?= '<div class="col-xs-6">' . $form->field($model, 'urlText') . '</div>' ?>
 
     <?= '<div class="col-xs-6">' . $form->field($model, 'filter') . '</div>' ?>
 
@@ -37,6 +45,8 @@ use DuAdmin\Widgets\DatePicker;
     <?= '<div class="col-xs-6">' . $form->field($model, 'orderBy') . '</div>' ?>
 
     <?= '<div class="col-xs-6">' . $form->field($model, 'style') . '</div>' ?>
+
+    <?= '<div class="col-xs-6">' . $form->field($model, 'options') . '</div>' ?>
 
     <?= '<div class="col-xs-6">' . $form->field($model, 'enableCache')->dropDownList([ 1 => '是', 0 => '否', ], ['prompt' => '']) . '</div>' ?>
 

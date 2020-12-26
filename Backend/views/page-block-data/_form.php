@@ -1,12 +1,14 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use DuAdmin\Widgets\DefaultEditor;
 use DuAdmin\Widgets\DatePicker;
 use DuAdmin\Models\PageBlock;
 
 /* @var $this yii\web\View */
 /* @var $model DuAdmin\Models\PageBlockData */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $action array  */
 ?>
 <div class="page-block-data-form">
 
@@ -14,7 +16,15 @@ use DuAdmin\Models\PageBlock;
     <div class="row">
     <?= '<div class="col-xs-6">' . $form->field($model, 'blockId')->dropDownList(PageBlock::allIdToName()) . '</div>' ?>
 
-    <?= '<div class="col-xs-6">' . $form->field($model, 'showTitle')->textInput(['maxlength' => true]) . '</div>' ?>
+    <?= '<div class="col-xs-6">' . $form->field($model, 'title')->textInput(['maxlength' => true]) . '</div>' ?>
+
+    <?= '<div class="col-xs-6">' . $form->field($model, 'intro')->widget(DefaultEditor::getEditorClass(),['mode' => DefaultEditor::MODE_RICH]) . '</div>' ?>
+
+    <?= '<div class="col-xs-6">' . $form->field($model, 'url')->textInput(['maxlength' => true]) . '</div>' ?>
+
+    <?= '<div class="col-xs-6">' . $form->field($model, 'isOuterUrl')->dropDownList([ 1 => '是', 0 => '否', ], ['prompt' => '']) . '</div>' ?>
+
+    <?= '<div class="col-xs-6">' . $form->field($model, 'urlText')->textInput(['maxlength' => true]) . '</div>' ?>
 
     <?= '<div class="col-xs-6">' . $form->field($model, 'filter')->textInput(['maxlength' => true]) . '</div>' ?>
 
@@ -23,6 +33,8 @@ use DuAdmin\Models\PageBlock;
     <?= '<div class="col-xs-6">' . $form->field($model, 'orderBy')->textInput(['maxlength' => true]) . '</div>' ?>
 
     <?= '<div class="col-xs-6">' . $form->field($model, 'style')->textInput(['maxlength' => true]) . '</div>' ?>
+
+    <?= '<div class="col-xs-6">' . $form->field($model, 'options')->textInput(['maxlength' => true]) . '</div>' ?>
 
     <?= '<div class="col-xs-6">' . $form->field($model, 'enableCache')->dropDownList([ 1 => '是', 0 => '否', ], ['prompt' => '']) . '</div>' ?>
 

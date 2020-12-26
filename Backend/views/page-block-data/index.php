@@ -1,4 +1,5 @@
 <?php
+
 use yii\helpers\Html;
 use DuAdmin\Helpers\AppHelper;
 use DuAdmin\Grids\PanelGridView;
@@ -13,43 +14,38 @@ $this->title = Yii::t('backend', 'Page Block Datas');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php Pjax::begin(['id'=>'page-block-data-index']); ?>
-<?php
-
-PanelGridView::begin([
-    'id' => 'page-block-data-list',
-    'intro' => Yii::t('da', '{0} Info Manage', Yii::t('backend', 'Page Block Datas')),
-    'dataProvider' => $dataProvider,
-    'columns' => [
-        [
-            'class' => '\DuAdmin\Grids\CheckboxColumn',
-            'name' => 'id'
-        ],
-        [
-            'attribute' => 'id',
-            'format' => 'raw',
-            'value' => function ($model, $key, $index, $column) {
-                return AppHelper::linkButtonWithSimpleModal($model['id'], [
-                    'view',
-                    'id' => $model['id']
-                ]);
-            }
-        ],
-        'showTitle',
-        'filter',
-        'size',
-        // 'orderBy',
-        // 'style',
-        // 'enableCache',
-        // 'expiredAt:datetime',
-        // 'sort',
-        'block.name',
-        'block.widget',
-        [
-            'class' => '\DuAdmin\Grids\ActionColumn'
-        ]
-    ]
-]);
-?>
+<?php  PanelGridView::begin([
+        'id' => 'page-block-data-list',
+    	'intro' => Yii::t('da','{0} Info Manage',Yii::t('backend', 'Page Block Datas')),
+        'dataProvider' => $dataProvider,
+        'columns' => [
+            ['class'=>'\DuAdmin\Grids\CheckboxColumn','name'=>'id'],
+            [
+                'attribute' => 'id',
+                'format'=>'raw',
+                'value'=>function($model,$key,$index,$column){
+                    return AppHelper::linkButtonWithSimpleModal($model['id'],['view','id'=>$model['id']]);
+                }
+        	],
+            'blockId',
+            'title',
+            'intro:ntext',
+            'url:url',
+            //'isOuterUrl',
+            //'urlText',
+            //'filter',
+            //'size',
+            //'orderBy',
+            //'style',
+            //'options',
+            //'enableCache',
+            //'expiredAt:datetime',
+            //'sort',
+            [
+                'class' => '\DuAdmin\Grids\ActionColumn',
+        	]
+       ]
+    ]); ?>
 
 <?= FullSearchBox::widget(['action'=>['index']]) ?> 
 

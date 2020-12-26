@@ -16,8 +16,8 @@ class PageBlockDataSearch extends PageBlockData
     public function rules()
     {
         return [
-            [['id', 'blockId', 'size', 'enableCache', 'sort'], 'integer'],
-            [['showTitle', 'filter', 'orderBy', 'style', 'expiredAt'], 'safe'],
+            [['id', 'blockId', 'isOuterUrl', 'size', 'enableCache', 'sort'], 'integer'],
+            [['title', 'intro', 'url', 'urlText', 'filter', 'orderBy', 'style', 'options', 'expiredAt'], 'safe'],
         ];
     }
 
@@ -67,6 +67,7 @@ class PageBlockDataSearch extends PageBlockData
         $query->andFilterWhere([
             'id' => $this->id,
             'blockId' => $this->blockId,
+            'isOuterUrl' => $this->isOuterUrl,
             'size' => $this->size,
             'enableCache' => $this->enableCache,
             'sort' => $this->sort,
@@ -74,13 +75,17 @@ class PageBlockDataSearch extends PageBlockData
 
         $query->andFilterWhere(['DATE_RANGE','expiredAt',$this->expiredAt]);
 
-        $query->andFilterWhere(['like', 'showTitle', $this->showTitle])
+        $query->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'intro', $this->intro])
+            ->andFilterWhere(['like', 'url', $this->url])
+            ->andFilterWhere(['like', 'urlText', $this->urlText])
             ->andFilterWhere(['like', 'filter', $this->filter])
             ->andFilterWhere(['like', 'orderBy', $this->orderBy])
-            ->andFilterWhere(['like', 'style', $this->style]);
+            ->andFilterWhere(['like', 'style', $this->style])
+            ->andFilterWhere(['like', 'options', $this->options]);
 
         if ($full_search = Yii::$app->request->get('full_search')) {
-            $query->andFilterWhere(['FULL_SEARCH',['showTitle','filter','orderBy','style'],$full_search]);
+            $query->andFilterWhere(['FULL_SEARCH',['title','intro','url','urlText','filter','orderBy','style','options'],$full_search]);
         }
 
         return $dataProvider;

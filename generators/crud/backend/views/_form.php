@@ -6,7 +6,6 @@ use yii\helpers\StringHelper;
 /* @var $this yii\web\View */
 /* @var $generator app\generators\crud\Generator */
 /* @var $model \yii\db\ActiveRecord */
-/* @var $action array  */
 
 $model = new $generator->modelClass();
 $safeAttributes = $model->safeAttributes();
@@ -47,5 +46,6 @@ use <?=$className?>;
 /* @var $this yii\web\View */
 /* @var $model <?= ltrim($generator->modelClass, '\\') ?> */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $action array  */
 ?>
 <?= $this->blocks['form']?>

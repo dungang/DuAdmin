@@ -8,13 +8,18 @@ use Yii;
  *
  * @property int $id
  * @property int $blockId 块ID
- * @property string $showTitle 显示标题
+ * @property string $title 标题
+ * @property string $intro 说明
+ * @property string $url 地址
+ * @property int $isOuterUrl 是外部地址::1:是|0:否
+ * @property string $urlText 地址标题
  * @property string $filter 过滤条件::如 name=duadmin&id=du 使用queryString格式
  * @property int $size 数量
  * @property string $orderBy 显示排序::如 id DESC, sort ASC
  * @property string $style 样式
+ * @property string $options 元素选项::yii框架类似选项使用queryString设置
  * @property int $enableCache 是否缓存::1:是|0:否
- * @property string $expiredAt 缓存过期时间
+ * @property string $expiredAt 缓存过期时间::0和空表示永久缓存
  * @property int $sort 排序
  */
 class PageBlockData extends \DuAdmin\Core\BaseModel
@@ -41,10 +46,12 @@ class PageBlockData extends \DuAdmin\Core\BaseModel
     {
         return [
             [['blockId'], 'required'],
-            [['blockId', 'size', 'enableCache', 'sort'], 'integer'],
+            [['blockId', 'isOuterUrl', 'size', 'enableCache', 'sort'], 'integer'],
+            [['intro'], 'string'],
             [['expiredAt'], 'safe'],
-            [['showTitle'], 'string', 'max' => 64],
-            [['filter', 'style'], 'string', 'max' => 255],
+            [['title'], 'string', 'max' => 64],
+            [['url', 'urlText'], 'string', 'max' => 128],
+            [['filter', 'style', 'options'], 'string', 'max' => 255],
             [['orderBy'], 'string', 'max' => 32],
         ];
     }
@@ -57,11 +64,16 @@ class PageBlockData extends \DuAdmin\Core\BaseModel
         return [
             'id' => Yii::t('app', 'ID'),
             'blockId' => Yii::t('app', 'Block ID'),
-            'showTitle' => Yii::t('app', 'Show Title'),
+            'title' => Yii::t('app', 'Title'),
+            'intro' => Yii::t('app', 'Intro'),
+            'url' => Yii::t('app', 'Url'),
+            'isOuterUrl' => Yii::t('app', 'Is Outer Url'),
+            'urlText' => Yii::t('app', 'Url Text'),
             'filter' => Yii::t('app', 'Filter'),
             'size' => Yii::t('app', 'Size'),
             'orderBy' => Yii::t('app', 'Order By'),
             'style' => Yii::t('app', 'Style'),
+            'options' => Yii::t('app', 'Options'),
             'enableCache' => Yii::t('app', 'Enable Cache'),
             'expiredAt' => Yii::t('app', 'Expired At'),
             'sort' => Yii::t('app', 'Sort'),
@@ -74,9 +86,12 @@ class PageBlockData extends \DuAdmin\Core\BaseModel
     public function attributeHints()
     {
         return [
+            'isOuterUrl' => '1:是|0:否',
             'filter' => '如 name=duadmin&id=du 使用queryString格式',
             'orderBy' => '如 id DESC, sort ASC',
+            'options' => 'yii框架类似选项使用queryString设置',
             'enableCache' => '1:是|0:否',
+            'expiredAt' => '0和空表示永久缓存',
         ];
     }
 

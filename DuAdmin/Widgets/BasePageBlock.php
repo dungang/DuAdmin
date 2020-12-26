@@ -21,9 +21,13 @@ abstract class BasePageBlock extends Widget
      * @var Query
      */
     public $query;
+    
+    
+    public $options;
 
     public final function run()
     {
+        $this->initOptions();
         if ($this->model->style) {
             $this->options['style'] = $this->model->style;
         }
@@ -39,6 +43,18 @@ abstract class BasePageBlock extends Widget
         }
         return $this->showBlock();
     }
+    
+    
+    private function initOptions(){
+        if($this->model->options) {
+            $options = [];
+            parse_str($this->model->options,$options);
+            $this->options = array_merge($this->options,$options);
+        }
+        if (!isset($this->options['id'])) {
+            $this->options['id'] = $this->getId();
+        }
+    }
 
     private function showBlock()
     {
@@ -46,7 +62,7 @@ abstract class BasePageBlock extends Widget
         if ($content) {
             return Html::tag('div', $content, $this->options);
         }
-        return '<!-- ' . $this->model->showTitle . ' : ' . get_called_class() . ' NO DATA -->';
+        return '<!-- ' . $this->model->title . ' : ' . get_called_class() . ' NO DATA -->';
     }
 
     public function composerQuery()

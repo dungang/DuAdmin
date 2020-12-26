@@ -337,7 +337,18 @@ class AppHelper
      */
     public static function createOderNo3()
     {
-        $yCode = [ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J' ];
+        $yCode = [
+            'A',
+            'B',
+            'C',
+            'D',
+            'E',
+            'F',
+            'G',
+            'H',
+            'I',
+            'J'
+        ];
         return $yCode[intval(date('Y')) - 2011] . strtoupper(dechex(date('m'))) . date('d') . substr(time(), - 5) . substr(microtime(), 2, 5) . sprintf('%02d', rand(0, 99));
     }
 
@@ -801,5 +812,36 @@ class AppHelper
         return array_map(function ($dir) {
             return basename($dir);
         }, $dirs);
+    }
+
+    /**
+     * 解析菜单url
+     * route?param=val
+     *
+     * @param string $url
+     */
+    public static function parseDuAdminMenuUrl($url)
+    {
+        if ($url) {
+            $info = parse_url($url);
+            $route = '';
+
+            if (isset($info['path'])) {
+                $route = $info['path'];
+            }
+            $query = [];
+            if (isset($info['query'])) {
+                parse_str($info['query'], $query);
+                if (empty($route) && isset($query['r'])) {
+                    $route = $query['r'];
+                    unset($query['r']);
+                }
+            }
+            if ($route) {
+                array_unshift($query, $route);
+                return $query;
+            }
+        }
+        return null;
     }
 }
