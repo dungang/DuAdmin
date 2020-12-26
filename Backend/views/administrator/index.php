@@ -35,7 +35,6 @@ PanelGridView::begin([
         ],
         'username',
         'nickname',
-        'avatar',
         [
             'label' => Yii::t('backend', 'Roles'),
             'format' => 'raw',

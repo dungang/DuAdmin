@@ -52,9 +52,9 @@ class ConfigWidget extends Widget
 
     public function run()
     {
-        if (empty($this->baseUrl)) {
-            $this->baseUrl = Yii::$app->request->baseUrl . '/uploads';
-        }
+//         if (empty($this->baseUrl)) {
+//             $this->baseUrl = Yii::$app->request->baseUrl . '/uploads';
+//         }
         if (empty($this->uploadUrl)) {
             $this->uploadUrl = Yii::$app->urlManager->createUrl('site/upload');
         }

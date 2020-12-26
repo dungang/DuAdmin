@@ -51,13 +51,13 @@ class SiteController extends GuestController
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null
             ],
             'upload' => [
-                'class' => 'DuAdmin\Uploader\LocalUploadAction'
+                'class' => '\DuAdmin\Uploader\LocalUploadAction'
             ],
             'upload-token' => [
-                'class' => 'DuAdmin\Uploader\TokenAction'
+                'class' => '\DuAdmin\Uploader\TokenAction'
             ],
             'upload-delete' => [
-                'class' => 'DuAdmin\Uploader\DeleteAction'
+                'class' => '\DuAdmin\Uploader\DeleteAction'
             ]
         ];
     }

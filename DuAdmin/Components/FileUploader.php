@@ -129,7 +129,7 @@ class FileUploader extends BaseObject
         if (empty(self::$driver)) {
             $driverName = AppHelper::getSetting('system.storage.driver');
             if (empty($driverName) || $driverName == 'local') {
-                $class = 'DuAdmin\\storage\\LocalDriver';
+                $class = '\DuAdmin\storage\LocalDriver';
             } else {
                 $class = $driverName;
             }

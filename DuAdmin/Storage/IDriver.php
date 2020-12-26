@@ -63,7 +63,7 @@ abstract class IDriver extends BaseObject
      */
     public function initWritePath($fileType)
     {
-        return $fileType . '/' . Date('Y/m/d');
+        return 'uploads/' . $fileType . '/' . Date('Y/m/d');
     }
 
     /**

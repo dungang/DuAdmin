@@ -43,7 +43,7 @@ class AdministratorController extends BackendController
             'update' => [
                 'class' => 'DuAdmin\Core\UpdateModelAction',
                 'modelBehaviors' => [
-                    'super-do-self' => 'app\backend\Behaviors\ChangeSuperBySelfBehavior',
+                    'super-do-self' => 'Backend\Behaviors\ChangeSuperBySelfBehavior',
                     'set-password' => 'DuAdmin\Behaviors\PasswordBehavior'
                 ],
                 'modelClass' => [
@@ -59,7 +59,7 @@ class AdministratorController extends BackendController
             'delete' => [
                 'class' => 'DuAdmin\Core\DeleteModelAction',
                 'modelBehaviors' => [
-                    'super-do-self' => 'app\backend\Behaviors\ChangeSuperBySelfBehavior'
+                    'super-do-self' => 'Backend\Behaviors\ChangeSuperBySelfBehavior'
                 ],
                 'modelClass' => [
                     'class' => 'Backend\Models\Admin'

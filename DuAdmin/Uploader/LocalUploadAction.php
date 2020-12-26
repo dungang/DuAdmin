@@ -46,7 +46,7 @@ class LocalUploadAction extends Action
             ->done(function ($params, $model) {
             $key = trim($model->key, '.');
             if (strpos($key, '..') === false) {
-                $dist = \Yii::getAlias("@app/public/uploads/" . $key);
+                $dist = \Yii::getAlias("@webroot/" . $key);
                 $distDir = dirname($dist);
                 if (! is_dir($distDir)) {
                     FileHelper::createDirectory($distDir);
