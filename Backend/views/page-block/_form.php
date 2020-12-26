@@ -10,21 +10,11 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(['id'=>'page-block-form','enableAjaxValidation' => true,'action'=>$action]); ?>
     <div class="row">
-    <?= '<div class="col-xs-6">' . $form->field($model, 'title')->textInput(['maxlength' => true]) . '</div>' ?>
-
-    <?= '<div class="col-xs-6">' . $form->field($model, 'showTitle')->textInput(['maxlength' => true]) . '</div>' ?>
-
-    <?= '<div class="col-xs-6">' . $form->field($model, 'size')->textInput() . '</div>' ?>
-
-    <?= '<div class="col-xs-6">' . $form->field($model, 'background')->textInput(['maxlength' => true]) . '</div>' ?>
-
-    <?= '<div class="col-xs-6">' . $form->field($model, 'isActive')->dropDownList([ 1 => '是', 0 => '否', ], ['prompt' => '']) . '</div>' ?>
+    <?= '<div class="col-xs-6">' . $form->field($model, 'name')->textInput(['maxlength' => true]) . '</div>' ?>
 
     <?= '<div class="col-xs-6">' . $form->field($model, 'widget')->textInput(['maxlength' => true]) . '</div>' ?>
 
     <?= '<div class="col-xs-6">' . $form->field($model, 'sourceApp')->textInput(['maxlength' => true]) . '</div>' ?>
-
-    <?= '<div class="col-xs-6">' . $form->field($model, 'sort')->textInput() . '</div>' ?>
 
     </div>
     <div class="form-group">

@@ -26,21 +26,11 @@ use DuAdmin\Widgets\DatePicker;
 <div class="row">
     <?= '<div class="col-xs-6">' . $form->field($model, 'id') . '</div>' ?>
 
-    <?= '<div class="col-xs-6">' . $form->field($model, 'title') . '</div>' ?>
-
-    <?= '<div class="col-xs-6">' . $form->field($model, 'showTitle') . '</div>' ?>
-
-    <?= '<div class="col-xs-6">' . $form->field($model, 'size') . '</div>' ?>
-
-    <?= '<div class="col-xs-6">' . $form->field($model, 'background') . '</div>' ?>
-
-    <?= '<div class="col-xs-6">' . $form->field($model, 'isActive')->dropDownList([ 1 => '是', 0 => '否', ], ['prompt' => '']) . '</div>' ?>
+    <?= '<div class="col-xs-6">' . $form->field($model, 'name') . '</div>' ?>
 
     <?= '<div class="col-xs-6">' . $form->field($model, 'widget') . '</div>' ?>
 
     <?= '<div class="col-xs-6">' . $form->field($model, 'sourceApp') . '</div>' ?>
-
-    <?= '<div class="col-xs-6">' . $form->field($model, 'sort') . '</div>' ?>
 
     <?= '<div class="col-xs-6">' . $form->field($model, 'createdAt')->widget(DatePicker::class,['multidate'=>2]) . '</div>' ?>
 

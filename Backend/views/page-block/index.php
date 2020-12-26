@@ -27,15 +27,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     return AppHelper::linkButtonWithSimpleModal($model['id'],['view','id'=>$model['id']]);
                 }
         	],
-            'title',
-            'showTitle',
-            'size',
-            'background',
-            //'isActive',
-            //'widget',
-            //'sourceApp',
-            //'sort',
-            //'createdAt:date',
+            'name',
+            'widget',
+            'sourceApp',
+            'createdAt:date',
             //'updatedAt:date',
             [
                 'class' => '\DuAdmin\Grids\ActionColumn',

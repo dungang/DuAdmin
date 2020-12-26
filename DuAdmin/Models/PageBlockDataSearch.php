@@ -6,9 +6,9 @@ use Yii;
 use yii\data\ActiveDataProvider;
 
 /**
- * PageBlockSearch represents the model behind the search form of `DuAdmin\Models\PageBlock`.
+ * PageBlockDataSearch represents the model behind the search form of `DuAdmin\Models\PageBlockData`.
  */
-class PageBlockSearch extends PageBlock
+class PageBlockDataSearch extends PageBlockData
 {
     /**
      * {@inheritdoc}
@@ -16,8 +16,8 @@ class PageBlockSearch extends PageBlock
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['name', 'widget', 'sourceApp', 'createdAt', 'updatedAt'], 'safe'],
+            [['id', 'blockId', 'size', 'enableCache', 'sort'], 'integer'],
+            [['showTitle', 'filter', 'orderBy', 'style', 'expiredAt'], 'safe'],
         ];
     }
 
@@ -39,7 +39,7 @@ class PageBlockSearch extends PageBlock
      */
     public function search($params)
     {
-        $query = PageBlock::find();
+        $query = PageBlockData::find();
 
         // add conditions that should always apply here
 
@@ -50,7 +50,7 @@ class PageBlockSearch extends PageBlock
             'query' => $query,
 		    'sort' => [ 
                'defaultOrder' => [ 
-                   'createdAt' => SORT_DESC 
+                   'sort' => SORT_ASC 
                ] 
             ] 
         ]);
@@ -66,17 +66,21 @@ class PageBlockSearch extends PageBlock
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'blockId' => $this->blockId,
+            'size' => $this->size,
+            'enableCache' => $this->enableCache,
+            'sort' => $this->sort,
         ]);
 
-        $query->andFilterWhere(['DATE_RANGE','createdAt',$this->createdAt])
-            ->andFilterWhere(['DATE_RANGE','updatedAt',$this->updatedAt]);
+        $query->andFilterWhere(['DATE_RANGE','expiredAt',$this->expiredAt]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'widget', $this->widget])
-            ->andFilterWhere(['like', 'sourceApp', $this->sourceApp]);
+        $query->andFilterWhere(['like', 'showTitle', $this->showTitle])
+            ->andFilterWhere(['like', 'filter', $this->filter])
+            ->andFilterWhere(['like', 'orderBy', $this->orderBy])
+            ->andFilterWhere(['like', 'style', $this->style]);
 
         if ($full_search = Yii::$app->request->get('full_search')) {
-            $query->andFilterWhere(['FULL_SEARCH',['name','widget','sourceApp'],$full_search]);
+            $query->andFilterWhere(['FULL_SEARCH',['showTitle','filter','orderBy','style'],$full_search]);
         }
 
         return $dataProvider;

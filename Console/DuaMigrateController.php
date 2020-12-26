@@ -24,21 +24,7 @@ class DuaMigrateController extends MigrateController
             $addonName = basename($name);
             $this->migrationPath[] = '@Addons/' . $addonName . '/Migrations';
         }
-        // foreach (\Yii::$app->modules as $key => $module) {
-        // if ($module instanceof Addon) {
-        // $this->migrationPath[] = '@Addons/' . Inflector::id2camel($key) . '/Migrations';
-        // } else if (is_array($module)) {
-        // if (isset($module['class'])) {
-        // if (substr($module['class'], 0, 6) == 'Addons') {
-        // $this->migrationPath[] = '@Addons/' . Inflector::id2camel($key) . '/Migrations';
-        // }
-        // }
-        // } else if (is_string($module)) {
-        // if (substr($module, 0, 6) == 'Addons') {
-        // $this->migrationPath[] = '@Addons/' . Inflector::id2camel($key) . '/Migrations';
-        // }
-        // }
-        // }
+        //print_r($this->migrationPath);die;
     }
 
     /**

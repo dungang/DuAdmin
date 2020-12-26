@@ -4,9 +4,26 @@ namespace DuAdmin\Helpers;
 use DuAdmin\Models\Menu;
 use DuAdmin\Models\Navigation;
 use DuAdmin\Models\Setting;
+use DuAdmin\Models\PageBlock;
 
 class InstallerHelper
 {
+    
+    public static function installPageBlocks($blocks,$sourceApp='backend'){
+        
+        if($blocks) {
+            foreach($blocks as $block) {
+                $model = new PageBlock();
+                $model->load($block,'');
+                $model->sourceApp = $sourceApp;
+                $model->save();
+                if ($model->hasErrors()) {
+                    print_r($model->errors);
+                    die();
+                }
+            }
+        }
+    }
 
     /**
      * 安装菜单

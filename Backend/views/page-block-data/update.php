@@ -3,11 +3,11 @@
 use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 
 /* @var $this yii\web\View */
-/* @var $model DuAdmin\Models\PageBlock */
+/* @var $model DuAdmin\Models\PageBlockData */
 
 $this->title = Yii::t('da','Update');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Page Blocks'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Page Block Datas'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = $this->title;
 echo AjaxModalOrNormalPanelContent::widget([
     'intro'=> Yii::t('da','Update Info'),

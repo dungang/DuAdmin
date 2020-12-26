@@ -28,8 +28,8 @@ class m201213_014116_init_backend_menus extends Migration
                 'sort' => 900,
                 'children' => [
                     [
-                        'name' => 'Blocks',
-                        'url' => 'block/index',
+                        'name' => 'Page Blocks',
+                        'url' => 'page-block/index',
                         'icon' => 'fa fa-clone'
                     ]
                 ]
