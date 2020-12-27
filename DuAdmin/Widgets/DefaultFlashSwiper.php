@@ -30,6 +30,8 @@ class DefaultFlashSwiper extends Widget
         if ($class) {
             if (class_exists($class)) {
                 return call_user_func([$class,'widget'],$options);
+            } else {
+                return '<!-- ' . $class . ' NOT FOUND -->';
             }
         }
         return static::widget($options);

@@ -1,5 +1,7 @@
 <?php
-namespace DuAdmin\Widgets;
+namespace Frontend\Widgets;
+
+use DuAdmin\Widgets\BasePageBlock;
 
 class JumbotronBlock extends BasePageBlock
 {

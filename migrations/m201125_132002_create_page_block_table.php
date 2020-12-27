@@ -46,13 +46,13 @@ class m201125_132002_create_page_block_table extends Migration
   
         $this->insert("{{%page_block}}",[
             'name' => 'DuAdmin巨幕',
-            'widget' => 'DuAdmin\Widgets\JumbotronBlock',
+            'widget' => '\Frontend\Widgets\JumbotronBlock',
             'sourceApp' => 'core',
             'createdAt' => date('Y-m-d H:i:s'),
             'updatedAt' => date('Y-m-d H:i:s'),
         ]);
         $this->insert("{{%page_block}}",[
-            'name' => '前端联系我们',
+            'name' => '联系我们',
             'widget' => 'Frontend\Widgets\ContactBlock',
             'sourceApp' => 'frontend',
             'createdAt' => date('Y-m-d H:i:s'),
@@ -65,6 +65,12 @@ class m201125_132002_create_page_block_table extends Migration
             'url' => 'index',
             'urlText' => '<i class="fa fa-plane"></i> Get started with DuAdmin',
             'size' => 5
+        ]);
+        $this->insert("{{%page_block_data}}", [
+            'blockId' => 2,
+            'title' => '联系我们',
+            'intro' => '如果您有商业需求或者任何问题都可以填写如下表单联系我们。非常期待您咨询，谢谢',
+            'options' => 'class=block-bar'
         ]);
     }
 

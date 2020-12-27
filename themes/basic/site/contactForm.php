@@ -14,10 +14,14 @@ use yii\captcha\Captcha;
 			<h1 class="text-center"><?= Yii::t('app','Contact')?></h1>
 			<p><?= Yii::t('app','If you have business inquiries or other questions, please fill out the following form to contact us. Thank you.')?></p>
             <?php $form = ActiveForm::begin(['id' => 'contact-form','action'=>['/site/contact']]); ?>
-
-                <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
-
+				<div class="row">
+				<div class="col-lg-6">
+                <?= $form->field($model, 'fullName')->textInput(['autofocus' => true]) ?>
+				</div>
+				<div class="col-lg-6">
                 <?= $form->field($model, 'email') ?>
+                </div>
+				</div>
 
                 <?= $form->field($model, 'subject') ?>
 
@@ -26,7 +30,7 @@ use yii\captcha\Captcha;
                 <?=$form->field($model, 'verifyCode')->widget(Captcha::className(), ['template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>'])?>
 
                 <div class="form-group">
-                    <?= Html::submitButton(Yii::t('da','Submit'), ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+                    <?= Html::submitButton('<i class="fa fa-send"></i> ' . Yii::t('da','Submit'), ['class' => 'btn btn-primary btn-lg', 'name' => 'contact-button']) ?>
                 </div>
 
             <?php ActiveForm::end(); ?>

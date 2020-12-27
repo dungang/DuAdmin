@@ -1600,6 +1600,9 @@ body {
 .footer a:active {
   color: #232834;
 }
+.btn {
+  border-radius: 100px;
+}
 .dua.dua-banner {
   background-image: url(/images/banner-bg.jpg);
   background-repeat: no-repeat;
@@ -1616,6 +1619,9 @@ body {
 }
 .dua .show-swiper {
   padding: 30px;
+}
+.dua .show-swiper .swiper-zoom-container {
+  padding: 0 15px;
 }
 .dua .show-swiper img {
   max-height: 275px;

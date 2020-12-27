@@ -11,7 +11,7 @@ use DuAdmin\Helpers\AppHelper;
  */
 class ContactForm extends Model
 {
-    public $name;
+    public $fullName;
     public $email;
     public $subject;
     public $body;
@@ -24,8 +24,8 @@ class ContactForm extends Model
     public function rules()
     {
         return [
-            // name, email, subject and body are required
-            [['name', 'email', 'subject', 'body'], 'required'],
+            // fullName, email, subject and body are required
+            [['fullName', 'email', 'subject', 'body'], 'required'],
             // email has to be a valid email address
             ['email', 'email'],
             // verifyCode needs to be entered correctly
@@ -40,7 +40,7 @@ class ContactForm extends Model
     {
         return [
             'verifyCode' => \Yii::t('app','Verification Code'),
-            'name' => \Yii::t('app','Name'),
+            'fullName' => \Yii::t('app','Full Name'),
             'subject' => \Yii::t('app','Subject'),
             'email' => \Yii::t('app','Email'),
             'body' => \Yii::t('app','Body'),    
@@ -58,7 +58,7 @@ class ContactForm extends Model
         return Yii::$app->mailer->compose()
             ->setTo($email)
             ->setFrom([AppHelper::getSetting('email.username') => AppHelper::getSetting('email.useralias')])
-            ->setReplyTo([$this->email => $this->name])
+            ->setReplyTo([$this->email => $this->fullName])
             ->setSubject($this->subject)
             ->setTextBody($this->body)
             ->send();

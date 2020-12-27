@@ -107,6 +107,13 @@ class m201213_014116_init_backend_menus extends Migration
                 ]
             ]
         ],0,'core',true);
+        
+        InstallerHelper::installNavigations([
+            ['name'=>'Gitee','url'=>'https://gitee.com/dungang/DuAdmin','isOuter'=>1],
+            ['name'=>'GitHub','url'=>'https://github.com/dungang/DuAdmin','isOuter'=>1],
+            ['name'=>'联系我们','url'=>'contact-us'],
+            ['name'=>'关于我们','url'=>'about-us']
+        ]);
     }
 
     /**

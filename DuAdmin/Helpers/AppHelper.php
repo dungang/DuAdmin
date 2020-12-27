@@ -819,21 +819,21 @@ class AppHelper
      * route?param=val
      *
      * @param string $url
+     * @params string $routePrefix
      */
-    public static function parseDuAdminMenuUrl($url)
+    public static function parseDuAdminMenuUrl($url,$routePrefix='')
     {
         if ($url) {
             $info = parse_url($url);
             $route = '';
-
             if (isset($info['path'])) {
-                $route = $info['path'];
+                $route = $routePrefix .  $info['path'];
             }
             $query = [];
             if (isset($info['query'])) {
                 parse_str($info['query'], $query);
                 if (empty($route) && isset($query['r'])) {
-                    $route = $query['r'];
+                    $route = $routePrefix . $query['r'];
                     unset($query['r']);
                 }
             }

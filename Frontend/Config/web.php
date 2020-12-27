@@ -1,7 +1,7 @@
 <?php
 $config = [
     'controllerNamespace' => 'Frontend\Controllers',
-    'viewPath' => '@app/Frontend/views',
+    'viewPath' => '@Frontend/views',
     'components' => [
         'request' => [
             'cookieValidationKey' =>  getenv('APP_KEY'),
@@ -34,7 +34,7 @@ $config = [
             'enablePrettyUrl' => true,
             'from_db' => true,
             'rules' => [
-                //'page/<slug:[\w \-]+>' => 'site/page'
+                '<slug:[\w \-]+>' => 'site/page'
             ]
         ],
         'assetManager' => [

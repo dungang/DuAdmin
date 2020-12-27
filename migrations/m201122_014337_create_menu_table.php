@@ -33,7 +33,7 @@ class m201122_014337_create_menu_table extends Migration
             'name' => $this->string(64)->notNull()->comment('导航名'),
             'url' => $this->string(128)->notNull()->defaultValue('#')->comment('地址::可以是内部和外部地址'),
             'isOuter' => $this->boolean()->defaultValue(0)->comment('是否外部链接::0:否|1:是'),
-            'requireLogin' => $this->boolean()->defaultValue(1)->comment('需要登录::0:不需要|1:需要'),
+            'requireLogin' => $this->boolean()->defaultValue(0)->comment('需要登录::0:不需要|1:需要'),
             'icon' => $this->string(64)->null()->comment('ICON'),
             'app' => $this->string(64)->notNull()->defaultValue('frontend')->comment('所属APP::前台或后台或插件的Id'),
             'sort' => $this->smallInteger()->defaultValue(0)->comment('排序'),

@@ -4,7 +4,6 @@ namespace DuAdmin\Models;
 
 use Yii;
 use yii\data\ActiveDataProvider;
-use DuAdmin\Models\Navigation;
 
 /**
  * NavigationSearch represents the model behind the search form of `DuAdmin\Models\Navigation`.
@@ -17,7 +16,7 @@ class NavigationSearch extends Navigation
     public function rules()
     {
         return [
-            [['id', 'pid', 'requireLogin', 'sort'], 'integer'],
+            [['id', 'pid', 'isOuter', 'requireLogin', 'sort'], 'integer'],
             [['name', 'url', 'icon', 'app'], 'safe'],
         ];
     }
@@ -68,6 +67,7 @@ class NavigationSearch extends Navigation
         $query->andFilterWhere([
             'id' => $this->id,
             'pid' => $this->pid,
+            'isOuter' => $this->isOuter,
             'requireLogin' => $this->requireLogin,
             'sort' => $this->sort,
         ]);

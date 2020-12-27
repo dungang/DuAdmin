@@ -89,9 +89,8 @@ class SiteController extends GuestController
     public function actionPage($slug = 'index')
     {
         // try to display action from controller
- 
         try {
-            return $this->run('/'. $slug);
+            return $this->run('/' . $slug);
         } catch (\yii\base\InvalidRouteException $ex) {
             \Yii::debug($ex->getMessage());
         }
@@ -123,6 +122,7 @@ class SiteController extends GuestController
 
         return $this->goHome();
     }
+
     /**
      * Displays contact page.
      *
@@ -137,15 +137,15 @@ class SiteController extends GuestController
             } else {
                 Yii::$app->session->setFlash('error', 'There was an error sending your message.');
             }
-            
+
             return $this->refresh();
         } else {
             return $this->render('contact', [
-                'model' => $model,
+                'model' => $model
             ]);
         }
     }
-    
+
     /**
      * Requests password reset.
      *
@@ -157,18 +157,18 @@ class SiteController extends GuestController
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
                 Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
-                
+
                 return $this->goHome();
             } else {
                 Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');
             }
         }
-        
+
         return $this->render('requestPasswordResetToken', [
-            'model' => $model,
+            'model' => $model
         ]);
     }
-    
+
     /**
      * Resets password.
      *
@@ -183,18 +183,18 @@ class SiteController extends GuestController
         } catch (InvalidArgumentException $e) {
             throw new BadRequestHttpException($e->getMessage());
         }
-        
+
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
             Yii::$app->session->setFlash('success', 'New password saved.');
-            
+
             return $this->goHome();
         }
-        
+
         return $this->render('resetPassword', [
-            'model' => $model,
+            'model' => $model
         ]);
     }
-    
+
     /**
      * Verify email address
      *
@@ -215,11 +215,11 @@ class SiteController extends GuestController
                 return $this->goHome();
             }
         }
-        
+
         Yii::$app->session->setFlash('error', 'Sorry, we are unable to verify your account with provided token.');
         return $this->goHome();
     }
-    
+
     /**
      * Resend verification email
      *
@@ -235,7 +235,7 @@ class SiteController extends GuestController
             }
             Yii::$app->session->setFlash('error', 'Sorry, we are unable to resend verification email for the provided email address.');
         }
-        
+
         return $this->render('resendVerificationEmail', [
             'model' => $model
         ]);

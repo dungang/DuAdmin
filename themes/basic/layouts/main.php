@@ -61,10 +61,15 @@ $this->params['logo'] = AppHelper::getSetting('site.logo');
                 if ($navigation['requireLogin'] && Yii::$app->user->isGuest) {
                     continue;
                 }
-                $navigation['url'] = AppHelper::normalizeUrl2Route($navigation['url']);
+                if(empty($navigation['isOuter'])) {
+                    $navigation['url'] = AppHelper::parseDuAdminMenuUrl($navigation['url'],'/');
+                } else {
+                    $navigation['linkOptions'] = ['target'=>'_blank'];
+                }
                 $menus[] = $navigation;
             }
         }
+    
         echo Nav::widget([
             'options' => [
                 'class' => 'navbar-nav navbar-right text-uppercase'
