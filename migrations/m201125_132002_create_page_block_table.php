@@ -51,12 +51,19 @@ class m201125_132002_create_page_block_table extends Migration
             'createdAt' => date('Y-m-d H:i:s'),
             'updatedAt' => date('Y-m-d H:i:s'),
         ]);
+        $this->insert("{{%page_block}}",[
+            'name' => '前端联系我们',
+            'widget' => 'Frontend\Widgets\ContactBlock',
+            'sourceApp' => 'frontend',
+            'createdAt' => date('Y-m-d H:i:s'),
+            'updatedAt' => date('Y-m-d H:i:s'),
+        ]);
         $this->insert("{{%page_block_data}}", [
             'blockId' => 1,
-            'title' => 'Hello DuAdmin',
+            'title' => 'Hello DuAdmin!',
             'intro' => 'For My Best Friends.',
             'url' => 'index',
-            'urlText' => '<i class="fa fa-plane"></i> View More',
+            'urlText' => '<i class="fa fa-plane"></i> Get started with DuAdmin',
             'size' => 5
         ]);
     }

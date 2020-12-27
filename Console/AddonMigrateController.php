@@ -15,9 +15,7 @@ class AddonMigrateController extends BaseController
      */
     public function actionIndex()
     {
-        $addonName = $this->prompt("请输入插件的目录名称", [
-            'required' => true
-        ]);
+        $addonName = $this->selectOneAddonName();
         $this->run("/migrate", [
             'migrationPath' => '@Addons/' . $addonName . '/Migrations'
         ]);
@@ -28,10 +26,7 @@ class AddonMigrateController extends BaseController
      */
     public function actionDown()
     {
-        $addonName = $this->prompt("请输入插件的目录名称", [
-            'required' => true
-        ]);
-        echo "test", PHP_EOL;
+        $addonName = $this->selectOneAddonName();
         $this->run("/migrate/down", [
             'migrationPath' => '@Addons/' . $addonName . '/Migrations'
         ]);

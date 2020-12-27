@@ -41,7 +41,7 @@ $this->params['logo'] = AppHelper::getSetting('site.logo');
     <div class="wrap">
         <?php
         NavBar::begin([
-            'brandLabel' => Yii::t('app',AppHelper::getSetting('site.name',Yii::$app->name)),
+            'brandLabel' => Yii::t('app','<i class="fa fa-rocket"></i> ' . AppHelper::getSetting('site.name',Yii::$app->name)),
             //'brandImage' => $this->params['logo'],
             'brandUrl' => ['/site/index'],
             'options' => [

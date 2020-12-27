@@ -4,6 +4,11 @@ namespace DuAdmin\Components;
 use yii\swiftmailer\Mailer;
 use DuAdmin\Models\Setting;
 
+/**
+ * 邮件组件
+ * @author dungang
+ *
+ */
 class AppMailer extends Mailer
 {
 

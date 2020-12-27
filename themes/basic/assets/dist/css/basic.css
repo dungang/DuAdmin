@@ -1615,8 +1615,11 @@ body {
   padding: 14px 24px;
 }
 .dua .show-swiper {
-  margin-top: 15px;
-  margin-bottom: 15px;
+  padding: 30px;
+}
+.dua .show-swiper img {
+  max-height: 275px;
+  border-radius: 4px;
 }
 .not-set {
   color: #c55;

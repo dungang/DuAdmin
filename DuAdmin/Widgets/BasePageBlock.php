@@ -21,9 +21,8 @@ abstract class BasePageBlock extends Widget
      * @var Query
      */
     public $query;
-    
-    
-    public $options;
+
+    public $options = [];
 
     public final function run()
     {
@@ -43,15 +42,15 @@ abstract class BasePageBlock extends Widget
         }
         return $this->showBlock();
     }
-    
-    
-    private function initOptions(){
-        if($this->model->options) {
+
+    private function initOptions()
+    {
+        if ($this->model->options) {
             $options = [];
-            parse_str($this->model->options,$options);
-            $this->options = array_merge($this->options,$options);
+            parse_str($this->model->options, $options);
+            $this->options = array_merge($this->options, $options);
         }
-        if (!isset($this->options['id'])) {
+        if (! isset($this->options['id'])) {
             $this->options['id'] = $this->getId();
         }
     }
@@ -112,6 +111,8 @@ abstract class BasePageBlock extends Widget
                     ], [
                         'model' => $data
                     ]);
+                } else {
+                    echo "<!-- ".$widgetClass." NOT FOUND -->\n";
                 }
             }
         }

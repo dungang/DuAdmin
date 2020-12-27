@@ -41,6 +41,12 @@ abstract class Addon extends Module
      * 插件模块的namespace 基础名称
      */
     public $addonNamespaceBase = null;
+    
+    /**
+     * 插件的目录名称
+     * @var string
+     */
+    protected $addonName = '';
 
     /**
      * 初始化API
@@ -72,21 +78,13 @@ abstract class Addon extends Module
         // 初始化前端的模块配置
     }
 
-    /**
-     * 初始化语言
-     *
-     * @return void
-     */
-    protected function initI18N()
-    {}
-
     public function registerFrontendTheme()
     {
-            if (Yii::$app->view->theme) {
-                $viewKey = Yii::$app->view->theme->basePath . '/Addons/' . Yii::$app->controller->module->id . '/views';
-                $viewAddon = Yii::$app->view->theme->basePath . '/Addons/' . Yii::$app->controller->module->id;
-                Yii::$app->view->theme->pathMap[ $viewKey] = $viewAddon;
-            }
+        if (Yii::$app->view->theme) {
+            $viewKey = '@Addons/' . $this->addonName . '/resource/views/frontend';
+            $viewAddon = Yii::$app->view->theme->basePath . '/addons/' . $this->addonName;
+            Yii::$app->view->theme->pathMap[$viewKey] = $viewAddon;
+        }
     }
 
     /**
@@ -96,8 +94,7 @@ abstract class Addon extends Module
      */
     public function init()
     {
-        $this->initI18N();
-
+        $this->addonName = Inflector::id2camel($this->id);
         if (empty($this->addonNamespaceBase)) {
             $reflector = new ReflectionClass(get_called_class());
             $this->addonNamespaceBase = $reflector->getNamespaceName();
@@ -137,7 +134,7 @@ abstract class Addon extends Module
 
     private function initViewPath($mode = null)
     {
-        $path = Yii::$app->basePath . '/Addons/' . Inflector::id2camel($this->id);
+        $path = '@Addons/' . $this->addonName;
         if ($mode) {
             $this->viewPath = $path . '/resource/views/' . strtolower($mode);
         } else {
@@ -145,7 +142,6 @@ abstract class Addon extends Module
             $this->viewPath = $path . '/resource/views';
         }
     }
-
 
     /**
      * 注册插件模块的home面包屑

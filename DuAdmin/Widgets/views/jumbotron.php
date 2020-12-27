@@ -14,7 +14,7 @@ use DuAdmin\Widgets\DefaultFlashSwiper;
 					<h1><?=$block['title']?></h1>
 					<p><?=$block['intro']?></p>
 					<p>
-					<?= Html::a($block['urlText'],AppHelper::parseDuAdminMenuUrl($block['url']),['role'=>'button','class'=>'btn btn-primary'])?>
+					<?= Html::a($block['urlText'],AppHelper::parseDuAdminMenuUrl($block['url']),['role'=>'button','class'=>'btn btn-success'])?>
 					</p>
 				</div>
 			</div>
