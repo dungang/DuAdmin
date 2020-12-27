@@ -26,12 +26,6 @@ class Generator extends BaseGenerator
      */
     public $language = "zh-CN";
 
-    /**
-     * 消息分类文件
-     *
-     * @var string
-     */
-    public $messagesCategory = '';
 
     /**
      * 选择表
@@ -39,6 +33,13 @@ class Generator extends BaseGenerator
      * @var array
      */
     public $tables;
+    
+    /**
+     * 翻译消息前缀
+     * @var string
+     */
+    public $messageCategoryPrefix;
+    
 
     public function getName()
     {
@@ -51,8 +52,8 @@ class Generator extends BaseGenerator
             [
                 [
                     'messagesPath',
-                    'messagesCategory',
-                    'language'
+                    'language',
+                    'messageCategoryPrefix',
                 ],
                 'filter',
                 'filter' => 'trim'
@@ -60,7 +61,6 @@ class Generator extends BaseGenerator
             [
                 [
                     'messagesPath',
-                    'messagesCategory',
                     'language',
                     'tables'
                 ],
@@ -69,8 +69,8 @@ class Generator extends BaseGenerator
             [
                 [
                     'messagesPath',
-                    'messagesCategory',
-                    'language'
+                    'language',
+                    'messageCategoryPrefix',
                 ],
                 'string'
             ]
@@ -83,7 +83,7 @@ class Generator extends BaseGenerator
             'language' => '语言',
             'tables' => '翻译的表',
             'messagesPath' => '翻译存储文件目录',
-            'messagesCategory' => '翻译文件'
+            'messageCategoryPrefix' => '翻译消息类前缀',
         ];
     }
 
@@ -92,7 +92,6 @@ class Generator extends BaseGenerator
         return [
             'language' => '根据表的注释语言选择，默认选择的是中文:zh-CN',
             'messagesPath' => '翻译存储文件目录',
-            'messagesCategory' => '翻译文件',
             'tables' => '根据业务选择翻译的表，最后把多个表的翻译合并去重在保存'
         ];
     }
@@ -125,17 +124,16 @@ class Generator extends BaseGenerator
     public function getMessagesPaths()
     {
         $messagesPaths = [
-            '@Backend/messages' => 'fontend.php',
-            '@Frontend/messages' => 'backend.php'
+            '@app/messages',
+            '@Backend/messages',
+            '@Frontend/messages'
         ];
         $dirs = FileHelper::findDirectories(\Yii::$app->basePath . '/Addons', [
             'recursive' => false
         ]);
         foreach ($dirs as $dir) {
-            $addon = basename($dir);
-            $messageFile = 'addon_' . Inflector::camel2id($addon, '_') . '.php';
-            $alias = '@Addons/' . basename($dir) . '/resource/messages';
-            $messagesPaths[$alias] = $messageFile;
+            $path = '@Addons/' . basename($dir) . '/resource/messages';
+            $messagesPaths[] = $path;
         }
         return $messagesPaths;
     }
@@ -153,15 +151,15 @@ FROM INFORMATION_SCHEMA.TABLES
 WHERE table_schema='" . getenv('DB_DATABASE') . "' AND TABLE_NAME IN (" . $tableNamesIn . ")")->queryAll();
        
         $tablePrefixLen = strlen($db->tablePrefix);
-        $trans = [];
+        $codeFiles = [];
         foreach ($tableInfos as $tableInfo) {
-            
+            $trans = [];
             $tableName = $tableInfo['tableName'];
             $tableComment = $tableInfo['tableComment'];
-
+            $noPrefixTableName = $tableName;
             if (substr($tableName, 0, $tablePrefixLen) == $db->tablePrefix) {
-                $words = Inflector::camel2words(substr($tableName, $tablePrefixLen));
-                
+                $noPrefixTableName = substr($tableName, $tablePrefixLen);
+                $words = Inflector::camel2words($noPrefixTableName);
                 $trans[$words] = $tableComment;
             } else {
                 $words = Inflector::id2camel($tableName);
@@ -183,12 +181,11 @@ WHERE table_schema='" . getenv('DB_DATABASE') . "' AND TABLE_NAME IN (" . $table
                 }
                 $trans[$columnWords] = $columnComment;
             }
-        }
-        return [
-            new CodeFile(\Yii::getAlias($this->messagesPath) . '/' . $this->language . '/' . $this->messagesCategory, $this->render('message.php', [
+            $codeFiles[] = new CodeFile(\Yii::getAlias($this->messagesPath) . '/' . $this->language . '/'  .$this->messageCategoryPrefix . '_' . $noPrefixTableName . '.php', $this->render('message.php', [
                 'trans' => $trans
-            ]))
-        ];
+            ]));
+        }
+        return $codeFiles;
     }
 }
 

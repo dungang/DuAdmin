@@ -87,6 +87,12 @@ class Generator extends \app\generators\Generator
      */
     public $defaultOrder = 'SORT_DESC';
     
+    /**
+     * 翻译消息前缀
+     * @var string
+     */
+    public $messageCategoryPrefix;
+    
     public function init() {
         parent::init();
         \Yii::setAlias("@DuAdmin", "@app/DuAdmin");
@@ -125,6 +131,7 @@ class Generator extends \app\generators\Generator
                     'modelClass',
                     'baseClass',
                     //'queryNs',
+                    'messageCategoryPrefix',
                     'queryClass',
                     'queryBaseClass'
                 ],
@@ -293,7 +300,8 @@ class Generator extends \app\generators\Generator
             'enableDefaultOrder' => '搜索模型是否添加默认排序',
             'defaultOrderField' => '搜索模型默认排序字段',
             'defaultOrder' => '搜索模型默认排序顺序',
-            'codeTemplate' => '代码模板'
+            'codeTemplate' => '代码模板',
+            'messageCategoryPrefix' => '翻译消息类前缀'
         ]);
     }
 
@@ -391,7 +399,8 @@ class Generator extends \app\generators\Generator
             //'queryNs',
             'queryBaseClass',
             'useTablePrefix',
-            'generateQuery'
+            'generateQuery',
+            'messageCategoryPrefix'
         ]);
     }
 
@@ -1260,6 +1269,22 @@ class Generator extends \app\generators\Generator
         return $tableName;
     }
 
+    public function generateNoPrefixTableName($tableName)
+    {
+        if (! $this->useTablePrefix) {
+            return $tableName;
+        }
+        
+        $db = $this->getDbConnection();
+        $matches = [];
+        if (preg_match("/^{$db->tablePrefix}(.*?)$/", $tableName, $matches)) {
+            $tableName =  $matches[1];
+        } elseif (preg_match("/^(.*?){$db->tablePrefix}$/", $tableName, $matches)) {
+            $tableName = $matches[1];
+        }
+        return $tableName;
+    }
+    
     /**
      * Generates a class name from the specified table name.
      *

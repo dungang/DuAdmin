@@ -485,11 +485,12 @@ abstract class Generator extends Model
     /**
      * Generates a string depending on enableI18N property
      *
+     * @param string $noPrefixTableName the name be generated
      * @param string $string the text be generated
      * @param array $placeholders the placeholders to use by `Yii::t()`
      * @return string
      */
-    public function generateString($string = '', $placeholders = [])
+    public function generateString($noPrefixTableName,$string = '', $placeholders = [])
     {
         $string = addslashes($string);
         if ($this->enableI18N) {
@@ -499,11 +500,12 @@ abstract class Generator extends Model
             } else {
                 $ph = '';
             }
-            if(in_array($string,['Created At','Updated At'])) {
-                $str = "Yii::t('da', '" . $string . "'" . $ph . ")";
-            } else {
-                $str = "Yii::t('" . $this->messageCategory . "', '" . $string . "'" . $ph . ")";
-            }
+            $str = "Yii::t('" . $noPrefixTableName. "', '" . $string . "'" . $ph . ")";
+//             if(in_array($string,['Created At','Updated At'])) {
+//                 $str = "Yii::t('da', '" . $string . "'" . $ph . ")";
+//             } else {
+//                 $str = "Yii::t('" . $noPrefixTableName. "', '" . $string . "'" . $ph . ")";
+//             }
         } else {
             // No I18N, replace placeholders by real words, if any
             if (!empty($placeholders)) {
@@ -536,6 +538,24 @@ abstract class Generator extends Model
             $categories[] = 'addon_' . Inflector::camel2id($addonName,'_');
         }
         return $categories;
+    }
+    
+    /**
+     * 获取项目的可能的翻译消息类文件
+     * @return string[]
+     */
+    public function getMessageCatetoryPrefixs(){
+        $prefixs = [
+            'app',
+            'backend',
+            'frontend',
+        ];
+        $dirs = FileHelper::findDirectories(\Yii::$app->basePath . '/Addons',['recursive'=>false]);
+        foreach($dirs as $dir) {
+            $addonName = basename($dir);
+            $prefixs[] = 'addon' . $addonName;
+        }
+        return $prefixs;
     }
     
     /**

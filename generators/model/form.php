@@ -41,6 +41,11 @@ echo $form->field($generator, 'queryBaseClass')->dropDownList([
     'yii\db\ActiveRecord' => 'yii\db\ActiveRecord',
 ]);
 echo $form->field($generator, 'enableI18N')->checkbox();
-$messageCategories = $generator->getMessageCatetories();
-echo $form->field($generator, 'messageCategory')->dropDownList(array_combine($messageCategories, $messageCategories));
+//$prefixs = $generator->getMessageCatetoryPrefixs();
+echo $form->field($generator, 'messageCategoryPrefix')->dropDownList([
+    'app'=>'app',
+    'addon' => 'addon',
+    'frontend'=>'frontend',
+    'backend' => 'backend',
+]);
 echo $form->field($generator, 'useSchemaName')->checkbox();
