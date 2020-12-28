@@ -10,13 +10,13 @@ use yii\widgets\Pjax;
 /* @var $searchModel DuAdmin\Models\PageBlockSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('backend', 'Page Blocks');
+$this->title = Yii::t('app_page_block', 'Page Blocks');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php Pjax::begin(['id'=>'page-block-index']); ?>
 <?php  PanelGridView::begin([
         'id' => 'page-block-list',
-    	'intro' => Yii::t('da','{0} Info Manage',Yii::t('backend', 'Page Blocks')),
+    	'intro' => Yii::t('da','{0} Info Manage', $this->title),
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class'=>'\DuAdmin\Grids\CheckboxColumn','name'=>'id'],

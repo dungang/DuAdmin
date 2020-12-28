@@ -10,13 +10,13 @@ use yii\widgets\Pjax;
 /* @var $searchModel Backend\Models\AuthRuleSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('backend', 'Auth Rules');
+$this->title = Yii::t('app_auth_rule', 'Auth Rules');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php Pjax::begin(['id'=>'auth-rule-index']); ?>
 <?php  PanelGridView::begin([
         'id' => 'auth-rule-list',
-    	'intro' => Yii::t('da','{0} Info Manage',Yii::t('backend', 'Auth Rules')),
+    	'intro' => Yii::t('da','{0} Info Manage',Yii::t('app_auth_rule', 'Auth Rules')),
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class'=>'\yii\grid\CheckboxColumn','name'=>'id'],

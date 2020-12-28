@@ -8,7 +8,7 @@ use yii\helpers\Html;
 /* @var $model \Backend\Models\AuthPermission */
 /* @var $role \Backend\Models\AuthRole */
 
-$this->title = Yii::t('backend', 'Auth Permissions');
+$this->title = Yii::t('app_auth_item', 'Auth Permissions');
 $this->params['breadcrumbs'][] = $this->title;
 echo Html::beginForm([
     'assignment',
@@ -16,7 +16,7 @@ echo Html::beginForm([
 ],'post',['id'=>'role-assignment-permissions']);
 AjaxModalOrNormalPanelContent::begin([
     'id' => 'auth-permission-tree',
-    'intro' => Yii::t('da', '{0} Info Manage', Yii::t('backend', 'Auth Permissions')),
+    'intro' => Yii::t('da', '{0} Info Manage', Yii::t('app_auth_item', 'Auth Permissions')),
     'content' => TreeSortableList::widget([
         'maxDepth' => 4, // 1插件（Menu）/2控制器（Manage）/3行为（update）/4同权限行为（sorts）
         'items' => $models,

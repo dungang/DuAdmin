@@ -9,7 +9,7 @@ use Backend\Models\Admin;
 /* @var $this yii\web\View */
 /* @var $model Admin */
 
-$this->title = Yii::t('backend', 'User Info');
+$this->title = Yii::t('app_admin', 'User Info');
 $this->params['breadcrumbs'][] = $this->title;
 AjaxModalOrNormalPanelContent::begin([
     'intro' => Yii::t('da', 'Update {0}', $this->title)

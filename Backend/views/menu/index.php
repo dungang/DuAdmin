@@ -12,7 +12,7 @@ use DuAdmin\Widgets\PanelNavTabs;
 /* @var $models DuAdmin\Models\Menu[] */
 /* @var $model DuAdmin\Models\Menu */
 
-$this->title = Yii::t('backend','Menus');
+$this->title = Yii::t('app_menu','Menus');
 $this->params['breadcrumbs'][] = $this->title;
 Pjax::begin([
     'id' => 'tree-sort-menu'

@@ -6,7 +6,7 @@ use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 /* @var $model Backend\Models\AuthRole */
 
 $this->title = Yii::t('da','Update');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Auth Roles'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app_auth_item', 'Auth Roles'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = $this->title;
 echo AjaxModalOrNormalPanelContent::widget([

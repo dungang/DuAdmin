@@ -9,13 +9,13 @@ use DuAdmin\UI\Row;
 /* @var $models DuAdmin\Models\Navigation[] */
 /* @var $model DuAdmin\Models\Navigation */
 
-$this->title = Yii::t('backend', 'Navigations');
+$this->title = Yii::t('app_navigation', 'Navigations');
 $this->params['breadcrumbs'][] = $this->title;
 
 Pjax::begin(['id'=>'navigation-index']); 
 echo AdminltePanel::widget([
     'id' => 'navigation-list',
-    'intro' => Yii::t('da', '{0} Info Manage', Yii::t('backend', 'Navigations')),
+    'intro' => Yii::t('da', '{0} Info Manage', Yii::t('app_navigation', 'Navigations')),
     'content' => Row::widget([
         'children' => [
             Column::widget([

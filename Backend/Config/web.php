@@ -34,13 +34,6 @@ $config = [
             'class' => 'DuAdmin\Core\CoreAssetManager',
             'basePath' => '@app/public/assets'
         ],
-        'i18n' => [
-            'translations' => [
-                'backend' => [
-                    'class' => '\yii\i18n\PhpMessageSource'
-                ],
-            ],
-        ],
         'log' => [
             'targets' => [
                 [

@@ -17,6 +17,13 @@ use Yii;
  */
 class ActionLog extends \DuAdmin\Core\BaseModel
 {
+    ///**
+    // * 对象json序列化的时候设置不显示的字段
+    // *
+    // * @var array
+    // */
+    // public $jsonHideFields = [];
+
     /**
      * {@inheritdoc}
      */
@@ -47,14 +54,14 @@ class ActionLog extends \DuAdmin\Core\BaseModel
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('backend', 'ID'),
-            'userId' => Yii::t('backend', 'User ID'),
-            'action' => Yii::t('backend', 'Action'),
-            'ip' => Yii::t('backend', 'Ip'),
-            'method' => Yii::t('backend', 'Method'),
-            'sourceType' => Yii::t('backend', 'Source Type'),
-            'createdAt' => Yii::t('da', 'Created At'),
-            'data' => Yii::t('backend', 'Data'),
+            'id' => Yii::t('app_action_log', 'ID'),
+            'userId' => Yii::t('app_action_log', 'User ID'),
+            'action' => Yii::t('app_action_log', 'Action'),
+            'ip' => Yii::t('app_action_log', 'Ip'),
+            'method' => Yii::t('app_action_log', 'Method'),
+            'sourceType' => Yii::t('app_action_log', 'Source Type'),
+            'createdAt' => Yii::t('app_action_log', 'Created At'),
+            'data' => Yii::t('app_action_log', 'Data'),
         ];
     }
 

@@ -12,7 +12,7 @@ use DuAdmin\Helpers\AppHelper;
 /* @var $models \Backend\Models\AuthPermission[] */
 /* @var $model \Backend\Models\AuthPermission */
 
-$this->title = Yii::t('backend', 'Auth Permissions');
+$this->title = Yii::t('app_auth_item', 'Auth Permissions');
 $this->params['breadcrumbs'][] = $this->title;
 
 Pjax::begin([
@@ -20,7 +20,7 @@ Pjax::begin([
 ]);
 AdminltePanel::begin([
     'id' => 'auth-permission-tree',
-    'intro' => Yii::t('da', '{0} Info Manage', Yii::t('backend', 'Auth Permissions')),
+    'intro' => Yii::t('da', '{0} Info Manage', Yii::t('app_auth_item', 'Auth Permissions')),
     'content' => Row::widget([
         'children' => [
             Column::widget([

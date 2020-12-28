@@ -6,7 +6,7 @@ use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 /* @var $model DuAdmin\Models\Navigation */
 
 $this->title = Yii::t('da','Update');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Navigations'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app_navigation', 'Navigations'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = $this->title;
 echo AjaxModalOrNormalPanelContent::widget([

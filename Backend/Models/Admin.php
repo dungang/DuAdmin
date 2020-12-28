@@ -58,23 +58,23 @@ class Admin extends BaseModel implements IdentityInterface, Authable, Operator
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('backend', 'ID'),
-            'username' => Yii::t('backend', 'Username'),
-            'nickname' => Yii::t('backend', 'Nickname'),
-            'avatar' => Yii::t('backend', 'Avatar'),
-            'authKey' => Yii::t('backend', 'Auth Key'),
-            'passwordHash' => Yii::t('backend', 'Password Hash'),
-            'passwordResetToken' => Yii::t('backend', 'Password Reset Token'),
-            'email' => Yii::t('backend', 'Email'),
-            'mobile' => Yii::t('backend', 'Mobile'),
-            'status' => Yii::t('backend', 'Status'),
-            'isSuper' => Yii::t('backend', 'Is Super'),
-            'loginAt' => Yii::t('backend', 'Login At'),
-            'loginFailure' => Yii::t('backend', 'Login Failure'),
-            'loginIp' => Yii::t('backend', 'Login Ip'),
-            'createdAt' => Yii::t('da', 'Created At'),
-            'updatedAt' => Yii::t('da', 'Updated At'),
-            'isDel' => Yii::t('backend', 'Is Del')
+            'id' => Yii::t('app_admin', 'ID'),
+            'username' => Yii::t('app_admin', 'Username'),
+            'nickname' => Yii::t('app_admin', 'Nickname'),
+            'avatar' => Yii::t('app_admin', 'Avatar'),
+            'authKey' => Yii::t('app_admin', 'Auth Key'),
+            'passwordHash' => Yii::t('app_admin', 'Password Hash'),
+            'passwordResetToken' => Yii::t('app_admin', 'Password Reset Token'),
+            'email' => Yii::t('app_admin', 'Email'),
+            'mobile' => Yii::t('app_admin', 'Mobile'),
+            'status' => Yii::t('app_admin', 'Status'),
+            'isSuper' => Yii::t('app_admin', 'Is Super'),
+            'loginAt' => Yii::t('app_admin', 'Login At'),
+            'loginFailure' => Yii::t('app_admin', 'Login Failure'),
+            'loginIp' => Yii::t('app_admin', 'Login Ip'),
+            'createdAt' => Yii::t('app_admin', 'Created At'),
+            'updatedAt' => Yii::t('app_admin', 'Updated At'),
+            'isDel' => Yii::t('app_admin', 'Is Del')
         ];
     }
 

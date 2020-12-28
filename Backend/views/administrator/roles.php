@@ -8,7 +8,7 @@ use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 /* @var $model Backend\Models\AuthRole */
 /* @var $admin Backend\Models\Admin */
 
-$this->title = Yii::t('backend', 'Auth Roles');
+$this->title = Yii::t('app_auth_role', 'Auth Roles');
 $this->params['breadcrumbs'][] = $this->title;
 echo Html::beginForm([
     'assignment',
@@ -16,7 +16,7 @@ echo Html::beginForm([
 ],'post',['id'=>'admin-assignment-roles']);
 AjaxModalOrNormalPanelContent::begin([
     'id' => 'auth-role-tree',
-    'intro' => Yii::t('da', '{0} Info Manage', Yii::t('backend', 'Auth Roles')),
+    'intro' => Yii::t('da', '{0} Info Manage', Yii::t('app_auth_role', 'Auth Roles')),
     'content' => TreeSortableList::widget([
         'maxDepth' => 1,
         'items' => $models,

@@ -7,7 +7,7 @@ use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 /* @var $model Backend\Models\AuthRule */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('backend', 'Auth Rules'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app_auth_rule', 'Auth Rules'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['breadcrumbs'][] = $model->name;
 

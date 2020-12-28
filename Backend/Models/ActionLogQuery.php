@@ -7,7 +7,7 @@ namespace Backend\Models;
  *
  * @see ActionLog
  */
-class ActionLogQuery extends \yii\db\ActiveQuery
+class ActionLogQuery extends \DuAdmin\Mysql\ActiveQuery
 {
     /*public function active()
     {

@@ -4,7 +4,6 @@ namespace Backend\Models;
 
 use Yii;
 use yii\data\ActiveDataProvider;
-use Backend\Models\ActionLog;
 
 /**
  * ActionLogSearch represents the model behind the search form of `Backend\Models\ActionLog`.

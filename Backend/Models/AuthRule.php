@@ -51,11 +51,11 @@ class AuthRule extends \DuAdmin\Core\BaseModel
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('backend', 'ID'),
-            'name' => Yii::t('backend', 'Name'),
-            'data' => Yii::t('backend', 'Data'),
-            'createdAt' => Yii::t('da', 'Created At'),
-            'updatedAt' => Yii::t('da', 'Updated At'),
+            'id' => Yii::t('app_auth_rule', 'ID'),
+            'name' => Yii::t('app_auth_rule', 'Name'),
+            'data' => Yii::t('app_auth_rule', 'Data'),
+            'createdAt' => Yii::t('app_auth_rule', 'Created At'),
+            'updatedAt' => Yii::t('app_auth_rule', 'Updated At'),
         ];
     }
 
@@ -64,7 +64,7 @@ class AuthRule extends \DuAdmin\Core\BaseModel
      */
     public function getAuthItems()
     {
-        return $this->hasMany(AuthItem::className(), ['ruleId' => 'id']);
+        return $this->hasMany(AuthItem::class, ['ruleId' => 'id']);
     }
 
     /**
@@ -75,25 +75,4 @@ class AuthRule extends \DuAdmin\Core\BaseModel
     {
         return new AuthRuleQuery(get_called_class());
     }
-
-    /**
-     * 保存规则
-     *
-     * @param boolean $runValidation
-     * @param array $attributeNames
-     * @return boolean
-     */
-    public function save($runValidation = true, $attributeNames = NULL) 
-    { 
-        if ($runValidation && $this->validate()) { 
-            $rule = \Yii::createObject($this->id); 
-            $rule->id = $this->id; 
-            if ($this->isNewRecord) { 
-                return \Yii::$app->authManager->add($rule); 
-            } else { 
-                return \Yii::$app->authManager->update($this->id, $rule); 
-            } 
-        } 
-        return false; 
-    } 
 }

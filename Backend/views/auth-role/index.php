@@ -12,7 +12,7 @@ use yii\helpers\Html;
 /* @var $models Backend\Models\AuthRole[] */
 /* @var $model Backend\Models\AuthRole */
 
-$this->title = Yii::t('backend', 'Auth Roles');
+$this->title = Yii::t('app_auth_item', 'Auth Roles');
 $this->params['breadcrumbs'][] = $this->title;
 Pjax::begin([
     'id' => 'tree-sort-role'
@@ -20,7 +20,7 @@ Pjax::begin([
 
 AdminltePanel::begin([
     'id' => 'auth-role-tree',
-    'intro' => Yii::t('da', '{0} Info Manage', Yii::t('backend', 'Auth Roles')),
+    'intro' => Yii::t('da', '{0} Info Manage', Yii::t('app_auth_item', 'Auth Roles')),
     'content' => Row::widget([
         'children' => [
             Column::widget([

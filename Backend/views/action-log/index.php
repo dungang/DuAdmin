@@ -1,6 +1,5 @@
 <?php
 
-use yii\helpers\Html;
 use DuAdmin\Helpers\AppHelper;
 use DuAdmin\Grids\PanelGridView;
 use DuAdmin\Widgets\FullSearchBox;
@@ -10,13 +9,13 @@ use yii\widgets\Pjax;
 /* @var $searchModel Backend\Models\ActionLogSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('backend', 'Action Logs');
+$this->title = Yii::t('app_action_log', 'Action Logs');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php Pjax::begin(['id'=>'action-log-index']); ?>
 <?php  PanelGridView::begin([
         'id' => 'action-log-list',
-    	'intro' => Yii::t('da','{0} Info Manage',Yii::t('backend', 'Action Logs')),
+    	'intro' => Yii::t('da','{0} Info Manage',$this->title),
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class'=>'\yii\grid\CheckboxColumn'],

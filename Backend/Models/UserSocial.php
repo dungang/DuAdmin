@@ -3,7 +3,7 @@
 namespace Backend\Models;
 
 /**
- * "ma_user_social"表的模型类.
+ * "{{%user_social}}"表的模型类.
  *
  * @property int $user_id 本地用户id
  * @property string $open_id 第三方id
@@ -16,7 +16,7 @@ class UserSocial extends \DuAdmin\Core\BaseModel
      */
     public static function tableName()
     {
-        return 'ma_user_social';
+        return '{{%user_social}}';
     }
 
     /**

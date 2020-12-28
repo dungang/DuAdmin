@@ -9,7 +9,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel Backend\Models\AdminSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('backend', 'Admins');
+$this->title = Yii::t('app_admin', 'Admins');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php Pjax::begin(['id'=>'admin-index']); ?>
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 PanelGridView::begin([
     'id' => 'admin-list',
-    'intro' => Yii::t('da', '{0} Info Manage', Yii::t('backend', 'Admins')),
+    'intro' => Yii::t('da', '{0} Info Manage', Yii::t('app_admin', 'Admins')),
     'dataProvider' => $dataProvider,
     'columns' => [
         [
@@ -36,12 +36,12 @@ PanelGridView::begin([
         'username',
         'nickname',
         [
-            'label' => Yii::t('backend', 'Roles'),
+            'label' => Yii::t('app_admin', 'Roles'),
             'format' => 'raw',
             'value' => function ($model, $key, $index) {
                 $names = [];
                 if ($model->isSuper) {
-                    $names[] = '<span class="label label-danger">' . Yii::t('backend', 'Is Super') . '</span>';
+                    $names[] = '<span class="label label-danger">' . Yii::t('app_admin', 'Super') . '</span>';
                 } else {
                     foreach ($model->roles as $role) {
                         $names[] = '<span class="label label-success">' . $role->name . '</span>';
@@ -66,7 +66,7 @@ PanelGridView::begin([
             'template' => '{view} {update} {roles} {delete}',
             'buttons' => [
                 'roles' => function ($url, $model, $key) {
-                    return AppHelper::linkButtonWithSmallSimpleModal('<i class="fa fa-user"></i> ' . Yii::t('backend', 'Setting Roles'), [
+                    return AppHelper::linkButtonWithSmallSimpleModal('<i class="fa fa-user"></i> ' . Yii::t('app_admin', 'Setting Roles'), [
                         'roles',
                         'userId' => $model->id
                     ]);

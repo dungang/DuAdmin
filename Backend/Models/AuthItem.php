@@ -65,14 +65,14 @@ class AuthItem extends \DuAdmin\Core\BaseModel
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('backend', 'ID'),
-            'type' => Yii::t('backend', 'Type'),
-            'name' => Yii::t('backend', 'Name'),
-            'ruleId' => Yii::t('backend', 'Rule ID'),
-            'data' => Yii::t('backend', 'Data'),
-            'sort' => Yii::t('backend', 'Sort'),
-            'createdAt' => Yii::t('da', 'Created At'),
-            'updatedAt' => Yii::t('da', 'Updated At'),
+            'id' => Yii::t('app_auth_item', 'ID'),
+            'type' => Yii::t('app_auth_item', 'Type'),
+            'name' => Yii::t('app_auth_item', 'Name'),
+            'ruleId' => Yii::t('app_auth_item', 'Rule ID'),
+            'data' => Yii::t('app_auth_item', 'Data'),
+            'sort' => Yii::t('app_auth_item', 'Sort'),
+            'createdAt' => Yii::t('app_auth_item', 'Created At'),
+            'updatedAt' => Yii::t('app_auth_item', 'Updated At'),
         ];
     }
 

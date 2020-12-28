@@ -45,11 +45,11 @@ class Rewrite extends \DuAdmin\Core\BaseModel
     {
         return [
             'id' =>  Yii::t('app_rewrite', 'ID'),
-            'name' => Yii::t('app_rewrite', 'Name'),,
-            'express' => Yii::t('app_rewrite', 'Express'),,
-            'weight' => Yii::t('app_rewrite', 'Weight'),,
-            'route' => Yii::t('app_rewrite', 'Route'),,
-            'category' => Yii::t('app_rewrite', 'Category'),
+            'name' => Yii::t('app_rewrite', 'Name'),
+            'express' => Yii::t('app_rewrite', 'Express'),
+            'weight' => Yii::t('app_rewrite', 'Weight'),
+            'route' => Yii::t('app_rewrite', 'Route'),
+            'category' => Yii::t('app_rewrite', 'Category')
         ];
     }
 

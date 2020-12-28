@@ -39,7 +39,7 @@ class AuthAssignment extends \DuAdmin\Core\BaseModel
             [['createdAt'], 'safe'],
             [['itemId', 'userId'], 'string', 'max' => 64],
             [['itemId', 'userId'], 'unique', 'targetAttribute' => ['itemId', 'userId']],
-            [['itemId'], 'exist', 'skipOnError' => true, 'targetClass' => AuthItem::className(), 'targetAttribute' => ['itemId' => 'id']],
+            [['itemId'], 'exist', 'skipOnError' => true, 'targetClass' => AuthItem::class, 'targetAttribute' => ['itemId' => 'id']],
         ];
     }
 
@@ -49,9 +49,9 @@ class AuthAssignment extends \DuAdmin\Core\BaseModel
     public function attributeLabels()
     {
         return [
-            'itemId' => Yii::t('backend', 'Item ID'),
-            'userId' => Yii::t('backend', 'User ID'),
-            'createdAt' => Yii::t('da', 'Created At'),
+            'itemId' => Yii::t('app_auth_assignment', 'Item ID'),
+            'userId' => Yii::t('app_auth_assignment', 'User ID'),
+            'createdAt' => Yii::t('app_auth_assignment', 'Created At'),
         ];
     }
 
@@ -60,7 +60,7 @@ class AuthAssignment extends \DuAdmin\Core\BaseModel
      */
     public function getItem()
     {
-        return $this->hasOne(AuthItem::className(), ['id' => 'itemId']);
+        return $this->hasOne(AuthItem::class, ['id' => 'itemId']);
     }
 
     /**
