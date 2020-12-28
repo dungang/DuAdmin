@@ -8,6 +8,7 @@ use Yii;
  *
  * @property string $parent 上级
  * @property string $child 下级
+ * @property int $sort 排序
  *
  * @property AuthItem $child0
  * @property AuthItem $parent0
@@ -36,10 +37,11 @@ class AuthItemChild extends \DuAdmin\Core\BaseModel
     {
         return [
             [['parent', 'child'], 'required'],
+            [['sort'], 'integer'],
             [['parent', 'child'], 'string', 'max' => 64],
             [['parent', 'child'], 'unique', 'targetAttribute' => ['parent', 'child']],
-            [['child'], 'exist', 'skipOnError' => true, 'targetClass' => AuthItem::className(), 'targetAttribute' => ['child' => 'id']],
-            [['parent'], 'exist', 'skipOnError' => true, 'targetClass' => AuthItem::className(), 'targetAttribute' => ['parent' => 'id']],
+            [['child'], 'exist', 'skipOnError' => true, 'targetClass' => AuthItem::class, 'targetAttribute' => ['child' => 'id']],
+            [['parent'], 'exist', 'skipOnError' => true, 'targetClass' => AuthItem::class, 'targetAttribute' => ['parent' => 'id']],
         ];
     }
 
@@ -49,8 +51,9 @@ class AuthItemChild extends \DuAdmin\Core\BaseModel
     public function attributeLabels()
     {
         return [
-            'parent' => Yii::t('backend', 'Parent'),
-            'child' => Yii::t('backend', 'Child'),
+            'parent' => Yii::t('app_auth_item_child', 'Parent'),
+            'child' => Yii::t('app_auth_item_child', 'Child'),
+            'sort' => Yii::t('app_auth_item_child', 'Sort'),
         ];
     }
 
@@ -59,7 +62,7 @@ class AuthItemChild extends \DuAdmin\Core\BaseModel
      */
     public function getChild0()
     {
-        return $this->hasOne(AuthItem::className(), ['id' => 'child']);
+        return $this->hasOne(AuthItem::class, ['id' => 'child']);
     }
 
     /**
@@ -67,7 +70,7 @@ class AuthItemChild extends \DuAdmin\Core\BaseModel
      */
     public function getParent0()
     {
-        return $this->hasOne(AuthItem::className(), ['id' => 'parent']);
+        return $this->hasOne(AuthItem::class, ['id' => 'parent']);
     }
 
     /**
