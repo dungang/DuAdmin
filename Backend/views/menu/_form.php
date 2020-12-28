@@ -13,11 +13,10 @@ use DuAdmin\Models\Menu;
 <div class="menu-form">
 
     <?php $form = ActiveForm::begin(['id'=>'sys-menu-form','enableAjaxValidation' => true,'action'=>$action]); ?>
-
-    <?= $form->field($model, 'isFront')->checkbox([]) ?>
-    
-    <?= $form->field($model, 'requireAuth')->checkbox([]) ?>
-
+	<div class="row">
+		<div class="col-md-6"><?= $form->field($model, 'isFront')->checkbox([]) ?></div>
+		<div class="col-md-6"><?= $form->field($model, 'requireAuth')->checkbox([]) ?></div>
+	</div>
     <?=$form->field($model, 'pid')->dropDownList(Menu::allIdToName('id', 'name', ['pid' => 0,'isFront' => $model->isFront]), ['prompt' => ['text' => '','options' => ['value' => 0]]])?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
@@ -25,8 +24,6 @@ use DuAdmin\Models\Menu;
     <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'icon')->textInput(['maxlength' => true]) ?>
-    
-    <?= $form->field($model, 'sort')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('<i class="fa fa-save"></i> ' . Yii::t('da','Create'), ['class' => 'btn btn-success']) ?>

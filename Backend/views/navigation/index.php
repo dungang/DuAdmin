@@ -25,8 +25,8 @@ echo AdminltePanel::widget([
                         'items' => $models,
                         'rowRender' => function ($item) {
                             $content = '<i class="' . $item['icon'] . '"></i> ' . $item['name'];
-                            if (empty($item['requireLogin'])) {
-                                $content .= ' <span class="label label-danger label-xs">不用登录</span>';
+                            if (($item['requireLogin'])) {
+                                $content .= ' <span class="label label-danger label-xs">登录可见</span>';
                             }
                             return $content;
                         }

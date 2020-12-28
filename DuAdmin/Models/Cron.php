@@ -105,20 +105,20 @@ class Cron extends \DuAdmin\Core\BaseModel
     public function attributeLabels()
     {
         return [
-            'id' =>  Yii::t('app_setting', 'ID'),
-            'task' =>  Yii::t('app_setting', 'Task'),
-            'mhdmd' =>  Yii::t('app_setting', 'Mhdmd'),
-            'jobScript' =>  Yii::t('app_setting', 'Job Script'),
-            'param' =>  Yii::t('app_setting', 'Param'),
-            'intro' =>  Yii::t('app_setting', 'Intro'),
-            'token' =>  Yii::t('app_setting', 'Token'),
-            'error_msg' =>  Yii::t('app_setting', 'Error Msg'),
-            'isOk' =>  Yii::t('app_setting', 'Is Ok'),
-            'isActive' =>  Yii::t('app_setting', 'Is Active'),
-            'app' => Yii::t('app_setting', 'App'),
-            'runAt' =>  Yii::t('app_setting', 'Run At'),
-            'createdAt' =>  Yii::t('app_setting', 'Created At'),
-            'updatedAt' =>  Yii::t('app_setting', 'Updated At'),
+            'id' =>  Yii::t('app_cron', 'ID'),
+            'task' =>  Yii::t('app_cron', 'Task'),
+            'mhdmd' =>  Yii::t('app_cron', 'Mhdmd'),
+            'jobScript' =>  Yii::t('app_cron', 'Job Script'),
+            'param' =>  Yii::t('app_cron', 'Param'),
+            'intro' =>  Yii::t('app_cron', 'Intro'),
+            'token' =>  Yii::t('app_cron', 'Token'),
+            'error_msg' =>  Yii::t('app_cron', 'Error Msg'),
+            'isOk' =>  Yii::t('app_cron', 'Is Ok'),
+            'isActive' =>  Yii::t('app_cron', 'Is Active'),
+            'app' => Yii::t('app_cron', 'App'),
+            'runAt' =>  Yii::t('app_cron', 'Run At'),
+            'createdAt' =>  Yii::t('app_cron', 'Created At'),
+            'updatedAt' =>  Yii::t('app_cron', 'Updated At'),
         ];
     }
 

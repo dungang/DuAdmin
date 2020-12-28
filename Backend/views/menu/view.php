@@ -17,7 +17,7 @@ echo AjaxModalOrNormalPanelContent::widget([
             'id',
             'name',
             'url:url',
-            'is_front:boolean',
+            'isFront:boolean',
             'pid',
             'icon',
             'sort',

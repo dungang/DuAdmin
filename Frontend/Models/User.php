@@ -57,23 +57,23 @@ class User extends BaseModel implements IdentityInterface,Authable,Operator
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'username' => Yii::t('app', 'Username'),
-            'nickname' => Yii::t('app', 'Nickname'),
-            'avatar' => Yii::t('app', 'Avatar'),
-            'authKey' => Yii::t('app', 'Auth Key'),
-            'passwordHash' => Yii::t('app', 'Password Hash'),
-            'passwordResetToken' => Yii::t('app', 'Password Reset Token'),
-            'email' => Yii::t('app', 'Email'),
-            'mobile' => Yii::t('app', 'Mobile'),
-            'status' => Yii::t('app', 'Status'),
-            'isSuper' => Yii::t('app', 'Is Super'),
-            'loginAt' => Yii::t('app', 'Login At'),
-            'loginFailure' => Yii::t('app', 'Login Failure'),
-            'loginIp' => Yii::t('app', 'Login Ip'),
-            'createdAt' => Yii::t('da', 'Created At'),
-            'updatedAt' => Yii::t('da', 'Updated At'),
-            'isDel' => Yii::t('da', 'Is Del')
+            'id' => Yii::t('app_user', 'ID'),
+            'username' => Yii::t('app_user', 'Username'),
+            'nickname' => Yii::t('app_user', 'Nickname'),
+            'avatar' => Yii::t('app_user', 'Avatar'),
+            'authKey' => Yii::t('app_user', 'Auth Key'),
+            'passwordHash' => Yii::t('app_user', 'Password Hash'),
+            'passwordResetToken' => Yii::t('app_user', 'Password Reset Token'),
+            'email' => Yii::t('app_user', 'Email'),
+            'mobile' => Yii::t('app_user', 'Mobile'),
+            'status' => Yii::t('app_user', 'Status'),
+            'isSuper' => Yii::t('app_user', 'Is Super'),
+            'loginAt' => Yii::t('app_user', 'Login At'),
+            'loginFailure' => Yii::t('app_user', 'Login Failure'),
+            'loginIp' => Yii::t('app_user', 'Login Ip'),
+            'createdAt' => Yii::t('app_user', 'Created At'),
+            'updatedAt' => Yii::t('app_user', 'Updated At'),
+            'isDel' => Yii::t('app_user', 'Is Del')
         ];
     }
 

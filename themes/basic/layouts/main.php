@@ -70,6 +70,19 @@ $this->params['logo'] = AppHelper::getSetting('site.logo');
             }
         }
     
+        if (Yii::$app->user->isGuest) {
+            $menus[] = ['label' => Yii::t('app', 'Login'), 'url' => ['/login']];
+        } else {
+            $menus[] = '<li>'
+                . Html::beginForm(['/site/logout'], 'post')
+                . Html::submitButton(
+                    Yii::t('app', 'Logout') . ' ( ' . Yii::$app->user->identity->username . ' ) ',
+                    ['class' => 'btn btn-link logout']
+                    )
+                    . Html::endForm()
+                    . '</li>';
+        }
+        
         echo Nav::widget([
             'options' => [
                 'class' => 'navbar-nav navbar-right text-uppercase'
