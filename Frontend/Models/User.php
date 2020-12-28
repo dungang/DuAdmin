@@ -33,7 +33,7 @@ use DuAdmin\Core\Operator;
 class User extends BaseModel implements IdentityInterface,Authable,Operator
 {
 
-    const STATUS_DELETED = 0;
+    const STATUS_INACTIVE = 0;
 
     const STATUS_ACTIVE = 10;
 
@@ -116,7 +116,7 @@ class User extends BaseModel implements IdentityInterface,Authable,Operator
                 'in',
                 'range' => [
                     self::STATUS_ACTIVE,
-                    self::STATUS_DELETED
+                    self::STATUS_INACTIVE
                 ]
             ],
             [
