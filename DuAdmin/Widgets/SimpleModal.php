@@ -54,7 +54,9 @@ class SimpleModal extends Modal
                 if(data.status == 'success'){
                     if(pjaxContainer){
                         var pjaxId = pjaxContainer.attr('id');
-                        $.pjax.reload('#'+pjaxId);
+                        if(pjaxId != undefined){
+                            $.pjax.reload('#'+pjaxId);
+                        }
                     }
                     modal.modal('hide');
                     type = "success";
