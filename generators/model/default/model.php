@@ -76,7 +76,7 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
     {
         return [
 <?php foreach ($labels as $name => $label): ?>
-            <?= "'$name' => " . $generator->generateString( $generator->messageCategoryPrefix .'_'. $generator->generateNoPrefixTableName($tableName),$label) . ",\n" ?>
+            <?= "'$name' => " . $generator->generateString($label,[],$messageCategory) . ",\n" ?>
 <?php endforeach; ?>
         ];
     }

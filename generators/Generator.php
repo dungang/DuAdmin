@@ -485,13 +485,16 @@ abstract class Generator extends Model
     /**
      * Generates a string depending on enableI18N property
      *
-     * @param string $noPrefixTableName the name be generated
      * @param string $string the text be generated
      * @param array $placeholders the placeholders to use by `Yii::t()`
+     * @param string $messageCategory the name be generated
      * @return string
      */
-    public function generateString($noPrefixTableName,$string = '', $placeholders = [])
+    public function generateString($string = '', $placeholders = [],$messageCategory=null)
     {
+        if(empty($messageCategory)) {
+            $messageCategory = $this->messageCategory;
+        }
         $string = addslashes($string);
         if ($this->enableI18N) {
             // If there are placeholders, use them
@@ -500,12 +503,8 @@ abstract class Generator extends Model
             } else {
                 $ph = '';
             }
-            $str = "Yii::t('" . $noPrefixTableName. "', '" . $string . "'" . $ph . ")";
-//             if(in_array($string,['Created At','Updated At'])) {
-//                 $str = "Yii::t('da', '" . $string . "'" . $ph . ")";
-//             } else {
-//                 $str = "Yii::t('" . $noPrefixTableName. "', '" . $string . "'" . $ph . ")";
-//             }
+            $str = "Yii::t('" . $messageCategory. "', '" . $string . "'" . $ph . ")";
+
         } else {
             // No I18N, replace placeholders by real words, if any
             if (!empty($placeholders)) {

@@ -444,7 +444,8 @@ class Generator extends \app\generators\Generator
                 'labels' => $this->generateLabels($tableSchema),
                 'hints' => $this->generateHints($tableSchema),
                 'rules' => $this->generateRules($tableSchema),
-                'relations' => isset($relations[$tableName]) ? $relations[$tableName] : []
+                'relations' => isset($relations[$tableName]) ? $relations[$tableName] : [],
+                'messageCategory' => $this->messageCategoryPrefix .'_'. $this->generateNoPrefixTableName($tableName),
             ];
             $files[] = new CodeFile(Yii::getAlias('@' . str_replace('\\', '/', $this->ns)) . '/' . $modelClassName . '.php', $this->render('model.php', $params));
 
