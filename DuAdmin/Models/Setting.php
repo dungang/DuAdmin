@@ -1,6 +1,7 @@
 <?php
 namespace DuAdmin\Models;
 
+use Yii;
 /**
  * This is the model class for table "setting".
  *
@@ -82,13 +83,13 @@ class Setting extends \DuAdmin\Core\BaseModel
     public function attributeLabels()
     {
         return [
-            'name' => '名称',
-            'parent' => '归属',
-            'title' => '标题',
-            'value' => '值',
-            'hint' => '提示',
-            'valType' => '值类型',
-            'category' => '参数分类'
+            'name' => Yii::t('app_setting', 'Name'),
+            'parent' => Yii::t('app_setting', 'Parent'),
+            'title' => Yii::t('app_setting', 'Title'),
+            'value' => Yii::t('app_setting', 'Value'),
+            'hint' => Yii::t('app_setting', 'Hint'),
+            'valType' => Yii::t('app_setting', 'Val Type'),
+            'category' => Yii::t('app_setting', 'Category'),
         ];
     }
 

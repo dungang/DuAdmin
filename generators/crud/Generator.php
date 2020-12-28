@@ -336,6 +336,8 @@ class Generator extends \app\generators\Generator
             $this->addError('modelClass', "The table associated with $class must have primary key(s).");
         }
     }
+    
+    
 
     /**
      *
@@ -357,7 +359,12 @@ class Generator extends \app\generators\Generator
         $viewPath = $this->getViewPath();
         $templatePath = $this->getTemplatePath() . '/views';
         $noPrefixTableName = str_replace(['{','}','%'], '', call_user_func([$this->modelClass,'tableName']));
-        $this->messageCategory = 'da_' . $noPrefixTableName;
+        
+        if(substr(trim($this->modelClass,'\\'), 7) == 'DuAdmin') {
+            $this->messageCategory = 'app_' . $noPrefixTableName;
+        } else {
+            $this->messageCategory = 'da_' . $noPrefixTableName;
+        }
         foreach (scandir($templatePath) as $file) {
             // 忽略创建添加和编辑的页面
             if ($this->enableCrudAction == false) {

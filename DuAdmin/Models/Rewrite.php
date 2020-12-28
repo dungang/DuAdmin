@@ -2,6 +2,7 @@
 
 namespace DuAdmin\Models;
 
+use Yii;
 /**
  * "rewrite"表的模型类.
  *
@@ -43,12 +44,12 @@ class Rewrite extends \DuAdmin\Core\BaseModel
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'name' => '名称',
-            'express' => '表达式',
-            'weight' => '权重',
-            'route' => '路由',
-            'category' => '归类',
+            'id' =>  Yii::t('app_rewrite', 'ID'),
+            'name' => Yii::t('app_rewrite', 'Name'),,
+            'express' => Yii::t('app_rewrite', 'Express'),,
+            'weight' => Yii::t('app_rewrite', 'Weight'),,
+            'route' => Yii::t('app_rewrite', 'Route'),,
+            'category' => Yii::t('app_rewrite', 'Category'),
         ];
     }
 

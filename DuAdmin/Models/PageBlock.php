@@ -50,12 +50,12 @@ class PageBlock extends \DuAdmin\Core\BaseModel
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('app', 'Name'),
-            'widget' => Yii::t('app', 'Widget'),
-            'sourceApp' => Yii::t('app', 'Source App'),
-            'createdAt' => Yii::t('da', 'Created At'),
-            'updatedAt' => Yii::t('da', 'Updated At'),
+            'id' => Yii::t('app_page_block', 'ID'),
+            'name' => Yii::t('app_page_block', 'Name'),
+            'widget' => Yii::t('app_page_block', 'Widget'),
+            'sourceApp' => Yii::t('app_page_block', 'Source App'),
+            'createdAt' => Yii::t('app_page_block', 'Created At'),
+            'updatedAt' => Yii::t('app_page_block', 'Updated At'),
         ];
     }
 

@@ -135,8 +135,8 @@ class Generator extends BaseGenerator
     {
         $messagesPaths = [
             '@app/messages',
-            '@Backend/messages',
-            '@Frontend/messages'
+//             '@Backend/messages',
+//             '@Frontend/messages'
         ];
         $dirs = FileHelper::findDirectories(\Yii::$app->basePath . '/Addons', [
             'recursive' => false
@@ -173,6 +173,9 @@ WHERE table_schema='" . getenv('DB_DATABASE') . "' AND TABLE_NAME IN (" . $table
 
         $tablePrefixLen = strlen($db->tablePrefix);
         $codeFiles = [];
+        if($this->messagesPath == '@app/messages') {
+            $this->messageCategoryPrefix = 'app';
+        }
         foreach ($tableInfos as $tableInfo) {
             $trans = [];
             $tableName = $tableInfo['tableName'];

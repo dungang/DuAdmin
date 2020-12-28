@@ -430,6 +430,7 @@ class Generator extends \app\generators\Generator
         $files = [];
         $relations = $this->generateRelations();
         $db = $this->getDbConnection();
+        $messageCategoryPrefix = $this->getMessageCategoryPrefix($this->ns);
         foreach ($this->getTableNames() as $tableName) {
             // model :
             $modelClassName = $this->generateClassName($tableName);
@@ -445,7 +446,7 @@ class Generator extends \app\generators\Generator
                 'hints' => $this->generateHints($tableSchema),
                 'rules' => $this->generateRules($tableSchema),
                 'relations' => isset($relations[$tableName]) ? $relations[$tableName] : [],
-                'messageCategory' => 'da_'. $this->generateNoPrefixTableName($tableName),
+                'messageCategory' => $messageCategoryPrefix . $this->generateNoPrefixTableName($tableName),
             ];
             $files[] = new CodeFile(Yii::getAlias('@' . str_replace('\\', '/', $this->ns)) . '/' . $modelClassName . '.php', $this->render('model.php', $params));
 

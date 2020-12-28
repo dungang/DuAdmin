@@ -37,5 +37,14 @@ return [
         'mailer' => [
             'class' => 'DuAdmin\Components\AppMailer'
         ],
+        
+        'i18n' => [
+            'translations' => [
+                'app*' => [
+                    'class' => '\yii\i18n\PhpMessageSource',
+                    'basePath' => '@app/messages',
+                ],
+            ],
+        ],
     ]
 ];

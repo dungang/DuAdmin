@@ -54,16 +54,16 @@ class Menu extends \DuAdmin\Core\BaseModel
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'pid' => Yii::t('app', 'Pid'),
-            'name' => Yii::t('app', 'Name'),
-            'url' => Yii::t('app', 'Url'),
-            'isFront' => Yii::t('app', 'Is Front'),
-            'isOuter' => Yii::t('app', 'Is Outer'),
-            'requireAuth' => Yii::t('app', 'Require Auth'),
-            'icon' => Yii::t('app', 'Icon'),
-            'app' => Yii::t('app', 'App'),
-            'sort' => Yii::t('app', 'Sort'),
+            'id' => Yii::t('app_menu', 'ID'),
+            'pid' => Yii::t('app_menu', 'Pid'),
+            'name' => Yii::t('app_menu', 'Name'),
+            'url' => Yii::t('app_menu', 'Url'),
+            'isFront' => Yii::t('app_menu', 'Is Front'),
+            'isOuter' => Yii::t('app_menu', 'Is Outer'),
+            'requireAuth' => Yii::t('app_menu', 'Require Auth'),
+            'icon' => Yii::t('app_menu', 'Icon'),
+            'app' => Yii::t('app_menu', 'App'),
+            'sort' => Yii::t('app_menu', 'Sort'),
         ];
     }
 

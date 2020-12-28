@@ -62,21 +62,21 @@ class PageBlockData extends \DuAdmin\Core\BaseModel
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'blockId' => Yii::t('app', 'Block ID'),
-            'title' => Yii::t('app', 'Title'),
-            'intro' => Yii::t('app', 'Intro'),
-            'url' => Yii::t('app', 'Url'),
-            'isOuterUrl' => Yii::t('app', 'Is Outer Url'),
-            'urlText' => Yii::t('app', 'Url Text'),
-            'filter' => Yii::t('app', 'Filter'),
-            'size' => Yii::t('app', 'Size'),
-            'orderBy' => Yii::t('app', 'Order By'),
-            'style' => Yii::t('app', 'Style'),
-            'options' => Yii::t('app', 'Options'),
-            'enableCache' => Yii::t('app', 'Enable Cache'),
-            'expiredAt' => Yii::t('app', 'Expired At'),
-            'sort' => Yii::t('app', 'Sort'),
+            'id' => Yii::t('app_page_block_data', 'ID'),
+            'blockId' => Yii::t('app_page_block_data', 'Block ID'),
+            'title' => Yii::t('app_page_block_data', 'Title'),
+            'intro' => Yii::t('app_page_block_data', 'Intro'),
+            'url' => Yii::t('app_page_block_data', 'Url'),
+            'isOuterUrl' => Yii::t('app_page_block_data', 'Is Outer Url'),
+            'urlText' => Yii::t('app_page_block_data', 'Url Text'),
+            'filter' => Yii::t('app_page_block_data', 'Filter'),
+            'size' => Yii::t('app_page_block_data', 'Size'),
+            'orderBy' => Yii::t('app_page_block_data', 'Order By'),
+            'style' => Yii::t('app_page_block_data', 'Style'),
+            'options' => Yii::t('app_page_block_data', 'Options'),
+            'enableCache' => Yii::t('app_page_block_data', 'Enable Cache'),
+            'expiredAt' => Yii::t('app_page_block_data', 'Expired At'),
+            'sort' => Yii::t('app_page_block_data', 'Sort'),
         ];
     }
 

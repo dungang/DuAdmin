@@ -53,15 +53,15 @@ class Navigation extends \DuAdmin\Core\BaseModel
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'pid' => Yii::t('app', 'Pid'),
-            'name' => Yii::t('app', 'Name'),
-            'url' => Yii::t('app', 'Url'),
-            'isOuter' => Yii::t('app', 'Is Outer'),
-            'requireLogin' => Yii::t('app', 'Require Login'),
-            'icon' => Yii::t('app', 'Icon'),
-            'app' => Yii::t('app', 'App'),
-            'sort' => Yii::t('app', 'Sort'),
+            'id' => Yii::t('app_navigation', 'ID'),
+            'pid' => Yii::t('app_navigation', 'Pid'),
+            'name' => Yii::t('app_navigation', 'Name'),
+            'url' => Yii::t('app_navigation', 'Url'),
+            'isOuter' => Yii::t('app_navigation', 'Is Outer'),
+            'requireLogin' => Yii::t('app_navigation', 'Require Login'),
+            'icon' => Yii::t('app_navigation', 'Icon'),
+            'app' => Yii::t('app_navigation', 'App'),
+            'sort' => Yii::t('app_navigation', 'Sort'),
         ];
     }
 

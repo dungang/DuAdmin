@@ -637,4 +637,13 @@ abstract class Generator extends Model
             return basename($dir);
         }, $dirs);
     }
+
+    public function getMessageCategoryPrefix($namespace)
+    {
+        if (substr(trim($namespace, '\\'), 7) == 'DuAdmin') {
+            return 'app_';
+        } else {
+            return 'da_';
+        }
+    }
 }

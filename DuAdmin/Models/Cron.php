@@ -2,7 +2,7 @@
 
 namespace DuAdmin\Models;
 
-
+use Yii;
 
 /**
  * "cron"表的模型类.
@@ -105,20 +105,20 @@ class Cron extends \DuAdmin\Core\BaseModel
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'task' => '任务',
-            'mhdmd' => '定时',
-            'jobScript' => '脚本',
-            'param' => '参数',
-            'intro' => '介绍',
-            'token' => '安全key',
-            'error_msg' => '错误信息',
-            'isOk' => '正常',
-            'isActive' => '激活',
-            'app' => '归属应用',
-            'runAt' => '执行时刻',
-            'createdAt' => '添加时间',
-            'updatedAt' => '更新时间'
+            'id' =>  Yii::t('app_setting', 'ID'),
+            'task' =>  Yii::t('app_setting', 'Task'),
+            'mhdmd' =>  Yii::t('app_setting', 'Mhdmd'),
+            'jobScript' =>  Yii::t('app_setting', 'Job Script'),
+            'param' =>  Yii::t('app_setting', 'Param'),
+            'intro' =>  Yii::t('app_setting', 'Intro'),
+            'token' =>  Yii::t('app_setting', 'Token'),
+            'error_msg' =>  Yii::t('app_setting', 'Error Msg'),
+            'isOk' =>  Yii::t('app_setting', 'Is Ok'),
+            'isActive' =>  Yii::t('app_setting', 'Is Active'),
+            'app' => Yii::t('app_setting', 'App'),
+            'runAt' =>  Yii::t('app_setting', 'Run At'),
+            'createdAt' =>  Yii::t('app_setting', 'Created At'),
+            'updatedAt' =>  Yii::t('app_setting', 'Updated At'),
         ];
     }
 
