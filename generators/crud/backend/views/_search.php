@@ -9,10 +9,12 @@ use yii\helpers\StringHelper;
 echo "<?php\n";
 ?>
 <?php $this->beginBlock('search');?>
-<?= "<?php " ?> \yii\bootstrap\Modal::begin([
+<?= "<?php \n" ?> 
+	$searchText = Yii::t('da','Advanced Search');
+	\yii\bootstrap\Modal::begin([
         'id' => '<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-search-modal',
-        'header' => '高级搜索',
-        'toggleButton' => ['label'=>'<i class="fa fa-search"></i> 高级搜索','class'=>'btn btn-warning'],
+        'header' => $searchText,
+        'toggleButton' => ['label'=>'<i class="fa fa-search"></i> ' . $searchText,'class'=>'btn btn-warning'],
     ]); ?>
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-search">
 

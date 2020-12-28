@@ -6,6 +6,7 @@ use yii\helpers\FileHelper;
 use yii\db\Connection;
 use app\generators\CodeFile;
 use yii\helpers\Inflector;
+use yii\helpers\Json;
 
 class Generator extends BaseGenerator
 {
@@ -26,20 +27,29 @@ class Generator extends BaseGenerator
      */
     public $language = "zh-CN";
 
-
     /**
      * 选择表
      *
      * @var array
      */
     public $tables;
-    
+
     /**
      * 翻译消息前缀
+     *
      * @var string
      */
-    public $messageCategoryPrefix;
-    
+    public $messageCategoryPrefix = 'da';
+
+    public function init()
+    {
+        parent::init();
+
+        $this->on(self::AFTER_SAVE_SUCCESS, [
+            $this,
+            'updateAddonI18N'
+        ]);
+    }
 
     public function getName()
     {
@@ -53,7 +63,7 @@ class Generator extends BaseGenerator
                 [
                     'messagesPath',
                     'language',
-                    'messageCategoryPrefix',
+                    'messageCategoryPrefix'
                 ],
                 'filter',
                 'filter' => 'trim'
@@ -70,7 +80,7 @@ class Generator extends BaseGenerator
                 [
                     'messagesPath',
                     'language',
-                    'messageCategoryPrefix',
+                    'messageCategoryPrefix'
                 ],
                 'string'
             ]
@@ -83,7 +93,7 @@ class Generator extends BaseGenerator
             'language' => '语言',
             'tables' => '翻译的表',
             'messagesPath' => '翻译存储文件目录',
-            'messageCategoryPrefix' => '翻译消息类前缀',
+            'messageCategoryPrefix' => '翻译消息类前缀'
         ];
     }
 
@@ -138,8 +148,19 @@ class Generator extends BaseGenerator
         return $messagesPaths;
     }
 
+    public function getAddonNameFromMessagePath($messagePath)
+    {
+        $match = [];
+        if (preg_match('/\@Addons\/(.*?)\/resource.*/', $messagePath, $match)) {
+            return $match[1];
+        }
+        return null;
+    }
+
     public function generate()
     {
+        $this->updateAddonI18N();
+
         $db = $this->getDbConnection();
 
         $tableNamesIn = implode(',', array_map(function ($table) {
@@ -149,7 +170,7 @@ class Generator extends BaseGenerator
         $tableInfos = $db->createCommand("SELECT TABLE_NAME tableName,TABLE_COMMENT tableComment
 FROM INFORMATION_SCHEMA.TABLES
 WHERE table_schema='" . getenv('DB_DATABASE') . "' AND TABLE_NAME IN (" . $tableNamesIn . ")")->queryAll();
-       
+
         $tablePrefixLen = strlen($db->tablePrefix);
         $codeFiles = [];
         foreach ($tableInfos as $tableInfo) {
@@ -170,7 +191,7 @@ WHERE table_schema='" . getenv('DB_DATABASE') . "' AND TABLE_NAME IN (" . $table
             $tableSchema = $db->getTableSchema($tableName);
             $columns = $tableSchema->columns;
             foreach ($columns as $column) {
-                if($column->name == 'id') {
+                if ($column->name == 'id') {
                     continue;
                 }
                 $pieces = explode("::", $column->comment);
@@ -181,11 +202,32 @@ WHERE table_schema='" . getenv('DB_DATABASE') . "' AND TABLE_NAME IN (" . $table
                 }
                 $trans[$columnWords] = $columnComment;
             }
-            $codeFiles[] = new CodeFile(\Yii::getAlias($this->messagesPath) . '/' . $this->language . '/'  .$this->messageCategoryPrefix . '_' . $noPrefixTableName . '.php', $this->render('message.php', [
+            $codeFiles[] = new CodeFile(\Yii::getAlias($this->messagesPath) . '/' . $this->language . '/' . $this->messageCategoryPrefix . '_' . $noPrefixTableName . '.php', $this->render('message.php', [
                 'trans' => $trans
             ]));
         }
         return $codeFiles;
+    }
+
+    public function updateAddonI18N()
+    {
+        if ($addonName = $this->getAddonNameFromMessagePath($this->messagesPath)) {
+            $dir = \Yii::getAlias($this->messagesPath . '/' . $this->language);
+            $files = FileHelper::findFiles($dir, [
+                'recursive' => false
+            ]);
+            $fileNames = array_map(function ($file) {
+                return substr(basename($file), 0, - 4);
+            }, $files);
+            if (count($files)>0) {
+                $addonJsonFile = \Yii::getAlias('@Addons/' . $addonName . '/addon.json');
+                if(file_exists($addonJsonFile)) {
+                    $json = Json::decode(file_get_contents($addonJsonFile));
+                    $json['i18n'] = $fileNames;
+                    file_put_contents($addonJsonFile, json_encode($json, JSON_FORCE_OBJECT | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+                }
+            }
+        }
     }
 }
 

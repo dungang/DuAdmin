@@ -223,7 +223,7 @@ class AddonController extends BaseController
             }
             if ($create) {
                 $this->createAddon($addonName, $addonTitle, $addonDir, $dirs);
-                $addonMessageFile = $addonDir . '/resource/messages/zh-CN/addon_' . Inflector::camel2id($addonName, '_') . '.php';
+                $addonMessageFile = $addonDir . '/resource/messages/zh-CN/da_' . Inflector::camel2id($addonName, '_') . '.php';
                 $createMessage = true;
                 if (file_exists($addonMessageFile)) {
                     $createMessage = $this->confirm('国际化消息文件已经存在，是否覆盖?');

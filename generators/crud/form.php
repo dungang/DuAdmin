@@ -36,5 +36,5 @@ echo $form->field($generator, 'modalSize')->dropDownList([
 ]);
 echo $form->field($generator, 'enableI18N')->checkbox();
 echo $form->field($generator, 'enablePjax')->checkbox();
-$messageCategories = $generator->getMessageCatetories();
-echo $form->field($generator, 'messageCategory')->dropDownList(array_combine($messageCategories, $messageCategories));
+// $messageCategories = $generator->getMessageCatetories();
+// echo $form->field($generator, 'messageCategory')->dropDownList(array_combine($messageCategories, $messageCategories));
