@@ -367,6 +367,7 @@ abstract class BaseAction extends Action
         if (empty($condition)) {
             throw new BadRequestHttpException('Find model must set filters');
         }
+        echo $modelClass;die;
         /* @var $model \yii\db\ActiveRecord */
         // https://www.yiichina.com/doc/guide/2.0/db-active-record
         // 提示： yii\db\ActiveRecord::findOne() 和 yii\db\ActiveQuery::one()

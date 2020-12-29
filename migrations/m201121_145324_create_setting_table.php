@@ -32,6 +32,7 @@ class m201121_145324_create_setting_table extends Migration
             [
                 ['site.name','','网站名称','DuAdmin','STR','前台首页的网站名称','base'],
                 ['site.logo','','网站Logo','DuAdmin','IMAGE','前台首页的网站Logo','base'],
+                ['site.i18n','','网站支持的语言','en-US:English\r\nzh-CN:中文','ASSOC','前台首页的网站Logo','base'],
                 ['site.company','','公司名称','DuAdmin Tech','STR','前台首页的企业名称','base'],
                 ['site.phone','','联系电话','1555498106','STR','前台首页的电话号码','base'],
                 ['site.email','','电子邮箱','dungang@126.com','STR','前台首页的邮箱地址','base'],

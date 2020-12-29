@@ -36,7 +36,7 @@ PanelGridView::begin([
                     'view',
                     'name' => $model['name']
                 ]);
-                return $model['valType'] == 'STR' ? (strlen($model['value']) < 128 ? $model['value'] : $detail) : $detail;
+                return $model['valType'] === 'STR' ? (strlen($model['value']) < 128 ? $model['value'] : $detail) : $detail;
             }
         ],
         [
