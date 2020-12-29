@@ -9,10 +9,11 @@ use yii\base\Model;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
+use yii\web\MethodNotAllowedHttpException;
 
 /**
  * 基础Action
- * 
+ *
  * 注意的问题：
  * 多个不同类型的模型的时候使用formName区分不同的模型参数
  * 很关键，不然导致参数交叉赋值
@@ -21,10 +22,10 @@ use yii\web\BadRequestHttpException;
  * 开发实践 auth_item , auth_item_child, 角色 赋权限的时候发生
  * 发生该问题的情况是，
  * baseAction的部分方法是贪婪识别参数的，尽量保证参数都被模型加载
- * 
+ *
  * 如果是action操作的一个模型，是没有问题的
- * 
- * 
+ *
+ *
  * @author dungang
  * @property BaseController $controller 控制器
  * @property array $modelBehaviors 模型的行为
@@ -302,7 +303,7 @@ abstract class BaseAction extends Action
             ]);
             $cond = [];
             $params = ArrayHelper::merge(\Yii::$app->request->get(), \Yii::$app->request->post());
-           
+
             foreach ($primaryKey as $key) {
                 if (isset($params[$key])) {
                     $cond[$key] = $params[$key];
@@ -339,7 +340,7 @@ abstract class BaseAction extends Action
         }
         // 自动查找主键过滤条件
         $condition = ArrayHelper::merge($args ?: [], $this->getPrimaryKeyCondition($modelClass), $fitler);
-      
+
         // 是否设置了查找的固定参数
         if ($this->modelImmutableAttrs) {
             $condition = ArrayHelper::merge($condition, $this->modelImmutableAttrs);
@@ -367,18 +368,26 @@ abstract class BaseAction extends Action
         if (empty($condition)) {
             throw new BadRequestHttpException('Find model must set filters');
         }
-        echo $modelClass;die;
+
         /* @var $model \yii\db\ActiveRecord */
         // https://www.yiichina.com/doc/guide/2.0/db-active-record
         // 提示： yii\db\ActiveRecord::findOne() 和 yii\db\ActiveQuery::one()
         // 都不会添加 LIMIT 1 到 生成的 SQL 语句中。
         // 如果你的查询会返回很多行的数据， 你明确的应该加上 limit(1) 来提高性能，
         // 比如 Customer::find()->limit(1)->one()。
-        $model = $modelClass::find()->where($condition)
-            ->limit(1)
-            ->one();
+        if (method_exists($modelClass, 'find')) {
+            $model = $modelClass::find()->where($condition)
+                ->limit(1)
+                ->one();
+        } else if (method_exists($modelClass, 'findOne')) {
+            $model = call_user_func($modelClass, 'findOne', $condition);
+        } else {
+            throw new MethodNotAllowedHttpException();
+        }
         if ($model !== null) {
-            $model->setScenario($this->modelScenario);
+            if(!is_array($model)){
+                $model->setScenario($this->modelScenario);
+            }
             return $model;
         } else if ($newOneOnNotFound) {
             $model = new $modelClass($condition);

@@ -27,7 +27,8 @@
 		"firebase/php-jwt" : "^5.2",
 		"vlucas/phpdotenv" : "^5.2",
 		"symfony/finder" : "^5.1",
-		"overtrue/wechat" : "^4.2"
+		"overtrue/wechat" : "^4.2",
+		"omgdef/yii2-multilingual-behavior": "^2.1"
 	},
 	"require-dev" : {
 		"yiisoft/yii2-debug" : "~2.0",
