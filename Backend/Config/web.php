@@ -1,6 +1,5 @@
 <?php
 $config = [
-    //'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'Backend\Controllers',
     'viewPath' => '@app/backend/views',
     'defaultRoute' => 'default',

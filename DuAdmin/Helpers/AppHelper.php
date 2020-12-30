@@ -130,7 +130,27 @@ class AppHelper
         ], $options);
         return Html::a($text, $url, $options);
     }
-
+    
+    
+    /**
+     * 显示一个删除按钮
+     *
+     * @param string $text
+     * @param string|array $url
+     * @param array $options
+     * @return string
+     */
+    public static function linkDeleteButton($text, $url, $options = [])
+    {
+        $options = array_merge([
+            'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
+            'data-method' => 'post',
+            'data-pjax' => '0'
+        ], $options);
+        return Html::a($text, $url, $options);
+    }
+    
+    
     public static function isDevMode()
     {
         return (defined('YII_ENV') && YII_ENV == 'dev');

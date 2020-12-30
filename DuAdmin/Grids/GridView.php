@@ -13,6 +13,7 @@ use yii\widgets\BaseListView;
 use yii\grid\GridViewAsset;
 use yii\grid\Column;
 use yii\grid\DataColumn;
+use DuAdmin\Helpers\AppHelper;
 
 class GridView extends BaseListView
 {
@@ -315,7 +316,6 @@ class GridView extends BaseListView
         if (! isset($this->filterRowOptions['id'])) {
             $this->filterRowOptions['id'] = $this->options['id'] . '-filters';
         }
-
         $this->initColumns();
     }
 
@@ -549,7 +549,6 @@ class GridView extends BaseListView
 
             return "<tbody>\n<tr><td colspan=\"$colspan\">" . $this->renderEmpty() . "</td></tr>\n</tbody>";
         }
-
         return "<tbody>\n" . implode("\n", $rows) . "\n</tbody>";
     }
 
@@ -581,6 +580,26 @@ class GridView extends BaseListView
         return Html::tag('tr', implode('', $cells), $options);
     }
 
+    protected function detectMultilingualColumn()
+    {
+        $columns = [];
+        $className = 'DuAdmin\Grids\MultilingualAction';
+        foreach ($this->columns as $column) {
+            if (is_array($column) && isset($column['class']) && strcmp(trim($column['class'], '\\'), $className) == 0) {
+                $mColumns = call_user_func([
+                    $className,
+                    'buildColumns'
+                ]);
+                foreach ($mColumns as $mColumn) {
+                    $columns[] = array_merge($mColumn, $column);
+                }
+            } else {
+                $columns[] = $column;
+            }
+        }
+        $this->columns = $columns;
+    }
+
     /**
      * Creates column objects and initializes them.
      */
@@ -589,6 +608,8 @@ class GridView extends BaseListView
         if (empty($this->columns)) {
             $this->guessColumns();
         }
+        $this->detectMultilingualColumn();
+
         foreach ($this->columns as $i => $column) {
             if (is_string($column)) {
                 $column = $this->createDataColumn($column);
