@@ -7,7 +7,7 @@ class SettingController extends ComponentsSettingController {
     
     public function init() {
         parent::init();
-        $this->is_backend_module = true;
+        $this->isBackend = true;
     }
     
 }

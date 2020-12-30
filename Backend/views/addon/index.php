@@ -21,7 +21,18 @@ echo PanelGridView::widget([
         'hasBackend',
         'hasApi',
         'hasConsole',
-        'hasSetting',
+        [
+            'attribute' => 'hasSetting',
+            'format' => 'raw',
+            'value' => function ($model, $key, $index) {
+                if (isset($model['hasSetting']) && $model['hasSetting']) {
+                    return Html::a('<i class="fa fa-cogs"></i> ' . Yii::t('da', 'Setting'), [
+                        '/' . $model['id'] . '/setting'
+                    ]);
+                }
+                return '';
+            }
+        ]
     ]
 ]);
 

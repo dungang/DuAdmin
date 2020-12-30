@@ -19,7 +19,7 @@ class SettingController extends BackendController
      * @todo
      * @var bool
      */
-    public $is_backend_module = false;
+    public $isBackend = false;
 
     public $viewBasePath = '@Backend/views/setting/';
 

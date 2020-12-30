@@ -17,6 +17,7 @@ Pjax::begin([
 PanelGridView::begin([
     'intro' => '设置功能提高了系统的适应性，根据不同的场景和环境配置不同的变量值。',
     'dataProvider' => $dataProvider,
+    'summary' => false,
     'columns' => [
         [
             'attribute' => 'title',
@@ -46,34 +47,36 @@ PanelGridView::begin([
     ]
 ]);
 
-$tabs = [];
-$categories = Setting::getSettingCatetory();
-foreach ($categories as $key => $title) {
-    $tabs[] = [
-        'name' => $title,
-        'url' => [
-            '/setting/index',
-            'SettingSearch[category]' => $key
-        ]
-    ];
+if(\Yii::$app->controller->isBackend) {
+    $tabs = [];
+    $categories = Setting::getSettingCatetory();
+    foreach ($categories as $key => $title) {
+        $tabs[] = [
+            'name' => $title,
+            'url' => [
+                '/setting/index',
+                'SettingSearch[category]' => $key
+            ]
+        ];
+    }
+    if (AppHelper::isDevMode()) {
+        $tabs[] = [
+            'name' => '<i class="fa fa-edit"></i> ' . Yii::t('da', 'Extend Category'),
+            'url' => [
+                'update',
+                'name' => 'setting.category'
+            ],
+            'options' => [
+                'data-toggle' => 'modal',
+                'data-target' => '#modal-dailog'
+            ]
+        ];
+    }
+    echo PanelNavTabs::widget([
+        'wrapper' => true,
+        'tabs' => $tabs
+    ]);
 }
-if (AppHelper::isDevMode()) {
-    $tabs[] = [
-        'name' => '<i class="fa fa-edit"></i> ' . Yii::t('da', 'Extend Category'),
-        'url' => [
-            'update',
-            'name' => 'setting.category'
-        ],
-        'options' => [
-            'data-toggle' => 'modal',
-            'data-target' => '#modal-dailog'
-        ]
-    ];
-}
-echo PanelNavTabs::widget([
-    'wrapper' => true,
-    'tabs' => $tabs
-]);
 
 PanelGridView::end()?>
 <?php Pjax::end() ?>

@@ -90,6 +90,11 @@ class m201213_014116_init_backend_menus extends Migration
                         'icon' => 'fa fa-cog'
                     ],
                     [
+                        'name' => 'Addons',
+                        'url' => 'addon/index',
+                        'icon' => 'fa fa-plug'
+                    ],
+                    [
                         'name' => 'Pretty Url',
                         'url' => 'pretty-url/index',
                         'icon' => 'fa fa-location-arrow'
