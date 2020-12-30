@@ -13,7 +13,7 @@ use yii\captcha\Captcha;
 		<div class="col-lg-6 col-lg-offset-3">
 			<h1 class="text-center"><?= Yii::t('app','Contact')?></h1>
 			<p><?= Yii::t('app','If you have business inquiries or other questions, please fill out the following form to contact us. Thank you.')?></p>
-            <?php $form = ActiveForm::begin(['id' => 'contact-form','action'=>['/site/contact']]); ?>
+            <?php $form = ActiveForm::begin(['id' => 'contact-form','action'=>['/site/contact'],'validateOnBlur'=>false]); ?>
 				<div class="row">
 				<div class="col-lg-6">
                 <?= $form->field($model, 'fullName')->textInput(['autofocus' => true]) ?>

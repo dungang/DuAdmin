@@ -755,7 +755,6 @@ select[multiple].input-lg {
   margin-left: -15px;
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
   margin-top: 18px;
   margin-bottom: 18px;
 }
@@ -825,7 +824,6 @@ select[multiple].input-lg {
     margin-right: 0;
     margin-left: 0;
     border: 0;
-    box-shadow: none;
   }
 }
 .navbar-nav > li > .dropdown-menu {
@@ -1443,7 +1441,7 @@ fieldset[disabled] .btn-danger.active {
 }
 .navbar-inverse .navbar-brand,
 .navbar-inverse .navbar-nav > li > a {
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  text-shadow: none;
 }
 .navbar-static-top,
 .navbar-fixed-top,
@@ -1532,21 +1530,22 @@ fieldset[disabled] .btn-danger.active {
 .register-logo {
   font-size: 35px;
   text-align: center;
-  margin-bottom: 25px;
-  font-weight: 300;
+  padding-top: 25px;
 }
 .login-logo a,
 .register-logo a {
-  color: #444;
+  color: #232834;
 }
 .login-page,
 .register-page {
-  background: #7c89a7;
+  background-image: url(/images/login-bg.png);
+  background-size: cover;
 }
 .login-box,
 .register-box {
   width: 360px;
   margin: 7% auto;
+  background-color: white;
 }
 @media (max-width: 768px) {
   .login-box,
@@ -1582,14 +1581,14 @@ body {
 .wrap {
   min-height: 100%;
   height: auto;
-  margin: 0 auto -180px;
-  padding: 0 0 180px;
+  margin: 0 auto -60px;
+  padding: 0 0 60px;
 }
 .wrap > .container {
   padding: 0px 15px 0px;
 }
 .footer {
-  height: 180px;
+  height: 60px;
   background-color: #FFF;
   border-top: 1px solid #ddd;
   padding-top: 20px;
@@ -1710,8 +1709,10 @@ a.desc:after {
 .block-bar-gray {
   padding: 30px 0;
 }
-.block-bar h3,
-.block-bar-gray h3 {
+.block-bar h1,
+.block-bar-gray h1,
+.block-bar h2,
+.block-bar-gray h2 {
   text-align: center;
   margin-bottom: 40px;
 }
@@ -1800,6 +1801,24 @@ a {
 .article table {
   margin: auto;
   max-width: 100%;
+}
+.feature {
+  text-align: center;
+}
+.feature h3 {
+  color: #aaa;
+  font-size: 18px;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+.feature i {
+  color: #777;
+  font-size: 36px;
+}
+.feature p {
+  color: #777;
+  font-size: 15px;
+  font-weight: 300;
 }
 .module {
   position: relative;

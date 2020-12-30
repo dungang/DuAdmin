@@ -1,23 +1,28 @@
+
 .login-logo,
 .register-logo {
   font-size: 35px;
   text-align: center;
-  margin-bottom: 25px;
-  font-weight: 300;
+  padding-top: 25px;
   a {
-    color: #444;
+    //color: #444;
+    color: @brand-primary;
   }
 }
 
 .login-page,
-.register-page {
-  background: lighten(@brand-primary,40%);
-}
+.register-page{
+    //background-color: lighten(@brand-primary,40%);
+    background-image: url(/images/login-bg.png);
+    background-size: cover;
 
+  
+}
 .login-box,
 .register-box {
   width: 360px;
   margin: 7% auto;
+  background-color: white;
   @media (max-width: @screen-sm) {
     width: 90%;
     margin-top: 20px;
