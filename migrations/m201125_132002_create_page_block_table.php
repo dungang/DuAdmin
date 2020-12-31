@@ -45,14 +45,14 @@ class m201125_132002_create_page_block_table extends Migration
         
   
         $this->insert("{{%page_block}}",[
-            'name' => 'DuAdmin巨幕',
+            'name' => 'DUAdmin巨幕',
             'widget' => '\Frontend\Widgets\JumbotronBlock',
             'sourceApp' => 'core',
             'createdAt' => date('Y-m-d H:i:s'),
             'updatedAt' => date('Y-m-d H:i:s'),
         ]);
         $this->insert("{{%page_block}}",[
-            'name' => 'DuAdmin功能',
+            'name' => 'DUAdmin功能',
             'widget' => '\Frontend\Widgets\FeaturesBlock',
             'sourceApp' => 'core',
             'createdAt' => date('Y-m-d H:i:s'),
@@ -67,10 +67,10 @@ class m201125_132002_create_page_block_table extends Migration
         ]);
         $this->insert("{{%page_block_data}}", [
             'blockId' => 1,
-            'title' => 'Hello DuAdmin!',
+            'title' => 'Hello DUAdmin!',
             'intro' => 'For My Best Friends.',
             'url' => 'index',
-            'urlText' => '<i class="fa fa-plane"></i> Get started with DuAdmin',
+            'urlText' => '<i class="fa fa-plane"></i> Get started with DUAdmin',
             'size' => 5
         ]);
         $this->insert("{{%page_block_data}}", [
