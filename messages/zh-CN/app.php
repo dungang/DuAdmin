@@ -6,5 +6,6 @@ return [
     'Email' => '邮箱',
     'Subject' => '主题',
     'Body' => '详情',
-    'Verification Code' => '验证码'
+    'Verification Code' => '验证码',
+    'Features' => '功能介绍'
 ];
