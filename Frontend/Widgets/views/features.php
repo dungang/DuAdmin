@@ -69,7 +69,7 @@
         <div class="col-sm-3 col-md-3">
             <div class="feature">
                 <i class="glyphicon glyphicon-road"></i>
-                <h3>Web.mix.js</h3>
+                <h3>Webpack.mix.js</h3>
                 <p>DuAdmin做了定制开发，可以在前后端，包括插件内部编辑js、less源码，而不用在一个src下开发所有功能的资源文件。大大提高了代码管理效率。每个插件都应该有自己的资源文件，而不是跟总项目混在一起。</p>
             </div>
         </div>
