@@ -31,7 +31,7 @@ abstract class BackendController extends BaseController {
     public function init() {
         parent::init();
         $this->layout = 'main';
-        $this->module->layoutPath = '@app/backend/views/layouts';
+        $this->module->layoutPath = '@Backend/views/layouts';
         BackendCtrInitedHook::emit($this);
     }
 
