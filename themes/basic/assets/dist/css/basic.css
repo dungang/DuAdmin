@@ -1804,6 +1804,9 @@ a {
 }
 .feature {
   text-align: center;
+  height: 240px;
+  padding: 15px 0;
+  overflow: hidden;
 }
 .feature h3 {
   color: #aaa;

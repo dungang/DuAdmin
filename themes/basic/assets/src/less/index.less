@@ -4,7 +4,7 @@ html,
 body {
     height        : 100%;
     //  background: #f5f5f5;
-	// background: #efefef;
+    // background: #efefef;
 }
 
 
@@ -34,37 +34,40 @@ body {
 }
 
 .btn {
-	border-radius: 100px;
+    border-radius: 100px;
 }
 
 .dua {
-	&.dua-banner {
-		background-image: url(/images/banner-bg.jpg);
-		background-repeat: no-repeat;
-		background-size: cover;
-		background-position: center;
-	}
-	.jumbotron {
-	    //text-align      : center;
-	    background-color: transparent;
-		padding-right: 15px;
-	}
-	
-	.jumbotron .btn {
-	    font-size: 21px;
-	    padding  : 14px 24px;
-	}
-	
-	.show-swiper {
-		padding: 30px;
-		.swiper-zoom-container {
-			padding: 0 15px;
-		}
-		img {
-			max-height: 275px;
-			border-radius: 4px;
-		}
-	}
+    &.dua-banner {
+        background-image   : url(/images/banner-bg.jpg);
+        background-repeat  : no-repeat;
+        background-size    : cover;
+        background-position: center;
+    }
+
+    .jumbotron {
+        //text-align      : center;
+        background-color: transparent;
+        padding-right   : 15px;
+    }
+
+    .jumbotron .btn {
+        font-size: 21px;
+        padding  : 14px 24px;
+    }
+
+    .show-swiper {
+        padding: 30px;
+
+        .swiper-zoom-container {
+            padding: 0 15px;
+        }
+
+        img {
+            max-height   : 275px;
+            border-radius: 4px;
+        }
+    }
 }
 
 .not-set {
@@ -159,11 +162,11 @@ a.desc:after {
 /* customer css */
 
 .border-primary {
-	border: 1px solid @brand-primary;
+    border: 1px solid @brand-primary;
 }
 
 .border-light-primary {
-	border: 1px solid lighten(@brand-primary,25%);
+    border: 1px solid lighten(@brand-primary, 25%);
 }
 
 .grid-view .summary {
@@ -174,7 +177,8 @@ a.desc:after {
 .block-bar-gray {
     padding: 30px 0;
 
-    h1,h2 {
+    h1,
+    h2 {
         text-align   : center;
         margin-bottom: 40px;
     }
@@ -199,12 +203,13 @@ a.desc:after {
         }
     }
 }
+
 a {
-	color: @brand-primary;
+    color: @brand-primary;
 }
-	
+
 .breadcrumb {
-	margin-top: 15px;
+    margin-top   : 15px;
     margin-bottom: 0;
 }
 
@@ -219,9 +224,10 @@ a {
     }
 
     .lang-active {
+
         &,
         a {
-            color: @brand-primary !important;
+            color: @brand-primary  !important;
         }
     }
 }
@@ -272,6 +278,7 @@ a {
             margin  : 5px;
             height  : 53px;
             overflow: hidden;
+
             a {
                 color    : white;
                 font-size: medium;
@@ -282,32 +289,40 @@ a {
 
 .article {
     justify-content: space-between;
+
     img {
-        display: block !important;
-        margin:auto;
+        display  : block !important;
+        margin   : auto;
         max-width: 100%;
     }
+
     table {
-        margin:auto;
+        margin   : auto;
         max-width: 100%;
     }
 }
 
 .feature {
     text-align: center;
+    height: 240px;
+    padding: 15px 0;
+    overflow: hidden;
+
     h3 {
-        color: #aaa;
-    font-size: 18px;
-    font-weight: 300;
-    text-transform: uppercase;
+        color         : #aaa;
+        font-size     : 18px;
+        font-weight   : 300;
+        text-transform: uppercase;
     }
+
     i {
-        color: #777;
+        color    : #777;
         font-size: 36px;
     }
+
     p {
-        color: #777;
-        font-size: 15px;
+        color      : #777;
+        font-size  : 15px;
         font-weight: 300;
-    } 
+    }
 }
