@@ -13,8 +13,7 @@ use DuAdmin\Assets\DUAdminAsset;
 use DuAdmin\Widgets\AdminlteNavBar;
 use DuAdmin\Widgets\AdminlteSideBar;
 use DuAdmin\Widgets\AdminlteSideBarMenu;
-use Backend\Widgets\Startcron;
-use DuAdmin\Widgets\FloatThead;
+use Backend\Widgets\StartCron;
 
 DUAdminAsset::register($this);
 
