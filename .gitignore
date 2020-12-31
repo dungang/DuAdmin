@@ -43,3 +43,4 @@ backup
 .env
 mix-manifest.json
 temp
+composer.lock
