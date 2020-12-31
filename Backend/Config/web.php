@@ -1,7 +1,7 @@
 <?php
 $config = [
     'controllerNamespace' => 'Backend\Controllers',
-    'viewPath' => '@app/backend/views',
+    'viewPath' => '@Backend/views',
     'defaultRoute' => 'default',
     'components' => [
         'request' => [
