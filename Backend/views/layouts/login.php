@@ -2,8 +2,9 @@
 
 /* @var $this \yii\web\View */
 /* @var $content string */
+
+use Backend\Widgets\StartCron;
 use yii\helpers\Html;
-use Backend\Widgets\Startcron;
 use DuAdmin\Assets\DUAdminAsset;
 DUAdminAsset::register($this);
 ?>
