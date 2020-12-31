@@ -20,6 +20,7 @@ ThemeAsset::register($this);
 Notify::widget();
 LazyLoad::widget();
 $this->params['logo'] = AppHelper::getSetting('site.logo');
+$siteName = Yii::t('app', AppHelper::getSetting('site.name', Yii::$app->name));
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -31,7 +32,7 @@ $this->params['logo'] = AppHelper::getSetting('site.logo');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title . '-' . Yii::t('app',AppHelper::getSetting('site.name'))) ?></title>
+    <title><?= Html::encode($this->title . '-' . $siteName) ?></title>
     <?php $this->head() ?>
 </head>
 
@@ -41,7 +42,7 @@ $this->params['logo'] = AppHelper::getSetting('site.logo');
     <div class="wrap">
         <?php
         NavBar::begin([
-            'brandLabel' => Yii::t('app','<i class="fa fa-rocket"></i> ' . AppHelper::getSetting('site.name',Yii::$app->name)),
+            'brandLabel' => Yii::t('app', '<i class="fa fa-rocket"></i> ' . $siteName) . '<small>'.Yii::$app->version.'</small>',
             //'brandImage' => $this->params['logo'],
             'brandUrl' => ['/site/index'],
             'options' => [
@@ -50,7 +51,7 @@ $this->params['logo'] = AppHelper::getSetting('site.logo');
         ]);
         $menus = [
             [
-                'label' => Yii::t('yii','Home'),
+                'label' => Yii::t('yii', 'Home'),
                 'url' => [
                     '/site/index'
                 ]
@@ -61,15 +62,15 @@ $this->params['logo'] = AppHelper::getSetting('site.logo');
                 if ($navigation['requireLogin'] && Yii::$app->user->isGuest) {
                     continue;
                 }
-                if(empty($navigation['isOuter'])) {
-                    $navigation['url'] = AppHelper::parseDuAdminMenuUrl($navigation['url'],'/');
+                if (empty($navigation['isOuter'])) {
+                    $navigation['url'] = AppHelper::parseDuAdminMenuUrl($navigation['url'], '/');
                 } else {
-                    $navigation['linkOptions'] = ['target'=>'_blank'];
+                    $navigation['linkOptions'] = ['target' => '_blank'];
                 }
                 $menus[] = $navigation;
             }
         }
-    
+
         if (Yii::$app->user->isGuest) {
             $menus[] = ['label' => Yii::t('app', 'Login'), 'url' => ['/login']];
         } else {
@@ -78,16 +79,16 @@ $this->params['logo'] = AppHelper::getSetting('site.logo');
                 . Html::submitButton(
                     Yii::t('app', 'Logout') . ' ( ' . Yii::$app->user->identity->username . ' ) ',
                     ['class' => 'btn btn-link logout']
-                    )
-                    . Html::endForm()
-                    . '</li>';
+                )
+                . Html::endForm()
+                . '</li>';
         }
-        
+
         echo Nav::widget([
             'options' => [
                 'class' => 'navbar-nav navbar-right text-uppercase'
             ],
-            'activateParents'=>true,
+            'activateParents' => true,
             'items' => $menus
         ]);
         NavBar::end();
@@ -101,20 +102,20 @@ $this->params['logo'] = AppHelper::getSetting('site.logo');
         <?php
         SimpleModal::begin([
             'size' => 'modal-lg',
-            'header' => Yii::t('da','Dailog'),
+            'header' => Yii::t('da', 'Dailog'),
             'options' => [
                 'id' => 'modal-dailog'
             ]
         ]);
-        echo Yii::t('da','No Data');
+        echo Yii::t('da', 'No Data');
         SimpleModal::end();
         ?>
     </div>
 
     <footer class="footer  text-center">
         <div class="container">
-            <p><?= Html::a('<i class="fa fa-user"></i>  ' . Yii::t('theme','About Us'), ['/about-us']) ?>
-                <?= date('Y') ?> &copy; <?= Html::encode(Yii::t('app',Setting::getSettings('site.company'))) ?>
+            <p><?= Html::a('<i class="fa fa-user"></i>  ' . Yii::t('theme', 'About Us'), ['/about-us']) ?>
+                <?= date('Y') ?> &copy; <?= Html::encode(Yii::t('app', Setting::getSettings('site.company'))) ?>
                 <?= Setting::getSettings('site.beian') ?> </p>
         </div>
     </footer>

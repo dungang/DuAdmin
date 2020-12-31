@@ -3,7 +3,7 @@ $db = require 'db.php';
 return [
     'id' => 'base',
     'name' => getenv('APP_NAME'),
-    'version' => 'beta',
+    'version' => getenv('APP_VERSION'),
     'basePath' => dirname(__DIR__),
     'bootstrap' => [
         'log',
