@@ -12,7 +12,7 @@ use Backend\Widgets\SettingSelection;
 <div class="setting-form">
 
     <?php $form = ActiveForm::begin(['id'=>'sys-setting-form','enableAjaxValidation' => true]); ?>
-    <?php if (\Yii::$app->controller->is_backend_module) :?>
+    <?php if (\Yii::$app->controller->isBackend) :?>
     <?= $form->field($model, 'category')->dropDownList(Setting::getSettingCatetory()) ?>
     <?php endif;?>
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
