@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-sm-3 col-md-3">
             <div class="feature">
-                <i class="glyphicon glyphicon-dashboard"></i>
+                <i class="glyphicon glyphicon-wrench"></i>
                 <h3>代码生成更强大</h3>
                 <p>约定大于配置，在Yii2 generator的基础上增加和修改了更加强大的代码生成功能，包括高级搜索支持时间段查询，自动生成模糊查询所有字符串类型的字段。</p>
             </div>
