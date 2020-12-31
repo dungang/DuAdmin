@@ -16,7 +16,7 @@ use yii\captcha\Captcha;
             <?php $form = ActiveForm::begin(['id' => 'contact-form','action'=>['/site/contact'],'validateOnBlur'=>false]); ?>
 				<div class="row">
 				<div class="col-lg-6">
-                <?= $form->field($model, 'fullName')->textInput(['autofocus' => true]) ?>
+                <?= $form->field($model, 'fullName')->textInput() ?>
 				</div>
 				<div class="col-lg-6">
                 <?= $form->field($model, 'email') ?>
