@@ -32,10 +32,9 @@ class Bootstrap implements BootstrapInterface
         // 注册DUAdmin的多语言
         $app->i18n->translations['da'] = [
             'class' => PhpMessageSource::class,
-            'sourceLanguage' => Yii::$app->sourceLanguage,
+            'sourceLanguage' => $app->sourceLanguage,
             'basePath' => $app->basePath . '/DuAdmin/messages'
         ];
-
         // 注册表单验证器
         Validator::$builtInValidators['mobile'] = '\DuAdmin\Validators\MobileValidator'; //验证手机
         Validator::$builtInValidators['alternative'] = '\DuAdmin\Validators\AlternativeValidator'; //二选一验证

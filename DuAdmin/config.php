@@ -1,5 +1,9 @@
 <?php
 return [
+    'bootstrap' => [
+        'log',
+        'DuAdmin\Components\Bootstrap'
+    ],
     // 注册项目的别名
     // 没有注册 DuAdmin目录，因为有安装scripts,所以使用了composer的autoload
     // 一下文字是引用的来源 https://www.yiichina.com/doc/guide/2.0/concept-autoloading
@@ -37,7 +41,11 @@ return [
         'mailer' => [
             'class' => 'DuAdmin\Components\AppMailer'
         ],
-        
+        'formatter' => [
+            'datetimeFormat' => 'yyyy-MM-dd HH:mm:ss',
+            'dateFormat' => 'yyyy-MM-dd',
+            'timeFormat' => 'HH:mm:ss'
+        ],
         'i18n' => [
             'translations' => [
                 'app*' => [
@@ -45,6 +53,16 @@ return [
                     'basePath' => '@app/messages',
                 ],
             ],
+        ],
+        'log' => [
+            'traceLevel' => YII_DEBUG ? 3 : 0,
+            'targets' => [
+                [
+                    'class' => 'yii\log\FileTarget',
+                    'logFile' => '@runtime/logs/app/app.log',
+                    'levels' => explode(',', getenv('LOG_LEVELS'))
+                ]
+            ]
         ],
     ]
 ];
