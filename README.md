@@ -21,6 +21,44 @@ DuAdmin（独角派管理后台）yii2管理后台快速开发包
 - **可定制前端首页** 简单的管理前端首页的内容，通过PageBlock管理，前端，插件提供的块，动态生成前端首页。功能比较基础，但是满足一般的场景。 
 - **POWERED BY YII2** Yii is a high-performance PHP framework best for developing Web 2.0 applications.
 
+## 安装步骤
+
+* 下载后台框架代码
+```bash
+git clone https://gitee.com/dungang/DuAdmin.git DuAdmin
+或
+git clone https://github.com/dungang/DuAdmin.git DuAdmin
+
+cd DuAdmin
+composer --prefer-dist install
+
+## 如果没有出现runtime目录，在运行一下
+composer install
+
+cp .env.example .env
+
+php yii key-generator
+
+## 先在自己的数据库中创建一个空数据库，比如duadmin
+## 修改.env，配置数据库
+vim .env
+
+DB_CONNECTION=mysql
+DB_HOST=localhost
+DB_PORT=3306
+DB_DATABASE=duadmin
+DB_USERNAME=root
+DB_PASSWORD=
+
+php yii dua-migrate/install
+
+php yii dua-serve
+
+```
+
+前端地址: http://localhost:8080/
+后端地址: http://localhost:8080/admin.php
+
 ## 部分截图
 
 - 前端登录
