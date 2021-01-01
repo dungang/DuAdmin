@@ -83,7 +83,7 @@ class Swiper extends DefaultFlashSwiper
         $this->clientOptions['loop'] = $this->loop;
 
         $this->view->registerJs(new JsExpression("new Swiper('$this->selector'," . Json::encode($this->clientOptions) . ");"));
-        $files = FileHelper::findFiles(Yii::getAlias('@root/public/images/screen/'),['recursive'=>false]);
+        $files = FileHelper::findFiles(Yii::getAlias('@app/public/images/screen/'),['recursive'=>false]);
         if($files) {
             $files = array_map(function($file){
                 return 'images/screen/' . basename($file);
