@@ -3,6 +3,8 @@ namespace Frontend\Widgets;
 
 use DuAdmin\Widgets\DefaultFlashSwiper;
 use DuAdmin\Assets\SwiperAsset;
+use Yii;
+use yii\helpers\FileHelper;
 use yii\web\JsExpression;
 use yii\helpers\Json;
 
@@ -81,8 +83,15 @@ class Swiper extends DefaultFlashSwiper
         $this->clientOptions['loop'] = $this->loop;
 
         $this->view->registerJs(new JsExpression("new Swiper('$this->selector'," . Json::encode($this->clientOptions) . ");"));
-
-        return $this->render('swiper');
+        $files = FileHelper::findFiles(Yii::getAlias('@web/images/screen/'),['recursive'=>false]);
+        if($files) {
+            $files = array_map(function($file){
+                return 'images/screen/' . basename($file);
+            },$files);
+        } else {
+            $files = [];
+        }
+        return $this->render('swiper',['files'=>$files]);
     }
 }
 
