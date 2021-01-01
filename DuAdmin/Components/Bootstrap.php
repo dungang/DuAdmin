@@ -40,6 +40,7 @@ class Bootstrap implements BootstrapInterface
         Validator::$builtInValidators['mobile'] = '\DuAdmin\Validators\MobileValidator'; //验证手机
         Validator::$builtInValidators['alternative'] = '\DuAdmin\Validators\AlternativeValidator'; //二选一验证
         Validator::$builtInValidators['slug'] = '\DuAdmin\Validators\SlugValidator';
+        Hook::registerHookHandler('DuAdmin\Hooks\ViewInitedHook','DuAdmin\Hooks\SiteStatisticCodeHandler');
         $this->dynamicParseAddons($app);
     }
 

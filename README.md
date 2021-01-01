@@ -16,29 +16,38 @@ DuAdmin（独角派管理后台）yii2管理后台快速开发包
 - **API开发** DuAdmin在设计之初就考虑了3个入口，管理后台，会员后台，API的功能
 - **模块化插件** 插件是在module的基础上开发，解决插件前后端的控制器不被交叉范围的问题。插件可以有自己的vendor，只需要简单的配置即可完成插件的配置功能。
 - **丰富的数据迁移** 一键管理前端后端包括插件的数据迁移文件。交互的数据迁移管理，最大化减少开发者输入负载的别名和路径。
-- **HOOK机制** 提供总线的hook机制，支持前后端，插件的hook注册，也可以实现异步（开发中）
+- **HOOK机制** 支持前后端，插件的hook注册，也可以实现异步（开发中）
 - **WEBPACK.MIX.JS** DuAdmin做了定制开发，可以在前后端，包括插件内部编辑js、less源码，而不用在一个src下开发所有功能的资源文件。大大提高了代码管理效率。每个插件都应该有自己的资源文件，而不是跟总项目混在一起。
 - **可定制前端首页** 简单的管理前端首页的内容，通过PageBlock管理，前端，插件提供的块，动态生成前端首页。功能比较基础，但是满足一般的场景。 
 - **POWERED BY YII2** Yii is a high-performance PHP framework best for developing Web 2.0 applications.
 
 ## 部分截图
 
+- 前端登录
 ![前端登录](public/images/screen/frontend-login.png)
 
+- 前端首页
 ![前端首页](public/images/screen/frontend-index.png)
 
+- 前端功能
 ![前端功能](public/images/screen/frontend-futures.png)
-
+ 
+- 前端联系 
 ![前端联系](public/images/screen/frontend-contact.png)
 
+- 前端首页
 ![前端首页](public/images/screen/frontend-index.png)
 
+- 后端设置管理
 ![后端设置管理](public/images/screen/backend-setting.png)
 
+- 后端菜单管理
 ![后端菜单管理](public/images/screen/backend-menu.png)
 
+- 后端内容管理
 ![后端内容管理](public/images/screen/backend-page.png)
 
+- 后端首页管理
 ![后端首页管理](public/images/screen/backend-page-index.png)
 
 ## 特别鸣谢
@@ -51,3 +60,12 @@ DuAdmin（独角派管理后台）yii2管理后台快速开发包
 - AdminLTE https://adminlte.io
 - Webpack.mix.js
 
+## 版权信息
+
+DUAdmin遵循Apache2开源协议发布，并提供免费使用。
+
+本项目包含的第三方源码和二进制文件之版权信息另行标注。
+
+版权所有 DuAdmin (http://www.duadmin.com)
+
+All rights reserved。

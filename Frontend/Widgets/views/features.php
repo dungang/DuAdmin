@@ -63,7 +63,7 @@
             <div class="feature">
                 <i class="glyphicon glyphicon-bullhorn"></i>
                 <h3>Hook机制</h3>
-                <p>提供总线的hook机制，支持前后端，插件的hook注册，也可以实现异步（开发中）</p>
+                <p>支持前后端，插件的hook注册，也可以实现异步（开发中）</p>
             </div>
         </div>
         <div class="col-sm-3 col-md-3">

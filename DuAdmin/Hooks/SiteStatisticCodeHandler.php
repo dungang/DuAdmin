@@ -15,7 +15,10 @@ class SiteStatisticCodeHandler extends Handler
 {
     public function isNotAjaxWithFrontend()
     {
-        return \Yii::$app->request->isAjax === false;
+        if (RUNTIME_MODE === 'Frontend') {
+            return \Yii::$app->request->isAjax === false;
+        }
+        return  false;
     }
 
     /**
@@ -30,8 +33,6 @@ class SiteStatisticCodeHandler extends Handler
             if ($statisticCode = AppHelper::getSetting('site.tongji')) {
                 $hook->owner->registerJs($statisticCode, View::POS_HEAD);
             }
-        } else {
-            Yii::debug('is ajax request');
         }
     }
 }
