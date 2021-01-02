@@ -86,6 +86,17 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./Addons/Cms/resource/assets/src/less/cms.less":
+/*!******************************************************!*\
+  !*** ./Addons/Cms/resource/assets/src/less/cms.less ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "./node_modules/adminlte/dist/js/adminlte.min.js":
 /*!*******************************************************!*\
   !*** ./node_modules/adminlte/dist/js/adminlte.min.js ***!
@@ -705,13 +716,14 @@ $(document).on('submit', '.enable-ajax-form form', function (event) {
 /***/ }),
 
 /***/ 0:
-/*!*********************************************************************************************************************************!*\
-  !*** multi ./public/duadmin/src/js/DUAdmin.js ./public/duadmin/src/less/DUAdmin.less ./themes/basic/assets/src/less/basic.less ***!
-  \*********************************************************************************************************************************/
+/*!********************************************************************************************************************************************************************************!*\
+  !*** multi ./public/duadmin/src/js/DUAdmin.js ./Addons/Cms/resource/assets/src/less/cms.less ./public/duadmin/src/less/DUAdmin.less ./themes/basic/assets/src/less/basic.less ***!
+  \********************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! D:\www\DuAdmin\public\duadmin\src\js\DUAdmin.js */"./public/duadmin/src/js/DUAdmin.js");
+__webpack_require__(/*! D:\www\DuAdmin\Addons\Cms\resource\assets\src\less\cms.less */"./Addons/Cms/resource/assets/src/less/cms.less");
 __webpack_require__(/*! D:\www\DuAdmin\public\duadmin\src\less\DUAdmin.less */"./public/duadmin/src/less/DUAdmin.less");
 module.exports = __webpack_require__(/*! D:\www\DuAdmin\themes\basic\assets\src\less\basic.less */"./themes/basic/assets/src/less/basic.less");
 

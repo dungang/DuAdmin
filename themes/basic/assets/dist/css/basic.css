@@ -1577,6 +1577,7 @@ fieldset[disabled] .btn-danger.active {
 html,
 body {
   height: 100%;
+  background-color: #efefef;
 }
 .wrap {
   min-height: 100%;
@@ -1736,6 +1737,7 @@ a {
 .breadcrumb {
   margin-top: 15px;
   margin-bottom: 15px;
+  background-color: transparent;
 }
 .nav .active {
   background-color: #232834;

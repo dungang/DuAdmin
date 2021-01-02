@@ -29,10 +29,7 @@ $config = [
         ],
         'urlManager' => [
             'class' => 'DuAdmin\Components\RewriteUrl',
-            //'cache' => 'cache',
             //'suffix' => '.html',
-            'enablePrettyUrl' => true,
-            'from_db' => true,
             'rules' => [
                 '<slug:[\w \-]+>' => 'site/page'
             ]

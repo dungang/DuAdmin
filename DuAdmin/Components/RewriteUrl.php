@@ -1,5 +1,4 @@
 <?php
-
 namespace DuAdmin\Components;
 
 use Yii;
@@ -16,22 +15,27 @@ use yii\web\Request;
  */
 class RewriteUrl extends UrlManager
 {
+
     /**
      * 公共参数
      * 保证每一个url都包含的参数
-     * 
+     *
      * @var array
      */
-    public $common_params = [];
+    public $commonParams = [];
 
-    public $from_db = false;
-    
+    public $fromDb = true;
+
+    public $enablePrettyUrl = true;
+
+    public $showScriptName = false;
+
     /**
+     *
      * @var string the cache key for cached rules
      * @since 2.0.8
      */
     protected $cacheKey = __CLASS__;
-
 
     /**
      * Initializes UrlManager.
@@ -40,26 +44,28 @@ class RewriteUrl extends UrlManager
     {
         if ($this->normalizer !== false) {
             $this->normalizer = Yii::createObject($this->normalizer);
-            if (!$this->normalizer instanceof UrlNormalizer) {
+            if (! $this->normalizer instanceof UrlNormalizer) {
                 throw new InvalidConfigException('`' . get_class($this) . '::normalizer` should be an instance of `' . UrlNormalizer::className() . '` or its DI compatible configuration.');
             }
         }
 
-        if (!$this->enablePrettyUrl) {
+        if (! $this->enablePrettyUrl) {
             return;
         }
         if (is_string($this->cache)) {
             $this->cache = Yii::$app->get($this->cache, false);
         }
-        if ($this->from_db) {
-            $this->rules = ArrayHelper::merge($this->rules, $this->getRulesFromDb());
+        if ($this->fromDb) {
+            if ($rules = $this->getRulesFromDb()) {
+                $this->rules = array_merge($rules, $this->rules);
+            }
         }
         if (empty($this->rules)) {
             return;
         }
         $this->rules = $this->buildRules($this->rules);
     }
-    
+
     /**
      *
      * {@inheritdoc}
@@ -67,8 +73,8 @@ class RewriteUrl extends UrlManager
      */
     public function createUrl($params)
     {
-        if ($this->common_params && \is_array($params)) {
-            $params = array_merge($this->common_params, $params);
+        if ($this->commonParams && \is_array($params)) {
+            $params = array_merge($this->commonParams, $params);
         }
         return parent::createUrl($params);
     }
@@ -127,7 +133,6 @@ class RewriteUrl extends UrlManager
                 ];
             }
 
-
             if ($this->enableStrictParsing) {
                 return false;
             }
@@ -142,8 +147,8 @@ class RewriteUrl extends UrlManager
             }
             if ($suffix !== '' && $pathInfo !== '') {
                 $n = strlen($this->suffix);
-                if (substr_compare($pathInfo, $this->suffix, -$n, $n) === 0) {
-                    $pathInfo = substr($pathInfo, 0, -$n);
+                if (substr_compare($pathInfo, $this->suffix, - $n, $n) === 0) {
+                    $pathInfo = substr($pathInfo, 0, - $n);
                     if ($pathInfo === '') {
                         // suffix alone is not allowed
                         return false;

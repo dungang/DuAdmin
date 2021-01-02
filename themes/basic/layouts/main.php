@@ -7,7 +7,6 @@ use DuAdmin\Helpers\AppHelper;
 use DuAdmin\Models\Setting;
 use DuAdmin\Widgets\LazyLoad;
 use DuAdmin\Widgets\Notify;
-use DuAdmin\Widgets\SimpleModal;
 use app\themes\basic\widgets\ThemeAsset;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -99,17 +98,6 @@ $siteName = Yii::t('app', AppHelper::getSetting('site.name', Yii::$app->name));
             </div>
         <?php endif; ?>
         <?= $content ?>
-        <?php
-        SimpleModal::begin([
-            'size' => 'modal-lg',
-            'header' => Yii::t('da', 'Dailog'),
-            'options' => [
-                'id' => 'modal-dailog'
-            ]
-        ]);
-        echo Yii::t('da', 'No Data');
-        SimpleModal::end();
-        ?>
     </div>
 
     <footer class="footer  text-center">

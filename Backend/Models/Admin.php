@@ -337,6 +337,12 @@ class Admin extends BaseModel implements IdentityInterface, Authable, Operator
         return $this->hasMany(AuthRole::class, ['id'=>'itemId'])
         ->via('assignments');
     }
+
+    public function getRolesText(){
+        return implode(',',array_map(function($role){
+            return $role->description;
+        },$this->roles));
+    }
     
     public function getAssignments(){
         return $this->hasMany(AuthAssignment::class, ['userId'=>'id']);
