@@ -236,6 +236,13 @@ class BaseController extends Controller
             'data' => $params
         ];
     }
+    
+    public function rendJsonData($status,$data){
+        return [
+            'status' => $status,
+            'data' => $data
+        ];
+    }
 
     /**
      * 当成功的时候返回
