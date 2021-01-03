@@ -1723,14 +1723,6 @@ a.desc:after {
 .block-bar-gray {
   background-color: #f1f1f1;
 }
-.page-cover img {
-  width: 100%;
-}
-@media (min-width: 768px) {
-  .page-cover img {
-    width: auto;
-  }
-}
 a {
   color: #232834;
 }
@@ -1749,60 +1741,6 @@ a {
 .nav .lang-active,
 .nav .lang-active a {
   color: #232834 !important;
-}
-.product-list .product {
-  display: flex;
-}
-.product-list .product .cover {
-  width: 120px;
-}
-.product-list .product .info {
-  flex: 1;
-}
-.thumbnail {
-  border-radius: 0;
-  border: 0;
-}
-.thumbnail .img-aspect-11 {
-  position: relative;
-  width: 100%;
-  padding-top: 100%;
-  overflow: hidden;
-}
-.thumbnail .img-aspect-11 img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  width: 100%;
-}
-.thumbnail .caption {
-  margin-left: -4px;
-  margin-right: -4px;
-  margin-bottom: -4px;
-  background-color: #232834;
-}
-.thumbnail .caption h3 {
-  margin: 5px;
-  height: 53px;
-  overflow: hidden;
-}
-.thumbnail .caption h3 a {
-  color: white;
-  font-size: medium;
-}
-.article {
-  justify-content: space-between;
-}
-.article img {
-  display: block !important;
-  margin: auto;
-  max-width: 100%;
-}
-.article table {
-  margin: auto;
-  max-width: 100%;
 }
 .feature {
   text-align: center;
