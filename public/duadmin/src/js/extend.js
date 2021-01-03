@@ -3,7 +3,7 @@
  * //加载数据的地址 data-param //加载数据的参数 data-value //默认初始值，并不代表事最终逻辑值 data-queue
  * //顺序执行的对象队列
  */
-Date.prototype.format = function(fmt) {
+Date.prototype.format = function (fmt) {
 	var o = {
 		"M+": this.getMonth() + 1, //月份
 		"d+": this.getDate(), //日
@@ -19,7 +19,7 @@ Date.prototype.format = function(fmt) {
 	return fmt;
 };
 
-+ function($) {
++ function ($) {
 
 	function isNotEmptyObject(e) {
 		var t;
@@ -63,7 +63,7 @@ Date.prototype.format = function(fmt) {
 			alert('连级下拉框参数配置不正确:' + $self.attr('name'));
 		}
 		if (isNotEmptyObject(param)) {
-			$.getJSON(data.url, param, function(res) {
+			$.getJSON(data.url, param, function (res) {
 				if (res.code == 0) {
 					$self.append(assembleOptions(res.data, data.value));
 					process(queue);
@@ -81,10 +81,10 @@ Date.prototype.format = function(fmt) {
 		process(queue);
 	}
 
-	$.fn.linkageSelect = function() {
+	$.fn.linkageSelect = function () {
 		$(document).off('change.site.linkage');
 		execute();
-		$(document).on('change.site.linkage', 'select[data-linkage]', function() {
+		$(document).on('change.site.linkage', 'select[data-linkage]', function () {
 			var queue = $($(this).data('queue')).toArray();
 			process(queue);
 		});
@@ -92,7 +92,7 @@ Date.prototype.format = function(fmt) {
 }(jQuery);
 
 +
-	function($) {
+	function ($) {
 
 		function process(options) {
 			var _this = this;
@@ -102,19 +102,19 @@ Date.prototype.format = function(fmt) {
 				method: options.method,
 				data: options.data,
 				dataType: options.dataType,
-				error: function(xhr, textStatus, errorThrown) {
+				error: function (xhr, textStatus, errorThrown) {
 					options.onTimeout.call(_this, options, xhr, textStatus, errorThrown);
 					if (options.repeat) {
-						setTimeout(function() {
+						setTimeout(function () {
 							process.call(_this, options)
 						}, options.interval);
 					}
 				},
-				success: function(data, textStatus) {
+				success: function (data, textStatus) {
 					if (textStatus == "success") { // 请求成功
 						options.onSuccess.call(_this, data, textStatus, options);
 						if (options.repeat) {
-							var tm = setTimeout(function() {
+							var tm = setTimeout(function () {
 								process.call(_this, options);
 								clearTimeout(tm);
 							}, options.interval);
@@ -125,14 +125,14 @@ Date.prototype.format = function(fmt) {
 
 		}
 
-		$.fn.longpoll = function(options) {
-			return this.each(function() {
+		$.fn.longpoll = function (options) {
+			return this.each(function () {
 				var _this = $(this);
 				var opts = $.extend({}, $.fn.longpoll.Default, options, _this.data());
 				if (opts.now === true) {
 					process.call(_this, opts);
 				} else {
-					var tm = setTimeout(function() {
+					var tm = setTimeout(function () {
 						process.call(_this, opts);
 						clearTimeout(tm);
 					}, options.interval);
@@ -153,16 +153,16 @@ Date.prototype.format = function(fmt) {
 	}(jQuery);
 
 +
-	function($) {
-		$.fn.batchLoad = function(options) {
-			return this.each(function() {
+	function ($) {
+		$.fn.batchLoad = function (options) {
+			return this.each(function () {
 				var _this = $(this);
 				var opts = $.extend({}, $.fn.batchLoad.Default, options, _this.data());
 				var url = _this.attr('href');
 				var hasQuery = url.indexOf('?') > -1;
-				_this.click(function(e) {
+				_this.click(function (e) {
 					e.preventDefault();
-					var idObjs = $('input[name=' + opts.key + '\\[\\]]:checked').map(function(idx, obj) {
+					var idObjs = $('input[name=' + opts.key + '\\[\\]]:checked').map(function (idx, obj) {
 						return obj.value;
 					});
 
@@ -176,7 +176,7 @@ Date.prototype.format = function(fmt) {
 							url += '?id' + ids.join();
 						}
 
-						$.get(url, function(response) {
+						$.get(url, function (response) {
 							var modal = $(opts.modal);
 							modal.find('.modal-content').html(response);
 							modal.modal('show');
@@ -193,24 +193,24 @@ Date.prototype.format = function(fmt) {
 	}(jQuery);
 
 +
-	function($) {
+	function ($) {
 		/**
 		 * Create or Delete a Row of List
 		 */
-		$.fn.listrowcd = function(options) {
-			return this.each(function() {
+		$.fn.listrowcd = function (options) {
+			return this.each(function () {
 				var _this = $(this);
 				var opts = $.extend({}, $.fn.listrowcd.Default, options, _this.data());
 				// delete button
-				_this.find(opts.delBtn).click(function(e) {
+				_this.find(opts.delBtn).click(function (e) {
 					e.preventDefault();
 					var _delBtn = $(this);
 					var _row = _delBtn.parents(opts.row);
-					_row.fadeToggle('slow', function() {
+					_row.fadeToggle('slow', function () {
 						_row.remove();
 					});
 				});
-				_this.find(opts.createBtn).click(function(e) {
+				_this.find(opts.createBtn).click(function (e) {
 					e.preventDefault();
 					var _createBtn = $(this);
 					var _rows = _this.find(opts.row);
@@ -227,7 +227,7 @@ Date.prototype.format = function(fmt) {
 		};
 	}(jQuery);
 
-+ function($) {
++ function ($) {
 	function replaceIndex(clone) {
 		var regexID = /\-\d{1,}\-/gmi;
 		var regexName = /\[\d{1,}\]/gmi;
@@ -239,11 +239,11 @@ Date.prototype.format = function(fmt) {
 		return clone;
 	}
 
-	$.fn.dynamicline = function(options) {
-		return this.each(function() {
+	$.fn.dynamicline = function (options) {
+		return this.each(function () {
 			var _container = $(this);
 			var opts = $.extend({}, $.fn.dynamicline.DEF, options, _container.data());
-			_container.on('click', '.delete-self', function(e) {
+			_container.on('click', '.delete-self', function (e) {
 				e.preventDefault();
 				var _this = $(this);
 				var target_obj = _this.parents(opts.target);
@@ -251,7 +251,7 @@ Date.prototype.format = function(fmt) {
 				if (targets.length > 2) {
 					target_obj.remove();
 				}
-			}).on('click', '.copy-self', function(e) {
+			}).on('click', '.copy-self', function (e) {
 				e.preventDefault();
 				var _this = $(this);
 				var target_obj = _this.parents(opts.target);
@@ -270,15 +270,15 @@ Date.prototype.format = function(fmt) {
 	};
 }(jQuery);
 
-+ function($) {
++ function ($) {
 	'use strict';
 
-	$.fn.sizeList = function() {
-		return this.each(function() {
+	$.fn.sizeList = function () {
+		return this.each(function () {
 			var _this = $(this);
 			var hiddenInput = _this.find('input[type=hidden]');
 			var checkboxList = _this.find('input[type=checkbox]');
-			checkboxList.change(function() {
+			checkboxList.change(function () {
 				var items = [];
 				for (var i = 0; i < checkboxList.length; i++) {
 					if (checkboxList[i].checked) {
@@ -294,12 +294,12 @@ Date.prototype.format = function(fmt) {
 /**
  * Created by dungang
  */
-+function($) {
++function ($) {
 
 	'use strict';
 
-	$.fn.selectBox = function() {
-		return this.each(function() {
+	$.fn.selectBox = function () {
+		return this.each(function () {
 			var _this = $(this);
 			var id = _this.attr('id');
 			var sourceSearchInput = $('#' + id + '-source-search');
@@ -309,15 +309,15 @@ Date.prototype.format = function(fmt) {
 			var yesButton = $('#' + id + '-btn-yes');
 			var noButton = $('#' + id + '-btn-no');
 
-			targetSelect.on('update', function() {
+			targetSelect.on('update', function () {
 				targetSelect
 					.find('option')
 					.attr('selected', true);
 			});
 
-			sourceSearchInput.keyup(function() {
+			sourceSearchInput.keyup(function () {
 				var filter = sourceSearchInput.val().trim();
-				sourceSelect.find('option').each(function() {
+				sourceSelect.find('option').each(function () {
 					var _option = $(this);
 					if (_option.text().indexOf(filter) < 0) {
 						_option.attr('selected', false)
@@ -328,9 +328,9 @@ Date.prototype.format = function(fmt) {
 				});
 			});
 
-			targetSearchInput.keyup(function() {
+			targetSearchInput.keyup(function () {
 				var filter = targetSearchInput.val().trim();
-				targetSelect.find('option').each(function() {
+				targetSelect.find('option').each(function () {
 					var _option = $(this);
 					if (_option.text().indexOf(filter) < 0) {
 						_option.attr('selected', false)
@@ -342,14 +342,14 @@ Date.prototype.format = function(fmt) {
 				targetSelect.trigger('update');
 			});
 
-			yesButton.click(function() {
+			yesButton.click(function () {
 				sourceSelect
 					.find('option:selected')
 					.appendTo(targetSelect);
 				targetSelect.trigger('update');
 			});
 
-			noButton.click(function() {
+			noButton.click(function () {
 				targetSelect
 					.find('option:selected')
 					.appendTo(sourceSelect);
@@ -365,14 +365,14 @@ Date.prototype.format = function(fmt) {
  * yiigridview的批量编辑，在按钮上添加.batch-update样式，
  * 该事件会更新按钮的url
  */
-$(document).on('click', '.batch-update', function(e) {
+$(document).on('click', '.batch-update', function (e) {
 	e.preventDefault();
 	var that = $(this);
 	var data = that.data();
 	var gridView = $(data.target);
 	var gridViewData = gridView.yiiGridView('data');
 	var field = escape(gridViewData.selectionColumn);
-	var ids = gridView.yiiGridView("getSelectedRows").map(function(id) {
+	var ids = gridView.yiiGridView("getSelectedRows").map(function (id) {
 		return field + '=' + escape(id);
 	});
 
@@ -395,7 +395,7 @@ $(document).on('click', '.batch-update', function(e) {
  * 需要在data属性配置 gridview的id
  * data-target="#gridviewId"
  */
-$(document).on('click', '.del-all', function(e) {
+$(document).on('click', '.del-all', function (e) {
 	e.preventDefault();
 	var that = $(this);
 	var data = that.data();
@@ -415,7 +415,7 @@ $(document).on('click', '.del-all', function(e) {
 				method: "POST",
 				url: that.attr('href'),
 				data: params,
-				success: function(msg) {
+				success: function (msg) {
 					window.location.reload();
 				}
 			});
@@ -426,18 +426,18 @@ $(document).on('click', '.del-all', function(e) {
 /**
  * ajax文件直传
  */
-$(document).on('click', '.ajax-file-input button', function(e) {
+$(document).on('click', '.ajax-file-input button', function (e) {
 	var fileInput = this.nextElementSibling;
 	var textInput = fileInput.parentElement.previousElementSibling;
 	var fileType = textInput.getAttribute('data-type');
 	var tokenUrl = textInput.getAttribute('data-token-url');
 	var cropper = textInput.getAttribute('data-cropper');
-	fileInput.onchange = function(e) {
+	fileInput.onchange = function (e) {
 		if (fileInput.multiple == false) {
 			var file = fileInput.files[0];
 			var index = file.name.lastIndexOf(".");
 			var extension = file.name.substr(index + 1);
-			$.get(tokenUrl, { fileType: fileType }, function(data) {
+			$.get(tokenUrl, { fileType: fileType }, function (data) {
 				var formData = new FormData();
 				var key = data.key + "." + extension;
 				formData.append(DUA.uploader.keyName, key);
@@ -451,13 +451,13 @@ $(document).on('click', '.ajax-file-input button', function(e) {
 					data: formData,
 					processData: false, // 使数据不做处理
 					contentType: false, // 不要设置Content-Type请求头
-					success: function(data) {
+					success: function (data) {
 						//if (data.hash) {
 						alert('上传成功！');
 						textInput.value = DUA.uploader.baseUrl + key;
 						//}
 					},
-					error: function(response) {
+					error: function (response) {
 						console.log(response);
 					}
 				});
@@ -468,22 +468,38 @@ $(document).on('click', '.ajax-file-input button', function(e) {
 });
 
 
-$(document).on('submit', '.enable-ajax-form form', function(event) {
+$(document).on('submit', '.enable-ajax-form form', function (event) {
 	event.preventDefault();
 	var aform = $(event.target);
 	var pjaxContainer = aform.parents('[data-pjax-container]');
 	aform.ajaxSubmit({
-		headers: { 'AJAX-SUBMIT': 'AJAX-SUBMIT' }, 
-		success: function(data) {
+		headers: { 'AJAX-SUBMIT': 'AJAX-SUBMIT' },
+		success: function (data) {
 			var type = "error";
 			if (data.status == 'success') {
 				if (pjaxContainer) {
-					var pjaxId = pjaxContainer.attr('id'); 
-					$.pjax.reload('#' + pjaxId); 
+					var pjaxId = pjaxContainer.attr('id');
+					$.pjax.reload('#' + pjaxId);
 				}
 				type = "success";
 			}
 			notif({ type: type, msg: data.message, position: 'center', timeout: 3000 });
+		}
+	});
+});
+
+$(document).on('click', '[data-sync]', function (event) {
+	event.preventDefault();
+	var targetBtn = $(this);
+	$.post(targetBtn.attr('href'), function (data) {
+		if (data.status == 'success') {
+			var pjaxContainer = targetBtn.parents('[data-pjax-container]');
+			if (pjaxContainer) {
+				var pjaxId = pjaxContainer.attr('id');
+				if (pjaxId != undefined) {
+					$.pjax.reload('#' + pjaxId);
+				}
+			}
 		}
 	});
 });
