@@ -4309,6 +4309,9 @@ table.text-center th {
   margin-bottom: 5px;
   margin-right: 5px;
 }
+.panel-adminlte .panel-body {
+  padding: 0 15px 15px;
+}
 .panel-adminlte .panel-footer {
   border-top: 0;
   padding: 15px;
