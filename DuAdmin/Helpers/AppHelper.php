@@ -474,7 +474,7 @@ class AppHelper
      * @return array
      * @author gang.dun <dungang@huluwa.cc>
      */
-    public static function listToTree($list, $pk = 'id', $pid = 'pid', $child = 'items', $root = '0')
+    public static function listToTree($list, $pk = 'id', $pid = 'pid', $child = 'children', $root = '0')
     {
         // 创建Tree
         $tree = array();

@@ -7,6 +7,7 @@ use yii\helpers\Json;
 use DuAdmin\Assets\ZTreeAsset;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 
 class ZTree extends Widget
 {
@@ -62,6 +63,7 @@ class ZTree extends Widget
         }
         $nodes = Json::encode($this->nodes);
         $this->view->registerJs("$.fn.zTree.init($('#{$id}'),$settings,$nodes);");
+        return Html::tag('div','',['id'=>$id,'class'=>'ztree']);
     }
 
     protected function refactor(&$nodes, $url = null, $open = false)

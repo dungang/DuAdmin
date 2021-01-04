@@ -34,9 +34,16 @@ class PanelGridView extends GridView
 
     public $panelBodyClass = 'panel-body clearfix';
 
-    private $_body_content = '';
+    private $_toolBody = '';
 
     public $layout = "{items}\n{pager}";
+
+    /**
+     * 头部按钮
+     *
+     * @var array
+     */
+    public $tools = [];
 
     public function init()
     {
@@ -50,14 +57,12 @@ class PanelGridView extends GridView
 
     public function run()
     {
-        $this->_body_content = ob_get_clean() . Html::tag('div', parent::renderSummary(), [
+        $this->tools[] = ob_get_clean() . Html::tag('div', parent::renderSummary(), [
             'class' => 'pull-right'
         ]);
-        if (! empty($this->_body_content)) {
-            $this->_body_content = Html::tag('div', $this->_body_content, [
-                'class' => 'panel-tools'
-            ]);
-        }
+        $this->_toolBody = Html::tag('div', implode(' ', $this->tools), [
+            'class' => 'panel-tools'
+        ]);
         return parent::run();
     }
 
@@ -92,7 +97,7 @@ class PanelGridView extends GridView
 
     public function renderItems()
     {
-        return $this->renderPanelHeading() . Html::tag('div', $this->_body_content . parent::renderItems(), [
+        return $this->renderPanelHeading() . Html::tag('div', $this->_toolBody . parent::renderItems(), [
             'class' => $this->panelBodyClass
         ]);
     }

@@ -237,7 +237,7 @@ class BaseController extends Controller
         ];
     }
     
-    public function rendJsonData($status,$data){
+    public function renderJsonData($status,$data){
         return [
             'status' => $status,
             'data' => $data
