@@ -1538,13 +1538,16 @@ fieldset[disabled] .btn-danger.active {
 }
 .login-page,
 .register-page {
+  background-color: #eee;
   background-image: url(/images/login-bg.png);
+  background-repeat: no-repeat;
   background-size: cover;
+  padding-top: 7%;
 }
 .login-box,
 .register-box {
   width: 360px;
-  margin: 7% auto;
+  margin: auto;
   background-color: white;
 }
 @media (max-width: 768px) {
