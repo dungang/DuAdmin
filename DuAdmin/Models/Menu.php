@@ -92,6 +92,7 @@ class Menu extends \DuAdmin\Core\BaseModel
     const CacheKeyFront = 'front.menus';
     
     const CacheKeyBack = 'back.menus';
+    
     public function behaviors()
     {
         $b = parent::behaviors();

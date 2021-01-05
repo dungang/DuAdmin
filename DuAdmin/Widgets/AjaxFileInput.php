@@ -1,6 +1,7 @@
 <?php
 namespace DuAdmin\Widgets;
 
+use DuAdmin\Assets\CropperAsset;
 use yii\bootstrap\Html;
 use yii\bootstrap\InputWidget;
 use yii\helpers\Url;
@@ -17,32 +18,26 @@ class AjaxFileInput extends InputWidget
     public $type = "image";
 
     /**
-     * 是否裁剪
+     * 是否压缩
      *
-     * @var boolean
+     * @var string 'true' or 'false'
      */
-    public $clip = false;
+    public $compress = 'true';
 
     /**
      * 裁剪后的宽度
      *
      * @var string
      */
-    public $clipWidth = '100px';
+    public $clipWidth = 320;
 
     /**
      * 裁剪后的高度
      *
      * @var string
      */
-    public $clipHeight = '100px';
+    public $clipHeight = 320;
 
-    /**
-     * 目标图片显示高度
-     *
-     * @var string
-     */
-    public $sourceImageHight = '300px';
 
     /**
      * 是否只读
@@ -55,6 +50,7 @@ class AjaxFileInput extends InputWidget
     {
         // 配置前端参数
         ConfigWidget::factory();
+        CropperAsset::register($this->view);
         if ($this->readOnly) {
             $this->options['readonly'] = 'readonly';
         }
@@ -68,7 +64,12 @@ class AjaxFileInput extends InputWidget
             $input = Html::textInput($this->name, $this->value, $this->options);
         }
         return $this->render('ajax-file-input', [
-            'input' => $input
+            'input' => $input,
+            'options' => [
+                'data-compress' => $this->compress,
+                'data-image-height' => $this->clipHeight,
+                'data-image-width' => $this->clipWidth,
+            ]
         ]);
     }
 }

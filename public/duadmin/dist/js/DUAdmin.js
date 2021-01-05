@@ -97,6 +97,28 @@
 
 /***/ }),
 
+/***/ "./Addons/ServiceMarketing/resource/assets/src/less/service-marketing.less":
+/*!*********************************************************************************!*\
+  !*** ./Addons/ServiceMarketing/resource/assets/src/less/service-marketing.less ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./Addons/WeWork/resource/assets/src/less/we-work.less":
+/*!*************************************************************!*\
+  !*** ./Addons/WeWork/resource/assets/src/less/we-work.less ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "./node_modules/adminlte/dist/js/adminlte.min.js":
 /*!*******************************************************!*\
   !*** ./node_modules/adminlte/dist/js/adminlte.min.js ***!
@@ -149,6 +171,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 +function ($) {
   'use strict';
 
@@ -156,39 +180,156 @@ __webpack_require__.r(__webpack_exports__);
     return type.substr(0, 5) == 'image';
   }
 
-  var dismiss = '[data-dismiss="ajax-upload"]';
+  function getExtension(fileName) {
+    var index = fileName.lastIndexOf(".");
+    return fileName.substr(index + 1);
+  }
 
-  var DuAjaxUpload = function DuAjaxUpload(el) {
+  var dismiss = '[data-dismiss="duajaxupload"]';
+  var ok = '[data-upload="duajaxupload"]';
+
+  var DuAjaxUpload = function DuAjaxUpload(el, options) {
+    var that = this;
+    this.options = options;
     this.$element = $(el);
-    this.$element.on('click', dismiss, this.close);
-    this.$element.on('change', 'input[type="file"]', this.upload);
+    this.formData = new FormData();
+    this.$fileInput = this.$element.find('input[type="file"]');
+    this.$textInput = this.$element.find('input[type="text"]');
+
+    var closeCallback = function closeCallback() {
+      that.close();
+    };
+
+    this.$element.on('click', dismiss, closeCallback);
+
+    var changeCallback = function changeCallback(e) {
+      that.file = e.currentTarget.files[0];
+      that.extension = getExtension(that.file.name);
+
+      if (isImage(that.file.type)) {
+        that.$dialog = that.$element.find('.cropper-dialog');
+        that.$imageBox = that.$element.find('.cropper-image-box');
+        that.$area = that.$dialog.find('.cropper-area');
+        that.showCropper();
+        that.$dialog.show();
+      } else {
+        that.formData.append("file", that.file);
+        that.uploadFile();
+      }
+    };
+
+    this.$fileInput.on('change', changeCallback);
+
+    var okCallback = function okCallback(e) {
+      if (that.$cropper) {
+        var targetImage = that.$cropper.cropper('getCroppedCanvas');
+
+        if (that.options.compress) {
+          targetImage = that.compress(targetImage);
+        }
+
+        targetImage.toBlob(function (blob) {
+          that.formData.append('file', blob, that.file.name);
+          that.uploadFile();
+        });
+      }
+
+      that.close();
+    };
+
+    this.$element.on('click', ok, okCallback);
   };
 
-  DuAjaxUpload.prototype.upload = function (e) {
-    var file = e.currentTarget.files[0];
+  DuAjaxUpload.DEFAULTS = {
+    imageHeight: 300,
+    //目标图标高度，如不compress=true 表示像素，否则表示高度占比单位大小
+    imageWidth: 300,
+    //目标图片宽度，如不compress=true 表示像素，否则表示宽度度占比单位大小
+    compress: true //是否压缩
 
-    if (isImage(file.type)) {
-      console.log(e);
-      $(e.delegateTarget).find('.cropper-dialog').show();
-    }
+  };
+
+  DuAjaxUpload.prototype.compress = function (img) {
+    var canvas = document.createElement('canvas');
+    var context = canvas.getContext('2d'); // 设置宽高度为等同于要压缩图片的尺寸
+
+    canvas.width = this.options.imageWidth;
+    canvas.height = this.options.imageHeight;
+    context.clearRect(0, 0, canvas.width, canvas.height); //将img绘制到画布上
+
+    context.drawImage(img, 0, 0, canvas.width, canvas.height);
+    return canvas;
+  };
+
+  DuAjaxUpload.prototype.uploadFile = function () {
+    var that = this;
+    var fileType = this.$textInput.attr('data-type');
+    var tokenUrl = this.$textInput.attr('data-token-url');
+    $.get(tokenUrl, {
+      fileType: fileType
+    }, function (data) {
+      var key = data.key + "." + that.extension;
+      that.formData.append(DUA.uploader.keyName, key);
+      that.formData.append(DUA.uploader.tokenName, data.token);
+      $.ajax({
+        url: DUA.uploader.uploadUrl,
+        dataType: 'json',
+        type: 'POST',
+        async: false,
+        data: that.formData,
+        processData: false,
+        // 使数据不做处理
+        contentType: false,
+        // 不要设置Content-Type请求头
+        success: function success(data) {
+          //if (data.hash) {
+          alert('上传成功！');
+          that.$textInput.val(DUA.uploader.baseUrl + key); //}
+        },
+        error: function error(response) {
+          console.log(response);
+        }
+      });
+    });
+  };
+
+  DuAjaxUpload.prototype.showCropper = function () {
+    var that = this;
+    var reader = new FileReader();
+    reader.addEventListener('load', function () {
+      that.img = new Image();
+      that.img.src = this.result;
+      that.$imageBox.html(that.img);
+      var rate = (that.options.imageWidth / that.options.imageHeight).toFixed(2);
+      that.$cropper = $(that.img).cropper({
+        aspectRatio: rate
+      });
+    });
+    reader.readAsDataURL(this.file);
   };
 
   DuAjaxUpload.prototype.selectFile = function () {
-    console.log(this.$element);
-    this.$element.find('input[type="file"]').trigger('click');
+    this.$fileInput.trigger('click');
   };
 
-  DuAjaxUpload.prototype.close = function (e) {
-    e.preventDefault();
-    var $this = $(this);
-    $this.parents('.cropper-dialog').hide();
+  DuAjaxUpload.prototype.close = function () {
+    if (this.$dialog) {
+      this.$fileInput.val("");
+      this.$dialog.hide();
+    }
   };
 
   function Plugin(option) {
     return this.each(function () {
       var $this = $(this);
       var data = $this.data('bs.duAjaxUpload');
-      if (!data) $this.data('bs.duAjaxUpload', data = new DuAjaxUpload(this));
+
+      if (!data) {
+        var options = $.extend({}, DuAjaxUpload.DEFAULTS, $this.data(), _typeof(option) == 'object' && option);
+        console.log(options);
+        $this.data('bs.duAjaxUpload', data = new DuAjaxUpload(this, options));
+      }
+
       if (typeof option == 'string') data[option].call(data);
     });
   }
@@ -689,49 +830,6 @@ $(document).on('click', '.del-all', function (e) {
     }
   }
 });
-/**
- * ajax文件直传
- */
-// $(document).on('click', '.ajax-file-input button', function (e) {
-// 	var fileInput = this.nextElementSibling;
-// 	var textInput = fileInput.parentElement.previousElementSibling;
-// 	var fileType = textInput.getAttribute('data-type');
-// 	var tokenUrl = textInput.getAttribute('data-token-url');
-// 	fileInput.onchange = function (e) {
-// 		if (fileInput.multiple == false) {
-// 			var file = fileInput.files[0];
-// 			var index = file.name.lastIndexOf(".");
-// 			var extension = file.name.substr(index + 1);
-// 			$.get(tokenUrl, { fileType: fileType }, function (data) {
-// 				var formData = new FormData();
-// 				var key = data.key + "." + extension;
-// 				formData.append(DUA.uploader.keyName, key);
-// 				formData.append("file", file);
-// 				formData.append(DUA.uploader.tokenName, data.token);
-// 				$.ajax({
-// 					url: DUA.uploader.uploadUrl,
-// 					dataType: 'json',
-// 					type: 'POST',
-// 					async: false,
-// 					data: formData,
-// 					processData: false, // 使数据不做处理
-// 					contentType: false, // 不要设置Content-Type请求头
-// 					success: function (data) {
-// 						//if (data.hash) {
-// 						alert('上传成功！');
-// 						textInput.value = DUA.uploader.baseUrl + key;
-// 						//}
-// 					},
-// 					error: function (response) {
-// 						console.log(response);
-// 					}
-// 				});
-// 			});
-// 		}
-// 	}
-// 	fileInput.click();
-// });
-
 $(document).on('submit', '.enable-ajax-form form', function (event) {
   event.preventDefault();
   var aform = $(event.target);
@@ -804,16 +902,18 @@ $(document).on('click', '[data-sync]', function (event) {
 /***/ }),
 
 /***/ 0:
-/*!********************************************************************************************************************************************************************************!*\
-  !*** multi ./public/duadmin/src/js/DUAdmin.js ./Addons/Cms/resource/assets/src/less/cms.less ./public/duadmin/src/less/DUAdmin.less ./themes/basic/assets/src/less/basic.less ***!
-  \********************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** multi ./public/duadmin/src/js/DUAdmin.js ./Addons/Cms/resource/assets/src/less/cms.less ./Addons/ServiceMarketing/resource/assets/src/less/service-marketing.less ./Addons/WeWork/resource/assets/src/less/we-work.less ./public/duadmin/src/less/DUAdmin.less ./themes/basic/assets/src/less/basic.less ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\www\DuAdmin\public\duadmin\src\js\DUAdmin.js */"./public/duadmin/src/js/DUAdmin.js");
-__webpack_require__(/*! D:\www\DuAdmin\Addons\Cms\resource\assets\src\less\cms.less */"./Addons/Cms/resource/assets/src/less/cms.less");
-__webpack_require__(/*! D:\www\DuAdmin\public\duadmin\src\less\DUAdmin.less */"./public/duadmin/src/less/DUAdmin.less");
-module.exports = __webpack_require__(/*! D:\www\DuAdmin\themes\basic\assets\src\less\basic.less */"./themes/basic/assets/src/less/basic.less");
+__webpack_require__(/*! D:\projects\workspace\MMAdmin\public\duadmin\src\js\DUAdmin.js */"./public/duadmin/src/js/DUAdmin.js");
+__webpack_require__(/*! D:\projects\workspace\MMAdmin\Addons\Cms\resource\assets\src\less\cms.less */"./Addons/Cms/resource/assets/src/less/cms.less");
+__webpack_require__(/*! D:\projects\workspace\MMAdmin\Addons\ServiceMarketing\resource\assets\src\less\service-marketing.less */"./Addons/ServiceMarketing/resource/assets/src/less/service-marketing.less");
+__webpack_require__(/*! D:\projects\workspace\MMAdmin\Addons\WeWork\resource\assets\src\less\we-work.less */"./Addons/WeWork/resource/assets/src/less/we-work.less");
+__webpack_require__(/*! D:\projects\workspace\MMAdmin\public\duadmin\src\less\DUAdmin.less */"./public/duadmin/src/less/DUAdmin.less");
+module.exports = __webpack_require__(/*! D:\projects\workspace\MMAdmin\themes\basic\assets\src\less\basic.less */"./themes/basic/assets/src/less/basic.less");
 
 
 /***/ })

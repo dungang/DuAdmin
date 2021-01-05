@@ -56,7 +56,7 @@ class AdminlteSideBarMenu extends Widget
         ]) : '';
         // url 为空 或者 是 '#' 的菜单没有子菜单 不显示
         foreach ($this->items as $item) {
-            if (isset($item['items']) && is_array($item['items'])) {
+            if (isset($item['children']) && is_array($item['children'])) {
                 $html .= $this->renderTreeItem($item);
             } else if (! (empty($item['url']) || $item['url'] == '#')) {
                 $html .= $this->renderItem($item);
@@ -180,7 +180,7 @@ class AdminlteSideBarMenu extends Widget
     {
         $active = $item[$this->activeKey] ? 'active' : '';
         $html = '';
-        foreach ($item['items'] as $child) {
+        foreach ($item['children'] as $child) {
             $html .= $this->renderItem($child);
         }
         $content = $this->renderLink($item) . Html::tag('ul', $html, [

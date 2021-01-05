@@ -423,49 +423,6 @@ $(document).on('click', '.del-all', function (e) {
 	}
 
 });
-/**
- * ajax文件直传
- */
-// $(document).on('click', '.ajax-file-input button', function (e) {
-// 	var fileInput = this.nextElementSibling;
-// 	var textInput = fileInput.parentElement.previousElementSibling;
-// 	var fileType = textInput.getAttribute('data-type');
-// 	var tokenUrl = textInput.getAttribute('data-token-url');
-// 	fileInput.onchange = function (e) {
-// 		if (fileInput.multiple == false) {
-// 			var file = fileInput.files[0];
-// 			var index = file.name.lastIndexOf(".");
-// 			var extension = file.name.substr(index + 1);
-// 			$.get(tokenUrl, { fileType: fileType }, function (data) {
-// 				var formData = new FormData();
-// 				var key = data.key + "." + extension;
-// 				formData.append(DUA.uploader.keyName, key);
-// 				formData.append("file", file);
-// 				formData.append(DUA.uploader.tokenName, data.token);
-// 				$.ajax({
-// 					url: DUA.uploader.uploadUrl,
-// 					dataType: 'json',
-// 					type: 'POST',
-// 					async: false,
-// 					data: formData,
-// 					processData: false, // 使数据不做处理
-// 					contentType: false, // 不要设置Content-Type请求头
-// 					success: function (data) {
-// 						//if (data.hash) {
-// 						alert('上传成功！');
-// 						textInput.value = DUA.uploader.baseUrl + key;
-// 						//}
-// 					},
-// 					error: function (response) {
-// 						console.log(response);
-// 					}
-// 				});
-// 			});
-// 		}
-// 	}
-// 	fileInput.click();
-// });
-
 
 $(document).on('submit', '.enable-ajax-form form', function (event) {
 	event.preventDefault();

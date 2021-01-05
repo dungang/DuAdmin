@@ -12,22 +12,26 @@ dirs.filter(dir => {
 	if(fs.existsSync(file)) {
 		let config = require(file);
 		let assets = config.assets;
-		assets.less.forEach(less=>{
-			let lessFile =  addonNameDir + '/' + assets.src + '/' + less.src;
-			let lessDist = addonNameDir + '/' + assets.dist + '/' + less.dist;
-			if(fs.existsSync(lessFile)) {
-				console.log('load addon less file: ' + lessFile )
-				mix.less(lessFile, lessDist);
-			}
-		});
-		assets.js.forEach(js=>{
-			let jsFile = addonNameDir + '/' + assets.src + '/' + js.src;
-			let jsDist = addonNameDir + '/' + assets.dist + '/' + js.dist;
-			if(fs.existsSync(jsFile)) {
-				console.log('load addon js file: ' + jsFile )
-				mix.less(jsFile, jsDist);
-			}
-		});
+		if(assets.less) {
+			assets.less.forEach(less=>{
+				let lessFile =  addonNameDir + '/' + assets.src + '/' + less.src;
+				let lessDist = addonNameDir + '/' + assets.dist + '/' + less.dist;
+				if(fs.existsSync(lessFile)) {
+					console.log('load addon less file: ' + lessFile )
+					mix.less(lessFile, lessDist);
+				}
+			});
+		}
+		if(assets.js) {
+			assets.js.forEach(js=>{
+				let jsFile = addonNameDir + '/' + assets.src + '/' + js.src;
+				let jsDist = addonNameDir + '/' + assets.dist + '/' + js.dist;
+				if(fs.existsSync(jsFile)) {
+					console.log('load addon js file: ' + jsFile )
+					mix.less(jsFile, jsDist);
+				}
+			});
+		}
 	}
 });
 

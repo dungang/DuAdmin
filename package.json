@@ -1,5 +1,5 @@
 {
-	"name": "mmadmin",
+	"name": "duadmin",
 	"version": "1.0.0",
 	"description": "cms admin",
 	"scripts": {
@@ -17,7 +17,7 @@
 		"url": "https://gitee.com/dungang/yii2-fast-kit.git"
 	},
 	"keywords": [
-		"mmadmin",
+		"duadmin",
 		"cms"
 	],
 	"author": "dungang",

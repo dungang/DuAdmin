@@ -47,8 +47,10 @@ class AdminltePanel extends Widget
 
     public function run()
     {
-        $content = ob_get_clean();
-        $this->content =  '<div class="panel-tools">' .  $content . '</div>' . $this->content;
+        $content = trim(ob_get_clean());
+        if($content) {
+            $this->content =  '<div class="panel-tools">' .  $content . '</div>' . $this->content;
+        }
         return $this->renderContent();
     }
 
