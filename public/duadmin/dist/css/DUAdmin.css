@@ -4417,8 +4417,22 @@ a.desc:after {
 .grid-view .filters select {
   min-width: 50px;
 }
-table img {
+table img,
+.table img {
   max-width: 100%;
+}
+table thead,
+.table thead,
+table tbody,
+.table tbody,
+table tfoot,
+.table tfoot {
+  background: white;
+}
+table tbody tr td,
+.table tbody tr td {
+  display: table-cell;
+  vertical-align: middle;
 }
 .hint-block {
   display: block;
@@ -4500,11 +4514,6 @@ table img {
 }
 .action-column .fa {
   margin-right: 2px;
-}
-table thead,
-table tbody,
-table tfoot {
-  background: white;
 }
 .dd {
   position: relative;

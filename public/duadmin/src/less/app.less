@@ -59,9 +59,20 @@ a.desc:after {
 	min-width: 50px;
 }
 
-table {
+table,.table {
 	img {
 		max-width:100%;
+	}
+	thead,tbody,tfoot {
+		background:white;
+	}
+	tbody {
+		tr {
+			td {
+				display: table-cell; 
+				vertical-align: middle;
+			}
+		}
 	}
 }
 .hint-block {
@@ -117,19 +128,6 @@ table {
 			font-weight: 100;
 		}
 	}
-	.modal-header {
-		//background-color: #e5e5e5;//#d2d6de;
-		//background-color: @alert-warning-bg;//@state-warning-bg;//@state-info-bg;#d2d6de; //#d2d6de;//#c6cbd0;
-		//color: @alert-warning-text;//@gray;
-		//border: 0px;
-		//border-top-left-radius: 3px;
-		//border-top-right-radius: 3px;
-		//padding:10px 15px;
-		//.modal-title {
-			//font-weight: bold;
-		//}
-	}
-
 	.table {
 		margin-bottom: 0;
 	}
@@ -178,11 +176,4 @@ table {
 	.fa {
 		margin-right: 2px;
 	}
-}
-
-table {
-	thead,tbody,tfoot {
-		background:white;
-	}
-	
 }

@@ -79,7 +79,7 @@ class AjaxFileInput extends InputWidget
             'input' => $input,
             'options' => [
                 'data-compress' => $this->compress,
-                'data-clip' => $this->enableClip,
+                'data-clip' => $this->clip,
                 'data-image-height' => $this->clipHeight,
                 'data-image-width' => $this->clipWidth,
             ]
