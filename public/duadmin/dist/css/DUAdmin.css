@@ -4857,6 +4857,13 @@ body.dd-dragging * {
 .ajax-file-input {
   position: relative;
 }
+.ajax-file-input .image-preview {
+  padding: 10px 0;
+}
+.ajax-file-input .image-preview img {
+  max-width: 75%;
+  border-radius: 10px;
+}
 .ajax-file-input .cropper-dialog {
   top: 40px;
   display: none;

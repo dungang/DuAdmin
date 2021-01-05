@@ -58,12 +58,17 @@ class AjaxFileInput extends InputWidget
         $this->options['data-token-url'] = Url::to([
             '/site/upload-token'
         ]);
+        $src = '';
         if ($this->hasModel()) {
+            $src = $this->model[$this->attribute];
             $input = Html::activeTextInput($this->model, $this->attribute, $this->options);
         } else {
+            $src = $this->value;
             $input = Html::textInput($this->name, $this->value, $this->options);
         }
         return $this->render('ajax-file-input', [
+            'isImage' => $this->type === 'image',
+            'src' => $src,
             'input' => $input,
             'options' => [
                 'data-compress' => $this->compress,
