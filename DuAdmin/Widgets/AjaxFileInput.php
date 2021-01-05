@@ -18,6 +18,13 @@ class AjaxFileInput extends InputWidget
     public $type = "image";
 
     /**
+     * 是否裁剪
+     *
+     * @var string 'true' or 'false'
+     */
+    public $clip = 'true';
+
+    /**
      * 是否压缩
      *
      * @var string 'true' or 'false'
@@ -72,6 +79,7 @@ class AjaxFileInput extends InputWidget
             'input' => $input,
             'options' => [
                 'data-compress' => $this->compress,
+                'data-clip' => $this->enableClip,
                 'data-image-height' => $this->clipHeight,
                 'data-image-width' => $this->clipWidth,
             ]

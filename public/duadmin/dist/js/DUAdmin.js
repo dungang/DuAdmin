@@ -241,7 +241,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   };
 
   DuAjaxUpload.DEFAULTS = {
-    enableClip: false,
+    enableClip: true,
+    //是否裁剪
     imageHeight: 300,
     //目标图标高度，如不compress=true 表示像素，否则表示高度占比单位大小
     imageWidth: 300,

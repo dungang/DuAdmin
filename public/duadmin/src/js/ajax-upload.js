@@ -56,7 +56,7 @@
   }
 
   DuAjaxUpload.DEFAULTS = {
-    enableClip:false,
+    enableClip: true, //是否裁剪
     imageHeight: 300, //目标图标高度，如不compress=true 表示像素，否则表示高度占比单位大小
     imageWidth: 300, //目标图片宽度，如不compress=true 表示像素，否则表示宽度度占比单位大小
     compress: true, //是否压缩
