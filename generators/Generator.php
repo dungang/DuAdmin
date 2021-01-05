@@ -640,7 +640,7 @@ abstract class Generator extends Model
 
     public function getMessageCategoryPrefix($namespace)
     {
-        if (substr(trim($namespace, '\\'), 6) == 'Addons') {
+        if (substr(trim($namespace, '\\'), 0,6) == 'Addons') {
             return 'da_';
         } else {
             return 'app_';

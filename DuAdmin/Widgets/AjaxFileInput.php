@@ -27,14 +27,14 @@ class AjaxFileInput extends InputWidget
     /**
      * 裁剪后的宽度
      *
-     * @var string
+     * @var integer
      */
     public $clipWidth = 320;
 
     /**
      * 裁剪后的高度
      *
-     * @var string
+     * @var integer
      */
     public $clipHeight = 320;
 
