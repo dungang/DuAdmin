@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'options',
             //'enableCache',
             //'expiredAt:datetime',
-            //'sort',
+            'sort',
             [
                 'class' => '\DuAdmin\Grids\ActionColumn',
         	]

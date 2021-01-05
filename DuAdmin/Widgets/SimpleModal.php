@@ -36,6 +36,8 @@ class SimpleModal extends Modal
     modal.on('hidden.bs.modal', function(e) {    
         modal.data('bs.modal', null);
         modal.find('.modal-body').empty();
+        modal.find('script').remove();
+        modal.find('link').remove();
         pjaxContainer = null;
     });
     // 根据属性调整modal窗口大小

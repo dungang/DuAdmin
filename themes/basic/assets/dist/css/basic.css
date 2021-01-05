@@ -1792,3 +1792,7 @@ a {
   position: absolute;
   bottom: 0;
 }
+.swiper-slide .img img {
+  display: block;
+  width: 100%;
+}

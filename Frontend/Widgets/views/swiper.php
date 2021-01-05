@@ -3,7 +3,7 @@
 		<?php foreach($files as $file) : ?>
 		<div class="swiper-slide">
 			<div class="img swiper-zoom-container">
-				<img src="<?=$file?>" width="100%" style="display: block;" />
+				<img src="<?=$file?>"/>
 			</div>
 		</div>
 		<?php endforeach;?>

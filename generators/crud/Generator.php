@@ -336,8 +336,6 @@ class Generator extends \app\generators\Generator
             $this->addError('modelClass', "The table associated with $class must have primary key(s).");
         }
     }
-    
-    
 
     /**
      *
@@ -358,9 +356,16 @@ class Generator extends \app\generators\Generator
 
         $viewPath = $this->getViewPath();
         $templatePath = $this->getTemplatePath() . '/views';
-        $noPrefixTableName = str_replace(['{','}','%'], '', call_user_func([$this->modelClass,'tableName']));
-        
-        if(substr(trim($this->modelClass,'\\'), 7) == 'DuAdmin') {
+        $noPrefixTableName = str_replace([
+            '{',
+            '}',
+            '%'
+        ], '', call_user_func([
+            $this->modelClass,
+            'tableName'
+        ]));
+
+        if (substr(trim($this->modelClass, '\\'), 7) == 'DuAdmin') {
             $this->messageCategory = 'app_' . $noPrefixTableName;
         } else {
             $this->messageCategory = 'da_' . $noPrefixTableName;
@@ -933,5 +938,24 @@ class Generator extends \app\generators\Generator
         $class = $this->modelClass;
         $db = $class::getDb();
         return $db instanceof \yii\db\Connection ? $db->driverName : null;
+    }
+
+    public function getLinkFuncName()
+    {
+        $links = [
+            'default' => 'linkButtonWithSimpleModal',
+            'lg' => 'linkButtonWithBigSimpleModal',
+            'sm' => 'linkButtonWithSmallSimpleModal'
+        ];
+        return $links[$this->modalSize];
+    }
+    
+    public function getModalSizeClass(){
+        $classNames = [
+            'default' => '',
+            'lg' => 'modal-lg',
+            'sm' => 'modal-sm'
+        ];
+        return $classNames[$this->modalSize];
     }
 }

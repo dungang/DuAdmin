@@ -1,7 +1,6 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use DuAdmin\Widgets\DefaultEditor;
 use DuAdmin\Widgets\DatePicker;
 use DuAdmin\Models\PageBlock;
 
@@ -18,7 +17,7 @@ use DuAdmin\Models\PageBlock;
 
     <?= '<div class="col-xs-6">' . $form->field($model, 'title')->textInput(['maxlength' => true]) . '</div>' ?>
 
-    <?= '<div class="col-xs-6">' . $form->field($model, 'intro')->widget(DefaultEditor::getEditorClass(),['mode' => DefaultEditor::MODE_RICH]) . '</div>' ?>
+    <?= '<div class="col-xs-6">' . $form->field($model, 'intro')->textarea() . '</div>' ?>
 
     <?= '<div class="col-xs-6">' . $form->field($model, 'url')->textInput(['maxlength' => true]) . '</div>' ?>
 

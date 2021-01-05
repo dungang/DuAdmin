@@ -11,6 +11,11 @@ class ActionColumn extends Column
 {
 
     /**
+     * 模态框大小：modal-sm modal-lg
+     * @var string
+     */
+    public $modalSize = '';
+    /**
      * 指定主键
      * 当一对一关联模型
      * 设置改属性，则会使用关联模型的key作为查询条件
@@ -265,6 +270,7 @@ class ActionColumn extends Column
             ];
             if ($this->enableOpenModal && $name != 'delete') {
                 $defaultOptions['data-toggle'] = 'modal';
+                $defaultOptions['data-modal-size'] = $this->modalSize;
                 $defaultOptions['data-target'] = $this->modalTarget;
             }
 

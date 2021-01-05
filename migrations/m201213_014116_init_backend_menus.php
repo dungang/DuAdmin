@@ -29,7 +29,7 @@ class m201213_014116_init_backend_menus extends Migration
                 'children' => [
                     [
                         'name' => 'Page Blocks',
-                        'url' => 'page-block/index',
+                        'url' => 'page-block-data/index',
                         'icon' => 'fa fa-clone'
                     ]
                 ]
