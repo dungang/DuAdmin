@@ -26,7 +26,7 @@
 
       that.extension = getExtension(that.file.name);
       //是图片如不设置了裁剪的高和宽度，则显示裁剪工具框，否则直接上传
-      if (isImage(that.file.type) && that.options.enableClip) {
+      if (isImage(that.file.type) && that.options.clip) {
         that.$dialog = that.$element.find('.cropper-dialog');
         that.$imageBox = that.$element.find('.cropper-image-box');
         that.$area = that.$dialog.find('.cropper-area');
@@ -41,11 +41,11 @@
     var okCallback = function (e) {
       if (that.$cropper) {
         var targetImage = that.$cropper.cropper('getCroppedCanvas');
+        //如果配置了压缩图片
         if (that.options.compress) {
           targetImage = that.compress(targetImage)
         }
         targetImage.toBlob(function (blob) {
-
           that.formData.append('file', blob, that.file.name);
           that.uploadFile();
         });
@@ -56,7 +56,7 @@
   }
 
   DuAjaxUpload.DEFAULTS = {
-    enableClip: true, //是否裁剪
+    clip: true, //是否裁剪
     imageHeight: 300, //目标图标高度，如不compress=true 表示像素，否则表示高度占比单位大小
     imageWidth: 300, //目标图片宽度，如不compress=true 表示像素，否则表示宽度度占比单位大小
     compress: true, //是否压缩

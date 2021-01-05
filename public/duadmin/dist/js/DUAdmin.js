@@ -206,7 +206,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       that.file = e.currentTarget.files[0];
       that.extension = getExtension(that.file.name); //是图片如不设置了裁剪的高和宽度，则显示裁剪工具框，否则直接上传
 
-      if (isImage(that.file.type) && that.options.enableClip) {
+      if (isImage(that.file.type) && that.options.clip) {
         that.$dialog = that.$element.find('.cropper-dialog');
         that.$imageBox = that.$element.find('.cropper-image-box');
         that.$area = that.$dialog.find('.cropper-area');
@@ -222,7 +222,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
     var okCallback = function okCallback(e) {
       if (that.$cropper) {
-        var targetImage = that.$cropper.cropper('getCroppedCanvas');
+        var targetImage = that.$cropper.cropper('getCroppedCanvas'); //如果配置了压缩图片
 
         if (that.options.compress) {
           targetImage = that.compress(targetImage);
@@ -241,7 +241,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   };
 
   DuAjaxUpload.DEFAULTS = {
-    enableClip: true,
+    clip: true,
     //是否裁剪
     imageHeight: 300,
     //目标图标高度，如不compress=true 表示像素，否则表示高度占比单位大小
