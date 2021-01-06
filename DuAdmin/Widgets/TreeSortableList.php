@@ -1,4 +1,5 @@
 <?php
+
 namespace DuAdmin\Widgets;
 
 use DuAdmin\Assets\NestableAsset;
@@ -86,11 +87,11 @@ class TreeSortableList extends Widget
             $this->registChangeEvent();
             $this->registerPlugin('nestable');
         }
-        if($this->items) {
+        if ($this->items) {
             $this->listToTree();
             return Html::tag('div', $this->renderChildren($this->items), $this->options);
         } else {
-            return Html::tag('div', Html::tag('div',\Yii::t('yii', 'No results found.'),['class'=>'empty']), $this->options);
+            return Html::tag('div', Html::tag('div', \Yii::t('yii', 'No results found.'), ['class' => 'empty']), $this->options);
         }
     }
 
@@ -161,7 +162,7 @@ class TreeSortableList extends Widget
         // return $item->toArray();
         // },$this->items);
         $this->items = array_map(function ($item) {
-            if (! isset($item['pid'])) {
+            if (!isset($item['pid'])) {
                 $item['pid'] = '0';
             }
             return $item;
@@ -178,19 +179,19 @@ class TreeSortableList extends Widget
     {
         $url = Url::to($this->url);
         return <<<UPDATE
-        function(e,target){
-            var list = $(this);
-            var serializeData = JSON.stringify(list.data('serialize'));
-            var sorts = list.nestable("serialize");
-            if(serializeData == JSON.stringify(sorts)) {
-                console.log('list no change');    
-            } else {
-                list.data('serialize',sorts);
-                $.post('{$url}',{sorts:sorts},function(data){
-                    //console.log(data);
-                });
-            }
-        }
- UPDATE;
+function(e,target){
+    var list = $(this);
+    var serializeData = JSON.stringify(list.data('serialize'));
+    var sorts = list.nestable("serialize");
+    if(serializeData == JSON.stringify(sorts)) {
+        console.log('list no change');    
+    } else {
+        list.data('serialize',sorts);
+        $.post('{$url}',{sorts:sorts},function(data){
+            //console.log(data);
+        });
+    }
+}
+UPDATE;
     }
 }

@@ -8,6 +8,11 @@ use yii\helpers\Json;
 
 class InitController extends BaseController {
 
+    /**
+     * 安装系统数据
+     *
+     * @return void
+     */
     public function actionIndex() {
 
         //生成key
@@ -31,7 +36,7 @@ class InitController extends BaseController {
             'updatedAt' => date('Y-m-d H:i:s')
         ]);
         if($admin->save(false)) {
-            Console::output('Congratulations! Install Success!');
+            $this->stdout('Congratulations! Install Success!',Console::FG_GREEN);
         } else {
             $this->stdout("admin create failure!\n\n\n", Console::FG_RED);
         };
