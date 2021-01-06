@@ -9,13 +9,13 @@ use DuAdmin\Widgets\SimpleModal;
 use DuAdmin\Helpers\AppHelper;
 use DuAdmin\Models\Setting;
 use DuAdmin\Models\Menu;
-use DuAdmin\Assets\DUAdminAsset;
+use DuAdmin\Assets\DuAdminAsset;
 use DuAdmin\Widgets\AdminlteNavBar;
 use DuAdmin\Widgets\AdminlteSideBar;
 use DuAdmin\Widgets\AdminlteSideBarMenu;
 use DuAdmin\Widgets\FloatThead;
 
-DUAdminAsset::register($this);
+DuAdminAsset::register($this);
 
 ?>
 <?php $this->beginPage() ?>

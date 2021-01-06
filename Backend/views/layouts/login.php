@@ -5,8 +5,8 @@
 
 use Backend\Widgets\StartCron;
 use yii\helpers\Html;
-use DuAdmin\Assets\DUAdminAsset;
-DUAdminAsset::register($this);
+use DuAdmin\Assets\DuAdminAsset;
+DuAdminAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
