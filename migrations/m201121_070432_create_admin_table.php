@@ -33,17 +33,6 @@ class m201121_070432_create_admin_table extends Migration
         
         $this->addCommentOnTable('{{%admin}}','管理员');
 
-        $this->insert('{{%admin}}',[
-            'username' => 'admin',
-            'nickname' => 'Admin',
-            'authKey' => \Yii::$app->security->generateRandomString(),
-            'passwordHash' => \Yii::$app->security->generatePasswordHash('admin'),
-            'email' => 'admin@website',
-            'status' => 10,
-            'isSuper' => 1,
-            'createdAt' => date('Y-m-d H:i:s'),
-            'updatedAt' => date('Y-m-d H:i:s')
-        ]);
     }
 
     /**
