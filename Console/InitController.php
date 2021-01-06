@@ -18,7 +18,7 @@ class InitController extends BaseController {
         //生成key
         $this->run('/key-generate');
         //重装数据库
-        $this->runAction('/dua-migrate/fresh');
+        $this->run('/dua-migrate/fresh');
         //设置账户密码
         $username = $this->prompt('please input admin name:',['required' => true]);
         $password = $this->prompt('please input admin password:',['required' => true]);

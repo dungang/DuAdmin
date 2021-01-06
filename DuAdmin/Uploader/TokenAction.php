@@ -16,6 +16,7 @@ class TokenAction extends Action
     public function run($fileType='image')
     {
         $driver = AppHelper::getSetting('system.storage.driver');
+     
         if (empty($driver) || strtolower($driver) == 'local') {
             $driver = "DuAdmin\\storage\\LocalDriver";
         }
