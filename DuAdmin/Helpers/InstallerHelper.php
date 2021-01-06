@@ -122,7 +122,7 @@ class InstallerHelper
             foreach ($settings as $setting) {
                 $children = isset($setting['children']) ? $setting['children'] : null;
                 $model = new Setting();
-                $model->load($setting);
+                $model->load($setting,'');
                 if (isset($setting['parent'])) {
                     $model->parent = $setting['parent'];
                 } else {
