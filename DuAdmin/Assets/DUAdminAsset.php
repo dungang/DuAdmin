@@ -3,7 +3,7 @@ namespace DuAdmin\Assets;
 
 use yii\web\AssetBundle;
 
-class DUAdminAsset extends AssetBundle
+class DuAdminAsset extends AssetBundle
 {
     public $baseUrl = '@web';
     
