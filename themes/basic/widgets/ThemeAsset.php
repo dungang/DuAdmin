@@ -2,6 +2,7 @@
 namespace app\themes\basic\widgets;
 
 use yii\web\AssetBundle;
+use Frontend\Assets\AppAsset;
 
 class ThemeAsset extends AssetBundle {
 
@@ -9,5 +10,9 @@ class ThemeAsset extends AssetBundle {
 
     public $css = [
         'basic.css'
+    ];
+    
+    public $depends = [
+        AppAsset::class
     ];
 }

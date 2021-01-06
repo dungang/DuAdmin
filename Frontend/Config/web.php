@@ -21,9 +21,9 @@ $config = [
             'class' => 'DuAdmin\Core\CoreView',
             'theme' => [
                 'class' => 'DuAdmin\Components\DUATheme',
-                'basePath' => '@app/themes/basic',
+                'basePath' => '@app/themes/huadun',
                 'pathMap' => [
-                    '@Frontend/views' => '@app/themes/basic',
+                    '@Frontend/views' => '@app/themes/huadun',
                 ]
             ]
         ],
