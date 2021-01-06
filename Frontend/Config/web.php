@@ -1,17 +1,18 @@
 <?php
+$theme_name = getenv('THEME_NAME');
 $config = [
     'controllerNamespace' => 'Frontend\Controllers',
     'viewPath' => '@Frontend/views',
     'components' => [
         'request' => [
-            'cookieValidationKey' =>  getenv('APP_KEY'),
+            'cookieValidationKey' => getenv('APP_KEY'),
             'enableCsrfCookie' => false
         ],
-        'session' =>[
-            'name'=>'DJPFSID'
+        'session' => [
+            'name' => 'DJPFSID'
         ],
         'user' => [
-            'identityClass' => 'Frontend\\Models\\User',
+            'identityClass' => 'Frontend\Models\User',
             'enableAutoLogin' => true,
             'loginUrl' => [
                 'login'
@@ -21,15 +22,15 @@ $config = [
             'class' => 'DuAdmin\Core\CoreView',
             'theme' => [
                 'class' => 'DuAdmin\Components\DUATheme',
-                'basePath' => '@app/themes/huadun',
+                'basePath' => '@app/themes/' . $theme_name,
                 'pathMap' => [
-                    '@Frontend/views' => '@app/themes/huadun',
+                    '@Frontend/views' => '@app/themes/' . $theme_name
                 ]
             ]
         ],
         'urlManager' => [
             'class' => 'DuAdmin\Components\RewriteUrl',
-            //'suffix' => '.html',
+            // 'suffix' => '.html',
             'rules' => [
                 '<slug:[\w \-]+>' => 'site/page'
             ]
@@ -46,7 +47,7 @@ $config = [
                     'levels' => explode(',', getenv('LOG_LEVELS'))
                 ]
             ]
-        ],
+        ]
     ]
 ];
 
@@ -63,7 +64,10 @@ if (YII_ENV_DEV) {
     $config['modules']['gii'] = [
         'class' => 'app\generators\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
-        'allowedIPs' => ['127.0.0.1', '::1'],
+        'allowedIPs' => [
+            '127.0.0.1',
+            '::1'
+        ]
     ];
 }
 

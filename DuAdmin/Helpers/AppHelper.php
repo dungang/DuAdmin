@@ -161,7 +161,7 @@ class AppHelper
         // 更加参数识别语言
         // 需要 \DuAdmin\Components\RewriteUrl的支持
         if ($language || $language = Yii::$app->request->get('_lang')) {
-            Yii::$app->urlManager->common_params['_lang'] = $language;
+            Yii::$app->urlManager->commonParams['_lang'] = $language;
             Yii::$app->language = $language;
         } else {
             // 根据浏览器识别语言

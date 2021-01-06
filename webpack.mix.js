@@ -1,39 +1,45 @@
 let mix = require('laravel-mix');
 let del = require('del');
 let fs = require('fs');
-let addonDir = './Addons';
 
-let dirs = fs.readdirSync(addonDir);
-dirs.filter(dir => {
-	return fs.existsSync(addonDir + '/' + dir);
-}).forEach(name=>{
-	let addonNameDir = addonDir +'/'+ name;
-	let file = addonNameDir + '/assets.config.js';
-	if(fs.existsSync(file)) {
-		let config = require(file);
-		let assets = config.assets;
-		if(assets.less) {
-			assets.less.forEach(less=>{
-				let lessFile =  addonNameDir + '/' + assets.src + '/' + less.src;
-				let lessDist = addonNameDir + '/' + assets.dist + '/' + less.dist;
-				if(fs.existsSync(lessFile)) {
-					console.log('load addon less file: ' + lessFile )
-					mix.less(lessFile, lessDist);
+function scanAssetsConfig(assetScanDir) {
+	let dirs = fs.readdirSync(assetScanDir);
+	dirs.filter(dir => {
+		return fs.existsSync(assetScanDir + '/' + dir);
+	}).forEach(name => {
+		let configDir = assetScanDir + '/' + name;
+		let file = configDir + '/assets.config.js';
+		if (fs.existsSync(file)) {
+			let config = require(file);
+			let assets = config.assets;
+			if(assets.dev) {
+				if (assets.less) {
+					assets.less.forEach(less => {
+						let lessFile = configDir + '/' + assets.src + '/' + less.src;
+						let lessDist = configDir + '/' + assets.dist + '/' + less.dist;
+						if (fs.existsSync(lessFile)) {
+							console.log('load addon less file: ' + lessFile)
+							mix.less(lessFile, lessDist);
+						}
+					});
 				}
-			});
-		}
-		if(assets.js) {
-			assets.js.forEach(js=>{
-				let jsFile = addonNameDir + '/' + assets.src + '/' + js.src;
-				let jsDist = addonNameDir + '/' + assets.dist + '/' + js.dist;
-				if(fs.existsSync(jsFile)) {
-					console.log('load addon js file: ' + jsFile )
-					mix.less(jsFile, jsDist);
+				if (assets.js) {
+					assets.js.forEach(js => {
+						let jsFile = configDir + '/' + assets.src + '/' + js.src;
+						let jsDist = configDir + '/' + assets.dist + '/' + js.dist;
+						if (fs.existsSync(jsFile)) {
+							console.log('load addon js file: ' + jsFile)
+							mix.less(jsFile, jsDist);
+						}
+					});
 				}
-			});
+			}
 		}
-	}
-});
+	});
+}
+
+scanAssetsConfig('./Addons');
+scanAssetsConfig('./themes');
 
 /*
  * |-------------------------------------------------------------------------- |
@@ -44,26 +50,17 @@ dirs.filter(dir => {
  * your application, as well as bundling up your JS files. |
  */
 mix
-    // 后台主题
-    .less('public/duadmin/src/less/DUAdmin.less', 'public/duadmin/dist/css', {
-        lessOptions: {
-            paths: [path.resolve(__dirname, 'node_modules')],
-        },
-    }).options({
-        processCssUrls: false
-    })
-    .js('public/duadmin/src/js/DUAdmin.js', 'public/duadmin/dist/js')
-    // //前端主题 basic
-    .less('themes/basic/assets/src/less/basic.less', 'themes/basic/assets/dist/css')
-    // 前端主题 clothes
-    // .less('themes/clothes/assets/src/less/clothes.less',
-	// 'themes/clothes/assets/dist/css')
-    // .js('themes/clothes/assets/src/js/clothes.js',
-	// 'themes/clothes/assets/dist/js')
-    // .copy('themes/clothes/assets/src/images','themes/clothes/assets/dist/images')
-    .then(function () {
-        del(['public/assets/*']);
-    });
+	// 后台主题
+	.less('public/duadmin/src/less/DUAdmin.less', 'public/duadmin/dist/css', {
+		lessOptions: {
+			paths: [path.resolve(__dirname, 'node_modules')],
+		},
+	}).options({
+		processCssUrls: false
+	})
+	.then(function () {
+		del(['public/assets/*']);
+	});
 // mix.js('src/app.js', 'dist/').sass('src/app.scss', 'dist/');
 
 // Full API
