@@ -5,6 +5,7 @@ use yii\base\Widget;
 use yii\helpers\Html;
 use yii\db\Query;
 use DuAdmin\Models\PageBlockData;
+use yii\helpers\Json;
 
 abstract class BasePageBlock extends Widget
 {
@@ -23,7 +24,7 @@ abstract class BasePageBlock extends Widget
     public $query;
 
     public $options = [];
-
+    
     public final function run()
     {
         $this->initOptions();
@@ -67,9 +68,9 @@ abstract class BasePageBlock extends Widget
     public function composerQuery()
     {
         if ($this->model->filter) {
-            $filter = [];
-            parse_str($this->model->filter, $filter);
-            if ($filter) {
+//             $filter = [];
+//             parse_str($this->model->filter, $filter);
+            if ($filter = Json::decode($this->model->filter)) {
                 $this->query->where($filter);
             }
         }
@@ -112,7 +113,7 @@ abstract class BasePageBlock extends Widget
                         'model' => $data
                     ]);
                 } else {
-                    echo "<!-- ".$widgetClass." NOT FOUND -->\n";
+                    echo "<!-- " . $widgetClass . " NOT FOUND -->\n";
                 }
             }
         }
