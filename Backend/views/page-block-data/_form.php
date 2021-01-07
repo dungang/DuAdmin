@@ -25,7 +25,7 @@ use DuAdmin\Models\PageBlock;
 
     <?= '<div class="col-xs-6">' . $form->field($model, 'urlText')->textInput(['maxlength' => true]) . '</div>' ?>
 
-    <?= '<div class="col-xs-6">' . $form->field($model, 'filter')->text(['maxlength' => true]) . '</div>' ?>
+    <?= '<div class="col-xs-6">' . $form->field($model, 'filter')->textarea(['maxlength' => true]) . '</div>' ?>
 
     <?= '<div class="col-xs-6">' . $form->field($model, 'size')->textInput() . '</div>' ?>
 
