@@ -104,7 +104,7 @@ $siteName = Yii::t('app', AppHelper::getSetting('site.name', Yii::$app->name));
         <div class="container">
             <p><?= Html::a('<i class="fa fa-user"></i>  ' . Yii::t('theme', 'About Us'), ['/about-us']) ?>
                 <?= date('Y') ?> &copy; <?= Html::encode(Yii::t('app', Setting::getSettings('site.company'))) ?>
-                <?= Setting::getSettings('site.beian') ?> </p>
+                <?= Setting::getSettings('site.beian') ?> <?= AppHelper::powered()?></p>
         </div>
     </footer>
     <?php $this->endBody() ?>

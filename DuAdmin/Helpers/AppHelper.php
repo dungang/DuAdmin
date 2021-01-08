@@ -286,9 +286,9 @@ class AppHelper
 
     public static function powered()
     {
-        return \Yii::t('yii', 'Powered by {soft}', [
-            'soft' => \Yii::$app->name
-        ]);
+        return Html::a(\Yii::t('yii', 'Powered by {soft}', [
+            'soft' => 'DuAdmin'
+        ]),'http://www.duadmin.com',['target'=>'_blank']);
     }
 
     public static function getSetting($name, $default = NULL)
