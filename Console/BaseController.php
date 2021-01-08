@@ -16,5 +16,12 @@ class BaseController extends Controller
             return $this->selectOneAddonName();
         }
     }
+
+    protected function mustDevCanDo(){
+        if (YII_ENV_PROD) {
+            $this->stdout("YII_ENV is set to 'prod'.\nRefreshing migrations is not possible on production systems.\n");
+            exit;
+        }
+    }
 }
 

@@ -13,7 +13,7 @@ $options['data-role'] = 'duajaxupload';
 <div class='input-group'>
 	<?= $input ?>
 	<span class="input-group-btn">
-		<button class="btn btn-default" data-toggle="duajaxupload" type="button"><?= Yii::t('da', 'Select File') ?></button>
+		<button class="btn btn-default" data-toggle="duajaxupload" type="button" autocomplete="off"><?= Yii::t('da', 'Select File') ?></button>
 		<input type="file" style="display: none" />
 	</span>
 </div>
@@ -28,8 +28,8 @@ $options['data-role'] = 'duajaxupload';
 		</div>
 	</div>
 	<div class="cropper-buttons">
-		<button type="button" class="btn btn-default" data-dismiss="duajaxupload"><?= Yii::t('da', 'Cancel') ?></button>
-		<button type="button" class="btn btn-primary" data-upload="duajaxupload"><?= Yii::t('da', 'Ok') ?></button>
+		<button type="button" class="btn btn-default" data-dismiss="duajaxupload" autocomplete="off"><?= Yii::t('da', 'Cancel') ?></button>
+		<button type="button" class="btn btn-primary" data-upload="duajaxupload" autocomplete="off"><?= Yii::t('da', 'Ok') ?></button>
 	</div>
 </div>
 <?= Html::endTag('div') ?>

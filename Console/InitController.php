@@ -8,6 +8,14 @@ use yii\helpers\Json;
 
 class InitController extends BaseController {
 
+
+    public function init() {
+        parent::init();
+        $this->mustDevCanDo();
+    }
+
+
+
     /**
      * 安装系统数据
      *
@@ -19,6 +27,17 @@ class InitController extends BaseController {
         $this->run('/key-generate');
         //重装数据库
         $this->run('/dua-migrate/fresh');
+        //创建管理员
+        $this->runAction('admin');
+        
+    }
+
+    /**
+     * 初始化管理员
+     *
+     * @return void
+     */
+    public function actionAdmin(){
         //设置账户密码
         $username = $this->prompt('please input admin name:',['required' => true]);
         $password = $this->prompt('please input admin password:',['required' => true]);

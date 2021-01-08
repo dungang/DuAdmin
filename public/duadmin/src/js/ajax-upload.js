@@ -9,7 +9,8 @@
   }
   var dismiss = '[data-dismiss="duajaxupload"]'
   var ok = '[data-upload="duajaxupload"]'
-  var DuAjaxUpload = function (el, options) {
+  var toggleElm = '[data-toggle="duajaxupload"]';
+  var DuAjaxUpload = function (el, options, toggleButton) {
     var that = this;
     this.options = options;
     this.$element = $(el);
@@ -17,6 +18,10 @@
 
     this.$fileInput = this.$element.find('input[type="file"]');
     this.$textInput = this.$element.find('input[type="text"]');
+    this.$previewImage = this.$element.find('.image-preview img');
+
+    this.$realUploadBtn = toggleButton ? toggleButton : this.$element.find(toggleElm);
+
     var closeCallback = function () {
       that.close();
     }
@@ -39,6 +44,7 @@
     }
     this.$fileInput.on('change', changeCallback);
     var okCallback = function (e) {
+      that.$realUploadBtn = $(this);
       if (that.$cropper) {
         var targetImage = that.$cropper.cropper('getCroppedCanvas');
         //如果配置了压缩图片
@@ -76,6 +82,11 @@
 
   DuAjaxUpload.prototype.uploadFile = function () {
     var that = this;
+    if(that.$realUploadBtn) {
+      $(that.$realUploadBtn).button('上传中...');
+      console.log('uploading ...')
+    }
+    console.log(that.$realUploadBtn);
     var fileType = this.$textInput.attr('data-type');
     var tokenUrl = this.$textInput.attr('data-token-url');
     $.get(tokenUrl, { fileType: fileType }, function (data) {
@@ -91,13 +102,21 @@
         processData: false, // 使数据不做处理
         contentType: false, // 不要设置Content-Type请求头
         success: function (data) {
-          //if (data.hash) {
+          console.log(data);
           alert('上传成功！');
-          that.$textInput.val(DUA.uploader.baseUrl + key);
-          //}
+          var imgUrl = DUA.uploader.baseUrl + key;
+          that.$textInput.val(imgUrl);
+          that.$previewImage.attr('src', imgUrl);
+          if(that.$realUploadBtn){
+            console.log('reset');
+            that.$realUploadBtn.button('reset');
+          }
         },
         error: function (response) {
           console.log(response);
+          if(that.$realUploadBtn){
+            that.$realUploadBtn.button('reset');
+          }
         }
       });
     });
@@ -135,7 +154,6 @@
       var data = $this.data('bs.duAjaxUpload')
       if (!data) {
         var options = $.extend({}, DuAjaxUpload.DEFAULTS, $this.data(), typeof option == 'object' && option);
-        console.log(options);
         $this.data('bs.duAjaxUpload', (data = new DuAjaxUpload(this, options)))
       }
       if (typeof option == 'string') data[option].call(data)
@@ -161,7 +179,7 @@
   var clickHandler = function (e) {
     e.preventDefault()
     var parent = $(this).parents('[data-role="duajaxupload"]');
-    Plugin.call(parent, 'selectFile')
+    Plugin.call(parent, 'selectFile',$(this))
   }
-  $(document).on('click.bs.duajaxupload.data-api', '[data-toggle="duajaxupload"]', clickHandler)
+  $(document).on('click.bs.duajaxupload.data-api', toggleElm, clickHandler)
 }(jQuery)

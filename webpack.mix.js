@@ -58,6 +58,7 @@ mix
 	}).options({
 		processCssUrls: false
 	})
+	.js('public/duadmin/src/js/DUAdmin.js', 'public/duadmin/dist/js')
 	.then(function () {
 		del(['public/assets/*']);
 	});

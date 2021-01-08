@@ -165,14 +165,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
   var dismiss = '[data-dismiss="duajaxupload"]';
   var ok = '[data-upload="duajaxupload"]';
+  var toggleElm = '[data-toggle="duajaxupload"]';
 
-  var DuAjaxUpload = function DuAjaxUpload(el, options) {
+  var DuAjaxUpload = function DuAjaxUpload(el, options, toggleButton) {
     var that = this;
     this.options = options;
     this.$element = $(el);
     this.formData = new FormData();
     this.$fileInput = this.$element.find('input[type="file"]');
     this.$textInput = this.$element.find('input[type="text"]');
+    this.$previewImage = this.$element.find('.image-preview img');
+    this.$realUploadBtn = toggleButton ? toggleButton : this.$element.find(toggleElm);
 
     var closeCallback = function closeCallback() {
       that.close();
@@ -199,6 +202,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     this.$fileInput.on('change', changeCallback);
 
     var okCallback = function okCallback(e) {
+      that.$realUploadBtn = $(this);
+
       if (that.$cropper) {
         var targetImage = that.$cropper.cropper('getCroppedCanvas'); //如果配置了压缩图片
 
@@ -243,6 +248,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
   DuAjaxUpload.prototype.uploadFile = function () {
     var that = this;
+
+    if (that.$realUploadBtn) {
+      $(that.$realUploadBtn).button('上传中...');
+      console.log('uploading ...');
+    }
+
+    console.log(that.$realUploadBtn);
     var fileType = this.$textInput.attr('data-type');
     var tokenUrl = this.$textInput.attr('data-token-url');
     $.get(tokenUrl, {
@@ -262,12 +274,23 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         contentType: false,
         // 不要设置Content-Type请求头
         success: function success(data) {
-          //if (data.hash) {
+          console.log(data);
           alert('上传成功！');
-          that.$textInput.val(DUA.uploader.baseUrl + key); //}
+          var imgUrl = DUA.uploader.baseUrl + key;
+          that.$textInput.val(imgUrl);
+          that.$previewImage.attr('src', imgUrl);
+
+          if (that.$realUploadBtn) {
+            console.log('reset');
+            that.$realUploadBtn.button('reset');
+          }
         },
         error: function error(response) {
           console.log(response);
+
+          if (that.$realUploadBtn) {
+            that.$realUploadBtn.button('reset');
+          }
         }
       });
     });
@@ -306,7 +329,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
       if (!data) {
         var options = $.extend({}, DuAjaxUpload.DEFAULTS, $this.data(), _typeof(option) == 'object' && option);
-        console.log(options);
         $this.data('bs.duAjaxUpload', data = new DuAjaxUpload(this, options));
       }
 
@@ -329,10 +351,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   var clickHandler = function clickHandler(e) {
     e.preventDefault();
     var parent = $(this).parents('[data-role="duajaxupload"]');
-    Plugin.call(parent, 'selectFile');
+    Plugin.call(parent, 'selectFile', $(this));
   };
 
-  $(document).on('click.bs.duajaxupload.data-api', '[data-toggle="duajaxupload"]', clickHandler);
+  $(document).on('click.bs.duajaxupload.data-api', toggleElm, clickHandler);
 }(jQuery);
 
 /***/ }),
@@ -870,10 +892,10 @@ $(document).on('click', '[data-sync]', function (event) {
 
 /***/ }),
 
-/***/ "./themes/basic/assets/src/less/basic.less":
-/*!*************************************************!*\
-  !*** ./themes/basic/assets/src/less/basic.less ***!
-  \*************************************************/
+/***/ "./themes/huadun/assets/src/less/huadun.less":
+/*!***************************************************!*\
+  !*** ./themes/huadun/assets/src/less/huadun.less ***!
+  \***************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -882,16 +904,16 @@ $(document).on('click', '[data-sync]', function (event) {
 /***/ }),
 
 /***/ 0:
-/*!********************************************************************************************************************************************************************************!*\
-  !*** multi ./public/duadmin/src/js/DUAdmin.js ./Addons/Cms/resource/assets/src/less/cms.less ./public/duadmin/src/less/DUAdmin.less ./themes/basic/assets/src/less/basic.less ***!
-  \********************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************************************************************************!*\
+  !*** multi ./public/duadmin/src/js/DUAdmin.js ./Addons/Cms/resource/assets/src/less/cms.less ./themes/huadun/assets/src/less/huadun.less ./public/duadmin/src/less/DUAdmin.less ***!
+  \**********************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\www\DuAdmin\public\duadmin\src\js\DUAdmin.js */"./public/duadmin/src/js/DUAdmin.js");
-__webpack_require__(/*! D:\www\DuAdmin\Addons\Cms\resource\assets\src\less\cms.less */"./Addons/Cms/resource/assets/src/less/cms.less");
-__webpack_require__(/*! D:\www\DuAdmin\public\duadmin\src\less\DUAdmin.less */"./public/duadmin/src/less/DUAdmin.less");
-module.exports = __webpack_require__(/*! D:\www\DuAdmin\themes\basic\assets\src\less\basic.less */"./themes/basic/assets/src/less/basic.less");
+__webpack_require__(/*! D:\projects\workspace\MMAdmin\public\duadmin\src\js\DUAdmin.js */"./public/duadmin/src/js/DUAdmin.js");
+__webpack_require__(/*! D:\projects\workspace\MMAdmin\Addons\Cms\resource\assets\src\less\cms.less */"./Addons/Cms/resource/assets/src/less/cms.less");
+__webpack_require__(/*! D:\projects\workspace\MMAdmin\themes\huadun\assets\src\less\huadun.less */"./themes/huadun/assets/src/less/huadun.less");
+module.exports = __webpack_require__(/*! D:\projects\workspace\MMAdmin\public\duadmin\src\less\DUAdmin.less */"./public/duadmin/src/less/DUAdmin.less");
 
 
 /***/ })
