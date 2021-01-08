@@ -44,6 +44,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                 // 'successRediretUrl' => false,
                 // 'successMsg' => null,
                 // 'withModels' => [],
+                // 'mustQueryStringAttrs' => [],
 <?php if ($generator->onlyQueryCurrentUser): ?>
                 'modelImmutableAttrs' => [
                     'userId' => \Yii::$app->user->id,
@@ -62,6 +63,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                 // 'modelScenario' => 'default',
                 // 'successRediretUrl' => false,
                 // 'successMsg' => null,
+                // 'mustQueryStringAttrs' => [],
 <?php if ($generator->onlyQueryCurrentUser): ?>
                 'modelImmutableAttrs' => [
                     'userId' => \Yii::$app->user->id,
@@ -81,6 +83,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                 // 'modelScenario' => 'default',
                 // 'successRediretUrl' => false,
                 // 'successMsg' => null,
+                // 'mustQueryStringAttrs' => [],
 <?php if ($generator->onlyQueryCurrentUser): ?>
                 'modelImmutableAttrs' => [
                     'userId' => \Yii::$app->user->id,
@@ -99,6 +102,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                 // 'modelScenario' => 'default',
                 // 'successRediretUrl' => false,
                 // 'successMsg' => null,
+                // 'mustQueryStringAttrs' => [],
 <?php if ($generator->onlyQueryCurrentUser): ?>
                 'modelImmutableAttrs' => [
                     'userId' => \Yii::$app->user->id,
@@ -117,6 +121,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                 // 'modelScenario' => 'default',
                 // 'successRediretUrl' => false,
                 // 'successMsg' => null,
+                // 'mustQueryStringAttrs' => [],
 <?php if ($generator->onlyQueryCurrentUser): ?>
                 'modelImmutableAttrs' => [
                     'userId' => \Yii::$app->user->id,
