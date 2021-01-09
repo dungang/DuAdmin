@@ -8,11 +8,11 @@ use DuAdmin\Models\Setting;
 use DuAdmin\Widgets\LazyLoad;
 use DuAdmin\Widgets\Notify;
 use app\themes\basic\widgets\ThemeAsset;
-use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use DuAdmin\Models\Navigation;
+use DuAdmin\Widgets\Nav;
 
 AppAsset::register($this);
 ThemeAsset::register($this);
