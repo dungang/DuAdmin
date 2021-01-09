@@ -6,7 +6,7 @@ use yii\base\Widget;
 
 class AutoFixBootstrapColumn extends Widget {
     public function run(){
-        MasonryAsset::register($this->view);
-        $this->view->registerJs('$(".row").masonry({itemSelector:"[class=\"col-*\"]"})');
+        //MasonryAsset::register($this->view);
+        //$this->view->registerJs('$(".row").masonry({itemSelector:"[class=\"col-*\"]"})');
     }
 }
