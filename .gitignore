@@ -31,9 +31,9 @@ tests/_support/_generated
 
 #vagrant folder
 /.vagrant
-public/uploads
-public/assets
-runtime
+/public/uploads
+/public/assets
+/runtime
 node_modules
 .vscode
 .vs
@@ -42,5 +42,5 @@ backup
 /images
 .env
 mix-manifest.json
-temp
+/temp
 composer.lock
