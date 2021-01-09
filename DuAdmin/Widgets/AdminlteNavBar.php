@@ -15,7 +15,7 @@ class AdminlteNavBar extends Widget
 
     public $logoMiniLabel = 'DA';
 
-    public $logoLargeLabel = 'DUAdmin';
+    public $logoLargeLabel = 'DuAdmin';
 
     public $navClass = 'navbar navbar-static-top';
 

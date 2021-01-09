@@ -18,6 +18,8 @@ use DuAdmin\Models\Navigation;
 
     <?= '<div class="col-xs-6">' . $form->field($model, 'requireLogin')->dropDownList([ '不需要', '需要', ], ['prompt' => '']) . '</div>' ?>
 
+    <?= '<div class="col-xs-6">' . $form->field($model, 'isOuter')->dropDownList([ '内部地址', '外部地址', ]) . '</div>' ?>
+
     <?= '<div class="col-xs-6">' . $form->field($model, 'icon')->textInput(['maxlength' => true]) . '</div>' ?>
 
     </div>
