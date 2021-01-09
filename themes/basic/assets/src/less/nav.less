@@ -1,0 +1,42 @@
+/* align the logout "link" (button in form) of the navbar */
+.nav li>form>button.logout {
+    padding: 25px 15px;
+    border : none;
+}
+
+@media(max-width:767px) {
+    .nav li>form>button.logout {
+        display   : block;
+        text-align: left;
+        width     : 100%;
+        padding   : 10px 15px;
+    }
+}
+
+.nav>li>form>button.logout:focus,
+.nav>li>form>button.logout:hover {
+    text-decoration: none;
+}
+
+.nav>li>form>button.logout:focus {
+    outline: none;
+}
+
+.nav {
+    .active {
+        background-color: @brand-primary;
+
+        &,
+        a {
+            color: white;
+        }
+    }
+
+    .lang-active {
+
+        &,
+        a {
+            color: @brand-primary  !important;
+        }
+    }
+}
