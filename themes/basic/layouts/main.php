@@ -12,6 +12,7 @@ use yii\bootstrap\NavBar;
 use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use DuAdmin\Models\Navigation;
+use DuAdmin\Widgets\AutoFixBootstrapColumn;
 use DuAdmin\Widgets\Nav;
 
 AppAsset::register($this);
@@ -91,6 +92,7 @@ $siteName = Yii::t('app', AppHelper::getSetting('site.name', Yii::$app->name));
             'items' => $menus
         ]);
         NavBar::end();
+        AutoFixBootstrapColumn::widget();
         ?>
         <?php if (isset($this->params['breadcrumbs'])) : ?>
             <div class="container">
