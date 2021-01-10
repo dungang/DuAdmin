@@ -1,4 +1,6 @@
-html, body,.wrapper {
+html,
+body,
+.wrapper {
 	height: 100%;
 }
 
@@ -6,33 +8,39 @@ html, body,.wrapper {
 	border-radius: 100px;
 }
 
-a,.btn-link{
+a,
+.btn-link {
 	color: #666;
 }
 
 .not-set {
-	color: #c55;
+	color     : #c55;
 	font-style: italic;
 }
 
 /* add sorting icons to gridview sort links */
-a.asc:after, a.desc:after {
-	position: relative;
-	top: 1px;
-	display: inline-block;
-	font-family: 'Glyphicons Halflings';
-	font-style: normal;
-	font-weight: normal;
-	line-height: 1;
+a.asc:after,
+a.desc:after {
+	position    : relative;
+	top         : 1px;
+	display     : inline-block;
+	font-family : 'Glyphicons Halflings';
+	font-style  : normal;
+	font-weight : normal;
+	line-height : 1;
 	padding-left: 5px;
 }
 
 a.asc:after {
-	content: /*"\e113"*/ "\e151";
+	content:
+		/*"\e113"*/
+		"\e151";
 }
 
 a.desc:after {
-	content: /*"\e114"*/ "\e152";
+	content:
+		/*"\e114"*/
+		"\e152";
 }
 
 .sort-numerical a.asc:after {
@@ -55,56 +63,64 @@ a.desc:after {
 	white-space: nowrap;
 }
 
-.grid-view .filters input, .grid-view .filters select {
+.grid-view .filters input,
+.grid-view .filters select {
 	min-width: 50px;
 }
 
-table,.table {
+table,
+.table {
 	img {
-		max-width:100%;
+		max-width: 100%;
 	}
-	thead,tbody,tfoot {
-		background:white;
+
+	thead,
+	tbody,
+	tfoot {
+		background: white;
 	}
+
 	tbody {
 		tr {
 			td {
-				display: table-cell; 
+				display       : table-cell;
 				vertical-align: middle;
 			}
 		}
 	}
 }
+
 .hint-block {
-	display: block;
+	display   : block;
 	margin-top: 5px;
-	color: #999;
+	color     : #999;
 }
 
 .error-summary {
-	color: #a94442;
-	background: #fdf7f7;
+	color      : #a94442;
+	background : #fdf7f7;
 	border-left: 3px solid #eed3d7;
-	padding: 10px 20px;
-	margin: 0 0 15px 0;
+	padding    : 10px 20px;
+	margin     : 0 0 15px 0;
 }
 
 /* align the logout "link" (button in form) of the navbar */
 .nav li>form>button.logout {
 	padding: 15px;
-	border: none;
+	border : none;
 }
 
-@media ( max-width :767px) {
+@media (max-width :767px) {
 	.nav li>form>button.logout {
-		display: block;
+		display   : block;
 		text-align: left;
-		width: 100%;
-		padding: 10px 15px;
+		width     : 100%;
+		padding   : 10px 15px;
 	}
 }
 
-.nav>li>form>button.logout:focus, .nav>li>form>button.logout:hover {
+.nav>li>form>button.logout:focus,
+.nav>li>form>button.logout:hover {
 	text-decoration: none;
 }
 
@@ -114,20 +130,23 @@ table,.table {
 
 
 .text-overflow {
-	overflow: hidden;
+	overflow     : hidden;
 	text-overflow: ellipsis;
-	white-space: nowrap;
+	white-space  : nowrap;
 }
 
 // --- #modal-dailog ---
 
-#modal-dailog  {
+#modal-dailog {
 	.modal-content {
 		border-radius: 3px;
-		.control-label,th {
+
+		.control-label,
+		th {
 			font-weight: 100;
 		}
 	}
+
 	.table {
 		margin-bottom: 0;
 	}
@@ -137,42 +156,48 @@ table,.table {
 // #dropdown adminlte 
 
 .dropdown-menu {
-	> li > a {
-	  color:inherit;
-	  line-height: 30px;
+	>li>a {
+		color      : inherit;
+		line-height: 30px;
 	}
-  }
+}
 
 //--adminlte
 // bootstrap button
 @search-green: darken(@green, 5%);
+
 .full-search-box {
-	width:240px;
-	margin-right: 5px;
-	display: inline-block;
+	width         : 240px;
+	margin-right  : 5px;
+	display       : inline-block;
 	vertical-align: middle;
+
 	input {
-		border-top-left-radius: 30px;
+		border-top-left-radius   : 30px;
 		border-bottom-left-radius: 30px;
-		border-color: @green;
+		border-color             : @green;
+
 		&:focus,
 		&:hover {
 			border-color: @green;
 		}
 	}
+
 	.btn {
-		color:white;
+		color       : white;
 		border-color: @green;
-		background: @green;
+		background  : @green;
 	}
 }
 
 .action-column {
 	text-align: center;
-	width:60px;
+	width     : 60px;
+
 	button {
-		width:30px;
+		width: 30px;
 	}
+
 	.fa {
 		margin-right: 2px;
 	}

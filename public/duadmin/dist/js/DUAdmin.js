@@ -910,10 +910,10 @@ $(document).on('click', '[data-sync]', function (event) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\projects\workspace\MMAdmin\public\duadmin\src\js\DUAdmin.js */"./public/duadmin/src/js/DUAdmin.js");
-__webpack_require__(/*! D:\projects\workspace\MMAdmin\Addons\Cms\resource\assets\src\less\cms.less */"./Addons/Cms/resource/assets/src/less/cms.less");
-__webpack_require__(/*! D:\projects\workspace\MMAdmin\themes\huadun\assets\src\less\huadun.less */"./themes/huadun/assets/src/less/huadun.less");
-module.exports = __webpack_require__(/*! D:\projects\workspace\MMAdmin\public\duadmin\src\less\DUAdmin.less */"./public/duadmin/src/less/DUAdmin.less");
+__webpack_require__(/*! D:\www\DuAdmin\public\duadmin\src\js\DUAdmin.js */"./public/duadmin/src/js/DUAdmin.js");
+__webpack_require__(/*! D:\www\DuAdmin\Addons\Cms\resource\assets\src\less\cms.less */"./Addons/Cms/resource/assets/src/less/cms.less");
+__webpack_require__(/*! D:\www\DuAdmin\themes\huadun\assets\src\less\huadun.less */"./themes/huadun/assets/src/less/huadun.less");
+module.exports = __webpack_require__(/*! D:\www\DuAdmin\public\duadmin\src\less\DUAdmin.less */"./public/duadmin/src/less/DUAdmin.less");
 
 
 /***/ })

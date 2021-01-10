@@ -59,6 +59,8 @@ mix
 		processCssUrls: false
 	})
 	.js('public/duadmin/src/js/DUAdmin.js', 'public/duadmin/dist/js')
+	//前端public
+	.js('public/src/js/app.js','public/js')
 	.then(function () {
 		del(['public/assets/*']);
 	});
