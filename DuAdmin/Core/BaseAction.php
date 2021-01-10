@@ -1,4 +1,5 @@
 <?php
+
 namespace DuAdmin\Core;
 
 use Yii;
@@ -126,7 +127,7 @@ abstract class BaseAction extends Action
         if (empty($this->viewName)) {
             $this->viewName = $this->id;
         }
-        if (! empty($this->actionBehaviors)) {
+        if (!empty($this->actionBehaviors)) {
             $this->attachBehaviors($this->actionBehaviors);
         }
         if (empty($this->successMsg)) {
@@ -364,7 +365,7 @@ abstract class BaseAction extends Action
      */
     protected function findModel($newOneOnNotFound = false, $filter = [])
     {
-        list ($modelClass, $condition) = $this->builderFindModelCondition($filter);
+        list($modelClass, $condition) = $this->builderFindModelCondition($filter);
         if (empty($condition)) {
             throw new BadRequestHttpException('Find model must set filters');
         }
@@ -385,7 +386,7 @@ abstract class BaseAction extends Action
             throw new MethodNotAllowedHttpException();
         }
         if ($model !== null) {
-            if(!is_array($model)){
+            if (!is_array($model)) {
                 $model->setScenario($this->modelScenario);
             }
             return $model;
@@ -408,7 +409,7 @@ abstract class BaseAction extends Action
      */
     protected function findModels($filter = [])
     {
-        list ($modelClass, $condition) = $this->builderFindModelCondition();
+        list($modelClass, $condition) = $this->builderFindModelCondition();
         if (empty($condition)) {
             throw new BadRequestHttpException('Find model must set filters');
         }
@@ -435,7 +436,7 @@ abstract class BaseAction extends Action
     protected function clearNullCond($cond)
     {
         return \array_filter($cond, function ($val) {
-            return ! \is_null($val);
+            return !\is_null($val);
         });
     }
 

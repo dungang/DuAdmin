@@ -1,4 +1,5 @@
 <?php
+
 namespace DuAdmin\Core;
 
 use Yii;
@@ -28,11 +29,11 @@ class UpdateModelAction extends BaseAction
         }
 
         if ($this->isPost()) {
+            var_dump($model->toArray());
             // 动态绑定行为
             $model->attachBehaviors($this->modelBehaviors);
-
             if (($loaded = $model->load($this->composePostParams($model))) && $model->save()) {
-                if (! $this->successRediretUrl) {
+                if (!$this->successRediretUrl) {
                     $this->successRediretUrl = \Yii::$app->request->referrer;
                 }
                 $this->beforeRender();
