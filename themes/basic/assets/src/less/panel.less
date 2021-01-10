@@ -1,24 +1,28 @@
 .panel {
-	border-radius: 0;
-	.panel-body {
-		padding:0;
-		.nav {
-		    .active {
-		        background-color: @brand-primary;
-		
-		        &,
-		        a {
-		            color: white;
-		        }
-		    }
-		
-		    .lang-active {
-		
-		        &,
-		        a {
-		            color: @brand-primary  !important;
-		        }
-		    }
-		}
-	}
+    border-radius: 0;
+
+    .panel-body {
+        padding: 0;
+
+        .nav {
+            li a {
+
+                &:hover,
+                &:focus {
+                    text-decoration : none;
+                    background-color: lighten(@brand-primary, 3%);
+                    color           : white;
+                }
+            }
+
+            .active {
+                background-color: @brand-primary;
+
+                &,
+                a {
+                    color: white;
+                }
+            }
+        }
+    }
 }
