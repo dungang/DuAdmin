@@ -4881,7 +4881,7 @@ body.dd-dragging * {
   padding: 15px;
   border: 5px solid #eee;
   margin: auto;
-  z-index: 100;
+  z-index: 1080;
 }
 .ajax-file-input .cropper-dialog .cropper {
   position: relative;
