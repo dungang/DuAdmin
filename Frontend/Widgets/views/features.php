@@ -1,6 +1,6 @@
 <h1 class="text-center"><?= Yii::t('app', 'Features') ?></h1>
 <div class="container">
-    <div class="row">
+    <div class="row fix-col-height">
         <div class="col-sm-3 col-md-3">
             <div class="feature">
                 <i class="glyphicon glyphicon-wrench"></i>
@@ -35,7 +35,8 @@
             <div class="feature">
                 <i class="glyphicon glyphicon-globe"></i>
                 <h3>国际化</h3>
-                <p>更加清晰的国际化消息分类文件规划，分类文件全部有DuAdmin自动关联，延迟加载。更加诱人的是使用generator根据表的注解生成翻译。多语言管理组件的支持，可以快速开发多语言的内容，比如：CMS</p>
+                <p>更加清晰的国际化消息分类文件规划，分类文件全部有DuAdmin自动关联，延迟加载。更加诱人的是使用generator根据表的注解生成翻译。多语言管理组件的支持，可以快速开发多语言的内容，比如：CMS
+                </p>
             </div>
         </div>
         <div class="col-sm-3 col-md-3">
@@ -70,7 +71,8 @@
             <div class="feature">
                 <i class="glyphicon glyphicon-road"></i>
                 <h3>Webpack.mix.js</h3>
-                <p>DuAdmin做了定制开发，可以在前后端，包括插件内部编辑js、less源码，而不用在一个src下开发所有功能的资源文件。大大提高了代码管理效率。每个插件都应该有自己的资源文件，而不是跟总项目混在一起。</p>
+                <p>DuAdmin做了定制开发，可以在前后端，包括插件内部编辑js、less源码，而不用在一个src下开发所有功能的资源文件。大大提高了代码管理效率。每个插件都应该有自己的资源文件，而不是跟总项目混在一起。
+                </p>
             </div>
         </div>
         <div class="col-sm-3 col-md-3">
