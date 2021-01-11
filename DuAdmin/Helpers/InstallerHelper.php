@@ -1,25 +1,60 @@
 <?php
+
 namespace DuAdmin\Helpers;
 
+use Backend\Models\AuthItemChild;
+use Backend\Models\AuthPermission;
 use DuAdmin\Models\Menu;
 use DuAdmin\Models\Navigation;
 use DuAdmin\Models\Setting;
 use DuAdmin\Models\PageBlock;
+use yii\base\ErrorException;
+use yii\helpers\Json;
 
 class InstallerHelper
 {
-    
-    public static function installPageBlocks($blocks,$sourceApp='backend'){
-        
-        if($blocks) {
-            foreach($blocks as $block) {
+
+    public static function installPermissions($permissions, $parent = null)
+    {
+        if ($permissions) {
+            foreach ($permissions as $permission) {
+                $model = new AuthPermission();
+                $model->load($permission, '');
+                $model->save();
+                if ($model->hasErrors()) {
+                    throw new ErrorException(Json::encode($model->errors));
+                }
+                if ($parent) {
+                    $relation = new AuthItemChild();
+                    $relation->parent = $parent;
+                    $relation->child = $model->id;
+                    if ($relation->hasErrors()) {
+                        throw new ErrorException(Json::encode($model->errors));
+                    }
+                }
+                if (isset($permission['children']) && is_array($permission['children'])) {
+                    static::installPermissions($permission['children'], $model->id);
+                }
+            }
+        }
+    }
+
+    public static function uninstallPermissions($permissionIds)
+    {
+        AuthPermission::deleteAll(['id' => $permissionIds]);
+    }
+
+    public static function installPageBlocks($blocks, $sourceApp = 'backend')
+    {
+
+        if ($blocks) {
+            foreach ($blocks as $block) {
                 $model = new PageBlock();
-                $model->load($block,'');
+                $model->load($block, '');
                 $model->sourceApp = $sourceApp;
                 $model->save();
                 if ($model->hasErrors()) {
-                    print_r($model->errors);
-                    die();
+                    throw new ErrorException(Json::encode($model->errors));
                 }
             }
         }
@@ -37,25 +72,24 @@ class InstallerHelper
     {
         if (is_array($menus)) {
             foreach ($menus as $index => $menu) {
-                $menuModel = new Menu();
-                $menuModel->load($menu, '');
-                $menuModel->pid = $pid;
-                $menuModel->isFront = $isBackend ? 0 : 1;
-                $menuModel->app = $app;
+                $model = new Menu();
+                $model->load($menu, '');
+                $model->pid = $pid;
+                $model->isFront = $isBackend ? 0 : 1;
+                $model->app = $app;
                 if (isset($menu['sort'])) {
-                    $menuModel->sort = $menu['sort'];
+                    $model->sort = $menu['sort'];
                 } else if ($pid === 0) {
-                    $menuModel->sort = $weight;
+                    $model->sort = $weight;
                 } else {
-                    $menuModel->sort = $index;
+                    $model->sort = $index;
                 }
-                $menuModel->save();
-                if ($menuModel->hasErrors()) {
-                    print_r($menuModel->errors);
-                    die();
+                $model->save();
+                if ($model->hasErrors()) {
+                    throw new ErrorException(Json::encode($model->errors));
                 }
                 if (isset($menu['children']) && is_array($menu['children'])) {
-                    static::installMenus($menu['children'], $menuModel->id, $app = 'core', $isBackend, $weight);
+                    static::installMenus($menu['children'], $model->id, $app = 'core', $isBackend, $weight);
                 }
             }
         }
@@ -80,23 +114,22 @@ class InstallerHelper
         if (is_array($navigations)) {
             foreach ($navigations as $index => $navigation) {
                 $children = isset($navigation['children']) ? $navigation['children'] : null;
-                $navigationModel = new Navigation();
-                $navigationModel->load($navigation, '');
-                $navigationModel->pid = $pid;
+                $model = new Navigation();
+                $model->load($navigation, '');
+                $model->pid = $pid;
                 if (isset($navigation['sort'])) {
-                    $navigationModel->sort = $navigation['sort'];
+                    $model->sort = $navigation['sort'];
                 } else if ($pid === 0) {
-                    $navigationModel->sort = $weight;
+                    $model->sort = $weight;
                 } else {
-                    $navigationModel->sort = $index;
+                    $model->sort = $index;
                 }
-                $navigationModel->save();
-                if ($navigationModel->hasErrors()) {
-                    print_r($navigationModel->errors);
-                    die();
+                $model->save();
+                if ($model->hasErrors()) {
+                    throw new ErrorException(Json::encode($model->errors));
                 }
                 if ($children && is_array($children)) {
-                    static::installNavigations($navigation['children'], $navigationModel->id, $app, $weight);
+                    static::installNavigations($navigation['children'], $model->id, $app, $weight);
                 }
             }
         }
@@ -122,7 +155,7 @@ class InstallerHelper
             foreach ($settings as $setting) {
                 $children = isset($setting['children']) ? $setting['children'] : null;
                 $model = new Setting();
-                $model->load($setting,'');
+                $model->load($setting, '');
                 if (isset($setting['parent'])) {
                     $model->parent = $setting['parent'];
                 } else {
@@ -135,8 +168,7 @@ class InstallerHelper
                 }
                 $model->save();
                 if ($model->hasErrors()) {
-                    print_r($model->errors);
-                    die();
+                    throw new ErrorException(Json::encode($model->errors));
                 }
                 if ($children && is_array($children)) {
                     static::installSettings($setting['children'], $category, $model->name);
@@ -145,4 +177,3 @@ class InstallerHelper
         }
     }
 }
-

@@ -1,4 +1,5 @@
 <?php
+
 use yii\db\Migration;
 use DuAdmin\Helpers\InstallerHelper;
 
@@ -106,13 +107,39 @@ class m201213_014116_init_backend_menus extends Migration
                     ]
                 ]
             ]
-        ],0,'core',true);
-        
+        ], 0, 'core', true);
+
         InstallerHelper::installNavigations([
-            ['name'=>'Gitee','url'=>'https://gitee.com/dungang/DuAdmin','isOuter'=>1],
-            ['name'=>'GitHub','url'=>'https://github.com/dungang/DuAdmin','isOuter'=>1],
-            ['name'=>'联系我们','url'=>'contact-us'],
-            ['name'=>'关于我们','url'=>'about-us']
+            ['name' => 'Gitee', 'url' => 'https://gitee.com/dungang/DuAdmin', 'isOuter' => 1],
+            ['name' => 'GitHub', 'url' => 'https://github.com/dungang/DuAdmin', 'isOuter' => 1],
+            ['name' => '联系我们', 'url' => 'contact-us'],
+            ['name' => '关于我们', 'url' => 'about-us']
+        ]);
+
+        InstallerHelper::installPermissions([
+            [
+                'id' => 'administrator/index',
+                'name' => '管理员',
+                'children' => [
+                    [
+                        'id' => 'administrator/roles',
+                        'name' => '分配管理员角色',
+                    ],
+                    [
+                        'id' => 'administrator/view',
+                        'name' => '查看管理员',
+                    ],
+                    [
+                        'id' => 'administrator/update',
+                        'name' => '更新管理员',
+                    ],
+                    [
+                        'id' => 'administrator/create',
+                        'name' => '添加管理员',
+                    ],
+                ]
+
+            ]
         ]);
     }
 

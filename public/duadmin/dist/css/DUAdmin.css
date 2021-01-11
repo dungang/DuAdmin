@@ -4311,6 +4311,7 @@ table.text-center th {
 }
 .panel-adminlte .panel-body .panel-body {
   padding: 0 15px;
+  overflow-x: scroll;
 }
 .panel-adminlte .panel-footer {
   border-top: 0;
