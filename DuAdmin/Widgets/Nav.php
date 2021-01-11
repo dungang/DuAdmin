@@ -81,7 +81,6 @@ class Nav extends Widget
     /**
      * @var bool whether to automatically activate items according to whether their route setting
      * matches the currently requested route.
-     * @see isItemActive
      */
     public $activateItems = true;
     /**
@@ -90,16 +89,12 @@ class Nav extends Widget
     public $activateParents = false;
     /**
      * @var string the route used to determine if a menu item is active or not.
-     * If not set, it will use the route of the current request.
-     * @see params
-     * @see isItemActive
+     * If not set, it will use the route of the current request
      */
     public $route;
     /**
      * @var array the parameters used to determine if a menu item is active or not.
      * If not set, it will use `$_GET`.
-     * @see route
-     * @see isItemActive
      */
     public $params;
     /**

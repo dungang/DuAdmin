@@ -1,4 +1,5 @@
 <?php
+
 use DuAdmin\Widgets\TreeSortableList;
 use DuAdmin\Widgets\AdminltePanel;
 use DuAdmin\UI\Row;
@@ -33,7 +34,7 @@ AdminltePanel::begin([
                             'template' => '{permissions}',
                             'buttons' => [
                                 'permissions' => function ($url, $model, $key) {
-                                    return AppHelper::linkButtonWithSimpleModal('<i class="fa fa-key"></i> ' . Yii::t('backend', 'Permissions'),['permissions','AuthRole[id]'=>$model['id']], [
+                                    return AppHelper::linkButtonWithSimpleModal('<i class="fa fa-key"></i> ' . Yii::t('app_auth_item', 'Permissions'), ['permissions', 'AuthRole[id]' => $model['id']], [
                                         'class' => 'btn btn-link btn-xs'
                                     ]);
                                 }
@@ -67,10 +68,10 @@ AdminltePanel::begin([
 ]);
 ?>
 
-<?= AppHelper::linkButtonWithSimpleModal('<i class="fa fa-plus"></i> ' . Yii::t('da','Create'), ['create'], ['class'=>'btn btn-primary']) ?>
+<?= AppHelper::linkButtonWithSimpleModal('<i class="fa fa-plus"></i> ' . Yii::t('da', 'Create'), ['create'], ['class' => 'btn btn-primary']) ?>
 
-<?= Html::a('<i class="fa fa-refresh"></i> '. Yii::t('da','Refresh'), ['index'], ['class'=>'btn btn-info']) ?>
+<?= Html::a('<i class="fa fa-refresh"></i> ' . Yii::t('da', 'Refresh'), ['index'], ['class' => 'btn btn-info']) ?>
 
 <?php
 AdminltePanel::end();
-Pjax::end()?>
+Pjax::end() ?>

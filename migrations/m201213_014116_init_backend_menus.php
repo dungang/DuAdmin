@@ -118,27 +118,68 @@ class m201213_014116_init_backend_menus extends Migration
 
         InstallerHelper::installPermissions([
             [
-                'id' => 'administrator/index',
+                'id' => 'adminstrator',
                 'name' => '管理员',
                 'children' => [
                     [
-                        'id' => 'administrator/roles',
-                        'name' => '分配管理员角色',
+                        'id' => 'administrator/index',
+                        'name' => '管理员',
+                        ['children'] => [
+
+                            [
+                                'id' => 'administrator/view',
+                                'name' => '查看管理员',
+                            ],
+                        ]
                     ],
                     [
-                        'id' => 'administrator/view',
-                        'name' => '查看管理员',
+                        'id' => 'administrator/create',
+                        'name' => '添加管理员',
                     ],
                     [
                         'id' => 'administrator/update',
                         'name' => '更新管理员',
                     ],
                     [
-                        'id' => 'administrator/create',
-                        'name' => '添加管理员',
+                        'id' => 'administrator/delete',
+                        'name' => '删除管理员',
+                    ],
+                    [
+                        'id' => 'administrator/roles',
+                        'name' => '分配管理员角色',
                     ],
                 ]
 
+            ],
+            [
+                'id' => 'auth-permission',
+                'name' => '权限管理',
+                'children' => [
+                    [
+                        'id' => 'auth-permission/index',
+                        'name' => '权限列表',
+                    ],
+                    [
+                        'id' => 'administrator/sorts',
+                        'name' => '权限排序',
+                    ],
+                    [
+                        'id' => 'auth-permission/view',
+                        'name' => '查看权限',
+                    ],
+                    [
+                        'id' => 'auth-permission/create',
+                        'name' => '添加权限',
+                    ],
+                    [
+                        'id' => 'auth-permission/update',
+                        'name' => '更新权限',
+                    ],
+                    [
+                        'id' => 'auth-permission/delete',
+                        'name' => '删除权限',
+                    ],
+                ]
             ]
         ]);
     }

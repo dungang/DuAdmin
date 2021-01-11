@@ -17,8 +17,9 @@ class InstallerHelper
     public static function installPermissions($permissions, $parent = null)
     {
         if ($permissions) {
-            foreach ($permissions as $permission) {
+            foreach ($permissions as $index => $permission) {
                 $model = new AuthPermission();
+                $model->sort = $index;
                 $model->load($permission, '');
                 $model->save();
                 if ($model->hasErrors()) {
@@ -28,6 +29,8 @@ class InstallerHelper
                     $relation = new AuthItemChild();
                     $relation->parent = $parent;
                     $relation->child = $model->id;
+                    $relation->sort = $index;
+                    $relation->save();
                     if ($relation->hasErrors()) {
                         throw new ErrorException(Json::encode($model->errors));
                     }
