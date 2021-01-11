@@ -4267,10 +4267,10 @@ table.text-center th {
 .panel-wrap {
   margin-bottom: 10px;
 }
-.panel-adminlte {
+.panel.panel-adminlte {
   /* NAV TABS */
 }
-.panel-adminlte > .panel-heading {
+.panel.panel-adminlte > .panel-heading {
   padding: 20px;
   background-color: #d8dfd8;
   color: #4c6b4c;
@@ -4278,90 +4278,93 @@ table.text-center th {
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
 }
-.panel-adminlte > .panel-heading p {
+.panel.panel-adminlte > .panel-heading p {
   font-size: 12px;
   margin: 0px;
 }
-.panel-adminlte > .panel-heading > .dropdown .dropdown-toggle {
+.panel.panel-adminlte > .panel-heading > .dropdown .dropdown-toggle {
   color: inherit;
 }
-.panel-adminlte > .panel-heading .grid-summary {
+.panel.panel-adminlte > .panel-heading .grid-summary {
   display: inline-block;
 }
-.panel-adminlte .panel-title {
+.panel.panel-adminlte .panel-title {
   margin-bottom: 5px;
   font-size: 13px;
   color: inherit;
   font-weight: bold;
 }
-.panel-adminlte .panel-title > a,
-.panel-adminlte .panel-title > small,
-.panel-adminlte .panel-title > .small,
-.panel-adminlte .panel-title > small > a,
-.panel-adminlte .panel-title > .small > a {
+.panel.panel-adminlte .panel-title > a,
+.panel.panel-adminlte .panel-title > small,
+.panel.panel-adminlte .panel-title > .small,
+.panel.panel-adminlte .panel-title > small > a,
+.panel.panel-adminlte .panel-title > .small > a {
   color: inherit;
 }
-.panel-adminlte .panel-tools {
+.panel.panel-adminlte .panel-tools {
   margin-bottom: 10px;
 }
-.panel-adminlte .panel-tools > .btn,
-.panel-adminlte .panel-tools > .full-search-box {
+.panel.panel-adminlte .panel-tools > .btn,
+.panel.panel-adminlte .panel-tools > .full-search-box {
   margin-bottom: 5px;
   margin-right: 5px;
 }
-.panel-adminlte .panel-body .panel-body {
-  padding: 0 15px;
-  overflow-x: scroll;
+.panel.panel-adminlte .panel-body {
+  overflow-x: auto;
 }
-.panel-adminlte .panel-footer {
+.panel.panel-adminlte .panel-body .panel-body {
+  padding: 0 15px;
+  overflow-x: auto;
+}
+.panel.panel-adminlte .panel-footer {
   border-top: 0;
   padding: 15px;
   background-color: white;
   text-align: center;
 }
-.panel-adminlte .grid-summary {
+.panel.panel-adminlte .grid-summary {
   display: inline-block;
   line-height: 34px;
 }
-.panel-adminlte .table {
+.panel.panel-adminlte .table {
   margin: 0px;
 }
-.panel-adminlte .table th {
+.panel.panel-adminlte .table th {
   font-weight: 400;
 }
-.panel-adminlte .table th > a {
+.panel.panel-adminlte .table th > a {
   color: #777777;
 }
-.panel-adminlte .table td,
-.panel-adminlte .table td > a {
+.panel.panel-adminlte .table td,
+.panel.panel-adminlte .table td > a {
   font-weight: 100;
 }
-.panel-adminlte .nav-tabs-custom {
+.panel.panel-adminlte .nav-tabs-custom {
   margin-bottom: 5px;
   background: #fff;
   box-shadow: 0 0 0;
   border-radius: 0px;
   border: 0px;
 }
-.panel-adminlte .nav-tabs-custom li {
+.panel.panel-adminlte .nav-tabs-custom li {
   border-top: 0;
   margin-bottom: 0;
   margin-right: 5px;
 }
-.panel-adminlte .nav-tabs-custom li.active > a,
-.panel-adminlte .nav-tabs-custom li.active > a:hover,
-.panel-adminlte .nav-tabs-custom li > a:hover {
+.panel.panel-adminlte .nav-tabs-custom li.active > a,
+.panel.panel-adminlte .nav-tabs-custom li.active > a:hover,
+.panel.panel-adminlte .nav-tabs-custom li > a:hover {
   background: #eee;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
-.panel-adminlte .pagination {
+.panel.panel-adminlte .pagination {
   display: inline-block;
   margin: 0px;
   background-color: white;
 }
-.panel-adminlte .pagination > li > a,
-.panel-adminlte .pagination > li > span {
+.panel.panel-adminlte .pagination > li > a,
+.panel.panel-adminlte .pagination > li > span {
   line-height: 16px;
   padding: 6px 10px;
 }

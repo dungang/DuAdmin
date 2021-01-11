@@ -4,135 +4,154 @@
  */
 
 .panel {
-	margin-bottom: @line-height-computed;
+	margin-bottom   : @line-height-computed;
 	background-color: @panel-bg;
-	border: 0;
-	border-radius: @panel-border-radius;
+	border          : 0;
+	border-radius   : @panel-border-radius;
 	.box-shadow(0 1px 1px rgba(0, 0, 0, .05));
 
 	.small-box {
 		margin-bottom: 0px;
 	}
+
+
 }
+
 .panel-wrap {
 	margin-bottom: 10px;
 }
-.panel-adminlte {
-	&>.panel-heading {
-		padding: 20px;
-		background-color: #d8dfd8; //#e8edf0; @alert-warning-bg;//@state-warning-bg;//@state-info-bg;#d2d6de; //#d2d6de;//#c6cbd0;
-		color: #4c6b4c;//@alert-warning-text;//@gray;
-		//padding: @panel-heading-padding;
-		border: 0;
-		//border-bottom: 4px solid @alert-warning-text;
-		p {
-			font-size: 12px;
-			margin:0px;
+
+.panel {
+	&.panel-adminlte {
+		&>.panel-heading {
+			padding         : 20px;
+			background-color: #d8dfd8; //#e8edf0; @alert-warning-bg;//@state-warning-bg;//@state-info-bg;#d2d6de; //#d2d6de;//#c6cbd0;
+			color           : #4c6b4c; //@alert-warning-text;//@gray;
+			//padding: @panel-heading-padding;
+			border          : 0;
+	
+			//border-bottom: 4px solid @alert-warning-text;
+			p {
+				font-size: 12px;
+				margin   : 0px;
+			}
+	
+			.border-top-radius((@panel-border-radius - 1));
+	
+			>.dropdown .dropdown-toggle {
+				color: inherit;
+			}
+	
+			.grid-summary {
+				display: inline-block;
+			}
 		}
-		.border-top-radius((@panel-border-radius - 1));
-
-		>.dropdown .dropdown-toggle {
-			color: inherit;
-		}
-
-		.grid-summary {
-			display: inline-block;
-		}
-	}
-
-	.panel-title {
-		margin-bottom: 5px;
-		font-size: 13px;
-		color: inherit;
-		font-weight: bold;
-
-		>a,
-		>small,
-		>.small,
-		>small>a,
-		>.small>a {
-			color: inherit;
-		}
-	}
-
-	.panel-tools {
-		margin-bottom: 10px;
-		& > .btn,
-		& > .full-search-box {
+	
+		.panel-title {
 			margin-bottom: 5px;
-			margin-right: 5px;
-		}
-	}
+			font-size    : 13px;
+			color        : inherit;
+			font-weight  : bold;
 	
-	.panel-body {
+			>a,
+			>small,
+			>.small,
+			>small>a,
+			>.small>a {
+				color: inherit;
+			}
+		}
+	
+		.panel-tools {
+			margin-bottom: 10px;
+	
+			&>.btn,
+			&>.full-search-box {
+				margin-bottom: 5px;
+				margin-right : 5px;
+			}
+		}
 		.panel-body {
-			padding: 0 15px;
-			overflow-x: scroll;
+			overflow-x: auto;
 		}
-	}
-
-	.panel-footer {
-		border-top: 0;
-		padding: 15px;
-		background-color: white;
-		text-align: center;
-	}
-
-	.grid-summary {
-		display: inline-block;
-		line-height: 34px;
-	}
-
-	.table {
-		margin: 0px;
-		th{
-			font-weight: 400;
-			&>a {
-				color: @gray-light;
-			}
-		}
-		td,td>a{
-			font-weight: 100;
-		
-		}
-	}
-
-	/* NAV TABS */
-	.nav-tabs-custom {
-		margin-bottom: 5px;
-		background: #fff;
-		box-shadow: 0 0 0;
-		border-radius: @box-border-radius;
-		border: 0px;
-		li {
-			border-top: 0;
-		    margin-bottom: 0;
-		    margin-right: 5px;
-		}
-		li.active > a,
-		li.active > a:hover,
-		li > a:hover {
-			background: #eee;
-			border-top-left-radius: 5px;
-			border-top-right-radius: 5px;
-		}
-	}
-
 	
-	.pagination {
-		display: inline-block;
-		margin: 0px;
-		background-color: white;
-		> li {
-			> a,
-			> span {
-			  line-height: 16px;
-			  padding: 6px 10px;
+		.panel-body {
+			.panel-body {
+				padding   : 0 15px;
+				overflow-x: auto;
 			}
 		}
+	
+		.panel-footer {
+			border-top      : 0;
+			padding         : 15px;
+			background-color: white;
+			text-align      : center;
+		}
+	
+		.grid-summary {
+			display    : inline-block;
+			line-height: 34px;
+		}
+	
+		.table {
+			margin: 0px;
+	
+			th {
+				font-weight: 400;
+	
+				&>a {
+					color: @gray-light;
+				}
+			}
+	
+			td,
+			td>a {
+				font-weight: 100;
+	
+			}
+		}
+	
+		/* NAV TABS */
+		.nav-tabs-custom {
+			margin-bottom: 5px;
+			background   : #fff;
+			box-shadow   : 0 0 0;
+			border-radius: @box-border-radius;
+			border       : 0px;
+	
+			li {
+				border-top   : 0;
+				margin-bottom: 0;
+				margin-right : 5px;
+			}
+	
+			li.active>a,
+			li.active>a:hover,
+			li>a:hover {
+				background             : #eee;
+				border-top-left-radius : 5px;
+				border-top-right-radius: 5px;
+			}
+		}
+	
+	
+		.pagination {
+			display         : inline-block;
+			margin          : 0px;
+			background-color: white;
+	
+			>li {
+	
+				>a,
+				>span {
+					line-height: 16px;
+					padding    : 6px 10px;
+				}
+			}
+		}
+	
 	}
-
-
 }
 
 // .table {
