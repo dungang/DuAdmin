@@ -37,7 +37,7 @@ class NavigationSearch extends Navigation
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params,$formName=Null)
     {
         $query = Navigation::find();
 

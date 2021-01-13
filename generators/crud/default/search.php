@@ -57,19 +57,31 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
      *
      * @param array $params
      *
+     * @param string|NULL $formName
+     *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $formName = NULL)
     {
         $query = <?= isset($modelAlias) ? $modelAlias : $modelClass ?>::find();
 
         // add conditions that should always apply here
 
+        // search before event
+        $this->beforeSearch($query,$params);    
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+<?php if($generator->enableDefaultOrder):?>
+		    'sort' => [ 
+               'defaultOrder' => [ 
+                   '<?= $generator->defaultOrderField ?>' => <?= $generator->defaultOrder?> 
+               ] 
+            ] 
+<?php endif;?>
         ]);
 
-        $this->load($params);
+        $this->load($params, $formName);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
