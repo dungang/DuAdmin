@@ -42,22 +42,22 @@ class ApiController extends Controller
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function afterAction($action, $result)
-    {
-        $result = parent::afterAction($action, $result);
-        if ($this->hiddenFields && (is_array($result) || $result instanceof Arrayable)) {
-            if (is_string($this->hiddenFields)) {
-                $fields = explode(',', $this->hiddenFields);
-            } else {
-                $fields = $this->hiddenFields;
-            }
-            $result = AppHelper::walkRecursiveRemove($result, function ($v, $k) use ($fields) {
-                return in_array($k, $fields);
-            });
-        }
-        return $result;
-    }
+    // /**
+    //  * {@inheritdoc}
+    //  */
+    // public function afterAction($action, $result)
+    // {
+    //     $result = parent::afterAction($action, $result);
+    //     if ($this->hiddenFields && (is_array($result) || $result instanceof Arrayable)) {
+    //         if (is_string($this->hiddenFields)) {
+    //             $fields = explode(',', $this->hiddenFields);
+    //         } else {
+    //             $fields = $this->hiddenFields;
+    //         }
+    //         $result = AppHelper::walkRecursiveRemove($result, function ($v, $k) use ($fields) {
+    //             return in_array($k, $fields);
+    //         });
+    //     }
+    //     return $result;
+    // }
 }

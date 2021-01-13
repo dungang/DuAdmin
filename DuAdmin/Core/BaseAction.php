@@ -2,6 +2,7 @@
 
 namespace DuAdmin\Core;
 
+use Yii;
 use yii\base\Action;
 
 /**
@@ -63,6 +64,19 @@ abstract class BaseAction extends Action
      * @var array
      */
     public $data = [];
+
+
+    public function init()
+    {
+        $this->initAction();
+        
+        if (empty($this->viewName)) {
+            $this->viewName = $this->id;
+        }
+        if (empty($this->successMsg)) {
+            $this->successMsg = Yii::t('da', 'Create success');
+        }
+    }
 
 
     /**

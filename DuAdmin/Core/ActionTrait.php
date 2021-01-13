@@ -67,17 +67,11 @@ trait ActionTrait
      */
     public $modelScenario = 'default';
 
-    public function init()
+    public function initAction()
     {
         $this->checkQueryStringAttrs();
-        if (empty($this->viewName)) {
-            $this->viewName = $this->id;
-        }
         if (!empty($this->actionBehaviors)) {
             $this->attachBehaviors($this->actionBehaviors);
-        }
-        if (empty($this->successMsg)) {
-            $this->successMsg = Yii::t('da', 'Create success');
         }
     }
 

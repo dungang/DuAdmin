@@ -33,4 +33,9 @@ abstract class BaseAction extends Action
 
     const EVENT_AFTER_RUN = 'actionAfterRun';
 
+    public function init()
+    {
+        $this->initAction();
+    }
+
 }

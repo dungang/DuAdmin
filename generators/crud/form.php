@@ -11,7 +11,6 @@ echo $form->field($generator, 'onlyQueryCurrentUser')->checkbox();
 echo $form->field($generator, 'baseControllerClass')->dropDownList([
     'DuAdmin\Core\BackendController' => 'DUAdmin BackendController',
     'DuAdmin\Core\FrontendController' => 'DUAdmin FrontendController',
-    'DuAdmin\Core\ApiController' => 'DUAdmin ApiController',
     'DuAdmin\Core\BaseController' => 'DUAdmin BaseController',
     'yii\web\Controller' => 'Yii WebController',
 ]);

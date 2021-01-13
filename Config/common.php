@@ -15,7 +15,7 @@ return [
             'class' => 'yii\caching\FileCache'
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error'
+            'errorAction' => '/site/error'
         ]
     ]
 ];

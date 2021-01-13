@@ -9,7 +9,7 @@ use DuAdmin\Core\ApiController;
  */
 class SiteController extends ApiController
 {
-    public $authExceptActions = ['error'];
+    public $authExceptActions = ['error','index'];
 
     /**
      *
@@ -31,5 +31,9 @@ class SiteController extends ApiController
                 'class' => 'DuAdmin\Uploader\DeleteAction'
             ]
         ];
+    }
+
+    public function actionIndex(){
+        return 1;
     }
 }

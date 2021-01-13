@@ -1,12 +1,10 @@
 <?php
-// 数据库配置放在具体的项目中是方便项目独立配置，项目之间相互隔离
-$db = require __DIR__ . '/db.php';
+
 $config = [
-    'controllerNamespace' => 'app\api\controllers',
+    'controllerNamespace' => 'Api\Controllers',
     'components' => [
-        'db' => $db,
         'user' => [
-            'identityClass' => '\DuAdmin\Models\User',
+            'identityClass' => '\Api\Models\User',
             'enableAutoLogin' => false,
             'enableSession' => false,
             'loginUrl' => null
@@ -48,5 +46,4 @@ $config = [
         ]
     ]
 ];
-
 return $config;

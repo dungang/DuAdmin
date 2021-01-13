@@ -589,7 +589,8 @@ abstract class Generator extends Model
         $categories = [
             'app',
             'backend',
-            'frontend'
+            'frontend',
+            'api'
         ];
         $dirs = FileHelper::findDirectories(\Yii::$app->basePath . '/Addons', [
             'recursive' => false
@@ -611,7 +612,8 @@ abstract class Generator extends Model
         $prefixs = [
             'app',
             'backend',
-            'frontend'
+            'frontend',
+            'api'
         ];
         $dirs = FileHelper::findDirectories(\Yii::$app->basePath . '/Addons', [
             'recursive' => false
