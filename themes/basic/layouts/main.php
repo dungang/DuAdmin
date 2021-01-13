@@ -13,6 +13,7 @@ use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use DuAdmin\Models\Navigation;
 use DuAdmin\Widgets\AutoFixBootstrapColumn;
+use DuAdmin\Widgets\DefaultPageFooter;
 use DuAdmin\Widgets\Nav;
 
 AppAsset::register($this);
@@ -42,7 +43,7 @@ $siteName = Yii::t('app', AppHelper::getSetting('site.name', Yii::$app->name));
     <div class="wrap">
         <?php
         NavBar::begin([
-            'brandLabel' => Yii::t('app', '<i class="fa fa-rocket"></i> ' . $siteName) . ' <small>'.Yii::$app->version.'</small>',
+            'brandLabel' => Yii::t('app', '<i class="fa fa-rocket"></i> ' . $siteName) . ' <small>' . Yii::$app->version . '</small>',
             //'brandImage' => $this->params['logo'],
             'brandUrl' => ['/site/index'],
             'options' => [
@@ -95,20 +96,14 @@ $siteName = Yii::t('app', AppHelper::getSetting('site.name', Yii::$app->name));
         AutoFixBootstrapColumn::widget();
         ?>
         <?php if (isset($this->params['breadcrumbs'])) : ?>
-            <div class="container">
-                <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : []]) ?>
-            </div>
+        <div class="container">
+            <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : []]) ?>
+        </div>
         <?php endif; ?>
         <?= $content ?>
     </div>
 
-    <footer class="footer  text-center">
-        <div class="container">
-            <p><?= Html::a('<i class="fa fa-user"></i>  ' . Yii::t('theme', 'About Us'), ['/about-us']) ?>
-                <?= date('Y') ?> &copy; <?= Html::encode(Yii::t('app', Setting::getSettings('site.company'))) ?>
-                <?= Setting::getSettings('site.beian') ?> <?= AppHelper::powered()?></p>
-        </div>
-    </footer>
+    <?= DefaultPageFooter::renderPageFooter() ?>
     <?php $this->endBody() ?>
 </body>
 

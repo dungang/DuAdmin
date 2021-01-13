@@ -892,6 +892,17 @@ $(document).on('click', '[data-sync]', function (event) {
 
 /***/ }),
 
+/***/ "./themes/basic/assets/src/less/basic.less":
+/*!*************************************************!*\
+  !*** ./themes/basic/assets/src/less/basic.less ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "./themes/huadun/assets/src/less/huadun.less":
 /*!***************************************************!*\
   !*** ./themes/huadun/assets/src/less/huadun.less ***!
@@ -904,14 +915,15 @@ $(document).on('click', '[data-sync]', function (event) {
 /***/ }),
 
 /***/ 0:
-/*!**********************************************************************************************************************************************************************************!*\
-  !*** multi ./public/duadmin/src/js/DUAdmin.js ./Addons/Cms/resource/assets/src/less/cms.less ./themes/huadun/assets/src/less/huadun.less ./public/duadmin/src/less/DUAdmin.less ***!
-  \**********************************************************************************************************************************************************************************/
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** multi ./public/duadmin/src/js/DUAdmin.js ./Addons/Cms/resource/assets/src/less/cms.less ./themes/basic/assets/src/less/basic.less ./themes/huadun/assets/src/less/huadun.less ./public/duadmin/src/less/DUAdmin.less ***!
+  \****************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! D:\www\DuAdmin\public\duadmin\src\js\DUAdmin.js */"./public/duadmin/src/js/DUAdmin.js");
 __webpack_require__(/*! D:\www\DuAdmin\Addons\Cms\resource\assets\src\less\cms.less */"./Addons/Cms/resource/assets/src/less/cms.less");
+__webpack_require__(/*! D:\www\DuAdmin\themes\basic\assets\src\less\basic.less */"./themes/basic/assets/src/less/basic.less");
 __webpack_require__(/*! D:\www\DuAdmin\themes\huadun\assets\src\less\huadun.less */"./themes/huadun/assets/src/less/huadun.less");
 module.exports = __webpack_require__(/*! D:\www\DuAdmin\public\duadmin\src\less\DUAdmin.less */"./public/duadmin/src/less/DUAdmin.less");
 

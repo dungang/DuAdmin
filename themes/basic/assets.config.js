@@ -1,5 +1,5 @@
 exports.assets = {
-	dev: false,
+	dev: true,
 	src : 'assets/src',
 	dist : 'assets/dist',
 	less : [ {
