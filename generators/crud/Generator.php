@@ -8,7 +8,6 @@
 namespace app\generators\crud;
 
 use Yii;
-use yii\db\ActiveRecord;
 use yii\db\BaseActiveRecord;
 use yii\db\Schema;
 use app\generators\CodeFile;
@@ -58,7 +57,7 @@ class Generator extends \app\generators\Generator
     public $onlyQueryCurrentUser = false;
 
     public $templates = [
-        'backend' => '@app/generators/crud/backend',
+        'duadmin' => '@app/generators/crud/duadmin',
         'frontend' => '@app/generators/crud/frontend'
     ];
 
