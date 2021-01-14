@@ -50,6 +50,8 @@ class m201121_145324_create_setting_table extends Migration
                 ['email.recipient', '','收件账号', 'dungang@126.com', 'STR', '', 'email'],
                 ['email.recipientAlias', '','收件账号别名', 'DUAdmin Tech', 'STR', '', 'email'],
                 ['site.index-page','','网站首页地址','','STR','可以根据业务配置网站的默认首页', 'open-feature'],
+                ['site.pageFooterWidget','','网站底部小部件','','STR','替换默认的显示可以用插件的小部件替换','open-feature'],
+                ['site.pageFooterWidget.default','site.pageFooterWidget','默认网站底部小部件','DuAdmin\Widgets\DefaultPageFooter','STR','','open-feature'],
                 ['system.storage.driver','','存储服务','', 'STR', '默认是本地存储', 'open-feature'],
                 ['sysltem.storate.localDriver','system.storage.driver','本地存储','DuAdmin\Storage\LocalDriver', 'STR', '本地存储，默认存在目录public/uploads','open-feature'],
                 ['uploader.allowExtensions','', '上传文件扩展名', '.jpg,.png',  'ARRAY', '允许上传的文件后缀名','open-feature'],

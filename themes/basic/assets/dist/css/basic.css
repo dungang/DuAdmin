@@ -1608,8 +1608,12 @@ body {
   background-color: #FFF;
   padding: 60px 0;
 }
-.footer h1 {
-  margin-top: 0;
+.footer h4,
+.footer h1,
+.footer h2,
+.footer h3,
+.footer h5 {
+  font-weight: bold;
 }
 .footer,
 .footer a,
@@ -1714,6 +1718,7 @@ a.desc:after {
 .block-bar-gray h2 {
   text-align: center;
   margin-bottom: 40px;
+  font-weight: bold;
 }
 .block-bar {
   background-color: white;

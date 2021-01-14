@@ -83,7 +83,7 @@ class m201125_132002_create_page_block_table extends Migration
             'blockId' => 3,
             'title' => '联系我们',
             'intro' => '如果您有商业需求或者任何问题都可以填写如下表单联系我们。非常期待您咨询，谢谢',
-            'options' => 'class=block-bar'
+            'options' => 'class=block-bar-gray'
         ]);
     }
 

@@ -15,7 +15,8 @@ class DefaultPageFooter extends Widget
 
     public static function renderPageFooter()
     {
-        $className = AppHelper::getSetting('site.pageFooterWidget', DefaultPageFooter::class);
+        $className = AppHelper::getSetting('site.pageFooterWidget');
+        $className = $className?:DefaultPageFooter::class;
         return call_user_func([$className, 'widget']);
     }
 }
