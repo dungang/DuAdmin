@@ -1606,7 +1606,7 @@ body {
 }
 .footer {
   background-color: #FFF;
-  padding: 60px 0;
+  padding: 40px 0 60px;
 }
 .footer h4,
 .footer h1,
@@ -1620,6 +1620,9 @@ body {
 .footer a:hover,
 .footer a:active {
   color: #232834;
+}
+.footer .site-link {
+  margin-top: 25px;
 }
 .footer .footer-link {
   margin-top: 15px;

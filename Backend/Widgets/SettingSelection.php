@@ -1,9 +1,11 @@
 <?php
+
 namespace Backend\Widgets;
 
 use yii\widgets\InputWidget;
 use yii\helpers\Html;
 use DuAdmin\Models\Setting;
+use DuAdmin\Widgets\AjaxFileInput;
 use yii\helpers\ArrayHelper;
 
 class SettingSelection extends InputWidget
@@ -20,7 +22,16 @@ class SettingSelection extends InputWidget
     {
         if ($items = $this->discoverItems()) {
             return $this->showDiscoverDropDownList($items);
+        } else if ($this->model->valType === 'IMAGE') {
+            return AjaxFileInput::widget([
+                'model' => $this->model,
+                'attribute' => $this->attribute,
+                'value' => $this->value,
+                'name' => $this->name,
+                'options' => $this->options,
+            ]);
         } else {
+
             return $this->showTextarea();
         }
     }
@@ -54,8 +65,8 @@ class SettingSelection extends InputWidget
                 'value'
             ])
                 ->where([
-                'parent' => $this->model->name
-            ])
+                    'parent' => $this->model->name
+                ])
                 ->asArray()
                 ->all();
             if ($items) {
@@ -65,4 +76,3 @@ class SettingSelection extends InputWidget
         return null;
     }
 }
-

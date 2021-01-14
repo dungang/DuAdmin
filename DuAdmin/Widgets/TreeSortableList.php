@@ -161,12 +161,12 @@ class TreeSortableList extends Widget
         // $this->items = array_map(function($item){
         // return $item->toArray();
         // },$this->items);
-        $this->items = array_map(function ($item) {
-            if (!isset($item['pid'])) {
-                $item['pid'] = '0';
-            }
-            return $item;
-        }, $this->items);
+        // $this->items = array_map(function ($item) {
+        //     if (!isset($item['pid'])) {
+        //         $item['pid'] = '0';
+        //     }
+        //     return $item;
+        // }, $this->items);
         $this->items = AppHelper::listToTree($this->items, 'id', 'pid', 'children');
     }
 
