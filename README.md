@@ -91,6 +91,9 @@ php yii dua-serve
 #### 后端首页管理
 ![后端首页管理](public/images/screen/backend-page-index.png)
 
+#### 代码生成器
+![后端首页管理](public/images/screen/generator.png)
+
 ## 特别鸣谢
 感谢以下的项目,排名不分先后
 
