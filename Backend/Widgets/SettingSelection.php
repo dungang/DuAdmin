@@ -29,6 +29,7 @@ class SettingSelection extends InputWidget
                 'value' => $this->value,
                 'name' => $this->name,
                 'options' => $this->options,
+                'clip' => 'false'
             ]);
         } else {
 
@@ -44,7 +45,7 @@ class SettingSelection extends InputWidget
         if ($this->hasModel()) {
             return Html::activeTextarea($this->model, $this->attribute, $options);
         } else {
-            return Html::textarea($this->name, $this->value, options);
+            return Html::textarea($this->name, $this->value, $options);
         }
     }
 
