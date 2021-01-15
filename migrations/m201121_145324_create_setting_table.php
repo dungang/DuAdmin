@@ -64,12 +64,12 @@ class m201121_145324_create_setting_table extends Migration
         );
 
         Setting::updateAll(['value' => 'var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?642c5dd4a667383848930b5c3c1bd1a0";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();'], ['name' => 'site.tongji']);
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?e2eccb33395fcbad8ddb84c18304aef3";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();'], ['name' => 'site.tongji']);
     }
 
     /**
