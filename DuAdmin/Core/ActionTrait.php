@@ -8,6 +8,8 @@ use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
 use yii\web\MethodNotAllowedHttpException;
 use yii\web\NotFoundHttpException;
+use yii\base\Model;
+use DuAdmin\Mysql\ActiveRecord;
 
 trait ActionTrait
 {

@@ -2,9 +2,6 @@
 namespace Api\Models;
 
 use Yii;
-use Addons\User\Hooks\DeleteUserHook;
-use Addons\User\Hooks\RegisterUserHook;
-use Addons\User\Hooks\UpdateUserHook;
 use DuAdmin\Models\JWTUser;
 use DuAdmin\Core\Operator;
 
@@ -15,15 +12,15 @@ use DuAdmin\Core\Operator;
  * @property string $username 用户名
  * @property string $nickname 姓名
  * @property string $avatar 头像
- * @property string $auth_key 验证密钥
- * @property string $password_hash 密码hash
- * @property string $password_reset_token 密码重置token
+ * @property string $authKey 验证密钥
+ * @property string $passwordHash 密码hash
+ * @property string $passwordRestToken 密码重置token
  * @property string $email 邮箱
  * @property string $mobile 手机
  * @property int $status 状态
- * @property int $login_failure 登录失败次数
- * @property int $login_time 登录时间
- * @property string $login_ip 登录IP
+ * @property int $loginFailure 登录失败次数
+ * @property int $loginTime 登录时间
+ * @property string $loginIp 登录IP
  * @property int $created_at 添加时间
  * @property int $updated_at 更新时间
  */
@@ -35,6 +32,8 @@ class User extends JWTUser implements Operator
     const STATUS_ACTIVE = 10;
 
     public $password;
+    
+    public $jsonHideFields = ['password','passwordHash','passwordRestToken','authKey'];
 
     /**
      *
@@ -56,16 +55,16 @@ class User extends JWTUser implements Operator
             'username' => Yii::t('da', 'User Name'),
             'nickname' => Yii::t('da', 'Nick Name'),
             'avatar' => Yii::t('da', 'Avatar'),
-            'auth_key' => Yii::t('da', 'Auth Key'),
+            'authKey' => Yii::t('da', 'Auth Key'),
             'password' => Yii::t('da', 'Password'),
-            'password_hash' => Yii::t('da', 'Password Hash'),
-            'password_reset_token' => Yii::t('da', 'Password Reset Token'),
+            'passwordHash' => Yii::t('da', 'Password Hash'),
+            'passwordRestToken' => Yii::t('da', 'Password Reset Token'),
             'email' => Yii::t('da', 'Email'),
             'mobile' => Yii::t('da', 'Mobile'),
             'status' => Yii::t('da', 'Status'),
-            'login_failure' => Yii::t('da', 'Login Failure'),
-            'login_time' => Yii::t('da', 'Login Time'),
-            'login_ip' => Yii::t('da', 'Login Ip'),
+            'loginFailure' => Yii::t('da', 'Login Failure'),
+            'loginTime' => Yii::t('da', 'Login Time'),
+            'loginIp' => Yii::t('da', 'Login Ip'),
             'created_at' => Yii::t('da', 'Created At'),
             'updated_at' => Yii::t('da', 'Updated At')
         ];
@@ -124,27 +123,6 @@ class User extends JWTUser implements Operator
         ];
     }
 
-    public function init()
-    {
-        parent::init();
-
-        $this->on(self::EVENT_AFTER_INSERT, function ($event) {
-            RegisterUserHook::emit($this, [
-                'user' => $this
-            ]);
-        });
-        $this->on(self::EVENT_AFTER_UPDATE, function ($event) {
-            UpdateUserHook::emit($this, [
-                'user' => $this
-            ]);
-        });
-        $this->on(self::EVENT_AFTER_DELETE, function ($event) {
-            DeleteUserHook::emit($this, [
-                'user' => $this
-            ]);
-        });
-    }
-
     /**
      *
      * {@inheritdoc}
@@ -190,7 +168,7 @@ class User extends JWTUser implements Operator
             return null;
         }
         return static::findOne([
-            'password_reset_token' => $token,
+            'passwordRestToken' => $token,
             'status' => self::STATUS_ACTIVE
         ]);
     }
@@ -227,7 +205,7 @@ class User extends JWTUser implements Operator
      */
     public function getAuthKey()
     {
-        return $this->auth_key;
+        return $this->authKey;
     }
 
     /**
@@ -253,7 +231,7 @@ class User extends JWTUser implements Operator
      */
     public function validatePassword($password)
     {
-        return Yii::$app->security->validatePassword($password, $this->password_hash);
+        return Yii::$app->security->validatePassword($password, $this->passwordHash);
     }
 
     /**
@@ -265,7 +243,7 @@ class User extends JWTUser implements Operator
     {
         $password = trim($password);
         if (! empty($password)) {
-            $this->password_hash = Yii::$app->security->generatePasswordHash($password);
+            $this->passwordHash = Yii::$app->security->generatePasswordHash($password);
         }
     }
 
@@ -274,7 +252,7 @@ class User extends JWTUser implements Operator
      */
     public function generateAuthKey()
     {
-        $this->auth_key = Yii::$app->security->generateRandomString();
+        $this->authKey = Yii::$app->security->generateRandomString();
     }
 
     /**
@@ -282,7 +260,7 @@ class User extends JWTUser implements Operator
      */
     public function generatePasswordResetToken()
     {
-        $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
+        $this->passwordRestToken = Yii::$app->security->generateRandomString() . '_' . time();
     }
 
     /**
@@ -290,7 +268,7 @@ class User extends JWTUser implements Operator
      */
     public function removePasswordResetToken()
     {
-        $this->password_reset_token = null;
+        $this->passwordRestToken = null;
     }
 
     /**

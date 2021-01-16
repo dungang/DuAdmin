@@ -216,6 +216,9 @@ WHERE table_schema='" . getenv('DB_DATABASE') . "' AND TABLE_NAME IN (" . $table
     {
         if ($addonName = $this->getAddonNameFromMessagePath($this->messagesPath)) {
             $dir = \Yii::getAlias($this->messagesPath . '/' . $this->language);
+            if(!is_dir($dir)) {
+                FileHelper::createDirectory($dir);
+            };
             $files = FileHelper::findFiles($dir, [
                 'recursive' => false
             ]);

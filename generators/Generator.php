@@ -648,4 +648,56 @@ abstract class Generator extends Model
             return 'app_';
         }
     }
+
+    public function getModelNamespaces(){
+        $ns = [
+            'Backend\\Models',
+            'Frontend\\Models',
+            'DuAdmin\\Models',
+        ];
+        $dirs = FileHelper::findDirectories(\Yii::$app->basePath . '/Addons',['recursive'=>false]);
+        foreach($dirs as $dir) {
+            $addonName = basename($dir);
+            $ns[] = 'Addons\\' . $addonName . '\\Models';
+        }
+        return $ns;
+    } 
+
+    public function getWebControllerNamespaces(){
+        $ns = [
+            'Backend\\Controllers',
+            'Frontend\\Controllers',
+        ];
+        $dirs = FileHelper::findDirectories(\Yii::$app->basePath . '/Addons',['recursive'=>false]);
+        foreach($dirs as $dir) {
+            $addonName = basename($dir);
+            $ns[] = 'Addons\\' . $addonName . '\\Controllers\\Backend';
+            $ns[] = 'Addons\\' . $addonName . '\\Controllers\\Frontend';
+        }
+        return $ns;
+    } 
+
+    public function getApiControllerNamespaces(){
+        $ns = [];
+        $dirs = FileHelper::findDirectories(\Yii::$app->basePath . '/Addons',['recursive'=>false]);
+        foreach($dirs as $dir) {
+            $addonName = basename($dir);
+            $ns[] = 'Addons\\' . $addonName . '\\Controllers\\Api';
+        }
+        return $ns;
+    } 
+
+    public function getWebViewPathBases(){
+        $ns = [
+            '@Backend/views',
+            '@Frontend/views',
+        ];
+        $dirs = FileHelper::findDirectories(\Yii::$app->basePath . '/Addons',['recursive'=>false]);
+        foreach($dirs as $dir) {
+            $addonName = basename($dir);
+            $ns[] = '@Addons/' . $addonName . '/resource/views/backend';
+            $ns[] = '@Addons/' . $addonName . '/resource/views/frontend';
+        }
+        return $ns;
+    } 
 }

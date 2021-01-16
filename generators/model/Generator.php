@@ -665,19 +665,6 @@ class Generator extends \app\generators\Generator
         return $rules;
     }
     
-    public function getModelNamespaces(){
-        $ns = [
-            'Backend\\Models',
-            'Frontend\\Models',
-            'DuAdmin\\Models',
-        ];
-        $dirs = FileHelper::findDirectories(\Yii::$app->basePath . '/Addons',['recursive'=>false]);
-        foreach($dirs as $dir) {
-            $addonName = basename($dir);
-            $ns[] = 'Addons\\' . $addonName . '\\Models';
-        }
-        return $ns;
-    } 
     
     /**
      * Generates validation rules for the search model.

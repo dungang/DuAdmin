@@ -5,6 +5,7 @@
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
+
 namespace app\generators\crud;
 
 use Yii;
@@ -25,6 +26,7 @@ use yii\web\Controller;
  * @property array $searchAttributes Searchable attributes. This property is read-only.
  * @property bool|\yii\db\TableSchema $tableSchema This property is read-only.
  * @property string $viewPath The controller view path. This property is read-only.
+ * @property string $modelClass
  *          
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -37,17 +39,54 @@ class Generator extends \app\generators\Generator
 
     public $useSearchFormClassies = [];
 
-    public $modelClass;
 
-    public $controllerClass;
+    /**
+     * 模型的命名空间
+     *
+     * @var string
+     */
+    public $modelNamespace;
 
-    public $viewPath;
+    /**
+     * 没有命名空间的模型类名
+     *
+     * @var string
+     */
+    public $modelName;
+
+    /**
+     * 没有命名空间的控制器类名
+     *
+     * @var string
+     */
+    public $controllerName;
+
+    /**
+     * 控制器的命名空间
+     *
+     * @var string
+     */
+    public $controllerNamespace;
+
+
+    // public $modelClass;
+
+    // public $controllerClass;
+
+    // public $viewPath;
+
+    /**
+     * 视图的base路径
+     *
+     * @var string
+     */
+    public $viewPathBase;
 
     public $baseControllerClass = 'DuAdmin\Core\BackendController';
 
     public $indexWidgetType = 'grid';
 
-    public $searchModelClass = '';
+    //public $searchModelClass = '';
 
     /**
      * 设置是否在控制器上设置只查询当前用户的数据
@@ -116,6 +155,32 @@ class Generator extends \app\generators\Generator
         return '该生成器将会根据指定的数据模型生成一个控制器和包含CRUD的多个视图（创建，读取，更新，删除）';
     }
 
+    public function getModelClass()
+    {
+        if ($this->modelName) {
+            return $this->modelNamespace . '\\' . $this->modelName;
+        }
+        return null;
+    }
+
+    public function getSearchModelClass()
+    {
+        if ($this->modelName) {
+            return $this->modelNamespace . '\\' . $this->modelName . 'Search';
+        }
+        return null;
+    }
+
+    public function getControllerClass()
+    {
+        if ($this->controllerName) {
+            return $this->controllerNamespace . '\\' . $this->controllerName;
+        }
+        return null;
+    }
+
+
+
     /**
      *
      * {@inheritdoc}
@@ -125,9 +190,11 @@ class Generator extends \app\generators\Generator
         return array_merge(parent::rules(), [
             [
                 [
-                    'controllerClass',
-                    'modelClass',
-                    'searchModelClass',
+                    'modelNamespace',
+                    'modelName',
+                    'controllerNamespace',
+                    'controllerName',
+                    'viewPathBase',
                     'baseControllerClass'
                 ],
                 'filter',
@@ -135,28 +202,23 @@ class Generator extends \app\generators\Generator
             ],
             [
                 [
-                    'modelClass',
-                    'controllerClass',
+                    'modelNamespace',
+                    'modelName',
+                    'controllerNamespace',
+                    'controllerName',
                     'baseControllerClass',
+                    'viewPathBase',
                     'indexWidgetType'
                 ],
                 'required'
             ],
             [
                 [
-                    'searchModelClass'
-                ],
-                'compare',
-                'compareAttribute' => 'modelClass',
-                'operator' => '!==',
-                'message' => 'Search Model Class must not be equal to Model Class.'
-            ],
-            [
-                [
-                    'modelClass',
-                    'controllerClass',
+                    'modelNamespace',
+                    'modelName',
+                    'controllerNamespace',
+                    'controllerName',
                     'baseControllerClass',
-                    'searchModelClass'
                 ],
                 'match',
                 'pattern' => '/^[\w\\\\]*$/',
@@ -164,25 +226,7 @@ class Generator extends \app\generators\Generator
             ],
             [
                 [
-                    'modelClass'
-                ],
-                'validateClass',
-                'params' => [
-                    'extends' => BaseActiveRecord::class
-                ]
-            ],
-            [
-                [
-                    'baseControllerClass'
-                ],
-                'validateClass',
-                'params' => [
-                    'extends' => Controller::class
-                ]
-            ],
-            [
-                [
-                    'controllerClass'
+                    'controllerName'
                 ],
                 'match',
                 'pattern' => '/Controller$/',
@@ -190,18 +234,11 @@ class Generator extends \app\generators\Generator
             ],
             [
                 [
-                    'controllerClass'
+                    'controllerName'
                 ],
                 'match',
                 'pattern' => '/(^|\\\\)[A-Z][^\\\\]+Controller$/',
                 'message' => 'Controller class name must start with an uppercase letter.'
-            ],
-            [
-                [
-                    'controllerClass',
-                    'searchModelClass'
-                ],
-                'validateNewClass'
             ],
             [
                 [
@@ -212,12 +249,6 @@ class Generator extends \app\generators\Generator
                     'grid',
                     'list'
                 ]
-            ],
-            [
-                [
-                    'modelClass'
-                ],
-                'validateModelClass'
             ],
             [
                 [
@@ -238,7 +269,7 @@ class Generator extends \app\generators\Generator
             ],
             [
                 [
-                    'viewPath',
+                    'viewPathBase',
                     'modalSize',
                     'defaultOrderField',
                     'defaultOrder'
@@ -255,12 +286,13 @@ class Generator extends \app\generators\Generator
     public function attributeLabels()
     {
         return array_merge(parent::attributeLabels(), [
-            'modelClass' => '模型类',
-            'controllerClass' => '控制器类',
-            'viewPath' => '视图路径',
+            'modelNamespace' => '模型类命名空间',
+            'modelName' => '模型类',
+            'controllerNamespace' => '控制器类命名空间',
+            'controllerName' => '控制器类',
+            'viewPathBase' => '视图路径',
             'baseControllerClass' => '控制器基类',
             'indexWidgetType' => '列表页面显示类型（小部件）',
-            'searchModelClass' => '支持搜索的模型类',
             'enablePjax' => '是否开启Pjax功能',
             'enableI18N' => '是否支持国际化',
             'modalSize' => '模态框大小（bootstrap modal size）',
@@ -279,21 +311,22 @@ class Generator extends \app\generators\Generator
     public function hints()
     {
         return array_merge(parent::hints(), [
-            'modelClass' => 'This is the ActiveRecord class associated with the table that CRUD will be built upon.
-                You should provide a fully qualified class name, e.g., <code>app\models\Post</code>.',
-            'controllerClass' => 'This is the name of the controller class to be generated. You should
+            'modelNamespace' => 'This is the namespance of the model class to be generated. You should provide a fully
+                qualified namespace , e.g., <code>app\models</code>.',
+            'modelName' => 'This is the ActiveRecord class associated with the table that CRUD will be built upon.
+                You should provide a fully qualified class name, e.g., <code>Post</code>.',
+            'modelNamespace' => 'This is the namespance of the controller class to be generated. You should provide a fully
+                    qualified namespace , e.g., <code>app\controllers</code>.',
+            'controllerName' => 'This is the name of the controller class to be generated. You should
                 provide a fully qualified namespaced class (e.g. <code>app\controllers\PostController</code>),
                 and class name should be in CamelCase with an uppercase first letter. Make sure the class
                 is using the same namespace as specified by your application\'s controllerNamespace property.',
-            'viewPath' => 'Specify the directory for storing the view scripts for the controller. You may use path alias here, e.g.,
-                <code>/var/www/basic/controllers/views/post</code>, <code>@app/views/post</code>. If not set, it will default
-                to <code>@app/views/ControllerID</code>',
+            'viewPathBase' => 'Specify the directory for storing the view scripts for the controller. You may use path alias here, e.g.,
+                <code>/var/www/basic/controllers/views</code>, <code>@app/views</code>.',
             'baseControllerClass' => 'This is the class that the new CRUD controller class will extend from.
                 You should provide a fully qualified class name, e.g., <code>yii\web\Controller</code>.',
             'indexWidgetType' => 'This is the widget type to be used in the index page to display list of the models.
                 You may choose either <code>GridView</code> or <code>ListView</code>',
-            'searchModelClass' => 'This is the name of the search model class to be generated. You should provide a fully
-                qualified namespaced class name, e.g., <code>app\models\PostSearch</code>.',
             'enablePjax' => 'This indicates whether the generator should wrap the <code>GridView</code> or <code>ListView</code>
                 widget on the index page with <code>yii\widgets\Pjax</code> widget. Set this to <code>true</code> if you want to get
                 sorting, filtering and pagination without page refreshing.'
@@ -319,7 +352,12 @@ class Generator extends \app\generators\Generator
     {
         return array_merge(parent::stickyAttributes(), [
             'baseControllerClass',
-            'indexWidgetType'
+            'indexWidgetType',
+            'modelNamespace',
+            'modelName',
+            'controllerNamespace',
+            'controllerName',
+            'viewPathBase'
         ]);
     }
 
@@ -348,7 +386,7 @@ class Generator extends \app\generators\Generator
             new CodeFile($controllerFile, $this->render('controller.php'))
         ];
 
-        if (! empty($this->searchModelClass)) {
+        if (!empty($this->searchModelClass)) {
             $searchModel = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->searchModelClass, '\\') . '.php'));
             $files[] = new CodeFile($searchModel, $this->render('search.php'));
         }
@@ -398,7 +436,7 @@ class Generator extends \app\generators\Generator
     public function getControllerID()
     {
         $pos = strrpos($this->controllerClass, '\\');
-        $class = substr(substr($this->controllerClass, $pos + 1), 0, - 10);
+        $class = substr(substr($this->controllerClass, $pos + 1), 0, -10);
 
         return Inflector::camel2id($class);
     }
@@ -409,11 +447,16 @@ class Generator extends \app\generators\Generator
      */
     public function getViewPath()
     {
-        if (empty($this->viewPath)) {
-            return Yii::getAlias('@app/views/' . $this->getControllerID());
-        }
+        // if (empty($this->viewPathBase)) {
+        //     return Yii::getAlias('@app/views/' . $this->getControllerID());
+        // }
 
-        return Yii::getAlias(str_replace('\\', '/', $this->viewPath));
+        // return Yii::getAlias(str_replace('\\', '/', $this->viewPath));
+
+        if ($this->viewPathBase) {
+            return Yii::getAlias(str_replace('\\','/',$this->viewPathBase)) . '/' . $this->getControllerID();
+        }
+        return null;
     }
 
     /**
@@ -423,7 +466,7 @@ class Generator extends \app\generators\Generator
     public function getNameAttribute()
     {
         foreach ($this->getColumnNames() as $name) {
-            if (! strcasecmp($name, 'name') || ! strcasecmp($name, 'title')) {
+            if (!strcasecmp($name, 'name') || !strcasecmp($name, 'title')) {
                 return $name;
             }
         }
@@ -488,7 +531,7 @@ class Generator extends \app\generators\Generator
     public function generateActiveFieldRaw($attribute)
     {
         $tableSchema = $this->getTableSchema();
-        if ($tableSchema === false || ! isset($tableSchema->columns[$attribute])) {
+        if ($tableSchema === false || !isset($tableSchema->columns[$attribute])) {
             if (preg_match('/^(password|pass|passwd|passcode)$/i', $attribute)) {
                 return "\$form->field(\$model, '$attribute')->passwordInput()";
             }
@@ -506,7 +549,7 @@ class Generator extends \app\generators\Generator
             return "\$form->field(\$model, '$attribute')->widget(AjaxFileInput::class)";
         }
 
-        if (substr($column->name, - 2) === 'At') {
+        if (substr($column->name, -2) === 'At') {
             $this->useFormClassies['DuAdmin\Widgets\DatePicker'] = 1;
             return "\$form->field(\$model, '$attribute')->widget(DatePicker::class)";
         }
@@ -563,7 +606,7 @@ class Generator extends \app\generators\Generator
                     $field = "\$form->field(\$model, '$attribute')->textarea(['rows' => 6])";
                 } else if (preg_match('/img|image|pic|pict|cover/', $column->name)) {
                     return null; // "\$form->field(\$model, '$attribute')->widget('DuAdmin\Widgets\AjaxFileInput')";
-                } else if (substr($column->name, - 2) === 'At') {
+                } else if (substr($column->name, -2) === 'At') {
                     $this->useSearchFormClassies['DuAdmin\Widgets\DatePicker'] = 1;
                     $field = "\$form->field(\$model, '$attribute')->widget(DatePicker::class,['multidate'=>2])";
                 } else if ($column->phpType === 'boolean') {
@@ -644,7 +687,7 @@ class Generator extends \app\generators\Generator
         $types = [];
         foreach ($table->columns as $column) {
             // 处理时间字段（查询的时候传递的是日期格式的字符串）
-            if (substr($column->name, - 2) == 'At') {
+            if (substr($column->name, -2) == 'At') {
                 $types['safe'][] = $column->name;
                 continue;
             }
@@ -726,12 +769,12 @@ class Generator extends \app\generators\Generator
             if (isset($attributeLabels[$name])) {
                 $labels[$name] = $attributeLabels[$name];
             } else {
-                if (! strcasecmp($name, 'id')) {
+                if (!strcasecmp($name, 'id')) {
                     $labels[$name] = 'ID';
                 } else {
                     $label = Inflector::camel2words($name);
-                    if (! empty($label) && substr_compare($label, ' id', - 3, 3, true) === 0) {
-                        $label = substr($label, 0, - 3) . ' ID';
+                    if (!empty($label) && substr_compare($label, ' id', -3, 3, true) === 0) {
+                        $label = substr($label, 0, -3) . ' ID';
                     }
                     $labels[$name] = $label;
                 }
@@ -768,7 +811,7 @@ class Generator extends \app\generators\Generator
         $full_search_columns = [];
         foreach ($columns as $column => $type) {
             // 处理时间字段（查询的时候传递的是日期格式的字符串）
-            if (substr($column, - 2) == 'At') {
+            if (substr($column, -2) == 'At') {
                 $dateConditions[] = "->andFilterWhere(['DATE_RANGE','{$column}',\$this->{$column}])";
                 continue;
             }
@@ -797,13 +840,13 @@ class Generator extends \app\generators\Generator
         }
 
         $conditions = [];
-        if (! empty($hashConditions)) {
+        if (!empty($hashConditions)) {
             $conditions[] = "\$query->andFilterWhere([\n" . str_repeat(' ', 12) . implode("\n" . str_repeat(' ', 12), $hashConditions) . "\n" . str_repeat(' ', 8) . "]);\n";
         }
-        if (! empty($dateConditions)) {
+        if (!empty($dateConditions)) {
             $conditions[] = "\$query" . implode("\n" . str_repeat(' ', 12), $dateConditions) . ";\n";
         }
-        if (! empty($likeConditions)) {
+        if (!empty($likeConditions)) {
             $conditions[] = "\$query" . implode("\n" . str_repeat(' ', 12), $likeConditions) . ";\n";
             // 添加默认搜索的查询构建代码
             $conditions[] = "if (\$full_search = Yii::\$app->request->get('full_search')) {\n" . str_repeat(' ', 12) . "\$query->andFilterWhere(['FULL_SEARCH',[" . implode(',', $full_search_columns) . "],\$full_search]);\n" . str_repeat(' ', 8) . "}\n";
@@ -872,7 +915,7 @@ class Generator extends \app\generators\Generator
         if (($table = $this->getTableSchema()) === false) {
             $params = [];
             foreach ($pks as $pk) {
-                $params[] = '@param ' . (strtolower(substr($pk, - 2)) === 'id' ? 'integer' : 'string') . ' $' . $pk;
+                $params[] = '@param ' . (strtolower(substr($pk, -2)) === 'id' ? 'integer' : 'string') . ' $' . $pk;
             }
 
             return $params;
@@ -948,8 +991,9 @@ class Generator extends \app\generators\Generator
         ];
         return $links[$this->modalSize];
     }
-    
-    public function getModalSizeClass(){
+
+    public function getModalSizeClass()
+    {
         $classNames = [
             'default' => '',
             'lg' => 'modal-lg',

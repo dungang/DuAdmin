@@ -3,10 +3,14 @@
 /* @var $form yii\widgets\ActiveForm */
 /* @var $generator app\generators\crud\Generator */
 
-echo $form->field($generator, 'modelClass');
-echo $form->field($generator, 'searchModelClass');
-echo $form->field($generator, 'controllerClass');
-echo $form->field($generator, 'viewPath');
+$modeNamespaces = $generator->getModelNamespaces();
+echo $form->field($generator, 'modelNamespace')->dropDownList(array_combine($modeNamespaces, $modeNamespaces));
+echo $form->field($generator, 'modelName');
+$controllerNamespaces = $generator->getWebControllerNamespaces();
+echo $form->field($generator, 'controllerNamespace')->dropDownList(array_combine($controllerNamespaces, $controllerNamespaces));
+echo $form->field($generator, 'controllerName');
+$webViewPathBases = $generator->getWebViewPathBases();
+echo $form->field($generator, 'viewPathBase')->dropDownList(array_combine($webViewPathBases, $webViewPathBases));
 echo $form->field($generator, 'onlyQueryCurrentUser')->checkbox();
 echo $form->field($generator, 'baseControllerClass')->dropDownList([
     'DuAdmin\Core\BackendController' => 'DUAdmin BackendController',
