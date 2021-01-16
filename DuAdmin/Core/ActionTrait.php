@@ -51,7 +51,7 @@ trait ActionTrait
      *
      * 比如：当会员和管理员同表的场景，用户表即代表了管理员也可以代表会员
      *
-     * @var array|null
+     * @var array|null|callback
      */
     public $modelImmutableAttrs = null;
 
@@ -126,10 +126,32 @@ trait ActionTrait
     {
         if ($this->modelImmutableAttrs) {
             foreach ($this->modelImmutableAttrs as $field => $val) {
+                if(is_callable($val)) {
+                    $val = call_user_func($val);
+                }
                 $model->{$field} = $val;
             }
         }
         return true;
+    }
+
+    /**
+     * calc model immutable attrs
+     *
+     * @return boolean
+     */
+    protected function calcModelImmutableAttrs()
+    {
+        $calcAttrs = [];
+        if ($this->modelImmutableAttrs) {
+            foreach ($this->modelImmutableAttrs as $field => $val) {
+                if(is_callable($val)) {
+                    $val = call_user_func($val);
+                }
+                $calcAttrs[$field] = $val;
+            }
+        }
+        return $calcAttrs;
     }
 
     /**
@@ -145,7 +167,7 @@ trait ActionTrait
                 $formName = $model->formName();
                 if (empty($params[$formName]))
                     $params[$formName] = [];
-                $params[$formName] = ArrayHelper::merge($params[$formName], $this->modelImmutableAttrs);
+                $params[$formName] = ArrayHelper::merge($params[$formName], $this->calcModelImmutableAttrs());
             } else {
                 $params = ArrayHelper::merge($params, $this->modelImmutableAttrs);
             }
@@ -169,18 +191,18 @@ trait ActionTrait
                 if (empty($params[$formName]))
                     $params[$formName] = [];
                 if ($multiple === false) {
-                    $params[$formName] = ArrayHelper::merge($params[$formName], $this->modelImmutableAttrs);
+                    $params[$formName] = ArrayHelper::merge($params[$formName], $this->calcModelImmutableAttrs());
                 } else {
                     foreach ($params[$formName] as $i => $param) {
-                        $params[$formName][$i] = ArrayHelper::merge($param, $this->modelImmutableAttrs);
+                        $params[$formName][$i] = ArrayHelper::merge($param, $this->calcModelImmutableAttrs());
                     }
                 }
             } else {
                 if ($multiple === false) {
-                    $params = ArrayHelper::merge($params, $this->modelImmutableAttrs);
+                    $params = ArrayHelper::merge($params, $this->calcModelImmutableAttrs());
                 } else {
                     foreach ($params as $i => $param) {
-                        $params[$i] = ArrayHelper::merge($param, $this->modelImmutableAttrs);
+                        $params[$i] = ArrayHelper::merge($param, $this->calcModelImmutableAttrs());
                     }
                 }
             }
@@ -290,7 +312,7 @@ trait ActionTrait
 
         // 是否设置了查找的固定参数
         if ($this->modelImmutableAttrs) {
-            $condition = ArrayHelper::merge($condition, $this->modelImmutableAttrs);
+            $condition = ArrayHelper::merge($condition, $this->calcModelImmutableAttrs());
         }
         unset($condition['class']);
 

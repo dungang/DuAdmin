@@ -17,25 +17,13 @@ class UpdateAction extends BaseAction
     {
         /* @var $model \yii\db\ActiveRecord */
         $model = $this->findModel($this->newOneOnNotFound);
-        $model->load(\Yii::$app->request->queryParams);
-
-        $this->data = [
-            'model' => $model
-        ];
-
-        // ajax表单验证
-        if (AppHelper::isAjaxValidationRequest() && $model->load(Yii::$app->request->post())) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return ActiveForm::validate($model);
-        }
+        $model->load(\Yii::$app->request->queryParams,'');
 
         if ($this->isPost()) {
             // 动态绑定行为
             $model->attachBehaviors($this->modelBehaviors);
-            if (($loaded = $model->load($this->composePostParams($model))) && $model->save()) {
-                if (!$this->successRediretUrl) {
-                    $this->successRediretUrl = \Yii::$app->request->referrer;
-                }
+            $this->loadFormName = false;
+            if (($loaded = $model->load($this->composePostParams($model),'')) && $model->save()) {
                 return $model;
             }
 

@@ -15,17 +15,14 @@ class CreateAction extends BaseAction
     {
         /* @var $model \yii\db\ActiveRecord */
         $model = \Yii::createObject($this->modelClass);
-        $model->load(\Yii::$app->request->queryParams);
-
-        $this->data = [
-            'model' => $model
-        ];
+        $model->load(\Yii::$app->request->queryParams,'');
 
         // 执行表单提交
         if ($this->isPost()) {
             // 动态绑定行为
             $model->attachBehaviors($this->modelBehaviors);
-            if (($loaded = $model->load($this->composePostParams($model))) && $model->save()) {
+            $this->loadFormName = false;
+            if (($loaded = $model->load($this->composePostParams($model),'')) && $model->save()) {
 
                 $this->trigger(self::EVENT_CREATE_SUCCESS, new CustomerEvent([
                     'payload' => $model
