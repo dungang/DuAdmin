@@ -47,7 +47,9 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                 // 'mustQueryStringAttrs' => [],
 <?php if ($generator->onlyQueryCurrentUser): ?>
                 'modelImmutableAttrs' => [
-                    'userId' => \Yii::$app->user->id,
+                    'userId' => function () {
+                        return \Yii::$app->user->id;
+                    },
                 ],
 <?php else:?>
                 // 'modelImmutableAttrs' => [],
@@ -66,7 +68,9 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                 // 'mustQueryStringAttrs' => [],
 <?php if ($generator->onlyQueryCurrentUser): ?>
                 'modelImmutableAttrs' => [
-                    'userId' => \Yii::$app->user->id,
+                    'userId' => function () {
+                        return \Yii::$app->user->id;
+                    },
                 ],
 <?php else:?>
                 // 'modelImmutableAttrs' => [],
@@ -85,7 +89,9 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                 // 'mustQueryStringAttrs' => [],
 <?php if ($generator->onlyQueryCurrentUser): ?>
                 'modelImmutableAttrs' => [
-                    'userId' => \Yii::$app->user->id,
+                    'userId' => function () {
+                        return \Yii::$app->user->id;
+                    },
                 ],
 <?php else:?>
                 // 'modelImmutableAttrs' => [],
@@ -104,7 +110,9 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                 // 'mustQueryStringAttrs' => [],
 <?php if ($generator->onlyQueryCurrentUser): ?>
                 'modelImmutableAttrs' => [
-                    'userId' => \Yii::$app->user->id,
+                    'userId' => function () {
+                        return \Yii::$app->user->id;
+                    },
                 ],
 <?php else:?>
                 // 'modelImmutableAttrs' => [],
@@ -123,7 +131,9 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                 // 'mustQueryStringAttrs' => [],
 <?php if ($generator->onlyQueryCurrentUser): ?>
                 'modelImmutableAttrs' => [
-                    'userId' => \Yii::$app->user->id,
+                    'userId' => function () {
+                        return \Yii::$app->user->id;
+                    },
                 ],
 <?php else:?>
                 // 'modelImmutableAttrs' => [],
