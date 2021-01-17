@@ -23,10 +23,10 @@ class ApiController extends Controller
         return [
             'corsFilter' => [
                 'class' => \yii\filters\Cors::class,
-                'cors' => [
-                    'Origin' => ['*'],
-                    'Access-Control-Request-Method' => ['GET','POST', 'PUT','OPTIONS','HEAD'],
-                ]
+                // 'cors' => [
+                //     'Origin' => ['*'],
+                //     'Access-Control-Request-Method' => ['GET','POST', 'PUT','OPTIONS','HEAD'],
+                // ]
             ],
             'verbFilter' => [
                 'class' => VerbFilter::class,

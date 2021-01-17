@@ -7,21 +7,13 @@ use yii\console\Exception;
 
 class DuaFixtureController extends FixtureController
 {
+    use ConsoleTrait;
+
     public $language = 'zh-CN';
     
     public $addonName = '';
     
     public $count = 1;
-    
-    /**
-     * {@inheritdoc}
-     */
-    public function options($actionID)
-    {
-        return array_merge(parent::options($actionID), [
-            'addonName', 'templatePath', 'language', 'fixtureDataPath', 'count'
-        ]);
-    }
     
     public function checkPaths() {
         return true;
@@ -33,7 +25,11 @@ class DuaFixtureController extends FixtureController
      * @see \yii\faker\FixtureController::actionGenerateAll()
      */
     public function actionGenerateAll() {
-       
+
+        $this->addonName = $this->selectOneAddonName();
+
+        $this->count = $this->prompt('please input count: ',['required'=>true]);
+    
         $this->templatePath = '@Addons/' . $this->addonName . '/Tests/Unit/Fixtures/templates';
         $this->fixtureDataPath =  '@Addons/' . $this->addonName . '/Tests/Unit/Fixtures/data';
 

@@ -5,6 +5,8 @@ namespace DuAdmin\Api;
 class ListAction extends BaseAction
 {
 
+    public $pagination = true;
+
     /**
      * 关系对象查询
      * https://www.yiichina.com/doc/guide/2.0/db-active-record#lazy-eager-loading
@@ -36,6 +38,16 @@ class ListAction extends BaseAction
         foreach ($this->withModels as $modelName) {
             $dataProvider->query->with($modelName);
         }
-        return $dataProvider;
+        if (!$this->pagination) {
+            $dataProvider->pagination = false;
+            return $dataProvider->getModels();
+        }
+        return [
+            'items' => $dataProvider->getModels(),
+            'totalCount' => $dataProvider->pagination->totalCount,
+            'pageCount' => $dataProvider->pagination->getPageCount(),
+            'currentPage' => $dataProvider->pagination->getPage() + 1,
+            'perPage' => $dataProvider->pagination->getPageSize(),
+        ];
     }
 }
