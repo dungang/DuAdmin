@@ -9,12 +9,10 @@
 namespace app\generators\api;
 
 use Yii;
-use yii\db\BaseActiveRecord;
 use yii\db\Schema;
 use app\generators\CodeFile;
 use yii\helpers\Inflector;
-use yii\helpers\VarDumper;
-use yii\web\Controller;
+use DuAdmin\Mysql\ActiveRecord;
 
 /**
  * Generates CRUD
@@ -120,7 +118,7 @@ class Generator extends \app\generators\Generator
      */
     public function getName()
     {
-        return 'CRUD生成器';
+        return 'API生成器';
     }
 
     /**
@@ -129,7 +127,7 @@ class Generator extends \app\generators\Generator
      */
     public function getDescription()
     {
-        return '该生成器将会根据指定的数据模型生成一个控制器和包含CRUD的多个视图（创建，读取，更新，删除）';
+        return '该生成器将会根据指定的数据模型生成一个API控制器（创建，读取，更新，删除）';
     }
 
     public function getModelClass()

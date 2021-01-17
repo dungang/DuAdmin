@@ -1,13 +1,9 @@
 <?php
 namespace DuAdmin\Uploader;
 
-use DuAdmin\Components\ApiActionChain;
-use DuAdmin\Helpers\AppHelper;
-use Yii;
 use yii\base\Action;
-use yii\helpers\FileHelper;
-use yii\web\BadRequestHttpException;
 use yii\web\UploadedFile;
+use yii\web\BadRequestHttpException;
 
 /**
  * 上传图片和文件
@@ -17,53 +13,13 @@ class LocalUploadAction extends Action
 
     public function run()
     {
-        $allow_extensions = AppHelper::getSettingAry('uploader.allow_extensions');
-
-        return ApiActionChain::getInstance()->mustPost()
-            ->setFields([
-            'key' => Yii::t('da', 'Save Key'),
-            'file' => Yii::t('da', 'File')
-        ])
-            ->setFieldsRules([
-            [
-                [
-                    'key'
-                ],
-                'required'
-            ],
-            [
-                'key',
-                'string'
-            ],
-            [
-                [
-                    'file'
-                ],
-                'file',
-                'extensions' => $allow_extensions
-            ]
-        ])
-            ->done(function ($params, $model) {
-            $key = trim($model->key, '.');
-            if (strpos($key, '..') === false) {
-                $dist = \Yii::getAlias("@webroot/" . $key);
-                $distDir = dirname($dist);
-                if (! is_dir($distDir)) {
-                    FileHelper::createDirectory($distDir);
-                }
-                try {
-                    $file = UploadedFile::getInstanceByName('file');
-                    $file->saveAs($dist);
-                    return json_encode([
-                        "url" => $key
-                    ]);
-                } catch (\Exception $ex) {
-                    \Yii::error($ex->getMessage());
-                }
-                return null;
-            } else {
-                throw new BadRequestHttpException();
+        $model = new UploadForm();
+        if (\Yii::$app->request->isPost && $model->load(\Yii::$app->request->post(),'')) {
+            $model->file = UploadedFile::getInstanceByName('file');
+            if ($data = $model->upload()) {
+                return $data;
             }
-        });
+        }
+        throw new BadRequestHttpException();
     }
 }

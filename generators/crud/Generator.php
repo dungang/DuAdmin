@@ -15,6 +15,7 @@ use app\generators\CodeFile;
 use yii\helpers\Inflector;
 use yii\helpers\VarDumper;
 use yii\web\Controller;
+use DuAdmin\Mysql\ActiveRecord;
 
 /**
  * Generates CRUD
@@ -354,9 +355,9 @@ class Generator extends \app\generators\Generator
             'baseControllerClass',
             'indexWidgetType',
             'modelNamespace',
-            'modelName',
+           // 'modelName',
             'controllerNamespace',
-            'controllerName',
+           // 'controllerName',
             'viewPathBase'
         ]);
     }

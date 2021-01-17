@@ -187,14 +187,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       that.file = e.currentTarget.files[0];
       that.extension = getExtension(that.file.name); //是图片如不设置了裁剪的高和宽度，则显示裁剪工具框，否则直接上传
 
-      if (isImage(that.file.type) && that.options.clip) {
+      if (isImage(that.file.type)) {
         that.$dialog = that.$element.find('.cropper-dialog');
         that.$imageBox = that.$element.find('.cropper-image-box');
         that.$area = that.$dialog.find('.cropper-area');
         that.showCropper();
         that.$dialog.show();
       } else {
-        that.formData.append("file", that.file);
+        that.formData.set("file", that.file);
         that.uploadFile();
       }
     };
@@ -212,9 +212,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         }
 
         targetImage.toBlob(function (blob) {
-          that.formData.append('file', blob, that.file.name);
+          that.formData.set('file', blob, that.file.name);
           that.uploadFile();
         });
+      } else {
+        that.formData.set('file', that.file);
+        that.uploadFile();
       }
 
       that.close();
@@ -251,18 +254,18 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
     if (that.$realUploadBtn) {
       $(that.$realUploadBtn).button('上传中...');
+      console.log($(that.$realUploadBtn));
       console.log('uploading ...');
     }
 
-    console.log(that.$realUploadBtn);
     var fileType = this.$textInput.attr('data-type');
     var tokenUrl = this.$textInput.attr('data-token-url');
     $.get(tokenUrl, {
       fileType: fileType
     }, function (data) {
       var key = data.key + "." + that.extension;
-      that.formData.append(DUA.uploader.keyName, key);
-      that.formData.append(DUA.uploader.tokenName, data.token);
+      that.formData.set(DUA.uploader.keyName, key);
+      that.formData.set(DUA.uploader.tokenName, data.token);
       $.ajax({
         url: DUA.uploader.uploadUrl,
         dataType: 'json',
@@ -278,6 +281,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           alert('上传成功！');
           var imgUrl = DUA.uploader.baseUrl + key;
           that.$textInput.val(imgUrl);
+          that.$fileInput.val("");
           that.$previewImage.attr('src', imgUrl);
 
           if (that.$realUploadBtn) {
@@ -285,8 +289,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             that.$realUploadBtn.button('reset');
           }
         },
-        error: function error(response) {
-          console.log(response);
+        error: function error(jqXHR) {
+          console.log(jqXHR);
+          alert(jqXHR.responseJSON.message);
 
           if (that.$realUploadBtn) {
             that.$realUploadBtn.button('reset');
@@ -303,10 +308,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       that.img = new Image();
       that.img.src = this.result;
       that.$imageBox.html(that.img);
-      var rate = (that.options.imageWidth / that.options.imageHeight).toFixed(2);
-      that.$cropper = $(that.img).cropper({
-        aspectRatio: rate
-      });
+
+      if (that.options.clip) {
+        var rate = (that.options.imageWidth / that.options.imageHeight).toFixed(2);
+        that.$cropper = $(that.img).cropper({
+          aspectRatio: rate
+        });
+      }
     });
     reader.readAsDataURL(this.file);
   };

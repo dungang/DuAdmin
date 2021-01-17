@@ -56,6 +56,7 @@ class m201121_145324_create_setting_table extends Migration
                 ['site.pageFooterWidget', '', '网站底部小部件', '', 'STR', '替换默认的显示可以用插件的小部件替换', 'open-feature'],
                 ['site.pageFooterWidget.default', 'site.pageFooterWidget', '默认网站底部小部件', 'DuAdmin\Widgets\DefaultPageFooter', 'STR', '', 'open-feature'],
                 ['system.storage.driver', '', '存储服务', '', 'STR', '默认是本地存储', 'open-feature'],
+                ['system.storage.extensions', '', '存储文件类型', 'jpg,png', 'STR', '默认图片', 'open-feature'],
                 ['sysltem.storate.localDriver', 'system.storage.driver', '本地存储', 'DuAdmin\Storage\LocalDriver', 'STR', '本地存储，默认存在目录public/uploads', 'open-feature'],
                 ['uploader.allowExtensions', '', '上传文件扩展名', '.jpg,.png',  'ARRAY', '允许上传的文件后缀名', 'open-feature'],
                 ['system.editor.driver', '', '默认编辑器', 'Addons\Ueditor\Widgets\Ueditor',  'STR', '百度编辑器', 'open-feature'],
