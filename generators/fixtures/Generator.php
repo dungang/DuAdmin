@@ -171,8 +171,8 @@ class Generator extends BaseGenerator
                 }
                 continue;
             }
-            if (preg_match('/img|image|pic|pict|cover|logo/', $column->name)) {
-                $map[$column->name] = '$faker->imageUrl()';
+            if (preg_match('/img|image|pic|pict|cover|avatar|logo/', $column->name)) {
+                $map[$column->name] = '$faker->imageUrl(480,480)';
                 continue;
             }
             if (substr($column->name, - 2) == 'No') {
