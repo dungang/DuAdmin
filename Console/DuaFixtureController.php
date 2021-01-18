@@ -1,6 +1,7 @@
 <?php
 namespace Console;
 
+use DuAdmin\Faker\AutoIncrementId;
 use yii\faker\FixtureController;
 use yii\helpers\FileHelper;
 use yii\console\Exception;
@@ -9,11 +10,13 @@ class DuaFixtureController extends FixtureController
 {
     use ConsoleTrait;
 
-    public $language = 'zh-CN';
+    //public $language = 'zh-CN';
     
     public $addonName = '';
     
     public $count = 1;
+
+    public $providers = ['DuAdmin\Faker\AutoIncrementId'];
     
     public function checkPaths() {
         return true;
@@ -81,7 +84,7 @@ class DuaFixtureController extends FixtureController
      * @throws Exception if the specified fixture does not exist.
      */
     public function actionLoad(array $fixturesInput = []){
-        
+        $this->addonName = $this->selectOneAddonName();
         if($this->addonName) {
             $this->namespace = 'Addons\\' . $this->addonName .'\\Tests\\Unit\Fixtures';
         }

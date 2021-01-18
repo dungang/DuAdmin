@@ -102,7 +102,7 @@ class Generator extends BaseGenerator
 
     public function getDescription()
     {
-        return "该生成器通过YII的fixtures(测试夹具功能)，<br/>根据选择的表生成对应的模板数据和测试夹具类文件,<br/>执行完成后，还需要使用 <code>php yii dua-fixture/generate-all</code> 根据提示选择对应的app生成数据样板";
+        return "该生成器通过YII的fixtures(测试夹具功能)，<br/>根据选择的表生成对应的模板数据和测试夹具类文件,<br/>执行完成后，还需要使用 <code>php yii dua-fixture/generate-all</code> 根据提示选择对应的app生成数据样板,<br/>执行<code>yii dua-fixture/load \"*\"</code>根据提示装载对应app的数据";
     }
 
     /**
@@ -149,7 +149,7 @@ class Generator extends BaseGenerator
                 }
             }
             if ($isOk) {
-                return "\$fk->randomElement([" . implode(',', $elems) . "])";
+                return "\$faker->randomElement([" . implode(',', $elems) . "])";
             }
         }
         return $isOk;
@@ -165,21 +165,22 @@ class Generator extends BaseGenerator
             }
             if ($column->name == 'userId') {
                 if($column->isPrimaryKey) {
-                    $map[$column->name] = '$fk->numberBetween(1,100)';
+                    $map[$column->name] = '$faker->id($this->count)';
+                } else {
+                    $map[$column->name] = 1;
                 }
-                $map[$column->name] = 1;
                 continue;
             }
             if (preg_match('/img|image|pic|pict|cover|logo/', $column->name)) {
-                $map[$column->name] = '$fk->imageUrl()';
+                $map[$column->name] = '$faker->imageUrl()';
                 continue;
             }
             if (substr($column->name, - 2) == 'No') {
-                $map[$column->name] = '$fk->uuid';
+                $map[$column->name] = '$faker->uuid';
                 continue;
             }
-            if ($fk = $this->parseEnum($column)) {
-                $map[$column->name] = $fk;
+            if ($faker = $this->parseEnum($column)) {
+                $map[$column->name] = $faker;
                 continue;
             }
             // 处理时间字段（查询的时候传递的是日期格式的字符串）
@@ -189,56 +190,56 @@ class Generator extends BaseGenerator
             }
             switch ($column->type) {
                 case Schema::TYPE_TINYINT:
-                    $map[$column->name] = '$fk->numberBetween(0,3)';
+                    $map[$column->name] = '$faker->numberBetween(0,3)';
                     break;
                 case Schema::TYPE_SMALLINT:
-                    $map[$column->name] = '$fk->numberBetween(1,5)';
+                    $map[$column->name] = '$faker->numberBetween(1,$this->count)';
                     break;
                 case Schema::TYPE_INTEGER:
-                    $map[$column->name] = '$fk->numberBetween(1,10)';
+                    $map[$column->name] = '$faker->numberBetween(1,$this->count)';
                     break;
                 case Schema::TYPE_BIGINT:
-                    $map[$column->name] = '$fk->numberBetween(1,20)';
+                    $map[$column->name] = '$faker->numberBetween(1,$this->count)';
                     break;
                 case Schema::TYPE_BOOLEAN:
-                    $map[$column->name] = '$fk->numberBetween(0,1)';
+                    $map[$column->name] = '$faker->numberBetween(0,1)';
                     break;
                 case Schema::TYPE_FLOAT:
                 case Schema::TYPE_DOUBLE:
                 case Schema::TYPE_DECIMAL:
                 case Schema::TYPE_MONEY:
-                    $map[$column->name] = '$fk->randomFloat(2,1,8)';
+                    $map[$column->name] = '$faker->randomFloat(2,1,8)';
                     break;
                 case Schema::TYPE_DATE:
-                    $map[$column->name] = '$fk->date()';
+                    $map[$column->name] = '$faker->date()';
                     break;
                 case Schema::TYPE_TIME:
-                    $map[$column->name] = '$fk->time()';
+                    $map[$column->name] = '$faker->time()';
                     break;
                 case Schema::TYPE_DATETIME:
                 case Schema::TYPE_TIMESTAMP:
                     $map[$column->name] = 'date("Y-m-d H:i:s")';
                     break;
                 case Schema::TYPE_TEXT:
-                    $map[$column->name] = '$fk->text(100)';
+                    $map[$column->name] = '$faker->text(200)';
                     break;
                 default:
                     if ($column->name == 'name') {
-                        $map[$column->name] = '$fk->name';
+                        $map[$column->name] = '$faker->name';
                     } else if ($column->name == 'title') {
-                        $map[$column->name] = '$fk->title';
+                        $map[$column->name] = '$faker->title';
                     } else if ($column->name == 'email') {
-                        $map[$column->name] = '$fk->email';
+                        $map[$column->name] = '$faker->email';
                     } else if ($column->name == 'avatar') {
-                        $map[$column->name] = '$fk->url';
+                        $map[$column->name] = '$faker->url';
                     } else if ($column->name == 'username') {
-                        $map[$column->name] = '$fk->userName';
+                        $map[$column->name] = '$faker->userName';
                     } else if ($column->name == 'password') {
-                        $map[$column->name] = '$fk->password';
+                        $map[$column->name] = '$faker->password';
                     } else if ($column->name == 'slug') {
-                        $map[$column->name] = '$fk->slug';
+                        $map[$column->name] = '$faker->slug';
                     } else {
-                        $map[$column->name] = '$fk->text('. $column->size .')';
+                        $map[$column->name] = '$faker->text('. $column->size .')';
                     }
                     break;
             }
