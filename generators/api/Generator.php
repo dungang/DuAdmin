@@ -290,9 +290,7 @@ class Generator extends \app\generators\Generator
         return array_merge(parent::stickyAttributes(), [
             'baseControllerClass',
             'modelNamespace',
-            'modelName',
             'controllerNamespace',
-            'controllerName',
         ]);
     }
 

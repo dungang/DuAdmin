@@ -25,13 +25,6 @@ class Generator extends BaseGenerator
     public $language = 'zh-CN';
 
     /**
-     * 默认模板生成路径
-     *
-     * @var string
-     */
-    public $fixtureTemplatePath = "@Backend/Tests/Unit/Fixtures";
-
-    /**
      * 选择需要生成模板数据的表格
      *
      * @var array
@@ -40,9 +33,26 @@ class Generator extends BaseGenerator
 
     public $db = 'db';
 
+    public $fixturePath = "Tests/Unit/Fixtures";
+
+    public $appName = "Backend";
+
     public function getName()
     {
         return "测试夹具";
+    }
+
+    /**
+     * 获取测试夹具的命名空间
+     *
+     * @return void
+     */
+    public function getFixtureNamespace(){
+        return str_replace('/','\\',$this->appName . '\Tests\Unit\Fixtures');
+    }
+
+    public function getModelNamespace(){
+        return str_replace('/','\\',$this->appName . '\Models');
     }
 
     public function rules()
@@ -51,7 +61,7 @@ class Generator extends BaseGenerator
             [
                 [
                     'language',
-                    'fixtureTemplatePath'
+                    'appName'
                 ],
                 'filter',
                 'filter' => 'trim'
@@ -59,7 +69,7 @@ class Generator extends BaseGenerator
             [
                 [
                     'language',
-                    'fixtureTemplatePath',
+                    'appName',
                     'tables'
                 ],
                 'required'
@@ -67,7 +77,7 @@ class Generator extends BaseGenerator
             [
                 [
                     'language',
-                    'fixtureTemplatePath'
+                    'appName'
                 ],
                 'string'
             ]
@@ -79,20 +89,20 @@ class Generator extends BaseGenerator
         return [
             'language' => '语言',
             'tables' => '数据表',
-            'fixtureTemplatePath' => '模板数据生成路径',
+            'appName' => '模板数据所属App',
         ];
     }
 
     public function attributeHints()
     {
         return [
-            'tables' => '可以多选表，每个表格生成一个模板数据文件'
+            //'tables' => '可以多选表，每个表格生成一个模板数据文件'
         ];
     }
 
     public function getDescription()
     {
-        return "该生成器通过YII的fixtures(测试夹具功能)，根据选择的表生成对应的模板数据";
+        return "该生成器通过YII的fixtures(测试夹具功能)，<br/>根据选择的表生成对应的模板数据和测试夹具类文件,<br/>执行完成后，还需要使用 <code>php yii dua-fixture/generate-all</code> 根据提示选择对应的app生成数据样板";
     }
 
     /**
@@ -154,6 +164,9 @@ class Generator extends BaseGenerator
                 continue;
             }
             if ($column->name == 'userId') {
+                if($column->isPrimaryKey) {
+                    $map[$column->name] = '$fk->numberBetween(1,100)';
+                }
                 $map[$column->name] = 1;
                 continue;
             }
@@ -238,35 +251,57 @@ class Generator extends BaseGenerator
         $schema = $this->getDbConnection()->getSchema();
         $tablePixLength = strlen($this->getDbConnection()->tablePrefix);
         $codeFiles = [];
+        $fakerTemplatePath = \Yii::getAlias($this->getFixtureTemplatePath());
+        $fixturePath = \Yii::getAlias($this->getFixturePath());
+        if (is_dir($fixturePath) == false) {
+            FileHelper::createDirectory($fixturePath);
+        }
+        if (is_dir($fakerTemplatePath) == false) {
+            FileHelper::createDirectory($fakerTemplatePath);
+        }
         foreach ($this->tables as $tableName) {
             $tableSchema = $schema->getTableSchema($tableName);
             $columns = $tableSchema->columns;
             $columnMap = $this->generateFixtuireColumnMap($columns);
-            $path = \Yii::getAlias($this->fixtureTemplatePath);// . '/' . $this->language;
-            if (is_dir($path) == false) {
-                FileHelper::createDirectory($path);
-            }
+            $modelName = Inflector::id2camel(substr($tableName, $tablePixLength), '_');
 
-            $file = $path . '/' . Inflector::id2camel(substr($tableName, $tablePixLength), '_') . '.php';
-            $codeFiles[] = new CodeFile($file, $this->render('template.php', [
+            //生成faker模板
+            $templateFile = $fakerTemplatePath . '/' . $modelName . '.php';
+            $codeFiles[] = new CodeFile($templateFile, $this->render('template.php', [
                 'columns' => $columnMap,
-                'locale' => $this->language
+                'locale' => $this->language,
+            ]));
+
+            //生成测试夹具类文件
+            $fixtureFile = $fixturePath .'/'.$modelName . 'Fixture.php';
+            $codeFiles[] = new CodeFile($fixtureFile, $this->render('fixture.php', [
+                'fixtureName' => $modelName . 'Fixture',
+                'modelClass' => $this->getModelNamespace() . '\\' . $modelName,
+                'dataName' => $modelName
             ]));
         }
         return $codeFiles;
     }
 
-    public function findFixtureTemplatePaths()
+    public function getFixtureTemplatePath(){
+        return '@' . $this->appName .'/'. $this->fixturePath . '/templates';
+    }
+
+    public function getFixturePath(){
+        return '@' . $this->appName .'/'. $this->fixturePath;
+    }
+
+    public function findFixtureAppNames()
     {
-        $paths = [
-            '@Backend/Tests/Unit/Fixtures/templates',
-            '@Frontend/Tests/Unit/Fixtures/templates'
+        $appNames = [
+            'Backend',
+            'Frontend'
         ];
         $addonNames = $this->getAddonNames();
         foreach ($addonNames as $name) {
-            $paths[] = '@Addons/' . $name . '/Tests/Unit/Fixtures/templates';
+            $appNames[] = 'Addons/' . $name ;
         }
-        return $paths;
+        return $appNames;
     }
 }
 
