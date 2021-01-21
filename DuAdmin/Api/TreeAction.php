@@ -17,7 +17,7 @@ class TreeAction extends BaseAction
     {
         list($modelClass, $condition) = $this->builderFindModelCondition();
         $query = $modelClass::find()->where($condition);
-        if($this->order) {
+        if($this->orderBy) {
             $query->orderBy($this->orderBy);
         }
         $models = $query->asArray()->all();
