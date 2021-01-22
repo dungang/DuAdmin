@@ -58,7 +58,7 @@ class m201121_145324_create_setting_table extends Migration
                 ['system.storage.driver', '', '存储服务', '', 'STR', '默认是本地存储', 'open-feature'],
                 ['system.storage.extensions', '', '存储文件类型', 'jpg,png', 'STR', '默认图片', 'open-feature'],
                 ['sysltem.storate.localDriver', 'system.storage.driver', '本地存储', 'DuAdmin\Storage\LocalDriver', 'STR', '本地存储，默认存在目录public/uploads', 'open-feature'],
-                ['uploader.allowExtensions', '', '上传文件扩展名', '.jpg,.png',  'ARRAY', '允许上传的文件后缀名', 'open-feature'],
+                ['uploader.allowExtensions', '', '上传文件扩展名', 'jpg,jpeg,png',  'ARRAY', '允许上传的文件后缀名', 'open-feature'],
                 ['system.editor.driver', '', '默认编辑器', 'Addons\Ueditor\Widgets\Ueditor',  'STR', '百度编辑器', 'open-feature'],
                 ['system.flash.widget', '', '默认轮播小部件', 'Frontend\Widgets\Swiper',  'STR', '修改位轮播小部件的类名', 'open-feature'],
             ]

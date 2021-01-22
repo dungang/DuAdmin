@@ -37,9 +37,9 @@ class BaseModel extends ActiveRecord implements JsonSerializable
     public function jsonSerialize()
     {
         if (empty($this->jsonHideFields)) {
-            return $this->toArray();
+            return $this->toArray([],$this->extraFields());
         } else {
-            return array_filter($this->toArray(), function ($key) {
+            return array_filter($this->toArray([],$this->extraFields()), function ($key) {
                 return in_array($key, $this->jsonHideFields) == false;
             }, ARRAY_FILTER_USE_KEY);
         }

@@ -14,7 +14,7 @@ class ResponseJson extends Behavior
     public function events()
     {
         return [
-            Response::EVENT_BEFORE_SEND =>  'beforeSend'
+            Response::EVENT_BEFORE_SEND =>  'beforeSend',
         ];
     }
 

@@ -22,7 +22,7 @@ class UploadForm extends Model
     public function rules()
     {
         $extensions = AppHelper::getSetting('system.storage.extensions');
-        $extensions = empty($extensions) ? 'jpg,png' : $extensions;
+        $extensions = empty($extensions) ? 'jpg,jpeg,png' : $extensions;
         return [
             [['key', 'file'], 'required'],
             [['key'], 'string'],

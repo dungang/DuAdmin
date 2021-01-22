@@ -5,6 +5,8 @@ namespace DuAdmin\Storage;
 use yii\helpers\FileHelper;
 use yii\imagine\BaseImage;
 use DuAdmin\Uploader\ConfigWidget;
+use Yii;
+use yii\helpers\Url;
 
 /**
  *
@@ -143,6 +145,12 @@ class LocalDriver extends IDriver
         return [
             'key' => parent::initWritePath($fileType) . '/' . uniqid($fileType, true),
             'token' => time(),
+            'uploadUrl' => $this->getUploaderUrlInfo()
         ];
+    }
+
+    public function getUploaderUrlInfo()
+    {
+        return Url::to(['site/upload'],true);
     }
 }

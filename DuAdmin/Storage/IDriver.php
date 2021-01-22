@@ -152,5 +152,13 @@ abstract class IDriver extends BaseObject
      * @return array
      */
     public abstract function generateUploadToken(string $fileType = 'image');
+
+
+    /**
+     * 获取上传连接地址
+     *
+     * @return string
+     */
+    public abstract function getUploaderUrlInfo();
 }
 
