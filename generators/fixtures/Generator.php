@@ -175,8 +175,8 @@ class Generator extends BaseGenerator
                 $map[$column->name] = '$faker->imageUrl(480,480)';
                 continue;
             }
-            if (substr($column->name, - 2) == 'No') {
-                $map[$column->name] = '$faker->uuid';
+            if ($column->name == 'uuid' || substr($column->name, - 2) == 'No') {
+                $map[$column->name] = 'uniqid()';
                 continue;
             }
             if ($faker = $this->parseEnum($column)) {
@@ -230,6 +230,8 @@ class Generator extends BaseGenerator
                         $map[$column->name] = '$faker->title';
                     } else if ($column->name == 'email') {
                         $map[$column->name] = '$faker->email';
+                    } else if ($column->name == 'mobile') {
+                        $map[$column->name] = '$faker->mobile';
                     } else if ($column->name == 'avatar') {
                         $map[$column->name] = '$faker->url';
                     } else if ($column->name == 'username') {

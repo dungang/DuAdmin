@@ -10,7 +10,7 @@ class DuaFixtureController extends FixtureController
 {
     use ConsoleTrait;
 
-    //public $language = 'zh-CN';
+    public $language = 'zh-CN';
     
     public $addonName = '';
     
