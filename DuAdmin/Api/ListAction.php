@@ -35,7 +35,8 @@ class ListAction extends BaseAction
     public function run()
     {
         list($modelClass, $condition) = $this->builderFindModelCondition();
-        $searchModel = new $modelClass($condition);
+        $searchModel = new $modelClass();
+        $searchModel->load($condition,'');
         if ($searchModel->hasProperty("isDel") && $this->queryOnlyUndelete) {
             $searchModel->isDel = 0;
         }
