@@ -25,6 +25,11 @@ class ListAction extends BaseAction
      */
     public $queryOnlyUndelete = true;
 
+    /**
+     * Yii框架默认都是冲formName中加载数据
+     *
+     * @var boolean
+     */
     public $loadFormName = false;
 
     public function run()
