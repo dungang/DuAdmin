@@ -15,7 +15,13 @@ class ResponseJson extends Behavior
     {
         return [
             Response::EVENT_BEFORE_SEND =>  'beforeSend',
+            Response::EVENT_AFTER_PREPARE => 'afterPrepare'
         ];
+    }
+
+    public function afterPrepare($event) {
+        $event->sender->getHeaders()
+            ->set('X-Request-Duration', number_format((microtime(true) - YII_BEGIN_TIME) * 1000 + 1));
     }
 
     public function variablize($sourceArray,&$variablizeArray){

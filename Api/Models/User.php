@@ -33,7 +33,7 @@ class User extends JWTUser implements Operator
 
     public $password;
     
-    public $jsonHideFields = ['password','passwordHash','passwordRestToken','authKey'];
+    public $jsonHideFields = ['password','passwordHash','passwordResetToken','authKey'];
 
     /**
      *
