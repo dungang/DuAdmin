@@ -126,7 +126,7 @@ trait ActionTrait
     {
         if ($this->modelImmutableAttrs) {
             foreach ($this->modelImmutableAttrs as $field => $val) {
-                if(is_callable($val)) {
+                if (is_callable($val)) {
                     $val = call_user_func($val);
                 }
                 $model->{$field} = $val;
@@ -145,7 +145,7 @@ trait ActionTrait
         $calcAttrs = [];
         if ($this->modelImmutableAttrs) {
             foreach ($this->modelImmutableAttrs as $field => $val) {
-                if(is_callable($val)) {
+                if (is_callable($val)) {
                     $val = call_user_func($val);
                 }
                 $calcAttrs[$field] = $val;
@@ -264,26 +264,30 @@ trait ActionTrait
      */
     protected function getPrimaryKeyCondition($modelClass)
     {
-        // query by primary key
-        if (method_exists($modelClass, 'primaryKey')) {
-            $primaryKey = call_user_func([
-                $modelClass,
-                'primaryKey'
-            ]);
-            $cond = [];
-            $params = ArrayHelper::merge(\Yii::$app->request->get(), \Yii::$app->request->post());
+        $params = ArrayHelper::merge(\Yii::$app->request->get(), \Yii::$app->request->post());
+        if ($this->loadFormName) {
+            // query by primary key
+            if (method_exists($modelClass, 'primaryKey')) {
+                $primaryKey = call_user_func([
+                    $modelClass,
+                    'primaryKey'
+                ]);
+                $cond = [];
 
-            foreach ($primaryKey as $key) {
-                if (isset($params[$key])) {
-                    $cond[$key] = $params[$key];
+                foreach ($primaryKey as $key) {
+                    if (isset($params[$key])) {
+                        $cond[$key] = $params[$key];
+                    }
                 }
+                if (empty($cond) && isset($params['id'])) {
+                    $cond['id'] = $params['id'];
+                }
+                return $cond;
             }
-            if (empty($cond) && isset($params['id'])) {
-                $cond['id'] = $params['id'];
-            }
-            return $cond;
+            return null;
+        } else {
+            return $params;
         }
-        return null;
     }
 
     /**
@@ -377,7 +381,7 @@ trait ActionTrait
      */
     protected function findModels($filter = [])
     {
-        list($modelClass, $condition) = $this->builderFindModelCondition();
+        list($modelClass, $condition) = $this->builderFindModelCondition($filter);
         if (empty($condition)) {
             throw new BadRequestHttpException('Find model must set filters');
         }

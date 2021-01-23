@@ -25,6 +25,8 @@ class ListAction extends BaseAction
      */
     public $queryOnlyUndelete = true;
 
+    public $loadFormName = false;
+
     public function run()
     {
         list($modelClass, $condition) = $this->builderFindModelCondition();
