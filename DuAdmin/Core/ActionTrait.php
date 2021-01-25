@@ -169,9 +169,9 @@ trait ActionTrait
                     $params[$formName] = [];
                 $params[$formName] = ArrayHelper::merge($params[$formName], $this->calcModelImmutableAttrs());
             } else {
-                $params = ArrayHelper::merge($params, $this->modelImmutableAttrs);
+                $params = ArrayHelper::merge($params, $this->calcModelImmutableAttrs());
             }
-        }
+        }   
         return $params;
     }
 
