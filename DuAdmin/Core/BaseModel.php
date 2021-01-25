@@ -1,4 +1,5 @@
 <?php
+
 namespace DuAdmin\Core;
 
 use yii\helpers\ArrayHelper;
@@ -6,6 +7,7 @@ use DuAdmin\Behaviors\PropertyBehavior;
 use DuAdmin\Events\BeforeSearchEvent;
 use DuAdmin\Mysql\ActiveRecord;
 use JsonSerializable;
+use yii\helpers\Json;
 
 class BaseModel extends ActiveRecord implements JsonSerializable
 {
@@ -16,6 +18,13 @@ class BaseModel extends ActiveRecord implements JsonSerializable
      * @var array
      */
     public $jsonHideFields = [];
+
+    /**
+     * 存储的数据是json的字段
+     *
+     * @var array
+     */
+    public $jsonFields = [];
 
     const EVENT_AFTER_VIEW = 'afterView';
 
@@ -36,13 +45,22 @@ class BaseModel extends ActiveRecord implements JsonSerializable
      */
     public function jsonSerialize()
     {
+        $ary = null;
         if (empty($this->jsonHideFields)) {
-            return $this->toArray([],$this->extraFields());
+            $ary = $this->toArray([], $this->extraFields());
         } else {
-            return array_filter($this->toArray([],$this->extraFields()), function ($key) {
+            $ary =  array_filter($this->toArray([], $this->extraFields()), function ($key) {
                 return in_array($key, $this->jsonHideFields) == false;
             }, ARRAY_FILTER_USE_KEY);
         }
+        if ($this->jsonFields) {
+            foreach ($this->jsonFields as $field) {
+                if (isset($ary[$field])) {
+                    $ary[$field] = Json::decode($ary[$field]);
+                }
+            }
+        }
+        return $ary;
     }
 
     public function init()
