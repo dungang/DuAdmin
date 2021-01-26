@@ -6,7 +6,9 @@ use yii\helpers\ArrayHelper;
 use DuAdmin\Behaviors\PropertyBehavior;
 use DuAdmin\Events\BeforeSearchEvent;
 use DuAdmin\Mysql\ActiveRecord;
+use Exception;
 use JsonSerializable;
+use Yii;
 use yii\helpers\Json;
 
 class BaseModel extends ActiveRecord implements JsonSerializable
@@ -56,7 +58,12 @@ class BaseModel extends ActiveRecord implements JsonSerializable
         if ($this->jsonFields) {
             foreach ($this->jsonFields as $field) {
                 if (isset($ary[$field])) {
-                    $ary[$field] = Json::decode($ary[$field]);
+                    try {
+                        $ary[$field] = Json::decode($ary[$field]);
+                    } catch(Exception $ex) {
+                        Yii::error('field:' . $field .' json decode exception.' . $ex->getMessage());
+                        $ary[$field] = null;
+                    }
                 }
             }
         }
