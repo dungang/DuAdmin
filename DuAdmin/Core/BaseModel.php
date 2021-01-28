@@ -33,7 +33,7 @@ class BaseModel extends ActiveRecord implements JsonSerializable
     /**
      * searchModel 在搜索前执行的事件
      */
-    const EVNT_BEFORE_SEARCH = 'beforeSearch';
+    const EVENT_BEFORE_SEARCH = 'beforeSearch';
 
     /**
      * 只查询没有标记删除的数据
@@ -223,7 +223,7 @@ class BaseModel extends ActiveRecord implements JsonSerializable
             'query' => $query,
             'params' => $params
         ]);
-        $this->trigger(self::EVNT_BEFORE_SEARCH, $event);
+        $this->trigger(self::EVENT_BEFORE_SEARCH, $event);
         // $params = $event->params;
         // $query = $event->query;
     }
