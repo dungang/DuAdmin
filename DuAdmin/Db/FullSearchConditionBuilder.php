@@ -4,7 +4,7 @@ namespace DuAdmin\Db;
 use yii\db\ExpressionBuilderInterface;
 use yii\db\ExpressionInterface;
 use yii\db\conditions\LikeCondition;
-use yii\db\conditions\AndCondition;
+use yii\db\conditions\OrCondition;
 use yii\db\ExpressionBuilderTrait;
 
 class FullSearchConditionBuilder implements ExpressionBuilderInterface
@@ -20,9 +20,9 @@ class FullSearchConditionBuilder implements ExpressionBuilderInterface
         if($value && $columns && count($columns)>0) {
             $conditions = [];
             foreach ($columns as $column) {
-                $conditions[] = new LikeCondition($column, 'OR LIKE', $value);
+                $conditions[] = new LikeCondition($column, 'LIKE', $value);
             }
-            return $this->queryBuilder->buildCondition(new AndCondition($conditions), $params);
+            return $this->queryBuilder->buildCondition(new OrCondition($conditions), $params);
         }
         return null;
     }
