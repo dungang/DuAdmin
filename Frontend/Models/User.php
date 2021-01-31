@@ -8,6 +8,7 @@ use yii\web\IdentityInterface;
 use DuAdmin\Core\BaseModel;
 use yii\base\NotSupportedException;
 use DuAdmin\Core\Operator;
+use DuAdmin\Hooks\UserCreatedHook;
 
 /**
  * "{{%user}}"表的模型类.
@@ -39,7 +40,9 @@ class User extends BaseModel implements IdentityInterface,Authable,Operator
 
     public $password;
     
-    public $jsonHideFields = ['authKey','passwordHash','passwordResetToken'];
+    public $jsonHideFields = ['authKey','passwordHash',
+        'passwordResetToken'
+    ];
 
     /**
      *
@@ -48,6 +51,13 @@ class User extends BaseModel implements IdentityInterface,Authable,Operator
     public static function tableName()
     {
         return '{{%user}}';
+    }
+
+    public function init(){
+        parent::init();
+        $this->on(static::EVENT_AFTER_INSERT,function($event){
+            UserCreatedHook::emit($this);
+        });
     }
 
     /**

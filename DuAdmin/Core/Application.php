@@ -6,7 +6,6 @@ use DuAdmin\Helpers\AppHelper;
 use yii\helpers\Url;
 use yii\validators\Validator;
 use yii\web\Application as WebApplication;
-use DuAdmin\Components\ActionLog;
 
 /**
  * 

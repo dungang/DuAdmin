@@ -4,6 +4,7 @@ namespace Api\Models;
 use Yii;
 use DuAdmin\Models\JWTUser;
 use DuAdmin\Core\Operator;
+use DuAdmin\Hooks\UserCreatedHook;
 
 /**
  * "{{%user}}"表的模型类.
@@ -32,8 +33,13 @@ class User extends JWTUser implements Operator
     const STATUS_ACTIVE = 10;
 
     public $password;
-    
-    public $jsonHideFields = ['password','passwordHash','passwordResetToken','authKey'];
+
+    public $jsonHideFields = [
+        'password',
+        'passwordHash',
+        'passwordResetToken',
+        'authKey'
+    ];
 
     /**
      *
@@ -42,6 +48,14 @@ class User extends JWTUser implements Operator
     public static function tableName()
     {
         return '{{%user}}';
+    }
+
+    public function init()
+    {
+        parent::init();
+        $this->on(static::EVENT_AFTER_INSERT, function ($event) {
+            UserCreatedHook::emit($this);
+        });
     }
 
     /**
