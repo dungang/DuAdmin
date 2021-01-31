@@ -80,8 +80,7 @@ class User extends JWTUser implements Operator
             [
                 [
                     'username',
-                    'nick_name',
-                    'email',
+                    'nickname',
                     'mobile'
                 ],
                 'required'
