@@ -122,6 +122,7 @@ class InstallerHelper
                 } else {
                     $model->sort = $index;
                 }
+                $model->url = trim($model->url,'/');
                 $model->save();
                 if ($model->hasErrors()) {
                     throw new ErrorException(Json::encode($model->errors));
