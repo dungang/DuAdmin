@@ -2,8 +2,8 @@
 
 namespace DuAdmin\Behaviors;
 
-use JsonSerializable;
-use Yii;
+// use JsonSerializable;
+// use Yii;
 use yii\base\Arrayable;
 use yii\base\Behavior;
 use yii\helpers\BaseInflector;
@@ -28,10 +28,11 @@ class ResponseJson extends Behavior
     public function variablize($sourceArray,&$variablizeArray){
         foreach($sourceArray as $key => $val) {
             $key = BaseInflector::variablize($key);
-            if ($val instanceof JsonSerializable) {
-                if(empty($variablizeArray[$key])) $variablizeArray[$key] = array();
-                $this->variablize($val->jsonSerialize(),$variablizeArray[$key]);
-            }  else if(is_array($val) || $val instanceof Arrayable ) {
+            // if ($val instanceof JsonSerializable) {
+            //     if(empty($variablizeArray[$key])) $variablizeArray[$key] = array();
+            //     $this->variablize($val->jsonSerialize(),$variablizeArray[$key]);
+            // }  else 
+            if(is_array($val) || $val instanceof Arrayable ) {
                 if(empty($variablizeArray[$key])) $variablizeArray[$key] = array();
                 $this->variablize($val,$variablizeArray[$key]);
             } else {

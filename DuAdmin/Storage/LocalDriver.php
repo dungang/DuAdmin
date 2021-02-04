@@ -153,4 +153,9 @@ class LocalDriver extends IDriver
     {
         return Url::to(['site/upload'],true);
     }
+
+    public function saveFile($fileContent, $path)
+    {
+        file_put_contents($this->webroot . '/' . $path,$fileContent);
+    }
 }

@@ -126,6 +126,10 @@ class FileUploader extends BaseObject
 
     public function init()
     {
+       static::getUploadInstance();
+    }
+
+    public static function getUploadInstance(){
         if (empty(self::$driver)) {
             $driverName = AppHelper::getSetting('system.storage.driver');
             if (empty($driverName) || $driverName == 'local') {
@@ -135,6 +139,7 @@ class FileUploader extends BaseObject
             }
             self::$driver = \Yii::createObject($class);
         }
+        return self::$driver;
     }
 
     /**

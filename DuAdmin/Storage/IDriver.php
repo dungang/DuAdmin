@@ -160,5 +160,7 @@ abstract class IDriver extends BaseObject
      * @return string
      */
     public abstract function getUploaderUrlInfo();
+
+    public abstract function saveFile($fileContent,$path);
 }
 
