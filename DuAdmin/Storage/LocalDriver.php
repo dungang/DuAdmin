@@ -156,6 +156,9 @@ class LocalDriver extends IDriver
 
     public function saveFile($fileContent, $path)
     {
-        file_put_contents($this->webroot . '/' . $path,$fileContent);
+        $filePath = $this->webroot . '/' . $path;
+        FileHelper::createDirectory(dirname($filePath));
+        file_put_contents($filePath,$fileContent);
+        return $path;
     }
 }

@@ -129,6 +129,11 @@ class FileUploader extends BaseObject
        static::getUploadInstance();
     }
 
+    /**
+     * 获取上传驱动组件
+     *
+     * @return \DuAdmin\Storage\IDriver
+     */
     public static function getUploadInstance(){
         if (empty(self::$driver)) {
             $driverName = AppHelper::getSetting('system.storage.driver');
