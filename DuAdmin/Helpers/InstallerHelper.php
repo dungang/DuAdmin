@@ -215,4 +215,8 @@ class InstallerHelper
             }
         }
     }
+
+    public static function uninstallSetting($category) {
+        Setting::deleteAll(['category'=>$category]);
+    }
 }
