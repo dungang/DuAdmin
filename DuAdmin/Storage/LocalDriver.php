@@ -145,7 +145,9 @@ class LocalDriver extends IDriver
         return [
             'key' => parent::initWritePath($fileType) . '/' . uniqid($fileType, true),
             'token' => time(),
-            'uploadUrl' => $this->getUploaderUrlInfo()
+            'uploadUrl' => $this->getUploaderUrlInfo(),
+            'baseUrl' => Url::to('/',true),
+            'driver' => 'local'
         ];
     }
 
