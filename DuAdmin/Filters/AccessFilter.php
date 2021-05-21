@@ -1,4 +1,5 @@
 <?php
+
 namespace DuAdmin\Filters;
 
 use DuAdmin\Core\Authable;
@@ -41,28 +42,24 @@ class AccessFilter extends ActionFilter
             return true;
         }
         // 如果检查通过，还继续，则不允许非游客访问
-        if (\Yii::$app->user->isGuest) {
+        else if (\Yii::$app->user->isGuest) {
             $this->denyAccess();
         } else {
-            /* @var Authable $user */
+            /** @var Authable $user **/
             $user = Yii::$app->user->getIdentity();
 
             // step2. If user has been deleted, then destroy session and redirect to home page
-            // 如果是后台控制器，
             if ($user === null) {
                 Yii::$app->getSession()->destroy();
-                $this->denyAccess();
             }
-
             // step3. 如果是超级管理员
-            if ($user->isSuperAdmin()) {
+            else if ($user->isSuperAdmin()) {
                 return true;
             }
             // step4. 如果是非激活用户
-            if (! $user->isActiveAccount()) {
+            else if (!$user->isActiveAccount()) {
                 Yii::$app->user->logout();
                 Yii::$app->getResponse()->redirect(Yii::$app->getHomeUrl());
-
                 // step5. 登录用户可以访问的actions
             } else if (in_array($action->id, $controller->userActions)) {
                 return true;

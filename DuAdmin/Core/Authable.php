@@ -12,7 +12,7 @@ namespace DuAdmin\Core;
 interface Authable
 {
 
-    public function isSuperAdmin():bool;
+     function isSuperAdmin():bool;
 
-    public function isActiveAccount():bool;
+     function isActiveAccount():bool;
 }

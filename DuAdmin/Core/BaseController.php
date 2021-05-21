@@ -35,40 +35,10 @@ class BaseController extends Controller
     {
         $defaultBehaviors = [];
         $defaultBehaviors['verbs'] = [
-            'class' => VerbFilter::className(),
+            'class' => VerbFilter::class,
             'actions' => $this->verbsActions
         ];
-        if (($bs = $this->loadBehaviors())) {
-            foreach ($bs as $b => $h) {
-                $defaultBehaviors[$b] = $h;
-            }
-        }
         return $defaultBehaviors;
-    }
-
-    /**
-     * 动态加载其他得行为
-     *
-     * @return null|array
-     */
-    protected function loadBehaviors()
-    {
-        return null;
-    }
-
-    /**
-     * 加载配置
-     *
-     * @param string $path
-     * @return boolean|array
-     */
-    protected function loadConfig($path)
-    {
-        $file = \Yii::getAlias("@app/config/" . $path);
-        if (file_exists($file)) {
-            return require $file;
-        }
-        return false;
     }
 
     public function beforeRender($params)

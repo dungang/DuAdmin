@@ -97,7 +97,8 @@ class Generator extends \app\generators\Generator
     public $onlyQueryCurrentUser = false;
 
     public $templates = [
-        'duadmin' => '@app/generators/crud/duadmin',
+        'backend-controller' => '@app/generators/crud/backend-controller',
+        'backend-actions' => '@app/generators/crud/backend-actions',
         'frontend' => '@app/generators/crud/frontend'
     ];
 
@@ -137,6 +138,13 @@ class Generator extends \app\generators\Generator
      * @var string
      */
     public $enableCrudAction = true;
+
+
+    /**
+     * 控制器支持的actions清单
+     * @var array
+     */
+    public $actions = [];
 
     /**
      *
@@ -209,7 +217,8 @@ class Generator extends \app\generators\Generator
                     'controllerName',
                     'baseControllerClass',
                     'viewPathBase',
-                    'indexWidgetType'
+                    'indexWidgetType',
+                    'actions'
                 ],
                 'required'
             ],
@@ -301,7 +310,8 @@ class Generator extends \app\generators\Generator
             'defaultOrderField' => '默认搜索排序字段',
             'defaultOrder' => '默认搜索排序顺序',
             'enableCrudAction' => '是否支持增删改',
-            'onlyQueryCurrentUser' => '设置是否在控制器上设置只查询当前用户的数据'
+            'onlyQueryCurrentUser' => '设置是否在控制器上设置只查询当前用户的数据',
+            'actions' => '控制器支持的action清单'
         ]);
     }
 
@@ -367,7 +377,7 @@ class Generator extends \app\generators\Generator
      */
     public function validateModelClass()
     {
-        /* @var $class ActiveRecord */
+        /** @var $class ActiveRecord */
         $class = $this->modelClass;
         $pk = $class::primaryKey();
         if (empty($pk)) {
@@ -404,8 +414,10 @@ class Generator extends \app\generators\Generator
         ]));
 
         if (substr(trim($this->modelClass, '\\'), 7) == 'DuAdmin') {
+            //框架本身的翻译文件
             $this->messageCategory = 'app_' . $noPrefixTableName;
         } else {
+            //应用的翻译文件
             $this->messageCategory = 'da_' . $noPrefixTableName;
         }
         foreach (scandir($templatePath) as $file) {

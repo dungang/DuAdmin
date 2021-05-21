@@ -12,6 +12,8 @@ echo $form->field($generator, 'controllerName');
 $webViewPathBases = $generator->getWebViewPathBases();
 echo $form->field($generator, 'viewPathBase')->dropDownList(array_combine($webViewPathBases, $webViewPathBases));
 echo $form->field($generator, 'onlyQueryCurrentUser')->checkbox();
+$actions = ['index','create','view','update','delete'];
+echo $form->field($generator,'actions')->checkboxList(array_combine($actions,$actions));
 echo $form->field($generator, 'baseControllerClass')->dropDownList([
     'DuAdmin\Core\BackendController' => 'DUAdmin BackendController',
     'DuAdmin\Core\FrontendController' => 'DUAdmin FrontendController',

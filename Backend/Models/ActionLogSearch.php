@@ -4,6 +4,7 @@ namespace Backend\Models;
 
 use Yii;
 use yii\data\ActiveDataProvider;
+use Backend\Models\ActionLog;
 
 /**
  * ActionLogSearch represents the model behind the search form of `Backend\Models\ActionLog`.
@@ -35,9 +36,11 @@ class ActionLogSearch extends ActionLog
      *
      * @param array $params
      *
+     * @param string|NULL $formName
+     *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $formName = NULL)
     {
         $query = ActionLog::find();
 
@@ -55,7 +58,7 @@ class ActionLogSearch extends ActionLog
             ] 
         ]);
 
-        $this->load($params);
+        $this->load($params, $formName);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails

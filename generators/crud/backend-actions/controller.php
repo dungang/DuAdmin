@@ -36,6 +36,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
 {
 	public function actions(){
 		return [
+<?php if (in_array('index',$generator->actions)):?>
             'index' => [
                 'class' => 'DuAdmin\Core\ListModelsAction',
                 // 'modelBehaviors' => [],
@@ -56,6 +57,8 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                     'class' => '<?=$searchModelName?>'
                 ]
             ],
+<?php endif;?>
+<?php if (in_array('view',$generator->actions)):?>
             'view' => [
                 'class' => 'DuAdmin\Core\ViewModelAction',
                 // 'modelBehaviors' => [],
@@ -75,7 +78,9 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                     'class' => '<?=$modelName?>'
                 ]
             ],
+<?php endif;?>
 <?php if ($generator->enableCrudAction):?>
+<?php if (in_array('create',$generator->actions)):?>
             'create' => [
                 'class' => 'DuAdmin\Core\CreateModelAction',
                 // 'modelBehaviors' => [],
@@ -95,6 +100,8 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                     'class' => '<?=$modelName?>'
                 ]
             ],
+<?php endif;?>
+<?php if (in_array('update',$generator->actions)):?>
             'update' => [
                 'class' => 'DuAdmin\Core\UpdateModelAction',
                 // 'modelBehaviors' => [],
@@ -114,6 +121,8 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                     'class' => '<?=$modelName?>'
                 ]
             ],
+<?php endif;?>
+<?php if (in_array('delete',$generator->actions)):?>
             'delete' => [
                 'class' => 'DuAdmin\Core\DeleteModelsAction',
                 // 'modelBehaviors' => [],
@@ -133,6 +142,7 @@ class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->bas
                     'class' => '<?=$modelName?>'
                 ]
             ],
+<?php endif;?>
 <?php endif;?>
 		];
 	}
