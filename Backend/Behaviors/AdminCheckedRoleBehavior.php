@@ -6,7 +6,7 @@ use DuAdmin\Core\BaseAction;
 use Backend\Models\Admin;
 
 /**
- * 管理元角色checked
+ * 管理员角色checked
  *
  * @author dungang<dungang@126.com>
  * @since 2020-12-22

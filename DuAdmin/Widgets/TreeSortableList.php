@@ -13,6 +13,7 @@ use yii\helpers\ArrayHelper;
  * 树列表
  * http://www.niftyadmin.cn/misc-nestable-list.html
  * https://github.com/dbushell/Nestable
+ * @auth dungang
  */
 class TreeSortableList extends Widget
 {
@@ -137,7 +138,7 @@ class TreeSortableList extends Widget
                 'tagName' => 'div',
                 'enableDropDown' => false
             ], $this->actionColumn);
-            /* @var \DuAdmin\Grids\ActionColumn $column  */
+            /** @var \DuAdmin\Grids\ActionColumn $column  */
             $column = \Yii::createObject($actionColumn);
             $content .= $column->renderDataCell($item, $key, $index);
         }
@@ -158,15 +159,6 @@ class TreeSortableList extends Widget
 
     private function listToTree()
     {
-        // $this->items = array_map(function($item){
-        // return $item->toArray();
-        // },$this->items);
-        // $this->items = array_map(function ($item) {
-        //     if (!isset($item['pid'])) {
-        //         $item['pid'] = '0';
-        //     }
-        //     return $item;
-        // }, $this->items);
         $this->items = AppHelper::listToTree($this->items, 'id', 'pid', 'children');
     }
 
@@ -188,7 +180,7 @@ function(e,target){
     } else {
         list.data('serialize',sorts);
         $.post('{$url}',{sorts:sorts},function(data){
-            //console.log(data);
+            console.log(data);
         });
     }
 }

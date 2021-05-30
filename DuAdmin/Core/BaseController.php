@@ -1,4 +1,5 @@
 <?php
+
 namespace DuAdmin\Core;
 
 use DuAdmin\Hooks\BaseCtrInitedHook;
@@ -65,10 +66,10 @@ class BaseController extends Controller
             if (AppHelper::isAjaxFormSubmitRequest() || AppHelper::isAjaxJson()) {
                 $event->result = $this->asJson($result);
             } else {
-                // 如果是数组
-                if (isset($result['view']) && ! empty($result['view'])) {
+                if (isset($result['view']) && !empty($result['view'])) {
+                    // 如果是数组
                     $this->renderResult($event, $result);
-                } else if (isset($result['redirectUrl']) && ! empty($result['redirectUrl'])) {
+                } else if (isset($result['redirectUrl']) && !empty($result['redirectUrl'])) {
                     // 如果是跳转
                     $event->result = \Yii::$app->getResponse()->redirect(Url::to($result['redirectUrl']), $result['statusCode']);
                 } else {
@@ -92,7 +93,7 @@ class BaseController extends Controller
 
     private final function setFlash($status, $message)
     {
-        if (! \Yii::$app->request->isAjax) {
+        if (!\Yii::$app->request->isAjax) {
             if ($status == 'success') {
                 \Yii::$app->session->setFlash("success", $message);
             } else {
@@ -154,7 +155,7 @@ class BaseController extends Controller
     public final function goBackOnSuccess($defaultUrl = null)
     {
         return $this->redirectOnSuccess(\Yii::$app->getUser()
-            ->getReturnUrl($defaultUrl),'登录成功');
+            ->getReturnUrl($defaultUrl), '登录成功');
     }
 
     public final function goBackOnFail($defaultUrl = null)
@@ -206,8 +207,9 @@ class BaseController extends Controller
             'data' => $params
         ];
     }
-    
-    public function renderJsonData($status,$data){
+
+    public function renderJsonData($status, $data)
+    {
         return [
             'status' => $status,
             'data' => $data

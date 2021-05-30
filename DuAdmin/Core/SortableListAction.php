@@ -14,7 +14,7 @@ use yii\helpers\ArrayHelper;
  *
  * 参考rbac的表即可
  *
- * @author dunga
+ * @author dungang
  *        
  */
 class SortableListAction extends BaseAction
@@ -44,7 +44,7 @@ class SortableListAction extends BaseAction
         if ($params = \Yii::$app->request->get($this->discoverFormName())) {
             $condition = ArrayHelper::merge($condition, $params);
         }
-        /* @var $activeQuery ActiveQuery */
+        /** @var  ActiveQuery $activeQuery */
         $activeQuery = $modelClass::find();
 
         // 使用中间表建立父子关系
@@ -91,5 +91,3 @@ class SortableListAction extends BaseAction
         return $this->controller->render($this->id, $this->data);
     }
 }
-
-;

@@ -7,6 +7,8 @@ use Backend\Models\ActionLog;
 use Backend\Models\ActionLogSearch;
 use DuAdmin\Core\BackendController;
 use yii\web\NotFoundHttpException;
+use yii\filters\VerbFilter;
+use DuAdmin\Helpers\AppHelper;
 
 /**
  * ActionLog 模型的控制器
@@ -22,7 +24,6 @@ class ActionLogController extends BackendController
     public function actionIndex()
     {
         $searchModel = new ActionLogSearch();
-        $searchModel->userId = \Yii::$app->user->id;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -53,7 +54,7 @@ class ActionLogController extends BackendController
      */
     protected function findModel($id)
     {
-        if (($model = ActionLog::findOne(['id' => $id, 'userId' => \Yii::$app->user->id])) !== null) {
+        if (($model = ActionLog::findOne(['id' => $id])) !== null) {
             return $model;
         }
 
