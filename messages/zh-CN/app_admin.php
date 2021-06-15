@@ -6,6 +6,7 @@ return [
 	'Nickname' => '昵称',
 	'Avatar' => '头像',
 	'Auth Key' => '授权KEY',
+	'Password' => '密码',
 	'Password Hash' => '密码hash',
 	'Password Reset Token' => '密码重置token',
 	'Email' => '邮箱',
@@ -17,4 +18,6 @@ return [
 	'Login Ip' => '登录IP',
 	'Created At' => '添加时间',
 	'Updated At' => '更新时间',
+	'Active' => '激活',
+	'Unactive' => '禁用'
 ];

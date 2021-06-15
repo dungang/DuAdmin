@@ -2,314 +2,182 @@
 
 namespace DuAdmin\Core;
 
-use DuAdmin\Hooks\BaseCtrInitedHook;
-use yii\web\Controller;
-use yii\filters\VerbFilter;
-use yii\base\ActionEvent;
-use yii\helpers\Url;
-use yii\base\Event;
 use DuAdmin\Helpers\AppHelper;
+use yii\base\ActionEvent;
+use yii\filters\VerbFilter;
+use yii\helpers\Url;
+use yii\web\Controller;
 
-class BaseController extends Controller
-{
+class BaseController extends Controller {
+  /**
+   * 请求的方法过滤
+   *
+   * @var array
+   */
+  public $verbsActions = [ ];
 
-    const EVENT_BEFORE_RENDER = 'beforeRender';
+  /**
+   *
+   * {@inheritdoc}
+   */
+  public function behaviors() {
 
-    /**
-     * 请求的方法过滤
-     *
-     * @var array
-     */
-    public $verbsActions = [];
+    $defaultBehaviors = [ ];
+    $defaultBehaviors ['verbs'] = [
+        'class' => VerbFilter::class,
+        'actions' => $this->verbsActions
+    ];
+    return $defaultBehaviors;
 
-    public function init()
-    {
-        parent::init();
-        BaseCtrInitedHook::emit($this);
-    }
+  }
 
-    /**
-     *
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        $defaultBehaviors = [];
-        $defaultBehaviors['verbs'] = [
-            'class' => VerbFilter::class,
-            'actions' => $this->verbsActions
-        ];
-        return $defaultBehaviors;
-    }
+  /**
+   *
+   * {@inheritdoc}
+   * @see \yii\base\Controller::afterAction()
+   */
+  public function afterAction($action, $result) {
 
-    public function beforeRender($params)
-    {
-        $event = new Event();
-        $event->data = $params;
-        $this->trigger(self::EVENT_BEFORE_RENDER, $event);
-    }
-
-    /**
-     *
-     * {@inheritdoc}
-     * @see \yii\base\Controller::afterAction()
-     */
-    public function afterAction($action, $result)
-    {
-        $event = new ActionEvent($action);
-        $event->result = $result;
-        $this->trigger(self::EVENT_AFTER_ACTION, $event);
-        // 处理action返回的结果
-        // DuAdmin/Core/BaseController封装了很多控制器渲染的方法，
-        // 很多都是返回的数组结构的结果
-        if (is_array($result)) {
-            if (AppHelper::isAjaxFormSubmitRequest() || AppHelper::isAjaxJson()) {
-                $event->result = $this->asJson($result);
-            } else {
-                if (isset($result['view']) && !empty($result['view'])) {
-                    // 如果是数组
-                    $this->renderResult($event, $result);
-                } else if (isset($result['redirectUrl']) && !empty($result['redirectUrl'])) {
-                    // 如果是跳转
-                    $event->result = \Yii::$app->getResponse()->redirect(Url::to($result['redirectUrl']), $result['statusCode']);
-                } else {
-                    // 默认的控制器的处理逻辑
-                    unset($result['view'], $result['redirectUrl']);
-                    $event->result = $this->asJson($result);
-                }
-            }
-        }
-        return $event->result;
-    }
-
-    private function renderResult($event, $result)
-    {
-        if (\Yii::$app->request->isAjax) {
-            $event->result = $this->renderAjax($result['view'], $result['data']);
+    $event = new ActionEvent( $action );
+    $event->result = $result;
+    $this->trigger( self::EVENT_AFTER_ACTION, $event );
+    // 处理action返回的结果
+    // DuAdmin/Core/BaseController封装了很多控制器渲染的方法，
+    // 很多都是返回的数组结构的结果
+    if (is_array( $result )) {
+      // 不处理Pjax请求
+      if (AppHelper::isAjaxFormSubmitRequest() || AppHelper::isAjaxJson()) {
+        $event->result = $this->asJson( $result );
+      } else {
+        if (isset( $result ['view'] ) && ! empty( $result ['view'] )) {
+          // 如果是输出视图组
+          $this->renderResult( $event, $result );
+        } else if (isset( $result ['redirectUrl'] ) && ! empty( $result ['redirectUrl'] )) {
+          // 如果是跳转转
+          $event->result = \Yii::$app->getResponse()->redirect( Url::to( $result ['redirectUrl'] ), $result ['statusCode'] );
         } else {
-            $event->result = $this->render($result['view'], $result['data']);
+          // 默认的控制器的处理逻辑
+          unset( $result ['view'], $result ['redirectUrl'] );
+          $event->result = $this->asJson( $result );
         }
+      }
+    }
+    return $event->result;
+
+  }
+
+  /**
+   * 默认的渲染处理
+   *
+   * @param ActionEvent $event
+   * @param mixed $result
+   */
+  private function renderResult($event, $result) {
+
+    // Pjax的请求
+    if (\Yii::$app->request->isAjax) {
+      $event->result = $this->renderAjax( $result ['view'], $result ['data'] );
+    } else {
+      $event->result = $this->render( $result ['view'], $result ['data'] );
     }
 
-    private final function setFlash($status, $message)
-    {
-        if (!\Yii::$app->request->isAjax) {
-            if ($status == 'success') {
-                \Yii::$app->session->setFlash("success", $message);
-            } else {
-                \Yii::$app->session->setFlash("error", $message);
-            }
-        }
+  }
+
+  /**
+   * 设置提示消息内容
+   *
+   * @param string $status
+   * @param string $message
+   */
+  public final function setFlash($status, $message) {
+
+    if (! \Yii::$app->request->isAjax) {
+      if ($status == 'success') {
+        \Yii::$app->session->setFlash( "success", $message );
+      } else {
+        \Yii::$app->session->setFlash( "error", $message );
+      }
     }
 
-    /**
-     * 跳转
-     *
-     * @param string $status
-     * @param string $url
-     * @param number $statusCode
-     * @param string $message
-     * @return mixed|number[]|string[]
-     */
-    private final function thenRedirect($status, $url, $statusCode = 302, $message = '')
-    {
-        $this->setFlash($status, $message);
-        return [
-            'status' => $status,
-            'redirectUrl' => $url,
-            'statusCode' => $statusCode,
-            'message' => $message
-        ];
-    }
+  }
 
-    public final function redirectOnSuccess($url, $message = '处理成功')
-    {
-        return $this->thenRedirect('success', $url, 302, $message);
-    }
+  /**
+   * 设置成功结果
+   * 尽量设置结果为数组
+   *
+   * @param string $view
+   * @param mixed $data
+   * @param string $message
+   * @return array
+   */
+  public function renderSuccess($view, $data, $message = '成功') {
 
-    public final function redirectOnFail($url, $message = '处理失败')
-    {
-        return $this->thenRedirect('fail', $url, 302, $message);
-    }
+    $status = "success";
+    $this->setFlash( $status, $message );
+    return compact( 'status', 'view', 'data', 'message' );
 
-    public final function redirectOnException($url, $message = '处理异常')
-    {
-        return $this->thenRedirect('exception', $url, 302, $message);
-    }
+  }
 
-    public final function goHomeOnSuccess()
-    {
-        return $this->redirectOnSuccess(\Yii::$app->getHomeUrl(), '登录成功');
-    }
+  /**
+   * 设置错误结果
+   * 尽量设置结果为数组
+   *
+   * @param string $view
+   * @param mixed $data
+   * @param string $message
+   * @return array
+   */
+  public function renderError($view, $data, $message = '失败') {
 
-    public final function goHomeOnFail()
-    {
-        return $this->redirectOnFail(\Yii::$app->getHomeUrl());
-    }
+    $status = "error";
+    $this->setFlash( $status, $message );
+    return compact( 'status', 'view', 'data', 'message' );
 
-    public final function gohomeOnException()
-    {
-        return $this->redirectOnException(\Yii::$app->getHomeUrl());
-    }
+  }
 
-    public final function goBackOnSuccess($defaultUrl = null)
-    {
-        return $this->redirectOnSuccess(\Yii::$app->getUser()
-            ->getReturnUrl($defaultUrl), '登录成功');
-    }
+  /**
+   * 设置成功跳转
+   *
+   * @param string $redirectUrl
+   * @param string $message
+   * @return \yii\web\Response
+   */
+  public function redirectSuccess($redirectUrl, $message = "成功") {
 
-    public final function goBackOnFail($defaultUrl = null)
-    {
-        return $this->redirectOnFail(\Yii::$app->getUser()
-            ->getReturnUrl($defaultUrl));
-    }
+    $status = "success";
+    $this->setFlash( $status, $message );
+    return compact( 'status', 'redirectUrl', 'message' );
 
-    public final function goBackOnExcption($defaultUrl = null)
-    {
-        return $this->redirectOnException(\Yii::$app->getUser()
-            ->getReturnUrl($defaultUrl));
-    }
+  }
 
-    public final function refreshOnSuccess($anchor = '')
-    {
-        return $this->redirectOnSuccess(\Yii::$app->getRequest()
-            ->getUrl() . $anchor);
-    }
+  /**
+   * 设置错误跳转
+   *
+   * @param string $url
+   * @param string $message
+   * @return \yii\web\Response
+   */
+  public function redirectError($url, $message = "失败") {
 
-    public final function refreshOnFail($anchor = '')
-    {
-        return $this->redirectOnFail(\Yii::$app->getRequest()
-            ->getUrl() . $anchor);
-    }
+    $status = "error";
+    $this->setFlash( $status, $message );
+    return compact( 'status', 'redirectUrl', 'message' );
 
-    public final function refreshOnExcepion($anchor = '')
-    {
-        return $this->redirectOnException(\Yii::$app->getRequest()
-            ->getUrl() . $anchor);
-    }
+  }
 
-    /**
-     * 返回
-     *
-     * @param string $status
-     * @param string $view
-     * @param array|object $params
-     * @param string $message
-     * @return array
-     */
-    private final function thenRender($status = 'success', $view = 'index', $params = [], $message = '')
-    {
-        $this->setFlash($status, $message);
-        return [
-            'status' => $status,
-            'view' => $view,
-            'message' => $message,
-            'data' => $params
-        ];
-    }
+  /**
+   * 重写默认的渲染方法，单是ajax请求的时候优先执行ajax渲染方法
+   *
+   * {@inheritdoc}
+   * @see \yii\base\Controller::render()
+   */
+  public function render($view, $params = [ ]) {
 
-    public function renderJsonData($status, $data)
-    {
-        return [
-            'status' => $status,
-            'data' => $data
-        ];
+    if (\Yii::$app->request->isAjax) {
+      $result = parent::renderAjax( $view, $params );
+      return $result;
     }
+    return parent::render( $view, $params );
 
-    /**
-     * 当成功的时候返回
-     *
-     * @param string $view
-     * @param array $params
-     * @param string $message
-     * @return array
-     */
-    public final function renderOnSuccess($view, $params = [], $message = '处理成功')
-    {
-        return $this->thenRender('success', $view, $params, $message);
-    }
-
-    /**
-     * 当成功的时候返回
-     *
-     * @param array $params
-     * @param string $message
-     * @return array
-     */
-    public final function renderWithoutViewOnSuccess($params = [], $message = '处理成功')
-    {
-        return $this->thenRender('success', null, $params, $message);
-    }
-
-    /**
-     * 当失败的时候返回
-     *
-     * @param array $params
-     * @param string $message
-     * @return array
-     */
-    public final function renderOnFail($view, $params = [], $message = '处理失败')
-    {
-        return $this->thenRender('error', $view, $params, $message);
-    }
-
-    /**
-     * 当失败的时候返回
-     *
-     * @param array $params
-     * @param string $message
-     * @return array
-     */
-    public final function renderWithoutViewOnFail($params = [], $message = '处理失败')
-    {
-        return $this->thenRender('error', null, $params, $message);
-    }
-
-    /**
-     * 当异常的时候返回
-     *
-     * @param string $view
-     * @param array $params
-     * @param string $message
-     * @return array
-     */
-    public final function renderOnException($view, $params = [], $message = '处理异常')
-    {
-        return $this->thenRender('exception', $view, $params, $message);
-    }
-
-    /**
-     * 当异常的时候返回
-     *
-     * @param array $params
-     * @param string $message
-     * @return array
-     */
-    public final function renderwithoutViewOnException($params = [], $message = '处理异常')
-    {
-        return $this->thenRender('exception', null, $params, $message);
-    }
-
-    public function renderView($view, $params = [])
-    {
-        return [
-            'status' => 'success',
-            'view' => $view,
-            'data' => $params
-        ];
-    }
-
-    public function renderList($view, $params = [])
-    {
-        return $this->renderView($view, $params);
-    }
-
-    public function render($view, $params = [])
-    {
-        if (\Yii::$app->request->isAjax) {
-            $result = parent::renderAjax($view, $params);
-            return $result;
-        }
-        return parent::render($view, $params);
-    }
+  }
 }

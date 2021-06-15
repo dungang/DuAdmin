@@ -8,10 +8,13 @@ use DuAdmin\Widgets\DatePicker;
 /* @var $model DuAdmin\Models\PageBlockSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-<?php  \yii\bootstrap\Modal::begin([
+<?php 
+ 
+	$searchText = Yii::t('da','Advanced Search');
+	\yii\bootstrap\Modal::begin([
         'id' => 'page-block-search-modal',
-        'header' => '高级搜索',
-        'toggleButton' => ['label'=>'<i class="fa fa-search"></i> 高级搜索','class'=>'btn btn-warning'],
+        'header' => $searchText,
+        'toggleButton' => ['label'=>'<i class="fa fa-search"></i> ' . $searchText,'class'=>'btn btn-warning'],
     ]); ?>
 <div class="page-block-search">
 

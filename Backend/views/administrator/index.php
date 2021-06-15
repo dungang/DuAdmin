@@ -10,13 +10,14 @@ use yii\widgets\Pjax;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('app_admin', 'Admins');
-$this->params['breadcrumbs'][] = $this->title;
+//$this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php Pjax::begin(['id'=>'admin-index']); ?>
 <?php
 
 PanelGridView::begin([
     'id' => 'admin-list',
+    'title' => $this->title,
     'intro' => Yii::t('da', '{0} Info Manage', Yii::t('app_admin', 'Admins')),
     'dataProvider' => $dataProvider,
     'columns' => [

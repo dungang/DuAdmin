@@ -5,11 +5,11 @@ $config = [
     'defaultRoute' => 'default',
     'components' => [
         'request' => [
-            'cookieValidationKey' => getenv('APP_KEY'),
+            'cookieValidationKey' => getenv ( 'APP_KEY' ),
             'enableCsrfCookie' => false
         ],
-        'session' =>[
-            'name'=>'DJPBSID'
+        'session' => [
+            'name' => 'DJPBSID'
         ],
         'authManager' => [
             'class' => 'DuAdmin\Rbac\DbManager',
@@ -17,7 +17,7 @@ $config = [
             'cache' => 'cache'
         ],
         'actionLog' => [
-            'class' => 'DuAdmin\Components\ActionLog' 
+            'class' => 'DuAdmin\Components\ActionLog'
         ],
         'user' => [
             'identityClass' => '\Backend\Models\Admin',
@@ -27,10 +27,9 @@ $config = [
             ]
         ],
         'urlManager' => [
-            'class' => 'DuAdmin\Components\DuaUrlManager',
+            'class' => 'DuAdmin\Components\DuaUrlManager'
         ],
         'assetManager' => [
-            'class' => 'DuAdmin\Core\CoreAssetManager',
             'basePath' => '@app/public/assets'
         ],
         'log' => [
@@ -38,29 +37,32 @@ $config = [
                 [
                     'class' => 'yii\log\FileTarget',
                     'logFile' => '@runtime/logs/backend/app.log',
-                    'levels' => explode(',', getenv('LOG_LEVELS'))
+                    'levels' => explode ( ',', getenv ( 'LOG_LEVELS' ) )
                 ]
             ]
-        ],
+        ]
     ]
 ];
 
 if (YII_ENV_DEV) {
-    // configuration adjustments for 'dev' environment
-    $config['bootstrap'][] = 'debug';
-    $config['modules']['debug'] = [
-        'class' => 'yii\debug\Module'
-        // 'panels'=>['log' => ['class' => 'yii\debug\panels\LogPanel']],
-        // uncomment the following to add your IP if you are not connecting from localhost.
-        // 'allowedIPs' => ['127.0.0.1', '::1'],
-    ];
+  // configuration adjustments for 'dev' environment
+  $config ['bootstrap'] [] = 'debug';
+  $config ['modules'] ['debug'] = [
+      'class' => 'yii\debug\Module'
+    // 'panels'=>['log' => ['class' => 'yii\debug\panels\LogPanel']],
+    // uncomment the following to add your IP if you are not connecting from localhost.
+    // 'allowedIPs' => ['127.0.0.1', '::1'],
+  ];
 
-    $config['bootstrap'][] = 'gii';
-    $config['modules']['gii'] = [
-        'class' => 'app\generators\Module',
-        // uncomment the following to add your IP if you are not connecting from localhost.
-        'allowedIPs' => ['127.0.0.1', '::1'],
-    ];
+  $config ['bootstrap'] [] = 'gii';
+  $config ['modules'] ['gii'] = [
+      'class' => 'app\generators\Module',
+      // uncomment the following to add your IP if you are not connecting from localhost.
+      'allowedIPs' => [
+          '127.0.0.1',
+          '::1'
+      ]
+  ];
 }
 
 return $config;

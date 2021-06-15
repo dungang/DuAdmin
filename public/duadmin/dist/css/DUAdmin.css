@@ -4155,6 +4155,10 @@ table.text-center th {
   border-bottom-right-radius: 2px;
   border-bottom-left-radius: 0;
 }
+.skin-green .sidebar-menu > li.active > a {
+  border-left-color: transparent;
+  color: #2cac72;
+}
 .pagination {
   display: inline-block;
   padding-left: 0;
@@ -4471,8 +4475,11 @@ table tbody tr td,
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+#modal-dailog .modal-body {
+  padding: 15px 30px;
+}
 #modal-dailog .modal-content {
-  border-radius: 3px;
+  border-radius: 10px;
 }
 #modal-dailog .modal-content .control-label,
 #modal-dailog .modal-content th {
@@ -4480,6 +4487,21 @@ table tbody tr td,
 }
 #modal-dailog .table {
   margin-bottom: 0;
+}
+div[id*="-search-modal"] {
+  border-radius: 6px;
+}
+div[id*="-search-modal"] .modal-content {
+  border-radius: 10px;
+}
+div[id*="-search-modal"] .modal-body {
+  padding: 15px 30px;
+}
+.panel-adminlte .box {
+  border-radius: 10px;
+}
+.panel-adminlte .box-body {
+  padding: 30px 30px 15px;
 }
 .dropdown-menu > li > a {
   color: inherit;

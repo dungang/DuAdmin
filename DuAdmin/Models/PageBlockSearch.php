@@ -4,6 +4,7 @@ namespace DuAdmin\Models;
 
 use Yii;
 use yii\data\ActiveDataProvider;
+use DuAdmin\Models\PageBlock;
 
 /**
  * PageBlockSearch represents the model behind the search form of `DuAdmin\Models\PageBlock`.
@@ -35,27 +36,25 @@ class PageBlockSearch extends PageBlock
      *
      * @param array $params
      *
+     * @param string|NULL $formName
+     *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $formName = NULL)
     {
         $query = PageBlock::find();
 
         // add conditions that should always apply here
 
-        // search before event
-        $this->beforeSearch($query,$params);    
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-		    'sort' => [ 
-               'defaultOrder' => [ 
-                   'createdAt' => SORT_DESC 
-               ] 
-            ] 
+		    'sort' => [
+               'defaultOrder' => [
+                   'createdAt' => SORT_DESC               ]
+            ]
         ]);
 
-        $this->load($params);
+        $this->load($params, $formName);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails

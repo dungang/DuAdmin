@@ -33,6 +33,7 @@ class m201121_070432_create_admin_table extends Migration
         
         $this->addCommentOnTable('{{%admin}}','管理员');
 
+
     }
 
     /**

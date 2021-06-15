@@ -3,33 +3,30 @@ namespace Frontend\Controllers;
 
 use DuAdmin\Helpers\AppHelper;
 use DuAdmin\Hooks\FindSlugHook;
-use DuAdmin\Core\GuestController;
-use Yii;
 use Frontend\Forms\ContactForm;
 use Frontend\Forms\PasswordResetRequestForm;
-use yii\web\BadRequestHttpException;
-use Frontend\Forms\ResetPasswordForm;
-use yii\base\InvalidArgumentException;
-use Frontend\Forms\VerifyEmailForm;
 use Frontend\Forms\ResendVerificationEmailForm;
+use Frontend\Forms\ResetPasswordForm;
+use Frontend\Forms\VerifyEmailForm;
+use Yii;
+use yii\base\InvalidArgumentException;
+use yii\web\BadRequestHttpException;
+use yii\web\Controller;
 
 /**
  * Site controller
  */
-class SiteController extends GuestController
+class SiteController extends Controller
 {
 
     public function init()
     {
         parent::init();
-
         $this->view->registerMetaTag([
-            'name' => 'keywords',
-            'content' => AppHelper::getSetting('site.keywords')
+            'name' => 'keywords','content' => AppHelper::getSetting('site.keywords')
         ], 'keywords');
         $this->view->registerMetaTag([
-            'name' => 'description',
-            'content' => AppHelper::getSetting('site.description')
+            'name' => 'description','content' => AppHelper::getSetting('site.description')
         ], 'description');
     }
 
@@ -42,21 +39,13 @@ class SiteController extends GuestController
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction'
-            ],
-            'captcha' => [
-                'class' => '\yii\captcha\CaptchaAction',
-                'offset' => '0',
-                'maxLength' => 4,
-                'minLength' => 4,
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null
-            ],
-            'upload' => [
+            ],'captcha' => [
+                'class' => '\yii\captcha\CaptchaAction','offset' => '0','maxLength' => 4,'minLength' => 4,'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null
+            ],'upload' => [
                 'class' => '\DuAdmin\Uploader\LocalUploadAction'
-            ],
-            'upload-token' => [
+            ],'upload-token' => [
                 'class' => '\DuAdmin\Uploader\TokenAction'
-            ],
-            'upload-delete' => [
+            ],'upload-delete' => [
                 'class' => '\DuAdmin\Uploader\DeleteAction'
             ]
         ];
@@ -94,12 +83,10 @@ class SiteController extends GuestController
         } catch (\yii\base\InvalidRouteException $ex) {
             \Yii::debug($ex->getMessage());
         }
-
         // try to display action from application
         try {
             return \Yii::$app->runAction($slug . '/');
         } catch (\yii\base\InvalidRouteException $ex) {}
-
         // try to display static page from hook handler
         $hook = FindSlugHook::emit($this, [
             'slug' => $slug
@@ -119,7 +106,6 @@ class SiteController extends GuestController
     public function actionLogout()
     {
         \Yii::$app->user->logout();
-
         return $this->goHome();
     }
 
@@ -137,7 +123,6 @@ class SiteController extends GuestController
             } else {
                 Yii::$app->session->setFlash('error', 'There was an error sending your message.');
             }
-
             return $this->refresh();
         } else {
             return $this->render('contact', [
@@ -157,13 +142,11 @@ class SiteController extends GuestController
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
                 Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
-
                 return $this->goHome();
             } else {
                 Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');
             }
         }
-
         return $this->render('requestPasswordResetToken', [
             'model' => $model
         ]);
@@ -183,13 +166,10 @@ class SiteController extends GuestController
         } catch (InvalidArgumentException $e) {
             throw new BadRequestHttpException($e->getMessage());
         }
-
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
             Yii::$app->session->setFlash('success', 'New password saved.');
-
             return $this->goHome();
         }
-
         return $this->render('resetPassword', [
             'model' => $model
         ]);
@@ -215,7 +195,6 @@ class SiteController extends GuestController
                 return $this->goHome();
             }
         }
-
         Yii::$app->session->setFlash('error', 'Sorry, we are unable to verify your account with provided token.');
         return $this->goHome();
     }
@@ -235,7 +214,6 @@ class SiteController extends GuestController
             }
             Yii::$app->session->setFlash('error', 'Sorry, we are unable to resend verification email for the provided email address.');
         }
-
         return $this->render('resendVerificationEmail', [
             'model' => $model
         ]);

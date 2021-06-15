@@ -29,7 +29,7 @@ use DuAdmin\Widgets\AjaxFileInput;
 
             <?= $form->field($model, 'mobile')->textInput(['maxlength' => true]) ?>
 
-            <?= $form->field($model, 'status')->dropDownList([0 => Yii::t('backend', 'Unactive'), 10 => Yii::t('backend', 'Active')]) ?>
+            <?= $form->field($model, 'status')->dropDownList([0 => Yii::t('app_admin', 'Unactive'), 10 => Yii::t('app_admin', 'Active')]) ?>
 
             <div class="form-group">
                 <?= Html::submitButton('<i class="fa fa-save"></i> ' .  Yii::t('da', 'Save'), ['class' => 'btn btn-success']) ?>

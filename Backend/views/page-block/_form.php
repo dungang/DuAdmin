@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model DuAdmin\Models\PageBlock */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $action array  */
 ?>
 <div class="page-block-form">
 

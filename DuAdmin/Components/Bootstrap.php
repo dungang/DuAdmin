@@ -1,13 +1,11 @@
 <?php
-
 namespace DuAdmin\Components;
 
 use DuAdmin\Core\Application;
-use Yii;
+use DuAdmin\Core\Hook;
+use DuAdmin\Helpers\LoaderHelper;
 use yii\base\BootstrapInterface;
 use yii\i18n\PhpMessageSource;
-use DuAdmin\Helpers\LoaderHelper;
-use DuAdmin\Core\Hook;
 use yii\validators\Validator;
 
 /**
@@ -28,18 +26,14 @@ class Bootstrap implements BootstrapInterface
      */
     public function bootstrap($app)
     {
-        
         // 注册DUAdmin的多语言
         $app->i18n->translations['da'] = [
-            'class' => PhpMessageSource::class,
-            'sourceLanguage' => $app->sourceLanguage,
-            'basePath' => $app->basePath . '/DuAdmin/messages'
+            'class' => PhpMessageSource::class,'sourceLanguage' => $app->sourceLanguage,'basePath' => $app->basePath . '/DuAdmin/messages'
         ];
         // 注册表单验证器
-        Validator::$builtInValidators['mobile'] = '\DuAdmin\Validators\MobileValidator'; //验证手机
-        Validator::$builtInValidators['alternative'] = '\DuAdmin\Validators\AlternativeValidator'; //二选一验证
+        Validator::$builtInValidators['mobile'] = '\DuAdmin\Validators\MobileValidator'; // 验证手机
+        Validator::$builtInValidators['alternative'] = '\DuAdmin\Validators\AlternativeValidator'; // 二选一验证
         Validator::$builtInValidators['slug'] = '\DuAdmin\Validators\SlugValidator';
-        Hook::registerHookHandler('DuAdmin\Hooks\ViewInitedHook','DuAdmin\Hooks\SiteStatisticCodeHandler');
         $this->dynamicParseAddons($app);
     }
 
@@ -64,7 +58,6 @@ class Bootstrap implements BootstrapInterface
     protected function dynamicParseAddons($app)
     {
         $Addons = LoaderHelper::dynamicParseAddons();
-
         if (is_array($Addons)) {
             foreach ($Addons as $addon) {
                 // 注册加载的类库
@@ -74,20 +67,17 @@ class Bootstrap implements BootstrapInterface
                     $app->setModule($addon['id'], [
                         'class' => $addon['mainClass']
                     ]);
-                    //调试查看加载的插件
-                    //\Yii::debug($addon);
+                    // 调试查看加载的插件
+                    // \Yii::debug($addon);
                 }
-
                 // 设置模块的国际化消息文件
                 if (isset($addon['i18n']) && is_array($addon['i18n'])) {
                     foreach ($addon['i18n'] as $category) {
                         $app->i18n->translations[$category] = [
-                            'class' => PhpMessageSource::class,
-                            'basePath' => $app->basePath . '/Addons/' . $addon['addon'] . '/resource/messages'
+                            'class' => PhpMessageSource::class,'basePath' => $app->basePath . '/Addons/' . $addon['addon'] . '/resource/messages'
                         ];
                     }
                 }
-
                 // 绑定hook处理器
                 if (isset($addon['hooksMap']) && is_array($addon['hooksMap'])) {
                     foreach ($addon['hooksMap'] as $hookName => $handlerNames) {

@@ -1,9 +1,8 @@
 <?php
 namespace DuAdmin\Behaviors;
 
-use yii\base\Behavior;
 use DuAdmin\Core\BaseModel;
-use DuAdmin\Core\Operator;
+use yii\base\Behavior;
 
 /**
  * 约定一下特殊的属性
@@ -19,18 +18,13 @@ use DuAdmin\Core\Operator;
 class PropertyBehavior extends Behavior
 {
 
-    /**
-     * 当前用户
-     *
-     * @var Operator
-     */
-    private $_user;
+    protected $currentUser;
 
     public function init()
     {
         parent::init();
         if ($user = \Yii::$app->get('user', false)) {
-            $this->_user = $user->getIdentity();
+            $this->currentUser = $user->getIdentity();
         }
     }
 
@@ -56,13 +50,12 @@ class PropertyBehavior extends Behavior
         $model = $event->sender;
         $this->setOnce('createdAt', $time, $model);
         $this->setEverytime('updatedAt', $time, $model);
-        // $this->setOnce('pid', 0, $model);
-
-        if ($this->_user) {
-            $this->setOnce('createdBy', $this->_user->getOperatorId(), $model);
-            $this->setEverytime('updatedBy', $this->_user->getOperatorId(), $model);
-            // $this->setOnce('creator', $this->_user->getOperatorName(), $model);
-            // $this->setEverytime('updator', $this->_user->getOperatorName(), $model);
+        if ($this->currentUser) {
+            $this->setOnce('createdBy', $this->currentUser->username,
+                $model);
+            $this->setEverytime('updatedBy',
+                $this->currentUser->username, $model);
+            ;
         }
     }
 

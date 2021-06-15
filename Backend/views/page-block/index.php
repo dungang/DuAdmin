@@ -1,53 +1,71 @@
 <?php
-
-use yii\helpers\Html;
-use DuAdmin\Helpers\AppHelper;
 use DuAdmin\Grids\PanelGridView;
+use DuAdmin\Helpers\AppHelper;
 use DuAdmin\Widgets\FullSearchBox;
-
+use yii\helpers\Html;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel DuAdmin\Models\PageBlockSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app_page_block', 'Page Blocks');
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = Yii::t( 'da_page_block', 'Page Blocks' );
+$this->params ['breadcrumbs'] [] = $this->title;
 ?>
-<?php Pjax::begin(['id'=>'page-block-index']); ?>
-<?php  PanelGridView::begin([
-        'id' => 'page-block-list',
-    	'intro' => Yii::t('da','{0} Info Manage', $this->title),
-        'dataProvider' => $dataProvider,
-        'columns' => [
-            ['class'=>'\DuAdmin\Grids\CheckboxColumn','name'=>'id'],
-            [
-                'attribute' => 'id',
-                'format'=>'raw',
-                'value'=>function($model,$key,$index,$column){
-                    return AppHelper::linkButtonWithSimpleModal($model['id'],['view','id'=>$model['id']]);
-                }
-        	],
-            'name',
-            'widget',
-            'sourceApp',
-            'createdAt:date',
-            //'updatedAt:date',
-            [
-                'class' => '\DuAdmin\Grids\ActionColumn',
-        	]
-       ]
-    ]); ?>
+<?php
 
-<?= FullSearchBox::widget(['action'=>['index']]) ?> 
+Pjax::begin( [
+    'id' => 'page-block-index'
+] );
+?>
+<?php
 
-<?= $this->render('_search', ['model' => $searchModel]); ?>
+PanelGridView::begin( [
+    'id' => 'page-block-list',
+    'intro' => Yii::t( 'da', '{0} Info Manage', Yii::t( 'da_page_block', 'Page Blocks' ) ),
+    'dataProvider' => $dataProvider,
+    'columns' => [
+        [
+            'class' => '\DuAdmin\Grids\CheckboxColumn',
+            'name' => 'id'
+        ],
+        [
+            'attribute' => 'id',
+            'format' => 'raw',
+            'value' => function ($model, $key, $index, $column) {
+              return AppHelper::linkButtonWithSimpleModal( $model ['id'], [
+                  'view',
+                  'id' => $model ['id']
+              ] );
+            }
+        ],
+        'name',
+        'widget',
+        'sourceApp',
+        'createdAt:date',
+        // 'updatedAt:date',
+        [
+            'class' => '\DuAdmin\Grids\ActionColumn',
+            'modalSize' => '',
+            'template' => '{view} {update} {delete}'
+        ]
+    ]
+] );
+?>
 
-<?= AppHelper::linkButtonWithSimpleModal('<i class="fa fa-plus"></i> ' . Yii::t('da','Create'), ['create'], ['class'=>'btn btn-primary']) ?>
+<?=FullSearchBox::widget( [ 'action' => [ 'index']] )?>
 
-<?= Html::a('<i class="fa fa-refresh"></i> '. Yii::t('da','Refresh'), ['index'], ['class'=>'btn btn-info']) ?>
+<?=$this->render( '_search', [ 'model' => $searchModel] );?>
 
-<?= Html::a('<i class="fa fa-trash"></i> '. Yii::t('da','Delete'), ['delete'], ['class'=>'btn btn-danger del-all','data-target'=>'#page-block-list']) ?>
-<?php PanelGridView::end() ?>
+<?=AppHelper::linkButtonWithSimpleModal( '<i class="fa fa-plus"></i> ' . Yii::t( 'da', 'Create' ), [ 'create'], [ 'class' => 'btn btn-primary'] )?>
+<?=Html::a( '<i class="fa fa-refresh"></i> ' . Yii::t( 'da', 'Refresh' ), [ 'index'], [ 'class' => 'btn btn-info'] )?>
 
-<?php Pjax::end(); ?>
+<?=Html::a( '<i class="fa fa-trash"></i> ' . Yii::t( 'da', 'Delete' ), [ 'delete'], [ 'class' => 'btn btn-danger del-all','data-target' => '#page-block-list'] )?>
+<?php
+
+PanelGridView::end()?>
+
+<?php
+
+Pjax::end();
+?>
 
