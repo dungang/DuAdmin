@@ -5,9 +5,9 @@ use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 /* @var $model Backend\Models\Portal */
 
 $this->title = Yii::t('da','Create');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('da_portal', 'Portals'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app_portal', 'Portals'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 echo AjaxModalOrNormalPanelContent::widget([
-    'intro'=> Yii::t('da','Create {0} Info',Yii::t('da_portal', 'Portals')),
+    'intro'=> Yii::t('da','Create {0} Info',Yii::t('app_portal', 'Portals')),
     'content'=>$this->render('_form', ['model' => $model,'action'=>['create']])
 ])?>

@@ -7,7 +7,7 @@ use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 /* @var $model Backend\Models\Portal */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('da_portal', 'Portals'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app_portal', 'Portals'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['breadcrumbs'][] = $model->name;
 

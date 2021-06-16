@@ -408,12 +408,12 @@ class Generator extends \app\generators\Generator {
         $this->modelClass,
         'tableName'
     ] ) );
-    if ( substr( trim( $this->modelClass, '\\' ), 0, 7 ) == 'DuAdmin' ) {
+    if ( substr( trim( $this->modelClass, '\\' ), 0, 6 ) == 'Addons' ) {
       // 框架本身的翻译文件
-      $this->messageCategory = 'app_' . $noPrefixTableName;
+      $this->messageCategory = 'da_' . $noPrefixTableName;
     } else {
       // 应用的翻译文件
-      $this->messageCategory = 'da_' . $noPrefixTableName;
+      $this->messageCategory = 'app_' . $noPrefixTableName;
     }
     foreach ( scandir( $templatePath ) as $file ) {
       // 忽略创建添加和编辑的页面

@@ -56,8 +56,6 @@ AdminltePanel::begin( [
 ?>
 <?=AppHelper::linkButtonWithSimpleModal( '<i class="fa fa-plus"></i> ' . Yii::t( 'da', 'Create' ), [ 'create'], [ 'class' => 'btn btn-primary'] )?>
 
-<?=AppHelper::linkButtonWithBigSimpleModal( '<i class="fa fa-plus"></i> ' . Yii::t( 'da', 'Batch Create' ), [ 'batch-create'], [ 'class' => 'btn btn-primary'] )?>
-
 <?=Html::a( '<i class="fa fa-refresh"></i> ' . Yii::t( 'da', 'Refresh' ), [ 'index'], [ 'class' => 'btn btn-info'] )?>
 
 <?php

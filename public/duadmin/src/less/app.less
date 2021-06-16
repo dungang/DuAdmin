@@ -144,7 +144,7 @@ table,
 	}
 
 	.modal-content {
-		border-radius: 10px;
+		border-radius: @backend-border-radius;
 
 		.control-label,
 		th {
@@ -160,7 +160,7 @@ table,
 div[id*="-search-modal"] {
 	border-radius: 6px;
 	.modal-content {
-		border-radius: 10px;
+		border-radius: @backend-border-radius;
 	}
 	.modal-body {
 		padding: 15px 30px;
@@ -169,7 +169,7 @@ div[id*="-search-modal"] {
 
 .panel-adminlte {
 	.box {
-		border-radius: 10px;
+		border-radius: @backend-border-radius;
 	}
 	.box-body {
 		padding: 30px 30px 15px;
@@ -222,5 +222,11 @@ div[id*="-search-modal"] {
 
 	.fa {
 		margin-right: 2px;
+	}
+}
+
+#cron-index {
+	.well {
+		border-radius: @backend-border-radius;
 	}
 }

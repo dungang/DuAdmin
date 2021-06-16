@@ -167,9 +167,9 @@ class CronController extends BackendController {
     } else {
       CrontabHelper::activeCronStatus();
     }
-    return $this->redirectOnSuccess( [
+    return $this->redirectSuccess( [
         'index'
-    ] );
+    ], '切换成功' );
 
   }
 

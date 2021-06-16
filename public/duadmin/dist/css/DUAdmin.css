@@ -4272,7 +4272,7 @@ table.text-center th {
   margin-bottom: 10px;
 }
 .panel-adminlte {
-  border-radius: 10px;
+  border-radius: 12px;
   /* NAV TABS */
 }
 .panel-adminlte > .panel-heading {
@@ -4280,8 +4280,8 @@ table.text-center th {
   background-color: #d8dfd8;
   color: #4c6b4c;
   border: 0;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
 }
 .panel-adminlte > .panel-heading p {
   font-size: 12px;
@@ -4322,6 +4322,8 @@ table.text-center th {
   padding: 15px;
   background-color: white;
   text-align: center;
+  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 12px;
 }
 .panel-adminlte .grid-summary {
   display: inline-block;
@@ -4480,7 +4482,7 @@ table tbody tr td,
   padding: 15px 30px;
 }
 #modal-dailog .modal-content {
-  border-radius: 10px;
+  border-radius: 12px;
 }
 #modal-dailog .modal-content .control-label,
 #modal-dailog .modal-content th {
@@ -4493,13 +4495,13 @@ div[id*="-search-modal"] {
   border-radius: 6px;
 }
 div[id*="-search-modal"] .modal-content {
-  border-radius: 10px;
+  border-radius: 12px;
 }
 div[id*="-search-modal"] .modal-body {
   padding: 15px 30px;
 }
 .panel-adminlte .box {
-  border-radius: 10px;
+  border-radius: 12px;
 }
 .panel-adminlte .box-body {
   padding: 30px 30px 15px;
@@ -4537,6 +4539,9 @@ div[id*="-search-modal"] .modal-body {
 }
 .action-column .fa {
   margin-right: 2px;
+}
+#cron-index .well {
+  border-radius: 12px;
 }
 .dd {
   position: relative;

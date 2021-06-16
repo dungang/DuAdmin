@@ -10,13 +10,13 @@ use yii\widgets\Pjax;
 /* @var $searchModel Backend\Models\PortalSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('da_portal', 'Portals');
+$this->title = Yii::t('app_portal', 'Portals');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php Pjax::begin(['id'=>'portal-index']); ?>
 <?php  PanelGridView::begin([
         'id' => 'portal-list',
-    	'intro' => Yii::t('da','{0} Info Manage',Yii::t('da_portal', 'Portals')),
+    	'intro' => Yii::t('da','{0} Info Manage',Yii::t('app_portal', 'Portals')),
         'dataProvider' => $dataProvider,
         'columns' => [
                             ['class'=>'\DuAdmin\Grids\CheckboxColumn','name'=>'id'],
