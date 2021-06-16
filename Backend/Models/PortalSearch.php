@@ -3,7 +3,6 @@
 namespace Backend\Models;
 
 use Yii;
-use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use Backend\Models\Portal;
 
@@ -18,9 +17,8 @@ class PortalSearch extends Portal
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id', 'isStatic', 'unlimited'], 'integer'],
             [['name', 'code', 'source'], 'safe'],
-            [['is_static', 'unlimited'], 'boolean'],
         ];
     }
 
@@ -30,7 +28,7 @@ class PortalSearch extends Portal
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
+        return parent::scenarios();
     }
 
     /**
@@ -38,22 +36,25 @@ class PortalSearch extends Portal
      *
      * @param array $params
      *
+     * @param string|NULL $formName
+     *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $formName = NULL)
     {
         $query = Portal::find();
 
         // add conditions that should always apply here
 
-        // search before event
-        $this->beforeSearch($query,$params);    
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+		    'sort' => [
+               'defaultOrder' => [
+                   'id' => SORT_DESC               ]
+            ]
         ]);
 
-        $this->load($params);
+        $this->load($params, $formName);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
@@ -64,13 +65,17 @@ class PortalSearch extends Portal
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'is_static' => $this->is_static,
+            'isStatic' => $this->isStatic,
             'unlimited' => $this->unlimited,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'code', $this->code])
             ->andFilterWhere(['like', 'source', $this->source]);
+
+        if ($full_search = Yii::$app->request->get('full_search')) {
+            $query->andFilterWhere(['FULL_SEARCH',['name','code','source'],$full_search]);
+        }
 
         return $dataProvider;
     }

@@ -8,6 +8,7 @@ namespace Backend\Controllers;
 use Backend\Models\Admin;
 use Backend\Models\AdminSearch;
 use Backend\Models\AuthAssignment;
+use Backend\Models\AuthRole;
 use DuAdmin\Core\BackendController;
 use DuAdmin\Core\BizException;
 use DuAdmin\Helpers\AppHelper;
@@ -47,7 +48,7 @@ class AdministratorController extends BackendController {
    * @return mixed
    * @throws NotFoundHttpException if the model cannot be found
    */
-  public function actionView($id) {
+  public function actionView( $id ) {
 
     return $this->render( 'view', [
         'model' => $this->findModel( $id )
@@ -65,11 +66,11 @@ class AdministratorController extends BackendController {
 
     $model = new Admin();
     // ajax表单验证
-    if (AppHelper::isAjaxValidationRequest() && $model->load( Yii::$app->request->post() )) {
+    if ( AppHelper::isAjaxValidationRequest() && $model->load( Yii::$app->request->post() ) ) {
       Yii::$app->response->format = Response::FORMAT_JSON;
       return ActiveForm::validate( $model );
     }
-    if ($model->load( Yii::$app->request->post() ) && $model->save()) {
+    if ( $model->load( Yii::$app->request->post() ) && $model->save() ) {
       return $this->redirectSuccess( [
           'view',
           'id' => $model->id
@@ -89,16 +90,16 @@ class AdministratorController extends BackendController {
    * @return mixed
    * @throws NotFoundHttpException 如果模型没查询到
    */
-  public function actionUpdate($id) {
+  public function actionUpdate( $id ) {
 
     $model = $this->findModel( $id );
     $this->checkUpdateSuper( $model );
     // ajax表单验证
-    if (AppHelper::isAjaxValidationRequest() && $model->load( Yii::$app->request->post() )) {
+    if ( AppHelper::isAjaxValidationRequest() && $model->load( Yii::$app->request->post() ) ) {
       Yii::$app->response->format = Response::FORMAT_JSON;
       return ActiveForm::validate( $model );
     }
-    if ($model->load( Yii::$app->request->post() ) && $model->save()) {
+    if ( $model->load( Yii::$app->request->post() ) && $model->save() ) {
       return $this->redirectSuccess( [
           'view',
           'id' => $model->id
@@ -118,16 +119,16 @@ class AdministratorController extends BackendController {
    * @return mixed
    * @throws NotFoundHttpException 如果模型没查询到
    */
-  public function actionDelete($id) {
+  public function actionDelete( $id ) {
 
-    if (is_array( $id )) {
+    if ( is_array( $id ) ) {
       $adminList = Admin::findAll( [
           'id' => $id
       ] );
-      if ($adminList) {
-        \Yii::$app->db->transaction( function ($db) use ($adminList) {
+      if ( $adminList ) {
+        \Yii::$app->db->transaction( function ( $db ) use ($adminList ) {
           foreach ( $adminList as $admin ) {
-            if (! $admin->isSuper) {
+            if ( ! $admin->isSuper ) {
               $admin->delete();
             }
           }
@@ -144,22 +145,6 @@ class AdministratorController extends BackendController {
 
   }
 
-  public function actions() {
-
-    return [
-        'roles' => [
-            'class' => '\DuAdmin\Core\SortableListAction',
-            'actionBehaviors' => [
-                'checked-roles' => '\Backend\Behaviors\AdminCheckedRoleBehavior'
-            ],
-            'modelClass' => [
-                'class' => '\Backend\Models\AuthRole'
-            ]
-        ]
-    ];
-
-  }
-
   /**
    * 管理员授权角色
    *
@@ -167,46 +152,74 @@ class AdministratorController extends BackendController {
    * @param string[] $roles
    * @return mixed|number[]|string[]
    */
-  public function actionAssignment($userId) {
+  public function actionAssignmentRoles( $userId ) {
 
-    \Yii::$app->db->transaction( function ($db) use ($userId) {
-      AuthAssignment::deleteAll( [
+    // 如果是post请求，则更新用户的角色
+    if ( yii::$app->request->isPost ) {
+      // 更新用户角色
+      Yii::$app->db->transaction( function ( $db ) use ($userId ) {
+        AuthAssignment::deleteAll( [
+            'userId' => $userId
+        ] );
+        // 如果角色列表不为空，则更新角色
+        if ( $roles = yii::$app->request->post( 'role' ) ) {
+          $assignments = [ ];
+          foreach ( $roles as $itemId ) {
+            $assignments [] = [
+                $itemId,
+                $userId
+            ];
+          }
+          \Yii::$app->db->createCommand()->batchInsert( AuthAssignment::tableName(), [
+              'itemId',
+              'userId'
+          ], $assignments )->execute();
+        }
+        Yii::$app->cache->delete( 'rbac' );
+      } );
+      return $this->redirectSuccess( [
+          'index'
+      ], '授权成功' );
+    } else {
+      // 显示可授予的角色清单
+      $models = AuthRole::find()->asArray()->orderBy( 'sort' )->all();
+      if ( $models ) {
+        // 标注已经授予的角色
+        $admin = Admin::findOne( [
+            'id' => \Yii::$app->request->get( 'userId' )
+        ] );
+        $roleIds = array_map( function ( $role ) {
+          return $role->id;
+        }, $admin->roles );
+        foreach ( $models as &$model ) {
+          if ( in_array( $model ['id'], $roleIds ) ) {
+            $model ['checked'] = true;
+          } else {
+            $model ['checked'] = false;
+          }
+        }
+      }
+      return $this->render( 'roles', [
+          'models' => $models,
           'userId' => $userId
       ] );
-      if ($roles = \yii::$app->request->post( 'role' )) {
-        $assignments = [ ];
-        foreach ( $roles as $itemId ) {
-          $assignments [] = [
-              $itemId,
-              $userId
-          ];
-        }
-        \Yii::$app->db->createCommand()->batchInsert( AuthAssignment::tableName(), [
-            'itemId',
-            'userId'
-        ], $assignments )->execute();
-      }
-      \Yii::$app->cache->delete( 'rbac' );
-    } );
-    return $this->redirectOnSuccess( [
-        'index'
-    ], '授权成功' );
+    }
 
   }
 
-  protected function checkUpdateSuper($model) {
+  protected function checkUpdateSuper( $model ) {
 
     // 如果管理员是超级管理员
     // 只能自己更新
-    if ($model->isSuper && $model->id != \Yii::$app->user->id) {
+    if ( $model->isSuper && $model->id != \Yii::$app->user->id ) {
       throw new BizException( "超级管理员只能被自己修改" );
     }
 
   }
 
-  protected function checkDeleteSuper($model) {
+  protected function checkDeleteSuper( $model ) {
 
-    if ($model->isSuper) {
+    if ( $model->isSuper ) {
       throw new BizException( "超级管理员不能被删除" );
     }
 
@@ -220,11 +233,11 @@ class AdministratorController extends BackendController {
    * @return Admin the loaded model
    * @throws NotFoundHttpException 如果模型没查询到
    */
-  protected function findModel($id) {
+  protected function findModel( $id ) {
 
-    if (($model = Admin::findOne( [
+    if ( ($model = Admin::findOne( [
         'id' => $id
-    ] )) !== null) {
+    ] )) !== null ) {
       return $model;
     }
     throw new NotFoundHttpException( Yii::t( 'app', 'The requested page does not exist.' ) );

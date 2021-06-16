@@ -4272,6 +4272,7 @@ table.text-center th {
   margin-bottom: 10px;
 }
 .panel-adminlte {
+  border-radius: 10px;
   /* NAV TABS */
 }
 .panel-adminlte > .panel-heading {
@@ -4279,8 +4280,8 @@ table.text-center th {
   background-color: #d8dfd8;
   color: #4c6b4c;
   border: 0;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 .panel-adminlte > .panel-heading p {
   font-size: 12px;

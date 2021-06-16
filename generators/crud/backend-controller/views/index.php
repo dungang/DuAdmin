@@ -31,10 +31,10 @@ $id_prefix = Inflector::camel2id( StringHelper::basename( $generator->modelClass
         'columns' => [
 <?php
 $count = 0;
-if (($tableSchema = $generator->getTableSchema()) === false) {
+if ( ($tableSchema = $generator->getTableSchema()) === false ) {
   foreach ( $generator->getColumnNames() as $name ) {
-    if (++$count < 6) {
-      if ($count == 1) {
+    if ( ++$count < 6 ) {
+      if ( $count == 1 ) {
         echo <<<AAA
                             ['class'=>'\yii\grid\CheckboxColumn'],
                             [
@@ -54,8 +54,8 @@ AAA;
 } else {
   foreach ( $tableSchema->columns as $column ) {
     $format = $generator->generateColumnFormat( $column );
-    if (++$count < 6) {
-      if ($count == 1) {
+    if ( ++$count < 6 ) {
+      if ( $count == 1 ) {
         echo <<<AAA
                             ['class'=>'\DuAdmin\Grids\CheckboxColumn','name'=>'id'],
                             [
@@ -77,18 +77,18 @@ AAA;
 ?>
             [
                 'class' => '\DuAdmin\Grids\ActionColumn',
-                'modalSize' => '<?=$generator->getModalSizeClass()?>'
+                'modalSize' => '<?=$generator->getModalSizeClass()?>',
 <?php
-if (! $generator->enableCrudAction) :
+if ( ! $generator->enableCrudAction ) :
   ?>
 				'template' => '{view}',
 <?php
 else :
   ?>
 <?php
-  $actionTemplate = implode( ' ', array_map( function ($ac) {
+  $actionTemplate = implode( ' ', array_map( function ( $ac ) {
     return "{" . $ac . "}";
-  }, array_filter( $generator->actions, function ($ac) {
+  }, array_filter( $generator->actions, function ( $ac ) {
     return in_array( $ac, [
         'view',
         'update',
@@ -104,7 +104,7 @@ endif;
     ]); ?>
 
 <?php
-if ($generator->hasStringField()) :
+if ( $generator->hasStringField() ) :
   ?>
 <?="<?= "?>FullSearchBox::widget(['action'=>['index']]) ?>
 <?php endif;
@@ -114,10 +114,10 @@ if ($generator->hasStringField()) :
 <?="<?= "?>$this->render('_search', ['model' => $searchModel]); ?>
 
 <?php
-if ($generator->enableCrudAction) :
+if ( $generator->enableCrudAction ) :
   ?>
 <?php
-  if (in_array( 'create', $generator->actions )) :
+  if ( in_array( 'create', $generator->actions ) ) :
     ?>
 <?="<?= "?>AppHelper::<?=$generator->getLinkFuncName()?>('<i class="fa fa-plus"></i> ' . Yii::t('da','Create'), ['create'], ['class'=>'btn btn-primary']) ?>
 <?php endif;
@@ -126,7 +126,7 @@ if ($generator->enableCrudAction) :
 <?="<?= "?>Html::a('<i class="fa fa-refresh"></i> '. Yii::t('da','Refresh'), ['index'], ['class'=>'btn btn-info']) ?>
 
 <?php
-  if (in_array( 'delete', $generator->actions )) :
+  if ( in_array( 'delete', $generator->actions ) ) :
     ?>
 <?="<?= "?>Html::a('<i class="fa fa-trash"></i> '. Yii::t('da','Delete'), ['delete'], ['class'=>'btn btn-danger del-all','data-target'=>'#<?=$id_prefix . '-list'?>']) ?>
 <?php endif;

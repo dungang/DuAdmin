@@ -4,6 +4,7 @@ namespace Backend\Models;
 
 use Yii;
 use yii\data\ActiveDataProvider;
+use Backend\Models\AuthRule;
 
 /**
  * AuthRuleSearch represents the model behind the search form of `Backend\Models\AuthRule`.
@@ -34,27 +35,25 @@ class AuthRuleSearch extends AuthRule
      *
      * @param array $params
      *
+     * @param string|NULL $formName
+     *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $formName = NULL)
     {
         $query = AuthRule::find();
 
         // add conditions that should always apply here
 
-        // search before event
-        $this->beforeSearch($query,$params);    
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-		    'sort' => [ 
-               'defaultOrder' => [ 
-                   'createdAt' => SORT_DESC 
-               ] 
-            ] 
+		    'sort' => [
+               'defaultOrder' => [
+                   'createdAt' => SORT_DESC               ]
+            ]
         ]);
 
-        $this->load($params);
+        $this->load($params, $formName);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails

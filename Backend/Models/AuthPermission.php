@@ -1,4 +1,5 @@
 <?php
+
 namespace Backend\Models;
 
 use DuAdmin\Rbac\Item;
@@ -16,56 +17,27 @@ use DuAdmin\Rbac\Item;
  * 本项目利用灵活性，减少灵活性。
  *
  * @author dungang
- *        
- * @property string|integer $pid
+ *
  */
-class AuthPermission extends AuthItem
-{
+class AuthPermission extends AuthItem {
 
-    public $pid;
+  public function init() {
 
-    public function rules()
-    {
-        $rules = parent::rules();
-        $rules[] = [
-            'pid',
-            'string'
-        ];
-        return $rules;
-    }
+    $this->type = Item::TYPE_PERMISSION;
 
-    public function init()
-    {
-        $this->type = Item::TYPE_PERMISSION;
+  }
 
-        // 这个事件比较特殊，如果要绑定只在模型内绑定
-        // 模型实例化绑定就迟到
-        // 绑定的方式可以是直接监听或者通过行为绑定了
-        $this->on(AuthItem::EVENT_AFTER_FIND, [
-            $this,
-            'findPermissionPid'
-        ]);
-    }
+  /**
+   *
+   * {@inheritdoc}
+   * @return AuthItemQuery the active query used by this AR class.
+   */
+  public static function find() {
 
-    public function findPermissionPid()
-    {
-        $this->pid = $this->findTypePermissionPid();
-    }
+    return (new AuthItemQuery( get_called_class() ))->where( [
+        'type' => Item::TYPE_PERMISSION
+    ] );
 
-    /**
-     * 获取本节点最多一个同类型节点的parent
-     */
-    public function findTypePermissionPid()
-    {
-        $t1 = AuthItemChild::tableName();
-        $t2 = AuthItem::tableName();
-        return AuthItemChild::find()->innerJoin($t2, $t1 . ".parent=" . $t2 . ".id")
-            ->where([
-            $t2 . ".type" => $this->type,
-            $t1 . ".child" => $this->id
-        ])
-            ->select('parent')
-            ->scalar();
-    }
+  }
 }
 
