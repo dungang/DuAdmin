@@ -7,7 +7,6 @@ use Yii;
 use yii\web\IdentityInterface;
 use DuAdmin\Core\BaseModel;
 use yii\base\NotSupportedException;
-use DuAdmin\Core\Operator;
 use DuAdmin\Hooks\UserCreatedHook;
 
 /**
@@ -31,7 +30,7 @@ use DuAdmin\Hooks\UserCreatedHook;
  * @property string $updatedAt 更新时间
  * @property int $isDel
  */
-class User extends BaseModel implements IdentityInterface,Authable,Operator
+class User extends BaseModel implements IdentityInterface,Authable
 {
 
     const STATUS_INACTIVE = 0;
@@ -318,21 +317,4 @@ class User extends BaseModel implements IdentityInterface,Authable,Operator
         return $this->status == static::STATUS_ACTIVE;
     }
     
-    /**
-     * {@inheritDoc}
-     * @see \DuAdmin\Core\Operator::getOperatorId()
-     */
-    public function getOperatorId()
-    {
-        return $this->id;
-    }
-    
-    /**
-     * {@inheritDoc}
-     * @see \DuAdmin\Core\Operator::getOperatorName()
-     */
-    public function getOperatorName()
-    {
-       return $this->nickname;
-    }
 }

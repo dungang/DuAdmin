@@ -1,7 +1,7 @@
 exports.assets = {
 	dev: true,
-	src : 'resource/assets/src',
-	dist : 'resource/assets/dist',
+	src : 'Resource/src',
+	dist : 'Resource/dist',
 	less : [ {
 		src : 'less/cms.less',
 		dist : 'css'
