@@ -2,35 +2,30 @@
 /**
  * This is the template for generating CRUD search class of the specified model.
  */
-
 use yii\helpers\StringHelper;
-
-
 /* @var $this yii\web\View */
 /* @var $generator app\generators\crud\Generator */
-
-$modelClass = StringHelper::basename($generator->modelClass);
-$searchModelClass = StringHelper::basename($generator->searchModelClass);
-if ($modelClass === $searchModelClass) {
-    $modelAlias = $modelClass . 'Model';
+$modelClass = StringHelper::basename( $generator->modelClass );
+$searchModelClass = StringHelper::basename( $generator->searchModelClass );
+if ( $modelClass === $searchModelClass ) {
+  $modelAlias = $modelClass . 'Model';
 }
 $rules = $generator->generateSearchRules();
 $labels = $generator->generateSearchLabels();
 $searchAttributes = $generator->getSearchAttributes();
 $searchConditions = $generator->generateSearchConditions();
-
 echo "<?php\n";
 ?>
 
-namespace <?= StringHelper::dirname(ltrim($generator->searchModelClass, '\\')) ?>;
+namespace <?=StringHelper::dirname( ltrim( $generator->searchModelClass, '\\' ) )?>;
 
 use yii\data\ActiveDataProvider;
-use <?= ltrim($generator->modelClass, '\\') . (isset($modelAlias) ? " as $modelAlias" : "") ?>;
+use <?=ltrim( $generator->modelClass, '\\' ) . (isset( $modelAlias ) ? " as $modelAlias" : "")?>;
 
 /**
- * <?= $searchModelClass ?> represents the model behind the search form of `<?= $generator->modelClass ?>`.
+ * <?=$searchModelClass?> represents the model behind the search form of `<?=$generator->modelClass?>`.
  */
-class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $modelClass ?>
+class <?=$searchModelClass?> extends <?=isset( $modelAlias ) ? $modelAlias : $modelClass?>
 
 {
     /**
@@ -39,7 +34,7 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
     public function rules()
     {
         return [
-            <?= implode(",\n            ", $rules) ?>,
+            <?=implode( ",\n            ", $rules )?>,
         ];
     }
 
@@ -63,22 +58,24 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
      */
     public function search($params, $formName = NULL)
     {
-        $query = <?= isset($modelAlias) ? $modelAlias : $modelClass ?>::find();
+        $query = <?=isset( $modelAlias ) ? $modelAlias : $modelClass?>::find();
 
         // add conditions that should always apply here
 
-        // search before event
-        $this->beforeSearch($query,$params);    
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-<?php if($generator->enableDefaultOrder):?>
-		    'sort' => [ 
-               'defaultOrder' => [ 
-                   '<?= $generator->defaultOrderField ?>' => <?= $generator->defaultOrder?> 
-               ] 
-            ] 
-<?php endif;?>
+<?php
+
+if ( $generator->enableDefaultOrder ) :
+  ?>
+		    'sort' => [
+               'defaultOrder' => [
+                   '<?=$generator->defaultOrderField?>' => <?=$generator->defaultOrder?>
+               ]
+            ]
+<?php endif;
+
+?>
         ]);
 
         $this->load($params, $formName);
@@ -90,7 +87,7 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
         }
 
         // grid filtering conditions
-        <?= implode("\n        ", $searchConditions) ?>
+        <?=implode( "\n        ", $searchConditions )?>
 
         return $dataProvider;
     }

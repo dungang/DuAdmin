@@ -37,7 +37,9 @@ class SettingController extends BackendController {
    */
   public function actionIndex() {
 
-    $searchModel = new SettingSearch();
+    $searchModel = new SettingSearch( [
+        'category' => $this->default_category
+    ] );
     $dataProvider = $searchModel->search( Yii::$app->request->queryParams );
     return $this->render( $this->viewBasePath . 'index', [
         'searchModel' => $searchModel,

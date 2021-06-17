@@ -9,7 +9,7 @@ use yii\helpers\StringHelper;
 $controllerClass = StringHelper::basename( $generator->controllerClass );
 $modelClass = StringHelper::basename( $generator->modelClass );
 $searchModelClass = StringHelper::basename( $generator->searchModelClass );
-if ($modelClass === $searchModelClass) {
+if ( $modelClass === $searchModelClass ) {
   $searchModelAlias = $searchModelClass . 'Search';
 }
 /** @var ActiveRecordInterface $class */
@@ -24,9 +24,13 @@ echo "<?php\n";
 namespace <?=StringHelper::dirname( ltrim( $generator->controllerClass, '\\' ) )?>;
 
 use Yii;
+use yii\web\NotFoundHttpException;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
+use DuAdmin\Helpers\AppHelper;
 use <?=ltrim( $generator->modelClass, '\\' )?>;
 <?php
-if (! empty( $generator->searchModelClass )) :
+if ( ! empty( $generator->searchModelClass ) ) :
   ?>
 use <?=ltrim( $generator->searchModelClass, '\\' ) . (isset( $searchModelAlias ) ? " as $searchModelAlias" : "")?>;
 <?php
@@ -37,10 +41,6 @@ use yii\data\ActiveDataProvider;
 endif;
 ?>
 use <?=ltrim( $generator->baseControllerClass, '\\' )?>;
-use yii\web\NotFoundHttpException;
-use yii\web\Response;
-use yii\widgets\ActiveForm;
-use DuAdmin\Helpers\AppHelper;
 
 /**
  * <?=$modelClass?> 模型的控制器
@@ -48,9 +48,17 @@ use DuAdmin\Helpers\AppHelper;
  */
 class <?=$controllerClass?> extends <?=StringHelper::basename( $generator->baseControllerClass ) . "\n"?>
 {
-
 <?php
-if (in_array( 'index', $generator->actions )) :
+if ( in_array( 'delete', $generator->actions ) ) :
+  ?>
+    /**
+     * 请求action 方法设置
+     * @var array
+     */
+     public $verbsActions = ['delete' => ['POST']];
+<?php endif;
+
+if ( in_array( 'index', $generator->actions ) ) :
   ?>
     /**
      * 列出所有的 <?=$modelClass?> 模型.
@@ -59,11 +67,11 @@ if (in_array( 'index', $generator->actions )) :
     public function actionIndex()
     {
 <?php
-  if (! empty( $generator->searchModelClass )) :
+  if ( ! empty( $generator->searchModelClass ) ) :
     ?>
         $searchModel = new <?=isset( $searchModelAlias ) ? $searchModelAlias : $searchModelClass?>();
 <?php
-    if ($generator->onlyQueryCurrentUser) :
+    if ( $generator->onlyQueryCurrentUser ) :
       ?>
         $searchModel->userId = \Yii::$app->user->id;
 <?php endif;
@@ -91,9 +99,7 @@ if (in_array( 'index', $generator->actions )) :
     }
 <?php endif;
 
-?>
-<?php
-if (in_array( 'view', $generator->actions )) :
+if ( in_array( 'view', $generator->actions ) ) :
   ?>
 
     /**
@@ -110,9 +116,7 @@ if (in_array( 'view', $generator->actions )) :
     }
 <?php endif;
 
-?>
-<?php
-if (in_array( 'create', $generator->actions )) :
+if ( in_array( 'create', $generator->actions ) ) :
   ?>
 
     /**
@@ -140,9 +144,7 @@ if (in_array( 'create', $generator->actions )) :
     }
 <?php endif;
 
-?>
-<?php
-if (in_array( 'update', $generator->actions )) :
+if ( in_array( 'update', $generator->actions ) ) :
   ?>
 
     /**
@@ -176,11 +178,11 @@ $condition = [ ];
 foreach ( $pks as $pk ) {
   $condition [] = "'$pk' => \$$pk";
 }
-if ($generator->onlyQueryCurrentUser) {
+if ( $generator->onlyQueryCurrentUser ) {
   $condition [] = "'userId' => \\Yii::\$app->user->id";
 }
 $condition = '[' . implode( ', ', $condition ) . ']';
-if (in_array( 'delete', $generator->actions )) :
+if ( in_array( 'delete', $generator->actions ) ) :
   ?>
 
     /**
@@ -206,9 +208,7 @@ if (in_array( 'delete', $generator->actions )) :
     }
 <?php endif;
 
-?>
-<?php
-if (in_array( 'update', $generator->actions ) || in_array( 'view', $generator->actions ) || in_array( 'delete', $generator->actions )) :
+if ( in_array( 'update', $generator->actions ) || in_array( 'view', $generator->actions ) || in_array( 'delete', $generator->actions ) ) :
   ?>
 
     /**

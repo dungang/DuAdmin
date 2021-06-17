@@ -1,7 +1,6 @@
 <?php
 use DuAdmin\Helpers\InstallerHelper;
 use yii\db\Migration;
-
 /**
  * Class m201225_014116_init_backend_menus
  */
@@ -12,7 +11,8 @@ class m201213_014116_init_backend_menus extends Migration {
    * {@inheritdoc}
    */
   public function safeUp() {
-    InstallerHelper::installMenus ( [
+
+    InstallerHelper::installMenus( [
         [
             'name' => 'Dashboard',
             'url' => 'default/index',
@@ -43,7 +43,6 @@ class m201213_014116_init_backend_menus extends Migration {
                     'url' => 'administrator/index',
                     'icon' => 'fa fa-user'
                 ],
-
                 [
                     'name' => 'Roles',
                     'url' => 'auth-role/index',
@@ -99,9 +98,8 @@ class m201213_014116_init_backend_menus extends Migration {
                 ]
             ]
         ]
-    ], 0, 'core', true );
-
-    InstallerHelper::installNavigations ( [
+    ], 0, 'core' );
+    InstallerHelper::installNavigations( [
         [
             'name' => 'Gitee',
             'url' => 'https://gitee.com/dungang/DuAdmin',
@@ -121,6 +119,7 @@ class m201213_014116_init_backend_menus extends Migration {
             'url' => 'about-us'
         ]
     ] );
+
   }
 
   /**
@@ -128,11 +127,11 @@ class m201213_014116_init_backend_menus extends Migration {
    * {@inheritdoc}
    */
   public function safeDown() {
+
     echo "m201225_014116_init_backend_menus cannot be reverted.\n";
-
     return false;
-  }
 
+  }
   /*
    * // Use up()/down() to run migration code without a transaction.
    * public function up()

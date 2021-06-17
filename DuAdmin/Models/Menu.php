@@ -143,12 +143,7 @@ class Menu extends \DuAdmin\Core\BaseModel {
 
   public static function getBackendMenusData() {
 
-    $vars = self::find()->select( 'id,pid,name as label,url,icon,requireAuth,isOuter' )->where( [
-        'isFront' => 0
-    ] )->indexBy( 'id' )->asArray()->orderBy( 'sort asc' )->all();
-    // if ($vars) {
-    // $vars = AppHelper::listToTree($vars);
-    // }
+    $vars = self::find()->select( 'id,pid,name as label,url,icon,requireAuth,isOuter' )->indexBy( 'id' )->asArray()->orderBy( 'sort asc' )->all();
     return $vars;
 
   }
