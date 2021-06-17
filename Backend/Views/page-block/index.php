@@ -7,21 +7,18 @@ use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel DuAdmin\Models\PageBlockSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = Yii::t( 'da_page_block', 'Page Blocks' );
+$this->title = Yii::t( 'app_page_block', 'Page Blocks' );
 $this->params ['breadcrumbs'] [] = $this->title;
 ?>
 <?php
-
 Pjax::begin( [
     'id' => 'page-block-index'
 ] );
 ?>
 <?php
-
 PanelGridView::begin( [
     'id' => 'page-block-list',
-    'intro' => Yii::t( 'da', '{0} Info Manage', Yii::t( 'da_page_block', 'Page Blocks' ) ),
+    'intro' => Yii::t( 'da', '{0} Info Manage', Yii::t( 'app_page_block', 'Page Blocks' ) ),
     'dataProvider' => $dataProvider,
     'columns' => [
         [
@@ -31,7 +28,7 @@ PanelGridView::begin( [
         [
             'attribute' => 'id',
             'format' => 'raw',
-            'value' => function ($model, $key, $index, $column) {
+            'value' => function ( $model, $key, $index, $column ) {
               return AppHelper::linkButtonWithSimpleModal( $model ['id'], [
                   'view',
                   'id' => $model ['id']
@@ -61,11 +58,9 @@ PanelGridView::begin( [
 
 <?=Html::a( '<i class="fa fa-trash"></i> ' . Yii::t( 'da', 'Delete' ), [ 'delete'], [ 'class' => 'btn btn-danger del-all','data-target' => '#page-block-list'] )?>
 <?php
-
 PanelGridView::end()?>
 
 <?php
-
 Pjax::end();
 ?>
 
