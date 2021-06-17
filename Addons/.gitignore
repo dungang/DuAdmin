@@ -1,4 +1,4 @@
-*
-!Cms/
-!Ueditor/
-!.gitignore
+/*
+!/Cms
+!/Ueditor
+!/.gitignore

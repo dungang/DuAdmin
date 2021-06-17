@@ -1,0 +1,26 @@
+{
+    "name": "文章系统",
+    "author": "dungang",
+    "type": "app",
+    "version": "1.0.0",
+    "intro": "Cms 文章系统",
+    "i18n": {
+        "0": "da_cms",
+        "1": "da_flash",
+        "2": "da_friend_link",
+        "3": "da_page",
+        "4": "da_page_post",
+        "5": "da_post",
+        "6": "da_post_category"
+    },
+    "hasApi": true,
+    "hasFrontend": true,
+    "hasBackend": true,
+    "hasConsole": false,
+    "hasSetting": true,
+    "hooksMap": {
+        "DuAdmin\\Hooks\\FindSlugHook": {
+            "0": "Addons\\Cms\\Hooks\\ShowPageHandler"
+        }
+    }
+}

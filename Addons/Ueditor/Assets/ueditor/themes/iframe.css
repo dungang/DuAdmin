@@ -1,0 +1,6 @@
+/*可以在这里添加你自己的css*/
+img,
+video {
+    max-width:100% !important; /*图片自适应宽度*/
+    height: auto !important;
+}

@@ -1,0 +1,11 @@
+{
+    "name": "百度编辑器",
+    "type": "editor",
+    "version": "1.0.0",
+    "intro": "Ueditor 百度编辑器",
+    "hasApi": false,
+    "hasFrontend": false,
+    "hasBackend": true,
+    "hasConsole": false,
+    "hooksMap": {}
+}
