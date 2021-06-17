@@ -11,6 +11,8 @@ return [
     // 不过这样做的话，类的加载效率会下降， 且你必须遵循 Composer 所设定的规则，
     // 从而让你的类满足可以被自动加载的要求。
     'aliases' => [
+        '@bower' => '@vendor/bower-asset',
+        '@npm' => '@vendor/npm-asset',
         '@Addons' => '@app/Addons',
         '@Backend' => '@app/Backend',
         '@Frontend' => '@app/Frontend',

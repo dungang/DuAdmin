@@ -44,7 +44,9 @@ class PostController extends BaseController {
     // 如果分类是存在的
     if ( $category ) {
       // 根据分类设置的视图显示列表
-      $viewName = $category->template . '-list';
+      if ( $category->template ) {
+        $viewName = $category->template . '-list';
+      }
       $pid = $category->id;
       if ( $category->pid > 0 ) {
         $pid = $category->pid;
@@ -61,7 +63,7 @@ class PostController extends BaseController {
     }
     $dataProvider->query->where( [
         'isPublished' => 1,
-        'categoryId' => $categoryIds
+        'cateId' => $categoryIds
     ] )->with( 'category' );
     return $this->render( $viewName, [
         'searchModel' => $searchModel,
