@@ -21,9 +21,10 @@ $config = [
         'view' => [
             'theme' => [
                 'class' => 'DuAdmin\Components\DUATheme',
-                'basePath' => '@app/themes/' . $theme_name,
+                'name' => $theme_name,
+                // 'basePath' => '@app/Themes/' . $theme_name,
                 'pathMap' => [
-                    '@Frontend/Views' => '@app/themes/' . $theme_name
+                    '@Frontend/Views' => '@app/Themes/' . $theme_name
                 ]
             ]
         ],

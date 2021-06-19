@@ -9,6 +9,7 @@ use yii\helpers\Url;
 use yii\web\Controller;
 
 class BaseController extends Controller {
+
   /**
    * 请求的方法过滤
    *
@@ -23,7 +24,7 @@ class BaseController extends Controller {
   public function behaviors() {
 
     $defaultBehaviors = [ ];
-    $defaultBehaviors ['verbs'] = [
+    $defaultBehaviors['verbs'] = [
         'class' => VerbFilter::class,
         'actions' => $this->verbsActions
     ];
@@ -36,7 +37,7 @@ class BaseController extends Controller {
    * {@inheritdoc}
    * @see \yii\base\Controller::afterAction()
    */
-  public function afterAction($action, $result) {
+  public function afterAction( $action, $result ) {
 
     $event = new ActionEvent( $action );
     $event->result = $result;
@@ -44,20 +45,20 @@ class BaseController extends Controller {
     // 处理action返回的结果
     // DuAdmin/Core/BaseController封装了很多控制器渲染的方法，
     // 很多都是返回的数组结构的结果
-    if (is_array( $result )) {
+    if ( is_array( $result ) ) {
       // 不处理Pjax请求
-      if (AppHelper::isAjaxFormSubmitRequest() || AppHelper::isAjaxJson()) {
+      if ( AppHelper::isAjaxFormSubmitRequest() || AppHelper::isAjaxJson() ) {
         $event->result = $this->asJson( $result );
       } else {
-        if (isset( $result ['view'] ) && ! empty( $result ['view'] )) {
+        if ( isset( $result['view'] ) && ! empty( $result['view'] ) ) {
           // 如果是输出视图组
           $this->renderResult( $event, $result );
-        } else if (isset( $result ['redirectUrl'] ) && ! empty( $result ['redirectUrl'] )) {
+        } else if ( isset( $result['redirectUrl'] ) && ! empty( $result['redirectUrl'] ) ) {
           // 如果是跳转转
-          $event->result = \Yii::$app->getResponse()->redirect( Url::to( $result ['redirectUrl'] ), $result ['statusCode'] );
+          $event->result = \Yii::$app->getResponse()->redirect( Url::to( $result['redirectUrl'] ) );
         } else {
           // 默认的控制器的处理逻辑
-          unset( $result ['view'], $result ['redirectUrl'] );
+          unset( $result['view'], $result['redirectUrl'] );
           $event->result = $this->asJson( $result );
         }
       }
@@ -72,13 +73,13 @@ class BaseController extends Controller {
    * @param ActionEvent $event
    * @param mixed $result
    */
-  private function renderResult($event, $result) {
+  private function renderResult( $event, $result ) {
 
     // Pjax的请求
-    if (\Yii::$app->request->isAjax) {
-      $event->result = $this->renderAjax( $result ['view'], $result ['data'] );
+    if ( \Yii::$app->request->isAjax ) {
+      $event->result = $this->renderAjax( $result['view'], $result['data'] );
     } else {
-      $event->result = $this->render( $result ['view'], $result ['data'] );
+      $event->result = $this->render( $result['view'], $result['data'] );
     }
 
   }
@@ -89,10 +90,10 @@ class BaseController extends Controller {
    * @param string $status
    * @param string $message
    */
-  public final function setFlash($status, $message) {
+  public final function setFlash( $status, $message ) {
 
-    if (! \Yii::$app->request->isAjax) {
-      if ($status == 'success') {
+    if ( ! \Yii::$app->request->isAjax ) {
+      if ( $status == 'success' ) {
         \Yii::$app->session->setFlash( "success", $message );
       } else {
         \Yii::$app->session->setFlash( "error", $message );
@@ -110,7 +111,7 @@ class BaseController extends Controller {
    * @param string $message
    * @return array
    */
-  public function renderSuccess($view, $data, $message = '成功') {
+  public function renderSuccess( $view, $data, $message = '成功' ) {
 
     $status = "success";
     $this->setFlash( $status, $message );
@@ -127,7 +128,7 @@ class BaseController extends Controller {
    * @param string $message
    * @return array
    */
-  public function renderError($view, $data, $message = '失败') {
+  public function renderError( $view, $data, $message = '失败' ) {
 
     $status = "error";
     $this->setFlash( $status, $message );
@@ -142,7 +143,7 @@ class BaseController extends Controller {
    * @param string $message
    * @return \yii\web\Response
    */
-  public function redirectSuccess($redirectUrl, $message = "成功") {
+  public function redirectSuccess( $redirectUrl, $message = "成功" ) {
 
     $status = "success";
     $this->setFlash( $status, $message );
@@ -157,7 +158,7 @@ class BaseController extends Controller {
    * @param string $message
    * @return \yii\web\Response
    */
-  public function redirectError($url, $message = "失败") {
+  public function redirectError( $url, $message = "失败" ) {
 
     $status = "error";
     $this->setFlash( $status, $message );
@@ -171,9 +172,9 @@ class BaseController extends Controller {
    * {@inheritdoc}
    * @see \yii\base\Controller::render()
    */
-  public function render($view, $params = [ ]) {
+  public function render( $view, $params = [ ] ) {
 
-    if (\Yii::$app->request->isAjax) {
+    if ( \Yii::$app->request->isAjax ) {
       $result = parent::renderAjax( $view, $params );
       return $result;
     }

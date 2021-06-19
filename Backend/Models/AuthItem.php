@@ -241,7 +241,10 @@ class AuthItem extends \DuAdmin\Core\BaseModel {
 
   public function getPid() {
 
-    return $this->parent->id;
+    if ( $this->parent ) {
+      return $this->parent->id;
+    }
+    return null;
 
   }
 

@@ -5,18 +5,22 @@ namespace DuAdmin\Widgets;
 use DuAdmin\Helpers\AppHelper;
 use yii\base\Widget;
 
-class DefaultPageFooter extends Widget
-{
+class DefaultPageFooter extends Widget {
 
-    public function run()
-    {
-        return $this->render('page-footer');
-    }
+  public function run() {
 
-    public static function renderPageFooter()
-    {
-        $className = AppHelper::getSetting('site.pageFooterWidget');
-        $className = $className?:DefaultPageFooter::class;
-        return call_user_func([$className, 'widget']);
-    }
+    return $this->render( 'page-footer' );
+
+  }
+
+  public static function renderPageFooter( $setting = [ ] ) {
+
+    $className = AppHelper::getSetting( 'site.pageFooterWidget' );
+    $className = $className ?: DefaultPageFooter::class;
+    return call_user_func( [
+        $className,
+        'widget'
+    ], $setting );
+
+  }
 }

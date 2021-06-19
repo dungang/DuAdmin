@@ -17,7 +17,7 @@ class NavigationController extends BackendController {
 
   public $appName = 'frontend';
 
-  public $viewBasePath = '@Backend/views/navigation/';
+  public $viewBasePath = '@Backend/Views/navigation/';
 
   public function actions() {
 

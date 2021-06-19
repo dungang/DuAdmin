@@ -1,7 +1,8 @@
 {
     "/public/duadmin/dist/js/DUAdmin.js": "/public/duadmin/dist/js/DUAdmin.js",
     "/Addons/Cms/Resource/dist/css/cms.css": "/Addons/Cms/Resource/dist/css/cms.css",
-    "/themes/basic/assets/dist/css/basic.css": "/themes/basic/assets/dist/css/basic.css",
+    "/themes/Basic/assets/dist/css/basic.css": "/themes/Basic/assets/dist/css/basic.css",
+    "/themes/LingShan/assets/dist/css/lingshan.css": "/themes/LingShan/assets/dist/css/lingshan.css",
     "/public/duadmin/dist/css/DUAdmin.css": "/public/duadmin/dist/css/DUAdmin.css",
     "/public/js/app.js": "/public/js/app.js"
 }

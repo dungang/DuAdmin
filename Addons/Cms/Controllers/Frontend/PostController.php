@@ -23,7 +23,7 @@ class PostController extends BaseController {
   public function actionIndex() {
 
     // 默认视图模板
-    $viewName = 'index';
+    $viewName = 'post-list';
     $searchModel = new PostSearch();
     $dataProvider = $searchModel->search( Yii::$app->request->queryParams );
     // 获取分类相关的信息
@@ -55,16 +55,16 @@ class PostController extends BaseController {
       $subCategories = Category::find()->where( [
           'pid' => $pid
       ] )->orderBy( 'sort' )->asArray()->indexBy( 'id' )->all();
-      if ( $category->pid > 0 ) {
-        $categoryIds = $category->id;
-      } else {
-        $categoryIds = array_keys( $subCategories );
-      }
+      $categoryIds = array_keys( $subCategories );
+      array_push( $categoryIds, $pid );
     }
-    $dataProvider->query->where( [
-        'isPublished' => 1,
-        'cateId' => $categoryIds
-    ] )->with( 'category' );
+    $filter = [
+        'isPublished' => 1
+    ];
+    if ( $categoryIds ) {
+      $filter ['cateId'] = $categoryIds;
+    }
+    $dataProvider->query->where( $filter )->with( 'category' );
     return $this->render( $viewName, [
         'searchModel' => $searchModel,
         'dataProvider' => $dataProvider,
@@ -84,6 +84,9 @@ class PostController extends BaseController {
   public function actionShow( $id ) {
 
     $post = $this->findModel( $id );
+    $post->updateCounters( [
+        'viewTimes' => 1
+    ] );
     $category = $post->category;
     if ( $category->template ) {
       $viewName = $category->template;

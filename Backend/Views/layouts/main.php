@@ -13,7 +13,7 @@ use DuAdmin\Widgets\Notify;
 use DuAdmin\Widgets\SimpleModal;
 use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
-DuAdminAsset::register($this);
+DuAdminAsset::register( $this );
 ?>
 <?php
 $this->beginPage()?>
@@ -27,7 +27,7 @@ $this->beginPage()?>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <?=Html::csrfMetaTags()?>
-    <title><?=Html::encode('管理后台-' . $this->title)?></title>
+    <title><?=Html::encode( '管理后台-' . $this->title )?></title>
     <?php
     $this->head()?>
 </head>
@@ -35,15 +35,15 @@ $this->beginPage()?>
     <?php
     $this->beginBody();
     $user = \Yii::$app->user->getIdentity();
-    if (empty($user->avatar)) {
-        $user->avatar = 'images/user2-160x160.jpg';
+    if ( empty( $user->avatar ) ) {
+      $user->avatar = 'images/user2-160x160.jpg';
     }
     ?>
     <div class="wrapper">
 
 		<!-- Main Header -->
         <?php
-        AdminlteNavBar::begin([]);
+        AdminlteNavBar::begin();
         ?>
         <!-- Navbar Right Menu -->
 		<div class="navbar-custom-menu">
@@ -52,14 +52,14 @@ $this->beginPage()?>
 				<li class="dropdown user user-menu">
 					<!-- Menu Toggle Button --> <a href="#" class="dropdown-toggle"
 					data-toggle="dropdown"> <!-- The user image in the navbar-->
-                        <?=AppHelper::img($user->avatar, ['class' => 'user-image','width' => 160,'height' => 160])?>
+                        <?=AppHelper::img( $user->avatar, [ 'class' => 'user-image','width' => 160,'height' => 160] )?>
                         <!-- hidden-xs hides the username on small devices so only the image appears. -->
 						<span class="hidden-xs"><?=$user->nickname?></span>
 				</a>
 					<ul class="dropdown-menu">
 						<!-- The user image in the menu -->
 						<li class="user-header">
-                            <?=AppHelper::img($user->avatar, ['class' => 'img-circle','width' => 160,'height' => 160])?>
+                            <?=AppHelper::img( $user->avatar, [ 'class' => 'img-circle','width' => 160,'height' => 160] )?>
                             <p>
                                 <?=$user->nickname?>
                             </p>
@@ -67,10 +67,10 @@ $this->beginPage()?>
 						<!-- Menu Footer-->
 						<li class="user-footer">
 							<div class="pull-left">
-                                <?=Html::a('个人信息', ['/profile'], ['data-toggle' => 'modal','data-target' => '#modal-dailog','class' => 'btn btn-default btn-flat'])?>
+                                <?=Html::a( '个人信息', [ '/profile'], [ 'data-toggle' => 'modal','data-target' => '#modal-dailog','class' => 'btn btn-default btn-flat'] )?>
                             </div>
 							<div class="pull-right">
-                                <?=Html::a('退出', ['/logout'], ['data-method' => 'post','class' => 'btn btn-default btn-flat'])?>
+                                <?=Html::a( '退出', [ '/logout'], [ 'data-method' => 'post','class' => 'btn btn-default btn-flat'] )?>
                             </div>
 						</li>
 					</ul>
@@ -82,11 +82,11 @@ $this->beginPage()?>
         ?>
         <!-- Left side column. contains the logo and sidebar -->
         <?php
-        AdminlteSideBar::begin([]);
+        AdminlteSideBar::begin( [ ] );
         ?>
 
         <!-- Sidebar user panel (optional) -->
-        <?=AdminlteSideBarMenu::widget(['headerLabel' => '导航','enableHeader' => false,'items' => Menu::getBackMenus()])?>
+        <?=AdminlteSideBarMenu::widget( [ 'headerLabel' => '导航','enableHeader' => false,'items' => Menu::getBackMenus()] )?>
         <?php
         AdminlteSideBar::end();
         ?>
@@ -96,9 +96,9 @@ $this->beginPage()?>
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
 				<h1>
-                    <?=Html::encode($this->title)?>
+                    <?=Html::encode( $this->title )?>
                 </h1>
-                <?=Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : []])?>
+                <?=Breadcrumbs::widget( [ 'links' => isset( $this->params ['breadcrumbs'] ) ? $this->params ['breadcrumbs'] : [ ]] )?>
             </section>
 
 			<!-- Main content -->
@@ -122,19 +122,19 @@ $this->beginPage()?>
 			<!-- To the right -->
 			<div class="pull-right hidden-xs">DUAdmin</div>
 			<!-- Default to the left -->
-			<strong>Copyright &copy; <?=date('Y')?> <a href="#"><?=Html::encode(Setting::getSettings('site.name'))?></a>.
+			<strong>Copyright &copy; <?=date( 'Y' )?> <a href="#"><?=Html::encode( Setting::getSettings( 'site.name' ) )?></a>.
 			</strong> All rights reserved.
 		</footer>
 	</div>
     <?php
-    SimpleModal::begin([
+    SimpleModal::begin( [
         'header' => '对话框',
         'options' => [
             'data-backdrop' => 'static',
             'data-keyboard' => 'false',
             'id' => 'modal-dailog'
         ]
-    ]);
+    ] );
     echo "加载中 ... ";
     SimpleModal::end();
     ?>

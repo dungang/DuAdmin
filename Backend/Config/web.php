@@ -1,11 +1,11 @@
 <?php
 $config = [
     'controllerNamespace' => 'Backend\Controllers',
-    'viewPath' => '@Backend/views',
+    'viewPath' => '@Backend/Views',
     'defaultRoute' => 'default',
     'components' => [
         'request' => [
-            'cookieValidationKey' => getenv ( 'APP_KEY' ),
+            'cookieValidationKey' => getenv( 'APP_KEY' ),
             'enableCsrfCookie' => false
         ],
         'session' => [
@@ -30,21 +30,20 @@ $config = [
             'class' => 'DuAdmin\Components\DuaUrlManager'
         ],
         'assetManager' => [
-            'basePath' => '@app/public/assets'
+            'basePath' => '@app/Public/assets'
         ],
         'log' => [
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
                     'logFile' => '@runtime/logs/backend/app.log',
-                    'levels' => explode ( ',', getenv ( 'LOG_LEVELS' ) )
+                    'levels' => explode( ',', getenv( 'LOG_LEVELS' ) )
                 ]
             ]
         ]
     ]
 ];
-
-if (YII_ENV_DEV) {
+if ( YII_ENV_DEV ) {
   // configuration adjustments for 'dev' environment
   $config ['bootstrap'] [] = 'debug';
   $config ['modules'] ['debug'] = [
@@ -53,7 +52,6 @@ if (YII_ENV_DEV) {
     // uncomment the following to add your IP if you are not connecting from localhost.
     // 'allowedIPs' => ['127.0.0.1', '::1'],
   ];
-
   $config ['bootstrap'] [] = 'gii';
   $config ['modules'] ['gii'] = [
       'class' => 'app\generators\Module',
@@ -64,5 +62,4 @@ if (YII_ENV_DEV) {
       ]
   ];
 }
-
 return $config;

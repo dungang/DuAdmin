@@ -28,7 +28,7 @@ class SettingController extends BackendController {
    */
   public $isBackend = false;
 
-  public $viewBasePath = '@Backend/views/setting/';
+  public $viewBasePath = '@Backend/Views/setting/';
 
   /**
    * 列出所有的 Setting 模型.

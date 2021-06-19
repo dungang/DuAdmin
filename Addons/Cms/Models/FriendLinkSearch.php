@@ -28,6 +28,8 @@ class FriendLinkSearch extends FriendLink {
         [
             [
                 'name',
+                'type',
+                'pic',
                 'url',
                 'createdAt',
                 'updatedAt'
@@ -80,6 +82,7 @@ class FriendLinkSearch extends FriendLink {
     $query->andFilterWhere( [
         'id' => $this->id,
         'pid' => $this->pid,
+        'type' => $this->type,
         'sort' => $this->sort
     ] );
     $query->andFilterWhere( [

@@ -1605,7 +1605,8 @@ body {
   padding: 0px 15px 0px;
 }
 .footer {
-  background-color: #FFF;
+  background-color: #1b682c;
+  color: white;
   padding: 40px 0 60px;
 }
 .footer h4,
@@ -1619,13 +1620,23 @@ body {
 .footer a,
 .footer a:hover,
 .footer a:active {
-  color: #232834;
+  color: white;
 }
 .footer .site-link {
   margin-top: 25px;
 }
 .footer .footer-link {
   margin-top: 15px;
+}
+.footer .footer-link .qrcode-box {
+  width: 120px;
+}
+.footer .footer-link .qrcode-box .name {
+  margin-bottom: 5px;
+}
+.footer .footer-link .qrcode-box .qrcode {
+  width: 100%;
+  border-radius: 6px;
 }
 .btn {
   border-radius: 100px;
@@ -1811,9 +1822,36 @@ a.desc:after {
   position: absolute;
   bottom: 0;
 }
+.swiper-container {
+  height: 240px;
+}
+/* 小屏幕（平板，大于等于 768px） */
+@media screen and (min-width: 768px) {
+  .swiper-container {
+    height: 400px;
+  }
+}
+/* 中等屏幕（桌面显示器，大于等于 992px） */
+@media screen and (min-width: 992px) {
+  .swiper-container {
+    height: 500px;
+  }
+}
+/* 大屏幕（大桌面显示器，大于等于 1200px） */
+@media screen and (min-width: 1200px) {
+  .swiper-container {
+    height: 600px;
+  }
+}
+.swiper-slide .img {
+  overflow: hidden;
+}
 .swiper-slide .img img {
   display: block;
   width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 a {
   color: #555555;

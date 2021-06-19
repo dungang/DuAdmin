@@ -1,31 +1,32 @@
 <?php
-use yii\helpers\Html;
-use DuAdmin\Helpers\AppHelper;
-use Addons\Cms\Widgets\ListNewestPosts;
 use Addons\Cms\Assets\CmsAsset;
+use Addons\Cms\Widgets\ListNewestPosts;
 use Addons\Cms\Widgets\PostNav;
-
+use DuAdmin\Helpers\AppHelper;
+use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model \Addons\Cms\Models\Post */
-
+/* @var $category \Addons\Cms\Models\Category */
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = [
-    'label' => '内容',
-    'url' => [
-        '/cms'
-    ]
-];
-$this->params['breadcrumbs'][] = $this->title;
-
-$this->registerMetaTag([
+if ( $category ) {
+  $this->params ['breadcrumbs'] [] = [
+      'label' => $category->name,
+      'url' => [
+          '/cms/post',
+          'slug' => $category->slug
+      ]
+  ];
+}
+$this->params ['breadcrumbs'] [] = $this->title;
+$this->registerMetaTag( [
     'name' => 'keywords',
-    'content' => $model->keywords . ',' . AppHelper::getSetting('site.keywords')
-], 'keywords');
-$this->registerMetaTag([
+    'content' => $model->keywords . ',' . AppHelper::getSetting( 'site.keywords' )
+], 'keywords' );
+$this->registerMetaTag( [
     'name' => 'description',
-    'content' => $model->description . ',' . AppHelper::getSetting('site.description')
-], 'description');
-CmsAsset::register($this);
+    'content' => $model->description . ',' . AppHelper::getSetting( 'site.description' )
+], 'description' );
+CmsAsset::register( $this );
 ?>
 
 <div class="container">
@@ -34,24 +35,24 @@ CmsAsset::register($this);
 			<div class="cms-page">
 				<div class="cms-post">
 					<div class="page-header">
-						<h1><?= Html::encode($this->title) ?></h1>
+						<h1><?=Html::encode( $this->title )?></h1>
 						<div class="text-muted cms-post-meta">
-                    		<span class="bg-success text-success">#<?=$model->category->name?></span> 
-                    		<span><?= \Yii::$app->formatter->asDate($model['createdAt']) ?></span>
-                    		<span><i class="fa fa-eye"></i> <?= $model['viewTimes'] ?> 阅读</span>
-                		</div>
+							<span class="bg-success text-success">#<?=$model->category->name?></span>
+							<span><?=\Yii::$app->formatter->asDate( $model ['createdAt'] )?></span>
+							<span><i class="fa fa-eye"></i> <?=$model ['viewTimes']?> 阅读</span>
+						</div>
 					</div>
 					<div class="cms-post-content text-justify">
-						<?= Html::img($model->cover, ['width' => '100%']) ?>
-						<?= $model->content ?>
+						<?=Html::img( $model->cover, [ 'width' => '100%'] )?>
+						<?=$model->content?>
 					</div>
 				</div>
-				<?= PostNav::widget(['id'=>$model['id']])?>
+				<?=PostNav::widget( [ 'id' => $model ['id']] )?>
 			</div>
 		</div>
 		<div class="col-md-4">
 			<div class="cms-siderbar">
-				<?= ListNewestPosts::widget() ?>
+				<?=ListNewestPosts::widget()?>
 			</div>
 		</div>
 	</div>

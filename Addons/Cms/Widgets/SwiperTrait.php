@@ -9,7 +9,7 @@ trait SwiperTrait
 {
 
     public $clientOptions = [
-        'speed' => 1500
+        'speed' => 3000
     ];
 
     public $selector = '.swiper-container';
@@ -49,12 +49,12 @@ trait SwiperTrait
      */
     public $loop = true;
 
-    /**
-     * 最多数量
-     *
-     * @var integer
-     */
-    public $size = 5;
+    // /**
+    //  * 最多数量
+    //  *
+    //  * @var integer
+    //  */
+    // public $size = 5;
 
     /**
      * 条目
