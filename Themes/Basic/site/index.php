@@ -5,7 +5,7 @@ use Frontend\Forms\ContactForm;
 use yii\helpers\FileHelper;
 /* @var yii\web\View  $this */
 $this->title = Yii::t( 'theme', 'Home' );
-$files = FileHelper::findFiles( Yii::getAlias( '@app/public/images/screen/' ), [
+$files = FileHelper::findFiles( Yii::getAlias( '@app/Public/images/screen/' ), [
     'recursive' => false ] );
 if ( $files ) {
   $files = array_map( function ( $file ) {
