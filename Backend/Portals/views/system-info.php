@@ -6,37 +6,37 @@
         <div class="box-body">
             <table class="table table-bordered table-striped">
                 <tr>
-                    <th>CMS版本</th>
-                    <td> <?= Yii::$app->version ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <th width="100">CMS版本</th>
+                    <td> <?=Yii::$app->version?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                 </tr>
                 <tr>
                     <th>Yii2版本</th>
-                    <td><?= Yii::getVersion() ?></td>
+                    <td><?=Yii::getVersion()?></td>
                 </tr>
                 <tr>
                     <th>时区</th>
-                    <td><?= Yii::$app->timeZone ?></td>
+                    <td><?=Yii::$app->timeZone?></td>
                 </tr>
                 <tr>
-                    <th>服务器系统</th>
-                    <td><?= PHP_OS ?></td>
+                    <th>操作系统</th>
+                    <td><?=PHP_OS?></td>
                 </tr>
                 <tr>
                     <th>PHP版本</th>
-                    <td><?= PHP_VERSION ?></td>
+                    <td><?=PHP_VERSION?></td>
                 </tr>
                 <tr>
-                    <th>MYSQL版本</th>
-                    <td><?= Yii::$app->db->pdo->getAttribute(PDO::ATTR_SERVER_VERSION) ?></td>
+                    <th>MYSQL</th>
+                    <td><?=Yii::$app->db->pdo->getAttribute( PDO::ATTR_SERVER_VERSION )?></td>
                 </tr>
                 <tr>
                     <th>运行环境</th>
-                    <td><?= $_SERVER['SERVER_SOFTWARE'] ?></td>
+                    <td><?=$_SERVER['SERVER_SOFTWARE']?></td>
                 </tr>
                 <tr>
                     <th>上传限制</th>
-                    <td><?= ini_get('upload_max_filesize') ?></td>
+                    <td><?=ini_get( 'upload_max_filesize' )?></td>
                 </tr>
             </table>
         </div>
