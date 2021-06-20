@@ -24,9 +24,7 @@ class NavigationController extends BackendController {
     return [
         'sorts' => [
             'class' => '\DuAdmin\Core\SortableAction',
-            'modelClass' => 'DuAdmin\Models\Navigation'
-        ]
-    ];
+            'modelClass' => 'DuAdmin\Models\Navigation' ] ];
 
   }
 
@@ -38,12 +36,10 @@ class NavigationController extends BackendController {
   public function actionIndex() {
 
     $models = Navigation::find()->where( [
-        'app' => $this->appName
-    ] )->asArray()->orderBy( 'sort' )->all();
+        'app' => $this->appName ] )->asArray()->orderBy( 'sort' )->all();
     return $this->render( $this->viewBasePath . 'index', [
         'models' => $models,
-        'app' => $this->appName
-    ] );
+        'app' => $this->appName ] );
 
   }
 
@@ -57,8 +53,7 @@ class NavigationController extends BackendController {
   public function actionView( $id ) {
 
     return $this->render( $this->viewBasePath . 'view', [
-        'model' => $this->findModel( $id )
-    ] );
+        'model' => $this->findModel( $id ) ] );
 
   }
 
@@ -71,8 +66,8 @@ class NavigationController extends BackendController {
   public function actionCreate() {
 
     $model = new Navigation( [
-        'app' => $this->appName
-    ] );
+        'app' => $this->appName,
+        'pid' => 0 ] );
     // ajax表单验证
     if ( AppHelper::isAjaxValidationRequest() && $model->load( Yii::$app->request->post() ) ) {
       Yii::$app->response->format = Response::FORMAT_JSON;
@@ -81,12 +76,10 @@ class NavigationController extends BackendController {
     if ( $model->load( Yii::$app->request->post() ) && $model->save() ) {
       return $this->redirectSuccess( [
           'view',
-          'id' => $model->id
-      ], "添加成功" );
+          'id' => $model->id ], "添加成功" );
     }
     return $this->render( $this->viewBasePath . 'create', [
-        'model' => $model
-    ] );
+        'model' => $model ] );
 
   }
 
@@ -109,12 +102,10 @@ class NavigationController extends BackendController {
     if ( $model->load( Yii::$app->request->post() ) && $model->save() ) {
       return $this->redirectSuccess( [
           'view',
-          'id' => $model->id
-      ], "修改成功" );
+          'id' => $model->id ], "修改成功" );
     }
     return $this->render( $this->viewBasePath . 'update', [
-        'model' => $model
-    ] );
+        'model' => $model ] );
 
   }
 
@@ -130,8 +121,7 @@ class NavigationController extends BackendController {
 
     if ( is_array( $id ) ) {
       $modelList = Navigation::findAll( [
-          'id' => $id
-      ] );
+          'id' => $id ] );
       if ( $modelList ) {
         foreach ( $modelList as $model ) {
           $model->delete();
@@ -141,8 +131,7 @@ class NavigationController extends BackendController {
       $this->findModel( $id )->delete();
     }
     return $this->redirect( [
-        'index'
-    ] );
+        'index' ] );
 
   }
 
@@ -158,8 +147,7 @@ class NavigationController extends BackendController {
 
     if ( ($model = Navigation::findOne( [
         'id' => $id,
-        'app' => $this->appName
-    ] )) !== null ) {
+        'app' => $this->appName ] )) !== null ) {
       return $model;
     }
     throw new NotFoundHttpException( Yii::t( 'app', 'The requested page does not exist.' ) );
