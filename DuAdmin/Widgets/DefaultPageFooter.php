@@ -19,8 +19,7 @@ class DefaultPageFooter extends Widget {
     $className = $className ?: DefaultPageFooter::class;
     return call_user_func( [
         $className,
-        'widget'
-    ], $setting );
+        'widget' ], $setting );
 
   }
 }
