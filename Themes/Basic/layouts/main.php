@@ -12,12 +12,14 @@ use Frontend\Assets\AppAsset;
 use app\Themes\Basic\widgets\ThemeAsset;
 use yii\bootstrap\NavBar;
 use yii\helpers\Html;
+use yii\web\View;
 use yii\widgets\Breadcrumbs;
 AppAsset::register( $this );
 ThemeAsset::register( $this );
 Notify::widget();
 LazyLoad::widget();
-$this->params ['logo'] = AppHelper::getSetting( 'site.logo' );
+$this->registerJs( AppHelper::getSetting( 'site.tongji' ), View::PH_HEAD );
+$this->params['logo'] = AppHelper::getSetting( 'site.logo' );
 $siteName = Yii::t( 'app', AppHelper::getSetting( 'site.name', Yii::$app->name ) );
 ?>
 <?php
@@ -33,7 +35,8 @@ $this->beginPage()?>
     <?=Html::csrfMetaTags()?>
     <title><?=Html::encode( $this->title . '-' . $siteName )?></title>
     <?php
-    $this->head()?>
+    $this->head();
+    ?>
 </head>
 
 <body>
@@ -46,64 +49,51 @@ $this->beginPage()?>
             'brandLabel' => Yii::t( 'app', '<i class="fa fa-rocket"></i> ' . $siteName ) . ' <small>' . Yii::$app->version . '</small>',
             // 'brandImage' => $this->params['logo'],
             'brandUrl' => [
-                '/site/index'
-            ],
+                '/site/index' ],
             'options' => [
-                'class' => 'navbar-inverse nav-affix'
-            ]
-        ] );
+                'class' => 'navbar-inverse nav-affix' ] ] );
         $menus = [
             [
                 'label' => Yii::t( 'yii', 'Home' ),
                 'url' => [
-                    '/site/index'
-                ]
-            ]
-        ];
+                    '/site/index' ] ] ];
         if ( ($navigations = Navigation::getNavigation()) ) {
           foreach ( $navigations as $navigation ) {
-            if ( $navigation ['requireLogin'] && Yii::$app->user->isGuest ) {
+            if ( $navigation['requireLogin'] && Yii::$app->user->isGuest ) {
               continue;
             }
-            if ( empty( $navigation ['isOuter'] ) ) {
-              $navigation ['url'] = AppHelper::parseDuAdminMenuUrl( $navigation ['url'], '/' );
+            if ( empty( $navigation['isOuter'] ) ) {
+              $navigation['url'] = AppHelper::parseDuAdminMenuUrl( $navigation['url'], '/' );
             } else {
-              $navigation ['linkOptions'] = [
-                  'target' => '_blank'
-              ];
+              $navigation['linkOptions'] = [
+                  'target' => '_blank' ];
             }
-            $menus [] = $navigation;
+            $menus[] = $navigation;
           }
         }
         if ( Yii::$app->user->isGuest ) {
-          $menus [] = [
+          $menus[] = [
               'label' => Yii::t( 'app', 'Login' ),
               'url' => [
-                  '/login'
-              ]
-          ];
+                  '/login' ] ];
         } else {
-          $menus [] = '<li>' . Html::beginForm( [
-              '/site/logout'
-          ], 'post' ) . Html::submitButton( Yii::t( 'app', 'Logout' ) . ' ( ' . Yii::$app->user->identity->username . ' ) ', [
-              'class' => 'btn btn-link logout'
-          ] ) . Html::endForm() . '</li>';
+          $menus[] = '<li>' . Html::beginForm( [
+              '/site/logout' ], 'post' ) . Html::submitButton( Yii::t( 'app', 'Logout' ) . ' ( ' . Yii::$app->user->identity->username . ' ) ', [
+              'class' => 'btn btn-link logout' ] ) . Html::endForm() . '</li>';
         }
         echo Nav::widget( [
             'options' => [
-                'class' => 'navbar-nav navbar-right text-uppercase'
-            ],
+                'class' => 'navbar-nav navbar-right text-uppercase' ],
             'activateParents' => true,
-            'items' => $menus
-        ] );
+            'items' => $menus ] );
         NavBar::end();
         AutoFixBootstrapColumn::widget();
         ?>
         <?php
-        if ( isset( $this->params ['breadcrumbs'] ) ) :
+        if ( isset( $this->params['breadcrumbs'] ) ) :
           ?>
         <div class="container">
-            <?=Breadcrumbs::widget( [ 'links' => isset( $this->params ['breadcrumbs'] ) ? $this->params ['breadcrumbs'] : [ ]] )?>
+            <?=Breadcrumbs::widget( [ 'links' => isset( $this->params['breadcrumbs'] ) ? $this->params['breadcrumbs'] : [ ] ] )?>
         </div>
         <?php endif;
 

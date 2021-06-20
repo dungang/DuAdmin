@@ -1,13 +1,16 @@
 <?php
 /* @var $this \yii\web\View */
 /* @var $content string */
+use DuAdmin\Helpers\AppHelper;
 use Frontend\Assets\AppAsset;
 use app\Themes\Basic\widgets\ThemeAsset;
 use yii\helpers\Html;
+use yii\web\View;
 AppAsset::register( $this );
 ThemeAsset::register( $this );
 ?>
 <?php
+$this->registerJs( AppHelper::getSetting( 'site.tongji' ), View::PH_HEAD );
 $this->beginPage()?>
 <!DOCTYPE html>
 <html lang="<?=Yii::$app->language?>">
