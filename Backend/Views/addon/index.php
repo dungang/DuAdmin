@@ -1,14 +1,11 @@
 <?php
-use yii\helpers\Html;
 use DuAdmin\Grids\PanelGridView;
+use yii\helpers\Html;
 /* @var $this yii\web\View */
-/* @var $searchModel Backend\Models\PortalSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = Yii::t('da', 'Addons');
+$this->title = Yii::t( 'da', 'Addons' );
 $this->params['breadcrumbs'][] = $this->title;
-
-echo PanelGridView::widget([
+echo PanelGridView::widget( [
     'intro' => 'Addons 信息管理',
     'dataProvider' => $dataProvider,
     'columns' => [
@@ -24,15 +21,11 @@ echo PanelGridView::widget([
         [
             'attribute' => 'hasSetting',
             'format' => 'raw',
-            'value' => function ($model, $key, $index) {
-                if (isset($model['hasSetting']) && $model['hasSetting']) {
-                    return Html::a('<i class="fa fa-cogs"></i> ' . Yii::t('da', 'Setting'), [
-                        '/' . $model['id'] . '/setting'
-                    ]);
-                }
-                return '';
-            }
-        ]
-    ]
-]);
+            'value' => function ( $model, $key, $index ) {
+              if ( isset( $model['hasSetting'] ) && $model['hasSetting'] ) {
+                return Html::a( '<i class="fa fa-cogs"></i> ' . Yii::t( 'da', 'Setting' ), [
+                    '/' . $model['id'] . '/setting' ] );
+              }
+              return '';
+            } ] ] ] );
 

@@ -6,7 +6,6 @@ use Backend\Models\AuthItemChild;
 use Backend\Models\AuthPermission;
 use DuAdmin\Models\Menu;
 use DuAdmin\Models\Navigation;
-use DuAdmin\Models\PageBlock;
 use DuAdmin\Models\Setting;
 use yii\base\ErrorException;
 use yii\helpers\Json;
@@ -26,25 +25,16 @@ class InstallerHelper {
                     'children' => [
                         [
                             'id' => $routePrefix . '/view',
-                            'name' => '查看' . $name
-                        ]
-                    ]
-                ],
+                            'name' => '查看' . $name ] ] ],
                 [
                     'id' => $routePrefix . '/create',
-                    'name' => '添加' . $name
-                ],
+                    'name' => '添加' . $name ],
                 [
                     'id' => $routePrefix . '/update',
-                    'name' => '更新' . $name
-                ],
+                    'name' => '更新' . $name ],
                 [
                     'id' => $routePrefix . '/delete',
-                    'name' => '删除' . $name
-                ]
-            ]
-        ]
-    ] );
+                    'name' => '删除' . $name ] ] ] ] );
 
   }
 
@@ -69,8 +59,8 @@ class InstallerHelper {
             throw new ErrorException( Json::encode( $model->errors ) );
           }
         }
-        if ( isset( $permission ['children'] ) && is_array( $permission ['children'] ) ) {
-          static::installPermissions( $permission ['children'], $model->id );
+        if ( isset( $permission['children'] ) && is_array( $permission['children'] ) ) {
+          static::installPermissions( $permission['children'], $model->id );
         }
       }
     }
@@ -80,24 +70,7 @@ class InstallerHelper {
   public static function uninstallPermissions( $permissionIds ) {
 
     AuthPermission::deleteAll( [
-        'id' => $permissionIds
-    ] );
-
-  }
-
-  public static function installPageBlocks( $blocks, $sourceApp = 'backend' ) {
-
-    if ( $blocks ) {
-      foreach ( $blocks as $block ) {
-        $model = new PageBlock();
-        $model->load( $block, '' );
-        $model->sourceApp = $sourceApp;
-        $model->save();
-        if ( $model->hasErrors() ) {
-          throw new ErrorException( Json::encode( $model->errors ) );
-        }
-      }
-    }
+        'id' => $permissionIds ] );
 
   }
 
@@ -117,8 +90,8 @@ class InstallerHelper {
         $model->load( $menu, '' );
         $model->pid = $pid;
         $model->app = $app;
-        if ( isset( $menu ['sort'] ) ) {
-          $model->sort = $menu ['sort'];
+        if ( isset( $menu['sort'] ) ) {
+          $model->sort = $menu['sort'];
         } else if ( $pid === 0 ) {
           $model->sort = $weight;
         } else {
@@ -129,8 +102,8 @@ class InstallerHelper {
         if ( $model->hasErrors() ) {
           throw new ErrorException( Json::encode( $model->errors ) );
         }
-        if ( isset( $menu ['children'] ) && is_array( $menu ['children'] ) ) {
-          static::installMenus( $menu ['children'], $model->id, $app = 'core', $weight );
+        if ( isset( $menu['children'] ) && is_array( $menu['children'] ) ) {
+          static::installMenus( $menu['children'], $model->id, $app = 'core', $weight );
         }
       }
     }
@@ -140,8 +113,7 @@ class InstallerHelper {
   public static function uninstallMenus( $app ) {
 
     Menu::deleteAll( [
-        'app' => $app
-    ] );
+        'app' => $app ] );
 
   }
 
@@ -156,12 +128,12 @@ class InstallerHelper {
 
     if ( is_array( $navigations ) ) {
       foreach ( $navigations as $index => $navigation ) {
-        $children = isset( $navigation ['children'] ) ? $navigation ['children'] : null;
+        $children = isset( $navigation['children'] ) ? $navigation['children'] : null;
         $model = new Navigation();
         $model->load( $navigation, '' );
         $model->pid = $pid;
-        if ( isset( $navigation ['sort'] ) ) {
-          $model->sort = $navigation ['sort'];
+        if ( isset( $navigation['sort'] ) ) {
+          $model->sort = $navigation['sort'];
         } else if ( $pid === 0 ) {
           $model->sort = $weight;
         } else {
@@ -172,7 +144,7 @@ class InstallerHelper {
           throw new ErrorException( Json::encode( $model->errors ) );
         }
         if ( $children && is_array( $children ) ) {
-          static::installNavigations( $navigation ['children'], $model->id, $app, $weight );
+          static::installNavigations( $navigation['children'], $model->id, $app, $weight );
         }
       }
     }
@@ -182,8 +154,7 @@ class InstallerHelper {
   public static function uninstallNavigations( $app ) {
 
     Navigation::deleteAll( [
-        'app' => $app
-    ] );
+        'app' => $app ] );
 
   }
 
@@ -198,16 +169,16 @@ class InstallerHelper {
 
     if ( is_array( $settings ) ) {
       foreach ( $settings as $setting ) {
-        $children = isset( $setting ['children'] ) ? $setting ['children'] : null;
+        $children = isset( $setting['children'] ) ? $setting['children'] : null;
         $model = new Setting();
         $model->load( $setting, '' );
-        if ( isset( $setting ['parent'] ) ) {
-          $model->parent = $setting ['parent'];
+        if ( isset( $setting['parent'] ) ) {
+          $model->parent = $setting['parent'];
         } else {
           $model->parent = $parent;
         }
-        if ( isset( $setting ['category'] ) ) {
-          $model->category = $setting ['category'];
+        if ( isset( $setting['category'] ) ) {
+          $model->category = $setting['category'];
         } else {
           $model->category = $category;
         }
@@ -216,7 +187,7 @@ class InstallerHelper {
           throw new ErrorException( Json::encode( $model->errors ) );
         }
         if ( $children && is_array( $children ) ) {
-          static::installSettings( $setting ['children'], $category, $model->name );
+          static::installSettings( $setting['children'], $category, $model->name );
         }
       }
     }
@@ -226,8 +197,7 @@ class InstallerHelper {
   public static function uninstallSetting( $category ) {
 
     Setting::deleteAll( [
-        'category' => $category
-    ] );
+        'category' => $category ] );
 
   }
 }

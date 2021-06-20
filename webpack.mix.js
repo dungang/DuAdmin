@@ -29,9 +29,17 @@ function scanAssetsConfig(assetScanDir) {
 						let jsDist = configDir + '/' + assets.dist + '/' + js.dist;
 						if (fs.existsSync(jsFile)) {
 							console.log('load addon js file: ' + jsFile)
-							mix.less(jsFile, jsDist);
+							mix.js(jsFile, jsDist);
 						}
 					});
+				}
+				if (assets.imageDir) {
+					let srcDir = configDir + '/' + assets.src + '/' + assets.imageDir;
+					let distDir = configDir + '/' + assets.dist + '/' + assets.imageDir;
+					if (fs.existsSync(srcDir)) {
+						console.log('copy image dir: ' + srcDir)
+						mix.copyDirectory(srcDir,distDir);
+					}
 				}
 			}
 		}

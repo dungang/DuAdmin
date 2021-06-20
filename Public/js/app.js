@@ -103,9 +103,13 @@
         }
       }
     }).on('affixed.bs.affix', function () {
-      $(this).removeClass('navbar-inverse').addClass('navbar-default');
+      if (!$(this).data('affix-one')) {
+        $(this).removeClass('navbar-inverse').addClass('navbar-default');
+      }
     }).on("affixed-top.bs.affix", function () {
-      $(this).removeClass('navbar-default').addClass('navbar-inverse');
+      if (!$(this).data('affix-one')) {
+        $(this).removeClass('navbar-default').addClass('navbar-inverse');
+      }
     });
   });
 }(jQuery);
