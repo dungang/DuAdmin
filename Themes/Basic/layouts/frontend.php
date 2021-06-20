@@ -11,11 +11,12 @@ use DuAdmin\Widgets\AdminlteSideBarMenu;
 use DuAdmin\Widgets\Notify;
 use DuAdmin\Widgets\SimpleModal;
 use yii\helpers\Html;
+use yii\web\View;
 use yii\widgets\Breadcrumbs;
 DuAdminAsset::register( $this );
+$this->registerJs( AppHelper::getSetting( 'site.tongji' ), View::POS_HEAD );
 ?>
 <?php
-
 $this->beginPage()?>
 <!DOCTYPE html>
 <html lang="<?=Yii::$app->language?>">
@@ -28,8 +29,7 @@ $this->beginPage()?>
     <?=Html::csrfMetaTags()?>
     <title><?=Html::encode( '管理后台-' . $this->title )?></title>
     <?php
-
-$this->head()?>
+    $this->head()?>
 </head>
 
 <body class="skin-green fixed sidebar-mini">
@@ -44,8 +44,7 @@ $this->head()?>
 
         <!-- Main Header -->
         <?php
-
-AdminlteNavBar::begin( [ ] );
+        AdminlteNavBar::begin( [ ] );
         ?>
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
@@ -54,14 +53,14 @@ AdminlteNavBar::begin( [ ] );
                 <li class="dropdown user user-menu">
                     <!-- Menu Toggle Button --> <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <!-- The user image in the navbar-->
-                        <?=AppHelper::img( $user->avatar, [ 'class' => 'user-image','width' => 160,'height' => 160] )?>
+                        <?=AppHelper::img( $user->avatar, [ 'class' => 'user-image','width' => 160,'height' => 160 ] )?>
                         <!-- hidden-xs hides the username on small devices so only the image appears. -->
                         <span class="hidden-xs"><?=$user->nickname?></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- The user image in the menu -->
                         <li class="user-header">
-                            <?=AppHelper::img( $user->avatar, [ 'class' => 'img-circle','width' => 160,'height' => 160] )?>
+                            <?=AppHelper::img( $user->avatar, [ 'class' => 'img-circle','width' => 160,'height' => 160 ] )?>
                             <p>
                                 <?=$user->nickname?>
                             </p>
@@ -69,10 +68,10 @@ AdminlteNavBar::begin( [ ] );
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <?=Html::a( '个人信息', [ '/profile'], [ 'data-toggle' => 'modal','data-target' => '#modal-dailog','class' => 'btn btn-default btn-flat'] )?>
+                                <?=Html::a( '个人信息', [ '/profile' ], [ 'data-toggle' => 'modal','data-target' => '#modal-dailog','class' => 'btn btn-default btn-flat' ] )?>
                             </div>
                             <div class="pull-right">
-                                <?=Html::a( '退出', [ '/logout'], [ 'data-method' => 'post','class' => 'btn btn-default btn-flat'] )?>
+                                <?=Html::a( '退出', [ '/logout' ], [ 'data-method' => 'post','class' => 'btn btn-default btn-flat' ] )?>
                             </div>
                         </li>
                     </ul>
@@ -80,19 +79,17 @@ AdminlteNavBar::begin( [ ] );
             </ul>
         </div>
         <?php
-
-AdminlteNavBar::end();
+        AdminlteNavBar::end();
         ?>
         <!-- Left side column. contains the logo and sidebar -->
         <?php
-
-AdminlteSideBar::begin( [ ] );
+        AdminlteSideBar::begin( [ ] );
         ?>
 
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
             <div class="pull-left image">
-                <?=AppHelper::img( $user->avatar, [ 'class' => 'img-circle','width' => '45px','height' => '45px'] )?>
+                <?=AppHelper::img( $user->avatar, [ 'class' => 'img-circle','width' => '45px','height' => '45px' ] )?>
             </div>
             <div class="pull-left info">
                 <p><?=Yii::$app->user->identity->nickname?></p>
@@ -100,11 +97,10 @@ AdminlteSideBar::begin( [ ] );
                 <i class="fa fa-circle text-success"></i> 在线
             </div>
         </div>
-        <?=AdminlteSideBarMenu::widget( [ 'headerLabel' => '导航','items' => Menu::getFrontMenus()] )?>
+        <?=AdminlteSideBarMenu::widget( [ 'headerLabel' => '导航','items' => Menu::getFrontMenus() ] )?>
 
         <?php
-
-AdminlteSideBar::end();
+        AdminlteSideBar::end();
         ?>
 
         <!-- Content Wrapper. Contains page content -->
@@ -114,7 +110,7 @@ AdminlteSideBar::end();
                 <h1>
                     <?=Html::encode( $this->title )?>
                 </h1>
-                <?=Breadcrumbs::widget( [ 'links' => isset( $this->params ['breadcrumbs'] ) ? $this->params ['breadcrumbs'] : [ ]] )?>
+                <?=Breadcrumbs::widget( [ 'links' => isset( $this->params['breadcrumbs'] ) ? $this->params['breadcrumbs'] : [ ] ] )?>
             </section>
 
             <!-- Main content -->
@@ -148,20 +144,16 @@ AdminlteSideBar::end();
         'options' => [
             'data-backdrop' => 'static',
             'data-keyboard' => 'false',
-            'id' => 'modal-dailog'
-        ]
-    ] );
+            'id' => 'modal-dailog' ] ] );
     echo "加载中 ... ";
     SimpleModal::end();
     ?>
     <?=Notify::widget()?>
     <?php
-// FloatThead::widget() ?>
+    // FloatThead::widget() ?>
     <?php
-
-$this->endBody()?>
+    $this->endBody()?>
 </body>
 </html>
 <?php
-
 $this->endPage()?>

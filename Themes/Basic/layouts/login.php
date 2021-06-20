@@ -10,7 +10,7 @@ AppAsset::register( $this );
 ThemeAsset::register( $this );
 ?>
 <?php
-$this->registerJs( AppHelper::getSetting( 'site.tongji' ), View::PH_HEAD );
+$this->registerJs( AppHelper::getSetting( 'site.tongji' ), View::POS_HEAD );
 $this->beginPage()?>
 <!DOCTYPE html>
 <html lang="<?=Yii::$app->language?>">

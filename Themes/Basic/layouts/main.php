@@ -18,7 +18,7 @@ AppAsset::register( $this );
 ThemeAsset::register( $this );
 Notify::widget();
 LazyLoad::widget();
-$this->registerJs( AppHelper::getSetting( 'site.tongji' ), View::PH_HEAD );
+$this->registerJs( AppHelper::getSetting( 'site.tongji' ), View::POS_HEAD );
 $this->params['logo'] = AppHelper::getSetting( 'site.logo' );
 $siteName = Yii::t( 'app', AppHelper::getSetting( 'site.name', Yii::$app->name ) );
 ?>
