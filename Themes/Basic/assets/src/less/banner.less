@@ -1,32 +1,78 @@
 .dua {
     &.dua-banner {
-        background-image   : url(/images/banner-bg.jpg);
+		background-color: #1b682c;
         background-repeat  : no-repeat;
         background-size    : cover;
         background-position: center;
     }
 
     .jumbotron {
-        //text-align      : center;
         background-color: transparent;
         padding-right   : 15px;
+		margin-bottom: 0;
     }
 
     .jumbotron .btn {
         font-size: 21px;
         padding  : 14px 24px;
     }
-
+	.demo-swiper {
+		position: relative;
+		margin: auto;
+		width: 80%;
+		height: 90px;
+		text-align: center;
+		background-color: white;
+		border-top-left-radius: 16px;
+		border-top-right-radius: 16px;
+		border-color: rgb(221, 221, 221);
+		border-style: solid;
+		border-width: 2px;
+		border-bottom: 0;
+		overflow:hidden;
+	}
     .show-swiper {
-        padding: 30px;
-
+		position: absolute;
+		bottom: -30px;
+		width: 100%;
+		height: 120px;
         .swiper-zoom-container {
             padding: 0 15px;
         }
-
-        img {
-            max-height   : 275px;
-            border-radius: 14px;
-        }
     }
+	/* 小屏幕（平板，大于等于 768px） */
+	@media screen and (min-width: @screen-sm-min) { 
+		.demo-swiper {
+			height: 180px;
+			border-width: 4px;
+		}
+	    .show-swiper {
+			bottom: -80px;
+			height: 280px;
+		}
+	}
+	 /* 中等屏幕（桌面显示器，大于等于 992px） */
+	 @media screen and (min-width: @screen-md-min) { 
+		.demo-swiper {
+			height: 280px;
+			border-width: 6px;
+		}
+	    .show-swiper {
+			bottom: -80px;
+			height: 360px;
+		}
+	 }
+	
+	/* 大屏幕（大桌面显示器，大于等于 1200px） */
+	@media screen and (min-width: @screen-lg-min) { 
+		.demo-swiper {
+			height: 300px;
+			border-width: 6px;
+		}
+	    .show-swiper {
+			bottom: -100px;
+			height: 400px;
+		}
+	 }
+
 }

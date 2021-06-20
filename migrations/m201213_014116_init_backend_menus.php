@@ -14,111 +14,77 @@ class m201213_014116_init_backend_menus extends Migration {
 
     InstallerHelper::installMenus( [
         [
-            'name' => 'Dashboard',
+            'name' => '看板',
             'url' => 'default/index',
             'icon' => 'fa fa-dashboard',
-            'sort' => 1
-        ],
+            'sort' => 1 ],
         [
-            'name' => 'Marketing',
-            'url' => '#',
-            'icon' => 'fa fa-gg-circle',
-            'sort' => 900,
-            'children' => [
-                [
-                    'name' => 'Page Blocks',
-                    'url' => 'page-block-data/index',
-                    'icon' => 'fa fa-clone'
-                ]
-            ]
-        ],
-        [
-            'name' => 'System',
+            'name' => '系统管理',
             'url' => '#',
             'icon' => 'fa fa-desktop',
             'sort' => 1001,
             'children' => [
                 [
-                    'name' => 'Administrator',
+                    'name' => '管理员',
                     'url' => 'administrator/index',
-                    'icon' => 'fa fa-user'
-                ],
+                    'icon' => 'fa fa-user' ],
                 [
-                    'name' => 'Roles',
+                    'name' => '角色',
                     'url' => 'auth-role/index',
-                    'icon' => 'fa fa-flag'
-                ],
+                    'icon' => 'fa fa-flag' ],
                 [
-                    'name' => 'Permissions',
+                    'name' => '权限',
                     'url' => 'auth-permission/index',
-                    'icon' => 'fa fa-lock'
-                ],
+                    'icon' => 'fa fa-lock' ],
                 [
-                    'name' => 'Rules',
+                    'name' => '规则',
                     'url' => 'auth-rule/index',
-                    'icon' => 'fa fa-key'
-                ],
+                    'icon' => 'fa fa-key' ],
                 [
-                    'name' => 'Menus',
+                    'name' => '后端菜单',
                     'url' => 'menu/index',
-                    'icon' => 'fa fa-bars'
-                ],
+                    'icon' => 'fa fa-bars' ],
                 [
-                    'name' => 'Navigation',
+                    'name' => '前端导航',
                     'url' => 'navigation/index',
-                    'icon' => 'fa fa-anchor'
-                ],
+                    'icon' => 'fa fa-anchor' ],
                 [
-                    'name' => 'Action Logs',
+                    'name' => '操作日志',
                     'url' => 'action-log/index',
-                    'icon' => 'fa fa-road'
-                ]
-            ]
-        ],
+                    'icon' => 'fa fa-road' ] ] ],
         [
-            'name' => 'Configurations',
+            'name' => '系统配置',
             'url' => '#',
             'icon' => 'fa fa-gears',
             'sort' => 1100,
             'children' => [
                 [
-                    'name' => 'Settings',
+                    'name' => '设置',
                     'url' => 'setting/index',
-                    'icon' => 'fa fa-cog'
-                ],
+                    'icon' => 'fa fa-cog' ],
                 [
-                    'name' => 'Addons',
+                    'name' => '插件',
                     'url' => 'addon/index',
-                    'icon' => 'fa fa-plug'
-                ],
+                    'icon' => 'fa fa-plug' ],
                 [
-                    'name' => 'Cron Jobs',
+                    'name' => '定时任务',
                     'url' => 'cron/index',
-                    'icon' => 'fa fa-tasks'
-                ]
-            ]
-        ]
-    ], 0, 'core' );
+                    'icon' => 'fa fa-tasks' ] ] ] ], 0, 'core' );
     InstallerHelper::installNavigations( [
         [
             'name' => 'Gitee',
             'url' => 'https://gitee.com/dungang/DuAdmin',
-            'isOuter' => 1
-        ],
+            'isOuter' => 1 ],
         [
             'name' => 'GitHub',
             'url' => 'https://github.com/dungang/DuAdmin',
-            'isOuter' => 1
-        ],
+            'isOuter' => 1 ],
         [
             'name' => '联系我们',
-            'url' => 'contact-us'
-        ],
+            'url' => 'contact-us' ],
         [
             'name' => '关于我们',
-            'url' => 'about-us'
-        ]
-    ] );
+            'url' => 'about-us' ] ] );
 
   }
 

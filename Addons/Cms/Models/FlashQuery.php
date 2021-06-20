@@ -7,28 +7,33 @@ namespace Addons\Cms\Models;
  *
  * @see Flash
  */
-class FlashQuery extends \DuAdmin\Mysql\ActiveQuery
-{
-    /*public function active()
-    {
-        return $this->andWhere('[[status]]=1');
-    }*/
+class FlashQuery extends \DuAdmin\Mysql\ActiveQuery {
 
-    /**
-     * {@inheritdoc}
-     * @return Flash[]|array
-     */
-    public function all($db = null)
-    {
-        return parent::all($db);
-    }
+  public function getCarouselLimited( $size = 5 ) {
 
-    /**
-     * {@inheritdoc}
-     * @return Flash|array|null
-     */
-    public function one($db = null)
-    {
-        return parent::one($db);
-    }
+    return $this->orderBy( 'sort desc' )->limit( $size )->all();
+
+  }
+
+  /**
+   *
+   * {@inheritdoc}
+   * @return Flash[]|array
+   */
+  public function all( $db = null ) {
+
+    return parent::all( $db );
+
+  }
+
+  /**
+   *
+   * {@inheritdoc}
+   * @return Flash|array|null
+   */
+  public function one( $db = null ) {
+
+    return parent::one( $db );
+
+  }
 }
