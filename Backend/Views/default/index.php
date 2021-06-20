@@ -1,8 +1,8 @@
 <?php
 use Addons\Cms\Portals\PageCounterPortal;
 use Addons\Cms\Portals\PostCounterPortal;
+use Backend\Portals\AdminCounterPortal;
 use Backend\Portals\SystemInfoPortal;
-use app\backend\portals\AdminCounterPortal;
 /* @var $this \yii\web\View */
 $this->title = '看板';
 $this->params['breadcrumbs'][] = '看板';
