@@ -1,7 +1,9 @@
 <?php
 namespace Frontend\Controllers;
 
+use Yii;
 use DuAdmin\Core\FrontendController;
+use Frontend\Models\User;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -13,17 +15,17 @@ class ProfileController extends FrontendController
         'index'
     ];
     
-    public function actions(){
-        return [
-            'index'=>[
-                'class' => 'DuAdmin\Core\UpdateModelAction',
-                'modelImmutableAttrs'=>[
-                    'id'=>\Yii::$app->user->id,
-                ],
-                'modelClass' => [
-                    'class' => 'Frontend\Models\User',
-                ]
-            ]
-        ];
+  public function actionIndex() {
+
+    $model = User::findOne( Yii::$app->user->id );
+    if ( $model->load( Yii::$app->request->post() ) && $model->save() ) {
+      return $this->redirectSuccess( [
+          'profile'
+      ], '修改成功' );
     }
+    return $this->render( 'index', [
+        'model' => $model
+    ] );
+
+  }
 }

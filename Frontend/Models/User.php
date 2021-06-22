@@ -2,6 +2,7 @@
 
 namespace Frontend\Models;
 
+use DuAdmin\Behaviors\PasswordBehavior;
 use DuAdmin\Core\Authable;
 use Yii;
 use yii\web\IdentityInterface;
@@ -55,9 +56,18 @@ class User extends BaseModel implements IdentityInterface,Authable
     public function init(){
         parent::init();
         $this->on(static::EVENT_AFTER_INSERT,function($event){
+            // 注册新用户的时候出发回调事件
             UserCreatedHook::emit($this);
         });
     }
+
+    public function behaviors() {
+
+        $bs = parent::behaviors();
+        $bs ['password-set'] = PasswordBehavior::class;
+        return $bs;
+    }
+
 
     /**
      *
