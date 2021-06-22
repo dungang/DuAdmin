@@ -12,47 +12,47 @@ class m201121_090115_create_dict_tables extends DuAdminMigration {
   public function safeUp() {
 
     $tableOptions = 'CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci ENGINE=MyISAM';
-    $this->createTable( '{{%dict_type}}', [
+    $this->createTable( '{{%dictType}}', [
         'id' => $this->primaryKey(),
-        'dict_name' => $this->string( 64 )->notNull()->comment( '字典名' ),
-        'dict_type' => $this->string( 64 )->notNull()->comment( '字典类型' ),
+        'dictName' => $this->string( 64 )->notNull()->comment( '字典名' ),
+        'dictType' => $this->string( 64 )->notNull()->comment( '字典类型' ),
         'status' => $this->boolean()->defaultValue( true )->comment( '状态::0:不可用|1:可用' ),
-        'created_at' => $this->dateTime()->null()->comment( '添加时间' ),
-        'updated_at' => $this->dateTime()->null()->comment( '更新时间' )
+        'createdAt' => $this->dateTime()->null()->comment( '添加时间' ),
+        'updatedAt' => $this->dateTime()->null()->comment( '更新时间' )
     ], $tableOptions );
-    $this->createIndex( 'idx-dict_type', '{{%dict_type}}', 'dict_type' );
-    $this->addCommentOnTable( '{{%dict_type}}', '系统字典' );
+    $this->createIndex( 'idx-dictType', '{{%dictType}}', 'dictType' );
+    $this->addCommentOnTable( '{{%dictType}}', '系统字典' );
     $this->createTable( '{{%dict_data}}', [
         'id' => $this->primaryKey(),
-        'dict_label' => $this->string( 64 )->notNull()->comment( '字典标签' ),
-        'dict_value' => $this->string( 64 )->notNull()->comment( '字典键值' ),
-        'dict_type' => $this->string( 64 )->notNull()->comment( '字典类型' ),
-        'list_css' => $this->string( 64 )->null()->comment( '显示样式' ),
-        'is_default' => $this->boolean()->defaultValue( false )->comment( '是否默认值::0:否|1:是' ),
+        'dictLabel' => $this->string( 64 )->notNull()->comment( '字典标签' ),
+        'dictValue' => $this->string( 64 )->notNull()->comment( '字典键值' ),
+        'dictType' => $this->string( 64 )->notNull()->comment( '字典类型' ),
+        'listCss' => $this->string( 64 )->null()->comment( '显示样式' ),
+        'isDefault' => $this->boolean()->defaultValue( false )->comment( '是否默认值::0:否|1:是' ),
         'sort' => $this->smallInteger()->defaultValue( 0 )->comment( '排序' ),
         'status' => $this->boolean()->defaultValue( true )->comment( '状态::0:不可用|1:可用' ),
-        'created_at' => $this->dateTime()->null()->comment( '添加时间' ),
-        'updated_at' => $this->dateTime()->null()->comment( '更新时间' )
+        'createdAt' => $this->dateTime()->null()->comment( '添加时间' ),
+        'updatedAt' => $this->dateTime()->null()->comment( '更新时间' )
     ], $tableOptions );
-    $this->createIndex( 'idx-dict_type', '{{%dict_data}}', 'dict_type' );
+    $this->createIndex( 'idx-dictType', '{{%dict_data}}', 'dictType' );
     $this->addCommentOnTable( '{{%dict_data}}', '系统字典数据' );
-    $this->insert( "{{%dict_type}}", [
-        'dict_name' => '是否',
-        'dict_type' => 'yes_or_no',
+    $this->insert( "{{%dictType}}", [
+        'dictName' => '是否',
+        'dictType' => 'yes_or_no',
         'status' => 1,
-        'created_at' => date( 'Y-m-d H:i:s' ),
-        'updated_at' => date( 'Y-m-d H:i:s' )
+        'createdAt' => date( 'Y-m-d H:i:s' ),
+        'updatedAt' => date( 'Y-m-d H:i:s' )
     ] );
     $this->batchInsert( "{{%dict_data}}", [
-        'dict_label',
+        'dictLabel',
         'dict_value',
-        'dict_type',
-        'list_css',
+        'dictType',
+        'listCss',
         'is_default',
         'sort',
         'status',
-        'created_at',
-        'updated_at'
+        'createdAt',
+        'updatedAt'
     ], [
         [
             '是',

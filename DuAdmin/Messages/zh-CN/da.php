@@ -1,6 +1,7 @@
 <?php
 return [
     'Operation' => '操作',
+    'Reset' => '重置',
     'Create' => '添加',
     'Delete' => '删除',
     'Update' => '编辑',
@@ -34,4 +35,6 @@ return [
     'Settings' => '参数设置',
     'View Detail' => '查看详情',
     'Update Info' => '更新信息',
+    'Select File' => '选择文件',
+    'Advanced Search' => '高级查询'
 ];

@@ -23,7 +23,8 @@ class m201121_145324_create_setting_table extends Migration {
         'category' => $this->string( 64 )
           ->notNull()
           ->defaultValue( 'base' )
-          ->comment( '变量标题' ) ], $tableOptions );
+          ->comment( '变量标题' )
+    ], $tableOptions );
     $this->addPrimaryKey( 'pk-setting-name', '{{%setting}}', 'name' );
     $this->createIndex( 'idx-setting-parent', '{{%setting}}', 'parent' );
     $this->addCommentOnTable( '{{%setting}}', '系统配置' );
@@ -33,9 +34,10 @@ class m201121_145324_create_setting_table extends Migration {
         'parent',
         'title',
         'value',
-        'valType',
+        'valTpe',
         'hint',
-        'category' ], [
+        'category'
+    ], [
         [
             'site.name',
             '',
@@ -43,7 +45,8 @@ class m201121_145324_create_setting_table extends Migration {
             'DUAdmin',
             'STR',
             '前台首页的网站名称',
-            'base' ],
+            'base'
+        ],
         [
             'site.logo',
             '',
@@ -51,7 +54,8 @@ class m201121_145324_create_setting_table extends Migration {
             'DUAdmin',
             'IMAGE',
             '前台首页的网站Logo',
-            'base' ],
+            'base'
+        ],
         [
             'site.i18n',
             '',
@@ -59,7 +63,8 @@ class m201121_145324_create_setting_table extends Migration {
             "en-US:English\r\nzh-CN:中文",
             'ASSOC',
             '前台首页的网站Logo',
-            'base' ],
+            'base'
+        ],
         [
             'site.company',
             '',
@@ -67,7 +72,8 @@ class m201121_145324_create_setting_table extends Migration {
             'DUAdmin Tech',
             'STR',
             '前台首页的企业名称',
-            'base' ],
+            'base'
+        ],
         [
             'site.phone',
             '',
@@ -75,7 +81,8 @@ class m201121_145324_create_setting_table extends Migration {
             '15355498106',
             'STR',
             '前台首页的电话号码',
-            'base' ],
+            'base'
+        ],
         [
             'site.email',
             '',
@@ -83,7 +90,8 @@ class m201121_145324_create_setting_table extends Migration {
             'dungang@126.com',
             'STR',
             '前台首页的邮箱地址',
-            'base' ],
+            'base'
+        ],
         [
             'site.enableRegist',
             '',
@@ -91,7 +99,8 @@ class m201121_145324_create_setting_table extends Migration {
             0,
             'BOOL',
             '前台是否开放注册功能',
-            'base' ],
+            'base'
+        ],
         [
             'site.enableLogin',
             '',
@@ -99,7 +108,8 @@ class m201121_145324_create_setting_table extends Migration {
             1,
             'BOOL',
             '前台是否开放登录功能',
-            'base' ],
+            'base'
+        ],
         [
             'site.keywords',
             '',
@@ -107,7 +117,8 @@ class m201121_145324_create_setting_table extends Migration {
             'DUAdmin, CMS, PHPAdmin, Yii2 fast kit',
             'STR',
             '搜索优化的关键词',
-            'base' ],
+            'base'
+        ],
         [
             'site.description',
             '',
@@ -115,7 +126,8 @@ class m201121_145324_create_setting_table extends Migration {
             '极速开发后台框架',
             'STR',
             '搜索优化的简介',
-            'base' ],
+            'base'
+        ],
         [
             'site.qr',
             '',
@@ -123,7 +135,8 @@ class m201121_145324_create_setting_table extends Migration {
             '',
             'IMAGE',
             '公主号等二维码',
-            'base' ],
+            'base'
+        ],
         [
             'site.tongji',
             '',
@@ -131,7 +144,8 @@ class m201121_145324_create_setting_table extends Migration {
             '',
             'STR',
             '网站的统计JS代码',
-            'base' ],
+            'base'
+        ],
         [
             'setting.category',
             '',
@@ -139,7 +153,8 @@ class m201121_145324_create_setting_table extends Migration {
             "base:基本设置\r\nemail:邮件服务\r\nopen-feature:开放功能",
             'ASSOC',
             '每行代表一个关联数组元素，key:val格式',
-            'base' ],
+            'base'
+        ],
         [
             'email.host',
             '',
@@ -147,7 +162,8 @@ class m201121_145324_create_setting_table extends Migration {
             'smtp.aliyun.com',
             'STR',
             '可以是域名或者是IP地址',
-            'email' ],
+            'email'
+        ],
         [
             'email.username',
             '',
@@ -155,7 +171,8 @@ class m201121_145324_create_setting_table extends Migration {
             'dungang2018@aliyun.com',
             'STR',
             '',
-            'email' ],
+            'email'
+        ],
         [
             'email.password',
             '',
@@ -163,7 +180,8 @@ class m201121_145324_create_setting_table extends Migration {
             '',
             'STR',
             '',
-            'email' ],
+            'email'
+        ],
         [
             'email.port',
             '',
@@ -171,7 +189,8 @@ class m201121_145324_create_setting_table extends Migration {
             '25',
             'STR',
             '',
-            'email' ],
+            'email'
+        ],
         [
             'email.userAlias',
             '',
@@ -179,7 +198,8 @@ class m201121_145324_create_setting_table extends Migration {
             'DUAdmin Tech',
             'STR',
             '',
-            'email' ],
+            'email'
+        ],
         [
             'email.recipient',
             '',
@@ -187,7 +207,8 @@ class m201121_145324_create_setting_table extends Migration {
             'dungang@126.com',
             'STR',
             '',
-            'email' ],
+            'email'
+        ],
         [
             'email.recipientAlias',
             '',
@@ -195,7 +216,8 @@ class m201121_145324_create_setting_table extends Migration {
             'DUAdmin Tech',
             'STR',
             '',
-            'email' ],
+            'email'
+        ],
         [
             'site.index-page',
             '',
@@ -203,7 +225,8 @@ class m201121_145324_create_setting_table extends Migration {
             '',
             'STR',
             '可以根据业务配置网站的默认首页',
-            'open-feature' ],
+            'open-feature'
+        ],
         [
             'site.pageFooterWidget',
             '',
@@ -211,7 +234,8 @@ class m201121_145324_create_setting_table extends Migration {
             '',
             'STR',
             '替换默认的显示可以用插件的小部件替换',
-            'open-feature' ],
+            'open-feature'
+        ],
         [
             'site.pageFooterWidget.default',
             'site.pageFooterWidget',
@@ -219,7 +243,8 @@ class m201121_145324_create_setting_table extends Migration {
             'DuAdmin\Widgets\DefaultPageFooter',
             'STR',
             '',
-            'open-feature' ],
+            'open-feature'
+        ],
         [
             'system.storage.driver',
             '',
@@ -227,7 +252,8 @@ class m201121_145324_create_setting_table extends Migration {
             '',
             'STR',
             '默认是本地存储',
-            'open-feature' ],
+            'open-feature'
+        ],
         [
             'system.storage.extensions',
             '',
@@ -235,7 +261,8 @@ class m201121_145324_create_setting_table extends Migration {
             'jpeg,jpg,png',
             'STR',
             '默认图片',
-            'open-feature' ],
+            'open-feature'
+        ],
         [
             'sysltem.storate.localDriver',
             'system.storage.driver',
@@ -243,7 +270,8 @@ class m201121_145324_create_setting_table extends Migration {
             'DuAdmin\Storage\LocalDriver',
             'STR',
             '本地存储，默认存在目录public/uploads',
-            'open-feature' ],
+            'open-feature'
+        ],
         [
             'uploader.allowExtensions',
             '',
@@ -251,7 +279,8 @@ class m201121_145324_create_setting_table extends Migration {
             'jpg,jpeg,png',
             'ARRAY',
             '允许上传的文件后缀名',
-            'open-feature' ],
+            'open-feature'
+        ],
         [
             'system.editor.driver',
             '',
@@ -259,7 +288,9 @@ class m201121_145324_create_setting_table extends Migration {
             'Addons\Ueditor\Widgets\Ueditor',
             'STR',
             '百度编辑器',
-            'open-feature' ] ] );
+            'open-feature'
+        ]
+    ] );
     Setting::updateAll( [
         'value' => 'var _hmt = _hmt || [];
         (function() {
@@ -267,8 +298,10 @@ class m201121_145324_create_setting_table extends Migration {
           hm.src = "https://hm.baidu.com/hm.js?e2eccb33395fcbad8ddb84c18304aef3";
           var s = document.getElementsByTagName("script")[0];
           s.parentNode.insertBefore(hm, s);
-        })();' ], [
-        'name' => 'site.tongji' ] );
+        })();'
+    ], [
+        'name' => 'site.tongji'
+    ] );
 
   }
 

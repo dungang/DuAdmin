@@ -24,7 +24,6 @@ class ActionLog extends \DuAdmin\Core\BaseModel {
   // * @var array
   // */
   // public $jsonHideFields = [];
-
   /**
    *
    * {@inheritdoc}
@@ -120,6 +119,14 @@ class ActionLog extends \DuAdmin\Core\BaseModel {
     return [
         'sourceType' => 'Backend:后台|Frontend:前台|Api:API'
     ];
+
+  }
+
+  public function getAdmin() {
+
+    return $this->hasOne( Admin::class, [
+        'id' => 'userId'
+    ] );
 
   }
 

@@ -6,35 +6,47 @@ $config = [
     'components' => [
         'request' => [
             'cookieValidationKey' => getenv( 'APP_KEY' ),
-            'enableCsrfCookie' => false ],
+            'enableCsrfCookie' => false
+        ],
         'session' => [
-            'name' => 'DJPBSID' ],
+            'name' => 'DUABSID'
+        ],
         'authManager' => [
             'class' => 'DuAdmin\Rbac\DbManager',
             // uncomment if you want to cache RBAC items hierarchy
-            'cache' => 'cache' ],
+            'cache' => 'cache'
+        ],
         'actionLog' => [
-            'class' => 'DuAdmin\Components\ActionLog' ],
+            'class' => 'DuAdmin\Components\ActionLog'
+        ],
         'user' => [
             'identityClass' => '\Backend\Models\Admin',
             'enableAutoLogin' => true,
             'loginUrl' => [
-                'login' ] ],
+                'login'
+            ]
+        ],
         'urlManager' => [
-            'class' => 'DuAdmin\Components\DuaUrlManager' ],
+            'class' => 'DuAdmin\Components\DuaUrlManager'
+        ],
         'log' => [
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
                     'logFile' => '@runtime/logs/backend/app.log',
-                    'levels' => explode( ',', getenv( 'LOG_LEVELS' ) ) ] ] ] ] ];
+                    'levels' => explode( ',', getenv( 'LOG_LEVELS' ) )
+                ]
+            ]
+        ]
+    ]
+];
 if ( YII_ENV_DEV ) {
   // configuration adjustments for 'dev' environment
   $config['bootstrap'][] = 'debug';
   $config['modules']['debug'] = [
       'class' => 'yii\debug\Module' // 'panels'=>['log' => ['class' => 'yii\debug\panels\LogPanel']],
-  // uncomment the following to add your IP if you are not connecting from localhost.
-  // 'allowedIPs' => ['127.0.0.1', '::1'],
+                                    // uncomment the following to add your IP if you are not connecting from localhost.
+                                    // 'allowedIPs' => ['127.0.0.1', '::1'],
   ];
   $config['bootstrap'][] = 'gii';
   $config['modules']['gii'] = [
@@ -42,6 +54,8 @@ if ( YII_ENV_DEV ) {
       // uncomment the following to add your IP if you are not connecting from localhost.
       'allowedIPs' => [
           '127.0.0.1',
-          '::1' ] ];
+          '::1'
+      ]
+  ];
 }
 return $config;

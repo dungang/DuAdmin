@@ -6,34 +6,48 @@ $config = [
     'components' => [
         'request' => [
             'cookieValidationKey' => getenv( 'APP_KEY' ),
-            'enableCsrfCookie' => false ],
+            'enableCsrfCookie' => false
+        ],
         'session' => [
-            'name' => 'DJPFSID' ],
+            'name' => 'DUAFSID'
+        ],
         'user' => [
             'identityClass' => 'Frontend\Models\User',
             'enableAutoLogin' => true,
             'loginUrl' => [
-                'login' ] ],
+                'login'
+            ]
+        ],
         'view' => [
             'theme' => [
                 'class' => 'DuAdmin\Components\DUATheme',
                 'name' => $theme_name,
                 // 'basePath' => '@app/Themes/' . $theme_name,
                 'pathMap' => [
-                    '@Frontend/Views' => '@app/Themes/' . $theme_name ] ] ],
+                    '@Frontend/Views' => '@app/Themes/' . $theme_name
+                ]
+            ]
+        ],
         'urlManager' => [
             // 'class' => 'DuAdmin\Components\RewriteUrl',
             // 'suffix' => '.html',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                '<slug:[\w \-]+>' => 'site/page' ] ],
+                '<slug:[\w \-]+>' => 'site/page'
+            ]
+        ],
         'log' => [
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
                     'logFile' => '@runtime/logs/frontend/app.log',
-                    'levels' => explode( ',', getenv( 'LOG_LEVELS' ) ) ] ] ] ] ];
+                    'levels' => explode( ',', getenv( 'LOG_LEVELS' ) )
+                ]
+            ]
+        ]
+    ]
+];
 if ( YII_ENV_DEV ) {
   // configuration adjustments for 'dev' environment
   $config['bootstrap'][] = 'debug';
