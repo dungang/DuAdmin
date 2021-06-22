@@ -1,4 +1,6 @@
 <?php
+
+use DuAdmin\Models\Navigation;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
@@ -17,6 +19,7 @@ $form = ActiveForm::begin( [
     ?>
     <div class="row">
 
+    <?='<div class="col-xs-6">' . $form->field( $model, 'pid' )->dropDownList(Navigation::allIdToName( 'id', 'name', [ 'pid' => 0,'app'=>$model->app] ), [ 'prompt' => [ 'text' => '','options' => [ 'value' => 0]]] ) . '</div>'?>
     <?='<div class="col-xs-6">' . $form->field( $model, 'name' )->textInput( [ 'maxlength' => true] ) . '</div>'?>
 
     <?='<div class="col-xs-6">' . $form->field( $model, 'url' )->textInput( [ 'maxlength' => true] ) . '</div>'?>
