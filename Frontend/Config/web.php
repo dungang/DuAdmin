@@ -24,7 +24,8 @@ $config = [
                 'name' => $theme_name,
                 // 'basePath' => '@app/Themes/' . $theme_name,
                 'pathMap' => [
-                    '@Frontend/Views' => '@app/Themes/' . $theme_name
+                    '@Frontend/Views' => '@app/Themes/' . $theme_name,
+                    '@Addons' => '@app/Themes/' . $theme_name . '/addons'
                 ]
             ]
         ],

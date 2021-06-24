@@ -54,6 +54,7 @@
 }
 .cms-post h1 {
   font-weight: bold;
+  margin-bottom: 30px;
 }
 .cms-post .cms-post-content {
   justify-content: space-between;
