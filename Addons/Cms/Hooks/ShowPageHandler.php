@@ -22,7 +22,7 @@ class ShowPageHandler extends Handler {
     if ( $page = Page::find()->where( [
         'slug' => $hook->slug
     ] )->limit( 1 )->one() ) {
-      $view = '@Addons/Cms/Views/Frontend/page/page';
+      $view = '@Addons/Cms/Views/Frontend/page/' . $page->template;
       $hook->payload = Yii::$app->controller->render( $view, [
           'model' => $page
       ] );

@@ -34,7 +34,7 @@ class m201121_145324_create_setting_table extends Migration {
         'parent',
         'title',
         'value',
-        'valTpe',
+        'valType',
         'hint',
         'category'
     ], [

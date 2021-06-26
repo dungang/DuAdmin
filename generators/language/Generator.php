@@ -148,7 +148,7 @@ class Generator extends BaseGenerator {
     ] );
     foreach ( $dirs as $dir ) {
       $path = '@Addons/' . basename( $dir ) . '/Messages';
-      $messagesPaths [] = $path;
+      $messagesPaths[] = $path;
     }
     return $messagesPaths;
 
@@ -158,7 +158,7 @@ class Generator extends BaseGenerator {
 
     $match = [ ];
     if ( preg_match( '/\@Addons\/(.*?)\//', $messagePath, $match ) ) {
-      return $match [1];
+      return $match[1];
     }
     return null;
 
@@ -176,24 +176,24 @@ FROM INFORMATION_SCHEMA.TABLES
 WHERE table_schema='" . getenv( 'DB_DATABASE' ) . "' AND TABLE_NAME IN (" . $tableNamesIn . ")" )->queryAll();
     $tablePrefixLen = strlen( $db->tablePrefix );
     $codeFiles = [ ];
-    if ( $this->messagesPath == '@app/messages' ) {
+    if ( $this->messagesPath == '@app/Messages' ) {
       $this->messageCategoryPrefix = 'app';
     }
     foreach ( $tableInfos as $tableInfo ) {
       $trans = [ ];
-      $tableName = $tableInfo ['tableName'];
-      $tableComment = $tableInfo ['tableComment'];
+      $tableName = $tableInfo['tableName'];
+      $tableComment = $tableInfo['tableComment'];
       $noPrefixTableName = $tableName;
       if ( substr( $tableName, 0, $tablePrefixLen ) == $db->tablePrefix ) {
         $noPrefixTableName = substr( $tableName, $tablePrefixLen );
         $words = Inflector::camel2words( $noPrefixTableName );
-        $trans [$words] = $tableComment;
+        $trans[$words] = $tableComment;
       } else {
         $words = Inflector::id2camel( $tableName );
-        $trans [$words] = $tableComment;
+        $trans[$words] = $tableComment;
       }
       $words = Inflector::pluralize( $words );
-      $trans [$words] = $tableComment;
+      $trans[$words] = $tableComment;
       $tableSchema = $db->getTableSchema( $tableName );
       $columns = $tableSchema->columns;
       foreach ( $columns as $column ) {
@@ -206,9 +206,9 @@ WHERE table_schema='" . getenv( 'DB_DATABASE' ) . "' AND TABLE_NAME IN (" . $tab
         if ( ! empty( $columnWords ) && substr_compare( $columnWords, ' id', - 3, 3, true ) === 0 ) {
           $columnWords = substr( $columnWords, 0, - 3 ) . ' ID';
         }
-        $trans [$columnWords] = $columnComment;
+        $trans[$columnWords] = $columnComment;
       }
-      $codeFiles [] = new CodeFile( \Yii::getAlias( $this->messagesPath ) . '/' . $this->language . '/' . $this->messageCategoryPrefix . '_' . $noPrefixTableName . '.php', $this->render( 'message.php', [
+      $codeFiles[] = new CodeFile( \Yii::getAlias( $this->messagesPath ) . '/' . $this->language . '/' . $this->messageCategoryPrefix . '_' . $noPrefixTableName . '.php', $this->render( 'message.php', [
           'trans' => $trans
       ] ) );
     }
@@ -234,7 +234,7 @@ WHERE table_schema='" . getenv( 'DB_DATABASE' ) . "' AND TABLE_NAME IN (" . $tab
         $addonJsonFile = \Yii::getAlias( '@Addons/' . $addonName . '/addon.json' );
         if ( file_exists( $addonJsonFile ) ) {
           $json = Json::decode( file_get_contents( $addonJsonFile ) );
-          $json ['i18n'] = $fileNames;
+          $json['i18n'] = $fileNames;
           file_put_contents( $addonJsonFile, json_encode( $json, JSON_FORCE_OBJECT | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT ) );
         }
       }

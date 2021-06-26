@@ -1,56 +1,64 @@
 <?php
-use DuAdmin\Helpers\AppHelper;
 use DuAdmin\Grids\PanelGridView;
-use yii\widgets\Pjax;
-use DuAdmin\Widgets\PanelNavTabs;
+use DuAdmin\Helpers\AppHelper;
 use DuAdmin\Widgets\FullSearchBox;
 use yii\helpers\Html;
+use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel Addons\Cms\Models\PageSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = Yii::t('da_page', 'Pages');
+$this->title = Yii::t( 'da_page', 'Pages' );
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<?php Pjax::begin(['id'=>'page-index']); ?>
 <?php
 
-PanelGridView::begin([
+Pjax::begin( [
+    'id' => 'page-index'
+] );
+?>
+<?php
+PanelGridView::begin( [
     'id' => 'page-list',
-    'intro' => Yii::t('da', '{0} Info Manage', Yii::t('da_page', 'Pages')),
+    'intro' => Yii::t( 'da', '{0} Info Manage', Yii::t( 'da_page', 'Pages' ) ),
     'dataProvider' => $dataProvider,
     'columns' => [
         [
             'attribute' => 'title',
             'format' => 'raw',
-            'value' => function ($model, $key, $index, $column) {
-                return AppHelper::linkButtonWithSimpleModal($model['title'], [
-                    'view',
-                    'id' => $model['id']
-                ]);
+            'value' => function ( $model, $key, $index, $column ) {
+              return AppHelper::linkButtonWithSimpleModal( $model['title'], [
+                  'view',
+                  'id' => $model['id']
+              ] );
             }
         ],
         'slug',
+        'template',
         [
             'class' => '\DuAdmin\Grids\MultilingualAction',
             'controllerId' => '/cms/page-post',
             'formName' => 'PagePost',
-            'forignKey'=>'pageId'
+            'forignKey' => 'pageId'
         ],
         [
             'class' => '\DuAdmin\Grids\ActionColumn'
         ]
     ]
-]);
+] );
 ?>
-<?= FullSearchBox::widget(['action'=>['index']]) ?>
+<?=FullSearchBox::widget( [ 'action' => [ 'index']] )?>
 
-<?= $this->render('_search', ['model' => $searchModel]); ?>
+<?=$this->render( '_search', [ 'model' => $searchModel] );?>
 
-<?= AppHelper::linkButtonWithSimpleModal('<i class="fa fa-plus"></i> ' . Yii::t('da','Create'), ['create'], ['class'=>'btn btn-primary']) ?>
+<?=AppHelper::linkButtonWithSimpleModal( '<i class="fa fa-plus"></i> ' . Yii::t( 'da', 'Create' ), [ 'create'], [ 'class' => 'btn btn-primary'] )?>
 
-<?= Html::a('<i class="fa fa-trash"></i> '. Yii::t('da','Delete'), ['delete'], ['class'=>'btn btn-danger del-all','data-target'=>'#category-list']) ?>
-<?php PanelGridView::end() ?>
+<?=Html::a( '<i class="fa fa-trash"></i> ' . Yii::t( 'da', 'Delete' ), [ 'delete'], [ 'class' => 'btn btn-danger del-all','data-target' => '#category-list'] )?>
+<?php
 
-<?php Pjax::end(); ?>
+PanelGridView::end()?>
+
+<?php
+
+Pjax::end();
+?>
 

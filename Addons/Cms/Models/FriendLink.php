@@ -6,7 +6,7 @@ use DuAdmin\Helpers\AppHelper;
 use Yii;
 
 /**
- * "{{%friend_link}}"表的模型类.
+ * "{{%cms_friend_link}}"表的模型类.
  *
  * @property int $id
  * @property int $pid PID
@@ -32,7 +32,7 @@ class FriendLink extends \DuAdmin\Core\BaseModel {
    */
   public static function tableName() {
 
-    return '{{%friend_link}}';
+    return '{{%cms_friend_link}}';
 
   }
 

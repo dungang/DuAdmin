@@ -6,7 +6,7 @@ use DuAdmin\Helpers\AppHelper;
 use Yii;
 
 /**
- * "{{%post_category}}"表的模型类.
+ * "{{%cms_post_category}}"表的模型类.
  *
  * @property int $id
  * @property int $pid 父类
@@ -30,7 +30,7 @@ class Category extends \DuAdmin\Core\BaseModel {
    */
   public static function tableName() {
 
-    return '{{%post_category}}';
+    return '{{%cms_post_category}}';
 
   }
 
@@ -44,24 +44,33 @@ class Category extends \DuAdmin\Core\BaseModel {
         [
             [
                 'pid',
-                'sort' ],
-            'integer' ],
+                'sort'
+            ],
+            'integer'
+        ],
         [
             [
                 'slug',
                 'name',
-                'template' ],
+                'template'
+            ],
             'string',
-            'max' => 64 ],
+            'max' => 64
+        ],
         [
             [
-                'intro' ],
+                'intro'
+            ],
             'string',
-            'max' => 255 ],
+            'max' => 255
+        ],
         [
             [
-                'slug' ],
-            'unique' ] ];
+                'slug'
+            ],
+            'unique'
+        ]
+    ];
 
   }
 
@@ -78,7 +87,8 @@ class Category extends \DuAdmin\Core\BaseModel {
         'name' => Yii::t( 'da_post_category', 'Name' ),
         'template' => Yii::t( 'da_post_category', 'Template' ),
         'intro' => Yii::t( 'da_post_category', 'Intro' ),
-        'sort' => Yii::t( 'da_post_category', 'Sort' ) ];
+        'sort' => Yii::t( 'da_post_category', 'Sort' )
+    ];
 
   }
 
@@ -107,7 +117,8 @@ class Category extends \DuAdmin\Core\BaseModel {
   public function getParent() {
 
     return $this->hasOne( Category::class, [
-        'id' => 'pid' ] );
+        'id' => 'pid'
+    ] );
 
   }
 }

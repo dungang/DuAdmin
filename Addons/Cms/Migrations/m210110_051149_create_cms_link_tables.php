@@ -5,7 +5,7 @@ use yii\db\Migration;
  */
 class m210110_051149_create_cms_link_tables extends Migration {
 
-  const TABLE_LINK = "{{%friend_link}}";
+  const TABLE_LINK = "{{%cms_friend_link}}";
 
   /**
    *
@@ -22,53 +22,64 @@ class m210110_051149_create_cms_link_tables extends Migration {
         'url' => $this->string( 128 )->comment( '网页地址' ),
         'sort' => $this->smallInteger()->defaultValue( 1 )->comment( '排序' ),
         'createdAt' => $this->dateTime()->null()->comment( '添加时间' ),
-        'updatedAt' => $this->dateTime()->null()->comment( '更新时间' ) ] );
+        'updatedAt' => $this->dateTime()->null()->comment( '更新时间' )
+    ] );
     $this->addCommentOnTable( static::TABLE_LINK, "友情链接" );
     $this->batchInsert( static::TABLE_LINK, [
         'pid',
         'name',
         'url',
-        'type' ], [
+        'type'
+    ], [
         [
             0,
             '联系我们',
             '#',
-            'url' ],
+            'url'
+        ],
         [
             0,
             '服务条款',
             '#',
-            'url' ],
+            'url'
+        ],
         [
             0,
             '友情链接',
             '#',
-            'url' ],
+            'url'
+        ],
         [
             1,
             '商务合作',
             '15355498016',
-            'tel' ],
+            'tel'
+        ],
         [
             1,
             '意见反馈',
             'dungang@126.com',
-            'email' ],
+            'email'
+        ],
         [
             2,
             '联系我们',
             '/contact-us',
-            'url' ],
+            'url'
+        ],
         [
             2,
             '关于我们',
             '/about-us',
-            'url' ],
+            'url'
+        ],
         [
             3,
             'YiiFramework',
             'https://www.yiiframework.com',
-            'url' ] ] );
+            'url'
+        ]
+    ] );
 
   }
 

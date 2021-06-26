@@ -12,7 +12,7 @@ class m201121_090115_create_dict_tables extends DuAdminMigration {
   public function safeUp() {
 
     $tableOptions = 'CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci ENGINE=MyISAM';
-    $this->createTable( '{{%dictType}}', [
+    $this->createTable( '{{%dict_type}}', [
         'id' => $this->primaryKey(),
         'dictName' => $this->string( 64 )->notNull()->comment( '字典名' ),
         'dictType' => $this->string( 64 )->notNull()->comment( '字典类型' ),
@@ -20,8 +20,8 @@ class m201121_090115_create_dict_tables extends DuAdminMigration {
         'createdAt' => $this->dateTime()->null()->comment( '添加时间' ),
         'updatedAt' => $this->dateTime()->null()->comment( '更新时间' )
     ], $tableOptions );
-    $this->createIndex( 'idx-dictType', '{{%dictType}}', 'dictType' );
-    $this->addCommentOnTable( '{{%dictType}}', '系统字典' );
+    $this->createIndex( 'idx-dictType', '{{%dict_type}}', 'dictType' );
+    $this->addCommentOnTable( '{{%dict_type}}', '系统字典' );
     $this->createTable( '{{%dict_data}}', [
         'id' => $this->primaryKey(),
         'dictLabel' => $this->string( 64 )->notNull()->comment( '字典标签' ),
@@ -36,19 +36,26 @@ class m201121_090115_create_dict_tables extends DuAdminMigration {
     ], $tableOptions );
     $this->createIndex( 'idx-dictType', '{{%dict_data}}', 'dictType' );
     $this->addCommentOnTable( '{{%dict_data}}', '系统字典数据' );
-    $this->insert( "{{%dictType}}", [
+    $this->insert( "{{%dict_type}}", [
         'dictName' => '是否',
         'dictType' => 'yes_or_no',
         'status' => 1,
         'createdAt' => date( 'Y-m-d H:i:s' ),
         'updatedAt' => date( 'Y-m-d H:i:s' )
     ] );
+    $this->insert( "{{%dict_type}}", [
+        'dictName' => '是否',
+        'dictType' => 'setting_category',
+        'status' => 1,
+        'createdAt' => date( 'Y-m-d H:i:s' ),
+        'updatedAt' => date( 'Y-m-d H:i:s' )
+    ] );
     $this->batchInsert( "{{%dict_data}}", [
         'dictLabel',
-        'dict_value',
+        'dictValue',
         'dictType',
         'listCss',
-        'is_default',
+        'isDefault',
         'sort',
         'status',
         'createdAt',
@@ -69,6 +76,39 @@ class m201121_090115_create_dict_tables extends DuAdminMigration {
             '否',
             '0',
             'yes_or_no',
+            '',
+            0,
+            1,
+            1,
+            date( 'Y-m-d H:i:s' ),
+            date( 'Y-m-d H:i:s' )
+        ],
+        [
+            '基本设置',
+            'base',
+            'setting_category',
+            '',
+            0,
+            1,
+            1,
+            date( 'Y-m-d H:i:s' ),
+            date( 'Y-m-d H:i:s' )
+        ],
+        [
+            '邮件服务',
+            'email',
+            'setting_category',
+            '',
+            0,
+            1,
+            1,
+            date( 'Y-m-d H:i:s' ),
+            date( 'Y-m-d H:i:s' )
+        ],
+        [
+            '开放功能',
+            '0',
+            'open-feature',
             '',
             0,
             1,

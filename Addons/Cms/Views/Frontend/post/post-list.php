@@ -1,5 +1,6 @@
 <?php
 use Addons\Cms\Assets\CmsAsset;
+use Addons\Cms\Widgets\AdvBlockWidget;
 use Addons\Cms\Widgets\PostCategories;
 use yii\widgets\ListView;
 /* @var $this yii\web\View */
@@ -10,6 +11,7 @@ CmsAsset::register( $this );
 $this->title = isset( $category ) ? $category->name : '内容';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<?=AdvBlockWidget::widget( [ 'nameCode' => 'post-list','urlPath' => \Yii::$app->request->getPathInfo()] )?>
 <div class="container">
 	<div class="row">
 		<div class="col-md-8">

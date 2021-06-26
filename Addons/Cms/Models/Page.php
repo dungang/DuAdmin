@@ -11,6 +11,7 @@ use Yii;
  * @property int $pid 父页
  * @property string $slug Slug
  * @property string $title 标题
+ * @property string $template 模板
  * @property int $sort 排序
  * @property string $createdAt 添加时间
  * @property string $updatedAt 更新时间
@@ -29,7 +30,7 @@ class Page extends \DuAdmin\Core\BaseModel {
    */
   public static function tableName() {
 
-    return '{{%page}}';
+    return '{{%cms_page}}';
 
   }
 
@@ -57,7 +58,8 @@ class Page extends \DuAdmin\Core\BaseModel {
         [
             [
                 'slug',
-                'title'
+                'title',
+                'template'
             ],
             'string',
             'max' => 128
@@ -83,6 +85,7 @@ class Page extends \DuAdmin\Core\BaseModel {
         'pid' => Yii::t( 'da_page', 'Pid' ),
         'slug' => Yii::t( 'da_page', 'Slug' ),
         'title' => Yii::t( 'da_page', 'Title' ),
+        'template' => Yii::t( 'da_page', 'Template' ),
         'sort' => Yii::t( 'da_page', 'Sort' ),
         'createdAt' => Yii::t( 'da_page', 'Created At' ),
         'updatedAt' => Yii::t( 'da_page', 'Updated At' )
