@@ -3,7 +3,8 @@ use DuAdmin\Components\AssetManager;
 return [
     'bootstrap' => [
         'log',
-        'DuAdmin\Components\Bootstrap' ],
+        'DuAdmin\Components\Bootstrap'
+    ],
     // 注册项目的别名
     // 没有注册 DuAdmin目录，因为有安装scripts,所以使用了composer的autoload
     // 一下文字是引用的来源 https://www.yiichina.com/doc/guide/2.0/concept-autoloading
@@ -17,38 +18,58 @@ return [
         '@Backend' => '@app/Backend',
         '@Frontend' => '@app/Frontend',
         '@Api' => '@app/Api',
-        '@Console' => '@app/Console' ],
+        '@Console' => '@app/Console'
+    ],
     'components' => [
+        'view' => [
+            'as mini-html' => 'DuAdmin\Behaviors\MiniHtmlBehavior'
+        ],
         'assetManager' => [
             'class' => AssetManager::class,
-            'basePath' => '@app/Public/assets' ],
+            'basePath' => '@app/Public/assets'
+        ],
         // 扩展DB的能力
         'db' => [
             'schemaMap' => [
                 'mysql' => 'DuAdmin\Mysql\Schema',
-                'mysqli' => 'DuAdmin\Mysql\Schema' ],
+                'mysqli' => 'DuAdmin\Mysql\Schema'
+            ],
             'queryBuilder' => [
                 'expressionBuilders' => [
                     'DuAdmin\Db\DateRangeCondition' => 'DuAdmin\Db\DateRangeConditionBuilder',
-                    'DuAdmin\Db\FullSearchCondition' => 'DuAdmin\Db\FullSearchConditionBuilder' ],
+                    'DuAdmin\Db\FullSearchCondition' => 'DuAdmin\Db\FullSearchConditionBuilder'
+                ],
                 'conditionClasses' => [
                     'DATE_RANGE' => 'DuAdmin\Db\DateRangeCondition',
-                    'FULL_SEARCH' => 'DuAdmin\Db\FullSearchCondition' ] ] ],
+                    'FULL_SEARCH' => 'DuAdmin\Db\FullSearchCondition'
+                ]
+            ]
+        ],
         'mailer' => [
-            'class' => 'DuAdmin\Components\AppMailer' ],
+            'class' => 'DuAdmin\Components\AppMailer'
+        ],
         'formatter' => [
             'datetimeFormat' => 'yyyy-MM-dd HH:mm:ss',
             'dateFormat' => 'yyyy-MM-dd',
-            'timeFormat' => 'HH:mm:ss' ],
+            'timeFormat' => 'HH:mm:ss'
+        ],
         'i18n' => [
             'translations' => [
                 'app*' => [
                     'class' => '\yii\i18n\PhpMessageSource',
-                    'basePath' => '@app/Messages' ] ] ],
+                    'basePath' => '@app/Messages'
+                ]
+            ]
+        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
                     'logFile' => '@runtime/logs/app/app.log',
-                    'levels' => explode( ',', getenv( 'LOG_LEVELS' ) ) ] ] ] ] ];
+                    'levels' => explode( ',', getenv( 'LOG_LEVELS' ) )
+                ]
+            ]
+        ]
+    ]
+];

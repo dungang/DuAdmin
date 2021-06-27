@@ -107,8 +107,8 @@ class m201121_090115_create_dict_tables extends DuAdminMigration {
         ],
         [
             '开放功能',
-            '0',
             'open-feature',
+            'setting_category',
             '',
             0,
             1,

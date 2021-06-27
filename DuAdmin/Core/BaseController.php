@@ -75,12 +75,7 @@ class BaseController extends Controller {
    */
   private function renderResult( $event, $result ) {
 
-    // Pjax的请求
-    if ( \Yii::$app->request->isAjax ) {
-      $event->result = $this->renderAjax( $result['view'], $result['data'] );
-    } else {
-      $event->result = $this->render( $result['view'], $result['data'] );
-    }
+    $event->result = $this->render( $result['view'], $result['data'] );
 
   }
 
@@ -176,9 +171,10 @@ class BaseController extends Controller {
 
     if ( \Yii::$app->request->isAjax ) {
       $result = parent::renderAjax( $view, $params );
-      return $result;
+    } else {
+      $result = parent::render( $view, $params );
     }
-    return parent::render( $view, $params );
+    return $result;
 
   }
 }

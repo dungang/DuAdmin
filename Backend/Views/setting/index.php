@@ -1,14 +1,14 @@
 <?php
 use DuAdmin\Grids\PanelGridView;
 use DuAdmin\Helpers\AppHelper;
-use DuAdmin\Models\Setting;
+use DuAdmin\Models\DictData;
 use DuAdmin\Widgets\PanelNavTabs;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel DuAdmin\Models\SettingSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 $this->title = \Yii::$app->controller->module->name . Yii::t( 'da', 'Settings' );
-$this->params ['breadcrumbs'] [] = $this->title;
+$this->params['breadcrumbs'][] = $this->title;
 Pjax::begin( [
     'id' => 'setting-index'
 ] );
@@ -24,7 +24,7 @@ PanelGridView::begin( [
             ],
             'format' => 'raw',
             'value' => function ( $model, $key, $index, $column ) {
-              return $model ['title'] . ' <i class="fa fa-question-circle-o" title="' . $model ['hint'] . '" data-toggle="tooltip" data-placement="top" ></i>';
+              return $model['title'] . ' <i class="fa fa-question-circle-o" title="' . $model['hint'] . '" data-toggle="tooltip" data-placement="top" ></i>';
             }
         ],
         [
@@ -33,9 +33,9 @@ PanelGridView::begin( [
             'value' => function ( $model, $key, $index, $column ) {
               $detail = AppHelper::linkButtonWithSimpleModal( Yii::t( 'da', 'View Detail' ), [
                   'view',
-                  'name' => $model ['name']
+                  'name' => $model['name']
               ] );
-              return $model ['valType'] === 'STR' ? (strlen( $model ['value'] ) < 128 ? $model ['value'] : $detail) : $detail;
+              return $model['valType'] === 'STR' ? (strlen( $model['value'] ) < 128 ? $model['value'] : $detail) : $detail;
             }
         ],
         [
@@ -46,26 +46,13 @@ PanelGridView::begin( [
 ] );
 if ( \Yii::$app->controller->isBackend ) {
   $tabs = [ ];
-  $categories = Setting::getSettingCatetory();
-  foreach ( $categories as $key => $title ) {
-    $tabs [] = [
-        'name' => $title,
+  $categories = DictData::getDataList( 'setting_category' );
+  foreach ( $categories as $category ) {
+    $tabs[] = [
+        'name' => $category->dictLabel,
         'url' => [
             '/setting/index',
-            'category' => $key
-        ]
-    ];
-  }
-  if ( AppHelper::isDevMode() ) {
-    $tabs [] = [
-        'name' => '<i class="fa fa-edit"></i> ' . Yii::t( 'da', 'Extend Category' ),
-        'url' => [
-            'update',
-            'name' => 'setting.category'
-        ],
-        'options' => [
-            'data-toggle' => 'modal',
-            'data-target' => '#modal-dailog'
+            'category' => $category->dictValue
         ]
     ];
   }
@@ -76,5 +63,4 @@ if ( \Yii::$app->controller->isBackend ) {
 }
 PanelGridView::end()?>
 <?php
-
 Pjax::end()?>

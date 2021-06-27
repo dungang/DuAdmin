@@ -28,7 +28,8 @@
         "vlucas/phpdotenv": "^5.2",
         "symfony/finder": "^5.1",
         "overtrue/wechat": "^4.2",
-        "omgdef/yii2-multilingual-behavior": "^2.1"
+        "omgdef/yii2-multilingual-behavior": "^2.1",
+        "voku/html-min": "^4.4"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0",

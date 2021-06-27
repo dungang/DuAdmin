@@ -2,11 +2,14 @@
 
 namespace DuAdmin\Components;
 
+use DuAdmin\Models\PrettyUrl;
 use Yii;
+use yii\base\InvalidConfigException;
 use yii\web\Request;
 use yii\web\UrlManager;
+use yii\web\UrlNormalizer;
 
-class DuaUrlManager extends UrlManager {
+class PrettyUrlManager extends UrlManager {
 
   /**
    * 公共参数
@@ -14,7 +17,13 @@ class DuaUrlManager extends UrlManager {
    *
    * @var array
    */
-  public $common_params = [ ];
+  public $commonParams = [ ];
+
+  public $fromDb = true;
+
+  public $enablePrettyUrl = true;
+
+  public $showScriptName = false;
 
   /**
    *
@@ -24,16 +33,60 @@ class DuaUrlManager extends UrlManager {
   protected $cacheKey = __CLASS__;
 
   /**
+   * Initializes UrlManager.
+   */
+  public function init() {
+
+    if ( $this->normalizer !== false ) {
+      $this->normalizer = Yii::createObject( $this->normalizer );
+      if ( ! $this->normalizer instanceof UrlNormalizer ) {
+        throw new InvalidConfigException( '`' . get_class( $this ) . '::normalizer` should be an instance of `' . UrlNormalizer::className() . '` or its DI compatible configuration.' );
+      }
+    }
+    if ( ! $this->enablePrettyUrl ) {
+      return;
+    }
+    if ( is_string( $this->cache ) ) {
+      $this->cache = Yii::$app->get( $this->cache, false );
+    }
+    if ( $this->fromDb ) {
+      if ( $rules = $this->getRulesFromDb() ) {
+        $this->rules = array_merge( $rules, $this->rules );
+      }
+    }
+    if ( empty( $this->rules ) ) {
+      return;
+    }
+    $this->rules = $this->buildRules( $this->rules );
+
+  }
+
+  /**
    *
    * {@inheritdoc}
    * @see \yii\web\UrlManager::createUrl()
    */
   public function createUrl( $params ) {
 
-    if ( $this->common_params && \is_array( $params ) ) {
-      $params = array_merge( $this->common_params, $params );
+    if ( $this->commonParams && \is_array( $params ) ) {
+      $params = array_merge( $this->commonParams, $params );
     }
     return parent::createUrl( $params );
+
+  }
+
+  /**
+   * 从数据库读取重写规则
+   *
+   * @return array|null
+   */
+  protected function getRulesFromDb() {
+
+    if ( \Yii::$app->db ) {
+      return PrettyUrl::allIdToName( 'express', 'route', null, 'weight DESC' );
+    } else {
+      return null;
+    }
 
   }
 
@@ -120,3 +173,4 @@ class DuaUrlManager extends UrlManager {
 
   }
 }
+

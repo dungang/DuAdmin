@@ -30,7 +30,7 @@ $config = [
             ]
         ],
         'urlManager' => [
-            // 'class' => 'DuAdmin\Components\RewriteUrl',
+            'class' => 'DuAdmin\Components\PrettyUrlManager',
             // 'suffix' => '.html',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
