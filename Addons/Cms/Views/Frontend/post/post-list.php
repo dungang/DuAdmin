@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?=AdvBlockWidget::widget( [ 'nameCode' => 'post-list','urlPath' => \Yii::$app->request->getPathInfo()] )?>
 <div class="container">
-	<div class="row">
+	<div class="row ">
 		<div class="col-md-8">
 
 			<div class="cms-page">

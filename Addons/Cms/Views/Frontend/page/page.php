@@ -13,12 +13,13 @@ CmsAsset::register( $this );
 <div class="container">
     <div class="cms-page">
         <div class="cms-post">
-
-            <h1><?=Html::encode( $model->post->title )?></h1>
-            <p class="text-center text-muted">
-            </p>
-            <div class="cms-post-content text-justify">
+            <div class="page-header">
+            	<h1><?=Html::encode( $model->post->title )?></h1>
+            </div>
+            <div class="cms-post-content">
+                 <div class="content  text-justify">
                  <?=AppHelper::maxWidthImage( $model->post->content )?>
+                 </div>
             </div>
 
         </div>

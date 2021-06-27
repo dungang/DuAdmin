@@ -1,13 +1,9 @@
 .cms-page {
-	background-color: white;
-	padding         : 20px 50px 40px;
 	margin-bottom   : 45px;
-
 	.post-items {
 		.post-item {
-			margin-top    : 25px;
-			padding-bottom: 15px;
-			border-bottom : 1px solid #efefef;
+			background-color: white;
+			margin-bottom: 15px;
 
 			&:last-child {
 				border-bottom: none;
@@ -20,16 +16,13 @@
 			}
 		}
 
-		.media {
-			.media-object {
-				height: 160px;
-				width : 240px;
+		.row {
+			.post-info {
+				padding: 15px;
+				h2 {
+					margin-top: 0;
+				}
 			}
-
-			.media-heading {
-				font-weight: bold;
-			}
-
 		}
 	}
 }
@@ -60,37 +53,40 @@
 .cms-product-list {
 	.product {
 		display: flex;
-
 		.cover {
 			width: 120px;
-
 		}
-
 		.info {
 			flex: 1;
-
 		}
 	}
 }
 
+.page-header {
+		padding: 15px 30px;
+		margin-top: 0;
+		border-bottom: 0;
+}
 .cms-post {
-
+	background-color: white;
+	margin-bottom:30px;
 	h1 {
 		font-weight: bold;
-		margin-bottom: 30px;
 	}
 
 	.cms-post-content {
-		justify-content: space-between;
+		margin-top: 20px;
+		padding-bottom: 30px;
 		font-size      : 16px;
-
 		img,video {
-			display  : block !important;
+			display  : block;
 			margin   : auto;
 			max-width: 100%;
-			width:auto!important;
 			margin-bottom: 15px;
-			height:auto!important;
+		}
+		.content {
+			justify-content: space-between;
+			padding:  0 25px 25px;
 		}
 
 		table {
@@ -98,8 +94,11 @@
 			max-width: 100%;
 		}
 	}
+	
+	.cms-pager {
+		padding: 30px;
+	}
 }
-
 
 .cms-siderbar {
 	font-size: 16px;
@@ -128,7 +127,8 @@
 
 			.list-items {
 				padding-left: 20px;
-
+				list-style-type:square;
+				color: #aaa;
 				li {
 					padding    : 5px 0;
 					line-height: 20px;

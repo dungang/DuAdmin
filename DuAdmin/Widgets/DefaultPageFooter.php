@@ -7,9 +7,11 @@ use yii\base\Widget;
 
 class DefaultPageFooter extends Widget {
 
+  public $viewName = 'page-footer';
+
   public function run() {
 
-    return $this->render( 'page-footer' );
+    return $this->render( $this->viewName );
 
   }
 
@@ -19,7 +21,8 @@ class DefaultPageFooter extends Widget {
     $className = $className ?: DefaultPageFooter::class;
     return call_user_func( [
         $className,
-        'widget' ], $setting );
+        'widget'
+    ], $setting );
 
   }
 }

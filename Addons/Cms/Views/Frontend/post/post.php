@@ -18,7 +18,6 @@ if ( $category ) {
       ]
   ];
 }
-$this->params['breadcrumbs'][] = $this->title;
 $this->registerMetaTag( [
     'name' => 'keywords',
     'content' => $model->keywords . ',' . AppHelper::getSetting( 'site.keywords' )
@@ -43,12 +42,14 @@ CmsAsset::register( $this );
 							<span><i class="fa fa-eye"></i> <?=$model['viewTimes']?> 阅读</span>
 						</div>
 					</div>
-					<div class="cms-post-content text-justify">
+					<div class="cms-post-content">
 						<?=Html::img( $model->cover, [ 'width' => '100%'] )?>
+						<div class="content  text-justify">
 						<?=$model->content?>
+						</div>
 					</div>
+					<?=PostNav::widget( [ 'id' => $model['id']] )?>
 				</div>
-				<?=PostNav::widget( [ 'id' => $model['id']] )?>
 			</div>
 		</div>
 		<div class="col-md-4">

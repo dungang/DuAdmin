@@ -1603,7 +1603,7 @@ body {
   height: auto;
 }
 .wrap > .container {
-  padding: 0px 15px 0px;
+  padding: 0px;
 }
 .footer {
   background-color: #1b682c;
