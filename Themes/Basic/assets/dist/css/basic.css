@@ -1626,8 +1626,14 @@ body {
 .footer .site-link {
   margin-top: 25px;
 }
+.footer .friend-links-box {
+  margin-bottom: 20px;
+}
+.footer .friend-links-box h4 {
+  margin-bottom: 15px;
+}
 .footer .footer-link {
-  margin-top: 15px;
+  margin-bottom: 5px;
 }
 .footer .footer-link .qrcode-box {
   width: 120px;

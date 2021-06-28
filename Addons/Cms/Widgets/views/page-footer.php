@@ -24,6 +24,7 @@ use yii\helpers\Html;
                           foreach ( $tree as $link ) :
                             ?>
                         <div class="col-sm-4">
+                        	<div class="friend-links-box">
                             <h4><?=$link['name']?></h4>
                             <?php
                             if ( isset( $link['children'] ) && is_array( $link['children'] ) ) :
@@ -54,15 +55,15 @@ use yii\helpers\Html;
                             </div>
                             <?php
                               endforeach
-                              ;
                               ?>
-                            <?php endif;
+                            <?php endif
 
                             ?>
+                            </div>
                         </div>
                         <?php
+
                           endforeach
-                          ;
                           ?>
                         <?php endif;
 
