@@ -29,7 +29,9 @@ $this->beginPage()?>
     <?=Html::csrfMetaTags()?>
     <title><?=Html::encode( '管理后台-' . $this->title )?></title>
     <?php
-    $this->head()?>
+    $this->head();
+    echo AppHelper::getSetting( 'site.googleAdv' );
+    ?>
 </head>
 
 <body class="skin-green fixed sidebar-mini">
@@ -53,14 +55,14 @@ $this->beginPage()?>
                 <li class="dropdown user user-menu">
                     <!-- Menu Toggle Button --> <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <!-- The user image in the navbar-->
-                        <?=AppHelper::img( $user->avatar, [ 'class' => 'user-image','width' => 160,'height' => 160 ] )?>
+                        <?=AppHelper::img( $user->avatar, [ 'class' => 'user-image','width' => 160,'height' => 160] )?>
                         <!-- hidden-xs hides the username on small devices so only the image appears. -->
                         <span class="hidden-xs"><?=$user->nickname?></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- The user image in the menu -->
                         <li class="user-header">
-                            <?=AppHelper::img( $user->avatar, [ 'class' => 'img-circle','width' => 160,'height' => 160 ] )?>
+                            <?=AppHelper::img( $user->avatar, [ 'class' => 'img-circle','width' => 160,'height' => 160] )?>
                             <p>
                                 <?=$user->nickname?>
                             </p>
@@ -68,10 +70,10 @@ $this->beginPage()?>
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <?=Html::a( '个人信息', [ '/profile' ], [ 'data-toggle' => 'modal','data-target' => '#modal-dailog','class' => 'btn btn-default btn-flat' ] )?>
+                                <?=Html::a( '个人信息', [ '/profile'], [ 'data-toggle' => 'modal','data-target' => '#modal-dailog','class' => 'btn btn-default btn-flat'] )?>
                             </div>
                             <div class="pull-right">
-                                <?=Html::a( '退出', [ '/logout' ], [ 'data-method' => 'post','class' => 'btn btn-default btn-flat' ] )?>
+                                <?=Html::a( '退出', [ '/logout'], [ 'data-method' => 'post','class' => 'btn btn-default btn-flat'] )?>
                             </div>
                         </li>
                     </ul>
@@ -89,7 +91,7 @@ $this->beginPage()?>
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
             <div class="pull-left image">
-                <?=AppHelper::img( $user->avatar, [ 'class' => 'img-circle','width' => '45px','height' => '45px' ] )?>
+                <?=AppHelper::img( $user->avatar, [ 'class' => 'img-circle','width' => '45px','height' => '45px'] )?>
             </div>
             <div class="pull-left info">
                 <p><?=Yii::$app->user->identity->nickname?></p>
@@ -97,7 +99,7 @@ $this->beginPage()?>
                 <i class="fa fa-circle text-success"></i> 在线
             </div>
         </div>
-        <?=AdminlteSideBarMenu::widget( [ 'headerLabel' => '导航','items' => Menu::getFrontMenus() ] )?>
+        <?=AdminlteSideBarMenu::widget( [ 'headerLabel' => '导航','items' => Menu::getFrontMenus()] )?>
 
         <?php
         AdminlteSideBar::end();
@@ -110,7 +112,7 @@ $this->beginPage()?>
                 <h1>
                     <?=Html::encode( $this->title )?>
                 </h1>
-                <?=Breadcrumbs::widget( [ 'links' => isset( $this->params['breadcrumbs'] ) ? $this->params['breadcrumbs'] : [ ] ] )?>
+                <?=Breadcrumbs::widget( [ 'links' => isset( $this->params['breadcrumbs'] ) ? $this->params['breadcrumbs'] : [ ]] )?>
             </section>
 
             <!-- Main content -->
@@ -144,7 +146,9 @@ $this->beginPage()?>
         'options' => [
             'data-backdrop' => 'static',
             'data-keyboard' => 'false',
-            'id' => 'modal-dailog' ] ] );
+            'id' => 'modal-dailog'
+        ]
+    ] );
     echo "加载中 ... ";
     SimpleModal::end();
     ?>

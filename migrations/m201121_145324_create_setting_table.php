@@ -147,6 +147,15 @@ class m201121_145324_create_setting_table extends Migration {
             'base'
         ],
         [
+            'site.googleAdv',
+            '',
+            '谷歌广告',
+            '',
+            'STR',
+            '谷歌广告JS代码',
+            'base'
+        ],
+        [
             'setting.category',
             '',
             '参数分类',

@@ -21,7 +21,9 @@ $this->beginPage()?>
     <?=Html::csrfMetaTags()?>
     <title><?=Html::encode( $this->title )?></title>
     <?php
-    $this->head()?>
+    $this->head();
+    echo AppHelper::getSetting( 'site.googleAdv' );
+    ?>
 </head>
 <body class="hold-transition login-page">
 <?php
