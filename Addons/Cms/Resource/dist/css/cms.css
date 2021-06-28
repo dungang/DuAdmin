@@ -5,6 +5,11 @@
   background-color: white;
   margin-bottom: 15px;
 }
+.cms-page .post-items .post-item img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  max-height: 200px;
+}
 .cms-page .post-items .post-item:last-child {
   border-bottom: none;
 }
@@ -12,12 +17,16 @@
   margin-top: 5px;
   font-size: 15px;
   color: #555;
+  max-height: 60px;
+  overflow: hidden;
 }
 .cms-page .post-items .row .post-info {
   padding: 15px;
 }
 .cms-page .post-items .row .post-info h2 {
   margin-top: 0;
+  max-height: 65px;
+  overflow: hidden;
 }
 .cms-thumbnail {
   box-shadow: none !important;
