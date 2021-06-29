@@ -15,28 +15,28 @@ use yii\widgets\PjaxAsset;
  *
  */
 class SimpleModal extends Modal {
-  public $enableAjaxSubmit = true;
 
-  public function run() {
+    public $enableAjaxSubmit = true;
 
-    echo "\n" . $this->renderBodyEnd();
-    echo "\n" . $this->renderFooter();
-    echo "\n" . Html::endTag( 'div' ); // modal-content
-    echo "\n" . Html::endTag( 'div' ); // modal-dialog
-    echo "\n" . Html::endTag( 'div' );
-    PjaxAsset::register( $this->view );
-    $this->view->registerjs( $this->getJs( '#' . $this->options ['id'] ) );
+    public function run() {
 
-  }
+        echo "\n" . $this->renderBodyEnd();
+        echo "\n" . $this->renderFooter();
+        echo "\n" . Html::endTag( 'div' ); // modal-content
+        echo "\n" . Html::endTag( 'div' ); // modal-dialog
+        echo "\n" . Html::endTag( 'div' );
+        PjaxAsset::register( $this->view );
+        $this->view->registerjs( $this->getJs( '#' . $this->options [ 'id' ] ) );
+    }
 
-  public function getJs($selector) {
+    public function getJs( $selector ) {
 
-    return <<<JS
+        return <<<JS
 (function($, modalSelector) {
     var modal = $(modalSelector);
     var pjaxContainer = null;
     // 清空对象
-    modal.on('hidden.bs.modal', function(e) {    
+    modal.on('hidden.bs.modal', function(e) {
         modal.data('bs.modal', null);
         modal.find('.modal-body').empty();
         modal.find('script').remove();
@@ -66,14 +66,14 @@ class SimpleModal extends Modal {
                     }
                     modal.modal('hide');
                     type = "success";
-                    
-                }   
+
+                }
                 notif({type:type,msg:data.message,position:'center',timeout:3000});
             }});
         });
     }
 })(jQuery, '{$selector}')
 JS;
+    }
 
-  }
 }

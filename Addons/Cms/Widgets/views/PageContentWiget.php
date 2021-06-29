@@ -13,20 +13,18 @@ use yii\base\Widget;
  */
 class PageContentWiget extends Widget {
 
-  public $slug = 'about-us';
+    public $slug = 'about-us';
+    public $viewName = '';
 
-  public $viewName = '';
+    public function run() {
 
-  public function run() {
+        $page = Page::findOne( [
+                    'slug' => $this->slug
+                ] );
+        return $this->render( $this->viewName, [
+                    'page' => $page,
+                    'slug' => $this->slug
+                ] );
+    }
 
-    $page = Page::findOne( [
-        'slug' => $this->slug
-    ] );
-    return $this->render( $this->viewName, [
-        'page' => $page,
-        'slug' => $this->slug
-    ] );
-
-  }
 }
-
