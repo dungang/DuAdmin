@@ -138,7 +138,7 @@ class Navigation extends \DuAdmin\Core\BaseModel {
         }
         if ( $items ) {
             return AppHelper::listToTree( array_map( function ( $item ) {
-                        $item[ 'label' ] = Yii::t( 'app', $item[ 'label' ] );
+                        $item[ 'label' ] = Yii::t( 'app', $item[ 'name' ] );
                         return $item;
                     }, $items ), 'id', 'pid', 'items' );
         }

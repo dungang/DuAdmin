@@ -13,35 +13,34 @@ use DuAdmin\Filters\AccessFilter;
  */
 abstract class BackendController extends BaseController {
 
-  /**
-   * 游客可以访问的action清单
-   *
-   * @var array
-   */
-  public $guestActions = [ ];
+    /**
+     * 游客可以访问的action清单
+     *
+     * @var array
+     */
+    public $guestActions = [];
 
-  /**
-   * 登录用户可以访问的action清单
-   *
-   * @var array
-   */
-  public $userActions = [ ];
+    /**
+     * 登录用户可以访问的action清单
+     *
+     * @var array
+     */
+    public $userActions = [];
 
-  public function init() {
+    public function init() {
 
-    parent::init();
-    $this->layout = 'main';
-    $this->module->layoutPath = '@Backend/Views/layouts';
+        parent::init();
+        $this->layout = 'main';
+        $this->module->layoutPath = '@Backend/Views/layouts';
+    }
 
-  }
+    public function behaviors() {
 
-  public function behaviors() {
+        $behaviors = parent::behaviors();
+        // 注册访问控制行为
+        // 必须把行为放在第一个位置
+        array_unshift( $behaviors, AccessFilter::class );
+        return $behaviors;
+    }
 
-    $behaviors = parent::behaviors();
-    // 注册访问控制行为
-    // 必须把行为放在第一个位置
-    array_unshift( $behaviors, AccessFilter::class );
-    return $behaviors;
-
-  }
 }

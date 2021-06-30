@@ -25,9 +25,7 @@ namespace <?=StringHelper::dirname( ltrim( $generator->controllerClass, '\\' ) )
 
 use Yii;
 use yii\web\NotFoundHttpException;
-use yii\web\Response;
 use yii\widgets\ActiveForm;
-use DuAdmin\Helpers\AppHelper;
 use <?=ltrim( $generator->modelClass, '\\' )?>;
 <?php
 if ( ! empty( $generator->searchModelClass ) ) :
@@ -129,9 +127,8 @@ if ( in_array( 'create', $generator->actions ) ) :
         $model = new <?=$modelClass?>();
 
         // ajax表单验证
-        if (AppHelper::isAjaxValidationRequest() && $model->load(Yii::$app->request->post())) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return ActiveForm::validate($model);
+        if ( ($error = $this->ajaxValidation( $model )) !== false ) {
+            return $error;
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -159,9 +156,8 @@ if ( in_array( 'update', $generator->actions ) ) :
         $model = $this->findModel(<?=$actionParams?>);
 
         // ajax表单验证
-        if (AppHelper::isAjaxValidationRequest() && $model->load(Yii::$app->request->post())) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return ActiveForm::validate($model);
+        if ( ($error = $this->ajaxValidation( $model )) !== false ) {
+            return $error;
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -227,7 +223,5 @@ if ( in_array( 'update', $generator->actions ) || in_array( 'view', $generator->
 
         throw new NotFoundHttpException(<?=$generator->generateString( 'The requested page does not exist.' )?>);
     }
-<?php endif;
-
-?>
+<?php endif; ?>
 }

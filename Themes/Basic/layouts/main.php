@@ -49,17 +49,17 @@ $siteName = Yii::t( 'app', AppHelper::getSetting( 'site.name', Yii::$app->name )
             NavBar::begin( [
                 'brandLabel' => Yii::t( 'app', '<i class="fa fa-rocket"></i> ' . $siteName ) . ' <small>' . Yii::$app->version . '</small>',
                 // 'brandImage' => $this->params['logo'],
-                'brandUrl' => [
+                'brandUrl'   => [
                     '/site/index'
                 ],
-                'options' => [
+                'options'    => [
                     'class' => 'navbar-inverse nav-affix'
                 ]
             ] );
             $menus = [
                 [
                     'label' => Yii::t( 'yii', 'Home' ),
-                    'url' => [
+                    'url'   => [
                         '/site/index'
                     ]
                 ]
@@ -83,23 +83,24 @@ $siteName = Yii::t( 'app', AppHelper::getSetting( 'site.name', Yii::$app->name )
             if ( Yii::$app->user->isGuest ) {
                 $menus[] = [
                     'label' => Yii::t( 'app', 'Login' ),
-                    'url' => [
+                    'url'   => [
                         '/login'
                     ]
                 ];
             } else {
                 $menus[] = '<li>' . Html::beginForm( [
-                            '/site/logout'
-                                ], 'post' ) . Html::submitButton( Yii::t( 'app', 'Logout' ) . ' ( ' . Yii::$app->user->identity->username . ' ) ', [
-                            'class' => 'btn btn-link logout'
-                        ] ) . Html::endForm() . '</li>';
+                        '/site/logout'
+                        ], 'post' ) . Html::submitButton( Yii::t( 'app', 'Logout' ) . ' ( ' . Yii::$app->user->identity->username . ' ) ', [
+                        'class' => 'btn btn-link logout'
+                    ] ) . Html::endForm() . '</li>';
             }
+
             echo Nav::widget( [
-                'options' => [
+                'options'         => [
                     'class' => 'navbar-nav navbar-right text-uppercase'
                 ],
                 'activateParents' => true,
-                'items' => $menus
+                'items'           => $menus
             ] );
             NavBar::end();
             AutoFixBootstrapColumn::widget();
@@ -110,8 +111,7 @@ $siteName = Yii::t( 'app', AppHelper::getSetting( 'site.name', Yii::$app->name )
                 <div class="container">
                     <?= Breadcrumbs::widget( [ 'links' => isset( $this->params[ 'breadcrumbs' ] ) ? $this->params[ 'breadcrumbs' ] : [] ] ) ?>
                 </div>
-            <?php endif;
-            ?>
+            <?php endif; ?>
             <?= $content ?>
         </div>
 
