@@ -34,6 +34,8 @@ class AdvBlockWidget extends Widget {
             $content = $adv->content;
             if ( $adv->type == 'image' ) {
                 $content = $this->renderImage( $adv );
+            } elseif ( $adv->type == 'google-adv' ) {
+                $this->registGoogleAdvAsset();
             }
         }
         if ( empty( $content ) ) {
@@ -50,6 +52,11 @@ class AdvBlockWidget extends Widget {
                     ] );
             }
         }
+    }
+
+    public function registGoogleAdvAsset() {
+        $this->view->registerJsFile( "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js", [ 'async' => 'async' ] );
+        $this->view->registerJs( "(adsbygoogle = window.adsbygoogle || []).push({});" );
     }
 
     /**
