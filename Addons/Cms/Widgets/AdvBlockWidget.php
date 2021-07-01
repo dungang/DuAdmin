@@ -36,6 +36,7 @@ class AdvBlockWidget extends Widget {
                 $content = $this->renderImage( $adv );
             } elseif ( $adv->type == 'google-adv' ) {
                 $this->registGoogleAdvAsset();
+                return $content;
             }
         }
         if ( empty( $content ) ) {
