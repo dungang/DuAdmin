@@ -20,15 +20,15 @@ $this->params[ 'breadcrumbs' ][] = $this->title;
             <div class="cms-page">
                 <?php
                 echo ListView::widget( [
-                    'layout'           => "{items}\n{pager}",
-                    'dataProvider'     => $dataProvider,
-                    'options'          => [
+                    'layout'       => "{items}\n{pager}",
+                    'dataProvider' => $dataProvider,
+                    'options'      => [
                         'class' => 'post-items list-view'
                     ],
-                    'itemOptions'      => [
+                    'itemOptions'  => [
                         'class' => 'post-item'
                     ],
-                    'renderBeforeItem' => function ( $model, $key, $index ) {
+                    'beforeItem'   => function ( $model, $key, $index, $widget ) {
                         // 在列表最前面添加广告位
                         if ( $index == 0 ) {
                             return AdvBlockWidget::widget( [
