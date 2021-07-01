@@ -9,38 +9,35 @@ use yii\web\View;
 
 class MiniHtmlBehavior extends Behavior {
 
-  /**
-   *
-   * @var HtmlMin
-   */
-  public static $miniHtml;
+    /**
+     *
+     * @var HtmlMin
+     */
+    public static $miniHtml;
 
-  public function init() {
+    public function init() {
 
-    if ( empty( static::$miniHtml ) ) {
-      static::$miniHtml = new HtmlMin();
+        if ( empty( static::$miniHtml ) ) {
+            static::$miniHtml = new HtmlMin();
+        }
     }
 
-  }
+    public function events() {
 
-  public function events() {
-
-    return [
-        View::EVENT_AFTER_RENDER => 'miniHtml'
-    ];
-
-  }
-
-  /**
-   *
-   * @param ViewEvent $event
-   */
-  public function miniHtml( $event ) {
-
-    if ( $out = $event->output ) {
-      $event->output = static::$miniHtml->minify( $out );
+        return [
+            View::EVENT_AFTER_RENDER => 'miniHtml'
+        ];
     }
 
-  }
+    /**
+     *
+     * @param ViewEvent $event
+     */
+    public function miniHtml( $event ) {
+
+        if ( $out = $event->output && YII_ENV_PROD ) {
+            $event->output = static::$miniHtml->minify( $out );
+        }
+    }
+
 }
-
