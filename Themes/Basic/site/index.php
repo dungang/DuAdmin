@@ -38,7 +38,7 @@ if ( $files ) {
         </div>
     </div>
 </div>
-<?php
+<?=
 AdvBlockWidget::widget( [
     'nameCode' => 'index'
 ] );
@@ -139,5 +139,5 @@ AdvBlockWidget::widget( [
     </div>
 </div>
 <div class="block-bar-gray">
-<?= $this->render( '@Frontend/Views/site/contactForm', [ 'model' => new ContactForm() ] ); ?>
+    <?= $this->render( '@Frontend/Views/site/contactForm', [ 'model' => new ContactForm() ] ); ?>
 </div>
