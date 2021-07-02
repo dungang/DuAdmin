@@ -172,8 +172,6 @@ class Navigation extends BaseModel {
             } );
         }
 
-
-
         if ( isset( $appItems[ $app ] ) ) {
             $items = $appItems[ $app ];
         } else {

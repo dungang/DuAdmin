@@ -8,7 +8,7 @@
 .cms-page .post-items .post-item img {
   -o-object-fit: cover;
      object-fit: cover;
-  height: 200px;
+  height: 210px;
 }
 .cms-page .post-items .post-item:last-child {
   border-bottom: none;
