@@ -50,6 +50,9 @@ class FriendLink extends \DuAdmin\Core\BaseModel {
                 'integer'
             ],
             [
+                [ 'pid' ], 'default', 'value' => 0
+            ],
+            [
                 [
                     'createdAt',
                     'updatedAt'

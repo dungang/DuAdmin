@@ -27,13 +27,15 @@ use yii\helpers\Html;
                                         <?php if ( isset( $link[ 'children' ] ) && is_array( $link[ 'children' ] ) ) : ?>
                                             <?php foreach ( $link[ 'children' ] as $child ) : ?>
                                                 <div class="footer-link">
-                                                    <?php if ( $child[ 'type' ] == 'url' ) : ?>
+                                                    <?php if ( $child[ 'type' ] === 'url' ) : ?>
                                                         <?= Html::a( $child[ 'name' ], $child[ 'url' ], [ 'target' => '_blank' ] ) ?>
-                                                    <?php elseif ( $child[ 'type' ] == 'qrcode' ) : ?>
+                                                    <?php elseif ( $child[ 'type' ] === 'qrcode' ) : ?>
                                                         <div class="qrcode-box">
                                                             <div class="name"><?= $child[ 'name' ] ?></div>
                                                             <?= Html::img( $child[ 'pic' ], [ 'class' => 'qrcode' ] ) ?>
                                                         </div>
+                                                    <?php elseif ( $child[ 'type' ] === 'labelurl' ) : ?>
+                                                        <?= $child[ 'name' ] ?>: <?= Html::a( $child[ 'url' ], $child[ 'url' ] ) ?>
                                                     <?php else : ?>
                                                         <?= $child[ 'name' ] ?>: <?= $child[ 'url' ] ?>
                                                     <?php endif; ?>
