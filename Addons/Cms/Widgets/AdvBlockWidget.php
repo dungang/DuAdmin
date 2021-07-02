@@ -57,11 +57,10 @@ class AdvBlockWidget extends Widget {
 
     public function registGoogleAdvAsset() {
         $this->view->registerJsFile( "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js", [ 'async' => 'async' ] );
-
         $googleJs = <<<JS
-    if (!(/iphone|ipod|ipad|Android|nokia|blackberry|webos|webmate|bada|lg|ucweb|skyfire|sony|ericsson|mot|samsung|sgh|lg|philips|panasonic|alcatel|lenovo|cldc|midp|wap|mobile/i.test(navigator.userAgent.toLowerCase()))) {
-        (adsbygoogle = window.adsbygoogle || []).push({});
-   }
+if (!(/iphone|ipod|ipad|Android|nokia|blackberry|webos|webmate|bada|lg|ucweb|skyfire|sony|ericsson|mot|samsung|sgh|lg|philips|panasonic|alcatel|lenovo|cldc|midp|wap|mobile/i.test(navigator.userAgent.toLowerCase()))) {
+    (adsbygoogle = window.adsbygoogle || []).push({});
+}
 JS;
 
         $this->view->registerJs( $googleJs );
