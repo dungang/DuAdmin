@@ -64,23 +64,10 @@ $siteName = Yii::t( 'app', AppHelper::getSetting( 'site.name', Yii::$app->name )
                     ]
                 ]
             ];
-            $navigations = Navigation::getNavigation();
-            if ( $navigations ) {
-                foreach ( $navigations as $navigation ) {
-                    if ( $navigation[ 'requireLogin' ] && Yii::$app->user->isGuest ) {
-                        continue;
-                    }
-                    if ( empty( $navigation[ 'isOuter' ] ) ) {
-                        $navigation[ 'url' ] = AppHelper::parseDuAdminMenuUrl( $navigation[ 'url' ], '/' );
-                    } else {
-                        $navigation[ 'linkOptions' ] = [
-                            'target' => '_blank'
-                        ];
-                    }
-                    $menus[] = $navigation;
-                }
-            }
+
             if ( Yii::$app->user->isGuest ) {
+                $navigations = Navigation::getNavigation( 'frontend', true );
+                $menus = array_merge( $menus, $navigations );
                 $menus[] = [
                     'label' => Yii::t( 'app', 'Login' ),
                     'url'   => [
@@ -88,6 +75,8 @@ $siteName = Yii::t( 'app', AppHelper::getSetting( 'site.name', Yii::$app->name )
                     ]
                 ];
             } else {
+                $navigations = Navigation::getNavigation( 'frontend' );
+                $menus = array_merge( $menus, $navigations );
                 $menus[] = '<li>' . Html::beginForm( [
                         '/site/logout'
                         ], 'post' ) . Html::submitButton( Yii::t( 'app', 'Logout' ) . ' ( ' . Yii::$app->user->identity->username . ' ) ', [

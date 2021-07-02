@@ -2,8 +2,9 @@
 
 namespace DuAdmin\Models;
 
-use Yii;
+use DuAdmin\Core\BaseModel;
 use DuAdmin\Helpers\AppHelper;
+use Yii;
 
 /**
  * "{{%navigation}}"表的模型类.
@@ -18,7 +19,7 @@ use DuAdmin\Helpers\AppHelper;
  * @property string $app 所属APP::前台或后台或插件的Id
  * @property int $sort 排序
  */
-class Navigation extends \DuAdmin\Core\BaseModel {
+class Navigation extends BaseModel {
     ///**
     // * 对象json序列化的时候设置不显示的字段
     // *
@@ -83,16 +84,21 @@ class Navigation extends \DuAdmin\Core\BaseModel {
     }
 
     const CACHE_KEY = 'fontend.navigations';
+    const CACHE_GUEST_KEY = 'fontend.guest.navigations';
 
     public function behaviors() {
         $b = parent::behaviors();
         $b[ 'cleanCache' ] = [
             'class'      => 'DuAdmin\Behaviors\ReCacheBehavior',
             'cache_keys' => [
-                self::CACHE_KEY => [
+                self::CACHE_KEY       => [
                     __CLASS__,
                     'getNavigationData'
-                ]
+                ],
+                self::CACHE_GUEST_KEY => [
+                    __CLASS__,
+                    'getGuestNavigationData'
+                ],
             ]
         ];
         return $b;
@@ -101,7 +107,7 @@ class Navigation extends \DuAdmin\Core\BaseModel {
     /**
      * 获取导航数据
      *
-     * @return \DuAdmin\Models\Navigation[]|array
+     * @return Navigation[]|array
      */
     public static function getNavigationData() {
         $items = self::find()
@@ -109,10 +115,38 @@ class Navigation extends \DuAdmin\Core\BaseModel {
             ->asArray()
             ->orderBy( 'sort asc' )
             ->all();
+
+        return static::formateItem( $items );
+    }
+
+    /**
+     * 获取导航数据
+     *
+     * @return Navigation[]|array
+     */
+    public static function getGuestNavigationData() {
+        $items = self::find()
+            ->where( 'requireLogin = 0' )
+            ->indexBy( 'id' )
+            ->asArray()
+            ->orderBy( 'sort asc' )
+            ->all();
+        return static::formateItem( $items );
+    }
+
+    public static function formateItem( $items ) {
         $appItems = [];
         foreach ( $items as $item ) {
             if ( !isset( $appItems[ $item[ 'app' ] ] ) ) {
                 $appItems[ $item[ 'app' ] ] = [];
+            }
+            $item[ 'label' ] = Yii::t( 'app', $item[ 'name' ] );
+            if ( empty( $item[ 'isOuter' ] ) ) {
+                $item[ 'url' ] = AppHelper::parseDuAdminMenuUrl( $item[ 'url' ], '/' );
+            } else {
+                $item[ 'linkOptions' ] = [
+                    'target' => '_blank'
+                ];
             }
             $appItems[ $item[ 'app' ] ][] = $item;
         }
@@ -126,21 +160,27 @@ class Navigation extends \DuAdmin\Core\BaseModel {
      * @param string $app
      * @return array|array[]
      */
-    public static function getNavigation( $app = 'frontend' ) {
-        $appItems = \Yii::$app->cache->getOrSet( self::CACHE_KEY, function () {
-            return self::getNavigationData();
-        } );
+    public static function getNavigation( $app = 'frontend', $guest = false ) {
+        if ( $guest ) {
+
+            $appItems = \Yii::$app->cache->getOrSet( self::CACHE_GUEST_KEY, function () {
+                return self::getGuestNavigationData();
+            } );
+        } else {
+            $appItems = \Yii::$app->cache->getOrSet( self::CACHE_KEY, function () {
+                return self::getNavigationData();
+            } );
+        }
+
+
 
         if ( isset( $appItems[ $app ] ) ) {
             $items = $appItems[ $app ];
         } else {
-            $items = isset( $appItems[ 'frontend' ] ) ?: null;
+            $items = [];
         }
         if ( $items ) {
-            return AppHelper::listToTree( array_map( function ( $item ) {
-                        $item[ 'label' ] = Yii::t( 'app', $item[ 'name' ] );
-                        return $item;
-                    }, $items ), 'id', 'pid', 'items' );
+            return AppHelper::listToTree( $items, 'id', 'pid', 'items' );
         }
         return [];
     }

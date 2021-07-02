@@ -493,9 +493,9 @@ class AppHelper {
      */
     public static function listToTree( $list, $pk = 'id', $pid = 'pid', $child = 'children', $root = '0' ) {
 
-        $list = array_map( function ( $item ) {
+        $list = array_map( function ( $item ) use ( $root ) {
             if ( !isset( $item[ 'pid' ] ) ) {
-                $item[ 'pid' ] = '0';
+                $item[ 'pid' ] = $root;
             }
             return $item;
         }, $list );
