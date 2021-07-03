@@ -169,7 +169,7 @@ class AppHelper {
         //解决非标准的语音浏览器zh-cn 应该是zh-CN
         $parts = explode( '-', Yii::$app->language );
         if ( count( $parts ) == 2 ) {
-            Yii::$app->language = $parts[ 0 ] . strtoupper( $parts[ 1 ] );
+            Yii::$app->language = $parts[ 0 ] . "-" . strtoupper( $parts[ 1 ] );
         }
     }
 
