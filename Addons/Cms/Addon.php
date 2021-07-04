@@ -10,29 +10,27 @@ use DuAdmin\Components\Addon as BaseAddon;
  */
 class Addon extends BaseAddon {
 
-  protected function initBackend() {
+    protected function initBackend() {
 
-    $this->name = '内容系统';
-    $this->home = [
-        'label' => $this->name,
-        'url' => [
-            '/cms/post/index'
-        ]
-    ];
-    $this->defaultRoute = 'post';
-    $this->controllerMap = [
-        'setting' => [
-            'class' => 'Backend\Components\SettingController',
-            'default_category' => 'addon-cms'
-        ]
-    ];
+        $this->name = '内容系统';
+        $this->home = [
+            'label' => $this->name,
+            'url'   => [
+                '/cms/post/index'
+            ]
+        ];
+        $this->defaultRoute = 'post';
+        $this->controllerMap = [
+            'setting' => [
+                'class'           => 'Backend\Components\SettingController',
+                'defaultCategory' => 'addon-cms'
+            ]
+        ];
+    }
 
-  }
+    protected function initFrontend() {
 
-  protected function initFrontend() {
+        $this->defaultRoute = 'post';
+    }
 
-    $this->defaultRoute = 'post';
-
-  }
 }
-

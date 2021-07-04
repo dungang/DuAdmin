@@ -9,24 +9,22 @@ use DuAdmin\Models\DictType;
 /**
  * DictTypeSearch represents the model behind the search form of `DuAdmin\Models\DictType`.
  */
-class DictTypeSearch extends DictType
-{
+class DictTypeSearch extends DictType {
+
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['id', 'status'], 'integer'],
-            [['dictName', 'dictType', 'createdAt', 'updatedAt'], 'safe'],
+            [ [ 'id', 'status' ], 'integer' ],
+            [ [ 'dictName', 'dictType', 'createdAt', 'updatedAt' ], 'safe' ],
         ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return parent::scenarios();
     }
@@ -40,44 +38,41 @@ class DictTypeSearch extends DictType
      *
      * @return ActiveDataProvider
      */
-    public function search($params, $formName = NULL)
-    {
+    public function search( $params, $formName = NULL ) {
         $query = DictType::find();
 
         // add conditions that should always apply here
 
-        $dataProvider = new ActiveDataProvider([
+        $dataProvider = new ActiveDataProvider( [
             'query' => $query,
-		    'sort' => [
-               'defaultOrder' => [
-                   'createdAt' => SORT_DESC               ]
-            ]
-        ]);
+        ] );
 
-        $this->load($params, $formName);
+        $this->load( $params, $formName );
 
-        if (!$this->validate()) {
+        if ( !$this->validate() ) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
         }
 
         // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
+        $query->andFilterWhere( [
+            'id'     => $this->id,
             'status' => $this->status,
-        ]);
+        ] );
 
-        $query->andFilterWhere(['DATE_RANGE','createdAt',$this->createdAt])
-            ->andFilterWhere(['DATE_RANGE','updatedAt',$this->updatedAt]);
+        $query->andFilterWhere( [ 'DATE_RANGE', 'createdAt', $this->createdAt ] )
+            ->andFilterWhere( [ 'DATE_RANGE', 'updatedAt', $this->updatedAt ] );
 
-        $query->andFilterWhere(['like', 'dictName', $this->dictName])
-            ->andFilterWhere(['like', 'dictType', $this->dictType]);
+        $query->andFilterWhere( [ 'like', 'dictName', $this->dictName ] )
+            ->andFilterWhere( [ 'like', 'dictType', $this->dictType ] );
 
-        if ($full_search = Yii::$app->request->get('full_search')) {
-            $query->andFilterWhere(['FULL_SEARCH',['dictName','dictType'],$full_search]);
+        if ( $full_search = Yii::$app->request->get( 'full_search' ) ) {
+            $query->andFilterWhere( [ 'FULL_SEARCH', [ 'dictName', 'dictType' ],
+                $full_search ] );
         }
 
         return $dataProvider;
     }
+
 }

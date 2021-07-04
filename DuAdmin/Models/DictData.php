@@ -19,117 +19,122 @@ use Yii;
  * @property string $updatedAt 更新时间
  */
 class DictData extends \DuAdmin\Core\BaseModel {
+    // /**
+    // * 对象json序列化的时候设置不显示的字段
+    // *
+    // * @var array
+    // */
+    // public $jsonHideFields = [];
 
-  // /**
-  // * 对象json序列化的时候设置不显示的字段
-  // *
-  // * @var array
-  // */
-  // public $jsonHideFields = [];
-  /**
-   *
-   * {@inheritdoc}
-   */
-  public static function tableName() {
+    /**
+     *
+     * {@inheritdoc}
+     */
+    public static function tableName() {
 
-    return '{{%dict_data}}';
+        return '{{%dict_data}}';
+    }
 
-  }
+    /**
+     *
+     * {@inheritdoc}
+     */
+    public function rules() {
 
-  /**
-   *
-   * {@inheritdoc}
-   */
-  public function rules() {
-
-    return [
-        [
+        return [
             [
-                'dictLabel',
-                'dictValue',
-                'dictType'
+                [
+                    'dictLabel',
+                    'dictValue',
+                    'dictType'
+                ],
+                'required'
             ],
-            'required'
-        ],
-        [
             [
-                'isDefault',
-                'sort',
-                'status'
+                [
+                    'isDefault',
+                    'sort',
+                    'status'
+                ],
+                'integer'
             ],
-            'integer'
-        ],
-        [
             [
-                'createdAt',
-                'updatedAt'
+                [
+                    'createdAt',
+                    'updatedAt'
+                ],
+                'safe'
             ],
-            'safe'
-        ],
-        [
             [
-                'dictLabel',
-                'dictValue',
-                'dictType',
-                'listCss'
+                [
+                    'dictLabel',
+                    'dictType',
+                    'listCss'
+                ],
+                'string',
+                'max' => 64
             ],
-            'string',
-            'max' => 64
-        ]
-    ];
+            [
+                [
+                    'dictValue',
+                ],
+                'string',
+                'max' => 255
+            ]
+        ];
+    }
 
-  }
+    /**
+     *
+     * {@inheritdoc}
+     */
+    public function attributeLabels() {
 
-  /**
-   *
-   * {@inheritdoc}
-   */
-  public function attributeLabels() {
+        return [
+            'id'        => Yii::t( 'app_dict_data', 'ID' ),
+            'dictLabel' => Yii::t( 'app_dict_data', 'Dict Label' ),
+            'dictValue' => Yii::t( 'app_dict_data', 'Dict Value' ),
+            'dictType'  => Yii::t( 'app_dict_data', 'Dict Type' ),
+            'listCss'   => Yii::t( 'app_dict_data', 'List Css' ),
+            'isDefault' => Yii::t( 'app_dict_data', 'Is Default' ),
+            'sort'      => Yii::t( 'app_dict_data', 'Sort' ),
+            'status'    => Yii::t( 'app_dict_data', 'Status' ),
+            'createdAt' => Yii::t( 'app_dict_data', 'Created At' ),
+            'updatedAt' => Yii::t( 'app_dict_data', 'Updated At' )
+        ];
+    }
 
-    return [
-        'id' => Yii::t( 'app_dict_data', 'ID' ),
-        'dictLabel' => Yii::t( 'app_dict_data', 'Dict Label' ),
-        'dictValue' => Yii::t( 'app_dict_data', 'Dict Value' ),
-        'dictType' => Yii::t( 'app_dict_data', 'Dict Type' ),
-        'listCss' => Yii::t( 'app_dict_data', 'List Css' ),
-        'isDefault' => Yii::t( 'app_dict_data', 'Is Default' ),
-        'sort' => Yii::t( 'app_dict_data', 'Sort' ),
-        'status' => Yii::t( 'app_dict_data', 'Status' ),
-        'createdAt' => Yii::t( 'app_dict_data', 'Created At' ),
-        'updatedAt' => Yii::t( 'app_dict_data', 'Updated At' )
-    ];
+    /**
+     *
+     * {@inheritdoc}
+     */
+    public function attributeHints() {
 
-  }
+        return [
+            'isDefault' => '0:否|1:是',
+            'status'    => '0:不可用|1:可用'
+        ];
+    }
 
-  /**
-   *
-   * {@inheritdoc}
-   */
-  public function attributeHints() {
+    public static function getDataList( $dictType ) {
 
-    return [
-        'isDefault' => '0:否|1:是',
-        'status' => '0:不可用|1:可用'
-    ];
+        return self::find()->where( [
+                'dictType' => $dictType
+            ] )->orderBy( 'sort' )->all();
+    }
 
-  }
+    public static function getDataLabels( $dictType ) {
+        return static::allIdToName( 'dictValue', 'dictLabel', [ 'dictType' => $dictType ] );
+    }
 
-  public static function getDataList( $dict_type ) {
+    /**
+     *
+     * {@inheritdoc}
+     * @return DictDataQuery the active query used by this AR class.
+     */
+    public static function find() {
 
-    return self::find()->where( [
-        'dictType' => $dict_type
-    ] )->orderBy( 'sort' )->all();
+        return new DictDataQuery( get_called_class() );
+    }
 
-  }
-
-  /**
-   *
-   * {@inheritdoc}
-   * @return DictDataQuery the active query used by this AR class.
-   */
-  public static function find() {
-
-    return new DictDataQuery( get_called_class() );
-
-  }
 }

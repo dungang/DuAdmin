@@ -3,6 +3,7 @@
 namespace DuAdmin\Models;
 
 use Yii;
+
 /**
  * "{{%dict_type}}"表的模型类.
  *
@@ -13,8 +14,7 @@ use Yii;
  * @property string $createdAt 添加时间
  * @property string $updatedAt 更新时间
  */
-class DictType extends \DuAdmin\Core\BaseModel
-{
+class DictType extends \DuAdmin\Core\BaseModel {
     ///**
     // * 对象json序列化的时候设置不显示的字段
     // *
@@ -25,44 +25,40 @@ class DictType extends \DuAdmin\Core\BaseModel
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return '{{%dict_type}}';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['dictName', 'dictType'], 'required'],
-            [['status'], 'integer'],
-            [['createdAt', 'updatedAt'], 'safe'],
-            [['dictName', 'dictType'], 'string', 'max' => 64],
+            [ [ 'dictName', 'dictType' ], 'required' ],
+            [ [ 'status' ], 'integer' ],
+            [ [ 'createdAt', 'updatedAt' ], 'safe' ],
+            [ [ 'dictName', 'dictType' ], 'string', 'max' => 64 ],
         ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
-            'id' => Yii::t('app_dict_type', 'ID'),
-            'dictName' => Yii::t('app_dict_type', 'Dict Name'),
-            'dictType' => Yii::t('app_dict_type', 'Dict Type'),
-            'status' => Yii::t('app_dict_type', 'Status'),
-            'createdAt' => Yii::t('app_dict_type', 'Created At'),
-            'updatedAt' => Yii::t('app_dict_type', 'Updated At'),
+            'id'        => Yii::t( 'app_dict_type', 'ID' ),
+            'dictName'  => Yii::t( 'app_dict_type', 'Dict Name' ),
+            'dictType'  => Yii::t( 'app_dict_type', 'Dict Type' ),
+            'status'    => Yii::t( 'app_dict_type', 'Status' ),
+            'createdAt' => Yii::t( 'app_dict_type', 'Created At' ),
+            'updatedAt' => Yii::t( 'app_dict_type', 'Updated At' ),
         ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function attributeHints()
-    {
+    public function attributeHints() {
         return [
             'status' => '0:不可用|1:可用',
         ];
@@ -72,8 +68,8 @@ class DictType extends \DuAdmin\Core\BaseModel
      * {@inheritdoc}
      * @return DictTypeQuery the active query used by this AR class.
      */
-    public static function find()
-    {
-        return new DictTypeQuery(get_called_class());
+    public static function find() {
+        return new DictTypeQuery( get_called_class() );
     }
+
 }

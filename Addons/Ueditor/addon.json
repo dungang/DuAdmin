@@ -7,5 +7,6 @@
     "hasFrontend": false,
     "hasBackend": true,
     "hasConsole": false,
+    "hasSetting": true,
     "hooksMap": {}
 }

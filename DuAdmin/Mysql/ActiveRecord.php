@@ -7,17 +7,16 @@ use yii\db\ActiveRecord as OriginActiveRecord;
 
 /**
  * 支持select for update 的activerecord
- * 
+ *
  */
-class ActiveRecord extends OriginActiveRecord
-{
+class ActiveRecord extends OriginActiveRecord {
+
     /**
      * @inheritdoc
      * @return ActiveQuery|object
      */
-    public static function find()
-    {
-        return Yii::createObject(ActiveQuery::className(), [get_called_class()]);
+    public static function find() {
+        return Yii::createObject( ActiveQuery::className(), [ get_called_class() ] );
     }
 
     /**
@@ -26,26 +25,24 @@ class ActiveRecord extends OriginActiveRecord
      * @param array $condition
      * @return \DuAdmin\Mysql\ActiveQuery
      */
-    protected static function findByCondition($condition){
-        return parent::findByCondition($condition);
+    protected static function findByCondition( $condition ) {
+        return parent::findByCondition( $condition );
     }
 
     /**
      * @param $condition mixed
      * @return static|null ActiveRecord instance matching the condition, or `null` if nothing matches.
      */
-    public static function findOneForUpdate($condition)
-    {
-        return static::findByCondition($condition)->forUpdate()->limit(1)->one();
+    public static function findOneForUpdate( $condition ) {
+        return static::findByCondition( $condition )->forUpdate()->limit( 1 )->one();
     }
 
     /**
      * @param $condition mixed
      * @return static[] an array of ActiveRecord instances, or an empty array if nothing matches.
      */
-    public static function findAllForUpdate($condition)
-    {
-        return static::findByCondition($condition)->forUpdate()->all();
+    public static function findAllForUpdate( $condition ) {
+        return static::findByCondition( $condition )->forUpdate()->all();
     }
 
     /**
@@ -57,8 +54,30 @@ class ActiveRecord extends OriginActiveRecord
      * @throws \Exception|\Throwable if there is any exception during query. In this case the transaction will be rolled back.
      * @return mixed result of callback function
      */
-    public static function transaction(callable $callback, $isolationLevel = null) 
-    {
-        return Yii::$app->db->transaction($callback,$isolationLevel);
+    public static function transaction( callable $callback, $isolationLevel = null ) {
+        return Yii::$app->db->transaction( $callback, $isolationLevel );
     }
+
+    /**
+     * 更新或添加
+     * @param boolean $validation 是否验证
+     * @param array|null $condition 检查的条件默认为空，则表示用对象已有的属性作为条件
+     * @return boolean
+     */
+    public function updateOrInsert( $validation = true, $condition = null ) {
+        if ( $condition == null ) {
+            $condition = $this->attributes;
+        }
+        $self = null;
+        if ( !empty( $condition ) ) {
+            $self = static::findOne( $condition );
+        }
+
+        if ( empty( $self ) ) {
+            return $this->save( $validation );
+        } else {
+            return $self->save( $validation );
+        }
+    }
+
 }

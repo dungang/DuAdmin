@@ -46,18 +46,4 @@ class m201126_044336_create_cms_adv_tables extends Migration {
         return false;
     }
 
-    /*
-     * // Use up()/down() to run migration code without a transaction.
-     * public function up()
-     * {
-     *
-     * }
-     *
-     * public function down()
-     * {
-     * echo "m210626_044336_create_cms_adv_tables cannot be reverted.\n";
-     *
-     * return false;
-     * }
-     */
 }
