@@ -14,7 +14,8 @@ use yii\validators\Validator;
  *
  * @author dungang
  */
-class Bootstrap implements BootstrapInterface {
+class Bootstrap implements BootstrapInterface
+{
 
     /**
      * Bootstrap method to be called during application bootstrap stage.
@@ -24,8 +25,10 @@ class Bootstrap implements BootstrapInterface {
      * {@inheritdoc}
      * @see \yii\base\BootstrapInterface::bootstrap()
      */
-    public function bootstrap( $app ) {
+    public function bootstrap( $app )
+    {
 
+        \Yii::$classMap[ 'yii\helpers\BaseHtml' ] = '@app/DuAdmin/Clazz/BaseHtml.php';
         // 注册DUAdmin的多语言
         $app->i18n->translations [ 'da' ] = [
             'class'          => PhpMessageSource::class,
@@ -45,7 +48,8 @@ class Bootstrap implements BootstrapInterface {
      * @param array $addon
      * @return boolean
      */
-    protected function canConfigAddon( array $addon ) {
+    protected function canConfigAddon( array $addon )
+    {
 
         if ( RUNTIME_MODE === 'Frontend' ) {
             return isset( $addon [ 'hasFrontend' ] ) && $addon [ 'hasFrontend' ];
@@ -57,7 +61,8 @@ class Bootstrap implements BootstrapInterface {
         return false;
     }
 
-    protected function dynamicParseAddons( $app ) {
+    protected function dynamicParseAddons( $app )
+    {
 
         $Addons = LoaderHelper::dynamicParseAddons();
         if ( is_array( $Addons ) ) {

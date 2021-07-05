@@ -43,7 +43,28 @@ class ApiController extends Controller
         ];
     }
 
+    /**
+     * 保存模型
+     * @return mixed
+     * @throws BizException
+     */
+    public function saveModel($model) {
+        if ( ($loaded = $model->load( Yii::$app->request->post() )) && $model->save() ) {
+            return $model->id;
+        }
+        if ( $loaded === false ) {
+            throw new BizException( Yii::t( 'da', 'Data fields error' ) );
+        } else if ( $model->hasErrors() ) {
+            throw new BizException( array_values( $model->getFirstErrors() )[ 0 ] );
+        } else {
+            throw new BizException( Yii::t( 'da', 'Save fail' ) );
+        }
+    }
 
+    /**
+     * @param $dataProvider
+     * @return array
+     */
     public function pageData($dataProvider) {
         return [
             'items' => $dataProvider->getModels(),
