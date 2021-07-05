@@ -44,6 +44,17 @@ class ApiController extends Controller
     }
 
 
+    public function pageData($dataProvider) {
+        return [
+            'items' => $dataProvider->getModels(),
+            'totalCount' => $dataProvider->pagination->totalCount,
+            'pageCount' => $dataProvider->pagination->getPageCount(),
+            'currentPage' => $dataProvider->pagination->getPage() + 1,
+            'perPage' => $dataProvider->pagination->getPageSize(),
+        ];
+    }
+
+
     /**
      * {@inheritdoc}
      */

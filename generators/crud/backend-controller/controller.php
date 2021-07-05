@@ -25,7 +25,6 @@ namespace <?=StringHelper::dirname( ltrim( $generator->controllerClass, '\\' ) )
 
 use Yii;
 use yii\web\NotFoundHttpException;
-use yii\widgets\ActiveForm;
 use <?=ltrim( $generator->modelClass, '\\' )?>;
 <?php
 if ( ! empty( $generator->searchModelClass ) ) :

@@ -108,7 +108,7 @@ class m201224_134253_create_cms_settings extends Migration {
                     ]
                 ]
             ]
-            ], 0, 'addon-cms' );
+        ], 0, 'addon-cms' );
         // insert base page
         $this->insert( '{{%cms_page}}', [
             'slug'  => 'about-us',

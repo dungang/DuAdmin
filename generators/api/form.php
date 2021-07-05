@@ -10,6 +10,8 @@ $controllerNamespaces = $generator->getApiControllerNamespaces();
 echo $form->field($generator, 'controllerNamespace')->dropDownList(array_combine($controllerNamespaces, $controllerNamespaces));
 echo $form->field($generator, 'controllerName');
 echo $form->field($generator, 'onlyQueryCurrentUser')->checkbox();
+$actions = ['index','create','view','update','delete'];
+echo $form->field($generator,'actions')->checkboxList(array_combine($actions,$actions));
 echo $form->field($generator, 'enableDefaultOrder')->checkbox();
 echo $form->field($generator,'defaultOrder')->dropDownList([
     'SORT_DESC' => 'SORT_DESC(倒序)',
