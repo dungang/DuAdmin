@@ -39,7 +39,7 @@ echo PanelGridView::widget( [
             'value'     => function ( $model, $key, $index ) {
                 $textClass = "text-danger";
                 $textAction = "Install";
-                $action = 'index';
+                $action = 'install';
                 if ( $model[ 'active' ] ) {
                     $textAction = 'Uninstall';
                     $textClass = 'text-success';

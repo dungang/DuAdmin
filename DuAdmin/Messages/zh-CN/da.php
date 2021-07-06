@@ -38,5 +38,6 @@ return [
     'Select File'          => '选择文件',
     'Advanced Search'      => '高级查询',
     'Install'              => '安装',
-    'Uninstall'            => '卸载'
+    'Uninstall'            => '卸载',
+    'Setting'              => '设置'
 ];
