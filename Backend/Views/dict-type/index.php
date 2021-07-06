@@ -13,7 +13,7 @@ use yii\widgets\Pjax;
 $this->title = Yii::t( 'app_dict_type', 'Dict Types' );
 $this->params[ 'breadcrumbs' ][] = $this->title;
 ?>
-<?php Pjax::begin( [ 'id' => 'dict-type-index' ] ); ?>
+<?php Pjax::begin( ['id' => 'dict-type-index'] ); ?>
 <?php
 
 PanelGridView::begin( [
@@ -21,25 +21,24 @@ PanelGridView::begin( [
     'intro'        => Yii::t( 'da', '{0} Info Manage', Yii::t( 'app_dict_type', 'Dict Types' ) ),
     'dataProvider' => $dataProvider,
     'columns'      => [
-        [ 'class' => '\DuAdmin\Grids\CheckboxColumn', 'name' => 'id' ],
+        ['class' => '\DuAdmin\Grids\CheckboxColumn', 'name' => 'id'],
         [
             'attribute' => 'id',
             'format'    => 'raw',
             'value'     => function ( $model, $key, $index, $column ) {
-                return AppHelper::linkButtonWithSimpleModal( $model[ 'id' ], [ 'view',
-                    'id' => $model[ 'id' ] ] );
+                return AppHelper::linkButtonWithSimpleModal( $model[ 'id' ], ['view',
+                    'id' => $model[ 'id' ]] );
             }
         ],
         'dictName',
-        'dictType',
         [
-            'label'  => '字典数据',
+            'attribute'  => 'dictType',
             'format' => 'raw',
             'value'  => function ( $model, $key, $index, $column ) {
-                return Html::a( '管理', [ '/dict-data', 'dictType' => $model->dictType ] );
+                return Html::a( $model[ 'dictType' ], ['/dict-data', 'dictType' => $model->dictType] );
             }
         ],
-        'status',
+        'status:boolean',
         'createdAt:date',
         //'updatedAt:date',
         [
@@ -51,25 +50,25 @@ PanelGridView::begin( [
 ] );
 ?>
 
-<?= FullSearchBox::widget( [ 'action' => [ 'index' ] ] ) ?>
+<?= FullSearchBox::widget( ['action' => ['index']] ) ?>
 
-<?= $this->render( '_search', [ 'model' => $searchModel ] ); ?>
+<?= $this->render( '_search', ['model' => $searchModel] ); ?>
 
 <?=
 
 AppHelper::linkButtonWithSimpleModal( '<i class="fa fa-plus"></i> ' . Yii::t( 'da', 'Create' ), [
-    'create' ], [ 'class' => 'btn btn-primary' ] )
+    'create'], ['class' => 'btn btn-primary'] )
 ?>
 <?=
 
-Html::a( '<i class="fa fa-refresh"></i> ' . Yii::t( 'da', 'Refresh' ), [ 'index' ], [
-    'class' => 'btn btn-info' ] )
+Html::a( '<i class="fa fa-refresh"></i> ' . Yii::t( 'da', 'Refresh' ), ['index'], [
+    'class' => 'btn btn-info'] )
 ?>
 
 <?=
 
-Html::a( '<i class="fa fa-trash"></i> ' . Yii::t( 'da', 'Delete' ), [ 'delete' ], [
-    'class'       => 'btn btn-danger del-all', 'data-target' => '#dict-type-list' ] )
+Html::a( '<i class="fa fa-trash"></i> ' . Yii::t( 'da', 'Delete' ), ['delete'], [
+    'class' => 'btn btn-danger del-all', 'data-target' => '#dict-type-list'] )
 ?>
 <?php PanelGridView::end() ?>
 

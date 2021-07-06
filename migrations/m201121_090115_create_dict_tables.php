@@ -6,13 +6,15 @@ use DuAdmin\Helpers\InstallerHelper;
 /**
  * Class m201121_090115_create_dict_tables
  */
-class m201121_090115_create_dict_tables extends DuAdminMigration {
+class m201121_090115_create_dict_tables extends DuAdminMigration
+{
 
     /**
      *
      * {@inheritdoc}
      */
-    public function safeUp() {
+    public function safeUp()
+    {
 
         $tableOptions = 'CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci ENGINE=MyISAM';
         $this->createTable( '{{%dict_type}}', [
@@ -22,7 +24,7 @@ class m201121_090115_create_dict_tables extends DuAdminMigration {
             'status'    => $this->boolean()->defaultValue( true )->comment( '状态::0:不可用|1:可用' ),
             'createdAt' => $this->dateTime()->null()->comment( '添加时间' ),
             'updatedAt' => $this->dateTime()->null()->comment( '更新时间' )
-            ], $tableOptions );
+        ], $tableOptions );
         $this->createIndex( 'idx-dictType', '{{%dict_type}}', 'dictType' );
         $this->addCommentOnTable( '{{%dict_type}}', '系统字典' );
         $this->createTable( '{{%dict_data}}', [
@@ -36,7 +38,7 @@ class m201121_090115_create_dict_tables extends DuAdminMigration {
             'status'    => $this->boolean()->defaultValue( true )->comment( '状态::0:不可用|1:可用' ),
             'createdAt' => $this->dateTime()->null()->comment( '添加时间' ),
             'updatedAt' => $this->dateTime()->null()->comment( '更新时间' )
-            ], $tableOptions );
+        ], $tableOptions );
         $this->createIndex( 'idx-dictType', '{{%dict_data}}', 'dictType' );
         $this->addCommentOnTable( '{{%dict_data}}', '系统字典数据' );
         $this->insert( "{{%dict_type}}", [
@@ -53,6 +55,13 @@ class m201121_090115_create_dict_tables extends DuAdminMigration {
             'createdAt' => date( 'Y-m-d H:i:s' ),
             'updatedAt' => date( 'Y-m-d H:i:s' )
         ] );
+        $this->insert( "{{%dict_type}}", [
+            'dictName'  => '系统语言',
+            'dictType'  => 'system_languages',
+            'status'    => 1,
+            'createdAt' => date( 'Y-m-d H:i:s' ),
+            'updatedAt' => date( 'Y-m-d H:i:s' )
+        ] );
         $this->batchInsert( "{{%dict_data}}", [
             'dictLabel',
             'dictValue',
@@ -63,7 +72,7 @@ class m201121_090115_create_dict_tables extends DuAdminMigration {
             'status',
             'createdAt',
             'updatedAt'
-            ], [
+        ], [
             [
                 '是',
                 '1',
@@ -118,11 +127,33 @@ class m201121_090115_create_dict_tables extends DuAdminMigration {
                 1,
                 date( 'Y-m-d H:i:s' ),
                 date( 'Y-m-d H:i:s' )
+            ],
+            [
+                '中文',
+                'zh-CN',
+                'system_languages',
+                '',
+                0,
+                1,
+                1,
+                date( 'Y-m-d H:i:s' ),
+                date( 'Y-m-d H:i:s' )
+            ],
+            [
+                '英文',
+                'en-US',
+                'system_languages',
+                '',
+                0,
+                1,
+                1,
+                date( 'Y-m-d H:i:s' ),
+                date( 'Y-m-d H:i:s' )
             ]
         ] );
 
         InstallerHelper::InstallDict( 'system_storage', '系统存储驱动', [
-            [ 'dictLabel' => '本地存储', 'dictValue' => '\DuAdmin\Storage\LocalDriver' ]
+            ['dictLabel' => '本地存储', 'dictValue' => '\DuAdmin\Storage\LocalDriver']
         ] );
     }
 
@@ -130,7 +161,8 @@ class m201121_090115_create_dict_tables extends DuAdminMigration {
      *
      * {@inheritdoc}
      */
-    public function safeDown() {
+    public function safeDown()
+    {
 
         $this->dropTable( '{{%dict_type}}' );
         $this->dropTable( '{{%dict_data}}' );

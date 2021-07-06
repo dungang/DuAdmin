@@ -2,6 +2,7 @@
 
 namespace DuAdmin\Helpers;
 
+use DuAdmin\Models\DictData;
 use DuAdmin\Models\Setting;
 use Exception;
 use Yii;
@@ -16,7 +17,8 @@ use yii\helpers\Html;
  *
  * @author dungang
  */
-class AppHelper {
+class AppHelper
+{
 
     protected static $agent_detect;
 
@@ -25,7 +27,8 @@ class AppHelper {
      *
      * @return boolean
      */
-    public static function IsMobile() {
+    public static function IsMobile()
+    {
 
         if ( self::$agent_detect == null ) {
             self::$agent_detect = Yii::createObject( 'DuAdmin\Components\MobileDetect' );
@@ -38,7 +41,8 @@ class AppHelper {
      *
      * @return boolean
      */
-    public static function isAjaxNotPjax() {
+    public static function isAjaxNotPjax()
+    {
 
         return Yii::$app->request->isAjax && Yii::$app->request->isPjax === false;
     }
@@ -49,7 +53,8 @@ class AppHelper {
      *
      * @return boolean
      */
-    public static function isAjaxFormSubmitRequest() {
+    public static function isAjaxFormSubmitRequest()
+    {
 
         return Yii::$app->request->isAjax && isset( Yii::$app->request->headers[ 'ajax-submit' ] );
     }
@@ -59,7 +64,8 @@ class AppHelper {
      *
      * @return boolean
      */
-    public static function isAjaxJson() {
+    public static function isAjaxJson()
+    {
 
         return Yii::$app->request->isAjax && false !== strpos( Yii::$app->request->headers[ 'accept' ], 'application/json' );
     }
@@ -69,7 +75,8 @@ class AppHelper {
      *
      * @return boolean
      */
-    public static function isAjaxValidationRequest() {
+    public static function isAjaxValidationRequest()
+    {
 
         return Yii::$app->request->isAjax && (Yii::$app->request->post( 'ajax' ) || Yii::$app->request->post( 'ajax' ));
     }
@@ -82,13 +89,14 @@ class AppHelper {
      * @param array $options
      * @return string
      */
-    public static function linkButtonWithSimpleModal( $text, $url, $options = [] ) {
+    public static function linkButtonWithSimpleModal( $text, $url, $options = [] )
+    {
 
         $options = array_merge( [
             'data-toggle' => 'modal',
             'data-target' => '#modal-dailog',
             'data-pjax'   => '0'
-            ], $options );
+        ], $options );
         return Html::a( $text, $url, $options );
     }
 
@@ -100,14 +108,15 @@ class AppHelper {
      * @param array $options
      * @return string
      */
-    public static function linkButtonWithSmallSimpleModal( $text, $url, $options = [] ) {
+    public static function linkButtonWithSmallSimpleModal( $text, $url, $options = [] )
+    {
 
         $options = array_merge( [
             'data-toggle'     => 'modal',
             'data-target'     => '#modal-dailog',
             'data-modal-size' => 'modal-sm',
             'data-pjax'       => '0'
-            ], $options );
+        ], $options );
         return Html::a( $text, $url, $options );
     }
 
@@ -119,14 +128,15 @@ class AppHelper {
      * @param array $options
      * @return string
      */
-    public static function linkButtonWithBigSimpleModal( $text, $url, $options = [] ) {
+    public static function linkButtonWithBigSimpleModal( $text, $url, $options = [] )
+    {
 
         $options = array_merge( [
             'data-toggle'     => 'modal',
             'data-target'     => '#modal-dailog',
             'data-modal-size' => 'modal-lg',
             'data-pjax'       => '0'
-            ], $options );
+        ], $options );
         return Html::a( $text, $url, $options );
     }
 
@@ -138,22 +148,25 @@ class AppHelper {
      * @param array $options
      * @return string
      */
-    public static function linkDeleteButton( $text, $url, $options = [] ) {
+    public static function linkDeleteButton( $text, $url, $options = [] )
+    {
 
         $options = array_merge( [
             'data-confirm' => Yii::t( 'yii', 'Are you sure you want to delete this item?' ),
             'data-method'  => 'post',
             'data-pjax'    => '0'
-            ], $options );
+        ], $options );
         return Html::a( $text, $url, $options );
     }
 
-    public static function isDevMode() {
+    public static function isDevMode()
+    {
 
         return (defined( 'YII_ENV' ) && YII_ENV == 'dev');
     }
 
-    public static function swtichLanguage( $language = null ) {
+    public static function swtichLanguage( $language = null )
+    {
 
         // 更加参数识别语言
         // 需要 \DuAdmin\Components\RewriteUrl的支持
@@ -173,11 +186,17 @@ class AppHelper {
         }
     }
 
-    public static function getLanguagesTabsItem( array $route, $key = "language" ) {
-
-        $langs = static::getSettingAssoc( 'site.i18n' );
+    /**
+     * 获取语音列表
+     * @param array $route
+     * @param string $key
+     * @return array
+     */
+    public static function getLanguagesTabsItem( array $route, $key = "language" )
+    {
+        $languages = DictData::getDataLabels( 'system_languages' );
         $items = [];
-        foreach ( $langs as $lang => $text ) {
+        foreach ( $languages as $lang => $text ) {
             $items[] = [
                 'name' => $text,
                 'url'  => array_merge( $route, [
@@ -195,7 +214,8 @@ class AppHelper {
      * @param callable $callback
      * @return array
      */
-    public static function walkRecursiveRemove( $array, callable $callback ) {
+    public static function walkRecursiveRemove( $array, callable $callback )
+    {
 
         foreach ( $array as $k => $v ) {
             if ( is_array( $v ) ) {
@@ -221,7 +241,8 @@ class AppHelper {
      * @param string $textsuffix
      * @return string[]
      */
-    public static function generateNumberMap( $start = 1, $size = 12, $textsuffix = '' ) {
+    public static function generateNumberMap( $start = 1, $size = 12, $textsuffix = '' )
+    {
 
         $map = array();
         for ( $i = $start; $i <= $size; $i++ ) {
@@ -236,7 +257,8 @@ class AppHelper {
      * @param string $url
      * @return array|string
      */
-    public static function normalizeUrl2Route( $url ) {
+    public static function normalizeUrl2Route( $url )
+    {
 
         $url_parts = parse_url( $url );
         if ( empty( $url_parts[ 'host' ] ) && isset( $url_parts[ 'query' ] ) ) {
@@ -261,7 +283,8 @@ class AppHelper {
      * @param array $options
      * @return string
      */
-    public static function img( $src, $options ) {
+    public static function img( $src, $options )
+    {
 
         return Html::img( ltrim( $src, '/' ), $options );
     }
@@ -274,42 +297,48 @@ class AppHelper {
      * @param array $options
      * @return string
      */
-    public static function lazyLoadImage( $src, $thumb = null, $options = [] ) {
+    public static function lazyLoadImage( $src, $thumb = null, $options = [] )
+    {
 
         if ( $thumb == null )
             $thumb = 'data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=';
         $opts = ArrayHelper::merge( [
-                'data-original' => ltrim( $src, '/' ),
-                'class'         => 'lazyload'
-                ], $options );
+            'data-original' => ltrim( $src, '/' ),
+            'class'         => 'lazyload'
+        ], $options );
         return Html::img( $thumb, $opts );
     }
 
-    public static function powered() {
+    public static function powered()
+    {
 
         return Html::a( \Yii::t( 'yii', 'Powered by {soft}', [
-                    'soft' => 'DuAdmin'
-                ] ), 'http://www.duadmin.com', [
-                'target' => '_blank'
-            ] );
+            'soft' => 'DuAdmin'
+        ] ), 'http://www.duadmin.com', [
+            'target' => '_blank'
+        ] );
     }
 
-    public static function getSetting( $name, $default = NULL ) {
+    public static function getSetting( $name, $default = NULL )
+    {
 
         return Setting::getSettings( $name, $default );
     }
 
-    public static function getSettingAry( $name ) {
+    public static function getSettingAry( $name )
+    {
 
         return Setting::getSettingAry( $name );
     }
 
-    public static function getSettingAssoc( $name ) {
+    public static function getSettingAssoc( $name )
+    {
 
         return Setting::getSettingAssoc( $name );
     }
 
-    public static function unicodeDecode( $unicode_str ) {
+    public static function unicodeDecode( $unicode_str )
+    {
 
         $json = '{"str":"' . $unicode_str . '"}';
         $arr = json_decode( $json, true );
@@ -326,7 +355,8 @@ class AppHelper {
      * @param integer $lenght
      * @return string
      */
-    public static function uniqid( $lenght = 13 ) {
+    public static function uniqid( $lenght = 13 )
+    {
 
         // uniqid gives 13 chars, but you could adjust it to your needs.
         if ( function_exists( "random_bytes" ) ) {
@@ -344,7 +374,8 @@ class AppHelper {
      *
      * @return string
      */
-    public static function GUID() {
+    public static function GUID()
+    {
 
         if ( function_exists( 'com_create_guid' ) === true ) {
             return trim( com_create_guid(), '{}' );
@@ -357,7 +388,8 @@ class AppHelper {
      *
      * @return string
      */
-    public static function createOrderNo1() {
+    public static function createOrderNo1()
+    {
 
         return date( 'Ymd' ) . str_pad( mt_rand( 1, 99999 ), 5, '0', STR_PAD_LEFT );
     }
@@ -367,7 +399,8 @@ class AppHelper {
      *
      * @return string
      */
-    public static function createOrderNo2() {
+    public static function createOrderNo2()
+    {
 
         return date( 'Ymd' ) . substr( implode( NULL, array_map( 'ord', str_split( substr( uniqid(), 7, 13 ), 1 ) ) ), 0, 8 );
     }
@@ -377,7 +410,8 @@ class AppHelper {
      *
      * @return string
      */
-    public static function createOderNo3() {
+    public static function createOderNo3()
+    {
 
         $yCode = [
             'A',
@@ -391,7 +425,7 @@ class AppHelper {
             'I',
             'J'
         ];
-        return $yCode[ intval( date( 'Y' ) ) - 2011 ] . strtoupper( dechex( date( 'm' ) ) ) . date( 'd' ) . substr( time(), - 5 ) . substr( microtime(), 2, 5 ) . sprintf( '%02d', rand( 0, 99 ) );
+        return $yCode[ intval( date( 'Y' ) ) - 2011 ] . strtoupper( dechex( date( 'm' ) ) ) . date( 'd' ) . substr( time(), -5 ) . substr( microtime(), 2, 5 ) . sprintf( '%02d', rand( 0, 99 ) );
     }
 
     /**
@@ -402,7 +436,8 @@ class AppHelper {
      * @param array $one
      * @param boolean $is_root
      */
-    public static function to1Array( $root_key, $array, &$one, $is_root = true ) {
+    public static function to1Array( $root_key, $array, &$one, $is_root = true )
+    {
 
         foreach ( $array as $key => $val ) {
             if ( $is_root ) {
@@ -424,7 +459,8 @@ class AppHelper {
      * @param array $items
      * @return array
      */
-    public static function reActiveItem( $items ) {
+    public static function reActiveItem( $items )
+    {
 
         if ( empty( $items ) )
             return $items;
@@ -466,7 +502,8 @@ class AppHelper {
         return $items;
     }
 
-    public static function betweenDayWithTimestamp( $field, $date ) {
+    public static function betweenDayWithTimestamp( $field, $date )
+    {
 
         if ( $date ) {
             $start = strtotime( $date );
@@ -496,7 +533,8 @@ class AppHelper {
      * @return array
      * @author gang.dun <dungang@huluwa.cc>
      */
-    public static function listToTree( $list, $pk = 'id', $pid = 'pid', $child = 'children', $root = '0' ) {
+    public static function listToTree( $list, $pk = 'id', $pid = 'pid', $child = 'children', $root = '0' )
+    {
 
         $list = array_map( function ( $item ) use ( $root ) {
             if ( !isset( $item[ 'pid' ] ) ) {
@@ -544,7 +582,8 @@ class AppHelper {
      *          父节点字段
      * @return array
      */
-    public static function calcListItemDepth( $items, $parent_id = 0, $depth = 1, $idField = 'id', $parentField = 'pid' ) {
+    public static function calcListItemDepth( $items, $parent_id = 0, $depth = 1, $idField = 'id', $parentField = 'pid' )
+    {
 
         $dep = array();
         foreach ( $items as $item ) {
@@ -567,7 +606,8 @@ class AppHelper {
      * @param string $parentField
      * @return string[]
      */
-    public static function list2MapLikeTreeWithDepth( $items, $textField, $idField = 'id', $parentField = 'pid', $parent_id = 0, $depth = 1 ) {
+    public static function list2MapLikeTreeWithDepth( $items, $textField, $idField = 'id', $parentField = 'pid', $parent_id = 0, $depth = 1 )
+    {
 
         $depItems = static::calcListItemDepth( $items, $parent_id, $depth, $idField, $parentField );
         $tree = [];
@@ -590,13 +630,14 @@ class AppHelper {
      * @param number $depth
      * @return string[]
      */
-    public static function dbQueryAsMapLikeTree( $table, $textField, $filter = null, $idField = 'id', $parentField = 'pid', $parent_id = 0, $depth = 1, $i18n_cate = null ) {
+    public static function dbQueryAsMapLikeTree( $table, $textField, $filter = null, $idField = 'id', $parentField = 'pid', $parent_id = 0, $depth = 1, $i18n_cate = null )
+    {
 
-        $items = (new Query() )->select( [
-                $idField,
-                $parentField,
-                $textField
-            ] )->from( $table )->where( $filter )->all();
+        $items = (new Query())->select( [
+            $idField,
+            $parentField,
+            $textField
+        ] )->from( $table )->where( $filter )->all();
         if ( $items && $i18n_cate !== null ) {
             $items = array_map( function ( $item ) use ( $textField, $i18n_cate ) {
                 $item[ $textField ] = Yii::t( $i18n_cate, $item[ $textField ] );
@@ -612,12 +653,13 @@ class AppHelper {
      * @param string $text
      * @return mixed[]
      */
-    public static function parseText2Assoc( $text ) {
+    public static function parseText2Assoc( $text )
+    {
 
         $assoc = [];
         $lines = \explode( "\n", trim( $text ) );
         foreach ( $lines as $line ) {
-            if ( ($line = trim( $line, '\n\r\s' ) ) ) {
+            if ( ($line = trim( $line, '\n\r\s' )) ) {
                 $kv = explode( ':', $line );
                 $assoc[ $kv[ 0 ] ] = $kv[ 1 ];
             }
@@ -635,7 +677,8 @@ class AppHelper {
      * @param string $parentField
      * @return array[]|array
      */
-    public static function groupOptions( $items, $textField, $filter = null, $idField = 'id', $parentField = 'pid' ) {
+    public static function groupOptions( $items, $textField, $filter = null, $idField = 'id', $parentField = 'pid' )
+    {
 
         $options = [];
         foreach ( $items as $id => $item ) {
@@ -663,13 +706,14 @@ class AppHelper {
      * @param number $depth
      * @return array
      */
-    public static function dbQueryAsGroupOptions( $table, $textField, $filter = null, $idField = 'id', $parentField = 'pid', $parent_id = 0, $depth = 1 ) {
+    public static function dbQueryAsGroupOptions( $table, $textField, $filter = null, $idField = 'id', $parentField = 'pid', $parent_id = 0, $depth = 1 )
+    {
 
-        $items = (new Query() )->select( [
-                $idField,
-                $parentField,
-                $textField
-            ] )->from( $table )->where( $filter )->all();
+        $items = (new Query())->select( [
+            $idField,
+            $parentField,
+            $textField
+        ] )->from( $table )->where( $filter )->all();
         return self::groupOptions( $items, $textField, $idField, $parentField );
     }
 
@@ -681,7 +725,8 @@ class AppHelper {
      * @param array $rows
      * @return number
      */
-    public static function batchReplaceInto( $table, $columns, $rows ) {
+    public static function batchReplaceInto( $table, $columns, $rows )
+    {
 
         $command = \Yii::$app->db->createCommand()->batchInsert( $table, $columns, $rows );
         $command->setRawSql( 'REPLACE' . \substr( $command->getRawSql(), 6 ) );
@@ -701,20 +746,22 @@ class AppHelper {
     // $mail->try_send = $try_times;
     // return $mail->save(false);
     // }
-    public static function translation_link( $category, $message ) {
+    public static function translation_link( $category, $message )
+    {
 
         return Html::a( '<i class="fa fa-language"></i> ' . Yii::t( 'da', 'Translation' ), [
-                '/translation/setting',
-                'category' => $category,
-                'message'  => $message
-                ], [
-                'class'       => 'btn btn-sm btn-link',
-                'data-toggle' => 'modal',
-                'data-target' => '#modal-dailog'
-            ] );
+            '/translation/setting',
+            'category' => $category,
+            'message'  => $message
+        ], [
+            'class'       => 'btn btn-sm btn-link',
+            'data-toggle' => 'modal',
+            'data-target' => '#modal-dailog'
+        ] );
     }
 
-    public static function maxWidthImage( $content, $width = "100%" ) {
+    public static function maxWidthImage( $content, $width = "100%" )
+    {
 
         return str_replace( "<img ", "<img style='max-width:" . $width . ";'", $content );
     }
@@ -725,7 +772,8 @@ class AppHelper {
      * @param string $str
      * @return string|null
      */
-    public static function getFirstChar( $str ) {
+    public static function getFirstChar( $str )
+    {
 
         if ( empty( $str ) ) {
             return '';
@@ -744,73 +792,73 @@ class AppHelper {
         if ( is_numeric( $str ) ) {
             return $str;
         }
-        if ( ($asc >= - 20319 && $asc <= - 20284) || $fir == 'A' ) {
+        if ( ($asc >= -20319 && $asc <= -20284) || $fir == 'A' ) {
             return 'A';
         }
-        if ( ($asc >= - 20283 && $asc <= - 19776) || $fir == 'B' ) {
+        if ( ($asc >= -20283 && $asc <= -19776) || $fir == 'B' ) {
             return 'B';
         }
-        if ( ($asc >= - 19775 && $asc <= - 19219) || $fir == 'C' ) {
+        if ( ($asc >= -19775 && $asc <= -19219) || $fir == 'C' ) {
             return 'C';
         }
-        if ( ($asc >= - 19218 && $asc <= - 18711) || $fir == 'D' ) {
+        if ( ($asc >= -19218 && $asc <= -18711) || $fir == 'D' ) {
             return 'D';
         }
-        if ( ($asc >= - 18710 && $asc <= - 18527) || $fir == 'E' ) {
+        if ( ($asc >= -18710 && $asc <= -18527) || $fir == 'E' ) {
             return 'E';
         }
-        if ( ($asc >= - 18526 && $asc <= - 18240) || $fir == 'F' ) {
+        if ( ($asc >= -18526 && $asc <= -18240) || $fir == 'F' ) {
             return 'F';
         }
-        if ( ($asc >= - 18239 && $asc <= - 17923) || $fir == 'G' ) {
+        if ( ($asc >= -18239 && $asc <= -17923) || $fir == 'G' ) {
             return 'G';
         }
-        if ( ($asc >= - 17922 && $asc <= - 17418) || $fir == 'H' ) {
+        if ( ($asc >= -17922 && $asc <= -17418) || $fir == 'H' ) {
             return 'H';
         }
-        if ( ($asc >= - 17417 && $asc <= - 16475) || $fir == 'J' ) {
+        if ( ($asc >= -17417 && $asc <= -16475) || $fir == 'J' ) {
             return 'J';
         }
-        if ( ($asc >= - 16474 && $asc <= - 16213) || $fir == 'K' ) {
+        if ( ($asc >= -16474 && $asc <= -16213) || $fir == 'K' ) {
             return 'K';
         }
-        if ( ($asc >= - 16212 && $asc <= - 15641) || $fir == 'L' ) {
+        if ( ($asc >= -16212 && $asc <= -15641) || $fir == 'L' ) {
             return 'L';
         }
-        if ( ($asc >= - 15640 && $asc <= - 15166) || $fir == 'M' ) {
+        if ( ($asc >= -15640 && $asc <= -15166) || $fir == 'M' ) {
             return 'M';
         }
-        if ( ($asc >= - 15165 && $asc <= - 14923) || $fir == 'N' ) {
+        if ( ($asc >= -15165 && $asc <= -14923) || $fir == 'N' ) {
             return 'N';
         }
-        if ( ($asc >= - 14922 && $asc <= - 14915) || $fir == 'O' ) {
+        if ( ($asc >= -14922 && $asc <= -14915) || $fir == 'O' ) {
             return 'O';
         }
-        if ( ($asc >= - 14914 && $asc <= - 14631) || $fir == 'P' ) {
+        if ( ($asc >= -14914 && $asc <= -14631) || $fir == 'P' ) {
             return 'P';
         }
-        if ( ($asc >= - 14630 && $asc <= - 14150) || $fir == 'Q' ) {
+        if ( ($asc >= -14630 && $asc <= -14150) || $fir == 'Q' ) {
             return 'Q';
         }
-        if ( ($asc >= - 14149 && $asc <= - 14091) || $fir == 'R' ) {
+        if ( ($asc >= -14149 && $asc <= -14091) || $fir == 'R' ) {
             return 'R';
         }
-        if ( ($asc >= - 14090 && $asc <= - 13319) || $fir == 'S' ) {
+        if ( ($asc >= -14090 && $asc <= -13319) || $fir == 'S' ) {
             return 'S';
         }
-        if ( ($asc >= - 13318 && $asc <= - 12839) || $fir == 'T' ) {
+        if ( ($asc >= -13318 && $asc <= -12839) || $fir == 'T' ) {
             return 'T';
         }
-        if ( ($asc >= - 12838 && $asc <= - 12557) || $fir == 'W' ) {
+        if ( ($asc >= -12838 && $asc <= -12557) || $fir == 'W' ) {
             return 'W';
         }
-        if ( ($asc >= - 12556 && $asc <= - 11848) || $fir == 'X' ) {
+        if ( ($asc >= -12556 && $asc <= -11848) || $fir == 'X' ) {
             return 'X';
         }
-        if ( ($asc >= - 11847 && $asc <= - 11056) || $fir == 'Y' ) {
+        if ( ($asc >= -11847 && $asc <= -11056) || $fir == 'Y' ) {
             return 'Y';
         }
-        if ( ($asc >= - 11055 && $asc <= - 10247) || $fir == 'Z' ) {
+        if ( ($asc >= -11055 && $asc <= -10247) || $fir == 'Z' ) {
             return 'Z';
         }
         return '';
@@ -821,11 +869,12 @@ class AppHelper {
      *
      * @return array
      */
-    public static function getAddonNames() {
+    public static function getAddonNames()
+    {
 
         $dirs = FileHelper::findDirectories( \Yii::$app->basePath . '/Addons/', [
-                'recursive' => false
-            ] );
+            'recursive' => false
+        ] );
         return array_map( function ( $dir ) {
             return basename( $dir );
         }, $dirs );
@@ -838,7 +887,8 @@ class AppHelper {
      * @param string $url
      * @params string $routePrefix
      */
-    public static function parseDuAdminMenuUrl( $url, $routePrefix = '' ) {
+    public static function parseDuAdminMenuUrl( $url, $routePrefix = '' )
+    {
 
         if ( $url ) {
             $info = parse_url( $url );
