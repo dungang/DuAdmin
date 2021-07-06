@@ -67,6 +67,10 @@ class Bootstrap implements BootstrapInterface
         $Addons = LoaderHelper::dynamicParseAddons();
         if ( is_array( $Addons ) ) {
             foreach ( $Addons as $addon ) {
+                // 如果插件没有激活，则不能使用
+                if ( $addon[ 'active' ] == false ) {
+                    continue;
+                }
                 // 注册加载的类库
                 LoaderHelper::loadAddonLibs( $addon );
                 // 设置模块

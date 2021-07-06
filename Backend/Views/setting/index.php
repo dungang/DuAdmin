@@ -56,7 +56,7 @@ if ( Yii::$app->controller->categoryDict ) {
         $tabs[] = [
             'name' => $category->dictLabel,
             'url'  => [
-                '/setting/index',
+                '/'.Yii::$app->controller->uniqueId,
                 'subCategory' => $category->dictValue
             ]
         ];

@@ -24,7 +24,6 @@ class DuaMigrateController extends MigrateController
             $addonName = basename($name);
             $this->migrationPath[] = '@Addons/' . $addonName . '/Migrations';
         }
-        //print_r($this->migrationPath);die;
     }
 
     /**

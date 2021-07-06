@@ -15,12 +15,6 @@ class Addon extends BaseAddon {
                 '/ueditor/setting/index'
             ]
         ];
-        $this->controllerMap = [
-            'setting' => [
-                'class'           => 'Backend\Components\SettingController',
-                'defaultCategory' => 'addon-ueditor'
-            ]
-        ];
     }
 
 }

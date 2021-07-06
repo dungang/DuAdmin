@@ -45,3 +45,4 @@ mix-manifest.json
 /temp
 composer.lock
 test.html
+installed.lock
