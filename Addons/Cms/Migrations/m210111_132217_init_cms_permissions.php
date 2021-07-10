@@ -24,6 +24,7 @@ class m210111_132217_init_cms_permissions extends Migration
         InstallerHelper::installPermissionCRUDShortcut("轮播图", "cms/flash");
         InstallerHelper::installPermissionCRUDShortcut("单页", "cms/page");
         InstallerHelper::installPermissionCRUDShortcut("友情链接", "cms/friend-link");
+        InstallerHelper::installPermissionCRUDShortcut("广告位", "cms/adv-block");
     }
 
     /**

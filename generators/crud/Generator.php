@@ -570,7 +570,7 @@ class Generator extends \app\generators\Generator
         if ( $code = $this->parseCommentToEnumValues( $attribute, $column ) ) {
             return $code;
         }
-        if ( preg_match( '/img|image|pic|pict|cover|logo/', $column->name ) ) {
+        if ( $column->phpType == 'string' && preg_match( '/img|image|pic|pict|cover|logo/', $column->name ) ) {
             $this->useFormClassies [ 'DuAdmin\Widgets\AjaxFileInput' ] = 1;
             return "\$form->field(\$model, '$attribute')->widget(AjaxFileInput::class)";
         }
@@ -578,7 +578,7 @@ class Generator extends \app\generators\Generator
             $this->useFormClassies [ 'DuAdmin\Widgets\DatePicker' ] = 1;
             return "\$form->field(\$model, '$attribute')->widget(DatePicker::class)";
         }
-        if ( $column->phpType === 'boolean' ) {
+        if ( substr( $column->name, 0, 6 ) == 'enable' || $column->phpType === 'boolean' || $column->type == Schema::TYPE_BOOLEAN ) {
             return "\$form->field(\$model, '$attribute')->checkbox()";
         }
         if ( $column->type === 'text' ) {
@@ -624,12 +624,12 @@ class Generator extends \app\generators\Generator
             } else {
                 if ( $column->type == 'text' ) {
                     $field = "\$form->field(\$model, '$attribute')->textarea(['rows' => 6])";
-                } else if ( $column->type === 'string' && preg_match( '/img|image|pic|pict|cover/', $column->name ) ) {
+                } else if ( $column->phpType == 'string' && preg_match( '/img|image|pic|pict|cover/', $column->name ) ) {
                     return null; // "\$form->field(\$model, '$attribute')->widget('DuAdmin\Widgets\AjaxFileInput')";
                 } else if ( substr( $column->name, -2 ) === 'At' ) {
                     $this->useSearchFormClassies [ 'DuAdmin\Widgets\DatePicker' ] = 1;
                     $field = "\$form->field(\$model, '$attribute')->widget(DatePicker::class,['multidate'=>2])";
-                } else if ( $column->phpType === 'boolean'|| $column->type === Schema::TYPE_BOOLEAN) {
+                } else if ( substr( $column->name, 0, 6 ) == 'enable' || $column->phpType === 'boolean' || $column->type === Schema::TYPE_BOOLEAN ) {
                     $field = "\$form->field(\$model, '$attribute')->checkbox()";
                 }
             }

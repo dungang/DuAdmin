@@ -105,6 +105,11 @@ class m201224_134253_create_cms_settings extends Migration {
                         'name' => '链接',
                         'url'  => 'cms/friend-link',
                         'icon' => 'fa fa-link'
+                    ],
+                    [
+                        'name' => '广告位',
+                        'url'  => 'cms/adv-block',
+                        'icon' => 'fa fa-flag'
                     ]
                 ]
             ]
