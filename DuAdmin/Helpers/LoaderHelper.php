@@ -76,7 +76,10 @@ class LoaderHelper
     public static function addMorePsr4( array $prs4 )
     {
         foreach ( $prs4 as $prefix => $path ) {
-            static::getComposerLoader()->setPsr4( $prefix, \Yii::getAlias( $path ) );
+            if ( is_string( $path ) ) {
+                $path = \Yii::getAlias( $path );
+            }
+            static::getComposerLoader()->setPsr4( $prefix, $path );
         }
     }
 
@@ -152,10 +155,10 @@ class LoaderHelper
                     if ( file_exists( $addonVendorComposerDir . '/autoload_files.php' ) ) {
                         $addon[ 'files' ] = require $addonVendorComposerDir . '/autoload_files.php';
                     }
-                    if(file_exists($addonDir . '/installed.lock')) {
-                        $addon['active'] = true;
+                    if ( file_exists( $addonDir . '/installed.lock' ) ) {
+                        $addon[ 'active' ] = true;
                     } else {
-                        $addon['active'] = false;
+                        $addon[ 'active' ] = false;
                     }
                     $Addons[] = $addon;
                 } catch ( \Exception $e ) {

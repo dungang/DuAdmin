@@ -33,6 +33,7 @@ class m201121_090115_create_dict_tables extends DuAdminMigration
             'dictValue' => $this->string( 255 )->notNull()->comment( '字典键值' ),
             'dictType'  => $this->string( 64 )->notNull()->comment( '字典类型' ),
             'listCss'   => $this->string( 64 )->null()->comment( '显示样式' ),
+            'intro'     => $this->string( 255 )->null()->comment( '介绍' ),
             'isDefault' => $this->boolean()->defaultValue( false )->comment( '是否默认值::0:否|1:是' ),
             'sort'      => $this->smallInteger()->defaultValue( 0 )->comment( '排序' ),
             'status'    => $this->boolean()->defaultValue( true )->comment( '状态::0:不可用|1:可用' ),
