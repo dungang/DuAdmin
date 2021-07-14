@@ -64,9 +64,9 @@ class Bootstrap implements BootstrapInterface
     protected function dynamicParseAddons( $app )
     {
 
-        $Addons = LoaderHelper::dynamicParseAddons();
-        if ( is_array( $Addons ) ) {
-            foreach ( $Addons as $addon ) {
+        $addons = LoaderHelper::dynamicParseAddons();
+        if ( is_array( $addons ) ) {
+            foreach ( $addons as $addon ) {
                 // 如果插件没有激活，则不能使用
                 if ( $addon[ 'active' ] == false ) {
                     continue;

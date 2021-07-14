@@ -123,13 +123,14 @@ class LoaderHelper
     public static function dynamicParseAddons( $fresh = false )
     {
         $all_addons_json = \Yii::$app->basePath . '/runtime/Addons.json';
+        $addons = [];
         if ( YII_ENV_PROD && file_exists( $all_addons_json ) ) {
-            return json_decode( file_get_contents( $all_addons_json ), true );
+            $addons = json_decode( file_get_contents( $all_addons_json ), true );
+            return $addons;
         }
         $dirs = BaseFileHelper::findDirectories( \Yii::$app->basePath . '/Addons', [
             'recursive' => false
         ] );
-        $Addons = [];
         foreach ( $dirs as $name ) {
             $addonName = basename( $name );
             $addonDir = \Yii::$app->basePath . '/Addons/' . $addonName;
@@ -160,17 +161,17 @@ class LoaderHelper
                     } else {
                         $addon[ 'active' ] = false;
                     }
-                    $Addons[] = $addon;
+                    $addons[] = $addon;
                 } catch ( \Exception $e ) {
                     \Yii::error( 'Load Addon ' . $addonName . ' error' );
                 }
             }
         }
         if ( YII_ENV_PROD ) {
-            file_put_contents( $all_addons_json, json_encode( $Addons, JSON_FORCE_OBJECT | JSON_UNESCAPED_UNICODE ) );
+            file_put_contents( $all_addons_json, json_encode( $addons, JSON_FORCE_OBJECT | JSON_UNESCAPED_UNICODE ) );
         } else {
-            file_put_contents( $all_addons_json, json_encode( $Addons, JSON_PRETTY_PRINT | JSON_FORCE_OBJECT | JSON_UNESCAPED_UNICODE ) );
+            file_put_contents( $all_addons_json, json_encode( $addons, JSON_PRETTY_PRINT | JSON_FORCE_OBJECT | JSON_UNESCAPED_UNICODE ) );
         }
-        return $Addons;
+        return $addons;
     }
 }
