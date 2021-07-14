@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'DuAdmin\Grids\DateTimeColumn',
                 'attribute' => 'updatedAt',
             ],
-            'isPublished',
+            'isPublished:boolean',
             //'cover:image',
             //'keywords',
             //'description',
