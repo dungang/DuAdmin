@@ -13,7 +13,8 @@ use yii\helpers\Html;
                     <p><?= AppHelper::getSetting( 'site.description' ) ?></p>
                     <?= date( 'Y' ) ?>
                     &copy; <?= Html::encode( Yii::t( 'app', AppHelper::getSetting( 'site.company' ) ) ) ?>
-                    <?= Html::a( AppHelper::getSetting( 'site.beian' ), 'https://beian.miit.gov.cn' ) ?> <?= AppHelper::powered() ?></p>
+                    <?= AppHelper::powered() ?></p>
+                    <p><?= Html::a( AppHelper::getSetting( 'site.beian' ), 'https://beian.miit.gov.cn' ) ?> </p>
                 </div>
             </div>
             <div class="col-sm-7">
