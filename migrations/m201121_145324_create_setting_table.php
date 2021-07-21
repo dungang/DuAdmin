@@ -89,7 +89,7 @@ class m201121_145324_create_setting_table extends Migration {
                 'base'
             ],
             [
-                'site.enableRegist',
+                'site.enableRegister',
                 '开放注册',
                 0,
                 'BOOL',
@@ -139,6 +139,15 @@ class m201121_145324_create_setting_table extends Migration {
                 '',
                 'STR',
                 '网站的统计JS代码',
+                '',
+                'base'
+            ],
+            [
+                'site.beian',
+                '网站备案号',
+                '浙ICP备2020044981号-2',
+                'STR',
+                '工信部网站备案号',
                 '',
                 'base'
             ],
