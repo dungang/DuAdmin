@@ -1,7 +1,7 @@
 <?php 
 return [
-	'Article Category' => '文章分类',
-	'Article Categories' => '文章分类',
+	'Post Category' => '文章分类',
+	'Post Categories' => '文章分类',
 	'Pid' => '父类',
 	'Slug' => 'Slug',
 	'Name' => '分类名称',

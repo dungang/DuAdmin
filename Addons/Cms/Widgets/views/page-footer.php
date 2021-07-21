@@ -12,8 +12,9 @@ use yii\helpers\Html;
                 <div class="site-info">
                     <h1><?= AppHelper::getSetting( 'site.name' ) ?></h1>
                     <p><?= AppHelper::getSetting( 'site.description' ) ?></p>
-                    <?= date( 'Y' ) ?> &copy; <?= Html::encode( Yii::t( 'app', AppHelper::getSetting( 'site.company' ) ) ) ?>
-                    <?= AppHelper::getSetting( 'site.beian' ) ?> <?= AppHelper::powered() ?></p>
+                    <?= date( 'Y' ) ?>
+                    &copy; <?= Html::encode( Yii::t( 'app', AppHelper::getSetting( 'site.company' ) ) ) ?>
+                    <?= Html::a( AppHelper::getSetting( 'site.beian' ), 'https://beian.miit.gov.cn' ) ?> <?= AppHelper::powered() ?></p>
                 </div>
             </div>
             <div class="col-sm-7">
@@ -28,11 +29,11 @@ use yii\helpers\Html;
                                             <?php foreach ( $link[ 'children' ] as $child ) : ?>
                                                 <div class="footer-link">
                                                     <?php if ( $child[ 'type' ] === 'url' ) : ?>
-                                                        <?= Html::a( $child[ 'name' ], $child[ 'url' ], [ 'target' => '_blank' ] ) ?>
+                                                        <?= Html::a( $child[ 'name' ], $child[ 'url' ], ['target' => '_blank'] ) ?>
                                                     <?php elseif ( $child[ 'type' ] === 'qrcode' ) : ?>
                                                         <div class="qrcode-box">
                                                             <div class="name"><?= $child[ 'name' ] ?></div>
-                                                            <?= Html::img( $child[ 'pic' ], [ 'class' => 'qrcode' ] ) ?>
+                                                            <?= Html::img( $child[ 'pic' ], ['class' => 'qrcode'] ) ?>
                                                         </div>
                                                     <?php elseif ( $child[ 'type' ] === 'labelurl' ) : ?>
                                                         <?= $child[ 'name' ] ?>: <?= Html::a( $child[ 'url' ], $child[ 'url' ] ) ?>
