@@ -22,11 +22,12 @@ Notify::widget();
 LazyLoad::widget();
 $this->registerJs( AppHelper::getSetting( 'site.tongji' ), View::POS_HEAD );
 $this->params[ 'logo' ] = AppHelper::getSetting( 'site.logo' );
+$company = AppHelper::getSetting( 'site.company' );
 $siteName = Yii::t( 'app', AppHelper::getSetting( 'site.name', Yii::$app->name ) );
 ?>
 <?php $this->beginPage() ?>
-<!DOCTYPE html>
-<html lang="<?= Yii::$app->language ?>">
+    <!DOCTYPE html>
+    <html lang="<?= Yii::$app->language ?>">
 
     <head>
         <base href="<?= Yii::$app->request->baseUrl ?>/">
@@ -34,7 +35,7 @@ $siteName = Yii::t( 'app', AppHelper::getSetting( 'site.name', Yii::$app->name )
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <?= Html::csrfMetaTags() ?>
-        <title><?= Html::encode( $this->title . '-' . $siteName ) ?></title>
+        <title><?= Html::encode( $this->title . '-' . $siteName . '-' . $company ) ?></title>
         <?php
         $this->head();
         echo AppHelper::getSetting( 'site.googleAdv' );
@@ -42,20 +43,23 @@ $siteName = Yii::t( 'app', AppHelper::getSetting( 'site.name', Yii::$app->name )
     </head>
 
     <body>
-        <?php $this->beginBody() ?>
+    <?php $this->beginBody() ?>
 
-        <div class="wrap">
-            <?php
-            NavBar::begin( [
-                'brandLabel' => Yii::t( 'app', '<i class="fa fa-rocket"></i> ' . $siteName ),
-                // 'brandImage' => $this->params['logo'],
-                'brandUrl'   => [
-                    '/site/index'
-                ],
-                'options'    => [
-                    'class' => 'navbar-inverse nav-affix'
-                ]
-            ] );
+    <div class="wrap">
+        <?php
+        NavBar::begin( [
+            'brandLabel'   => Yii::t( 'app', '<i class="fa fa-rocket"></i> ' . $siteName ) . ' <small>' . Yii::$app->version . '</small>',
+            // 'brandImage' => $this->params['logo'],
+            'brandUrl'     => [
+                '/site/index'
+            ],
+            'brandOptions' => [
+                'title' => $siteName . '-' . $company
+            ],
+            'options'      => [
+                'class' => 'navbar-inverse nav-affix'
+            ]
+        ] );
             $menus = [
                 [
                     'label' => Yii::t( 'yii', 'Home' ),

@@ -64,7 +64,7 @@ class m201121_145324_create_setting_table extends Migration {
             [
                 'site.company',
                 '公司名称',
-                'DUAdmin Tech',
+                '杭州达柚科技有限公司',
                 'STR',
                 '前台首页的企业名称',
                 '',
@@ -109,7 +109,7 @@ class m201121_145324_create_setting_table extends Migration {
             [
                 'site.keywords',
                 '网站关键词',
-                'DUAdmin, CMS, PHPAdmin, Yii2 fast kit',
+                'DUAdmin,达柚, CMS, PHPAdmin, Yii2 fast kit',
                 'STR',
                 '搜索优化的关键词',
                 '',
@@ -118,7 +118,7 @@ class m201121_145324_create_setting_table extends Migration {
             [
                 'site.description',
                 '网站介绍',
-                '极速开发后台框架',
+                'DUAdmin极速后台开发框架',
                 'STR',
                 '搜索优化的简介',
                 '',

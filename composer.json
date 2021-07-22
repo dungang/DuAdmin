@@ -1,12 +1,14 @@
 {
     "name": "dungang/duadmin",
-    "description": "yii2快速开发模板",
+    "description": "DUAdmin应用快速后台开发框架",
     "keywords": [
         "yii2",
         "fast develop template",
-        "duadmin"
+        "duadmin",
+        "DUAdmin",
+        "达柚"
     ],
-    "homepage": "http://www.baiyuan-teck.com/",
+    "homepage": "http://www.duadmin.com/",
     "type": "project",
     "minimum-stability": "stable",
     "require": {

@@ -28,6 +28,7 @@ class m201122_014337_create_menu_table extends Migration {
         'id' => $this->primaryKey(),
         'pid' => $this->integer()->notNull()->comment( '父导航D' ),
         'name' => $this->string( 64 )->notNull()->comment( '导航名' ),
+        'intro' => $this->string(128)->null()->comment('介绍'),
         'url' => $this->string( 128 )->notNull()->defaultValue( '#' )->comment( '地址::可以是内部和外部地址' ),
         'isOuter' => $this->boolean()->defaultValue( 0 )->comment( '是否外部链接::0:否|1:是' ),
         'requireLogin' => $this->boolean()->defaultValue( 0 )->comment( '需要登录::0:不需要|1:需要' ),

@@ -17,7 +17,7 @@ class NavigationSearch extends Navigation
     {
         return [
             [['id', 'pid', 'isOuter', 'requireLogin', 'sort'], 'integer'],
-            [['name', 'url', 'icon', 'app'], 'safe'],
+            [['name', 'intro', 'url', 'icon', 'app'], 'safe'],
         ];
     }
 
@@ -37,48 +37,49 @@ class NavigationSearch extends Navigation
      *
      * @return ActiveDataProvider
      */
-    public function search($params,$formName=Null)
+    public function search( $params, $formName = Null )
     {
         $query = Navigation::find();
 
         // add conditions that should always apply here
 
         // search before event
-        $this->beforeSearch($query,$params);    
+        $this->beforeSearch( $query, $params );
 
-        $dataProvider = new ActiveDataProvider([
+        $dataProvider = new ActiveDataProvider( [
             'query' => $query,
-		    'sort' => [ 
-               'defaultOrder' => [ 
-                   'sort' => SORT_ASC 
-               ] 
-            ] 
-        ]);
+            'sort'  => [
+                'defaultOrder' => [
+                    'sort' => SORT_ASC
+                ]
+            ]
+        ] );
 
-        $this->load($params);
+        $this->load( $params );
 
-        if (!$this->validate()) {
+        if ( !$this->validate() ) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
         }
 
         // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'pid' => $this->pid,
-            'isOuter' => $this->isOuter,
+        $query->andFilterWhere( [
+            'id'           => $this->id,
+            'pid'          => $this->pid,
+            'isOuter'      => $this->isOuter,
             'requireLogin' => $this->requireLogin,
-            'sort' => $this->sort,
-        ]);
+            'sort'         => $this->sort,
+        ] );
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'url', $this->url])
-            ->andFilterWhere(['like', 'icon', $this->icon])
-            ->andFilterWhere(['like', 'app', $this->app]);
+        $query->andFilterWhere( ['like', 'name', $this->name] )
+            ->andFilterWhere( ['like', 'intro', $this->intro] )
+            ->andFilterWhere( ['like', 'url', $this->url] )
+            ->andFilterWhere( ['like', 'icon', $this->icon] )
+            ->andFilterWhere( ['like', 'app', $this->app] );
 
-        if ($full_search = Yii::$app->request->get('full_search')) {
-            $query->andFilterWhere(['FULL_SEARCH',['name','url','icon','app'],$full_search]);
+        if ( $full_search = Yii::$app->request->get( 'full_search' ) ) {
+            $query->andFilterWhere( ['FULL_SEARCH', ['name', 'intro', 'url', 'icon', 'app'], $full_search] );
         }
 
         return $dataProvider;
