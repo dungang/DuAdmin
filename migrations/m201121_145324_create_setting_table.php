@@ -267,6 +267,15 @@ class m201121_145324_create_setting_table extends Migration {
                 '百度编辑器',
                 'system_editor',
                 'open-feature'
+            ],
+            [
+                'site.pageFooterWidget',
+                '页面默认底部',
+                'DuAdmin\Widgets\DefaultPageFooter',
+                'STR',
+                '系统默认底部',
+                'page_def_footer',
+                'open-feature'
             ]
         ] );
         Setting::updateAll( [

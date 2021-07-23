@@ -2,15 +2,15 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use Addons\Cms\Widgets\CmsPageFooter;
+use app\Themes\Basic\widgets\ThemeAsset;
 use DuAdmin\Helpers\AppHelper;
 use DuAdmin\Models\Navigation;
 use DuAdmin\Widgets\AutoFixBootstrapColumn;
-use DuAdmin\Widgets\DefaultPageFooter;
 use DuAdmin\Widgets\LazyLoad;
 use DuAdmin\Widgets\Nav;
 use DuAdmin\Widgets\Notify;
 use Frontend\Assets\AppAsset;
-use app\Themes\Basic\widgets\ThemeAsset;
 use yii\bootstrap\NavBar;
 use yii\helpers\Html;
 use yii\web\View;
@@ -108,7 +108,7 @@ $siteName = Yii::t( 'app', AppHelper::getSetting( 'site.name', Yii::$app->name )
             <?= $content ?>
         </div>
 
-        <?= DefaultPageFooter::renderPageFooter() ?>
+        <?= CmsPageFooter::renderPageFooter() ?>
         <?php $this->endBody() ?>
     </body>
 
