@@ -313,7 +313,7 @@ class AppHelper
     {
 
         return Html::a( \Yii::t( 'yii', 'Powered by {soft}', [
-            'soft' => 'DuAdmin'
+            'soft' => 'DUAdmin'
         ] ), 'http://www.duadmin.com', [
             'target' => '_blank'
         ] );

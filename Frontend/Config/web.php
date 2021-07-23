@@ -31,7 +31,7 @@ $config = [
         ],
         'urlManager' => [
             'class' => 'DuAdmin\Components\PrettyUrlManager',
-            // 'suffix' => '.html',
+            'suffix' => '.html',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
