@@ -2,60 +2,61 @@
 $theme_name = getenv( 'THEME_NAME' );
 $config = [
     'controllerNamespace' => 'Frontend\Controllers',
-    'viewPath' => '@Frontend/Views',
-    'components' => [
-        'request' => [
+    'viewPath'            => '@Frontend/Views',
+    'components'          => [
+        'request'    => [
             'cookieValidationKey' => getenv( 'APP_KEY' ),
-            'enableCsrfCookie' => false
+            'enableCsrfCookie'    => false
         ],
-        'session' => [
+        'session'    => [
             'name' => 'DUAFSID'
         ],
-        'user' => [
-            'identityClass' => 'Frontend\Models\User',
+        'user'       => [
+            'identityClass'   => 'Frontend\Models\User',
             'enableAutoLogin' => true,
-            'loginUrl' => [
+            'loginUrl'        => [
                 'login'
             ]
         ],
-        'view' => [
+        'view'       => [
             'theme' => [
-                'class' => 'DuAdmin\Components\DUATheme',
-                'name' => $theme_name,
+                'class'   => 'DuAdmin\Components\DUATheme',
+                'name'    => $theme_name,
                 // 'basePath' => '@app/Themes/' . $theme_name,
                 'pathMap' => [
                     '@Frontend/Views' => '@app/Themes/' . $theme_name,
-                    '@Addons' => '@app/Themes/' . $theme_name . '/addons'
+                    '@Addons'         => '@app/Themes/' . $theme_name . '/addons'
                 ]
             ]
         ],
         'urlManager' => [
-            'class' => 'DuAdmin\Components\PrettyUrlManager',
-            'suffix' => '.html',
+            'class'           => 'DuAdmin\Components\PrettyUrlManager',
+            'suffix'          => '.html',
             'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-                '<slug:[\w \-]+>' => 'site/page'
+            'showScriptName'  => false,
+            'rules'           => [
+                '<slug:[\w\-]+>'        => 'site/page',
+                'cms/post/show-<id:\d+>' => 'cms/post/show'
             ]
         ],
-        'log' => [
+        'log'        => [
             'targets' => [
                 [
-                    'class' => 'yii\log\FileTarget',
+                    'class'   => 'yii\log\FileTarget',
                     'logFile' => '@runtime/logs/frontend/app.log',
-                    'levels' => explode( ',', getenv( 'LOG_LEVELS' ) )
+                    'levels'  => explode( ',', getenv( 'LOG_LEVELS' ) )
                 ]
             ]
         ]
     ]
 ];
 if ( YII_ENV_DEV ) {
-  // configuration adjustments for 'dev' environment
-  $config['bootstrap'][] = 'debug';
-  $config['modules']['debug'] = [
-      'class' => 'yii\debug\Module' // 'panels'=>['log' => ['class' => 'yii\debug\panels\LogPanel']],
-                                    // uncomment the following to add your IP if you are not connecting from localhost.
-                                    // 'allowedIPs' => ['127.0.0.1', '::1'],
-  ];
+    // configuration adjustments for 'dev' environment
+    $config[ 'bootstrap' ][] = 'debug';
+    $config[ 'modules' ][ 'debug' ] = [
+        'class' => 'yii\debug\Module' // 'panels'=>['log' => ['class' => 'yii\debug\panels\LogPanel']],
+        // uncomment the following to add your IP if you are not connecting from localhost.
+        // 'allowedIPs' => ['127.0.0.1', '::1'],
+    ];
 }
 return $config;
