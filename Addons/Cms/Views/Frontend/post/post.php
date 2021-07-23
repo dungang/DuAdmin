@@ -22,11 +22,11 @@ if ( $category ) {
 }
 $this->registerMetaTag( [
     'name'    => 'keywords',
-    'content' => $model->keywords . ',' . AppHelper::getSetting( 'site.keywords' )
+    'content' => $model->keywords
 ], 'keywords' );
 $this->registerMetaTag( [
     'name'    => 'description',
-    'content' => $model->description . ',' . AppHelper::getSetting( 'site.description' )
+    'content' => $model->description
 ], 'description' );
 CmsAsset::register( $this );
 ?>
