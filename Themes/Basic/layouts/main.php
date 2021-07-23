@@ -108,7 +108,7 @@ $siteName = Yii::t( 'app', AppHelper::getSetting( 'site.name', Yii::$app->name )
             <?= $content ?>
         </div>
 
-        <?= CmsPageFooter::renderPageFooter() ?>
+        <?= CmsPageFooter::widget() ?>
         <?php $this->endBody() ?>
     </body>
 
