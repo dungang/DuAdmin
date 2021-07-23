@@ -8,7 +8,7 @@ use yii\helpers\Html;
 		<div class="col-md-5 col-xs-12">
 		<?php
   echo Html::a( Html::img( $model['cover'], [
-      'class' => 'image',
+      'class' => 'image lazyload',
       'alt' => $model['title'],
       'width' => '100%'
   ] ), [
