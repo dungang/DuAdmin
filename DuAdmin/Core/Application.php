@@ -8,10 +8,10 @@ use yii\validators\Validator;
 use yii\web\Application as WebApplication;
 
 /**
- * 
+ *
  * @author dungang<dungang@126.com>
  * @since 2020-12-24
- * 
+ *
  * @property ActionLog $actionLog
  */
 class Application extends WebApplication
@@ -31,23 +31,22 @@ class Application extends WebApplication
 
     public function init()
     {
-        if(defined('RUNTIME_MODE')) {
+        if ( defined( 'RUNTIME_MODE' ) ) {
             $this->mode = RUNTIME_MODE;
         }
         parent::init();
-        
+
         AppHelper::swtichLanguage();
         //注册自定义的验证器
-        foreach ($this->validators as $name => $validator) {
-            Validator::$builtInValidators[$name] = $validator;
+        foreach ( $this->validators as $name => $validator ) {
+            Validator::$builtInValidators[ $name ] = $validator;
         }
     }
 
     public function getHomeUrl()
     {
         //$url = parent::getHomeUrl();
-
-        return  Url::to(['/']);
+        return Url::to( '/' );
     }
 
     public function isBackend()
