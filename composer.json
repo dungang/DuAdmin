@@ -12,7 +12,7 @@
     "type": "project",
     "minimum-stability": "stable",
     "require": {
-        "php": "~7.0",
+        "php": "~7.4",
         "ext-zlib": "*",
         "ext-openssl": "*",
         "yiisoft/yii2": "~2.0",

@@ -7,12 +7,13 @@
     "i18n": {
         "0": "da_cms",
         "1": "da_cms_adv_block",
-        "2": "da_flash",
-        "3": "da_friend_link",
-        "4": "da_page",
-        "5": "da_page_post",
-        "6": "da_post",
-        "7": "da_post_category"
+        "2": "da_cms_page_block",
+        "3": "da_flash",
+        "4": "da_friend_link",
+        "5": "da_page",
+        "6": "da_page_post",
+        "7": "da_post",
+        "8": "da_post_category"
     },
     "hasApi": true,
     "hasFrontend": true,
