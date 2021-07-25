@@ -68,7 +68,7 @@ class ActionColumn extends Column
      *
      * @var string
      */
-    public $modalTarget = "#modal-dailog";
+    public $modalTarget = "#modal-dialog";
 
     /**
      * 当没有一个按的时候，显示创建按钮

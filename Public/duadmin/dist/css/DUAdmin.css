@@ -4478,17 +4478,17 @@ table tbody tr td,
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-#modal-dailog .modal-body {
+#modal-dialog .modal-body {
   padding: 15px 30px;
 }
-#modal-dailog .modal-content {
+#modal-dialog .modal-content {
   border-radius: 12px;
 }
-#modal-dailog .modal-content .control-label,
-#modal-dailog .modal-content th {
+#modal-dialog .modal-content .control-label,
+#modal-dialog .modal-content th {
   font-weight: 100;
 }
-#modal-dailog .table {
+#modal-dialog .table {
   margin-bottom: 0;
 }
 div[id*="-search-modal"] {

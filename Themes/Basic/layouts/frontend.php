@@ -68,7 +68,7 @@ $this->registerJs( AppHelper::getSetting( 'site.tongji' ), View::POS_HEAD );
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <?= Html::a( '个人信息', [ '/profile' ], [ 'data-toggle' => 'modal', 'data-target' => '#modal-dailog', 'class' => 'btn btn-default btn-flat' ] ) ?>
+                                    <?= Html::a( '个人信息', [ '/profile' ], [ 'data-toggle' => 'modal', 'data-target' => '#modal-dialog', 'class' => 'btn btn-default btn-flat' ] ) ?>
                                 </div>
                                 <div class="pull-right">
                                     <?= Html::a( '退出', [ '/logout' ], [ 'data-method' => 'post', 'class' => 'btn btn-default btn-flat' ] ) ?>
@@ -135,7 +135,7 @@ $this->registerJs( AppHelper::getSetting( 'site.tongji' ), View::POS_HEAD );
             'options' => [
                 'data-backdrop' => 'static',
                 'data-keyboard' => 'false',
-                'id' => 'modal-dailog'
+                'id' => 'modal-dialog'
             ]
         ] );
         echo "加载中 ... ";

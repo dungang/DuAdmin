@@ -2,11 +2,13 @@
 
 namespace DuAdmin\Helpers;
 
+use DuAdmin\Components\PrettyUrlManager;
 use DuAdmin\Models\DictData;
 use DuAdmin\Models\Setting;
 use Exception;
 use Yii;
 use yii\base\Arrayable;
+use yii\base\InvalidConfigException;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
@@ -94,7 +96,7 @@ class AppHelper
 
         $options = array_merge( [
             'data-toggle' => 'modal',
-            'data-target' => '#modal-dailog',
+            'data-target' => '#modal-dialog',
             'data-pjax'   => '0'
         ], $options );
         return Html::a( $text, $url, $options );
@@ -113,7 +115,7 @@ class AppHelper
 
         $options = array_merge( [
             'data-toggle'     => 'modal',
-            'data-target'     => '#modal-dailog',
+            'data-target'     => '#modal-dialog',
             'data-modal-size' => 'modal-sm',
             'data-pjax'       => '0'
         ], $options );
@@ -133,7 +135,7 @@ class AppHelper
 
         $options = array_merge( [
             'data-toggle'     => 'modal',
-            'data-target'     => '#modal-dailog',
+            'data-target'     => '#modal-dialog',
             'data-modal-size' => 'modal-lg',
             'data-pjax'       => '0'
         ], $options );
@@ -756,7 +758,7 @@ class AppHelper
         ], [
             'class'       => 'btn btn-sm btn-link',
             'data-toggle' => 'modal',
-            'data-target' => '#modal-dailog'
+            'data-target' => '#modal-dialog'
         ] );
     }
 
@@ -911,5 +913,30 @@ class AppHelper
         }
         return null;
     }
+
+    /**
+     * @var PrettyUrlManager
+     */
+    private static $frotendUrlManager = null;
+
+    /**
+     * 创建前端的url
+     * @param $route
+     * @return string
+     */
+    public static function createFrontendUrl( $route )
+    {
+        if ( empty( static::$frotendUrlManager ) ) {
+            $frontendConfigFile = Yii::getAlias( "@Frontend/Config/web.php" );
+            $config = require $frontendConfigFile;
+            try {
+                static::$frotendUrlManager = Yii::createObject( $config['components'][ 'urlManager' ] );
+            } catch ( Exception $e ) {
+                return null;
+            }
+        }
+        return static::$frotendUrlManager->createUrl( $route );
+    }
+
 
 }

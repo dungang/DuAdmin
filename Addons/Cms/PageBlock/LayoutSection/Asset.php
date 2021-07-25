@@ -15,7 +15,7 @@ class Asset extends Widget
     {
         return <<<CSS
 <style>
-    .element-section,.col-md-6 {
+    .element-section .col-md-6 {
         height: 200px;
     }
     .element-section .img-holder{
@@ -25,7 +25,7 @@ class Asset extends Widget
         height: 100%;
     }
     .element-section-info {
-        padding: 0 30px;
+        padding: 30px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -35,21 +35,21 @@ class Asset extends Widget
     }
     /* 小屏幕（平板，大于等于 768px） */
     @media (min-width: 768px) {
-        .element-section,.col-md-6 {
+        .element-section .col-md-6 {
             height: 250px;
         }
     }
 
     /* 中等屏幕（桌面显示器，大于等于 992px） */
     @media (min-width: 992px) {
-        .element-section,.col-md-6  {
+        .element-section .col-md-6  {
             height: 300px;
         }
     }
 
     /* 大屏幕（大桌面显示器，大于等于 1200px） */
     @media (min-width: 1200px) {
-        .element-section,.col-md-6  {
+        .element-section .col-md-6  {
             height: 400px;
         }
     }

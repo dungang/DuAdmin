@@ -53,7 +53,7 @@ PanelGridView::begin(
                     ], [
                         'title' => $model['errorMsg'],
                         'data-toggle' => 'modal',
-                        'data-target' => '#modal-dailog'
+                        'data-target' => '#modal-dialog'
                     ]);
                 }
             ],

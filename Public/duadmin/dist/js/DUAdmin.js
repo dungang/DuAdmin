@@ -577,7 +577,7 @@ Date.prototype.format = function (fmt) {
 
   $.fn.batchLoad.Default = {
     key: 'id',
-    modal: '#modal-dailog'
+    modal: '#modal-dialog'
   };
 }(jQuery);
 +function ($) {
@@ -790,7 +790,7 @@ $(document).on('click', '.batch-update', function (e) {
     baseUrl = baseUrl + '&' + ids.join('&');
     console.log(baseUrl);
     that.attr('href', baseUrl);
-    $('#modal-dailog').modal({
+    $('#modal-dialog').modal({
       remote: baseUrl
     });
   }

@@ -41,7 +41,7 @@ if ( ($tableSchema = $generator->getTableSchema()) === false ) {
                                 'attribute' => '$name',
                                 'format'=>'raw',
                                 'value'=>function(\$model,\$key,\$index,\$column){
-                                    return Html::a(\$model['$name'],['view','id'=>\$model['$name']],['data-toggle'=>'modal','data-target'=>'#modal-dailog']);
+                                    return Html::a(\$model['$name'],['view','id'=>\$model['$name']],['data-toggle'=>'modal','data-target'=>'#modal-dialog']);
                                 }
                         	],\n
 AAA;

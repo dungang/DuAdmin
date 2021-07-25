@@ -15,7 +15,7 @@ use yii\helpers\Html;
 
 DuAdminAsset::register( $this );
 LiveEditorAsset::register( $this );
-/** @var PagePost $model **/
+/** @var PagePost $model * */
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -50,20 +50,23 @@ LiveEditorAsset::register( $this );
     <?php
     AdminlteNavBar::end();
     ?>
-    <div class="du-live-editor" data-page-id="<?=$model->pageId?>" data-language="<?= $model->language?>">
+    <div class="du-live-editor" data-page-id="<?= $model->pageId ?>" data-language="<?= $model->language ?>">
         <div class="du-live-workspace jui">
-            <?=$model->content?>
+            <?= $model->content ?>
         </div>
 
         <?php Modal::begin( [
             'id'     => 'du-live-image-setting-dialog',
             'header' => '设置图片',
-            'footer'=> '<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            'footer' => '<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
         <button type="button" class="btn btn-primary confirm-btn">确定</button>'
         ] );
-        echo AjaxFileInput::widget( ['name' => 'file','options'=>[
-                'class' => 'form-control'
-        ]] );
+        echo AjaxFileInput::widget( ['name'     => 'file',
+                                     'clip'     => 'false',
+                                     'compress' => 'flase',
+                                     'options'  => [
+                                         'class' => 'form-control'
+                                     ]] );
         Modal::end(); ?>
 
         <div class="du-live-editor-toolbar">
@@ -74,7 +77,8 @@ LiveEditorAsset::register( $this );
         <aside class="control-sidebar control-sidebar-dark du-live-editor-elements-control">
             <!-- Create the tabs -->
             <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-                <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+                <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a>
+                </li>
                 <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
             </ul>
             <div class="tab-content du-live-blocks">

@@ -98,13 +98,16 @@
     }
 
     LiveEditor.prototype.saveContent = function() {
+        this.$toolbar.appendTo(this.$element);
+        if (this.$liveBlock) {
+            this.$liveBlock.removeClass('active');
+        }
         var data = {
             content: this.$workspace.html(),
         };
         data[yii.getCsrfToken()] = yii.getCsrfParam();
-        var url = "/admin.php?r=cms/page-post/update&pageId=" + this.options.pageId + "&language=" + this.options.language;
+        var url = "/admin.php?r=cms/live-editor/save&pageId=" + this.options.pageId + "&language=" + this.options.language;
         $.post(url, data, function(res) {
-            console.log(res);
             alert("success")
         });
     }
@@ -119,7 +122,6 @@
             var $this = $(this)
             var data = $this.data('bs.live-editor')
             var options = $.extend({}, LiveEditor.DEFAULTS, $this.data(), typeof option == 'object' && option)
-            console.log(options);
             if (!data) $this.data('bs.live-editor', (data = new LiveEditor(this, options)))
             if (typeof option == 'string') data[option].call(data, args[1])
         })
@@ -155,14 +157,14 @@
             var editor = tool.parents(elemEditor);
             Plugin.call(editor, 'deleteBlock');
         });
-    $(document).on('click.bs.live-editor.edit-element.data-api',
+    $(document).on('dblclick.bs.live-editor.edit-element.data-api',
         elemLiveElement,
         function(e) {
             var element = $(this);
             var editor = element.parents(elemEditor);
             Plugin.call(editor, 'activeLineEditor', element);
         });
-    $(document).on('click.bs.live-editor.setting-image.data-api', elemImageHolder, function(e) {
+    $(document).on('dblclick.bs.live-editor.setting-image.data-api', elemImageHolder, function(e) {
         e.preventDefault();
         var imageHolder = $(this);
         var editor = imageHolder.parents(elemEditor);

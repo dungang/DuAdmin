@@ -4,11 +4,15 @@
 namespace Addons\Cms\PageBlock\LayoutSection;
 
 
-class PlaceHolder extends \yii\base\Widget
-{
+use Addons\Cms\PageBlock\PlaceHolderWidget;
 
-    public function run()
+class PlaceHolder extends PlaceHolderWidget
+{
+    /**
+     * @return mixed
+     */
+    protected function renderBlock()
     {
-        return $this->render('place-holder');
+        return $this->render( 'place-holder' );
     }
 }

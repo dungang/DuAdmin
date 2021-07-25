@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'attribute' => 'name',
             'format' => 'raw',
             'value' => function ($model, $key, $index, $column) {
-                return Html::a($model['name'], ['view', 'id' => $model['id']], ['data-toggle' => 'modal', 'data-target' => '#modal-dailog']);
+                return Html::a($model['name'], ['view', 'id' => $model['id']], ['data-toggle' => 'modal', 'data-target' => '#modal-dialog']);
             }
         ],
         [
@@ -43,11 +43,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'buttonsOptions' => [
                 'update' => [
                     'data-toggle' => 'modal',
-                    'data-target' => '#modal-dailog',
+                    'data-target' => '#modal-dialog',
                 ],
                 'view' => [
                     'data-toggle' => 'modal',
-                    'data-target' => '#modal-dailog',
+                    'data-target' => '#modal-dialog',
                 ],
             ]
         ]

@@ -18,7 +18,7 @@
   background-color: #f1d7e4;
 }
 .du-live-editor .du-live-workspace {
-  min-height: 600px;
+  min-height: 300px;
 }
 .du-live-editor .du-live-workspace:hover {
   background-color: #d8e2f9;
