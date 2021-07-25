@@ -23,6 +23,24 @@ class m210722_141103_create_page_block_tables extends Migration
             'createdAt' => $this->dateTime()->null()->comment( '添加时间' ),
             'updatedAt' => $this->dateTime()->null()->comment( '更新时间' )
         ] );
+
+        $this->insert( static::TABLE_BLOCK, [
+            'name'      => '右图左文字Section',
+            'type'      => 'layout',
+            'namespace' => 'Addons\Cms\PageBlock\LayoutSection',
+            'sort'      => 1,
+            'createdAt' => date( 'Y-m-d H:i:s' ),
+            'updatedAt' => date( 'Y-m-d H:i:s' ),
+        ] );
+
+        $this->insert( static::TABLE_BLOCK, [
+            'name'      => '对话框按钮',
+            'type'      => 'element',
+            'namespace' => 'Addons\Cms\PageBlock\ElementDialogButton',
+            'sort'      => 1,
+            'createdAt' => date( 'Y-m-d H:i:s' ),
+            'updatedAt' => date( 'Y-m-d H:i:s' ),
+        ] );
     }
 
     /**

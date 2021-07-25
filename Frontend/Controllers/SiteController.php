@@ -11,6 +11,7 @@ use Frontend\Forms\ResetPasswordForm;
 use Frontend\Forms\VerifyEmailForm;
 use Yii;
 use yii\base\InvalidArgumentException;
+use yii\helpers\Html;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 
@@ -122,6 +123,14 @@ class SiteController extends Controller {
     \Yii::$app->user->logout();
     return $this->goHome();
 
+  }
+
+    /**
+     * 显示二维码
+     * @return string
+     */
+  public function actionContactQr(){
+      return Html::img(AppHelper::getSetting("site.qr"));
   }
 
   /**

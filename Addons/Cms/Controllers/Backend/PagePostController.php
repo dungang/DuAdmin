@@ -2,6 +2,7 @@
 
 namespace Addons\Cms\Controllers\Backend;
 
+use Addons\Cms\Models\Page;
 use Addons\Cms\Models\PagePost;
 use Addons\Cms\Models\PagePostSearch;
 use DuAdmin\Core\BackendController;
@@ -15,145 +16,171 @@ use yii\widgets\ActiveForm;
  * PagePost 模型的控制器
  * PagePostController 实现了常规的增删查改等行为
  */
-class PagePostController extends BackendController {
+class PagePostController extends BackendController
+{
 
-  /**
-   * 列出所有的 PagePost 模型.
-   *
-   * @return mixed
-   */
-  public function actionIndex() {
+    /**
+     * 列出所有的 PagePost 模型.
+     *
+     * @return mixed
+     */
+    public function actionIndex()
+    {
 
-    $searchModel = new PagePostSearch();
-    $dataProvider = $searchModel->search( Yii::$app->request->queryParams );
-    return $this->render( 'index', [
-        'searchModel' => $searchModel,
-        'dataProvider' => $dataProvider
-    ] );
+        $searchModel = new PagePostSearch();
+        $dataProvider = $searchModel->search( Yii::$app->request->queryParams );
+        return $this->render( 'index', [
+            'searchModel'  => $searchModel,
+            'dataProvider' => $dataProvider
+        ] );
 
-  }
-
-  /**
-   * 显示单个的 PagePost 模型数据.
-   *
-   * @param integer $pageId
-   * @param string $language
-   * @return mixed
-   * @throws NotFoundHttpException if the model cannot be found
-   */
-  public function actionView( $pageId, $language ) {
-
-    return $this->render( 'view', [
-        'model' => $this->findModel( $pageId, $language )
-    ] );
-
-  }
-
-  /**
-   * 创建一个新的 PagePost 模型.
-   * 如果创建成果,浏览器将会跳转的到该模型的详情视图界面.
-   *
-   * @return mixed
-   */
-  public function actionCreate() {
-
-    $model = new PagePost();
-    // ajax表单验证
-    if ( AppHelper::isAjaxValidationRequest() && $model->load( Yii::$app->request->post() ) ) {
-      Yii::$app->response->format = Response::FORMAT_JSON;
-      return ActiveForm::validate( $model );
     }
-    if ( $model->load( Yii::$app->request->post() ) && $model->save() ) {
-      return $this->redirectSuccess( [
-          'view',
-          'pageId' => $model->pageId,
-          'language' => $model->language
-      ], "添加成功" );
+
+    /**
+     * 显示单个的 PagePost 模型数据.
+     *
+     * @param integer $pageId
+     * @param string $language
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionView( $pageId, $language )
+    {
+
+        return $this->render( 'view', [
+            'model' => $this->findModel( $pageId, $language )
+        ] );
+
     }
-    return $this->render( 'create', [
-        'model' => $model
-    ] );
 
-  }
-
-  /**
-   * 更新一条已经存在的 PagePost 模型.
-   * 如果更新成果,浏览器将会跳转的到该模型的详情视图界面.
-   *
-   * @param integer $pageId
-   * @param string $language
-   * @return mixed
-   * @throws NotFoundHttpException 如果模型没查询到
-   */
-  public function actionUpdate( $pageId, $language ) {
-
-    $model = $this->findModel( $pageId, $language );
-    // ajax表单验证
-    if ( AppHelper::isAjaxValidationRequest() && $model->load( Yii::$app->request->post() ) ) {
-      Yii::$app->response->format = Response::FORMAT_JSON;
-      return ActiveForm::validate( $model );
-    }
-    if ( $model->load( Yii::$app->request->post() ) && $model->save() ) {
-      return $this->redirectSuccess( [
-          'view',
-          'pageId' => $model->pageId,
-          'language' => $model->language
-      ], "修改成功" );
-    }
-    return $this->render( 'update', [
-        'model' => $model
-    ] );
-
-  }
-
-  /**
-   * 删除一条存在的 PagePost 模型.
-   * 如果删除成果,浏览器将会跳转的到该模型的列表视图界面.
-   *
-   * @param integer $pageId
-   * @param string $language
-   * @return mixed
-   * @throws NotFoundHttpException 如果模型没查询到
-   */
-  public function actionDelete( $pageId, $language ) {
-
-    if ( is_array( $pageId, $language ) ) {
-      $modelList = PagePost::findAll( [
-          'pageId' => $pageId,
-          'language' => $language
-      ] );
-      if ( $modelList ) {
-        foreach ( $modelList as $model ) {
-          $model->delete();
+    /**
+     * 创建一个新的 PagePost 模型.
+     * 如果创建成果,浏览器将会跳转的到该模型的详情视图界面.
+     *
+     * @param $pageId
+     * @param string $language
+     * @return mixed
+     */
+    public function actionCreate( $pageId, $language = "zh-CN" )
+    {
+        if ( $liveEditMode = $this->checkLiveEditMode( $pageId, $language ) ) {
+            return $liveEditMode;
         }
-      }
-    } else {
-      $this->findModel( $pageId, $language )->delete();
+        $model = new PagePost( ['language' => $language, 'pageId' => $pageId] );
+        // ajax表单验证
+        if ( AppHelper::isAjaxValidationRequest() && $model->load( Yii::$app->request->post() ) ) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate( $model );
+        }
+        if ( $model->load( Yii::$app->request->post() ) && $model->save() ) {
+            return $this->redirectSuccess( [
+                'view',
+                'pageId'   => $model->pageId,
+                'language' => $model->language
+            ], "添加成功" );
+        }
+        return $this->render( 'create', [
+            'model' => $model
+        ] );
+
     }
-    return $this->redirect( [
-        'index'
-    ] );
 
-  }
+    /**
+     * 更新一条已经存在的 PagePost 模型.
+     * 如果更新成果,浏览器将会跳转的到该模型的详情视图界面.
+     *
+     * @param integer $pageId
+     * @param string $language
+     * @return mixed
+     * @throws NotFoundHttpException 如果模型没查询到
+     */
+    public function actionUpdate( $pageId, $language )
+    {
+        if ( $liveEditMode = $this->checkLiveEditMode( $pageId, $language ) ) {
+            return $liveEditMode;
+        }
 
-  /**
-   * 根据模型的主键Id查询 PagePost 模型.
-   * 如果模型没有找到, 404 HTTP 异常将会抛出.
-   *
-   * @param integer $pageId
-   * @param string $language
-   * @return PagePost the loaded model
-   * @throws NotFoundHttpException 如果模型没查询到
-   */
-  protected function findModel( $pageId, $language ) {
+        $model = $this->findModel( $pageId, $language );
 
-    if ( ($model = PagePost::findOne( [
-        'pageId' => $pageId,
-        'language' => $language
-    ] )) !== null ) {
-      return $model;
+        // ajax表单验证
+        if ( AppHelper::isAjaxValidationRequest() && $model->load( Yii::$app->request->post() ) ) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate( $model );
+        }
+        if ( $model->load( Yii::$app->request->post() ) && $model->save() ) {
+            return $this->redirectSuccess( [
+                'view',
+                'pageId'   => $model->pageId,
+                'language' => $model->language
+            ], "修改成功" );
+        }
+        return $this->render( 'update', [
+            'model' => $model
+        ] );
+
     }
-    throw new NotFoundHttpException( Yii::t( 'app', 'The requested page does not exist.' ) );
 
-  }
+    /**
+     * 删除一条存在的 PagePost 模型.
+     * 如果删除成果,浏览器将会跳转的到该模型的列表视图界面.
+     *
+     * @param integer $pageId
+     * @param string $language
+     * @return mixed
+     * @throws NotFoundHttpException 如果模型没查询到
+     */
+    public function actionDelete( $pageId, $language )
+    {
+
+        if ( is_array( $pageId, $language ) ) {
+            $modelList = PagePost::findAll( [
+                'pageId'   => $pageId,
+                'language' => $language
+            ] );
+            if ( $modelList ) {
+                foreach ( $modelList as $model ) {
+                    $model->delete();
+                }
+            }
+        } else {
+            $this->findModel( $pageId, $language )->delete();
+        }
+        return $this->redirect( [
+            'index'
+        ] );
+
+    }
+
+    /**
+     * 根据模型的主键Id查询 PagePost 模型.
+     * 如果模型没有找到, 404 HTTP 异常将会抛出.
+     *
+     * @param integer $pageId
+     * @param string $language
+     * @return PagePost the loaded model
+     * @throws NotFoundHttpException 如果模型没查询到
+     */
+    protected function findModel( $pageId, $language )
+    {
+
+        if ( ($model = PagePost::findOne( [
+                'pageId'   => $pageId,
+                'language' => $language
+            ] )) !== null ) {
+            return $model;
+        }
+        throw new NotFoundHttpException( Yii::t( 'app', 'The requested page does not exist.' ) );
+
+    }
+
+    protected function checkLiveEditMode( $pageId, $language )
+    {
+        if(Yii::$app->request->isGet) {
+            $page = Page::findOne( $pageId );
+            if ( $page->isLive ) {
+                return $this->redirect( ['/cms/live-editor', 'pageId' => $pageId, 'language' => $language] );
+            }
+        }
+        return false;
+    }
 }

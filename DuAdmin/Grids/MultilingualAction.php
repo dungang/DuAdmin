@@ -88,15 +88,15 @@ class MultilingualAction extends Column
 
     public function buildFormNameRoute( $attrs )
     {
-        if ( $this->formName ) {
-            $newKeys = array_map( function ( $key ) {
-                if ( $key === 0 ) {
-                    return $key;
-                }
-                return $this->formName . '[' . $key . ']';
-            }, array_keys( $attrs ) );
-            return array_combine( $newKeys, array_values( $attrs ) );
-        }
+//        if ( $this->formName ) {
+//            $newKeys = array_map( function ( $key ) {
+//                if ( $key === 0 ) {
+//                    return $key;
+//                }
+//                return $this->formName . '[' . $key . ']';
+//            }, array_keys( $attrs ) );
+//            return array_combine( $newKeys, array_values( $attrs ) );
+//        }
         return $attrs;
     }
 

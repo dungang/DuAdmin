@@ -17,6 +17,7 @@ class m201123_150949_create_page_tables extends Migration {
         'pid' => $this->integer()->defaultValue( 0 )->comment( '父页' ),
         'slug' => $this->string( 128 )->comment( '页面路径' ),
         'title' => $this->string( 128 )->null()->comment( '标题' ),
+        'isLive' =>  $this->boolean()->defaultValue(false)->comment('是否在线编辑'),
         'template' => $this->string( 64 )->defaultValue( 'page' )->comment( '模板' ),
         'sort' => $this->smallInteger()->defaultValue( 1 )->comment( '排序' ),
         'createdAt' => $this->dateTime()->null()->comment( '添加时间' ),

@@ -47,7 +47,6 @@ class SimpleModal extends Modal {
     modal.on('show.bs.modal', function(e) {
         var targetBtn = $(e.relatedTarget);
         pjaxContainer = targetBtn.parents('[data-pjax-container]');
-        console.log(pjaxContainer)
         var size = targetBtn.data('modal-size');
         $(e.target).find('.modal-dialog').removeClass('modal-sm modal-lg').addClass(size ? size : '');
     });

@@ -7,5 +7,6 @@ return [
     'Title' => '标题',
     'Pid' => '上级页',
     'Slug' => 'Slug',
-    'Sort' => '排序'
+    'Sort' => '排序',
+    'Is Live' => '在线编辑'
 ];

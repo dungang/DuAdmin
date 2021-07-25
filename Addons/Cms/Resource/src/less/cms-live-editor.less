@@ -1,0 +1,59 @@
+@import "page-block.less";
+.popline {
+  li {
+    a {
+      padding: 0 10px;
+      height: 26px;
+    }
+  }
+}
+.du-live-editor {
+  padding-top: 50px;
+  .ui-state-highlight {
+    height: 60px;
+    border: 1px dashed #dfa1c0 ;
+    background-color: #f1d7e4;
+  }
+
+  .du-live-workspace {
+    min-height: 600px;
+
+    &:hover {
+      background-color: #d8e2f9;
+    }
+
+    .du-live-block {
+      position: relative;    
+      &.ui-selected,
+      &.active {
+        border: 1px dashed #dfa1c0;
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+.du-live-editor-toolbar {
+  position: absolute;
+  top: 0px;
+  left: 1px;
+  margin: auto;
+  height: 40px;
+  line-height: 40px;
+  width: 200px;
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  background-color: #f1d7e4;
+
+  .du-live-del,
+  .du-live-move,
+  .du-live-setting {
+    width: 40px;
+    text-align: center;
+
+    &:hover {
+      background-color: #dfa1c0;
+    }
+  }
+}
