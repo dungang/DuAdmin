@@ -1,5 +1,6 @@
 <?php
 /* @var $this \yii\web\View */
+
 /* @var $content string */
 
 use Addons\Cms\Widgets\CmsPageFooter;
@@ -10,6 +11,7 @@ use DuAdmin\Widgets\AutoFixBootstrapColumn;
 use DuAdmin\Widgets\LazyLoad;
 use DuAdmin\Widgets\Nav;
 use DuAdmin\Widgets\Notify;
+use DuAdmin\Widgets\SimpleModal;
 use Frontend\Assets\AppAsset;
 use yii\bootstrap\NavBar;
 use yii\helpers\Html;
@@ -60,58 +62,69 @@ $siteName = Yii::t( 'app', AppHelper::getSetting( 'site.name', Yii::$app->name )
                 'class' => 'navbar-inverse nav-affix'
             ]
         ] );
-            $menus = [
-                [
-                    'label' => Yii::t( 'yii', 'Home' ),
-                    'url'   => [
-                        '/site/index'
-                    ]
+        $menus = [
+            [
+                'label' => Yii::t( 'yii', 'Home' ),
+                'url'   => [
+                    '/site/index'
+                ]
+            ]
+        ];
+
+        if ( Yii::$app->user->isGuest ) {
+            $navigations = Navigation::getNavigation( 'frontend', true );
+            $menus = array_merge( $menus, $navigations );
+            $menus[] = [
+                'label' => Yii::t( 'app', 'Login' ),
+                'url'   => [
+                    '/login'
                 ]
             ];
+        } else {
+            $navigations = Navigation::getNavigation( 'frontend' );
+            $menus = array_merge( $menus, $navigations );
+            $menus[] = '<li>' . Html::beginForm( [
+                    '/site/logout'
+                ], 'post' ) . Html::submitButton( Yii::t( 'app', 'Logout' ) . ' ( ' . Yii::$app->user->identity->username . ' ) ', [
+                    'class' => 'btn btn-link logout'
+                ] ) . Html::endForm() . '</li>';
+        }
 
-            if ( Yii::$app->user->isGuest ) {
-                $navigations = Navigation::getNavigation( 'frontend', true );
-                $menus = array_merge( $menus, $navigations );
-                $menus[] = [
-                    'label' => Yii::t( 'app', 'Login' ),
-                    'url'   => [
-                        '/login'
-                    ]
-                ];
-            } else {
-                $navigations = Navigation::getNavigation( 'frontend' );
-                $menus = array_merge( $menus, $navigations );
-                $menus[] = '<li>' . Html::beginForm( [
-                        '/site/logout'
-                        ], 'post' ) . Html::submitButton( Yii::t( 'app', 'Logout' ) . ' ( ' . Yii::$app->user->identity->username . ' ) ', [
-                        'class' => 'btn btn-link logout'
-                    ] ) . Html::endForm() . '</li>';
-            }
-
-            echo Nav::widget( [
-                'options'         => [
-                    'class' => 'navbar-nav navbar-right text-uppercase'
-                ],
-                'activateParents' => true,
-                'items'           => $menus
-            ] );
-            NavBar::end();
-            AutoFixBootstrapColumn::widget();
+        echo Nav::widget( [
+            'options'         => [
+                'class' => 'navbar-nav navbar-right text-uppercase'
+            ],
+            'activateParents' => true,
+            'items'           => $menus
+        ] );
+        NavBar::end();
+        AutoFixBootstrapColumn::widget();
+        ?>
+        <?php
+        if ( isset( $this->params[ 'breadcrumbs' ] ) ) :
             ?>
-            <?php
-            if ( isset( $this->params[ 'breadcrumbs' ] ) ) :
-                ?>
-                <div class="container">
-                    <?= Breadcrumbs::widget( [ 'links' => isset( $this->params[ 'breadcrumbs' ] ) ? $this->params[ 'breadcrumbs' ] : [] ] ) ?>
-                </div>
-            <?php endif; ?>
-            <?= $content ?>
-        </div>
+            <div class="container">
+                <?= Breadcrumbs::widget( ['links' => isset( $this->params[ 'breadcrumbs' ] ) ? $this->params[ 'breadcrumbs' ] : []] ) ?>
+            </div>
+        <?php endif; ?>
+        <?= $content ?>
+    </div>
 
-        <?= CmsPageFooter::widget() ?>
-        <?php $this->endBody() ?>
+    <?php
+    SimpleModal::begin( [
+        'header'  => '对话框',
+        'options' => [
+            'data-keyboard' => 'false',
+            'id'            => 'modal-dialog'
+        ]
+    ] );
+    echo "加载中 ... ";
+    SimpleModal::end();
+    ?>
+    <?= CmsPageFooter::widget() ?>
+    <?php $this->endBody() ?>
     </body>
 
-</html>
+    </html>
 <?php
-$this->endPage()?>
+$this->endPage() ?>

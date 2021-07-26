@@ -5,6 +5,20 @@
   justify-content: center;
   height: 100%;
 }
+.control-sidebar {
+  z-index: 99;
+}
+.skin-green .wrapper {
+  background-color: white;
+}
+.fixed .content-wrapper,
+.fixed .right-side {
+  padding-top: 0;
+}
+.content-wrapper,
+.main-footer {
+  margin-left: 0;
+}
 .popline li a {
   padding: 0 10px;
   height: 26px;
@@ -16,6 +30,8 @@
   height: 60px;
   border: 1px dashed #dfa1c0;
   background-color: #f1d7e4;
+  width: 100%;
+  display: block;
 }
 .du-live-editor .du-live-workspace {
   min-height: 300px;
@@ -23,12 +39,15 @@
 .du-live-editor .du-live-workspace:hover {
   background-color: #d8e2f9;
 }
-.du-live-editor .du-live-workspace .du-live-block {
+.du-live-editor .du-live-workspace .du-live-layout,
+.du-live-editor .du-live-workspace .du-live-element {
   position: relative;
 }
-.du-live-editor .du-live-workspace .du-live-block.ui-selected,
-.du-live-editor .du-live-workspace .du-live-block.active {
-  border: 1px dashed #dfa1c0;
+.du-live-editor .du-live-workspace .du-live-layout.ui-selected,
+.du-live-editor .du-live-workspace .du-live-element.ui-selected,
+.du-live-editor .du-live-workspace .du-live-layout.active,
+.du-live-editor .du-live-workspace .du-live-element.active {
+  border: 2px dashed #80546a;
   overflow: hidden;
 }
 .du-live-editor-toolbar {
@@ -36,9 +55,10 @@
   top: 0px;
   left: 1px;
   margin: auto;
-  height: 40px;
-  line-height: 40px;
-  width: 200px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 12px;
+  width: 100px;
   align-items: center;
   display: flex;
   justify-content: space-around;
@@ -46,12 +66,24 @@
 }
 .du-live-editor-toolbar .du-live-del,
 .du-live-editor-toolbar .du-live-move,
-.du-live-editor-toolbar .du-live-setting {
+.du-live-editor-toolbar .du-live-edit {
   width: 40px;
   text-align: center;
 }
+.du-live-editor-toolbar .du-live-del.active,
+.du-live-editor-toolbar .du-live-move.active,
+.du-live-editor-toolbar .du-live-edit.active,
 .du-live-editor-toolbar .du-live-del:hover,
 .du-live-editor-toolbar .du-live-move:hover,
-.du-live-editor-toolbar .du-live-setting:hover {
+.du-live-editor-toolbar .du-live-edit:hover {
   background-color: #dfa1c0;
+}
+.du-live-editor-elements-control .list-group {
+  border-radius: 0;
+}
+.du-live-editor-elements-control .list-group .list-group-item {
+  width: 200px;
+  border-radius: 0;
+  padding: 0;
+  margin-bottom: 10px;
 }

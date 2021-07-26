@@ -1,33 +1,44 @@
 + function($) {
     'use strict';
-    var elemBlock = '.du-live-block';
+    var elemLayout = '.du-live-layout';
+    var elemBlock = '.du-live-layout, .du-live-element';
     var elemEditor = '.du-live-editor';
     var elemEditorWorkspace = '.du-live-workspace';
     var elemToolbar = '.du-live-editor-toolbar';
-    var elemToolDel = '.du-live-del';
+    var elemDelHandle = '.du-live-editor-toolbar .du-live-del';
     var elemMoveHandle = '.du-live-editor-toolbar .du-live-move';
-    var elemToolSetting = '.du-live-setting';
+    var elemEditHandle = '.du-live-editor-toolbar .du-live-edit';
     var elemLiveElement = '.du-live-element';
-    var elemImageHolder = '.du-live-editor .img-holder';
+    var elemImageHolderClass = 'img-holder';
     var imageDialog = '#du-live-image-setting-dialog';
-    var elemElement = '.du-live-element';
+    var elemCtroPanel = '.du-live-editor-elements-control';
     var elemCtrolLayout = '.du-live-editor-elements-control .du-layout';
     var elemCtrolElement = '.du-live-editor-elements-control .du-element';
     var LiveEditor = function(element, options) {
-
+        var that = this;
         this.options = options
         this.$element = $(element)
         this.$liveBlock = null;
         this.$liveElement = null;
         this.$toolbar = this.$element.find(elemToolbar);
-        this.$workspace = this.$element.find(elemEditorWorkspace);
-        this.initWorkspaceSortable();
+        this.$workspace = this.$element.find(elemEditorWorkspace).sortable(options.sortable);
+        this.$sortableContainer = this.$workspace;
+        this.$delCtrl = this.$element.find(elemDelHandle).on("click", function(e) {
+            e.preventDefault();
+            that.deleteLiveBlock();
+        });
+        this.$editCtrl = this.$element.find(elemEditHandle).on("click", function(e) {
+            e.preventDefault();
+            $(this).toggleClass("active");
+            that.editLiveBlock();
+        });
+        this.initControlDraggable();
     }
 
     LiveEditor.DEFAULTS = {
         sortable: {
             placeholder: "ui-state-highlight",
-            //handle: elemMoveHandle,
+            handle: elemMoveHandle,
             receive: function(event, ui) {
                 $.get('/admin.php?r=cms/live-editor/load-place-holder&id=' + ui.helper.data('id'), function(data) {
                     ui.helper.replaceWith(data);
@@ -36,37 +47,95 @@
         }
     };
 
-    LiveEditor.prototype.initWorkspaceSortable = function() {
-        this.$workspace.sortable(this.options.sortable);
-        this.$element.find(elemCtrolLayout).draggable({
+    LiveEditor.prototype.initControlDraggable = function() {
+        $(elemCtrolLayout).draggable({
             connectToSortable: elemEditorWorkspace,
             helper: "clone",
-            revert: "invalid",
+            zIndex: 120,
+            revert: "invalid"
         });
-        this.$element.find(elemCtrolElement).draggable({
-            connectToSortable: elemElement,
+        $(elemCtrolElement).draggable({
+            connectToSortable: elemLiveElement,
             helper: "clone",
-            revert: "invalid",
+            zIndex: 120,
+            revert: "invalid"
         });
     }
 
-    LiveEditor.prototype.initElementBoxSortable = function() {
-        if (this.$liveBlock) {
-            this.$liveBlock.find(elemElement).sortable(this.options.sortable);
+    //激活 block ,则选择parent 为sortable 容器，销毁上一个sortable容器
+    LiveEditor.prototype.activeliveBlockParentSortable = function() {
+        if (this.$sortableContainer) {
+            this.$sortableContainer.sortable("destroy");
+        }
+        this.$sortableContainer = this.$liveBlock.parents();
+        if (this.$sortableContainer.length > 0) {
+            this.$sortableContainer.sortable(this.options.sortable);
         }
     }
 
-    LiveEditor.prototype.setActiveBlock = function(block) {
+    LiveEditor.prototype.setActiveLiveBlock = function(block) {
+        var that = this;
+
+        //移除上一个block的dblclick事件绑定
+        if (this.$liveBlock) {
+
+
+            this.$liveBlock.off('dblclick');
+            this.disableTextEdit(this.$liveBlock);
+            this.$liveBlock = null;
+        }
+
         this.$liveBlock = block;
+
+        //重新绑定dblclick,操作父 layout
+        this.$liveBlock.on('dblclick', function(e) {
+            e.stopPropagation();
+            var liveBlock = $(this);
+            var parentLayout = liveBlock.parents(elemLayout);
+            if (parentLayout) {
+                //设置parent layout 为激活的liveBlock
+                that.setActiveLiveBlock(parentLayout);
+            }
+        });
         this.$element.find(elemBlock).removeClass('active');
         this.$liveBlock.addClass('active');
         this.$toolbar.appendTo(this.$liveBlock);
-        this.$workspace.sortable("option", "handle", elemMoveHandle);
-        this.initElementBoxSortable();
+        //启动父元素为sortable
+        this.activeliveBlockParentSortable();
 
     }
 
-    LiveEditor.prototype.settingImage = function(imageHolder) {
+    /**
+     * 编辑模式
+     */
+    LiveEditor.prototype.editLiveBlock = function() {
+        if (this.$liveBlock) {
+            if (this.$liveBlock.hasClass(elemImageHolderClass)) {
+                this.enableEditImage(this.$liveBlock);
+            } else {
+                if (this.$liveBlock.attr("contenteditable")) {
+                    this.disableTextEdit(this.$liveBlock);
+                } else {
+                    this.enableTextEdit(this.$liveBlock);
+                }
+            }
+        }
+    };
+    //popline 编辑器
+    LiveEditor.prototype.disableTextEdit = function(element) {
+        var liveElement = $(element);
+        this.$editCtrl.removeClass("active");
+        liveElement.attr('contenteditable', false);
+        liveElement.popline("destroy");
+    };
+    LiveEditor.prototype.enableTextEdit = function(element) {
+        var liveElement = $(element);
+        this.$editCtrl.addClass("active");
+        liveElement.attr('contenteditable', true);
+        liveElement.popline({ position: 'fixed' });
+    };
+    //图片编辑器
+    LiveEditor.prototype.enableEditImage = function(imageHolder) {
         //匹配背景图
         var pattern = /url\(['"]{0,1}(.*?)['"]{0,1}\)/i;
         var match = pattern.exec(imageHolder.css('backgroundImage'))
@@ -84,20 +153,21 @@
             dialog.modal('hide');
         });
         dialog.modal('show');
-    }
+    };
 
-    LiveEditor.prototype.deleteBlock = function() {
+    /**
+     * 删除block
+     */
+    LiveEditor.prototype.deleteLiveBlock = function() {
         this.$liveBlock.remove();
         this.$liveBlock = null;
-    }
+    };
 
-    LiveEditor.prototype.activeLineEditor = function(element) {
-        var liveElement = $(element);
-        liveElement.attr('contenteditable', true);
-        liveElement.popline({ position: 'fixed' });
-    }
-
+    /**
+     * 保存内容
+     */
     LiveEditor.prototype.saveContent = function() {
+        //重置工具条的位置
         this.$toolbar.appendTo(this.$element);
         if (this.$liveBlock) {
             this.$liveBlock.removeClass('active');
@@ -105,12 +175,12 @@
         var data = {
             content: this.$workspace.html(),
         };
-        data[yii.getCsrfToken()] = yii.getCsrfParam();
+        data[yii.getCsrfParam()] = yii.getCsrfToken();
         var url = "/admin.php?r=cms/live-editor/save&pageId=" + this.options.pageId + "&language=" + this.options.language;
         $.post(url, data, function(res) {
             alert("success")
         });
-    }
+    };
 
 
     // MODAL PLUGIN DEFINITION
@@ -146,30 +216,15 @@
     $(document).on('click.bs.live-editor.active-block.data-api',
         elemBlock,
         function(e) {
+            e.stopPropagation();
             var block = $(this);
+            if (block.hasClass('active')) {
+                return;
+            }
             var editor = block.parents(elemEditor);
-            Plugin.call(editor, 'setActiveBlock', block);
+            Plugin.call(editor, 'setActiveLiveBlock', block);
         });
-    $(document).on('click.bs.live-editor.delete-block.data-api',
-        elemToolDel,
-        function(e) {
-            var tool = $(this);
-            var editor = tool.parents(elemEditor);
-            Plugin.call(editor, 'deleteBlock');
-        });
-    $(document).on('dblclick.bs.live-editor.edit-element.data-api',
-        elemLiveElement,
-        function(e) {
-            var element = $(this);
-            var editor = element.parents(elemEditor);
-            Plugin.call(editor, 'activeLineEditor', element);
-        });
-    $(document).on('dblclick.bs.live-editor.setting-image.data-api', elemImageHolder, function(e) {
-        e.preventDefault();
-        var imageHolder = $(this);
-        var editor = imageHolder.parents(elemEditor);
-        Plugin.call(editor, 'settingImage', imageHolder);
-    });
+
     $(document).on('click.bs.live-editor.save-content.data-api', '#du-live-editor-save-button', function(e) {
         e.preventDefault();
         var editor = $(elemEditor);
@@ -177,4 +232,8 @@
     });
     //auto bind
     $(elemEditor).liveEditor();
+    // $controlSidebar = $('[data-toggle="control-sidebar"]').data('lte.controlsidebar');
+    // $controlSidebar.options.slide = false;
+    // $controlSidebar.fix();
+    //$(".control-sidebar").controlSidebar({ slide: false });
 }(jQuery);

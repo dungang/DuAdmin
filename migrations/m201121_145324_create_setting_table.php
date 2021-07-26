@@ -127,7 +127,7 @@ class m201121_145324_create_setting_table extends Migration {
             [
                 'site.qr',
                 '微信二维码',
-                '',
+                '/images/contact-qrcode.jpg',
                 'IMAGE',
                 '公众号二维码',
                 '',

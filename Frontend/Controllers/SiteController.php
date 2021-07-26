@@ -130,7 +130,9 @@ class SiteController extends Controller {
      * @return string
      */
   public function actionContactQr(){
-      return Html::img(AppHelper::getSetting("site.qr"));
+      return Html::tag('div',
+          Html::img(AppHelper::getSetting("site.qr"),['width'=>'100%']),
+          ['style'=>'padding:5px']);
   }
 
   /**

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Addons\Cms\PageBlock\LayoutSection;
+namespace Addons\Cms\PageBlock\Layouts\LeftFullImageSection;
 
 
 use Addons\Cms\PageBlock\PlaceHolderWidget;

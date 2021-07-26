@@ -60,9 +60,7 @@ class LiveEditorController extends \DuAdmin\Core\BackendController
                 ] );
             }
         }
-        return $this->render( 'update', [
-            'model' => $model
-        ] );
+        return $this->asJson($model->errors);
     }
 
     /**

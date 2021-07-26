@@ -7,13 +7,15 @@ use yii\db\Migration;
 /**
  * Class m201224_134253_create_cms_settings
  */
-class m201224_134253_create_cms_settings extends Migration {
+class m201224_134253_create_cms_settings extends Migration
+{
 
     /**
      *
      * {@inheritdoc}
      */
-    public function safeUp() {
+    public function safeUp()
+    {
 
         // 初始化配置参数
         InstallerHelper::installSettings( [
@@ -65,15 +67,15 @@ class m201224_134253_create_cms_settings extends Migration {
                 'value'   => '1200',
                 'valType' => 'STR'
             ],
-            ], 'addon-cms' );
+        ], 'addon-cms' );
         Setting::updateAll( [
             'value' => 'Addons\Cms\Widgets\CmsPageFooter'
-            ], [
+        ], [
             'name' => 'site.pageFooterWidget'
         ] );
         InstallerHelper::InstallDict( 'cms_post_template', '文章模板', [
-            [ 'dictLabel' => '默认', 'dictValue' => 'post' ],
-            [ 'dictLabel' => '产品', 'dictValue' => 'product' ],
+            ['dictLabel' => '默认', 'dictValue' => 'post'],
+            ['dictLabel' => '产品', 'dictValue' => 'product'],
         ] );
         InstallerHelper::installMenus( [
             [
@@ -118,12 +120,20 @@ class m201224_134253_create_cms_settings extends Migration {
         $this->insert( '{{%cms_page}}', [
             'slug'  => 'about-us',
             'title' => '关于我们',
+            'isLive' => 0,
             'sort'  => 1
         ] );
         $this->insert( '{{%cms_page}}', [
             'slug'  => 'contact-us',
             'title' => '联系我们',
+            'isLive' => 0,
             'sort'  => 0
+        ] );
+        $this->insert( '{{%cms_page}}', [
+            'slug'  => 'live-demo',
+            'title' => '在线编辑Demo',
+            'isLive' => 1,
+            'sort'  => 2
         ] );
         $this->insert( '{{%cms_page_post}}', [
             'pageId'    => 1,
@@ -141,13 +151,22 @@ class m201224_134253_create_cms_settings extends Migration {
             'createdAt' => date( 'Y-m-d H:i:s' ),
             'updatedAt' => date( 'Y-m-d H:i:s' )
         ] );
+        $this->insert( '{{%cms_page_post}}', [
+            'pageId'    => 3,
+            'language'  => 'zh-CN',
+            'title'     => '在线编辑Demo',
+            'content'   => '',
+            'createdAt' => date( 'Y-m-d H:i:s' ),
+            'updatedAt' => date( 'Y-m-d H:i:s' )
+        ] );
     }
 
     /**
      *
      * {@inheritdoc}
      */
-    public function safeDown() {
+    public function safeDown()
+    {
 
         $this->delete( '{{%setting}}', [
             'category' => 'addon-cms'

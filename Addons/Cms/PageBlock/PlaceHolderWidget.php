@@ -14,13 +14,15 @@ abstract class PlaceHolderWidget extends \yii\base\Widget
      */
     public $pageBlockId;
 
+    public $type = 'layout';
+
     protected abstract function renderBlock();
 
     public function run()
     {
         return Html::tag( 'div', $this->renderBlock(),
             [
-                'class'              => 'du-live-block',
+                'class'              => 'du-live-' . $this->type,
                 'data-page-block-id' => $this->pageBlockId
             ] );
     }

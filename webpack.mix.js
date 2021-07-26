@@ -3,51 +3,51 @@ let del = require('del');
 let fs = require('fs');
 
 function scanAssetsConfig(assetScanDir) {
-	let dirs = fs.readdirSync(assetScanDir);
-	dirs.filter(dir => {
-		return fs.existsSync(assetScanDir + '/' + dir);
-	}).forEach(name => {
-		let configDir = assetScanDir + '/' + name;
-		let file = configDir + '/assets.config.js';
-		if (fs.existsSync(file)) {
-			let config = require(file);
-			let assets = config.assets;
-			if(assets.dev) {
-				if (assets.less) {
-					assets.less.forEach(less => {
-						let lessFile = configDir + '/' + assets.src + '/' + less.src;
-						let lessDist = configDir + '/' + assets.dist + '/' + less.dist;
-						if (fs.existsSync(lessFile)) {
-							console.log('load addon less file: ' + lessFile)
-							mix.less(lessFile, lessDist);
-						}
-					});
-				}
-				if (assets.js) {
-					assets.js.forEach(js => {
-						let jsFile = configDir + '/' + assets.src + '/' + js.src;
-						let jsDist = configDir + '/' + assets.dist + '/' + js.dist;
-						if (fs.existsSync(jsFile)) {
-							console.log('load addon js file: ' + jsFile)
-							mix.js(jsFile, jsDist);
-						}
-					});
-				}
-				if (assets.imageDir) {
-					let srcDir = configDir + '/' + assets.src + '/' + assets.imageDir;
-					let distDir = configDir + '/' + assets.dist + '/' + assets.imageDir;
-					if (fs.existsSync(srcDir)) {
-						console.log('copy image dir: ' + srcDir)
-						mix.copyDirectory(srcDir,distDir);
-					}
-				}
-			}
-		}
-	});
+    let dirs = fs.readdirSync(assetScanDir);
+    dirs.filter(dir => {
+        return fs.existsSync(assetScanDir + '/' + dir);
+    }).forEach(name => {
+        let configDir = assetScanDir + '/' + name;
+        let file = configDir + '/assets.config.js';
+        if (fs.existsSync(file)) {
+            let config = require(file);
+            let assets = config.assets;
+            if (assets.dev) {
+                if (assets.less) {
+                    assets.less.forEach(less => {
+                        let lessFile = configDir + '/' + assets.src + '/' + less.src;
+                        let lessDist = configDir + '/' + assets.dist + '/' + less.dist;
+                        if (fs.existsSync(lessFile)) {
+                            console.log('load addon less file: ' + lessFile)
+                            mix.less(lessFile, lessDist);
+                        }
+                    });
+                }
+                if (assets.js) {
+                    assets.js.forEach(js => {
+                        let jsFile = configDir + '/' + assets.src + '/' + js.src;
+                        let jsDist = configDir + '/' + assets.dist + '/' + js.dist;
+                        if (fs.existsSync(jsFile)) {
+                            console.log('load addon js file: ' + jsFile)
+                            mix.js(jsFile, jsDist);
+                        }
+                    });
+                }
+                if (assets.imageDir) {
+                    let srcDir = configDir + '/' + assets.src + '/' + assets.imageDir;
+                    let distDir = configDir + '/' + assets.dist + '/' + assets.imageDir;
+                    if (fs.existsSync(srcDir)) {
+                        console.log('copy image dir: ' + srcDir)
+                        mix.copyDirectory(srcDir, distDir);
+                    }
+                }
+            }
+        }
+    });
 }
 
 scanAssetsConfig('./Addons');
-scanAssetsConfig('./themes');
+scanAssetsConfig('./Themes');
 
 /*
  * |-------------------------------------------------------------------------- |
@@ -58,20 +58,20 @@ scanAssetsConfig('./themes');
  * your application, as well as bundling up your JS files. |
  */
 mix
-	// 后台主题
-	.less('public/duadmin/src/less/DUAdmin.less', 'public/duadmin/dist/css', {
-		lessOptions: {
-			paths: [path.resolve(__dirname, 'node_modules')],
-		},
-	}).options({
-		processCssUrls: false
-	})
-	.js('public/duadmin/src/js/DUAdmin.js', 'public/duadmin/dist/js')
-	//前端public
-	.js('public/src/js/app.js','public/js')
-	.then(function () {
-		del(['public/assets/*']);
-	});
+// 后台主题
+    .less('public/duadmin/src/less/DUAdmin.less', 'public/duadmin/dist/css', {
+        lessOptions: {
+            paths: [path.resolve(__dirname, 'node_modules')],
+        },
+    }).options({
+        processCssUrls: false
+    })
+    .js('public/duadmin/src/js/DUAdmin.js', 'public/duadmin/dist/js')
+    //前端public
+    .js('public/src/js/app.js', 'public/js')
+    .then(function() {
+        del(['public/assets/*']);
+    });
 // mix.js('src/app.js', 'dist/').sass('src/app.scss', 'dist/');
 
 // Full API

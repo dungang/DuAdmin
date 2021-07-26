@@ -27,7 +27,7 @@ class m210722_141103_create_page_block_tables extends Migration
         $this->insert( static::TABLE_BLOCK, [
             'name'      => '右图左文字Section',
             'type'      => 'layout',
-            'namespace' => 'Addons\Cms\PageBlock\LayoutSection',
+            'namespace' => 'Addons\Cms\PageBlock\Layouts\LeftFullImageSection',
             'sort'      => 1,
             'createdAt' => date( 'Y-m-d H:i:s' ),
             'updatedAt' => date( 'Y-m-d H:i:s' ),
@@ -36,7 +36,7 @@ class m210722_141103_create_page_block_tables extends Migration
         $this->insert( static::TABLE_BLOCK, [
             'name'      => '对话框按钮',
             'type'      => 'element',
-            'namespace' => 'Addons\Cms\PageBlock\ElementDialogButton',
+            'namespace' => 'Addons\Cms\PageBlock\Elements\DialogButton',
             'sort'      => 1,
             'createdAt' => date( 'Y-m-d H:i:s' ),
             'updatedAt' => date( 'Y-m-d H:i:s' ),
