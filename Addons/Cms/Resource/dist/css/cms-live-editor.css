@@ -78,12 +78,12 @@
 .du-live-editor-toolbar .du-live-edit:hover {
   background-color: #dfa1c0;
 }
-.du-live-editor-elements-control .list-group {
-  border-radius: 0;
-}
-.du-live-editor-elements-control .list-group .list-group-item {
+.du-list-group-item {
   width: 200px;
-  border-radius: 0;
+  border-radius: 0 !important;
   padding: 0;
   margin-bottom: 10px;
+}
+.du-live-editor-elements-control .list-group {
+  border-radius: 0;
 }

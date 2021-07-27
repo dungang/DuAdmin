@@ -32,6 +32,8 @@ class PageSearch extends Page
                 [
                     'slug',
                     'title',
+                    'keywords',
+                    'description',
                     'createdAt',
                     'updatedAt'
                 ],
@@ -103,13 +105,23 @@ class PageSearch extends Page
             'like',
             'title',
             $this->title
+        ] )->andFilterWhere( [
+            'like',
+            'keywords',
+            $this->keywords
+        ] )->andFilterWhere( [
+            'like',
+            'description',
+            $this->description
         ] );
         if ( $full_search = Yii::$app->request->get( 'full_search' ) ) {
             $query->andFilterWhere( [
                 'FULL_SEARCH',
                 [
                     'slug',
-                    'title'
+                    'title',
+                    'keywords',
+                    'description'
                 ],
                 $full_search
             ] );

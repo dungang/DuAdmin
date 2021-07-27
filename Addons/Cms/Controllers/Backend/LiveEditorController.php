@@ -5,6 +5,7 @@ namespace Addons\Cms\Controllers\Backend;
 
 use Addons\Cms\Models\PageBlock;
 use Addons\Cms\Models\PagePost;
+use Addons\Cms\PageBlock\BaseBlockWidget;
 use Addons\Cms\PageBlock\ElementSection\PlaceHolder;
 use yii\web\NotFoundHttpException;
 
@@ -60,7 +61,7 @@ class LiveEditorController extends \DuAdmin\Core\BackendController
                 ] );
             }
         }
-        return $this->asJson($model->errors);
+        return $this->asJson( $model->errors );
     }
 
     /**
@@ -83,14 +84,13 @@ class LiveEditorController extends \DuAdmin\Core\BackendController
         if ( preg_match_all( $reg, $content, $matches ) ) {
             $blockIds = array_unique( $matches[ 1 ] );
             $blocks = PageBlock::findAll( ['id' => $blockIds] );
-            $assets = '';
             foreach ( $blocks as $block ) {
-                $assetClass = $block->namespace . '\Asset';
+                $assetClass = $block->namespace;
                 if ( class_exists( $assetClass ) ) {
-                    $assets .= call_user_func( [$assetClass, 'widget'] );
+                    call_user_func( [$assetClass, 'assets'] );
                 }
             }
-            $content .= $assets;
+            $content .= BaseBlockWidget::combineAssets();
         }
         return $content;
     }
@@ -100,11 +100,10 @@ class LiveEditorController extends \DuAdmin\Core\BackendController
      * @param $id
      * @return false|mixed
      */
-    public function actionLoadPlaceHolder( $id )
+    public function actionLoadCode( $id )
     {
         $block = PageBlock::findOne( $id );
-        $class = $block->namespace . '\PlaceHolder';
-        return call_user_func( [$class, 'widget'], ['id' => uniqid(), 'pageBlockId' => $id] );
+        return call_user_func( [$block->namespace, 'code'], ['pageBlockId' => $id] );
     }
 
     /**
@@ -115,7 +114,6 @@ class LiveEditorController extends \DuAdmin\Core\BackendController
     public function actionLoadIcon( $id )
     {
         $block = PageBlock::findOne( $id );
-        $class = $block->namespace . '\Icon';
-        return call_user_func( [$class, 'widget'] );
+        return call_user_func( [$block->namespace, 'icon'] );
     }
 }

@@ -27,8 +27,17 @@ class m210722_141103_create_page_block_tables extends Migration
         $this->insert( static::TABLE_BLOCK, [
             'name'      => '右图左文字Section',
             'type'      => 'layout',
-            'namespace' => 'Addons\Cms\PageBlock\Layouts\LeftFullImageSection',
+            'namespace' => 'Addons\Cms\PageBlock\Layouts\InfoBlock\InfoBlock',
             'sort'      => 1,
+            'createdAt' => date( 'Y-m-d H:i:s' ),
+            'updatedAt' => date( 'Y-m-d H:i:s' ),
+        ] );
+
+        $this->insert( static::TABLE_BLOCK, [
+            'name'      => '左图右文字Section',
+            'type'      => 'layout',
+            'namespace' => 'Addons\Cms\PageBlock\Layouts\InfoBlock\InfoBlock1',
+            'sort'      => 2,
             'createdAt' => date( 'Y-m-d H:i:s' ),
             'updatedAt' => date( 'Y-m-d H:i:s' ),
         ] );
@@ -36,8 +45,17 @@ class m210722_141103_create_page_block_tables extends Migration
         $this->insert( static::TABLE_BLOCK, [
             'name'      => '对话框按钮',
             'type'      => 'element',
-            'namespace' => 'Addons\Cms\PageBlock\Elements\DialogButton',
+            'namespace' => 'Addons\Cms\PageBlock\Elements\DialogButton\DialogButton',
             'sort'      => 1,
+            'createdAt' => date( 'Y-m-d H:i:s' ),
+            'updatedAt' => date( 'Y-m-d H:i:s' ),
+        ] );
+
+        $this->insert( static::TABLE_BLOCK, [
+            'name'      => '列表容器',
+            'type'      => 'element',
+            'namespace' => 'Addons\Cms\PageBlock\Elements\Container\Container',
+            'sort'      => 2,
             'createdAt' => date( 'Y-m-d H:i:s' ),
             'updatedAt' => date( 'Y-m-d H:i:s' ),
         ] );

@@ -40,7 +40,7 @@
             placeholder: "ui-state-highlight",
             handle: elemMoveHandle,
             receive: function(event, ui) {
-                $.get('/admin.php?r=cms/live-editor/load-place-holder&id=' + ui.helper.data('id'), function(data) {
+                $.get('/admin.php?r=cms/live-editor/load-code&id=' + ui.helper.data('id'), function(data) {
                     ui.helper.replaceWith(data);
                 });
             }

@@ -24,136 +24,143 @@ use Yii;
  * @property Category $category
  * @property Backend\Models\Admin $admin
  */
-class Post extends \DuAdmin\Core\BaseModel {
+class Post extends \DuAdmin\Core\BaseModel
+{
 
-  // /**
-  // * 对象json序列化的时候设置不显示的字段
-  // *
-  // * @var array
-  // */
-  // public $jsonHideFields = [];
-  /**
-   *
-   * {@inheritdoc}
-   */
-  public static function tableName() {
+    // /**
+    // * 对象json序列化的时候设置不显示的字段
+    // *
+    // * @var array
+    // */
+    // public $jsonHideFields = [];
+    /**
+     *
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
 
-    return '{{%cms_post}}';
+        return '{{%cms_post}}';
 
-  }
+    }
 
-  /**
-   *
-   * {@inheritdoc}
-   */
-  public function rules() {
+    /**
+     *
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
 
-    return [
-        [
+        return [
             [
-                'userId',
-                'cateId',
-                'isPublished',
-                'viewTimes'
+                [
+                    'userId',
+                    'cateId',
+                    'isPublished',
+                    'viewTimes'
+                ],
+                'integer'
             ],
-            'integer'
-        ],
-        [
             [
-                'content'
+                [
+                    'content'
+                ],
+                'string'
             ],
-            'string'
-        ],
-        [
             [
-                'createdAt',
-                'updatedAt'
+                [
+                    'createdAt',
+                    'updatedAt'
+                ],
+                'safe'
             ],
-            'safe'
-        ],
-        [
             [
-                'slug',
-                'title',
-                'cover',
-                'keywords'
+                [
+                    'slug',
+                    'title',
+                    'cover',
+                    'keywords'
+                ],
+                'string',
+                'max' => 128
             ],
-            'string',
-            'max' => 128
-        ],
-        [
             [
-                'description'
+                [
+                    'description'
+                ],
+                'string',
+                'max' => 255
             ],
-            'string',
-            'max' => 255
-        ],
-        [
             [
-                'slug'
-            ],
-            'unique'
-        ]
-    ];
+                [
+                    'slug'
+                ],
+                'unique'
+            ]
+        ];
 
-  }
+    }
 
-  /**
-   *
-   * {@inheritdoc}
-   */
-  public function attributeLabels() {
+    /**
+     *
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
 
-    return [
-        'id' => Yii::t( 'da_post', 'ID' ),
-        'userId' => Yii::t( 'da_post', 'User ID' ),
-        'cateId' => Yii::t( 'da_post', 'Cate ID' ),
-        'slug' => Yii::t( 'da_post', 'Slug' ),
-        'title' => Yii::t( 'da_post', 'Title' ),
-        'cover' => Yii::t( 'da_post', 'Cover' ),
-        'keywords' => Yii::t( 'da_post', 'Keywords' ),
-        'description' => Yii::t( 'da_post', 'Description' ),
-        'content' => Yii::t( 'da_post', 'Content' ),
-        'isPublished' => Yii::t( 'da_post', 'Is Published' ),
-        'viewTimes' => Yii::t( 'da_post', 'View Times' ),
-        'createdAt' => Yii::t( 'da_post', 'Created At' ),
-        'updatedAt' => Yii::t( 'da_post', 'Updated At' )
-    ];
+        return [
+            'id'          => Yii::t( 'da_post', 'ID' ),
+            'userId'      => Yii::t( 'da_post', 'User ID' ),
+            'cateId'      => Yii::t( 'da_post', 'Cate ID' ),
+            'slug'        => Yii::t( 'da_post', 'Slug' ),
+            'title'       => Yii::t( 'da_post', 'Title' ),
+            'cover'       => Yii::t( 'da_post', 'Cover' ),
+            'keywords'    => Yii::t( 'da_post', 'Keywords' ),
+            'description' => Yii::t( 'da_post', 'Description' ),
+            'content'     => Yii::t( 'da_post', 'Content' ),
+            'isPublished' => Yii::t( 'da_post', 'Is Published' ),
+            'viewTimes'   => Yii::t( 'da_post', 'View Times' ),
+            'createdAt'   => Yii::t( 'da_post', 'Created At' ),
+            'updatedAt'   => Yii::t( 'da_post', 'Updated At' )
+        ];
 
-  }
+    }
 
-  /**
-   *
-   * {@inheritdoc}
-   * @return PostQuery the active query used by this AR class.
-   */
-  public static function find() {
+    /**
+     *
+     * {@inheritdoc}
+     * @return PostQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
 
-    return new PostQuery( get_called_class() );
+        return new PostQuery( get_called_class() );
 
-  }
+    }
 
-  /**
-   *
-   * @return \yii\db\ActiveQuery
-   */
-  public function getCategory() {
+    /**
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategory()
+    {
 
-    return $this->hasOne( Category::class, [
-        'id' => 'cateId'
-    ] );
+        return $this->hasOne( Category::class, [
+            'id' => 'cateId'
+        ] );
 
-  }
+    }
 
-  /**
-   *
-   * @return \yii\db\ActiveQuery
-   */
-  public function getAdmin() {
+    /**
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAdmin()
+    {
 
-    return $this->hasOne( 'Backend\Models\Admin', [
-        'id' => 'userId'
-    ] );
+        return $this->hasOne( 'Backend\Models\Admin', [
+            'id' => 'userId'
+        ] );
 
-  }
+    }
 }

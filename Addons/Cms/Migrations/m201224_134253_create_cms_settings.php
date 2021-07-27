@@ -118,22 +118,23 @@ class m201224_134253_create_cms_settings extends Migration
         ], 0, 'addon-cms' );
         // insert base page
         $this->insert( '{{%cms_page}}', [
-            'slug'  => 'about-us',
-            'title' => '关于我们',
+            'slug'   => 'about-us',
+            'title'  => '关于我们',
             'isLive' => 0,
-            'sort'  => 1
+            'sort'   => 1
         ] );
         $this->insert( '{{%cms_page}}', [
-            'slug'  => 'contact-us',
-            'title' => '联系我们',
+            'slug'   => 'contact-us',
+            'title'  => '联系我们',
             'isLive' => 0,
-            'sort'  => 0
+            'sort'   => 0
         ] );
         $this->insert( '{{%cms_page}}', [
-            'slug'  => 'live-demo',
-            'title' => '在线编辑Demo',
+            'slug'   => 'live-demo',
+            'title'  => '在线编辑Demo',
+            'template'  => 'empty',
             'isLive' => 1,
-            'sort'  => 2
+            'sort'   => 2
         ] );
         $this->insert( '{{%cms_page_post}}', [
             'pageId'    => 1,

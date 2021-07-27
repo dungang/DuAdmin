@@ -91,7 +91,7 @@ LiveEditorAsset::register( $this );
             <div class="tab-pane active" id="control-sidebar-home-tab">
                 <ul class="list-group">
                     <?php foreach ( $layouts as $layout ) : ?>
-                        <li class="list-group-item du-layout" data-id="<?= $layout->id ?>">
+                        <li class="list-group-item du-list-group-item du-layout" data-id="<?= $layout->id ?>">
                             <?= Html::img( ['/cms/live-editor/load-icon', 'id' => $layout->id], ['class' => 'lazyload', 'width' => '100%'] ) ?>
                         </li>
                     <?php endforeach; ?>
@@ -102,7 +102,7 @@ LiveEditorAsset::register( $this );
                 <div class="tab-pane" id="control-sidebar-home-tab">
                     <ul class="list-group">
                         <?php foreach ( $elements as $element ) : ?>
-                            <li class="list-group-item du-element" data-id="<?= $element->id ?>">
+                            <li class="list-group-item du-list-group-item du-element" data-id="<?= $element->id ?>">
                                 <?= Html::img( ['/cms/live-editor/load-icon', 'id' => $element->id], ['class' => 'lazyload', 'width' => '100%'] ) ?>
                             </li>
                         <?php endforeach; ?>

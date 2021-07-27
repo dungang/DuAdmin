@@ -139,7 +139,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       placeholder: "ui-state-highlight",
       handle: elemMoveHandle,
       receive: function receive(event, ui) {
-        $.get('/admin.php?r=cms/live-editor/load-place-holder&id=' + ui.helper.data('id'), function (data) {
+        $.get('/admin.php?r=cms/live-editor/load-code&id=' + ui.helper.data('id'), function (data) {
           ui.helper.replaceWith(data);
         });
       }
