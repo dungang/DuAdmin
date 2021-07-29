@@ -17,6 +17,6 @@ class Container extends BaseBlockWidget
     public $type = 'element';
     public $basePath = __DIR__;
     public $iconFile = 'container.png';
-    public $codeFile = 'container-code.php';
+    public $codeFile = 'container-code';
 
 }

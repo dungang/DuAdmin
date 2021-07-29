@@ -26,6 +26,7 @@
         this.$delCtrl = this.$element.find(elemDelHandle).on("click", function(e) {
             e.preventDefault();
             that.deleteLiveBlock();
+            console.log(that.$liveBlock)
         });
         this.$editCtrl = this.$element.find(elemEditHandle).on("click", function(e) {
             e.preventDefault();
@@ -75,11 +76,8 @@
 
     LiveEditor.prototype.setActiveLiveBlock = function(block) {
         var that = this;
-
         //移除上一个block的dblclick事件绑定
         if (this.$liveBlock) {
-
-
             this.$liveBlock.off('dblclick');
             this.disableTextEdit(this.$liveBlock);
             this.$liveBlock = null;
@@ -159,6 +157,7 @@
      * 删除block
      */
     LiveEditor.prototype.deleteLiveBlock = function() {
+        this.$toolbar.appendTo(this.$element);
         this.$liveBlock.remove();
         this.$liveBlock = null;
     };

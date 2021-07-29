@@ -25,10 +25,19 @@ class m210722_141103_create_page_block_tables extends Migration
         ] );
 
         $this->insert( static::TABLE_BLOCK, [
+            'name'      => '默认轮播',
+            'type'      => 'layout',
+            'namespace' => 'Addons\Cms\PageBlock\Layouts\Carousel\Carousel',
+            'sort'      => 1,
+            'createdAt' => date( 'Y-m-d H:i:s' ),
+            'updatedAt' => date( 'Y-m-d H:i:s' ),
+        ] );
+
+        $this->insert( static::TABLE_BLOCK, [
             'name'      => '右图左文字Section',
             'type'      => 'layout',
             'namespace' => 'Addons\Cms\PageBlock\Layouts\InfoBlock\InfoBlock',
-            'sort'      => 1,
+            'sort'      => 2,
             'createdAt' => date( 'Y-m-d H:i:s' ),
             'updatedAt' => date( 'Y-m-d H:i:s' ),
         ] );
@@ -37,7 +46,7 @@ class m210722_141103_create_page_block_tables extends Migration
             'name'      => '左图右文字Section',
             'type'      => 'layout',
             'namespace' => 'Addons\Cms\PageBlock\Layouts\InfoBlock\InfoBlock1',
-            'sort'      => 2,
+            'sort'      => 3,
             'createdAt' => date( 'Y-m-d H:i:s' ),
             'updatedAt' => date( 'Y-m-d H:i:s' ),
         ] );

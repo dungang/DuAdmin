@@ -2,6 +2,7 @@
 
 namespace Addons\Cms\Hooks;
 
+use Addons\Cms\Helpers\CmsHelpers;
 use Addons\Cms\Models\Page;
 use DuAdmin\Hooks\Handler;
 use Yii;

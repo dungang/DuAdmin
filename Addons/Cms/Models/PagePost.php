@@ -42,7 +42,6 @@ class PagePost extends \DuAdmin\Core\BaseModel {
                 [
                     'pageId',
                     'language',
-                    'content'
                 ],
                 'required'
             ],

@@ -1,0 +1,36 @@
+.swiper-container, .swiper-slide {
+    height: 240px;
+}
+
+/* 小屏幕（平板，大于等于 768px） */
+@media screen and (min-width: 768px) {
+    .swiper-container, .swiper-slide {
+        height: 400px;
+    }
+}
+
+
+/* 中等屏幕（桌面显示器，大于等于 992px） */
+@media screen and (min-width: 992px) {
+    .swiper-container, .swiper-slide {
+        height: 500px;
+    }
+}
+
+/* 大屏幕（大桌面显示器，大于等于 1200px） */
+@media screen and (min-width: 1200px) {
+    .swiper-container, .swiper-slide {
+        height: 500px;
+    }
+}
+
+.swiper-slide {
+    overflow: hidden;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

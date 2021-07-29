@@ -125,6 +125,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     this.$delCtrl = this.$element.find(elemDelHandle).on("click", function (e) {
       e.preventDefault();
       that.deleteLiveBlock();
+      console.log(that.$liveBlock);
     });
     this.$editCtrl = this.$element.find(elemEditHandle).on("click", function (e) {
       e.preventDefault();
@@ -265,6 +266,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 
   LiveEditor.prototype.deleteLiveBlock = function () {
+    this.$toolbar.appendTo(this.$element);
     this.$liveBlock.remove();
     this.$liveBlock = null;
   };

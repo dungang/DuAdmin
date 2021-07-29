@@ -3,11 +3,12 @@
 
 namespace Addons\Cms\Controllers\Backend;
 
+use Addons\Cms\Helpers\CmsHelpers;
 use Addons\Cms\Models\PageBlock;
 use Addons\Cms\Models\PagePost;
 use Addons\Cms\PageBlock\BaseBlockWidget;
-use Addons\Cms\PageBlock\ElementSection\PlaceHolder;
-use yii\web\NotFoundHttpException;
+use QL\QueryList;
+use yii\helpers\Json;
 
 /**
  * 在线编辑控制器
@@ -35,6 +36,10 @@ class LiveEditorController extends \DuAdmin\Core\BackendController
         $pagePost = PagePost::findOne( $fields );
         if ( empty( $pagePost ) ) {
             $pagePost = new PagePost( $fields );
+        }
+        if ( $pagePost->content ) {
+            CmsHelpers::registerBlockAssets( $pagePost->content );
+            $pagePost->content = CmsHelpers::parseDynamicPageBlock( $pagePost->content );
         }
         return $this->render( 'index', ['model' => $pagePost] );
     }
@@ -71,7 +76,9 @@ class LiveEditorController extends \DuAdmin\Core\BackendController
     private function clearAssets( $content )
     {
         $reg = '#<(script|style)(.*?)>(.*?)</(script|style)\s*>#ims';
-        return preg_replace( $reg, '', $content );
+        $reg2 = '#<link(.*?)>#ims';
+        $content = preg_replace( $reg, '', $content );
+        return preg_replace( $reg2, '', $content );
     }
 
     /**
@@ -103,7 +110,9 @@ class LiveEditorController extends \DuAdmin\Core\BackendController
     public function actionLoadCode( $id )
     {
         $block = PageBlock::findOne( $id );
-        return call_user_func( [$block->namespace, 'code'], ['pageBlockId' => $id] );
+        return $this->renderAjax( 'code', [
+            'content' =>
+                call_user_func( [$block->namespace, 'code'], ['pageBlockId' => $id] )] );
     }
 
     /**
