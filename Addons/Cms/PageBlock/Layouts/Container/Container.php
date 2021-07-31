@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Addons\Cms\PageBlock\Elements\Container;
+namespace Addons\Cms\PageBlock\Layouts\Container;
 
 
 use Addons\Cms\PageBlock\BaseBlockWidget;
@@ -14,7 +14,7 @@ use yii\helpers\Html;
  */
 class Container extends BaseBlockWidget
 {
-    public $type = 'element';
+    public $type = 'layout';
     public $basePath = __DIR__;
     public $iconFile = 'container.png';
     public $codeFile = 'container-code';

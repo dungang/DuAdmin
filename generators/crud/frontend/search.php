@@ -3,22 +3,24 @@
  * This is the template for generating CRUD search class of the specified model.
  */
 use yii\helpers\StringHelper;
+
 /* @var $this yii\web\View */
 /* @var $generator app\generators\crud\Generator */
+
 $modelClass = StringHelper::basename( $generator->modelClass );
 $searchModelClass = StringHelper::basename( $generator->searchModelClass );
-if ( $modelClass === $searchModelClass ) {
+if ($modelClass === $searchModelClass) {
   $modelAlias = $modelClass . 'Model';
 }
 $rules = $generator->generateSearchRules();
-$labels = $generator->generateSearchLabels();
-$searchAttributes = $generator->getSearchAttributes();
 $searchConditions = $generator->generateSearchConditions();
+
 echo "<?php\n";
 ?>
 
 namespace <?=StringHelper::dirname( ltrim( $generator->searchModelClass, '\\' ) )?>;
 
+use Yii;
 use yii\data\ActiveDataProvider;
 use <?=ltrim( $generator->modelClass, '\\' ) . (isset( $modelAlias ) ? " as $modelAlias" : "")?>;
 
@@ -66,7 +68,7 @@ class <?=$searchModelClass?> extends <?=isset( $modelAlias ) ? $modelAlias : $mo
             'query' => $query,
 <?php
 
-if ( $generator->enableDefaultOrder ) :
+if ($generator->enableDefaultOrder) :
   ?>
 		    'sort' => [
                'defaultOrder' => [

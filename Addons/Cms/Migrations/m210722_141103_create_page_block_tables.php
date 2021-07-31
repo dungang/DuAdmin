@@ -62,8 +62,35 @@ class m210722_141103_create_page_block_tables extends Migration
 
         $this->insert( static::TABLE_BLOCK, [
             'name'      => '列表容器',
-            'type'      => 'element',
-            'namespace' => 'Addons\Cms\PageBlock\Elements\Container\Container',
+            'type'      => 'layout',
+            'namespace' => 'Addons\Cms\PageBlock\Layouts\Container\Container',
+            'sort'      => 2,
+            'createdAt' => date( 'Y-m-d H:i:s' ),
+            'updatedAt' => date( 'Y-m-d H:i:s' ),
+        ] );
+
+        $this->insert( static::TABLE_BLOCK, [
+            'name'      => '1:1容器',
+            'type'      => 'layout',
+            'namespace' => 'Addons\Cms\PageBlock\Layouts\Columns\Column11',
+            'sort'      => 2,
+            'createdAt' => date( 'Y-m-d H:i:s' ),
+            'updatedAt' => date( 'Y-m-d H:i:s' ),
+        ] );
+
+        $this->insert( static::TABLE_BLOCK, [
+            'name'      => '2:1容器',
+            'type'      => 'layout',
+            'namespace' => 'Addons\Cms\PageBlock\Layouts\Columns\Column21',
+            'sort'      => 2,
+            'createdAt' => date( 'Y-m-d H:i:s' ),
+            'updatedAt' => date( 'Y-m-d H:i:s' ),
+        ] );
+
+        $this->insert( static::TABLE_BLOCK, [
+            'name'      => '1:2列表容器',
+            'type'      => 'layout',
+            'namespace' => 'Addons\Cms\PageBlock\Layouts\Columns\Column12',
             'sort'      => 2,
             'createdAt' => date( 'Y-m-d H:i:s' ),
             'updatedAt' => date( 'Y-m-d H:i:s' ),

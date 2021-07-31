@@ -26,10 +26,23 @@
 .du-live-editor {
   padding-top: 50px;
 }
-.du-live-editor .ui-state-highlight {
+.du-live-editor .du-placeholder {
   height: 60px;
-  border: 1px dashed #dfa1c0;
-  background-color: #f1d7e4;
+  border: 1px dashed #f1da6f;
+  background-color: #f1eed2;
+  width: 100%;
+  display: block;
+  margin: 15px 0;
+}
+.du-live-editor .du-placeholder.active {
+  background-color: #d7f1db;
+}
+.du-live-editor .ui-state-highlight {
+  height: 0px;
+  border: 6px dashed #037713;
+  background-color: #037713;
+  margin: 3px;
+  border-radius: 20px;
   width: 100%;
   display: block;
 }
@@ -79,10 +92,22 @@
   background-color: #dfa1c0;
 }
 .du-list-group-item {
-  width: 200px;
   border-radius: 0 !important;
   padding: 0;
   margin-bottom: 10px;
+  width: 100%;
+  min-width: 150px;
+  max-width: 200px;
+  border: 1px solid #666;
+}
+.du-list-group-item img {
+  display: block;
+  border: 0;
+}
+.du-list-group-item .name {
+  font-size: 12px;
+  line-height: 20px;
+  background-color: #666;
 }
 .du-live-editor-elements-control .list-group {
   border-radius: 0;

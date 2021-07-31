@@ -17,6 +17,7 @@
     justify-content: center;
     height: 100%;
     text-align: left;
+    background-color: white;
 }
 
 /* 小屏幕（平板，大于等于 768px） */

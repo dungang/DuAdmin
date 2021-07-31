@@ -1,5 +1,6 @@
 + function($) {
     'use strict';
+    var elePlaceholder = ".du-placeholder";
     var elemLayout = '.du-live-layout';
     var elemBlock = '.du-live-layout, .du-live-element';
     var elemEditor = '.du-live-editor';
@@ -9,6 +10,7 @@
     var elemMoveHandle = '.du-live-editor-toolbar .du-live-move';
     var elemEditHandle = '.du-live-editor-toolbar .du-live-edit';
     var elemLiveElement = '.du-live-element';
+    var elemLiveElementLayout = '.du-live-element-layout';
     var elemImageHolderClass = 'img-holder';
     var imageDialog = '#du-live-image-setting-dialog';
     var elemCtroPanel = '.du-live-editor-elements-control';
@@ -26,7 +28,6 @@
         this.$delCtrl = this.$element.find(elemDelHandle).on("click", function(e) {
             e.preventDefault();
             that.deleteLiveBlock();
-            console.log(that.$liveBlock)
         });
         this.$editCtrl = this.$element.find(elemEditHandle).on("click", function(e) {
             e.preventDefault();
@@ -41,25 +42,29 @@
             placeholder: "ui-state-highlight",
             handle: elemMoveHandle,
             receive: function(event, ui) {
-                $.get('/admin.php?r=cms/live-editor/load-code&id=' + ui.helper.data('id'), function(data) {
-                    ui.helper.replaceWith(data);
-                });
+                LiveEditor.loadBlockCode(ui.helper, ui.helper);
             }
         }
+    };
+
+    LiveEditor.loadBlockCode = function(targetUI, dataUI) {
+        $.get('/admin.php?r=cms/live-editor/load-code&id=' + dataUI.data('id'), function(data) {
+            targetUI.replaceWith(data);
+        });
     };
 
     LiveEditor.prototype.initControlDraggable = function() {
         $(elemCtrolLayout).draggable({
             connectToSortable: elemEditorWorkspace,
             helper: "clone",
-            zIndex: 120,
-            revert: "invalid"
+            revert: "invalid",
+            zIndex: 9999
         });
         $(elemCtrolElement).draggable({
-            connectToSortable: elemLiveElement,
+            connectToSortable: elemLiveElementLayout,
             helper: "clone",
-            zIndex: 120,
-            revert: "invalid"
+            revert: "invalid",
+            zIndex: 9999
         });
     }
 
@@ -71,6 +76,14 @@
         this.$sortableContainer = this.$liveBlock.parents();
         if (this.$sortableContainer.length > 0) {
             this.$sortableContainer.sortable(this.options.sortable);
+            this.$liveBlock.find(elePlaceholder).droppable({
+                drop: function(e, ui) {
+                    LiveEditor.loadBlockCode($(this), ui.helper);
+                },
+                over: function(e, ui) {
+                    $(this).addClass('active')
+                }
+            });
         }
     }
 
@@ -100,7 +113,6 @@
         this.$toolbar.appendTo(this.$liveBlock);
         //启动父元素为sortable
         this.activeliveBlockParentSortable();
-
     }
 
     /**
@@ -158,8 +170,14 @@
      */
     LiveEditor.prototype.deleteLiveBlock = function() {
         this.$toolbar.appendTo(this.$element);
+        var parent = this.$liveBlock.parent();
         this.$liveBlock.remove();
         this.$liveBlock = null;
+        if (parent.hasClass(elemLiveElementLayout)) {
+            if ($.trim(parent.html()) == '') {
+                $('<div class="du-placeholder"></div>').appendTo(parent);
+            }
+        }
     };
 
     /**
@@ -231,8 +249,4 @@
     });
     //auto bind
     $(elemEditor).liveEditor();
-    // $controlSidebar = $('[data-toggle="control-sidebar"]').data('lte.controlsidebar');
-    // $controlSidebar.options.slide = false;
-    // $controlSidebar.fix();
-    //$(".control-sidebar").controlSidebar({ slide: false });
 }(jQuery);
