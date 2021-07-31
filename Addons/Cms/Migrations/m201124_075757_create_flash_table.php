@@ -5,13 +5,15 @@ use yii\db\Migration;
 /**
  * Handles the creation of table `{{%flash}}`.
  */
-class m201124_075757_create_flash_table extends Migration {
+class m201124_075757_create_flash_table extends Migration
+{
 
     /**
      *
      * {@inheritdoc}
      */
-    public function safeUp() {
+    public function safeUp()
+    {
 
         $tableOptions = 'CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci ENGINE=MyISAM';
         $this->createTable( '{{%cms_flash}}', [
@@ -23,7 +25,7 @@ class m201124_075757_create_flash_table extends Migration {
             'sort'      => $this->smallInteger()->defaultValue( 1 )->comment( '排序' ),
             'createdAt' => $this->dateTime()->null()->comment( '添加时间' ),
             'updatedAt' => $this->dateTime()->null()->comment( '更新时间' )
-            ], $tableOptions );
+        ], $tableOptions );
         $this->addCommentOnTable( '{{%cms_flash}}', '轮播' );
     }
 
@@ -31,7 +33,8 @@ class m201124_075757_create_flash_table extends Migration {
      *
      * {@inheritdoc}
      */
-    public function safeDown() {
+    public function safeDown()
+    {
 
         $this->dropTable( '{{%flash}}' );
     }
