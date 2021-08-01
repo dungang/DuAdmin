@@ -12,4 +12,8 @@ class UeditorAsset extends AssetBundle
         'ueditor.config.js',
         'ueditor.all.min.js',
     ];
+
+    public $publishOptions = [
+        'publishDir' => 'ueditor'
+    ];
 }

@@ -16,4 +16,8 @@ class ThemeAsset extends AssetBundle {
   public $depends = [
       AppAsset::class
   ];
+
+  public $publishOptions = [
+      'publishDir' => 'basic'
+  ];
 }

@@ -95,6 +95,15 @@ class m210722_141103_create_page_block_tables extends Migration
             'createdAt' => date( 'Y-m-d H:i:s' ),
             'updatedAt' => date( 'Y-m-d H:i:s' ),
         ] );
+
+        $this->insert( static::TABLE_BLOCK, [
+            'name'      => '间隔占位',
+            'type'      => 'layout',
+            'namespace' => 'Addons\Cms\PageBlock\Layouts\Bar\Bar',
+            'sort'      => 2,
+            'createdAt' => date( 'Y-m-d H:i:s' ),
+            'updatedAt' => date( 'Y-m-d H:i:s' ),
+        ] );
     }
 
     /**

@@ -25,4 +25,8 @@ class LiveEditorAsset extends \yii\web\AssetBundle
         JqueryUIAsset::class,
         PoplineEditorAsset::class
     ];
+
+    public $publishOptions = [
+        'publishDir' => 'cms'
+    ];
 }

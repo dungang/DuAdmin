@@ -134,6 +134,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       that.editLiveBlock();
     });
     this.initControlDraggable();
+    this.initElementPlaceHolder();
   };
 
   LiveEditor.DEFAULTS = {
@@ -280,15 +281,24 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
   LiveEditor.prototype.deleteLiveBlock = function () {
     this.$toolbar.appendTo(this.$element);
-    var parent = this.$liveBlock.parent();
+    var parent = this.$liveBlock.parent(elemLiveElementLayout);
     this.$liveBlock.remove();
     this.$liveBlock = null;
 
-    if (parent.hasClass(elemLiveElementLayout)) {
-      if ($.trim(parent.html()) == '') {
-        $('<div class="du-placeholder"></div>').appendTo(parent);
-      }
+    if (parent.length > 0 && parent[0].children.length == 0) {
+      $('<div class="du-placeholder"></div>').appendTo(parent);
     }
+  };
+
+  LiveEditor.prototype.initElementPlaceHolder = function () {
+    var holderContainers = this.$workspace.find(elemLiveElementLayout);
+    holderContainers.each(function () {
+      var container = $(this);
+
+      if (container[0].children.length == 0) {
+        $('<div class="du-placeholder"></div>').appendTo(container);
+      }
+    });
   };
   /**
    * 保存内容
