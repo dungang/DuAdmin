@@ -116,30 +116,6 @@
 
 /***/ }),
 
-/***/ "./public/src/js/app.js":
-/*!******************************!*\
-  !*** ./public/src/js/app.js ***!
-  \******************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _affix_navbar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./affix-navbar */ "./public/src/js/affix-navbar.js");
-/* harmony import */ var _affix_navbar__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_affix_navbar__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _fix_col_height__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./fix-col-height */ "./public/src/js/fix-col-height.js");
-/* harmony import */ var _fix_col_height__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_fix_col_height__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _video_background__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./video-background */ "./public/src/js/video-background.js");
-/* harmony import */ var _video_background__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_video_background__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _load_more__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./load-more */ "./public/src/js/load-more.js");
-/* harmony import */ var _load_more__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_load_more__WEBPACK_IMPORTED_MODULE_3__);
-
-
-
-
-
-/***/ }),
-
 /***/ "./public/src/js/fix-col-height.js":
 /*!*****************************************!*\
   !*** ./public/src/js/fix-col-height.js ***!
@@ -205,6 +181,30 @@ __webpack_require__.r(__webpack_exports__);
   $(window).on('load.bs.fixcolheight.data-api', reHeightHandler);
   $(window).on('resize.bs.fixcolheight.data-api', reHeightHandler);
 }(jQuery);
+
+/***/ }),
+
+/***/ "./public/src/js/frontend.js":
+/*!***********************************!*\
+  !*** ./public/src/js/frontend.js ***!
+  \***********************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _affix_navbar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./affix-navbar */ "./public/src/js/affix-navbar.js");
+/* harmony import */ var _affix_navbar__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_affix_navbar__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _fix_col_height__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./fix-col-height */ "./public/src/js/fix-col-height.js");
+/* harmony import */ var _fix_col_height__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_fix_col_height__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _video_background__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./video-background */ "./public/src/js/video-background.js");
+/* harmony import */ var _video_background__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_video_background__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _load_more__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./load-more */ "./public/src/js/load-more.js");
+/* harmony import */ var _load_more__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_load_more__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
 
 /***/ }),
 
@@ -310,13 +310,13 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 2:
-/*!************************************!*\
-  !*** multi ./public/src/js/app.js ***!
-  \************************************/
+/*!*****************************************!*\
+  !*** multi ./public/src/js/frontend.js ***!
+  \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\workspace\DuAdmin\public\src\js\app.js */"./public/src/js/app.js");
+module.exports = __webpack_require__(/*! D:\workspace\DuAdmin\public\src\js\frontend.js */"./public/src/js/frontend.js");
 
 
 /***/ })

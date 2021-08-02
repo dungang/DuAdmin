@@ -68,7 +68,8 @@ mix
     })
     .js('public/duadmin/src/js/DUAdmin.js', 'public/duadmin/dist/js')
     //前端public
-    .js('public/src/js/app.js', 'public/js')
+    .js('public/src/js/frontend.js', 'public/js')
+    .less('public/src/less/frontend.less', 'public/css')
     .then(function() {
         del(['public/assets/*']);
     });

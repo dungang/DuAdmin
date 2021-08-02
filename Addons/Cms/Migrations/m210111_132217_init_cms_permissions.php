@@ -23,6 +23,16 @@ class m210111_132217_init_cms_permissions extends Migration
         InstallerHelper::installPermissionCRUDShortcut("文章", "cms/post");
         InstallerHelper::installPermissionCRUDShortcut("轮播图", "cms/flash");
         InstallerHelper::installPermissionCRUDShortcut("单页", "cms/page");
+        InstallerHelper::installPermissions([
+            [
+                'id' => 'cms/live-editor/index',
+                'name' => '在线编辑器'
+            ],
+            [
+                'id' => 'cms/live-editor/save',
+                'name' => '编辑器保存'
+            ]
+        ], 'cms/page/update');
         InstallerHelper::installPermissionCRUDShortcut("友情链接", "cms/friend-link");
         InstallerHelper::installPermissionCRUDShortcut("广告位", "cms/adv-block");
     }

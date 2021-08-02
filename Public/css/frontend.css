@@ -1,0 +1,69 @@
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+.fex-center {
+  align-items: center;
+}
+.page-panel {
+  padding: 30px;
+  background-color: white;
+  margin-bottom: 15px;
+  border-radius: 0;
+}
+.page-panel.no-padding {
+  padding: 0;
+}
+.page-panel.radius {
+  border-radius: 14px;
+}
+.page-panel .page-head {
+  color: #333;
+  font-weight: bold;
+  border-bottom: 1px solid #efefef;
+  padding-bottom: 15px;
+  margin-top: 0;
+}
+.page-panel .page-meta {
+  color: #333;
+  line-height: 30px;
+  background-color: #efefef;
+  border-radius: 4px;
+  padding: 0 8px;
+  margin-bottom: 15px;
+}
+.page-panel .page-content {
+  color: #333;
+  padding-bottom: 30px;
+  font-size: 16px;
+}
+.page-panel .page-content.post-content {
+  justify-content: space-between;
+}
+.page-panel .page-content.post-content img,
+.page-panel .page-content.post-content video {
+  display: block;
+  margin: auto;
+  max-width: 100%;
+  margin-bottom: 15px;
+}
+.page-panel .page-content.post-content table {
+  margin: auto;
+  max-width: 100%;
+}
+.page-panel .page-list .list-items {
+  padding-left: 20px;
+  list-style-type: square;
+  color: #aaa;
+}
+.page-panel .page-list .list-items li {
+  padding: 5px 0;
+  line-height: 20px;
+  margin-top: 5px;
+}
+.page-panel .page-list .list-items li a {
+  color: #666;
+}
+.page-panel .page-list .list-items li:first-child {
+  margin-top: 0;
+}

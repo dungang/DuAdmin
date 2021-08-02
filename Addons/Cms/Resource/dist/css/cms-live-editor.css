@@ -24,6 +24,7 @@
   height: 26px;
 }
 .du-live-editor {
+  position: relative;
   padding-top: 80px;
 }
 .du-live-editor *[contentEditable='true'] {
@@ -51,6 +52,7 @@
 }
 .du-live-editor .du-live-workspace {
   min-height: 300px;
+  position: relative;
 }
 .du-live-editor .du-live-workspace:hover {
   background-color: #d8e2f9;

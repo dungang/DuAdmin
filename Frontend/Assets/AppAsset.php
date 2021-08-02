@@ -13,10 +13,11 @@ class AppAsset extends AssetBundle
 
     public $css = [
        'third/font-awesome/css/font-awesome.min.css',
+       'css/frontend.css'
     ];
 
     public $js = [
-        'js/app.js'
+        'js/frontend.js'
     ];
 
     public $depends = [
