@@ -120,11 +120,12 @@
      * 编辑模式
      */
     LiveEditor.prototype.editLiveBlock = function() {
-        if (this.$liveBlock) {
+        if (this.$liveBlock && this.$liveBlock.length > 0) {
             if (this.$liveBlock.hasClass(elemImageHolderClass)) {
                 this.enableEditImage(this.$liveBlock);
             } else {
-                if (this.$liveBlock.attr("contenteditable")) {
+                if (this.$liveBlock.attr("contentEditable") != 'false') {
+                    console.log(this.$liveBlock.attr("contentEditable"));
                     this.disableTextEdit(this.$liveBlock);
                 } else {
                     this.enableTextEdit(this.$liveBlock);
@@ -136,13 +137,14 @@
     LiveEditor.prototype.disableTextEdit = function(element) {
         var liveElement = $(element);
         this.$editCtrl.removeClass("active");
-        liveElement.attr('contenteditable', false);
+        liveElement.attr('contentEditable', 'false');
         liveElement.popline("destroy");
     };
     LiveEditor.prototype.enableTextEdit = function(element) {
         var liveElement = $(element);
         this.$editCtrl.addClass("active");
-        liveElement.attr('contenteditable', true);
+        liveElement.attr('contentEditable', 'true');
+        console.log(liveElement);
         liveElement.popline({ position: 'fixed' });
     };
     //图片编辑器
