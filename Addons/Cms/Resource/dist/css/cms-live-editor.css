@@ -24,7 +24,7 @@
   height: 26px;
 }
 .du-live-editor {
-  padding-top: 60px;
+  padding-top: 80px;
 }
 .du-live-editor .du-placeholder {
   height: 60px;
@@ -60,13 +60,12 @@
 .du-live-editor .du-live-workspace .du-live-element.ui-selected,
 .du-live-editor .du-live-workspace .du-live-layout.active,
 .du-live-editor .du-live-workspace .du-live-element.active {
-  border: 2px dashed #80546a;
-  overflow: hidden;
+  border: 2px dashed #333;
 }
 .du-live-editor-toolbar {
   position: absolute;
-  top: 0px;
-  left: 1px;
+  top: -22px;
+  left: -2px;
   margin: auto;
   height: 20px;
   line-height: 20px;
@@ -75,7 +74,9 @@
   align-items: center;
   display: flex;
   justify-content: space-around;
-  background-color: #f1d7e4;
+  background-color: #333;
+  z-index: 999;
+  color: white;
 }
 .du-live-editor-toolbar .du-live-del,
 .du-live-editor-toolbar .du-live-move,
@@ -89,7 +90,7 @@
 .du-live-editor-toolbar .du-live-del:hover,
 .du-live-editor-toolbar .du-live-move:hover,
 .du-live-editor-toolbar .du-live-edit:hover {
-  background-color: #dfa1c0;
+  background-color: #999;
 }
 .du-list-group-item {
   border-radius: 0 !important;
