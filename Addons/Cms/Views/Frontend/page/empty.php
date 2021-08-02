@@ -7,7 +7,7 @@ use DuAdmin\Helpers\AppHelper;
 
 /* @var $this yii\web\View */
 /* @var $model \Addons\Cms\Models\Page */
-
+AppHelper::seo($this,$model->keywords,$model->description);
 $this->title = $model->title . '_' . Yii::t('app', AppHelper::getSetting('site.name'));
 $this->params['breadcrumbs'] = null;
 CmsAsset::register($this);

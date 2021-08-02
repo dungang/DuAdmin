@@ -20,14 +20,7 @@ if ( $category ) {
         ]
     ];
 }
-$this->registerMetaTag( [
-    'name'    => 'keywords',
-    'content' => $model->keywords
-], 'keywords' );
-$this->registerMetaTag( [
-    'name'    => 'description',
-    'content' => $model->description
-], 'description' );
+AppHelper::seo($this,$model->keywords,$model->description);
 CmsAsset::register( $this );
 ?>
 <?= AdvBlockWidget::widget( ['nameCode' => 'post', 'urlPath' => \Yii::$app->request->getPathInfo()] ) ?>

@@ -2,13 +2,11 @@
 
 namespace DuAdmin\Helpers;
 
-use DuAdmin\Components\PrettyUrlManager;
 use DuAdmin\Models\DictData;
 use DuAdmin\Models\Setting;
 use Exception;
 use Yii;
 use yii\base\Arrayable;
-use yii\base\InvalidConfigException;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
@@ -915,11 +913,6 @@ class AppHelper
     }
 
     /**
-     * @var PrettyUrlManager
-     */
-    private static $frotendUrlManager = null;
-
-    /**
      * 创建前端的url
      * @param $route
      * @return string
@@ -959,5 +952,25 @@ class AppHelper
         }
         $size = number_format($size, 2, '.', '');
         return  "" . $size . " " . $rankchar;
+    }
+
+    public static function seo($view, $keywords, $description, $options = [])
+    {
+        $view->registerMetaTag([
+            'name'    => 'keywords',
+            'content' => $keywords
+        ], 'keywords');
+        $view->registerMetaTag([
+            'name'    => 'description',
+            'content' => $description
+        ], 'description');
+        if ($options) {
+            foreach ($options as $key => $val) {
+                $view->registerMetaTag([
+                    'name'    => $key,
+                    'content' => $val
+                ], $key);
+            }
+        }
     }
 }
