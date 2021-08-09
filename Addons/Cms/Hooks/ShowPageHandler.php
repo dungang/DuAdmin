@@ -30,13 +30,15 @@ class ShowPageHandler extends Handler {
       ] );
       $hook->stop = true;
     }
-
   }
 
   public function detechLiveEditor(){
     if (Yii::$app->request->isGet && !Yii::$app->request->isAjax) {
       if(Yii::$app->request->get('live') == 1) {
+        // 注册编辑器的特殊标签的样式
         LiveEditorCssAsset::register(Yii::$app->view);
+        // 阻止页面的默认a标签页面挑战
+        Yii::$app->view->registerJs('$("a").off("click").on("click",function(e){e.preventDefault()})');
       }
     }
   }

@@ -45,7 +45,7 @@ class LiveEditorController extends \DuAdmin\Core\BackendController
             CmsHelpers::registerBlockAssets($pagePost->content);
             $pagePost->content = CmsHelpers::parseDynamicPageBlock($pagePost->content);
         }
-        return $this->render('editor', ['model' => $pagePost]);
+        return $this->render('index', ['model' => $pagePost]);
     }
 
     public function actionSave($pageId, $language = 'zh-CN')
