@@ -1,11 +1,7 @@
 <?php
-
-
 namespace Addons\Cms\Assets;
 
-
 use DuAdmin\Assets\JqueryUIAsset;
-use DuAdmin\Assets\PoplineEditorAsset;
 
 class LiveEditorAsset extends \yii\web\AssetBundle
 {
@@ -20,7 +16,6 @@ class LiveEditorAsset extends \yii\web\AssetBundle
 
     public $depends = [
         JqueryUIAsset::class,
-        PoplineEditorAsset::class
     ];
 
     public $publishOptions = [

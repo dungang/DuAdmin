@@ -30,6 +30,7 @@
   position: relative;
   margin: 0;
   height: calc(100vh - 50px);
+  border-top: 1px solid #ddd;
 }
 .du-live-editor ::-webkit-scrollbar {
   width: 0px;
@@ -155,12 +156,11 @@
   border-radius: 0;
 }
 #wysiwyg-editor {
-  position: absolute;
-  right: -1px;
-  top: -25px;
   background: #4285f4;
   color: #fff;
-  padding: 0px 0px;
+  display: none;
+  width: 600px;
+  padding: 10px 0px;
   border-radius: 3px 3px 0px 0px;
 }
 #wysiwyg-editor.default-editor a,
@@ -172,15 +172,8 @@
   padding: 2px 5px;
 }
 #wysiwyg-editor {
-  top: auto;
-  bottom: 100%;
-  height: -44px;
-  right: auto;
-  left: -1px;
-  display: none;
   color: #111;
   background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.3);
   pointer-events: auto;
 }
 #wysiwyg-editor.default-editor a {

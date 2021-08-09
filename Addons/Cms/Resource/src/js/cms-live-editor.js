@@ -50,6 +50,95 @@
         }
     };
 
+    LiveEditor.WysiwygEditor = {
+
+        isActive: false,
+        oldValue: '',
+        doc: false,
+
+        init: function(doc) {
+            this.doc = doc;
+            $("#bold-btn").on("click", function(e) {
+                doc.execCommand('bold', false, null);
+                e.preventDefault();
+                return false;
+            });
+
+            $("#italic-btn").on("click", function(e) {
+                doc.execCommand('italic', false, null);
+                e.preventDefault();
+                return false;
+            });
+
+            $("#underline-btn").on("click", function(e) {
+                doc.execCommand('underline', false, null);
+                e.preventDefault();
+                return false;
+            });
+
+            $("#strike-btn").on("click", function(e) {
+                doc.execCommand('strikeThrough', false, null);
+                e.preventDefault();
+                return false;
+            });
+
+            $("#link-btn").on("click", function(e) {
+                doc.execCommand('createLink', false, "#");
+                e.preventDefault();
+                return false;
+            });
+
+            $("#fore-color").on("change", function(e) {
+                doc.execCommand('foreColor', false, this.value);
+                e.preventDefault();
+                return false;
+            });
+
+
+            $("#back-color").on("change", function(e) {
+                doc.execCommand('hiliteColor', false, this.value);
+                e.preventDefault();
+                return false;
+            });
+
+            $("#font-size").on("change", function(e) {
+                doc.execCommand('fontSize', false, this.value);
+                e.preventDefault();
+                return false;
+            });
+
+            $("#font-familly").on("change", function(e) {
+                doc.execCommand('fontName', false, this.value);
+                e.preventDefault();
+                return false;
+            });
+
+            $("#justify-btn a").on("click", function(e) {
+                var command = "justify" + this.dataset.value;
+
+                doc.execCommand(command, false, "#");
+                e.preventDefault();
+                return false;
+            });
+        },
+
+        edit: function(element) {
+            element.attr({ 'contenteditable': true, 'spellcheckker': false });
+            $("#wysiwyg-editor").show();
+
+            this.element = element;
+            this.isActive = true;
+            this.oldValue = element.html();
+        },
+
+        destroy: function(element) {
+            element.removeAttr('contenteditable spellcheckker');
+            $("#wysiwyg-editor").hide();
+            this.isActive = false;
+        }
+    }
+
+
     LiveEditor.prototype.initSaveAction = function() {
         var that = this;
         $(document).on('click', '#du-live-editor-save-button', function(e) {
@@ -63,6 +152,7 @@
         this.$iframeDoc = this.$iframe.contents();
         this.$iframeHtml = this.$iframeDoc.find('html');
         this.$iframeBody = this.$iframeDoc.find('body');
+        LiveEditor.WysiwygEditor.init(this.$iframeDoc[0]);
         this.$liveContent = this.$iframeDoc.find(elemLiveContent);
         this.$liveContent.sortable(this.options.sortable);
         this.$sortableContainer = this.$liveContent;
@@ -81,8 +171,7 @@
 
     LiveEditor.prototype.initToolbar = function(doc) {
         var that = this;
-        `
-        `
+
         this.$delCtrl = $(doc).on("click", elemDelHandle, function(e) {
             e.stopPropagation();
             that.deleteLiveBlock();
@@ -95,7 +184,6 @@
         this.$addBefCtrl = $(doc).on("click", '.du-live-add-bef', function(e) {
             e.stopPropagation();
             that.insertModel = 'before';
-            console.log($('aside'));
             $('aside').show();
         });
         this.$addAftCtrl = $(doc).on("click", '.du-live-add-aft', function(e) {
@@ -209,7 +297,8 @@
             if (this.$liveBlock.hasClass(elemImageHolderClass)) {
                 this.enableEditImage(this.$liveBlock);
             } else {
-                if (this.$liveBlock.attr("contentEditable") != 'false') {
+                if (this.$liveBlock.attr("contentEditable") != undefined) {
+                    console.log(this.$liveBlock.attr("contentEditable"))
                     this.disableTextEdit(this.$liveBlock);
                 } else {
                     this.enableTextEdit(this.$liveBlock);
@@ -222,13 +311,16 @@
         var liveElement = $(element);
         this.$editCtrl.removeClass("active");
         liveElement.attr('contentEditable', 'false');
-        liveElement.popline("destroy");
+        LiveEditor.WysiwygEditor.destroy(element);
+
+        //liveElement.popline("destroy");
     };
     LiveEditor.prototype.enableTextEdit = function(element) {
         var liveElement = $(element);
         this.$editCtrl.addClass("active");
+        LiveEditor.WysiwygEditor.edit(element);
         liveElement.attr('contentEditable', 'true');
-        liveElement.popline({ position: 'fixed' });
+        //liveElement.popline({ position: 'fixed' });
     };
     //图片编辑器
     LiveEditor.prototype.enableEditImage = function(imageHolder) {
