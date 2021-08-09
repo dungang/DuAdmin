@@ -130,11 +130,11 @@ class m201224_134253_create_cms_settings extends Migration
             'sort'   => 0
         ] );
         $this->insert( '{{%cms_page}}', [
-            'slug'   => 'live-demo',
-            'title'  => '在线编辑Demo',
-            'template'  => 'empty',
-            'isLive' => 1,
-            'sort'   => 2
+            'slug'     => 'index',
+            'title'    => '首页',
+            'template' => 'empty',
+            'isLive'   => 1,
+            'sort'     => 2
         ] );
         $this->insert( '{{%cms_page_post}}', [
             'pageId'    => 1,
@@ -155,7 +155,7 @@ class m201224_134253_create_cms_settings extends Migration
         $this->insert( '{{%cms_page_post}}', [
             'pageId'    => 3,
             'language'  => 'zh-CN',
-            'title'     => '在线编辑Demo',
+            'title'     => '首页',
             'content'   => '',
             'createdAt' => date( 'Y-m-d H:i:s' ),
             'updatedAt' => date( 'Y-m-d H:i:s' )

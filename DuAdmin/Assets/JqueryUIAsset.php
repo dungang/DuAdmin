@@ -9,7 +9,7 @@ class JqueryUIAsset extends \yii\web\AssetBundle
     public $baseUrl = '@web/third/jquery-ui';
 
     public $js = [
-        'jquery-ui.min.js'
+        'jquery-ui.js'
     ];
 
     public $css = [

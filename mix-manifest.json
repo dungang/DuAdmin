@@ -2,6 +2,7 @@
     "/Addons/Cms/Resource/dist/js/cms-live-editor.js": "/Addons/Cms/Resource/dist/js/cms-live-editor.js",
     "/Addons/Cms/Resource/dist/css/cms.css": "/Addons/Cms/Resource/dist/css/cms.css",
     "/Addons/Cms/Resource/dist/css/cms-live-editor.css": "/Addons/Cms/Resource/dist/css/cms-live-editor.css",
+    "/Addons/Cms/Resource/dist/css/cms-live-editor2.css": "/Addons/Cms/Resource/dist/css/cms-live-editor2.css",
     "/Addons/Doc/Resource/dist/css/doc.css": "/Addons/Doc/Resource/dist/css/doc.css",
     "/Themes/Basic/assets/dist/css/basic.css": "/Themes/Basic/assets/dist/css/basic.css",
     "/Themes/Du/assets/dist/css/du.css": "/Themes/Du/assets/dist/css/du.css",
@@ -10,6 +11,7 @@
     "/Themes/XiaoSen/assets/dist/css/xiaosen.css": "/Themes/XiaoSen/assets/dist/css/xiaosen.css",
     "/public/duadmin/dist/css/DUAdmin.css": "/public/duadmin/dist/css/DUAdmin.css",
     "/public/css/frontend.css": "/public/css/frontend.css",
+    "/Addons/Cms/Resource/dist/js/cms-live-editor2.js": "/Addons/Cms/Resource/dist/js/cms-live-editor2.js",
     "/public/duadmin/dist/js/DUAdmin.js": "/public/duadmin/dist/js/DUAdmin.js",
     "/public/js/frontend.js": "/public/js/frontend.js"
 }

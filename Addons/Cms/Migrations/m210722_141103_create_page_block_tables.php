@@ -24,86 +24,70 @@ class m210722_141103_create_page_block_tables extends Migration
             'updatedAt' => $this->dateTime()->null()->comment( '更新时间' )
         ] );
 
-        $this->insert( static::TABLE_BLOCK, [
-            'name'      => '默认轮播',
-            'type'      => 'layout',
-            'namespace' => 'Addons\Cms\PageBlock\Layouts\Carousel\Carousel',
-            'sort'      => 1,
-            'createdAt' => date( 'Y-m-d H:i:s' ),
-            'updatedAt' => date( 'Y-m-d H:i:s' ),
+        $this->initBlock( [
+            [
+                'name'      => '默认轮播',
+                'type'      => 'layout',
+                'namespace' => 'Addons\Cms\PageBlock\Layouts\Carousel\Carousel',
+            ], [
+                'name'      => '右图左文字Section',
+                'type'      => 'layout',
+                'namespace' => 'Addons\Cms\PageBlock\Layouts\InfoBlock\InfoBlock',
+            ], [
+                'name'      => '左图右文字Section',
+                'type'      => 'layout',
+                'namespace' => 'Addons\Cms\PageBlock\Layouts\InfoBlock\InfoBlock1',
+            ], [
+                'name'      => '对话框按钮',
+                'type'      => 'element',
+                'namespace' => 'Addons\Cms\PageBlock\Elements\DialogButton\DialogButton',
+            ], [
+                'name'      => '列表容器',
+                'type'      => 'layout',
+                'namespace' => 'Addons\Cms\PageBlock\Layouts\Container\Container',
+            ], [
+                'name'      => '1:1容器',
+                'type'      => 'layout',
+                'namespace' => 'Addons\Cms\PageBlock\Layouts\Columns\Column11',
+            ], [
+                'name'      => '2:1容器',
+                'type'      => 'layout',
+                'namespace' => 'Addons\Cms\PageBlock\Layouts\Columns\Column21',
+            ], [
+                'name'      => '1:2列表容器',
+                'type'      => 'layout',
+                'namespace' => 'Addons\Cms\PageBlock\Layouts\Columns\Column12',
+            ], [
+                'name'      => '1:2:1列表容器',
+                'type'      => 'layout',
+                'namespace' => 'Addons\Cms\PageBlock\Layouts\Columns\Column121',
+            ], [
+                'name'      => '3列表容器',
+                'type'      => 'layout',
+                'namespace' => 'Addons\Cms\PageBlock\Layouts\Columns\Column3',
+            ], [
+                'name'      => '间隔占位',
+                'type'      => 'layout',
+                'namespace' => 'Addons\Cms\PageBlock\Layouts\Bar\Bar',
+            ], [
+                'name'      => '白色间隔占位',
+                'type'      => 'layout',
+                'namespace' => 'Addons\Cms\PageBlock\Layouts\Bar\Bar',
+            ], [
+                'name'      => '首页banner',
+                'type'      => 'layout',
+                'namespace' => 'Addons\Cms\PageBlock\Layouts\HomeBanners\HomeBanner',
+            ], [
+                'name'      => '对话框按钮',
+                'type'      => 'element',
+                'namespace' => 'Addons\Cms\PageBlock\Elements\DialogButton\DialogButton',
+            ], [
+                'name'      => '联系表单',
+                'type'      => 'layout',
+                'namespace' => 'Addons\Cms\PageBlock\Layouts\Contact\Contact',
+            ]
         ] );
 
-        $this->insert( static::TABLE_BLOCK, [
-            'name'      => '右图左文字Section',
-            'type'      => 'layout',
-            'namespace' => 'Addons\Cms\PageBlock\Layouts\InfoBlock\InfoBlock',
-            'sort'      => 2,
-            'createdAt' => date( 'Y-m-d H:i:s' ),
-            'updatedAt' => date( 'Y-m-d H:i:s' ),
-        ] );
-
-        $this->insert( static::TABLE_BLOCK, [
-            'name'      => '左图右文字Section',
-            'type'      => 'layout',
-            'namespace' => 'Addons\Cms\PageBlock\Layouts\InfoBlock\InfoBlock1',
-            'sort'      => 3,
-            'createdAt' => date( 'Y-m-d H:i:s' ),
-            'updatedAt' => date( 'Y-m-d H:i:s' ),
-        ] );
-
-        $this->insert( static::TABLE_BLOCK, [
-            'name'      => '对话框按钮',
-            'type'      => 'element',
-            'namespace' => 'Addons\Cms\PageBlock\Elements\DialogButton\DialogButton',
-            'sort'      => 1,
-            'createdAt' => date( 'Y-m-d H:i:s' ),
-            'updatedAt' => date( 'Y-m-d H:i:s' ),
-        ] );
-
-        $this->insert( static::TABLE_BLOCK, [
-            'name'      => '列表容器',
-            'type'      => 'layout',
-            'namespace' => 'Addons\Cms\PageBlock\Layouts\Container\Container',
-            'sort'      => 2,
-            'createdAt' => date( 'Y-m-d H:i:s' ),
-            'updatedAt' => date( 'Y-m-d H:i:s' ),
-        ] );
-
-        $this->insert( static::TABLE_BLOCK, [
-            'name'      => '1:1容器',
-            'type'      => 'layout',
-            'namespace' => 'Addons\Cms\PageBlock\Layouts\Columns\Column11',
-            'sort'      => 2,
-            'createdAt' => date( 'Y-m-d H:i:s' ),
-            'updatedAt' => date( 'Y-m-d H:i:s' ),
-        ] );
-
-        $this->insert( static::TABLE_BLOCK, [
-            'name'      => '2:1容器',
-            'type'      => 'layout',
-            'namespace' => 'Addons\Cms\PageBlock\Layouts\Columns\Column21',
-            'sort'      => 2,
-            'createdAt' => date( 'Y-m-d H:i:s' ),
-            'updatedAt' => date( 'Y-m-d H:i:s' ),
-        ] );
-
-        $this->insert( static::TABLE_BLOCK, [
-            'name'      => '1:2列表容器',
-            'type'      => 'layout',
-            'namespace' => 'Addons\Cms\PageBlock\Layouts\Columns\Column12',
-            'sort'      => 2,
-            'createdAt' => date( 'Y-m-d H:i:s' ),
-            'updatedAt' => date( 'Y-m-d H:i:s' ),
-        ] );
-
-        $this->insert( static::TABLE_BLOCK, [
-            'name'      => '间隔占位',
-            'type'      => 'layout',
-            'namespace' => 'Addons\Cms\PageBlock\Layouts\Bar\Bar',
-            'sort'      => 2,
-            'createdAt' => date( 'Y-m-d H:i:s' ),
-            'updatedAt' => date( 'Y-m-d H:i:s' ),
-        ] );
     }
 
     /**
@@ -112,6 +96,18 @@ class m210722_141103_create_page_block_tables extends Migration
     public function safeDown()
     {
         $this->dropTable( static::TABLE_BLOCK );
+    }
+
+    private function initBlock( $blocks = [] )
+    {
+        foreach ( $blocks as $block ) {
+            $block = array_merge( $block, [
+                'sort'      => 1,
+                'createdAt' => date( 'Y-m-d H:i:s' ),
+                'updatedAt' => date( 'Y-m-d H:i:s' ),
+            ] );
+            $this->insert( static::TABLE_BLOCK, $block );
+        }
     }
 
     /*

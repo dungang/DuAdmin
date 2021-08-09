@@ -1,16 +1,23 @@
 @import "page-block.less";
+
+@workspace-height: calc(100vh - 50px);
+@tab-height: calc(100vh - 91px);
 .control-sidebar {
   z-index: 99;
 }
+
 .skin-green .wrapper {
   background-color: white;
 }
+
 .fixed .content-wrapper, .fixed .right-side {
   padding-top: 0;
 }
+
 .content-wrapper, .main-footer {
   margin-left: 0;
 }
+
 .popline {
   li {
     a {
@@ -19,19 +26,29 @@
     }
   }
 }
+
 .du-live-editor {
   position: relative;
-  padding-top: 80px;
+  margin: 0;
+  height: @workspace-height;
+
+  ::-webkit-scrollbar {
+    width: 0px;
+    background: #fafafa;
+  }
+
   *[contentEditable='true'] {
     caret-color: #333;
   }
-  .du-placeholder{
+
+  .du-placeholder {
     height: 60px;
     border: 1px dashed #f1da6f;
     background-color: #f1eed2;
     width: 100%;
     display: block;
-    margin: 15px 0;
+    margin: 0;
+
     &.active {
       background-color: #d7f1db;
     }
@@ -41,16 +58,14 @@
     height: 0px;
     border: 6px dashed rgb(3, 119, 19);
     background-color: rgb(3, 119, 19);
-    margin:3px;
+    margin: 3px;
     border-radius: 20px;
     width: 100%;
     display: block;
   }
 
   .du-live-workspace {
-    min-height: 300px;
     position: relative;
-
     &:hover {
       background-color: #d8e2f9;
     }
@@ -81,7 +96,7 @@
   justify-content: space-around;
   background-color: #333;
   z-index: 999;
-  color:white;
+  color: white;
 
   .du-live-del,
   .du-live-move,
@@ -95,24 +110,28 @@
     }
   }
 }
+
 .du-list-group-item {
   border-radius: 0 !important;
-  padding:0;
+  padding: 0;
   margin-bottom: 10px;
   width: 100%;
   min-width: 150px;
   max-width: 200px;
   border: 1px solid #666;
+
   img {
     display: block;
     border: 0;
   }
+
   .name {
     font-size: 12px;
     line-height: 20px;
     background-color: #666;
   }
 }
+
 .du-live-editor-elements-control {
   .list-group {
     border-radius: 0;

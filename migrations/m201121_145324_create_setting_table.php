@@ -226,7 +226,7 @@ class m201121_145324_create_setting_table extends Migration {
             [
                 'site.index-page',
                 '网站首页地址',
-                '',
+                '/index.html',
                 'STR',
                 '可以根据业务配置网站的默认首页',
                 '',

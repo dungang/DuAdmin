@@ -4,17 +4,21 @@
 
 /* @var $content string */
 
+use Addons\Cms\Assets\CmsAsset;
 use Addons\Cms\Assets\LiveEditorAsset;
 use Addons\Cms\Models\PageBlock;
 use Addons\Cms\Models\PagePost;
 use DuAdmin\Assets\DuAdminAsset;
 use DuAdmin\Widgets\AdminlteNavBar;
 use DuAdmin\Widgets\AjaxFileInput;
+use Frontend\Assets\AppAsset;
 use yii\bootstrap\Modal;
 use yii\helpers\Html;
-
+AppAsset::register($this);
+CmsAsset::register($this);
 DuAdminAsset::register( $this );
 LiveEditorAsset::register( $this );
+
 /** @var PagePost $model * */
 ?>
 <?php $this->beginPage() ?>
@@ -105,7 +109,7 @@ LiveEditorAsset::register( $this );
                         <?php foreach ( $elements as $element ) : ?>
                             <li class="list-group-item du-list-group-item du-element" data-id="<?= $element->id ?>">
                                 <?= Html::img( ['/cms/live-editor/load-icon', 'id' => $element->id], ['class' => 'lazyload', 'width' => '100%'] ) ?>
-                                <div class="name"><?=$layout->name?></div>
+                                <div class="name"><?=$element->name?></div>
                             </li>
                         <?php endforeach; ?>
                     </ul>

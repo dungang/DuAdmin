@@ -912,6 +912,8 @@ class AppHelper
         return null;
     }
 
+    private static $frotendUrlManager = null;
+
     /**
      * 创建前端的url
      * @param $route

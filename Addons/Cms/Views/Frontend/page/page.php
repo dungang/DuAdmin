@@ -29,7 +29,9 @@ if ($model->isLive) {
             <div class="cms-post-content">
                 <div class="content  text-justify">
                     <?php if ($model->isLive) : ?>
-                        <?= $pagePost->content  ?>
+                        <div class="live-content">
+                            <?= $pagePost->content  ?>
+                        </div>
                     <?php else : ?>
                         <?= AppHelper::maxWidthImage($pagePost->content) ?>
                     <?php endif; ?>

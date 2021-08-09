@@ -32,6 +32,10 @@ class LiveEditorController extends \DuAdmin\Core\BackendController
      */
     public function actionIndex($pageId, $language = 'zh-CN')
     {
+        $debug = \Yii::$app->getModule('debug');
+        if($debug) {
+            $debug->allowedIPs = ['live-editor'];
+        }
         $fields = ['pageId' => $pageId, 'language' => $language];
         $pagePost = PagePost::findOne($fields);
         if (empty($pagePost)) {
@@ -41,7 +45,7 @@ class LiveEditorController extends \DuAdmin\Core\BackendController
             CmsHelpers::registerBlockAssets($pagePost->content);
             $pagePost->content = CmsHelpers::parseDynamicPageBlock($pagePost->content);
         }
-        return $this->render('index', ['model' => $pagePost]);
+        return $this->render('editor', ['model' => $pagePost]);
     }
 
     public function actionSave($pageId, $language = 'zh-CN')

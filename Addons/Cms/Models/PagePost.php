@@ -118,4 +118,7 @@ class PagePost extends \DuAdmin\Core\BaseModel {
         return new PagePostQuery( get_called_class() );
     }
 
+    public function getPage(){
+        return $this->hasOne(Page::class,['id'=>'pageId']);
+    }
 }

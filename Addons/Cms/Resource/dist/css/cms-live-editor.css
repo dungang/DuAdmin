@@ -25,7 +25,12 @@
 }
 .du-live-editor {
   position: relative;
-  padding-top: 80px;
+  margin: 0;
+  height: calc(100vh - 50px);
+}
+.du-live-editor ::-webkit-scrollbar {
+  width: 0px;
+  background: #fafafa;
 }
 .du-live-editor *[contentEditable='true'] {
   caret-color: #333;
@@ -36,7 +41,7 @@
   background-color: #f1eed2;
   width: 100%;
   display: block;
-  margin: 15px 0;
+  margin: 0;
 }
 .du-live-editor .du-placeholder.active {
   background-color: #d7f1db;
@@ -51,7 +56,6 @@
   display: block;
 }
 .du-live-editor .du-live-workspace {
-  min-height: 300px;
   position: relative;
 }
 .du-live-editor .du-live-workspace:hover {

@@ -3568,6 +3568,18 @@ $.ui.ddmanager = {
 			}
 
 			m[ i ].offset = m[ i ].element.offset();
+			//dungang
+			//https://bugs.jqueryui.com/ticket/7925
+			// handle iframe scrolling
+			m[i].offset.top -=  m[i].element.parents().find("html,body").scrollTop();
+			m[i].offset.left -=  m[i].element.parents().find("html,body").scrollLeft();
+
+			// iframe positioning
+			if( this.current.options.iframeOffset )
+			{
+				m[i].offset.top +=  this.current.options.iframeOffset.top;
+				m[i].offset.left +=  this.current.options.iframeOffset.left;
+			}
 			m[ i ].proportions( {
 				width: m[ i ].element[ 0 ].offsetWidth,
 				height: m[ i ].element[ 0 ].offsetHeight

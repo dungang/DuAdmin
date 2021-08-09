@@ -2,7 +2,7 @@
 
 namespace Addons\Cms\Hooks;
 
-use Addons\Cms\Helpers\CmsHelpers;
+use Addons\Cms\Assets\LiveEditorCssAsset;
 use Addons\Cms\Models\Page;
 use DuAdmin\Hooks\Handler;
 use Yii;
@@ -23,6 +23,7 @@ class ShowPageHandler extends Handler {
     if ( $page = Page::find()->where( [
         'slug' => $hook->slug
     ] )->limit( 1 )->one() ) {
+      $this->detechLiveEditor();
       $view = '@Addons/Cms/Views/Frontend/page/' . $page->template;
       $hook->payload = Yii::$app->controller->render( $view, [
           'model' => $page
@@ -30,5 +31,13 @@ class ShowPageHandler extends Handler {
       $hook->stop = true;
     }
 
+  }
+
+  public function detechLiveEditor(){
+    if (Yii::$app->request->isGet && !Yii::$app->request->isAjax) {
+      if(Yii::$app->request->get('live') == 1) {
+        LiveEditorCssAsset::register(Yii::$app->view);
+      }
+    }
   }
 }

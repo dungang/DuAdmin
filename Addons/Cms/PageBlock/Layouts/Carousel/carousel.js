@@ -1,4 +1,4 @@
-if ($) {
+if ($ == undefined) {
     $(document).ready(function() {
         $('.swiper-container').each(function() {
             var slick = $(this);

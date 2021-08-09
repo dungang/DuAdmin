@@ -22,7 +22,9 @@ if ($model->isLive) {
 ?>
 <?= AdvBlockWidget::widget(['nameCode' => 'page', 'urlPath' => \Yii::$app->request->getPathInfo()]) ?>
 <?php if ($model->isLive) : ?>
-<?= $pagePost->content  ?>
+<div class="live-content">
+    <?= $pagePost->content  ?>
+</div>
     <?php else : ?>
 <?= AppHelper::maxWidthImage($pagePost->content) ?>
 <?php endif; ?>
