@@ -4,6 +4,7 @@ namespace Addons\Cms\Hooks;
 
 use Addons\Cms\Assets\LiveEditorCssAsset;
 use Addons\Cms\Models\Page;
+use DuAdmin\Hooks\FindSlugHook;
 use DuAdmin\Hooks\Handler;
 use Yii;
 
@@ -15,7 +16,7 @@ class ShowPageHandler extends Handler {
   /**
    * SlugHook
    *
-   * @param \DuAdmin\Hooks\FindSlugHook $hook
+   * @param FindSlugHook $hook
    * @return void
    */
   public function process( $hook ) {
@@ -23,7 +24,7 @@ class ShowPageHandler extends Handler {
     if ( $page = Page::find()->where( [
         'slug' => $hook->slug
     ] )->limit( 1 )->one() ) {
-      $this->detechLiveEditor();
+      $this->detectLiveEditor();
       $view = '@Addons/Cms/Views/Frontend/page/' . $page->template;
       $hook->payload = Yii::$app->controller->render( $view, [
           'model' => $page
@@ -32,7 +33,7 @@ class ShowPageHandler extends Handler {
     }
   }
 
-  public function detechLiveEditor(){
+  public function detectLiveEditor(){
     if (Yii::$app->request->isGet && !Yii::$app->request->isAjax) {
       if(Yii::$app->request->get('live') == 1) {
         // 注册编辑器的特殊标签的样式

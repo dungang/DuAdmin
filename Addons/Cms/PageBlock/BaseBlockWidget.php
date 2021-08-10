@@ -6,6 +6,7 @@ namespace Addons\Cms\PageBlock;
 
 use yii\base\BaseObject;
 use yii\base\Widget;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
 
@@ -83,7 +84,12 @@ abstract class BaseBlockWidget extends Widget
     /**
      * @var array jquery plugin的参数
      */
-    public $options = [];
+    public $clientOptions = [];
+
+    /**
+     * @var array 标签的属性
+     */
+    public $htmlOptions = [];
 
     public function init()
     {
@@ -151,16 +157,21 @@ abstract class BaseBlockWidget extends Widget
     {
         $this->registerAssets();
         $this->registerAssetsCode();
+        $defaultOptions = [
+            'id'                      => $this->id,
+            'class'                   => 'du-live-' . $this->type,
+            'data-page-block-id'      => $this->pageBlockId,
+            'data-page-block-dynamic' => $this->isDynamic,
+            'data-page-block-class'   => get_called_class(),
+            'data-params'             => Json::htmlEncode( $this->params ),
+            'data-options'            => Json::htmlEncode( $this->clientOptions )
+        ];
+        if ( isset( $this->htmlOptions[ 'class' ] ) ) {
+            $defaultOptions[ 'class' ] .= ' ' . $this->htmlOptions[ 'class' ];
+        }
+        $options = ArrayHelper::merge( $this->htmlOptions, $defaultOptions );
         return Html::tag( 'div', $this->prepareLiveCode(),
-            [
-                'id'                      => $this->id,
-                'class'                   => 'du-live-' . $this->type,
-                'data-page-block-id'      => $this->pageBlockId,
-                'data-page-block-dynamic' => $this->isDynamic,
-                'data-page-block-class'   => get_called_class(),
-                'data-params'             => Json::htmlEncode( $this->params ),
-                'data-options'            => Json::htmlEncode( $this->options )
-            ] );
+            $options );
     }
 
     public static function combineAssets()

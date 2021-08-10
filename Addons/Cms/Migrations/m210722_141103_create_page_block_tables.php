@@ -78,9 +78,9 @@ class m210722_141103_create_page_block_tables extends Migration
                 'type'      => 'layout',
                 'namespace' => 'Addons\Cms\PageBlock\Layouts\HomeBanners\HomeBanner',
             ], [
-                'name'      => '对话框按钮',
+                'name'      => '图片',
                 'type'      => 'element',
-                'namespace' => 'Addons\Cms\PageBlock\Elements\DialogButton\DialogButton',
+                'namespace' => 'Addons\Cms\PageBlock\Elements\Image\Image',
             ], [
                 'name'      => '联系表单',
                 'type'      => 'layout',

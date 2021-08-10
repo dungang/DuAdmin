@@ -115,7 +115,6 @@
 
             $("#justify-btn a").on("click", function(e) {
                 var command = "justify" + this.dataset.value;
-
                 doc.execCommand(command, false, "#");
                 e.preventDefault();
                 return false;

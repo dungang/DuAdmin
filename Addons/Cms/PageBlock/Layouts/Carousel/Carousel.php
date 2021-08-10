@@ -15,7 +15,7 @@ class Carousel extends BaseBlockWidget
     public $jsFile = 'carousel.js';
     public $isDynamic = true;
     public $params = ['size' => 5];
-    public $options = [
+    public $clientOptions = [
         'infinite' => true,
         'autoplay' => true,
         'speed'    => 500,
