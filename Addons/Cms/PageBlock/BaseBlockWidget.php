@@ -18,6 +18,8 @@ use yii\helpers\Json;
 abstract class BaseBlockWidget extends Widget
 {
 
+    public $tag = 'div';
+
     public static $jsAsssets = [];
 
     public static $cssAssets = [];
@@ -93,7 +95,7 @@ abstract class BaseBlockWidget extends Widget
 
     public function init()
     {
-        if ( empty( $this->id ) ) {
+        if (empty($this->id)) {
             $this->id = uniqid();
         }
     }
@@ -101,13 +103,13 @@ abstract class BaseBlockWidget extends Widget
     public function registerAllAssetsCode()
     {
 
-        if ( $this->jsFile ) {
+        if ($this->jsFile) {
             $jsFile = $this->basePath . '/' . $this->jsFile;
-            static::$jsFiles[ md5( $jsFile ) ] = $jsFile;
+            static::$jsFiles[md5($jsFile)] = $jsFile;
         }
-        if ( $this->cssFile ) {
+        if ($this->cssFile) {
             $cssFile = $this->basePath . '/' . $this->cssFile;
-            static::$cssFiles[ md5( $cssFile ) ] = $cssFile;
+            static::$cssFiles[md5($cssFile)] = $cssFile;
         }
     }
 
@@ -117,8 +119,7 @@ abstract class BaseBlockWidget extends Widget
      */
     public function renderIcon()
     {
-        \Yii::$app->getResponse()->sendFile( $this->basePath . "/" . $this->iconFile );
-
+        \Yii::$app->getResponse()->sendFile($this->basePath . "/" . $this->iconFile);
     }
 
     protected function prepareLiveCode()
@@ -126,25 +127,24 @@ abstract class BaseBlockWidget extends Widget
         return $this->renderCodeFile();;
     }
 
-    public function renderCodeFile( $data = [] )
+    public function renderCodeFile($data = [])
     {
-//        compact( $data );
-//        ob_start();
-//        ob_implicit_flush( false );
-//        require $this->basePath . '/' . $this->codeFile;
-//        $out = ob_get_clean();
-//        return $out;
-        return $this->render( $this->codeFile, $data );
+        //        compact( $data );
+        //        ob_start();
+        //        ob_implicit_flush( false );
+        //        require $this->basePath . '/' . $this->codeFile;
+        //        $out = ob_get_clean();
+        //        return $out;
+        return $this->render($this->codeFile, $data);
     }
 
     public function registerAssetsCode()
     {
-        if ( $this->jsFile ) {
-            \Yii::$app->view->registerJs( file_get_contents( $this->basePath . '/' . $this->jsFile ) );
+        if ($this->jsFile) {
+            \Yii::$app->view->registerJs(file_get_contents($this->basePath . '/' . $this->jsFile));
         }
-        if ( $this->cssFile ) {
-            \Yii::$app->view->registerCss( file_get_contents( $this->basePath . '/' . $this->cssFile ) );
-
+        if ($this->cssFile) {
+            \Yii::$app->view->registerCss(file_get_contents($this->basePath . '/' . $this->cssFile));
         }
     }
 
@@ -163,34 +163,37 @@ abstract class BaseBlockWidget extends Widget
             'data-page-block-id'      => $this->pageBlockId,
             'data-page-block-dynamic' => $this->isDynamic,
             'data-page-block-class'   => get_called_class(),
-            'data-params'             => Json::htmlEncode( $this->params ),
-            'data-options'            => Json::htmlEncode( $this->clientOptions )
+            'data-params'             => Json::htmlEncode($this->params),
+            'data-options'            => Json::htmlEncode($this->clientOptions)
         ];
-        if ( isset( $this->htmlOptions[ 'class' ] ) ) {
-            $defaultOptions[ 'class' ] .= ' ' . $this->htmlOptions[ 'class' ];
+        if (isset($this->htmlOptions['class'])) {
+            $defaultOptions['class'] .= ' ' . $this->htmlOptions['class'];
         }
-        $options = ArrayHelper::merge( $this->htmlOptions, $defaultOptions );
-        return Html::tag( 'div', $this->prepareLiveCode(),
-            $options );
+        $options = ArrayHelper::merge($this->htmlOptions, $defaultOptions);
+        return Html::tag(
+            $this->tag,
+            $this->prepareLiveCode(),
+            $options
+        );
     }
 
     public static function combineAssets()
     {
 
         $cssCode = '';
-        foreach ( static::$cssFiles as $css ) {
-            $cssCode .= file_get_contents( $css );
+        foreach (static::$cssFiles as $css) {
+            $cssCode .= file_get_contents($css);
         }
         $style = '';
-        if ( $cssCode ) {
+        if ($cssCode) {
             $style = "<style>\n" . $cssCode . "\n</style>";
         }
         $jsCode = '';
-        foreach ( static::$jsFiles as $js ) {
-            $jsCode .= file_get_contents( $js );
+        foreach (static::$jsFiles as $js) {
+            $jsCode .= file_get_contents($js);
         }
         $script = '';
-        if ( $jsCode ) {
+        if ($jsCode) {
             $script = "<script>\n" . $jsCode . "\n</script>";
         }
         return $style . "\n" . $script;
@@ -198,26 +201,26 @@ abstract class BaseBlockWidget extends Widget
 
     public static function registerBlockAssets()
     {
-        $widget = \Yii::createObject( get_called_class() );
-        return call_user_func( [$widget, 'registerAssets'] );
+        $widget = \Yii::createObject(get_called_class());
+        return call_user_func([$widget, 'registerAssets']);
     }
 
     public static function assets()
     {
-        $widget = \Yii::createObject( get_called_class() );
-        return call_user_func( [$widget, 'registerAllAssetsCode'] );
+        $widget = \Yii::createObject(get_called_class());
+        return call_user_func([$widget, 'registerAllAssetsCode']);
     }
 
     public static function icon()
     {
-        $widget = \Yii::createObject( get_called_class() );
-        return call_user_func( [$widget, 'renderIcon'] );
+        $widget = \Yii::createObject(get_called_class());
+        return call_user_func([$widget, 'renderIcon']);
     }
 
-    public static function code( $config = [] )
+    public static function code($config = [])
     {
-        $config[ 'class' ] = get_called_class();
-        $widget = \Yii::createObject( $config );
-        return call_user_func( [$widget, 'renderLiveCode'] );
+        $config['class'] = get_called_class();
+        $widget = \Yii::createObject($config);
+        return call_user_func([$widget, 'renderLiveCode']);
     }
 }

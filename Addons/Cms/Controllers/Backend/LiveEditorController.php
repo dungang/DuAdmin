@@ -7,13 +7,14 @@ use Addons\Cms\Helpers\CmsHelpers;
 use Addons\Cms\Models\PageBlock;
 use Addons\Cms\Models\PagePost;
 use Addons\Cms\PageBlock\BaseBlockWidget;
+use DuAdmin\Core\BackendController;
 
 /**
  * 在线编辑控制器
  * Class LiveEditorController
  * @package Addons\Cms\Controllers\Backend
  */
-class LiveEditorController extends \DuAdmin\Core\BackendController
+class LiveEditorController extends BackendController
 {
 
     public $userActions = ['load-code', 'load-icon'];

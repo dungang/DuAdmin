@@ -83,8 +83,8 @@ class m210722_141103_create_page_block_tables extends Migration
                 'namespace' => 'Addons\Cms\PageBlock\Elements\Image\Image',
             ], [
                 'name'      => '联系表单',
-                'type'      => 'layout',
-                'namespace' => 'Addons\Cms\PageBlock\Layouts\Contact\Contact',
+                'type'      => 'element',
+                'namespace' => 'Addons\Cms\PageBlock\Elements\Contact\Contact',
             ]
         ] );
 

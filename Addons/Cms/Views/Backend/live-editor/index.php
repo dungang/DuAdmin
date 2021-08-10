@@ -172,6 +172,95 @@ LiveEditorAsset::register($this);
             </div>
 
             <?php Modal::begin([
+                'id'     => 'du-live-block-setting-dialog',
+                'header' => '设置样式',
+                'footer' => '<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>'
+            ]); ?>
+            <form class="form-horizontal" id="style-setting-form">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="height" class="col-sm-6 control-label">Height</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="height" name="height" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="paddingTop" class="col-sm-6 control-label">Padding Top</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="paddingTop" name="paddingTop" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="paddingBottom" class="col-sm-6 control-label">Padding Bottom</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="paddingBottom" name="paddingBottom" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="paddingLeft" class="col-sm-6 control-label">Padding Left</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="paddingLeft" name="paddingLeft" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="paddingRight" class="col-sm-6 control-label">Padding Right</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="paddingRight" name="paddingRight" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="backgroundImage" class="col-sm-6 control-label">Background Image</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="backgroundImage" name="backgroundImage" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="width" class="col-sm-6 control-label">Width</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="width" name="width" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="marginTop" class="col-sm-6 control-label">Margin Top</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="marginTop" name="marginTop" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="marginBottom" class="col-sm-6 control-label">Margin Bottom</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="marginBottom" name="marginBottom" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="marginLeft" class="col-sm-6 control-label">Margin Left</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="marginLeft" name="marginLeft" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="marginRight" class="col-sm-6 control-label">Margin Right</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="marginRight" name="marginRight" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="backgroundColor" class="col-sm-6 control-label">Background Color</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="backgroundColor" name="backgroundColor" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <?php Modal::end(); ?>
+
+            <?php Modal::begin([
                 'id'     => 'du-live-image-setting-dialog',
                 'header' => '设置图片',
                 'footer' => '<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -186,9 +275,6 @@ LiveEditorAsset::register($this);
                 ]
             ]);
             Modal::end(); ?>
-
-
-
         </div>
     </div>
     <?php $this->endBody() ?>

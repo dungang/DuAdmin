@@ -5,6 +5,16 @@
   justify-content: center;
   height: 100%;
 }
+.img-holder {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+}
+img {
+  max-width: 100%;
+  display: block;
+}
 .control-sidebar {
   z-index: 99;
 }
@@ -40,6 +50,7 @@
   caret-color: #333;
 }
 .du-placeholder {
+  position: relative;
   height: 60px;
   border: 1px dashed #f1da6f;
   background-color: #f1eed2;
@@ -105,7 +116,7 @@
   height: 20px;
   line-height: 20px;
   font-size: 12px;
-  width: 150px;
+  width: 180px;
   align-items: center;
   display: flex;
   justify-content: space-around;
@@ -117,6 +128,7 @@
 .du-live-editor-toolbar .du-live-move,
 .du-live-editor-toolbar .du-live-add-bef,
 .du-live-editor-toolbar .du-live-add-aft,
+.du-live-editor-toolbar .du-live-setting,
 .du-live-editor-toolbar .du-live-edit {
   width: 50px;
   text-align: center;
@@ -125,11 +137,13 @@
 .du-live-editor-toolbar .du-live-move.active,
 .du-live-editor-toolbar .du-live-add-bef.active,
 .du-live-editor-toolbar .du-live-add-aft.active,
+.du-live-editor-toolbar .du-live-setting.active,
 .du-live-editor-toolbar .du-live-edit.active,
 .du-live-editor-toolbar .du-live-del:hover,
 .du-live-editor-toolbar .du-live-move:hover,
 .du-live-editor-toolbar .du-live-add-bef:hover,
 .du-live-editor-toolbar .du-live-add-aft:hover,
+.du-live-editor-toolbar .du-live-setting:hover,
 .du-live-editor-toolbar .du-live-edit:hover {
   background-color: #999;
   cursor: pointer;

@@ -53,7 +53,7 @@ class CmsHelpers
             $widget = $div->attr('data-page-block-class');
             $config = [
                 'params' => Json::decode($div->attr('data-params')),
-                'options' => Json::decode($div->attr('data-options'))
+                'htmlOptions' => Json::decode($div->attr('data-options'))
             ];
             $content = call_user_func([$widget,'code'],$config);
             $div->replaceWith($content);
