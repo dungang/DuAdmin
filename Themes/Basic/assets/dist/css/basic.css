@@ -1,3 +1,16 @@
+:root {
+  --gray-base: #000;
+  --gray-darker: #222222;
+  --gray-dark: #333333;
+  --gray: #555555;
+  --gray-light: #777777;
+  --gray-lighter: #eeeeee;
+  --brand-primary: #1b682c;
+  --brand-success: #5cb85c;
+  --brand-info: #5bc0de;
+  --brand-warning: #f0ad4e;
+  --brand-danger: #d9534f;
+}
 .clearfix:before,
 .clearfix:after,
 .form-horizontal .form-group:before,
