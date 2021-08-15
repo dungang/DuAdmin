@@ -110,7 +110,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 +function ($) {
   'use strict';
 
-  var toolbar = '<div class="du-live-editor-toolbar" contenteditable="false">' + '<div class="du-live-move"><i class="fa fa-arrows"></i></div>' + '<div class="du-live-del"><i class="fa fa-trash-o"></i></div>' + '<div class="du-live-edit"><i class="fa fa-edit"></i></div>' + '<div class="du-live-add-bef"><i class="fa fa-plus"></i> 前</div>' + '<div class="du-live-add-aft"><i class="fa fa-plus"></i> 后</div>' + '<div class="du-live-setting"><i class="fa fa-gear"></i></div>' + '</div>';
+  var toolbar = '<div class="du-live-editor-toolbar" contenteditable="false">' + '<div class="du-live-move"><i class="fa fa-arrows"></i></div>' + '<div class="du-live-del"><i class="fa fa-trash-o"></i></div>' + '<div class="du-live-edit"><i class="fa fa-edit"></i></div>' + '<div class="du-live-animate"><i class="fa fa-magic"></i></div>' + '<div class="du-live-add-bef"><i class="fa fa-plus"></i> 前</div>' + '<div class="du-live-add-aft"><i class="fa fa-plus"></i> 后</div>' + '<div class="du-live-setting"><i class="fa fa-gear"></i></div>' + '</div>';
   var elePlaceholder = ".du-placeholder";
   var elemLayout = '.du-live-layout';
   var elemBlock = '.du-live-layout, .du-live-element, .du-placeholder';
@@ -136,6 +136,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     this.$toolbar = $(toolbar);
     this.initControlDraggable();
     this.initSaveAction();
+    this.toushiLayout();
     this.initBlockStyleForm();
     this.$iframe = $('#live-iframe');
     this.$iframe.on('load', function () {
@@ -183,16 +184,26 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         return false;
       });
       $("#link-btn").on("click", function (e) {
-        doc.execCommand('createLink', false, "#");
+        var url = prompt("URL", "请输入请求地址");
+
+        if (url) {
+          doc.execCommand('createLink', false, url);
+        }
+
         e.preventDefault();
         return false;
       });
-      $("#fore-color").on("change", function (e) {
+      $("#unlink-btn").on("click", function (e) {
+        doc.execCommand('unlink', false, null);
+        e.preventDefault();
+        return false;
+      });
+      $("#fore-color").on("change blur", function (e) {
         doc.execCommand('foreColor', false, this.value);
         e.preventDefault();
         return false;
       });
-      $("#back-color").on("change", function (e) {
+      $("#back-color").on("change blur", function (e) {
         doc.execCommand('hiliteColor', false, this.value);
         e.preventDefault();
         return false;
@@ -288,6 +299,41 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       $('#du-live-block-setting-dialog').modal("show");
       that.initBlockStyleFormData();
     });
+    this.$settingCtrl = $(doc).on("click", '.du-live-animate', function (e) {
+      e.stopPropagation();
+      that.insertModel = 'none';
+      $('aside').hide();
+      $('#du-live-block-animate-dialog').modal("show");
+      that.initBlockAnimateFormData();
+    });
+  };
+
+  LiveEditor.prototype.initBlockAnimateForm = function () {
+    var that = this;
+    $('#du-live-block-animate-dialog').on('click', '.btn-primary', function (e) {
+      e.preventDefault();
+      var styles = {};
+      $('#style-animate-form').serializeArray().forEach(function (o) {
+        if (o.value.length > 0) {
+          styles[o.name] = o.value.trim();
+        }
+      });
+      that.$liveBlock.css(styles);
+      $(this).modal("hide");
+    });
+  };
+
+  LiveEditor.prototype.initBlockAnimateFormData = function () {
+    if (this.$liveBlock) {
+      $('#style-animate-form input').each(function () {
+        var $input = $(this);
+        var name = $input.attr("name");
+
+        if (cssInObject[name]) {
+          $input.val(cssInObject[name]);
+        }
+      });
+    }
   };
 
   LiveEditor.prototype.initBlockStyleForm = function () {
@@ -308,7 +354,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   LiveEditor.prototype.initBlockStyleFormData = function () {
     if (this.$liveBlock) {
       var styles = this.$liveBlock.attr("style");
-      var cssInObject = styles.split(';').map(function (cur) {
+
+      var _cssInObject = styles.split(';').map(function (cur) {
         return cur.split(':');
       }).reduce(function (acc, val) {
         var _val = _slicedToArray(val, 2),
@@ -321,12 +368,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         acc[key] = value;
         return acc;
       }, {});
+
       $('#style-setting-form input').each(function () {
         var $input = $(this);
         var name = $input.attr("name");
 
-        if (cssInObject[name]) {
-          $input.val(cssInObject[name]);
+        if (_cssInObject[name]) {
+          $input.val(_cssInObject[name]);
         }
       });
     }
@@ -429,8 +477,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         //设置parent layout 为激活的liveBlock
         that.setActiveLiveBlock(parentLayout);
       }
-    }); //this.$element.find(elemBlock).removeClass('active');
-
+    });
     this.$liveBlock.addClass('active');
     this.$toolbar.appendTo(this.$liveBlock); //启动父元素为sortable
 
@@ -444,6 +491,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   LiveEditor.prototype.editLiveBlock = function () {
     if (this.$liveBlock && this.$liveBlock.length > 0) {
       if (this.$liveBlock.hasClass(elemImageHolderClass)) {
+        this.enableEditImageBg(this.$liveBlock);
+      } else if (this.$liveBlock.css('backgroundImage') != 'none') {
+        console.log(this.$liveBlock.css('backgroundImage'));
         this.enableEditImageBg(this.$liveBlock);
       } else {
         var $img = this.$liveBlock.find('>img');
@@ -466,15 +516,15 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   LiveEditor.prototype.disableTextEdit = function (element) {
     var liveElement = $(element);
     this.$editCtrl.removeClass("active");
-    liveElement.attr('contentEditable', 'false');
-    LiveEditor.WysiwygEditor.destroy(element); //liveElement.popline("destroy");
+    liveElement.removeAttr('contentEditable');
+    LiveEditor.WysiwygEditor.destroy(element);
   };
 
   LiveEditor.prototype.enableTextEdit = function (element) {
     var liveElement = $(element);
     this.$editCtrl.addClass("active");
     LiveEditor.WysiwygEditor.edit(element);
-    liveElement.attr('contentEditable', 'true'); //liveElement.popline({ position: 'fixed' });
+    liveElement.attr('contentEditable', 'true');
   }; //图片编辑器
 
 
@@ -564,6 +614,14 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     var url = "/admin.php?r=cms/live-editor/save&pageId=" + this.options.pageId + "&language=" + this.options.language;
     $.post(url, data, function (res) {
       alert("success");
+    });
+  };
+
+  LiveEditor.prototype.toushiLayout = function () {
+    var that = this;
+    $(document).on('click', '#du-live-editor-toushi-button', function (e) {
+      e.preventDefault();
+      that.$liveContent.toggleClass("toushi");
     });
   }; // MODAL PLUGIN DEFINITION
   // =======================

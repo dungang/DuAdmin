@@ -15,6 +15,46 @@ img {
   max-width: 100%;
   display: block;
 }
+.dialog-button {
+  transition: ease 0.5s;
+}
+.dialog-button:hover {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.thumbnail {
+  border-radius: 0;
+  border: 0;
+  text-align: center;
+  padding: 0;
+}
+.image-scale .image-scale-box {
+  overflow: hidden;
+  text-align: center;
+}
+.image-scale .image-scale-box img {
+  transition: ease 0.8s;
+}
+.image-scale:hover img {
+  transform: scale(1.2);
+}
+.ease-underline {
+  position: relative;
+}
+.ease-underline:hover::before {
+  width: 100%;
+}
+.ease-underline::before {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 2px;
+  background: var(--brand-primary);
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  transition: ease 0.5s;
+}
 .control-sidebar {
   z-index: 99;
 }
@@ -116,7 +156,7 @@ img {
   height: 20px;
   line-height: 20px;
   font-size: 12px;
-  width: 180px;
+  width: 240px;
   align-items: center;
   display: flex;
   justify-content: space-around;
@@ -129,6 +169,7 @@ img {
 .du-live-editor-toolbar .du-live-add-bef,
 .du-live-editor-toolbar .du-live-add-aft,
 .du-live-editor-toolbar .du-live-setting,
+.du-live-editor-toolbar .du-live-animate,
 .du-live-editor-toolbar .du-live-edit {
   width: 50px;
   text-align: center;
@@ -138,12 +179,14 @@ img {
 .du-live-editor-toolbar .du-live-add-bef.active,
 .du-live-editor-toolbar .du-live-add-aft.active,
 .du-live-editor-toolbar .du-live-setting.active,
+.du-live-editor-toolbar .du-live-animate.active,
 .du-live-editor-toolbar .du-live-edit.active,
 .du-live-editor-toolbar .du-live-del:hover,
 .du-live-editor-toolbar .du-live-move:hover,
 .du-live-editor-toolbar .du-live-add-bef:hover,
 .du-live-editor-toolbar .du-live-add-aft:hover,
 .du-live-editor-toolbar .du-live-setting:hover,
+.du-live-editor-toolbar .du-live-animate:hover,
 .du-live-editor-toolbar .du-live-edit:hover {
   background-color: #999;
   cursor: pointer;
@@ -168,6 +211,18 @@ img {
 }
 .du-live-editor-elements-control .list-group {
   border-radius: 0;
+}
+.live-content.toushi .du-live-layout {
+  margin: 4px;
+  padding: 4px;
+  background-color: #f1d9d2;
+  border: 1px solid #f1946f;
+}
+.live-content.toushi .du-live-element {
+  margin: 4px;
+  padding: 4px;
+  background-color: #eaf5eb;
+  border: 1px solid #cff8d5;
 }
 #wysiwyg-editor {
   background: #4285f4;

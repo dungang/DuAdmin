@@ -5,6 +5,7 @@ function($) {
         '<div class="du-live-move"><i class="fa fa-arrows"></i></div>' +
         '<div class="du-live-del"><i class="fa fa-trash-o"></i></div>' +
         '<div class="du-live-edit"><i class="fa fa-edit"></i></div>' +
+        '<div class="du-live-animate"><i class="fa fa-magic"></i></div>' +
         '<div class="du-live-add-bef"><i class="fa fa-plus"></i> 前</div>' +
         '<div class="du-live-add-aft"><i class="fa fa-plus"></i> 后</div>' +
         '<div class="du-live-setting"><i class="fa fa-gear"></i></div>' +
@@ -34,6 +35,7 @@ function($) {
         this.$toolbar = $(toolbar);
         this.initControlDraggable();
         this.initSaveAction();
+        this.toushiLayout();
         this.initBlockStyleForm();
         this.$iframe = $('#live-iframe');
         this.$iframe.on('load', function() {
@@ -86,19 +88,29 @@ function($) {
             });
 
             $("#link-btn").on("click", function(e) {
-                doc.execCommand('createLink', false, "#");
+                var url = prompt("URL", "请输入请求地址");
+                if (url) {
+                    doc.execCommand('createLink', false, url);
+                }
                 e.preventDefault();
                 return false;
             });
 
-            $("#fore-color").on("change", function(e) {
+
+            $("#unlink-btn").on("click", function(e) {
+                doc.execCommand('unlink', false, null);
+                e.preventDefault();
+                return false;
+            });
+
+            $("#fore-color").on("change blur", function(e) {
                 doc.execCommand('foreColor', false, this.value);
                 e.preventDefault();
                 return false;
             });
 
 
-            $("#back-color").on("change", function(e) {
+            $("#back-color").on("change blur", function(e) {
                 doc.execCommand('hiliteColor', false, this.value);
                 e.preventDefault();
                 return false;
@@ -202,6 +214,41 @@ function($) {
             $('#du-live-block-setting-dialog').modal("show");
             that.initBlockStyleFormData();
         });
+        this.$settingCtrl = $(doc).on("click", '.du-live-animate', function(e) {
+            e.stopPropagation();
+            that.insertModel = 'none';
+            $('aside').hide();
+            $('#du-live-block-animate-dialog').modal("show");
+            that.initBlockAnimateFormData();
+        });
+    }
+
+    LiveEditor.prototype.initBlockAnimateForm = function() {
+        var that = this;
+        $('#du-live-block-animate-dialog').on('click', '.btn-primary', function(e) {
+            e.preventDefault();
+            var styles = {};
+            $('#style-animate-form').serializeArray().forEach((o) => {
+                if (o.value.length > 0) {
+                    styles[o.name] = o.value.trim();
+                }
+            });
+            that.$liveBlock.css(styles);
+            $(this).modal("hide");
+        })
+    }
+
+    LiveEditor.prototype.initBlockAnimateFormData = function() {
+        if (this.$liveBlock) {
+
+            $('#style-animate-form input').each(function() {
+                var $input = $(this);
+                var name = $input.attr("name");
+                if (cssInObject[name]) {
+                    $input.val(cssInObject[name]);
+                }
+            });
+        }
     }
 
     LiveEditor.prototype.initBlockStyleForm = function() {
@@ -332,7 +379,6 @@ function($) {
                 that.setActiveLiveBlock(parentLayout);
             }
         });
-        //this.$element.find(elemBlock).removeClass('active');
         this.$liveBlock.addClass('active');
         this.$toolbar.appendTo(this.$liveBlock);
         //启动父元素为sortable
@@ -347,6 +393,9 @@ function($) {
     LiveEditor.prototype.editLiveBlock = function() {
         if (this.$liveBlock && this.$liveBlock.length > 0) {
             if (this.$liveBlock.hasClass(elemImageHolderClass)) {
+                this.enableEditImageBg(this.$liveBlock);
+            } else if (this.$liveBlock.css('backgroundImage') != 'none') {
+                console.log(this.$liveBlock.css('backgroundImage'))
                 this.enableEditImageBg(this.$liveBlock);
             } else {
                 var $img = this.$liveBlock.find('>img');
@@ -367,17 +416,14 @@ function($) {
     LiveEditor.prototype.disableTextEdit = function(element) {
         var liveElement = $(element);
         this.$editCtrl.removeClass("active");
-        liveElement.attr('contentEditable', 'false');
+        liveElement.removeAttr('contentEditable');
         LiveEditor.WysiwygEditor.destroy(element);
-
-        //liveElement.popline("destroy");
     };
     LiveEditor.prototype.enableTextEdit = function(element) {
         var liveElement = $(element);
         this.$editCtrl.addClass("active");
         LiveEditor.WysiwygEditor.edit(element);
         liveElement.attr('contentEditable', 'true');
-        //liveElement.popline({ position: 'fixed' });
     };
 
     //图片编辑器
@@ -460,6 +506,14 @@ function($) {
             alert("success")
         });
     };
+
+    LiveEditor.prototype.toushiLayout = function() {
+        var that = this;
+        $(document).on('click', '#du-live-editor-toushi-button', function(e) {
+            e.preventDefault();
+            that.$liveContent.toggleClass("toushi");
+        });
+    }
 
 
     // MODAL PLUGIN DEFINITION

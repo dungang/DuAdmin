@@ -16,3 +16,51 @@ img {
   max-width: 100%;
   display: block;
 }
+
+.dialog-button {
+  transition: ease 0.5s;
+  &:hover {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+.thumbnail {
+  border-radius: 0;
+  border:0;
+  text-align: center;
+  padding:0;
+}
+.image-scale {
+  .image-scale-box {
+    overflow: hidden;
+    text-align: center;
+    img {
+      transition: ease .8s;
+    }
+  }
+  &:hover {
+    img {
+      transform: scale(1.2);
+    }
+  }
+}
+.ease-underline {
+  position: relative;
+  &:hover {
+    &::before {
+      width: 100%;
+    }
+  }
+  &::before {
+    position: absolute;
+    content: "";
+    width: 0;
+    height: 2px;
+    background: var(--brand-primary);
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    transition: ease .5s;
+  }
+}

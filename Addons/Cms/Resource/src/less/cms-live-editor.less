@@ -132,7 +132,7 @@
     height: 20px;
     line-height: 20px;
     font-size: 12px;
-    width: 180px;
+    width: 240px;
     align-items: center;
     display: flex;
     justify-content: space-around;
@@ -145,6 +145,7 @@
     .du-live-add-bef,
     .du-live-add-aft,
     .du-live-setting,
+    .du-live-animate,
     .du-live-edit {
         width: 50px;
         text-align: center;
@@ -181,6 +182,23 @@
 .du-live-editor-elements-control {
     .list-group {
         border-radius: 0;
+    }
+}
+
+.live-content {
+    &.toushi {
+        .du-live-layout {
+            margin:4px;
+            padding:4px;
+            background-color: #f1d9d2;
+            border: 1px solid #f1946f
+        }
+        .du-live-element {
+            margin:4px;
+            padding:4px;
+            background-color: #eaf5eb;
+            border: 1px solid #cff8d5
+        }
     }
 }
 

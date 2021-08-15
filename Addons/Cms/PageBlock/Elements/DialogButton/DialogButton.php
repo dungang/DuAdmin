@@ -1,11 +1,7 @@
 <?php
-
-
 namespace Addons\Cms\PageBlock\Elements\DialogButton;
 
-
 use Addons\Cms\PageBlock\BaseBlockWidget;
-use DuAdmin\Helpers\AppHelper;
 
 class DialogButton extends BaseBlockWidget
 {

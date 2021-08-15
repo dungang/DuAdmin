@@ -51,7 +51,7 @@ LiveEditorAsset::register($this);
             </a>
 
             <div class="dropdown">
-                <a class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-align-left"></i>
                 </a>
 
@@ -64,9 +64,9 @@ LiveEditorAsset::register($this);
             </div>
             <div class="separator"></div>
 
-            <a id="link-btn" href="" title="Create link">
-                <i class="fa fa-link">
-                </i></a>
+            <a id="link-btn" href="" title="Create link"><i class="fa fa-link"></i></a>
+
+            <a id="unlink-btn" href="" title="Remove link"><i class="fa fa-unlink"></i></a>
 
             <div class="separator"></div>
 
@@ -108,6 +108,9 @@ LiveEditorAsset::register($this);
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
                 <!-- Control Sidebar Toggle Button -->
+                <li>
+                    <a id="du-live-editor-toushi-button"><i class="fa fa-eye"></i> 透视</a>
+                </li>
                 <li>
                     <a id="du-live-editor-save-button"><i class="fa fa-save"></i> 保存</a>
                 </li>
@@ -170,6 +173,33 @@ LiveEditorAsset::register($this);
                     ]) ?>
                 </div>
             </div>
+            <?php Modal::begin([
+                'id'     => 'du-live-block-animate-dialog',
+                'header' => '设置动画',
+                'footer' => '<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>'
+            ]); ?>
+            <form class="form-horizontal" id="animate-setting-form">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="animate-name" class="col-sm-6 control-label">Name</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="animate-name" name="name" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="duration" class="col-sm-6 control-label">Background Color</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="duration" name="duration" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <?php Modal::end(); ?>
 
             <?php Modal::begin([
                 'id'     => 'du-live-block-setting-dialog',
@@ -214,6 +244,24 @@ LiveEditorAsset::register($this);
                             <label for="backgroundImage" class="col-sm-6 control-label">Background Image</label>
                             <div class="col-sm-6">
                                 <input type="text" class="form-control" id="backgroundImage" name="backgroundImage" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="backgroundSize" class="col-sm-6 control-label">Background Size</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="backgroundSize" name="backgroundSize" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="backgroundRepeat" class="col-sm-6 control-label">Background Repeat</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="backgroundRepeat" name="backgroundRepeat" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="backgroundPosition" class="col-sm-6 control-label">Background Position</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="backgroundPosition" name="backgroundPosition" />
                             </div>
                         </div>
                     </div>

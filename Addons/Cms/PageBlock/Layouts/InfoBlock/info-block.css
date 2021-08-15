@@ -9,6 +9,15 @@
     height: 100%;
 }
 
+.section-head-info {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
 .element-section-info {
     padding: 30px;
     display: flex;
@@ -20,21 +29,27 @@
     background-color: white;
 }
 
+
 /* 小屏幕（平板，大于等于 768px） */
+
 @media (min-width: 768px) {
     .element-section .col-md-6 {
         height: 250px;
     }
 }
 
+
 /* 中等屏幕（桌面显示器，大于等于 992px） */
+
 @media (min-width: 992px) {
     .element-section .col-md-6 {
         height: 300px;
     }
 }
 
+
 /* 大屏幕（大桌面显示器，大于等于 1200px） */
+
 @media (min-width: 1200px) {
     .element-section .col-md-6 {
         height: 400px;

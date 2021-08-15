@@ -38,6 +38,26 @@ class m210722_141103_create_page_block_tables extends Migration
                 'type'      => 'layout',
                 'namespace' => 'Addons\Cms\PageBlock\Layouts\InfoBlock\InfoBlock1',
             ], [
+                'name'      => '中间文字Section',
+                'type'      => 'layout',
+                'namespace' => 'Addons\Cms\PageBlock\Layouts\InfoBlock\InfoBlock2',
+            ], [
+                'name'      => '按钮',
+                'type'      => 'element',
+                'namespace' => 'Addons\Cms\PageBlock\Elements\Base\Button',
+            ], [
+                'name'      => '一级标题',
+                'type'      => 'element',
+                'namespace' => 'Addons\Cms\PageBlock\Elements\Base\H1',
+            ], [
+                'name'      => '二级标题',
+                'type'      => 'element',
+                'namespace' => 'Addons\Cms\PageBlock\Elements\Base\H2',
+            ], [
+                'name'      => '段落',
+                'type'      => 'element',
+                'namespace' => 'Addons\Cms\PageBlock\Elements\Base\P',
+            ], [
                 'name'      => '对话框按钮',
                 'type'      => 'element',
                 'namespace' => 'Addons\Cms\PageBlock\Elements\DialogButton\DialogButton',
@@ -66,6 +86,14 @@ class m210722_141103_create_page_block_tables extends Migration
                 'type'      => 'layout',
                 'namespace' => 'Addons\Cms\PageBlock\Layouts\Columns\Column3',
             ], [
+                'name'      => '4列表容器',
+                'type'      => 'layout',
+                'namespace' => 'Addons\Cms\PageBlock\Layouts\Columns\Column4',
+            ], [
+                'name'      => '6列表容器',
+                'type'      => 'layout',
+                'namespace' => 'Addons\Cms\PageBlock\Layouts\Columns\Column6',
+            ], [
                 'name'      => '间隔占位',
                 'type'      => 'layout',
                 'namespace' => 'Addons\Cms\PageBlock\Layouts\Bar\Bar',
@@ -81,6 +109,10 @@ class m210722_141103_create_page_block_tables extends Migration
                 'name'      => '图片',
                 'type'      => 'element',
                 'namespace' => 'Addons\Cms\PageBlock\Elements\Image\Image',
+            ], [
+                'name'      => '图片信息',
+                'type'      => 'element',
+                'namespace' => 'Addons\Cms\PageBlock\Elements\Image\ImageInfo',
             ], [
                 'name'      => '联系表单',
                 'type'      => 'element',
