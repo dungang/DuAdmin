@@ -109,6 +109,9 @@ LiveEditorAsset::register($this);
             <ul class="nav navbar-nav">
                 <!-- Control Sidebar Toggle Button -->
                 <li>
+                    <a id="du-live-editor-empty-button"><i class="fa fa-trash"></i> 清空</a>
+                </li>
+                <li>
                     <a id="du-live-editor-toushi-button"><i class="fa fa-eye"></i> 透视</a>
                 </li>
                 <li>

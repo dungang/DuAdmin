@@ -34,8 +34,7 @@ function($) {
         this.$liveBlock = null;
         this.$toolbar = $(toolbar);
         this.initControlDraggable();
-        this.initSaveAction();
-        this.toushiLayout();
+        this.initOperation();
         this.initBlockStyleForm();
         this.$iframe = $('#live-iframe');
         this.$iframe.on('load', function() {
@@ -152,14 +151,22 @@ function($) {
         }
     }
 
-
-    LiveEditor.prototype.initSaveAction = function() {
+    LiveEditor.prototype.initOperation = function() {
         var that = this;
         $(document).on('click', '#du-live-editor-save-button', function(e) {
             e.preventDefault();
             that.saveContent();
         });
-    }
+        $(document).on('click', '#du-live-editor-toushi-button', function(e) {
+            e.preventDefault();
+            that.$liveContent.toggleClass("toushi");
+        });
+        $(document).on('click', '#du-live-editor-empty-button', function(e) {
+            e.preventDefault();
+            that.$liveContent.empty();
+            that.appendPlaceHolder(that.$liveContent);
+        });
+    };
 
     LiveEditor.prototype.loadIframe = function() {
         var that = this;
@@ -244,9 +251,6 @@ function($) {
             $('#style-animate-form input').each(function() {
                 var $input = $(this);
                 var name = $input.attr("name");
-                if (cssInObject[name]) {
-                    $input.val(cssInObject[name]);
-                }
             });
         }
     }
@@ -342,7 +346,7 @@ function($) {
     }
 
     //激活 block ,则选择parent 为sortable 容器，销毁上一个sortable容器
-    LiveEditor.prototype.activeliveBlockParentSortable = function() {
+    LiveEditor.prototype.activeLiveBlockParentSortable = function() {
         if (this.$sortableContainer) {
             this.$sortableContainer.sortable("destroy");
         }
@@ -382,7 +386,7 @@ function($) {
         this.$liveBlock.addClass('active');
         this.$toolbar.appendTo(this.$liveBlock);
         //启动父元素为sortable
-        this.activeliveBlockParentSortable();
+        this.activeLiveBlockParentSortable();
     }
 
 
@@ -471,7 +475,7 @@ function($) {
         this.$liveBlock.remove();
         this.$liveBlock = null;
         if (parent.length > 0 && parent[0].children.length == 0) {
-            $('<div class="du-placeholder"></div>').appendTo(parent);
+            this.appendPlaceHolder(parent);
         }
     };
 
@@ -480,13 +484,17 @@ function($) {
         holderContainers.each(function() {
             var container = $(this);
             if (container[0].children.length == 0) {
-                $('<div class="du-placeholder"></div>').appendTo(container);
+                this.appendPlaceHolder.appendTo(container);
             }
         });
         if (this.$liveContent[0].children.length == 0) {
-            $('<div class="du-placeholder"></div>').appendTo(this.$liveContent);
+            this.appendPlaceHolder(this.$liveContent);
         }
     };
+
+    LiveEditor.prototype.appendPlaceHolder = function($target) {
+        $('<div class="du-placeholder"></div>').appendTo($target);
+    }
 
     /**
      * 保存内容
@@ -506,15 +514,6 @@ function($) {
             alert("success")
         });
     };
-
-    LiveEditor.prototype.toushiLayout = function() {
-        var that = this;
-        $(document).on('click', '#du-live-editor-toushi-button', function(e) {
-            e.preventDefault();
-            that.$liveContent.toggleClass("toushi");
-        });
-    }
-
 
     // MODAL PLUGIN DEFINITION
     // =======================

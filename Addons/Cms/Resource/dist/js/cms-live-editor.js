@@ -135,8 +135,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     this.$liveBlock = null;
     this.$toolbar = $(toolbar);
     this.initControlDraggable();
-    this.initSaveAction();
-    this.toushiLayout();
+    this.initOperation();
     this.initBlockStyleForm();
     this.$iframe = $('#live-iframe');
     this.$iframe.on('load', function () {
@@ -242,11 +241,20 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     }
   };
 
-  LiveEditor.prototype.initSaveAction = function () {
+  LiveEditor.prototype.initOperation = function () {
     var that = this;
     $(document).on('click', '#du-live-editor-save-button', function (e) {
       e.preventDefault();
       that.saveContent();
+    });
+    $(document).on('click', '#du-live-editor-toushi-button', function (e) {
+      e.preventDefault();
+      that.$liveContent.toggleClass("toushi");
+    });
+    $(document).on('click', '#du-live-editor-empty-button', function (e) {
+      e.preventDefault();
+      that.$liveContent.empty();
+      that.appendPlaceHolder(that.$liveContent);
     });
   };
 
@@ -328,10 +336,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       $('#style-animate-form input').each(function () {
         var $input = $(this);
         var name = $input.attr("name");
-
-        if (cssInObject[name]) {
-          $input.val(cssInObject[name]);
-        }
       });
     }
   };
@@ -354,8 +358,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   LiveEditor.prototype.initBlockStyleFormData = function () {
     if (this.$liveBlock) {
       var styles = this.$liveBlock.attr("style");
-
-      var _cssInObject = styles.split(';').map(function (cur) {
+      var cssInObject = styles.split(';').map(function (cur) {
         return cur.split(':');
       }).reduce(function (acc, val) {
         var _val = _slicedToArray(val, 2),
@@ -368,13 +371,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         acc[key] = value;
         return acc;
       }, {});
-
       $('#style-setting-form input').each(function () {
         var $input = $(this);
         var name = $input.attr("name");
 
-        if (_cssInObject[name]) {
-          $input.val(_cssInObject[name]);
+        if (cssInObject[name]) {
+          $input.val(cssInObject[name]);
         }
       });
     }
@@ -437,7 +439,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   }; //激活 block ,则选择parent 为sortable 容器，销毁上一个sortable容器
 
 
-  LiveEditor.prototype.activeliveBlockParentSortable = function () {
+  LiveEditor.prototype.activeLiveBlockParentSortable = function () {
     if (this.$sortableContainer) {
       this.$sortableContainer.sortable("destroy");
     }
@@ -481,7 +483,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     this.$liveBlock.addClass('active');
     this.$toolbar.appendTo(this.$liveBlock); //启动父元素为sortable
 
-    this.activeliveBlockParentSortable();
+    this.activeLiveBlockParentSortable();
   };
   /**
    * 编辑模式
@@ -576,7 +578,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     this.$liveBlock = null;
 
     if (parent.length > 0 && parent[0].children.length == 0) {
-      $('<div class="du-placeholder"></div>').appendTo(parent);
+      this.appendPlaceHolder(parent);
     }
   };
 
@@ -586,13 +588,17 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       var container = $(this);
 
       if (container[0].children.length == 0) {
-        $('<div class="du-placeholder"></div>').appendTo(container);
+        this.appendPlaceHolder.appendTo(container);
       }
     });
 
     if (this.$liveContent[0].children.length == 0) {
-      $('<div class="du-placeholder"></div>').appendTo(this.$liveContent);
+      this.appendPlaceHolder(this.$liveContent);
     }
+  };
+
+  LiveEditor.prototype.appendPlaceHolder = function ($target) {
+    $('<div class="du-placeholder"></div>').appendTo($target);
   };
   /**
    * 保存内容
@@ -614,14 +620,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     var url = "/admin.php?r=cms/live-editor/save&pageId=" + this.options.pageId + "&language=" + this.options.language;
     $.post(url, data, function (res) {
       alert("success");
-    });
-  };
-
-  LiveEditor.prototype.toushiLayout = function () {
-    var that = this;
-    $(document).on('click', '#du-live-editor-toushi-button', function (e) {
-      e.preventDefault();
-      that.$liveContent.toggleClass("toushi");
     });
   }; // MODAL PLUGIN DEFINITION
   // =======================
