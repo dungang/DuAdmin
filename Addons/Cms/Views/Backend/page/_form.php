@@ -22,8 +22,6 @@ use yii\widgets\ActiveForm;
         <?= '<div class="col-xs-6">' . $form->field( $model, 'slug' )->textInput( ['maxlength' => true] ) . '</div>' ?>
         <?= '<div class="col-xs-6">' . $form->field( $model, 'pid' )->dropDownList( Page::allIdToName( 'id', 'title', ['pid' => 0] ), ['prompt' => ''] ) . '</div>' ?>
         <?= '<div class="col-xs-12">' . $form->field( $model, 'title' )->textInput() . '</div>' ?>
-        <?= '<div class="col-xs-6">' . $form->field( $model, 'isLive' )->dropDownList( ['否', '是'] ) . '</div>' ?>
-        <?= '<div class="col-xs-6">' . $form->field( $model, 'template' )->dropDownList( ['page' => '默认', 'empty' => '空白'] ) . '</div>' ?>
         <?= '<div class="col-xs-12">' . $form->field( $model, 'keywords' )->textInput( ['maxLength' => true] ) . '</div>' ?>
         <?= '<div class="col-xs-12">' . $form->field( $model, 'description' )->textarea( ['maxLength' => true] ) . '</div>' ?>
     </div>

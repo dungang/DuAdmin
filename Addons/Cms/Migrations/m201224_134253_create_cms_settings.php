@@ -140,7 +140,7 @@ class m201224_134253_create_cms_settings extends Migration
             'pageId'    => 1,
             'language'  => 'zh-CN',
             'title'     => '关于我们',
-            'content'   => 'DuAdmin （中文：独角派管理后台） 是一个管理后台快速开发框架，基于Yii2框架开发。Du是独的发音，独角兽的意思，我们更多想表达的意思是，希望是使用我们的后台程序的公司，以后都都能成为独角兽 ^^!',
+            'content'   => 'DuAdmin （中文：达柚管理后台） 是一个管理后台快速开发框架，基于Yii2框架开发^^!',
             'createdAt' => date( 'Y-m-d H:i:s' ),
             'updatedAt' => date( 'Y-m-d H:i:s' )
         ] );

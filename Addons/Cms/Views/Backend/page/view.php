@@ -26,4 +26,3 @@ echo AjaxModalOrNormalPanelContent::widget([
             ],
         ])
 ]);
-?>

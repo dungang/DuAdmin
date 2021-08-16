@@ -13,8 +13,6 @@ use Yii;
  * @property string $title 标题
  * @property string $keywords 关键字
  * @property string $description 简介
- * @property int $isLive 是否在线编辑
- * @property string $template 模板
  * @property int $sort 排序
  * @property string $createdAt 添加时间
  * @property string $updatedAt 更新时间
@@ -42,10 +40,9 @@ class Page extends \DuAdmin\Core\BaseModel
     public function rules()
     {
         return [
-            [['pid', 'isLive', 'sort'], 'integer'],
+            [['pid', 'sort'], 'integer'],
             [['createdAt', 'updatedAt'], 'safe'],
             [['slug', 'title', 'keywords'], 'string', 'max' => 128],
-            [['template'], 'string', 'max' => 64],
             [
                 [
                     'description'
@@ -69,8 +66,6 @@ class Page extends \DuAdmin\Core\BaseModel
             'title'       => Yii::t( 'da_page', 'Title' ),
             'keywords'    => Yii::t( 'da_page', 'Keywords' ),
             'description' => Yii::t( 'da_page', 'Description' ),
-            'isLive'      => Yii::t( 'da_page', 'Is Live' ),
-            'template'    => Yii::t( 'da_page', 'Template' ),
             'sort'        => Yii::t( 'da_page', 'Sort' ),
             'createdAt'   => Yii::t( 'da_page', 'Created At' ),
             'updatedAt'   => Yii::t( 'da_page', 'Updated At' ),

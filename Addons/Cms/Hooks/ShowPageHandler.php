@@ -25,7 +25,7 @@ class ShowPageHandler extends Handler {
         'slug' => $hook->slug
     ] )->limit( 1 )->one() ) {
       $this->detectLiveEditor();
-      $view = '@Addons/Cms/Views/Frontend/page/' . $page->template;
+      $view = '@Addons/Cms/Views/Frontend/page/empty';
       $hook->payload = Yii::$app->controller->render( $view, [
           'model' => $page
       ] );

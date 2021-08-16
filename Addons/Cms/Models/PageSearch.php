@@ -23,8 +23,7 @@ class PageSearch extends Page
                 [
                     'id',
                     'pid',
-                    'sort',
-                    'isLive'
+                    'sort'
                 ],
                 'integer'
             ],
@@ -85,8 +84,7 @@ class PageSearch extends Page
         $query->andFilterWhere( [
             'id'     => $this->id,
             'pid'    => $this->pid,
-            'sort'   => $this->sort,
-            'isLive' => $this->isLive
+            'sort'   => $this->sort
         ] );
         $query->andFilterWhere( [
             'DATE_RANGE',

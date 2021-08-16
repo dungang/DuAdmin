@@ -46,10 +46,8 @@ class PagePostController extends BackendController
      */
     public function actionView( $pageId, $language )
     {
-
-        return $this->render( 'view', [
-            'model' => $this->findModel( $pageId, $language )
-        ] );
+        $model = $this->findModel($pageId,$language);
+        return $this->redirect( AppHelper::createFrontendUrl($model->page->slug));
 
     }
 
@@ -63,26 +61,7 @@ class PagePostController extends BackendController
      */
     public function actionCreate( $pageId, $language = "zh-CN" )
     {
-        if ( $liveEditMode = $this->checkLiveEditMode( $pageId, $language ) ) {
-            return $liveEditMode;
-        }
-        $model = new PagePost( ['language' => $language, 'pageId' => $pageId] );
-        // ajax表单验证
-        if ( AppHelper::isAjaxValidationRequest() && $model->load( Yii::$app->request->post() ) ) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return ActiveForm::validate( $model );
-        }
-        if ( $model->load( Yii::$app->request->post() ) && $model->save() ) {
-            return $this->redirectSuccess( [
-                'view',
-                'pageId'   => $model->pageId,
-                'language' => $model->language
-            ], "添加成功" );
-        }
-        return $this->render( 'create', [
-            'model' => $model
-        ] );
-
+        return $this->redirect( ['/cms/live-editor', 'pageId' => $pageId, 'language' => $language] );
     }
 
     /**
@@ -96,27 +75,7 @@ class PagePostController extends BackendController
      */
     public function actionUpdate( $pageId, $language )
     {
-        if ( $liveEditMode = $this->checkLiveEditMode( $pageId, $language ) ) {
-            return $liveEditMode;
-        }
-
-        $model = $this->findModel( $pageId, $language );
-
-        // ajax表单验证
-        if ( AppHelper::isAjaxValidationRequest() && $model->load( Yii::$app->request->post() ) ) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return ActiveForm::validate( $model );
-        }
-        if ( $model->load( Yii::$app->request->post() ) && $model->save() ) {
-            return $this->redirectSuccess( [
-                'view',
-                'pageId'   => $model->pageId,
-                'language' => $model->language
-            ], "修改成功" );
-        }
-        return $this->render( 'update', [
-            'model' => $model
-        ] );
+        return $this->redirect( ['/cms/live-editor', 'pageId' => $pageId, 'language' => $language] );
 
     }
 

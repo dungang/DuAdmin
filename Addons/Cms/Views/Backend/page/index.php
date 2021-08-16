@@ -1,4 +1,6 @@
 <?php
+
+use DuAdmin\Grids\MultilingualAction;
 use DuAdmin\Grids\PanelGridView;
 use DuAdmin\Helpers\AppHelper;
 use DuAdmin\Widgets\FullSearchBox;
@@ -33,14 +35,13 @@ PanelGridView::begin( [
             }
         ],
         'slug',
-        'template',
         [
-            'class' => '\DuAdmin\Grids\MultilingualAction',
+            'class' => MultilingualAction::class,
+            'openNewTab' => true,
             'controllerId' => '/cms/page-post',
             'formName' => 'PagePost',
             'forignKey' => 'pageId'
         ],
-        'isLive:boolean',
         [
             'class' => '\DuAdmin\Grids\ActionColumn'
         ]
