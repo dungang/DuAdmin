@@ -141,10 +141,6 @@ body {
 .du-live-workspace:hover {
   background-color: #d8e2f9;
 }
-.du-live-layout:hover,
-.du-live-element:hover {
-  border: 1px solid #4285f4;
-}
 .du-live-layout.ui-selected,
 .du-live-element.ui-selected,
 .du-live-layout.active,
@@ -160,6 +156,12 @@ body {
 .du-live-layout h3,
 .du-live-element h3 {
   min-height: 1em;
+}
+.du-live-lighter {
+  position: absolute;
+  border: 1px solid #4285f4;
+  z-index: 999;
+  background-color: #4286f45b;
 }
 .du-live-editor-toolbar {
   position: absolute;

@@ -111,6 +111,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   'use strict';
 
   var toolbar = '<div class="du-live-editor-toolbar" contenteditable="false">' + '<div class="du-live-move"><i class="fa fa-arrows"></i></div>' + '<div class="du-live-del"><i class="fa fa-trash-o"></i></div>' + '<div class="du-live-edit"><i class="fa fa-edit"></i></div>' + '<div class="du-live-animate"><i class="fa fa-magic"></i></div>' + '<div class="du-live-add-bef"><i class="fa fa-plus"></i> 前</div>' + '<div class="du-live-add-aft"><i class="fa fa-plus"></i> 后</div>' + '<div class="du-live-setting"><i class="fa fa-gear"></i></div>' + '</div>';
+  var lighter = '<div class="du-live-lighter"></div>';
   var elePlaceholder = ".du-placeholder";
   var elemLayout = '.du-live-layout';
   var elemBlock = '.du-live-layout, .du-live-element, .du-placeholder';
@@ -134,6 +135,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     this.$element = $(element);
     this.$liveBlock = null;
     this.$toolbar = $(toolbar);
+    this.$ligter = $(lighter);
     this.initControlDraggable();
     this.initOperation();
     this.initBlockStyleForm();
@@ -270,11 +272,22 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     this.initElementPlaceHolder();
     this.$liveContent.find(elemToolbar).remove();
     this.initToolbar(this.$iframeDoc);
+    this.$ligter.appendTo(this.$iframeBody).hide();
     $(this.$iframeDoc).on('click', elemBlock, function (e) {
       e.stopPropagation();
       var block = $(this);
       that.setActiveLiveBlock(block);
-    });
+    }); // .on('mouseover', elemBlock, function(e) {
+    //     e.preventDefault();
+    //     var block = $(this);
+    //     var offset = block.offset();
+    //     that.$ligter.css({
+    //         top: offset.top,
+    //         left: offset.left,
+    //         height: block.height(),
+    //         width: block.width()
+    //     }).show();
+    // });
   };
 
   LiveEditor.prototype.initToolbar = function (doc) {
@@ -314,7 +327,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       $('#du-live-block-animate-dialog').modal("show");
       that.initBlockAnimateFormData();
     });
-    this.$toolbar.appendTo(this.$iframeBody);
+    this.$toolbar.appendTo(this.$iframeBody).hide();
   };
 
   LiveEditor.prototype.initBlockAnimateForm = function () {
@@ -488,13 +501,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   };
 
   LiveEditor.prototype.locateToolbar = function () {
-    var offset = this.$liveBlock.offset(); //this.$toolbar.appendTo(this.$liveBlock);
-
+    var offset = this.$liveBlock.offset();
     var top = offset.top - 26;
     this.$toolbar.css({
       top: top + "px",
       left: offset.left
-    });
+    }).show();
     console.log(offset);
   };
   /**
@@ -507,7 +519,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       if (this.$liveBlock.hasClass(elemImageHolderClass)) {
         this.enableEditImageBg(this.$liveBlock);
       } else if (this.$liveBlock.css('backgroundImage') != 'none') {
-        console.log(this.$liveBlock.css('backgroundImage'));
         this.enableEditImageBg(this.$liveBlock);
       } else {
         var $img = this.$liveBlock.find('>img');
@@ -584,7 +595,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
   LiveEditor.prototype.deleteLiveBlock = function () {
-    this.$toolbar.appendTo(this.$element);
+    this.$toolbar.hide();
     var parent = this.$liveBlock.parent(elemLiveElementLayout);
     this.$liveBlock.remove();
     this.$liveBlock = null;

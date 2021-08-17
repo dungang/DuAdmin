@@ -120,9 +120,6 @@ body {
 .du-live-layout,
 .du-live-element {
     //position: relative;
-    &:hover {
-        border: 1px solid #4285f4;
-    }
     &.ui-selected,
     &.active {
         border: 2px dashed #333;
@@ -131,7 +128,12 @@ body {
         min-height: 1em;
     }
 }
-
+.du-live-lighter {
+    position:absolute;
+    border: 1px solid #4285f4;
+    z-index: 999;
+    background-color: #4286f45b;
+}
 .du-live-editor-toolbar {
     position: absolute;
     top: -22px;
