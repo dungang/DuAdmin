@@ -3,6 +3,9 @@
 @workspace-height: calc(100vh - 50px);
 @tab-height: calc(100vh - 91px);
 
+body {
+    position: relative;
+}
 .control-sidebar {
     z-index: 99;
 }
@@ -116,11 +119,16 @@
 
 .du-live-layout,
 .du-live-element {
-    position: relative;
-
+    //position: relative;
+    &:hover {
+        border: 1px solid #4285f4;
+    }
     &.ui-selected,
     &.active {
         border: 2px dashed #333;
+    }
+    p,h1,h2,h3 {
+        min-height: 1em;
     }
 }
 
@@ -129,8 +137,8 @@
     top: -22px;
     left: -2px;
     margin: auto;
-    height: 20px;
-    line-height: 20px;
+    height: 25px;
+    line-height: 25px;
     font-size: 12px;
     width: 240px;
     align-items: center;
@@ -139,6 +147,8 @@
     background-color: #333;
     z-index: 999;
     color: white;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
 
     .du-live-del,
     .du-live-move,
@@ -184,7 +194,6 @@
         border-radius: 0;
     }
 }
-
 .live-content {
     &.toushi {
         .du-live-layout {

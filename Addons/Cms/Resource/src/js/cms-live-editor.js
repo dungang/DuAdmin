@@ -228,6 +228,7 @@ function($) {
             $('#du-live-block-animate-dialog').modal("show");
             that.initBlockAnimateFormData();
         });
+        this.$toolbar.appendTo(this.$iframeBody);
     }
 
     LiveEditor.prototype.initBlockAnimateForm = function() {
@@ -383,10 +384,22 @@ function($) {
                 that.setActiveLiveBlock(parentLayout);
             }
         });
+        this.locateToolbar();
         this.$liveBlock.addClass('active');
-        this.$toolbar.appendTo(this.$liveBlock);
+
         //启动父元素为sortable
         this.activeLiveBlockParentSortable();
+    }
+
+    LiveEditor.prototype.locateToolbar = function() {
+        var offset = this.$liveBlock.offset();
+        //this.$toolbar.appendTo(this.$liveBlock);
+        var top = offset.top - 26;
+        this.$toolbar.css({
+            top: top + "px",
+            left: offset.left
+        });
+        console.log(offset);
     }
 
 

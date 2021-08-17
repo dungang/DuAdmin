@@ -314,6 +314,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       $('#du-live-block-animate-dialog').modal("show");
       that.initBlockAnimateFormData();
     });
+    this.$toolbar.appendTo(this.$iframeBody);
   };
 
   LiveEditor.prototype.initBlockAnimateForm = function () {
@@ -480,10 +481,21 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         that.setActiveLiveBlock(parentLayout);
       }
     });
-    this.$liveBlock.addClass('active');
-    this.$toolbar.appendTo(this.$liveBlock); //启动父元素为sortable
+    this.locateToolbar();
+    this.$liveBlock.addClass('active'); //启动父元素为sortable
 
     this.activeLiveBlockParentSortable();
+  };
+
+  LiveEditor.prototype.locateToolbar = function () {
+    var offset = this.$liveBlock.offset(); //this.$toolbar.appendTo(this.$liveBlock);
+
+    var top = offset.top - 26;
+    this.$toolbar.css({
+      top: top + "px",
+      left: offset.left
+    });
+    console.log(offset);
   };
   /**
    * 编辑模式

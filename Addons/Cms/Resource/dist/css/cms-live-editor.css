@@ -55,6 +55,9 @@ img {
   transform: translateX(-50%);
   transition: ease 0.5s;
 }
+body {
+  position: relative;
+}
 .control-sidebar {
   z-index: 99;
 }
@@ -138,9 +141,9 @@ img {
 .du-live-workspace:hover {
   background-color: #d8e2f9;
 }
-.du-live-layout,
-.du-live-element {
-  position: relative;
+.du-live-layout:hover,
+.du-live-element:hover {
+  border: 1px solid #4285f4;
 }
 .du-live-layout.ui-selected,
 .du-live-element.ui-selected,
@@ -148,13 +151,23 @@ img {
 .du-live-element.active {
   border: 2px dashed #333;
 }
+.du-live-layout p,
+.du-live-element p,
+.du-live-layout h1,
+.du-live-element h1,
+.du-live-layout h2,
+.du-live-element h2,
+.du-live-layout h3,
+.du-live-element h3 {
+  min-height: 1em;
+}
 .du-live-editor-toolbar {
   position: absolute;
   top: -22px;
   left: -2px;
   margin: auto;
-  height: 20px;
-  line-height: 20px;
+  height: 25px;
+  line-height: 25px;
   font-size: 12px;
   width: 240px;
   align-items: center;
@@ -163,6 +176,8 @@ img {
   background-color: #333;
   z-index: 999;
   color: white;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
 }
 .du-live-editor-toolbar .du-live-del,
 .du-live-editor-toolbar .du-live-move,
