@@ -46,3 +46,5 @@ mix-manifest.json
 composer.lock
 test.html
 installed.lock
+
+config/installed-addons.php

@@ -6,6 +6,7 @@ use DuAdmin\Core\BackendController;
 use DuAdmin\Core\BizException;
 use yii\data\ArrayDataProvider;
 use DuAdmin\Helpers\LoaderHelper;
+use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 
 /**
  * 插件管理
@@ -16,10 +17,11 @@ class AddonController extends BackendController
 {
     public function actionIndex()
     {
-        $dataProvider = new ArrayDataProvider( [
-            'models' => LoaderHelper::dynamicParseAddons()
-        ] );
-        return $this->render( 'index', ['dataProvider' => $dataProvider] );
+        $models = LoaderHelper::dynamicParseAddons();
+        $dataProvider = new ArrayDataProvider([
+            'models' => $models
+        ]);
+        return $this->render('index', ['dataProvider' => $dataProvider]);
     }
 
     /**
@@ -28,14 +30,16 @@ class AddonController extends BackendController
      * @return \yii\web\Response
      * @throws BizException
      */
-    public function actionInstall( $name )
+    public function actionInstall($name)
     {
         $dirPath = \Yii::$app->basePath . '/Addons/' . $name;
-        if ( is_dir( $dirPath ) ) {
-            touch( $dirPath . '/installed.lock' );
-            return $this->redirectSuccess( ['index'], "安装成功" );
+        if (is_dir($dirPath)) {
+            $installed = LoaderHelper::loadInstalledAddonsConfig();
+            $installed[] = $name;
+            LoaderHelper::saveInstalledAddonsConfig($installed);
+            return $this->redirectSuccess(['index'], "安装成功");
         }
-        throw new BizException( "插件不存在" );
+        throw new BizException("插件不存在");
     }
 
     /**
@@ -44,14 +48,21 @@ class AddonController extends BackendController
      * @return \yii\web\Response
      * @throws BizException
      */
-    public function actionUninstall( $name )
+    public function actionUninstall($name)
     {
         $dirPath = \Yii::$app->basePath . '/Addons/' . $name;
-        if ( is_dir( $dirPath ) ) {
-            @unlink( $dirPath . '/installed.lock' );
-            return $this->redirectSuccess( ['index'], "卸载成功" );
+        if (is_dir($dirPath)) {
+            $installed = LoaderHelper::loadInstalledAddonsConfig();
+            $installed = array_filter($installed, function ($el) use ($name) {
+                if ($el == $name) {
+                    return false;
+                } else {
+                    return true;
+                }
+            });
+            LoaderHelper::saveInstalledAddonsConfig($installed);
+            return $this->redirectSuccess(['index'], "卸载成功");
         }
-        throw new BizException( "插件不存在" );
+        throw new BizException("插件不存在");
     }
 }
-
