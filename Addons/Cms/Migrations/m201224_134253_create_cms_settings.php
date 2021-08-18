@@ -120,20 +120,17 @@ class m201224_134253_create_cms_settings extends Migration
         $this->insert( '{{%cms_page}}', [
             'slug'   => 'about-us',
             'title'  => '关于我们',
-            'isLive' => 0,
             'sort'   => 1
         ] );
         $this->insert( '{{%cms_page}}', [
             'slug'   => 'contact-us',
             'title'  => '联系我们',
-            'isLive' => 0,
             'sort'   => 0
         ] );
         $this->insert( '{{%cms_page}}', [
             'slug'     => 'index',
             'title'    => '首页',
             'template' => 'empty',
-            'isLive'   => 1,
             'sort'     => 2
         ] );
         $this->insert( '{{%cms_page_post}}', [
