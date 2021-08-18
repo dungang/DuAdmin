@@ -10,11 +10,9 @@ class Carousel extends BaseBlockWidget
     public $type = 'layout';
     public $basePath = __DIR__;
     public $iconFile = 'carousel.png';
-    public $codeFile = 'carousel2-code';
+    public $codeFile = 'carousel-code';
     public $cssFile = 'carousel.css';
     public $jsFile = 'carousel.js';
-    public $isDynamic = true;
-    public $params = ['size' => 5];
     public $clientOptions = [
         'infinite' => true,
         'autoplay' => true,

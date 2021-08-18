@@ -597,11 +597,21 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   LiveEditor.prototype.deleteLiveBlock = function () {
     this.$toolbar.hide();
     var parent = this.$liveBlock.parent(elemLiveElementLayout);
+
+    if (parent.length == 0) {
+      parent = this.$liveBlock.parent(".live-content");
+      console.log(parent);
+    }
+
     this.$liveBlock.remove();
     this.$liveBlock = null;
 
-    if (parent.length > 0 && parent[0].children.length == 0) {
-      this.appendPlaceHolder(parent);
+    if (parent.length > 0) {
+      var elems = parent.find(elemBlock);
+
+      if (elems.length == 0) {
+        this.appendPlaceHolder(parent);
+      }
     }
   };
 

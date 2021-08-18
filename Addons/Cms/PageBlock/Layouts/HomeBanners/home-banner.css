@@ -2,15 +2,13 @@
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    height: 100%;
 }
+
 .home-banner .container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 50vh;
-    height: 480px;
-    max-height: 100vh;
     color: white;
+    height: 100%;
 }

@@ -145,7 +145,7 @@ body {
 .du-live-element.ui-selected,
 .du-live-layout.active,
 .du-live-element.active {
-  border: 2px dashed #333;
+  border: 2px dashed #333 !important;
 }
 .du-live-layout p,
 .du-live-element p,
@@ -238,8 +238,8 @@ body {
 .live-content.toushi .du-live-element {
   margin: 4px;
   padding: 4px;
-  background-color: #eaf5eb;
-  border: 1px solid #cff8d5;
+  background-color: #587be6;
+  border: 1px solid #2a59e7;
 }
 #wysiwyg-editor {
   background: #4285f4;

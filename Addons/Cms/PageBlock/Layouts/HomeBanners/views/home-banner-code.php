@@ -1,4 +1,5 @@
-<div class="home-banner du-live-element img-holder" style="background-image: url('/images/computer.jpg')">
+<div class="home-banner du-live-element img-holder" 
+style="background-image: url('/images/computer.jpg');height: 480px;">
     <div class="container">
         <div class="du-live-element-layout">
             <h1 class="du-live-element">This is the default

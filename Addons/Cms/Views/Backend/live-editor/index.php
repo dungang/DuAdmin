@@ -37,7 +37,10 @@ LiveEditorAsset::register($this);
     <div>
         <!-- Main Header -->
         <?php
-        AdminlteNavBar::begin(['showToggleButton' => false]);
+        AdminlteNavBar::begin([
+            'logoMiniLabel' => 'LE',
+            'logoLargeLabel' => 'Live Editor',
+            'showToggleButton' => false]);
         ?>
         <div id="wysiwyg-editor" class="default-editor">
 
