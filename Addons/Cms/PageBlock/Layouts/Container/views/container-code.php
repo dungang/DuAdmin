@@ -1,8 +1,5 @@
-<?php
-
-use yii\helpers\Html;
-
-echo Html::tag( 'div',
-    Html::tag( 'div', '',
-        ['class' => 'row'] ),
-    ['class' => 'container'] );
+<div class="container">
+    <div class="du-live-element-layout">
+        <div class="du-placeholder"></div>
+    </div>
+</div>
