@@ -1341,7 +1341,7 @@ select[multiple].input-lg {
 }
 .navbar {
   position: relative;
-  min-height: 70px;
+  min-height: 60px;
   margin-bottom: 0;
   border: 0;
 }
@@ -1447,8 +1447,8 @@ select[multiple].input-lg {
 }
 .navbar-brand {
   float: left;
-  height: 70px;
-  padding: 25px 10px;
+  height: 60px;
+  padding: 20px 10px;
   font-size: 18px;
   line-height: 20px;
 }
@@ -1470,8 +1470,8 @@ select[multiple].input-lg {
   float: right;
   padding: 9px 10px;
   margin-right: 10px;
-  margin-top: 18px;
-  margin-bottom: 18px;
+  margin-top: 13px;
+  margin-bottom: 13px;
   background-color: transparent;
   background-image: none;
   border: 1px solid transparent;
@@ -1495,12 +1495,23 @@ select[multiple].input-lg {
   }
 }
 .navbar-nav {
-  margin: 12.5px -10px;
+  margin: 10px -10px;
 }
 .navbar-nav > li > a {
   padding-top: 10px;
   padding-bottom: 10px;
   line-height: 20px;
+  position: relative;
+}
+.navbar-nav > li > a::before {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 2px;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
+  transition: ease 0.5s;
 }
 @media (max-width: 767px) {
   .navbar-nav .open .dropdown-menu {
@@ -1533,8 +1544,8 @@ select[multiple].input-lg {
     float: left;
   }
   .navbar-nav > li > a {
-    padding-top: 25px;
-    padding-bottom: 25px;
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
 }
 .navbar-form {
@@ -1543,8 +1554,8 @@ select[multiple].input-lg {
   margin-left: -10px;
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
-  margin-top: 18px;
-  margin-bottom: 18px;
+  margin-top: 13px;
+  margin-bottom: 13px;
 }
 @media (min-width: 768px) {
   .navbar-form .form-group {
@@ -1627,20 +1638,20 @@ select[multiple].input-lg {
   border-bottom-left-radius: 0;
 }
 .navbar-btn {
-  margin-top: 18px;
-  margin-bottom: 18px;
+  margin-top: 13px;
+  margin-bottom: 13px;
 }
 .navbar-btn.btn-sm {
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 .navbar-btn.btn-xs {
-  margin-top: 24px;
-  margin-bottom: 24px;
+  margin-top: 19px;
+  margin-bottom: 19px;
 }
 .navbar-text {
-  margin-top: 25px;
-  margin-bottom: 25px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 @media (min-width: 768px) {
   .navbar-text {
@@ -1684,11 +1695,22 @@ select[multiple].input-lg {
   color: #333;
   background-color: transparent;
 }
+.navbar-default .navbar-nav > li > a:hover::before,
+.navbar-default .navbar-nav > li > a:focus::before {
+  background: #1b682c;
+  width: 100%;
+}
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
   color: #1b682c;
   background-color: #FFF;
+}
+.navbar-default .navbar-nav > .active > a::before,
+.navbar-default .navbar-nav > .active > a:hover::before,
+.navbar-default .navbar-nav > .active > a:focus::before {
+  background: #1b682c;
+  width: 100%;
 }
 .navbar-default .navbar-nav > .disabled > a,
 .navbar-default .navbar-nav > .disabled > a:hover,
@@ -1780,11 +1802,22 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   color: #fff;
   background-color: transparent;
 }
+.navbar-inverse .navbar-nav > li > a:hover::before,
+.navbar-inverse .navbar-nav > li > a:focus::before {
+  background: #fff;
+  width: 100%;
+}
 .navbar-inverse .navbar-nav > .active > a,
 .navbar-inverse .navbar-nav > .active > a:hover,
 .navbar-inverse .navbar-nav > .active > a:focus {
   color: #fff;
   background-color: transparent;
+}
+.navbar-inverse .navbar-nav > .active > a::before,
+.navbar-inverse .navbar-nav > .active > a:hover::before,
+.navbar-inverse .navbar-nav > .active > a:focus::before {
+  background: #fff;
+  width: 100%;
 }
 .navbar-inverse .navbar-nav > .disabled > a,
 .navbar-inverse .navbar-nav > .disabled > a:hover,

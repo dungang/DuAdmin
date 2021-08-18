@@ -619,6 +619,20 @@
 
 +function ($) {
   $(window).on('load', function () {
+    var $affix = $('.nav-affix');
+    var defClass = 'navbar-inverse';
+    var affixClass = 'navbar-default';
+
+    if ($affix.hasClass('navbar-default')) {
+      defClass = 'navbar-default';
+    }
+
+    if (defClass == 'navbar-inverse') {
+      affixClass = 'navbar-default';
+    } else {
+      affixClass = 'navbar-inverse';
+    }
+
     $('.nav-affix').affix({
       offset: {
         top: 50,
@@ -628,11 +642,11 @@
       }
     }).on('affixed.bs.affix', function () {
       if (!$(this).data('affix-one')) {
-        $(this).removeClass('navbar-inverse').addClass('navbar-default');
+        $(this).removeClass(defClass).addClass(affixClass);
       }
     }).on("affixed-top.bs.affix", function () {
       if (!$(this).data('affix-one')) {
-        $(this).removeClass('navbar-default').addClass('navbar-inverse');
+        $(this).removeClass(affixClass).addClass(defClass);
       }
     });
   });

@@ -7,6 +7,5 @@
             <p class="du-live-element">Drag and drop website builder</p>
             <p class="du-live-element">and CMS of new generation</p>
         </div>
-
     </div>
 </div>
