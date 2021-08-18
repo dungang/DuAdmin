@@ -130,7 +130,6 @@ class m201224_134253_create_cms_settings extends Migration
         $this->insert( '{{%cms_page}}', [
             'slug'     => 'index',
             'title'    => '首页',
-            'template' => 'empty',
             'sort'     => 2
         ] );
         $this->insert( '{{%cms_page_post}}', [
