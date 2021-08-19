@@ -25,7 +25,7 @@ use yii\caching\Cache;
  * You may change the ids of the tables used to store the authorization and rule data by setting [[itemTable]],
  * [[itemChildTable]], [[assignmentTable]] and [[ruleTable]].
  *
- * For more details and usage information on DbManager, see the [guide article on security authorization](guide:security-authorization).
+ * For more details and usage information on DbManager, see the [Guide article on security authorization](Guide:security-authorization).
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @author Alexander Kochetov <creocoder@gmail.com>

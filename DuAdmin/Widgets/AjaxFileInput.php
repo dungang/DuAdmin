@@ -45,6 +45,8 @@ class AjaxFileInput extends InputWidget
      */
     public $clipHeight = 320;
 
+    public $accept = "image/*";
+
 
     /**
      * 是否只读
@@ -82,6 +84,7 @@ class AjaxFileInput extends InputWidget
                 'data-clip' => $this->clip,
                 'data-image-height' => $this->clipHeight,
                 'data-image-width' => $this->clipWidth,
+                'data-accept' => $this->accept
             ]
         ]);
     }

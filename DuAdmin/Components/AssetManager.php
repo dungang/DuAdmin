@@ -31,7 +31,7 @@ use yii\web\AssetConverterInterface;
  * ]
  * ```
  *
- * For more details and usage information on AssetManager, see the [guide article on assets](guide:structure-assets).
+ * For more details and usage information on AssetManager, see the [Guide article on assets](Guide:structure-assets).
  *
  * @property AssetConverterInterface $converter The asset converter. Note that the type of this property
  *           differs in getter and setter. See [[getConverter()]] and [[setConverter()]] for details.

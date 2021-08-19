@@ -4543,6 +4543,16 @@ div[id*="-search-modal"] .modal-body {
 #cron-index .well {
   border-radius: 12px;
 }
+.form-group {
+  margin-bottom: 5px;
+}
+.form-group .help-block {
+  font-size: 10px;
+  line-height: 10px;
+  height: 10px;
+  margin-top: 3px;
+  margin-bottom: 0;
+}
 .dd {
   position: relative;
   display: block;

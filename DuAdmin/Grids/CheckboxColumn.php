@@ -36,7 +36,7 @@ use yii\helpers\Json;
  * // keys is an array consisting of the keys associated with the selected rows
  * ```
  *
- * For more details and usage information on CheckboxColumn, see the [guide article on data widgets](guide:output-data-widgets).
+ * For more details and usage information on CheckboxColumn, see the [Guide article on data widgets](Guide:output-data-widgets).
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0

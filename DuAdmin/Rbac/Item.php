@@ -6,7 +6,7 @@ namespace DuAdmin\Rbac;
 use yii\base\BaseObject;
 
 /**
- * For more details and usage information on Item, see the [guide article on security authorization](guide:security-authorization).
+ * For more details and usage information on Item, see the [Guide article on security authorization](Guide:security-authorization).
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0

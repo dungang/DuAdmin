@@ -1160,7 +1160,7 @@
           return false;
         }
         var offset = zone.offset();
-        //reference to guide's style
+        //reference to Guide's style
         this.currentSlider.guide = zone.find('i')[0].style;
         this.currentSlider.left = e.pageX - offset.left;
         this.currentSlider.top = e.pageY - offset.top;
@@ -1168,7 +1168,7 @@
           left: e.pageX,
           top: e.pageY
         };
-        //trigger mousemove to move the guide to the current position
+        //trigger mousemove to move the Guide to the current position
         $(window.document).on({
           'mousemove.colorpicker': $.proxy(this.mousemove, this),
           'touchmove.colorpicker': $.proxy(this.mousemove, this),

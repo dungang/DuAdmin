@@ -11,7 +11,7 @@ use yii\rbac\ManagerInterface;
 /**
  * BaseManager is a base class implementing [[ManagerInterface]] for RBAC management.
  *
- * For more details and usage information on DbManager, see the [guide article on security authorization](guide:security-authorization).
+ * For more details and usage information on DbManager, see the [Guide article on security authorization](Guide:security-authorization).
  *
  * @property-read Role[] $defaultRoleInstances Default roles. The array is indexed by the role names. This
  * property is read-only.

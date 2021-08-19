@@ -1056,6 +1056,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     this.$element = $(el);
     this.formData = new FormData();
     this.$fileInput = this.$element.find('input[type="file"]');
+    this.$fileInput.attr('accept', options.accept);
     this.$textInput = this.$element.find('input[type="text"]');
     this.$previewImage = this.$element.find('.image-preview img');
     this.$realUploadBtn = toggleButton ? toggleButton : this.$element.find(toggleElm);
@@ -1116,8 +1117,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     //目标图标高度，如不compress=true 表示像素，否则表示高度占比单位大小
     imageWidth: 300,
     //目标图片宽度，如不compress=true 表示像素，否则表示宽度度占比单位大小
-    compress: true //是否压缩
-
+    compress: true,
+    //是否压缩,
+    accept: 'image/*'
   };
 
   DuAjaxUpload.prototype.compress = function (img) {
@@ -1168,12 +1170,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           that.$previewImage.attr('src', imgUrl);
 
           if (that.$realUploadBtn) {
-            console.log('reset');
             that.$realUploadBtn.button('reset');
           }
         },
         error: function error(jqXHR) {
-          console.log(jqXHR);
           alert(jqXHR.responseJSON.message);
 
           if (that.$realUploadBtn) {

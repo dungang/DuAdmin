@@ -1071,15 +1071,15 @@ vjs.el = function(id){
 
 /**
  * Format seconds as a time string, H:MM:SS or M:SS
- * Supplying a guide (in seconds) will force a number of leading zeros
- * to cover the length of the guide
+ * Supplying a Guide (in seconds) will force a number of leading zeros
+ * to cover the length of the Guide
  * @param  {Number} seconds Number of seconds to be turned into a string
  * @param  {Number} guide   Number (in seconds) to model the string after
  * @return {String}         Time formatted as H:MM:SS or M:SS
  * @private
  */
 vjs.formatTime = function(seconds, guide) {
-  // Default to using seconds as guide
+  // Default to using seconds as Guide
   guide = guide || seconds;
   var s = Math.floor(seconds % 60),
       m = Math.floor(seconds / 60 % 60),
@@ -1090,7 +1090,7 @@ vjs.formatTime = function(seconds, guide) {
   // handle invalid times
   if (isNaN(seconds) || seconds === Infinity) {
     // '-' is false for all relational operators (e.g. <, >=) so this setting
-    // will add the minimum number of fields specified by the guide
+    // will add the minimum number of fields specified by the Guide
     h = m = s = '-';
   }
 
