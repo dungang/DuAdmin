@@ -116,7 +116,7 @@ class m201213_014116_init_menu_and_navigation extends Migration
                     ],
                     [
                         'name'    => 'Demo',
-                        'url'     => 'http://demo.duadmin.com',
+                        'url'     => 'http://www.duadmin.com',
                         'intro'   => 'DUAdmin的Demo地址',
                         'isOuter' => 1
                     ],

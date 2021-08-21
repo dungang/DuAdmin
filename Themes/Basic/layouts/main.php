@@ -59,7 +59,7 @@ $siteName = Yii::t( 'app', AppHelper::getSetting( 'site.name', Yii::$app->name )
                 'title' => $siteName . '-' . $company
             ],
             'options'      => [
-                'class' => 'navbar-inverse nav-affix'
+                'class' => 'navbar-default nav-affix'
             ]
         ] );
         $menus = [
