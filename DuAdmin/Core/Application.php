@@ -43,12 +43,6 @@ class Application extends WebApplication
         }
     }
 
-    public function getHomeUrl()
-    {
-        //$url = parent::getHomeUrl();
-        return Url::to( '/' );
-    }
-
     public function isBackend()
     {
         return $this->mode === static::MODE_BACKEND;

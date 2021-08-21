@@ -720,6 +720,17 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 /***/ }),
 
+/***/ "./Addons/Guide/Resource/src/less/guide.less":
+/*!***************************************************!*\
+  !*** ./Addons/Guide/Resource/src/less/guide.less ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "./Themes/Basic/assets/src/less/basic.less":
 /*!*************************************************!*\
   !*** ./Themes/Basic/assets/src/less/basic.less ***!
@@ -798,9 +809,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 /***/ }),
 
 /***/ 0:
-/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** multi ./Addons/Cms/Resource/src/js/cms-live-editor.js ./Addons/Cms/Resource/src/less/cms.less ./Addons/Cms/Resource/src/less/cms-live-editor.less ./Addons/Doc/Resource/src/less/doc.less ./Themes/Basic/assets/src/less/basic.less ./Themes/Du/assets/src/less/du.less ./Themes/LingShan/assets/src/less/lingshan.less ./Themes/LongYu/assets/src/less/longyu.less ./Themes/XiaoSen/assets/src/less/xiaosen.less ./public/duadmin/src/less/DUAdmin.less ./public/src/less/frontend.less ***!
-  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** multi ./Addons/Cms/Resource/src/js/cms-live-editor.js ./Addons/Cms/Resource/src/less/cms.less ./Addons/Cms/Resource/src/less/cms-live-editor.less ./Addons/Doc/Resource/src/less/doc.less ./Addons/Guide/Resource/src/less/guide.less ./Themes/Basic/assets/src/less/basic.less ./Themes/Du/assets/src/less/du.less ./Themes/LingShan/assets/src/less/lingshan.less ./Themes/LongYu/assets/src/less/longyu.less ./Themes/XiaoSen/assets/src/less/xiaosen.less ./public/duadmin/src/less/DUAdmin.less ./public/src/less/frontend.less ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -808,6 +819,7 @@ __webpack_require__(/*! D:\workspace\DuAdmin\Addons\Cms\Resource\src\js\cms-live
 __webpack_require__(/*! D:\workspace\DuAdmin\Addons\Cms\Resource\src\less\cms.less */"./Addons/Cms/Resource/src/less/cms.less");
 __webpack_require__(/*! D:\workspace\DuAdmin\Addons\Cms\Resource\src\less\cms-live-editor.less */"./Addons/Cms/Resource/src/less/cms-live-editor.less");
 __webpack_require__(/*! D:\workspace\DuAdmin\Addons\Doc\Resource\src\less\doc.less */"./Addons/Doc/Resource/src/less/doc.less");
+__webpack_require__(/*! D:\workspace\DuAdmin\Addons\Guide\Resource\src\less\guide.less */"./Addons/Guide/Resource/src/less/guide.less");
 __webpack_require__(/*! D:\workspace\DuAdmin\Themes\Basic\assets\src\less\basic.less */"./Themes/Basic/assets/src/less/basic.less");
 __webpack_require__(/*! D:\workspace\DuAdmin\Themes\Du\assets\src\less\du.less */"./Themes/Du/assets/src/less/du.less");
 __webpack_require__(/*! D:\workspace\DuAdmin\Themes\LingShan\assets\src\less\lingshan.less */"./Themes/LingShan/assets/src/less/lingshan.less");
