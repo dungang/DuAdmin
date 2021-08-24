@@ -141,6 +141,22 @@ class AppHelper
     }
 
     /**
+     * 显示一个普通文本链接的按钮
+     *
+     * @param string $text
+     * @param string|array $url
+     * @param array $options
+     * @return string
+     */
+    public static function linkButton($text, $url, $options = [])
+    {
+        $options = array_merge([
+            'data-pjax'       => '0'
+        ], $options);
+        return Html::a($text, $url, $options);
+    }
+
+    /**
      * 显示一个删除按钮
      *
      * @param string $text
