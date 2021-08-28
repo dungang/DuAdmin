@@ -14,22 +14,25 @@ use yii\widgets\PjaxAsset;
  * @author dungang
  *
  */
-class SimpleModal extends Modal {
+class SimpleModal extends Modal
+{
 
     public $enableAjaxSubmit = true;
 
-    public function run() {
+    public function run()
+    {
 
         echo "\n" . $this->renderBodyEnd();
         echo "\n" . $this->renderFooter();
-        echo "\n" . Html::endTag( 'div' ); // modal-content
-        echo "\n" . Html::endTag( 'div' ); // modal-dialog
-        echo "\n" . Html::endTag( 'div' );
-        PjaxAsset::register( $this->view );
-        $this->view->registerjs( $this->getJs( '#' . $this->options [ 'id' ] ) );
+        echo "\n" . Html::endTag('div'); // modal-content
+        echo "\n" . Html::endTag('div'); // modal-dialog
+        echo "\n" . Html::endTag('div');
+        PjaxAsset::register($this->view);
+        $this->view->registerjs($this->getJs('#' . $this->options['id']));
     }
 
-    public function getJs( $selector ) {
+    public function getJs($selector)
+    {
 
         return <<<JS
 (function($, modalSelector) {
@@ -46,33 +49,36 @@ class SimpleModal extends Modal {
     // 根据属性调整modal窗口大小
     modal.on('show.bs.modal', function(e) {
         var targetBtn = $(e.relatedTarget);
-        pjaxContainer = targetBtn.parents('[data-pjax-container]');
-        var size = targetBtn.data('modal-size');
-        $(e.target).find('.modal-dialog').removeClass('modal-sm modal-lg').addClass(size ? size : '');
+        if(targetBtn.attr('data-toggle') == 'modal') {
+            pjaxContainer = targetBtn.parents('[data-pjax-container]');
+            var size = targetBtn.data('modal-size');
+            $(e.target).find('.modal-dialog').removeClass('modal-sm modal-lg').addClass(size ? size : '');
+        }
+        
     });
     //阻拦默认的表单提交事件，自动替换为pjax请求
     if({$this->enableAjaxSubmit}){
         modal.on('submit','form',function(event){
             event.preventDefault();
-            $(event.target).ajaxSubmit({headers:{'AJAX-SUBMIT':'AJAX-SUBMIT'},success:function(data){
-                var type = "error";
-                if(data.status == 'success'){
-                    if(pjaxContainer){
-                        var pjaxId = pjaxContainer.attr('id');
-                        if(pjaxId != undefined){
-                            $.pjax.reload('#'+pjaxId);
+            if(pjaxContainer && pjaxContainer.length>0){
+                $(event.target).ajaxSubmit({headers:{'AJAX-SUBMIT':'AJAX-SUBMIT'},success:function(data){
+                    var type = "error";
+                    if(data.status == 'success'){
+                        if(pjaxContainer){
+                            var pjaxId = pjaxContainer.attr('id');
+                            if(pjaxId != undefined){
+                                $.pjax.reload('#'+pjaxId);
+                            }
                         }
+                        modal.modal('hide');
+                        type = "success";
                     }
-                    modal.modal('hide');
-                    type = "success";
-
-                }
-                notif({type:type,msg:data.message,position:'center',timeout:3000});
-            }});
+                    notif({type:type,msg:data.message,position:'center',timeout:3000});
+                }});
+            }
         });
     }
 })(jQuery, '{$selector}')
 JS;
     }
-
 }
