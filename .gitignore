@@ -47,4 +47,4 @@ composer.lock
 test.html
 installed.lock
 
-config/installed-addons.php
+Config/installed-addons.php
