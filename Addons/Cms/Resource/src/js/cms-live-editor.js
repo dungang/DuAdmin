@@ -183,29 +183,19 @@ function($) {
         this.initToolbar(this.$iframeDoc);
         this.$ligter.appendTo(this.$iframeBody).hide();
         $(this.$iframeDoc).on('click',
-                elemBlock,
-                function(e) {
-                    e.stopPropagation();
-                    var block = $(this);
-                    that.setActiveLiveBlock(block);
-                })
-            // .on('mouseover', elemBlock, function(e) {
-            //     e.preventDefault();
-            //     var block = $(this);
-            //     var offset = block.offset();
-            //     that.$ligter.css({
-            //         top: offset.top,
-            //         left: offset.left,
-            //         height: block.height(),
-            //         width: block.width()
-            //     }).show();
-            // });
+            elemBlock,
+            function(e) {
+                e.stopPropagation();
+                var block = $(this);
+                that.setActiveLiveBlock(block);
+            }).on('scroll', function(e) {
+            that.locateToolbar();
+        })
 
     }
 
     LiveEditor.prototype.initToolbar = function(doc) {
         var that = this;
-
         this.$delCtrl = $(doc).on("click", elemDelHandle, function(e) {
             e.stopPropagation();
             that.deleteLiveBlock();
@@ -261,7 +251,6 @@ function($) {
 
     LiveEditor.prototype.initBlockAnimateFormData = function() {
         if (this.$liveBlock) {
-
             $('#style-animate-form input').each(function() {
                 var $input = $(this);
                 var name = $input.attr("name");
@@ -405,15 +394,16 @@ function($) {
     }
 
     LiveEditor.prototype.locateToolbar = function() {
-        var offset = this.$liveBlock.offset();
-        var top = offset.top - 26;
-        this.$toolbar.css({
-            top: top + "px",
-            left: offset.left
-        }).show();
-        console.log(offset);
+        if (this.$liveBlock && this.$liveBlock.length > 0) {
+            var offset = this.$liveBlock.offset();
+            var top = offset.top - 26;
+            this.$toolbar.css({
+                top: top + "px",
+                left: offset.left
+            }).show();
+            console.log(offset);
+        }
     }
-
 
 
     /**
@@ -421,7 +411,12 @@ function($) {
      */
     LiveEditor.prototype.editLiveBlock = function() {
         if (this.$liveBlock && this.$liveBlock.length > 0) {
-            if (this.$liveBlock.hasClass(elemImageHolderClass)) {
+            if (this.$liveBlock[0].tagName == 'A') {
+                let href = prompt("请输入url", this.$liveBlock.attr('href'));
+                if (href) {
+                    this.$liveBlock.attr('href', href);
+                }
+            } else if (this.$liveBlock.hasClass(elemImageHolderClass)) {
                 this.enableEditImageBg(this.$liveBlock);
             } else if (this.$liveBlock.css('backgroundImage') != 'none') {
                 this.enableEditImageBg(this.$liveBlock);

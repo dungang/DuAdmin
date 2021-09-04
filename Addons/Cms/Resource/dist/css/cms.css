@@ -203,3 +203,7 @@ img {
   transform: translateX(-50%);
   transition: ease 0.5s;
 }
+.du-live-element img {
+  display: block;
+  width: 100%;
+}

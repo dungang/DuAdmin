@@ -277,17 +277,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       e.stopPropagation();
       var block = $(this);
       that.setActiveLiveBlock(block);
-    }); // .on('mouseover', elemBlock, function(e) {
-    //     e.preventDefault();
-    //     var block = $(this);
-    //     var offset = block.offset();
-    //     that.$ligter.css({
-    //         top: offset.top,
-    //         left: offset.left,
-    //         height: block.height(),
-    //         width: block.width()
-    //     }).show();
-    // });
+    }).on('scroll', function (e) {
+      that.locateToolbar();
+    });
   };
 
   LiveEditor.prototype.initToolbar = function (doc) {
@@ -501,13 +493,15 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   };
 
   LiveEditor.prototype.locateToolbar = function () {
-    var offset = this.$liveBlock.offset();
-    var top = offset.top - 26;
-    this.$toolbar.css({
-      top: top + "px",
-      left: offset.left
-    }).show();
-    console.log(offset);
+    if (this.$liveBlock && this.$liveBlock.length > 0) {
+      var offset = this.$liveBlock.offset();
+      var top = offset.top - 26;
+      this.$toolbar.css({
+        top: top + "px",
+        left: offset.left
+      }).show();
+      console.log(offset);
+    }
   };
   /**
    * 编辑模式
@@ -516,7 +510,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
   LiveEditor.prototype.editLiveBlock = function () {
     if (this.$liveBlock && this.$liveBlock.length > 0) {
-      if (this.$liveBlock.hasClass(elemImageHolderClass)) {
+      if (this.$liveBlock[0].tagName == 'A') {
+        var href = prompt("请输入url", this.$liveBlock.attr('href'));
+
+        if (href) {
+          this.$liveBlock.attr('href', href);
+        }
+      } else if (this.$liveBlock.hasClass(elemImageHolderClass)) {
         this.enableEditImageBg(this.$liveBlock);
       } else if (this.$liveBlock.css('backgroundImage') != 'none') {
         this.enableEditImageBg(this.$liveBlock);
