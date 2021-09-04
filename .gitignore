@@ -31,8 +31,8 @@ tests/_support/_generated
 
 #vagrant folder
 /.vagrant
-/public/uploads
-/public/assets
+/Public/uploads
+/Public/assets
 /runtime
 node_modules
 .vscode
