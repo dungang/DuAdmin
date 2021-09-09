@@ -1,0 +1,17 @@
+{
+    "name": "中国行政区",
+    "type": "component",
+    "author": "",
+    "version": "1.0.0",
+    "intro": "China Region 中国行政区",
+    "require": {},
+    "i18n":{
+        "0": "addon_china_region"
+    },
+    "hasApi": true,
+    "hasFrontend": true,
+    "hasBackend": true,
+    "hasConsole": false,
+    "hooksMap": {},
+    "validatorMap": {}
+}
