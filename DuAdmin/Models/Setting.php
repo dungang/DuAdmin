@@ -19,7 +19,18 @@ class Setting extends \DuAdmin\Core\BaseModel {
 
     const CACHE_KEY = 'setting.vars';
 
+    const TYPE_STR = 'STR';
+    const TYPE_TEXT = 'TEXT';
+    const TYPE_BOOL = 'BOOL';
+    const TYPE_ARRY = 'ARRY';
+    const TYPE_JSON = 'JSON';
+    const TYPE_ASSOC = 'ASSOC';
+    const TYPE_HTML = 'HTML';
+    const TYPE_P = 'P';
+    const TYPE_IMAGE = 'IMAGE';
+
     public static $settings;
+
 
     /**
      *

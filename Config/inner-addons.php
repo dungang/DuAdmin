@@ -1,5 +1,6 @@
 <?php
 return [
     'Cms',
-    'Ueditor'
+    'Ueditor',
+    'ChinaRegion'
 ];

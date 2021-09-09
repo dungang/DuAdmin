@@ -341,6 +341,11 @@ class AppHelper
         return Setting::getSettings($name, $default);
     }
 
+    public static function getBool($name, $default = false)
+    {
+        return (bool) Setting::getSettings($name, $default);
+    }
+
     public static function getSettingAry($name)
     {
 
