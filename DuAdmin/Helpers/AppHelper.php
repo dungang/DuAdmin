@@ -81,6 +81,10 @@ class AppHelper
         return Yii::$app->request->isAjax && (Yii::$app->request->post('ajax') || Yii::$app->request->post('ajax'));
     }
 
+    public static function goBackButton(){
+        return Html::button('<i class="fa fa-reply"></i> '.  Yii::t('da', 'Back'),['onclick'=>"history.back();",'class'=>'btn btn-warning']);
+    }
+
     /**
      * 显示一个默认大小的对话框的按钮
      *

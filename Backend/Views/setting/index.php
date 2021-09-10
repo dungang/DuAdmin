@@ -12,7 +12,7 @@ use yii\widgets\Pjax;
 /* @var $this View */
 /* @var $searchModel SettingSearch */
 /* @var $dataProvider ActiveDataProvider */
-$this->title = Yii::$app->controller->module->name . Yii::t( 'da', 'Settings' );
+$this->title =  Yii::t( 'da', 'Settings' );
 $this->params[ 'breadcrumbs' ][] = $this->title;
 Pjax::begin( [
     'id' => 'setting-index'

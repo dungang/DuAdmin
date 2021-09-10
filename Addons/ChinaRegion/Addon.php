@@ -3,6 +3,7 @@
 namespace Addons\ChinaRegion;
 
 use DuAdmin\Components\Addon as BaseAddon;
+use Yii;
 
 class Addon extends BaseAddon {
 
@@ -19,7 +20,8 @@ class Addon extends BaseAddon {
                 '/china-region/default/index'
             ]
         ];
-        \Yii::$app->setHomeUrl([
+        Yii::$app->view->params['subTitle'] = $this->name;
+        Yii::$app->setHomeUrl([
             '/china-region'
         ]);
         // 插件如有自定义配置，使用如下配置

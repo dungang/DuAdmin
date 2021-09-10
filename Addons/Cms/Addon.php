@@ -3,6 +3,7 @@
 namespace Addons\Cms;
 
 use DuAdmin\Components\Addon as BaseAddon;
+use Yii;
 
 /**
  *
@@ -13,6 +14,7 @@ class Addon extends BaseAddon {
     protected function initBackend() {
 
         $this->name = '内容系统';
+        Yii::$app->view->params['subTitle'] = $this->name;
         $this->home = [
             'label' => $this->name,
             'url'   => [

@@ -5,6 +5,7 @@ return [
     'Create'               => '添加',
     'Delete'               => '删除',
     'Update'               => '编辑',
+    'Back'                 => '返回',
     'Batch Create'         => '批量添加',
     'Batch Delete'         => '批量删除',
     'Batch Update'         => '批量编辑',

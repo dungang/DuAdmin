@@ -3,6 +3,7 @@
 namespace Addons\{{ addonName }};
 
 use DuAdmin\Components\Addon as BaseAddon;
+use Yii;
 
 class Addon extends BaseAddon {
 
@@ -19,7 +20,8 @@ class Addon extends BaseAddon {
                 '/{{ addonId }}/default/index'
             ]
         ];
-        \Yii::$app->setHomeUrl([
+        Yii::$app->view->params['subTitle'] = $this->name;
+        Yii::$app->setHomeUrl([
             '/{{ addonId }}'
         ]);
         // 插件如有自定义配置，使用如下配置

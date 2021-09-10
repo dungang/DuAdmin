@@ -97,6 +97,7 @@ $this->beginPage()?>
 			<section class="content-header">
 				<h1>
                     <?=Html::encode( $this->title )?>
+                    <?= !empty($this->params ['subTitle'])?Html::tag('small',$this->params ['subTitle']):''?>
                 </h1>
                 <?=Breadcrumbs::widget( [ 'links' => isset( $this->params ['breadcrumbs'] ) ? $this->params ['breadcrumbs'] : [ ]] )?>
             </section>
