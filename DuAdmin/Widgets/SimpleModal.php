@@ -16,12 +16,8 @@ use yii\widgets\PjaxAsset;
  */
 class SimpleModal extends Modal
 {
-
-    public $enableAjaxSubmit = true;
-
     public function run()
     {
-
         echo "\n" . $this->renderBodyEnd();
         echo "\n" . $this->renderFooter();
         echo "\n" . Html::endTag('div'); // modal-content
@@ -57,27 +53,24 @@ class SimpleModal extends Modal
         
     });
     //阻拦默认的表单提交事件，自动替换为pjax请求
-    if({$this->enableAjaxSubmit}){
-        modal.on('submit','form',function(event){
-            event.preventDefault();
-            if(pjaxContainer && pjaxContainer.length>0){
-                $(event.target).ajaxSubmit({headers:{'AJAX-SUBMIT':'AJAX-SUBMIT'},success:function(data){
-                    var type = "error";
-                    if(data.status == 'success'){
-                        if(pjaxContainer){
-                            var pjaxId = pjaxContainer.attr('id');
-                            if(pjaxId != undefined){
-                                $.pjax.reload('#'+pjaxId);
-                            }
-                        }
-                        modal.modal('hide');
-                        type = "success";
+    modal.on('submit','form',function(event){
+        event.preventDefault();
+        $(event.target).ajaxSubmit({headers:{'AJAX-SUBMIT':'AJAX-SUBMIT'},success:function(data){
+            var type = "error";
+            if(data.status == 'success'){
+                if(pjaxContainer && pjaxContainer.length>0){
+                
+                    var pjaxId = pjaxContainer.attr('id');
+                    if(pjaxId != undefined){
+                        $.pjax.reload('#'+pjaxId);
                     }
-                    notif({type:type,msg:data.message,position:'center',timeout:3000});
-                }});
+                }
+                modal.modal('hide');
+                type = "success";
             }
-        });
-    }
+            notif({type:type,msg:data.message,position:'center',timeout:3000});
+        }});
+    });
 })(jQuery, '{$selector}')
 JS;
     }

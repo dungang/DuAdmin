@@ -1,4 +1,5 @@
 <?php
+
 namespace Frontend\Assets;
 
 use yii\web\AssetBundle;
@@ -12,11 +13,12 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
 
     public $css = [
-       'third/font-awesome/css/font-awesome.min.css',
-       'css/frontend.css'
+        'third/font-awesome/css/font-awesome.min.css',
+        'css/frontend.css'
     ];
 
     public $js = [
+        'js/jquery.form.min.js',
         'js/frontend.js'
     ];
 

@@ -13,6 +13,7 @@ echo "<?php\n";
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use DuAdmin\Widgets\AjaxModal;
 
 /* @var $this yii\web\View */
 /* @var $model <?= ltrim($generator->modelClass, '\\') ?> */
@@ -22,7 +23,8 @@ $this->params['breadcrumbs'][] = ['label' => <?= $generator->generateString(Infl
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-view">
+<?="<?php" ?> AjaxModal::begin()?>
+<div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-view page-panel">
 
     <h1><?= "<?= " ?>Html::encode($this->title) ?></h1>
 
@@ -56,3 +58,4 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
     ]) ?>
 
 </div>
+<?="<?php" ?> AjaxModal::end()?>

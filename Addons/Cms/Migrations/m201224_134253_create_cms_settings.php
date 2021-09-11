@@ -115,7 +115,12 @@ class m201224_134253_create_cms_settings extends Migration
                         'name' => '广告位',
                         'url'  => 'cms/adv-block',
                         'icon' => 'fa fa-flag'
-                    ]
+                    ],
+                    [
+                        'name' => '设置',
+                        'url'  => 'cms/setting',
+                        'icon' => 'fa fa-gear'
+                    ],
                 ]
             ]
         ], 0, 'addon-cms');

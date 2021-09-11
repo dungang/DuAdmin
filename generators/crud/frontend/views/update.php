@@ -20,6 +20,7 @@ echo "<?php\n";
 ?>
 
 use yii\helpers\Html;
+use DuAdmin\Widgets\AjaxModal;
 
 /* @var $this yii\web\View */
 /* @var $model <?= ltrim($generator->modelClass, '\\') ?> */
@@ -29,7 +30,8 @@ $this->params['breadcrumbs'][] = ['label' => <?= $generator->generateString(Infl
 $this->params['breadcrumbs'][] = ['label' => $model-><?= $generator->getNameAttribute() ?>, 'url' => ['view', <?= $urlParams ?>]];
 $this->params['breadcrumbs'][] = <?= $generator->generateString('Update') ?>;
 ?>
-<div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-update">
+<?="<?php" ?> AjaxModal::begin()?>
+<div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-update page-panel">
 
     <h1><?= '<?= ' ?>Html::encode($this->title) ?></h1>
 
@@ -38,3 +40,4 @@ $this->params['breadcrumbs'][] = <?= $generator->generateString('Update') ?>;
     ]) ?>
 
 </div>
+<?="<?php" ?> AjaxModal::end()?>
