@@ -240,11 +240,17 @@ class InstallerHelper
     }
 
 
-    public static function installPrettyUrl($urls = [])
+    /**
+     * 添加路由美化规则
+     */
+    public static function installPrettyUrl($name, $route, $pattern, $weight = 0)
     {
-        foreach ($urls as $url) {
-            $model = new PrettyUrl($url);
-            $model->save(false);
-        }
+        $prettyUrl = new PrettyUrl([
+            'name' => $name,
+            'route' => $route,
+            'express' => $pattern,
+            'weight' => $weight,
+        ]);
+        $prettyUrl->save(false);
     }
 }

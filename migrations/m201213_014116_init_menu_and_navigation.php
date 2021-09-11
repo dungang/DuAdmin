@@ -83,6 +83,11 @@ class m201213_014116_init_menu_and_navigation extends Migration
                         'icon' => 'fa fa-book'
                     ],
                     [
+                        'name' => 'URL美化',
+                        'url'  => 'pretty-url/index',
+                        'icon' => 'fa fa-plug'
+                    ],
+                    [
                         'name' => '插件',
                         'url'  => 'addon/index',
                         'icon' => 'fa fa-plug'

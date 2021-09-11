@@ -36,7 +36,7 @@ $config = [
             'showScriptName'  => false,
             'rules'           => [
                 '<slug:[\w\-]+>'        => 'site/page',
-                'cms/post/show-<id:\d+>' => 'cms/post/show'
+               // 'cms/post/show-<id:\d+>' => 'cms/post/show'
             ]
         ],
         'log'        => [

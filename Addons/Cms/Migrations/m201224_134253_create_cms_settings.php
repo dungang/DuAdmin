@@ -16,9 +16,12 @@ class m201224_134253_create_cms_settings extends Migration
      */
     public function safeUp()
     {
+        //美化url
+
+        InstallerHelper::installPrettyUrl('内容文章美化', 'cms/post/show', 'cms/post/show-<id:\d+>', 100);
 
         // 初始化配置参数
-        InstallerHelper::installSettings( [
+        InstallerHelper::installSettings([
             [
                 'name'    => 'cms.post.compress',
                 'title'   => '文章图片是否压缩',
@@ -67,17 +70,17 @@ class m201224_134253_create_cms_settings extends Migration
                 'value'   => '1200',
                 'valType' => 'STR'
             ],
-        ], 'addon-cms' );
-        Setting::updateAll( [
+        ], 'addon-cms');
+        Setting::updateAll([
             'value' => 'Addons\Cms\Widgets\CmsPageFooter'
         ], [
             'name' => 'site.pageFooterWidget'
-        ] );
-        InstallerHelper::InstallDict( 'cms_post_template', '文章模板', [
+        ]);
+        InstallerHelper::InstallDict('cms_post_template', '文章模板', [
             ['dictLabel' => '默认', 'dictValue' => 'post'],
             ['dictLabel' => '产品', 'dictValue' => 'product'],
-        ] );
-        InstallerHelper::installMenus( [
+        ]);
+        InstallerHelper::installMenus([
             [
                 'name'     => '内容管理',
                 'url'      => '#',
@@ -115,24 +118,24 @@ class m201224_134253_create_cms_settings extends Migration
                     ]
                 ]
             ]
-        ], 0, 'addon-cms' );
+        ], 0, 'addon-cms');
         // insert base page
-        $this->insert( '{{%cms_page}}', [
+        $this->insert('{{%cms_page}}', [
             'slug'   => 'about-us',
             'title'  => '关于我们',
             'sort'   => 1
-        ] );
-        $this->insert( '{{%cms_page}}', [
+        ]);
+        $this->insert('{{%cms_page}}', [
             'slug'   => 'contact-us',
             'title'  => '联系我们',
             'sort'   => 0
-        ] );
-        $this->insert( '{{%cms_page}}', [
+        ]);
+        $this->insert('{{%cms_page}}', [
             'slug'     => 'index',
             'title'    => '首页',
             'sort'     => 2
-        ] );
-        $this->insert( '{{%cms_page_post}}', [
+        ]);
+        $this->insert('{{%cms_page_post}}', [
             'pageId'    => 1,
             'language'  => 'zh-CN',
             'title'     => '关于我们',
@@ -163,10 +166,10 @@ class m201224_134253_create_cms_settings extends Migration
                 height: 100%;
             }
             </style>',
-            'createdAt' => date( 'Y-m-d H:i:s' ),
-            'updatedAt' => date( 'Y-m-d H:i:s' )
-        ] );
-        $this->insert( '{{%cms_page_post}}', [
+            'createdAt' => date('Y-m-d H:i:s'),
+            'updatedAt' => date('Y-m-d H:i:s')
+        ]);
+        $this->insert('{{%cms_page_post}}', [
             'pageId'    => 2,
             'language'  => 'zh-CN',
             'title'     => '联系我们',
@@ -266,10 +269,10 @@ class m201224_134253_create_cms_settings extends Migration
                 height: 100%;
             }
             </style>',
-            'createdAt' => date( 'Y-m-d H:i:s' ),
-            'updatedAt' => date( 'Y-m-d H:i:s' )
-        ] );
-        $this->insert( '{{%cms_page_post}}', [
+            'createdAt' => date('Y-m-d H:i:s'),
+            'updatedAt' => date('Y-m-d H:i:s')
+        ]);
+        $this->insert('{{%cms_page_post}}', [
             'pageId'    => 3,
             'language'  => 'zh-CN',
             'title'     => '首页',
@@ -425,9 +428,9 @@ class m201224_134253_create_cms_settings extends Migration
             }
         }
         </style>',
-            'createdAt' => date( 'Y-m-d H:i:s' ),
-            'updatedAt' => date( 'Y-m-d H:i:s' )
-        ] );
+            'createdAt' => date('Y-m-d H:i:s'),
+            'updatedAt' => date('Y-m-d H:i:s')
+        ]);
     }
 
     /**
@@ -437,9 +440,8 @@ class m201224_134253_create_cms_settings extends Migration
     public function safeDown()
     {
 
-        $this->delete( '{{%setting}}', [
+        $this->delete('{{%setting}}', [
             'category' => 'addon-cms'
-        ] );
+        ]);
     }
-
 }
