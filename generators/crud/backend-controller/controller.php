@@ -130,8 +130,10 @@ if ( in_array( 'create', $generator->actions ) ) :
             return $error;
         }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirectSuccess(['view', <?=$urlParams?>], "添加成功");
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->save()) {
+              return $this->redirectSuccess(['view', <?=$urlParams?>], "添加成功");
+            }
         }
 
         return $this->render('create', [

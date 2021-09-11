@@ -11,9 +11,7 @@ use yii\helpers\Url;
 use yii\i18n\Formatter;
 use yii\widgets\BaseListView;
 use yii\grid\GridViewAsset;
-use yii\grid\Column;
 use yii\grid\DataColumn;
-use DuAdmin\Helpers\AppHelper;
 
 class GridView extends BaseListView
 {

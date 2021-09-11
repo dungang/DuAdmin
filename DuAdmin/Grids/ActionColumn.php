@@ -258,6 +258,7 @@ class ActionColumn extends Column
                     break;
                 case 'delete':
                     $title = Yii::t('yii', 'Delete');
+                    break;
                 default:
                     $title = ucfirst($name);
             }
@@ -348,7 +349,8 @@ class ActionColumn extends Column
 
         $params[0] = $this->getRoute($action);
 
-        return Url::toRoute($params);
+        //return Url::toRoute($params);
+        return $params;
     }
 
     protected function builderParams($model, $key)

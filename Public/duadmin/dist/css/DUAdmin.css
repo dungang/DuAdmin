@@ -4500,11 +4500,8 @@ div[id*="-search-modal"] .modal-content {
 div[id*="-search-modal"] .modal-body {
   padding: 15px 30px;
 }
-.panel-adminlte .box {
+.backend-radius {
   border-radius: 12px;
-}
-.panel-adminlte .box-body {
-  padding: 30px 30px 15px;
 }
 .dropdown-menu > li > a {
   color: inherit;

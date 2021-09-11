@@ -61,7 +61,7 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
      *
      * @return ActiveDataProvider
      */
-    public function search($params, $formName = NULL)
+    public function search($params = [], $formName = NULL)
     {
         $query = <?= isset($modelAlias) ? $modelAlias : $modelClass ?>::find();
 

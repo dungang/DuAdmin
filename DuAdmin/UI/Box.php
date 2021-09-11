@@ -28,6 +28,8 @@ class Box extends Layoutable
 
     public $headWidthBorder = true;
 
+    public $raduis = 'backend-radius';
+
     public function initClass()
     {
         if ($this->style) {
@@ -35,6 +37,9 @@ class Box extends Layoutable
         }
         if ($this->weight) {
             $this->class .= ' box-' . $this->weight;
+        }
+        if( $this->raduis) {
+            $this->class .= ' ' . $this->raduis;
         }
     }
 

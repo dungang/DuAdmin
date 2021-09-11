@@ -39,6 +39,7 @@ echo AdminltePanel::widget( [
                 'size' => 4,
                 'children' => [
                     Box::widget( [
+                        'class' => 'box backend-radius',
                         'enableAjaxForm' => true,
                         'children' => [
                             $this->render( '_form', [
