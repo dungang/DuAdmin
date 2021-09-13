@@ -180,7 +180,8 @@ class AuthRoleController extends BackendController {
       ], '授权成功' );
     } else {
       // GET 显示权限清单
-      $models = AuthPermission::find()->with( 'parent' )->orderBy( 'sort' )->all();
+      $models = AuthPermission::find()->with( 'parent' )
+      ->orderBy( 'id,sort' )->all();
       if ( $models ) {
         $models = array_map( function ( $model ) {
           $attributes = $model->attributes;

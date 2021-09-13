@@ -37,7 +37,11 @@ class AuthPermissionController extends BackendController {
    */
   public function actionIndex() {
 
-    $models = AuthPermission::find()->with( 'parent' )->orderBy( 'sort' )->all();
+    $models = AuthPermission::find()->with( 'parent' )
+    ->orderBy( [
+      'id' => SORT_ASC,
+      'sort' => SORT_ASC,
+    ])->all();
     if ( $models ) {
       $models = array_map( function ( $model ) {
         $attributes = $model->attributes;
