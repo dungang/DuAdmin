@@ -17,14 +17,14 @@ abstract class FrontendController extends BaseController {
   /**
    * 游客可以访问的action清单
    *
-   * @var array
+   * @var array|string
    */
   public $guestActions = [ ];
 
   /**
    * 登录用户可以访问的action清单
    *
-   * @var array
+   * @var array|string
    */
   public $userActions = [ ];
 

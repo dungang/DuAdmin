@@ -38,7 +38,7 @@ class AccessFilter extends ActionFilter
         $route = '/' . $action->getUniqueId();
 
         // step1. 是游客,首先检查是否游客级别的action
-        if (in_array($action->id, $controller->guestActions)) {
+        if ('*' === $controller->guestActions || in_array($action->id, $controller->guestActions)) {
             return true;
         }
         // 如果检查通过，还继续，则不允许非游客访问
@@ -61,7 +61,7 @@ class AccessFilter extends ActionFilter
                 Yii::$app->user->logout();
                 Yii::$app->getResponse()->redirect(Yii::$app->getHomeUrl());
                 // step5. 登录用户可以访问的actions
-            } else if (in_array($action->id, $controller->userActions)) {
+            } else if ('*' === $controller->userActions || in_array($action->id, $controller->userActions)) {
                 return true;
             } else {
                 // step6. 路由权限检查

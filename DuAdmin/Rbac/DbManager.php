@@ -878,7 +878,7 @@ class DbManager extends BaseManager
         foreach ($query->all($this->db) as $row) {
             $assignments[$row['itemId']] = new Assignment([
                 'userId' => $row['userId'],
-                'roleid' => $row['itemId'],
+                'roleId' => $row['itemId'],
                 'createdAt' => $row['createdAt']
             ]);
         }
