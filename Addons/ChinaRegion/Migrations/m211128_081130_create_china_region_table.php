@@ -22,7 +22,7 @@ class m211128_081130_create_china_region_table extends Migration
         ],$tableOptions);
         $this->addPrimaryKey('pk-china_region-id','{{%china_region}}','id');
         $this->addCommentOnTable('{{%china_region}}','中国行政编码');
-        $dataFile = \Yii::$app->basePath . '/Addons/ChinaRegion/resource/data.txt';
+        $dataFile = \Yii::$app->basePath . '/Addons/ChinaRegion/Resource/data.txt';
         if (file_exists($dataFile)) {
             $resource = fopen($dataFile, 'r');
             $lastPid1 = 0;

@@ -61,23 +61,25 @@ class RegionsSelectWidget extends Widget
     public function renderWidget()
     {
         $items = [];
-
+        $cellWidth = 12;
         // province
         $items[] = $this->getRegionsSubWidget($this->province, $this->city, 0, 2);
 
         // $city
         if ($this->city !== null) {
+            $cellWidth = 6;
             $items[] = $this->getRegionsSubWidget($this->city, $this->district, $this->model[$this->province], 3);
         }
 
         // district
         if ($this->district !== null) {
+            $cellWidth = 4;
             $items[] = $this->getRegionsSubWidget($this->district, null, $this->model[$this->city], 4);
         }
 
-        return Html::tag('div', implode('', array_map(function ($item) {
+        return Html::tag('div', implode('', array_map(function ($item) use ($cellWidth) {
             return Html::tag('div', $item, [
-                'class' => 'col-md-4'
+                'class' => 'col-md-' . $cellWidth
             ]);
         }, $items)), [
             'class' => 'row china-region'
@@ -94,24 +96,27 @@ class RegionsSelectWidget extends Widget
      */
     private function getRegionsSubWidget(string $field, $nextField, $pid, $level = 1)
     {
-        if (!is_numeric($pid)) {
-            $options = [];
-        } else if ($this->model[$field] === $pid) { // 直辖市的问题
-            foreach ($this->dataItems as $field => $data) {
-                if (isset($data[$pid])) {
-                    $options = [
-                        $pid => $data[$pid]
-                    ];
-                    break;
+        $options = [];
+        if (is_numeric($pid)) {
+            if ($this->model[$field] === $pid && $pid > 0) { // 直辖市的问题
+                foreach ($this->dataItems as $fieldName => $data) {
+                    if (isset($data[$pid]) && $field == $fieldName) {
+                        $options = [
+                            $pid => $data[$pid]
+                        ];
+                        break;
+                    }
+                }
+            } else {
+                if ($pid > 0 || $level == 2) {
+                    $regions = ChinaRegion::find()->where([
+                        'pid' => $pid
+                    ])
+                        ->asArray()
+                        ->all();
+                    $options = ArrayHelper::map($regions, 'id', 'name');
                 }
             }
-        } else {
-            $regions = ChinaRegion::find()->where([
-                'pid' => $pid
-            ])
-                ->asArray()
-                ->all();
-            $options = ArrayHelper::map($regions, 'id', 'name');
         }
         // 存储本次请求的数据
         $this->dataItems[$field] = $options;

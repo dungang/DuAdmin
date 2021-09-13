@@ -6,6 +6,8 @@ use DuAdmin\Core\BackendController;
 
 class RegionsController extends BackendController {
 
+    public $guestActions = '*';
+
     public function actions()
     {
         return [
