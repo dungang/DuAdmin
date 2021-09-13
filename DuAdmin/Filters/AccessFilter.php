@@ -35,7 +35,7 @@ class AccessFilter extends ActionFilter
         $controller = $this->owner;
 
         // route
-        $route = '/' . $action->getUniqueId();
+        $route =  $action->getUniqueId();
 
         // step1. 是游客,首先检查是否游客级别的action
         if ('*' === $controller->guestActions || in_array($action->id, $controller->guestActions)) {
