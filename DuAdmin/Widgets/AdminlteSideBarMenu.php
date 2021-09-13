@@ -42,10 +42,11 @@ class AdminlteSideBarMenu extends Widget
         /* @var Authable $user */
         $user = Yii::$app->user->identity;
         if ( !$user->isSuperAdmin() ) {
-            $this->items = array_filter( $this->items, function ( $item ) {
+            $this->items = array_filter( $this->items, function ( $item ) use ($user) {
+                //echo var_dump( $item);die;
                 if ( $item[ 'requireAuth' ] ) {
-                    if ( isset( $item[ 'r' ] ) && $item[ 'r' ] != '/default/index' ) {
-                        return Yii::$app->authManager->checkAccessWithoutRule( $user->id, trim( $item[ 'r' ], '/' ) );
+                    if ( isset( $item[ 'route' ] ) && $item[ 'route' ] != 'default/index' ) {
+                        return Yii::$app->authManager->checkAccessWithoutRule( $user->id, trim( $item[ 'route' ], '/' ) );
                     }
                 }
                 return true;
@@ -81,13 +82,7 @@ class AdminlteSideBarMenu extends Widget
         $controllerUnionId = \Yii::$app->controller->uniqueId;
         $controllerRouteParts = explode( '/', trim( $controllerUnionId, '/' ) );
         $params = [];
-        parse_str( str_replace( [
-            '[',
-            ']'
-        ], [
-            '***',
-            '**'
-        ], \Yii::$app->request->queryString ), $params );
+        parse_str(\Yii::$app->request->queryString , $params );
         $counters = [];
 
         // 算分
@@ -113,29 +108,19 @@ class AdminlteSideBarMenu extends Widget
                         ];
                         if ( isset( $urlInfo[ 'query' ] ) ) {
 
-                            \parse_str( \str_replace( [
-                                '[',
-                                ']'
-                            ], [
-                                '***',
-                                '**'
-                            ], $urlInfo[ 'query' ] ), $queryParams );
+                            \parse_str( $urlInfo[ 'query' ] , $queryParams );
 
                             $counters[ $i ] += count( array_intersect_assoc( $queryParams, $params ) );
-                            $queryKeys = array_map( function ( $keyName ) {
-                                return \str_replace( [
-                                    '***',
-                                    '**'
-                                ], [
-                                    '[',
-                                    ']'
-                                ], $keyName );
-                            }, array_keys( $queryParams ) );
+                            $queryKeys = array_keys( $queryParams );
                             $queryParams = array_combine( $queryKeys, array_values( $queryParams ) );
                             array_unshift( $queryParams, $urlInfo[ 'path' ] );
                         }
                         $queryParams[ 0 ] = '/' . $queryParams[ 0 ];
                         $item[ $this->urlKey ] = Url::to( $queryParams );
+                        
+                        $item['route'] = $route;
+                        unset($queryParams[0]);
+                        $item['params'] = $queryParams;
                     } else {
                         continue;
                     }

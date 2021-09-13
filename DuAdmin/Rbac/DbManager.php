@@ -136,7 +136,7 @@ class DbManager extends BaseManager
     }
 
     /**
-     * 验证用户的权限，补执行规则
+     * 验证用户的权限，不执行规则
      * @param number $userId
      * @param string $permissionId
      * @param array $params
