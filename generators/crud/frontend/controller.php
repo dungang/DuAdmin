@@ -130,8 +130,10 @@ if ( in_array( 'create', $generator->actions ) ) :
             return ActiveForm::validate($model);
         }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', <?=$urlParams?>]);
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->save()) {
+              return $this->redirect(['view', <?=$urlParams?>]);
+            }
         }
 
         return $this->render('create', [
@@ -160,8 +162,10 @@ if ( in_array( 'update', $generator->actions ) ) :
             return ActiveForm::validate($model);
         }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', <?=$urlParams?>]);
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->save()) {
+              return $this->redirect(['view', <?=$urlParams?>]);
+            }
         }
 
         return $this->render('update', [

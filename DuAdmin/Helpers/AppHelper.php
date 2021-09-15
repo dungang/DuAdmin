@@ -959,6 +959,25 @@ class AppHelper
     }
 
     /**
+     * 生成前端链接
+     */
+    public static function frontendLink($text,$url=null,$options=[]){
+        if ( $url !== null ) {
+            $options[ 'href' ] = static::createFrontendUrl( $url );
+        }
+        return Html::tag( 'a', $text, $options );
+    }
+
+    /**
+     * 生成前端链接，打开新窗口
+     */
+    public static function frontendBlankLink($text,$url=null,$options=[]){
+        $options['target'] ='_blank';
+        $options['data-pjax'] = '0';
+        return static::frontendLink($text,$url,$options);
+    }
+
+    /**
      * 文件大小可读人性化
      */
     public static function fileSizeHumanFromKb($size)
@@ -981,6 +1000,9 @@ class AppHelper
         return  "" . $size . " " . $rankchar;
     }
 
+    /**
+     * 快捷生成seo的元素
+     */
     public static function seo($view, $keywords, $description, $options = [])
     {
         $view->registerMetaTag([

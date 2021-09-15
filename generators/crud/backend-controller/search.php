@@ -22,7 +22,6 @@ namespace <?=StringHelper::dirname( ltrim( $generator->searchModelClass, '\\' ) 
 
 use Yii;
 use yii\data\ActiveDataProvider;
-use <?=ltrim( $generator->modelClass, '\\' ) . (isset( $modelAlias ) ? " as $modelAlias" : "")?>;
 
 /**
  * <?=$searchModelClass?> represents the model behind the search form of `<?=$generator->modelClass?>`.

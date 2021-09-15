@@ -43,6 +43,13 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
     // */
     // public $jsonHideFields = [];
 
+    // /**
+    //  * 存储的数据是json的字段
+    //  *
+    //  * @var array
+    //  */
+    // public $jsonFields = [];
+    
     /**
      * {@inheritdoc}
      */

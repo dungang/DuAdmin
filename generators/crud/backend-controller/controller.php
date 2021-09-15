@@ -161,8 +161,10 @@ if ( in_array( 'update', $generator->actions ) ) :
             return $error;
         }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirectSuccess(['view', <?=$urlParams?>], "修改成功");
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->save()) {
+              return $this->redirectSuccess(['view', <?=$urlParams?>], "修改成功");
+            }
         }
 
         return $this->render('update', [
