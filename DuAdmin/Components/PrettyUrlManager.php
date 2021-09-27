@@ -26,13 +26,6 @@ class PrettyUrlManager extends UrlManager {
   public $showScriptName = false;
 
   /**
-   *
-   * @var string the cache key for cached rules
-   * @since 2.0.8
-   */
-  protected $cacheKey = __CLASS__;
-
-  /**
    * Initializes UrlManager.
    */
   public function init() {
