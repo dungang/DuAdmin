@@ -5,8 +5,8 @@ class ComposerInstaller
 {
     public static function createPublicAssets($event){
         $baseDir =  dirname(dirname(__DIR__));
-        if(!is_dir($baseDir . '/public/assets')) {
-            mkdir($baseDir . '/public/assets',0777,true); 
+        if(!is_dir($baseDir . '/Public/assets')) {
+            mkdir($baseDir . '/Public/assets',0777,true); 
         }
     }
 }

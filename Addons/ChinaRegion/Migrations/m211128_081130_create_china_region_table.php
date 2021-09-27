@@ -54,8 +54,7 @@ class m211128_081130_create_china_region_table extends Migration
             }
             fclose($resource);
         } else {
-            $this->print($dataFile . "\n");
-            $this->print("文件不存在\n");
+            throw new Exception("文件不存在: ". $dataFile ." . \n");
         }
 
         InstallerHelper::installPermissionCRUDShortcut("行政区管理", "china-region/default");
