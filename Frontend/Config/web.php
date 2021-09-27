@@ -29,6 +29,9 @@ $config = [
                 ]
             ]
         ],
+        'assetManager' => [
+            'appendTimestamp' => true,
+        ],
         'urlManager' => [
             'class'           => 'DuAdmin\Components\PrettyUrlManager',
             'suffix'          => '.html',
