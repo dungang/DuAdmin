@@ -1,4 +1,5 @@
 <?php
+
 namespace DuAdmin\Grids;
 
 use Yii;
@@ -6,9 +7,15 @@ use yii\db\ActiveRecordInterface;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\Column;
+use yii\helpers\ArrayHelper;
 
 class ActionColumn extends Column
 {
+
+    /**
+     * 附加参数
+     */
+    public $extParams = [];
 
     /**
      * 模态框大小：modal-sm modal-lg
@@ -32,22 +39,6 @@ class ActionColumn extends Column
      * @var string
      */
     public $relationForeignKey = '';
-
-    /**
-     * action 前缀
-     * 解决一个页面出现多个列表的情况
-     *
-     * @var string | callable
-     */
-    public $actionPrefix = null;
-
-    /**
-     * action 后缀
-     * 解决一个页面出现多个列表的情况
-     *
-     * @var string | callable
-     */
-    public $actionSuffix = null;
 
     /**
      * 是否支持pjax
@@ -196,9 +187,9 @@ class ActionColumn extends Column
      * @var array
      */
     public $buttonsOptions = [];
-    
+
     public $tagName = 'td';
-    
+
     public $enableDropDown = true;
 
     /**
@@ -237,7 +228,7 @@ class ActionColumn extends Column
      */
     protected function initDefaultButton($name, $iconName, $btnClass, $additionalOptions = [])
     {
-        if (! isset($this->buttons[$name]) && strpos($this->template, '{' . $name . '}') !== false) {
+        if (!isset($this->buttons[$name]) && strpos($this->template, '{' . $name . '}') !== false) {
             $this->buttons[$name] = $this->getButtonCallback($name, $iconName, $btnClass, $additionalOptions);
         }
     }
@@ -288,26 +279,6 @@ class ActionColumn extends Column
         return $this->controller ? $this->controller . '/' . $action : $action;
     }
 
-    protected function wrapperAction($action, $model)
-    {
-        if ($this->actionPrefix !== null) {
-            if (is_callable($this->actionPrefix)) {
-                $action = call_user_func($this->actionPrefix, $model) . $action;
-            } else if (is_string($this->actionPrefix)) {
-                $action = $this->actionPrefix . $action;
-            }
-        }
-
-        if ($this->actionSuffix !== null) {
-            if (is_callable($this->actionSuffix)) {
-                $action = $action . '-' . call_user_func($this->actionSuffix, $model);
-            } else if (is_string($this->actionSuffix)) {
-                $action = $action . $this->actionSuffix;
-            }
-        }
-        return $action;
-    }
-
     /**
      * Creates a URL for the given action and model.
      * This method is called for each button and each row.
@@ -325,8 +296,6 @@ class ActionColumn extends Column
      */
     public function createUrl($action, $model, $key, $index)
     {
-        $action = $this->wrapperAction($action, $model);
-
         if (is_callable($this->urlCreator)) {
             return call_user_func($this->urlCreator, $action, $model, $key, $index, $this);
         }
@@ -350,6 +319,9 @@ class ActionColumn extends Column
         $params[0] = $this->getRoute($action);
 
         //return Url::toRoute($params);
+        if(!empty($this->extParams)) {
+            $params = ArrayHelper::merge($params,$this->extParams);
+        }
         return $params;
     }
 
@@ -392,25 +364,25 @@ class ActionColumn extends Column
         } else {
             $options = $this->contentOptions;
         }
-        
+
         return Html::tag($this->tagName, $this->renderDataCellContent($model, $key, $index), $options);
     }
-    
-    
+
+
     /**
      *
      * {@inheritdoc}
      */
     protected function renderDataCellContent($model, $key, $index)
     {
-        if($this->enableDropDown) {
+        if ($this->enableDropDown) {
             // 使用下拉列表的形式展示编辑相关的按钮
             return $this->renderDataCellContentWidthDropDown($model, $key, $index);
         } else {
             return $this->renderDataCellContentLine($model, $key, $index);
         }
     }
-    
+
     /**
      *
      * {@inheritdoc}
@@ -419,18 +391,18 @@ class ActionColumn extends Column
     {
         return preg_replace_callback('/\\{([\w\-\/]+)\\}/', function ($matches) use ($model, $key, $index) {
             $name = $matches[1];
-            
+
             if (isset($this->visibleButtons[$name])) {
                 $isVisible = $this->visibleButtons[$name] instanceof \Closure ? call_user_func($this->visibleButtons[$name], $model, $key, $index) : $this->visibleButtons[$name];
             } else {
                 $isVisible = true;
             }
-            
+
             if ($isVisible && isset($this->buttons[$name])) {
                 $url = $this->createUrl($name, $model, $key, $index);
                 return call_user_func($this->buttons[$name], $url, $model, $key);
             }
-            
+
             return '';
         }, $this->template);
     }
@@ -448,7 +420,7 @@ class ActionColumn extends Column
                 }
 
                 if ($isVisible && isset($this->buttons[$name])) {
-              
+
                     if ($url = $this->createUrl($name, $model, $key, $index)) {
                         $li_btns .= '<li>' . call_user_func($this->buttons[$name], $url, $model, $key) . '</li>';
                     }
@@ -460,12 +432,12 @@ class ActionColumn extends Column
             $callback = $this->getButtonCallback('create', 'plus', 'text-success');
             $action = $this->getRoute($this->wrapperAction('create', $model));
             $paramName = ucfirst($this->relationalKey['model']) . '[' . $this->relationForeignKey . ']';
-            
+
             $url = Url::to([
                 $action,
                 $paramName => $model['id']
             ]);
-            
+
             $li_btns .= '<li>' . call_user_func($callback, $url, $model, $key) . '</li>';
         }
         if ($li_btns) {
