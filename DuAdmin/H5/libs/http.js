@@ -17,15 +17,16 @@ Axios.interceptors.request.use(function(config) {
 });
 
 function upload(resource, data, success, error) {
-    Axios.post(resource, data, {
+    return Axios.post(resource, data, {
             'Content-Type': 'multipart/form-data'
         })
         .then(res => {
-            if (res.status == 200) {
-                success && success(res.data);
+            if (res.data.status == 200) {
+                success && success(res.data.data);
             } else {
-                error && error(res.data);
+                error && error(res.data.message);
             }
+            return res.data.data
         })
         .catch(error => {
             console.log(error);
@@ -34,13 +35,14 @@ function upload(resource, data, success, error) {
 }
 
 function get(resource, data, success, error) {
-    Axios.get(resource, { params: data })
+    return Axios.get(resource, { params: data })
         .then(res => {
-            if (res.data.status) {
-                success && success(res.data);
+            if (res.data.status == 200) {
+                success && success(res.data.data);
             } else {
-                error && error(res.data);
+                error && error(res.data.message);
             }
+            return res.data.data;
         })
         .catch(error => {
             console.log(error);
@@ -49,13 +51,14 @@ function get(resource, data, success, error) {
 }
 
 function post(resource, data, success, error) {
-    Axios.post(resource, data)
+    return Axios.post(resource, data)
         .then(res => {
-            if (res.data.status) {
-                success && success(res.data);
+            if (res.data.status == 200) {
+                success && success(res.data.data);
             } else {
-                error && error(res.data);
+                error && error(res.data.message);
             }
+            return res.data.data;
         })
         .catch(error => {
             console.log(error);
