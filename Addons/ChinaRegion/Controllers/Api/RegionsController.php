@@ -18,4 +18,10 @@ class RegionsController extends ApiController {
         return AppHelper::listToTree($models);
     }
 
+    public function actionCity(){
+        $query = ChinaRegion::find()->where('level < 3');
+        $models = $query->asArray()->all();
+        return AppHelper::listToTree($models);
+    }
+
 }

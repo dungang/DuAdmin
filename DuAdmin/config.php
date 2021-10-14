@@ -23,9 +23,6 @@ return [
         '@Console'  => '@app/Console'
     ],
     'components' => [
-        'view'         => [
-            'as mini-html' => 'DuAdmin\Behaviors\MiniHtmlBehavior'
-        ],
         'assetManager' => [
             'class'    => AssetManager::class,
             'basePath' => '@app/Public/assets'

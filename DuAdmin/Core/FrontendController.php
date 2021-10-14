@@ -38,10 +38,11 @@ abstract class FrontendController extends BaseController {
 
   }
 
-  public function render( $view, $params = [ ] ) {
+  // public function render( $view, $params = [ ] ) {
 
-    $htmlMini = new HtmlMin();
-    return $htmlMini->minify( parent::render( $view, $params ) );
 
-  }
+  //   $htmlMini = new HtmlMin();
+  //   return $htmlMini->minify( parent::render( $view, $params ) );
+
+  // }
 }

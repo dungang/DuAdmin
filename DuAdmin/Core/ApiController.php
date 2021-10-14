@@ -2,10 +2,10 @@
 
 namespace DuAdmin\Core;
 
+use Yii;
 use yii\base\Arrayable;
 use yii\base\Model;
 use yii\filters\auth\HttpBearerAuth;
-use yii\filters\RateLimiter;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 
@@ -36,10 +36,7 @@ class ApiController extends Controller
             'authenticator' => [
                 'class' => HttpBearerAuth::class,
                 'except' => $this->authExceptActions
-            ],
-            'rateLimiter' => [
-                'class' => RateLimiter::class,
-            ],
+            ]
         ];
     }
 

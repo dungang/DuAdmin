@@ -18,8 +18,7 @@ class MiniHtmlBehavior extends Behavior
 
     public function init()
     {
-
-        if ( empty( static::$miniHtml ) ) {
+        if (empty(static::$miniHtml)) {
             static::$miniHtml = new HtmlMin();
         }
     }
@@ -36,12 +35,10 @@ class MiniHtmlBehavior extends Behavior
      *
      * @param ViewEvent $event
      */
-    public function miniHtml( $event )
+    public function miniHtml($event)
     {
-
-        if ( ($out = $event->output) && YII_ENV_PROD ) {
-            $event->output = static::$miniHtml->minify( $out );
+        if (($out = $event->output) && YII_ENV_PROD) {
+            $event->output = static::$miniHtml->minify($out);
         }
     }
-
 }

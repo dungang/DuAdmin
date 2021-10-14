@@ -31,7 +31,7 @@ use DuAdmin\Hooks\UserCreatedHook;
  * @property string $updatedAt 更新时间
  * @property int $isDel
  */
-class User extends BaseModel implements IdentityInterface,Authable
+class User extends BaseModel implements IdentityInterface, Authable
 {
 
     const STATUS_INACTIVE = 0;
@@ -39,8 +39,9 @@ class User extends BaseModel implements IdentityInterface,Authable
     const STATUS_ACTIVE = 10;
 
     public $password;
-    
-    public $jsonHideFields = ['authKey','passwordHash',
+
+    public $jsonHideFields = [
+        'authKey', 'passwordHash',
         'passwordResetToken'
     ];
 
@@ -53,18 +54,20 @@ class User extends BaseModel implements IdentityInterface,Authable
         return '{{%user}}';
     }
 
-    public function init(){
+    public function init()
+    {
         parent::init();
-        $this->on(static::EVENT_AFTER_INSERT,function($event){
+        $this->on(static::EVENT_AFTER_INSERT, function ($event) {
             // 注册新用户的时候出发回调事件
             UserCreatedHook::emit($this);
         });
     }
 
-    public function behaviors() {
+    public function behaviors()
+    {
 
         $bs = parent::behaviors();
-        $bs ['password-set'] = PasswordBehavior::class;
+        $bs['password-set'] = PasswordBehavior::class;
         return $bs;
     }
 
@@ -79,6 +82,7 @@ class User extends BaseModel implements IdentityInterface,Authable
             'id' => Yii::t('app_user', 'ID'),
             'username' => Yii::t('app_user', 'Username'),
             'nickname' => Yii::t('app_user', 'Nickname'),
+            'gender' => Yii::t('app_user', 'Gender'),
             'avatar' => Yii::t('app_user', 'Avatar'),
             'authKey' => Yii::t('app_user', 'Auth Key'),
             'passwordHash' => Yii::t('app_user', 'Password Hash'),
@@ -138,6 +142,8 @@ class User extends BaseModel implements IdentityInterface,Authable
                     self::STATUS_INACTIVE
                 ]
             ],
+            ['gender', 'default', 'value' => 0],
+            ['gender', 'in', 'range' => [0, 1, 2]],
             [
                 [
                     'avatar'
@@ -326,5 +332,8 @@ class User extends BaseModel implements IdentityInterface,Authable
     {
         return $this->status == static::STATUS_ACTIVE;
     }
-    
+
+    public function generateRandomUserName($prefix=''){
+        $this->username = $prefix . date('YmdHis') . str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT);
+    }
 }

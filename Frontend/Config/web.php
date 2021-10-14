@@ -19,6 +19,7 @@ $config = [
             ]
         ],
         'view'       => [
+            'as mini-html' => 'DuAdmin\Behaviors\MiniHtmlBehavior',
             'theme' => [
                 'class'   => 'DuAdmin\Components\DUATheme',
                 'name'    => $theme_name,

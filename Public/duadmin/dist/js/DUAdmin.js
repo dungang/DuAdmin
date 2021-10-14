@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -1772,7 +1772,7 @@ $(document).on('click', '[data-sync]', function (event) {
 
 /***/ }),
 
-/***/ 3:
+/***/ 5:
 /*!************************************************!*\
   !*** multi ./public/duadmin/src/js/DUAdmin.js ***!
   \************************************************/
