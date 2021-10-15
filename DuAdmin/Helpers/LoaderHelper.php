@@ -134,6 +134,7 @@ class LoaderHelper
     {
         $installedAddonsFile = \Yii::$app->basePath . '/Config/installed-addons.php';
         file_put_contents($installedAddonsFile, "<?php\nreturn " . VarDumper::export($installedAddons) . ";\n");
+        static::dynamicParseAddons(true);
     }
 
     /**
@@ -144,13 +145,13 @@ class LoaderHelper
      */
     public static function dynamicParseAddons($fresh = false)
     {
-        if (!empty(static::$installedAddonsData)) {
+        if ($fresh === false && !empty(static::$installedAddonsData)) {
             return static::$installedAddonsData;
         }
         $installedAddons = static::loadInstalledAddonsConfig();
         $all_addons_json = \Yii::$app->basePath . '/runtime/Addons.json';
         $addons = [];
-        if (YII_ENV_PROD && file_exists($all_addons_json)) {
+        if ($fresh === false && YII_ENV_PROD && file_exists($all_addons_json)) {
             static::$installedAddonsData = json_decode(file_get_contents($all_addons_json), true);
             return static::$installedAddonsData;
         }
