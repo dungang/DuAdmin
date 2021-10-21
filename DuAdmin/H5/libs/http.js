@@ -16,6 +16,8 @@ Axios.interceptors.request.use(function(config) {
     return config
 });
 
+const frontendUrl = document.querySelector('meta[frontend-gate]').getAttribute('frontend-gate');
+
 function upload(resource, data, success, error) {
     return Axios.post(resource, data, {
             'Content-Type': 'multipart/form-data'
@@ -70,10 +72,14 @@ Axios.interceptors.response.use(function(config) {
     Toast.clear()
     return config
 });
-let frontendUrl = document.querySelector('meta[frontend-gate]').getAttribute('frontend-gate');
+
+function assets(resource) {
+    return (frontendUrl + resource).replace("//", "/");
+}
 export default {
     get,
     post,
     upload,
     frontendUrl,
+    assets
 }

@@ -137,6 +137,7 @@ class InstallerHelper
             foreach ($menus as $index => $menu) {
                 $filter = $menu;
                 unset($filter['children']);
+                $filter['app'] = $app;
                 $model = Menu::findOne($filter);
                 if (!$model) {
                     $model = new Menu();
