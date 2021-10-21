@@ -5,7 +5,6 @@ namespace DuAdmin\Validators;
 use yii\validators\Validator;
 use yii\base\InvalidConfigException;
 use yii\base\NotSupportedException;
-use yii\web\JsExpression;
 use yii\helpers\Json;
 
 /**

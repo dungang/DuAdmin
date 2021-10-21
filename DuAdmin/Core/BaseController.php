@@ -5,7 +5,6 @@ namespace DuAdmin\Core;
 use DuAdmin\Helpers\AppHelper;
 use Yii;
 use yii\base\ActionEvent;
-use yii\base\Controller as Controller2;
 use yii\filters\VerbFilter;
 use yii\helpers\Url;
 use yii\web\Controller;

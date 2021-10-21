@@ -16,6 +16,9 @@ use yii\helpers\Json;
 class InstallerHelper
 {
 
+    /**
+     * 第一层的权限去重
+     */
     public static function installPermissionCRUDShortcut($name, $routePrefix)
     {
 
@@ -56,12 +59,17 @@ class InstallerHelper
 
         if ($permissions) {
             foreach ($permissions as $index => $permission) {
-                $model = new AuthPermission();
-                $model->sort = $index;
-                $model->load($permission, '');
-                $model->save();
-                if ($model->hasErrors()) {
-                    throw new ErrorException(Json::encode($model->errors));
+                $filter = $permission;
+                unset($filter['children']);
+                $model = AuthPermission::findOne($filter);
+                if (!$model) {
+                    $model = new AuthPermission();
+                    $model->sort = $index;
+                    $model->load($permission, '');
+                    $model->save();
+                    if ($model->hasErrors()) {
+                        throw new ErrorException(Json::encode($model->errors));
+                    }
                 }
                 if ($parent) {
                     $relation = new AuthItemChild();
@@ -127,21 +135,26 @@ class InstallerHelper
 
         if (is_array($menus)) {
             foreach ($menus as $index => $menu) {
-                $model = new Menu();
-                $model->load($menu, '');
-                $model->pid = $pid;
-                $model->app = $app;
-                if (isset($menu['sort'])) {
-                    $model->sort = $menu['sort'];
-                } else if ($pid === 0) {
-                    $model->sort = $weight;
-                } else {
-                    $model->sort = $index;
-                }
-                $model->url = trim($model->url, '/');
-                $model->save();
-                if ($model->hasErrors()) {
-                    throw new ErrorException(Json::encode($model->errors));
+                $filter = $menu;
+                unset($filter['children']);
+                $model = Menu::findOne($filter);
+                if (!$model) {
+                    $model = new Menu();
+                    $model->load($menu, '');
+                    $model->pid = $pid;
+                    $model->app = $app;
+                    if (isset($menu['sort'])) {
+                        $model->sort = $menu['sort'];
+                    } else if ($pid === 0) {
+                        $model->sort = $weight;
+                    } else {
+                        $model->sort = $index;
+                    }
+                    $model->url = trim($model->url, '/');
+                    $model->save();
+                    if ($model->hasErrors()) {
+                        throw new ErrorException(Json::encode($model->errors));
+                    }
                 }
                 if (isset($menu['children']) && is_array($menu['children'])) {
                     static::installMenus($menu['children'], $model->id, $app = 'core', $weight);
