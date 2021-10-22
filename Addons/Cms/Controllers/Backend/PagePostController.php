@@ -26,14 +26,12 @@ class PagePostController extends BackendController
      */
     public function actionIndex()
     {
-
         $searchModel = new PagePostSearch();
-        $dataProvider = $searchModel->search( Yii::$app->request->queryParams );
-        return $this->render( 'index', [
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        return $this->render('index', [
             'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider
-        ] );
-
+        ]);
     }
 
     /**
@@ -44,11 +42,10 @@ class PagePostController extends BackendController
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView( $pageId, $language )
+    public function actionView($pageId, $language)
     {
-        $model = $this->findModel($pageId,$language);
-        return $this->redirect( AppHelper::createFrontendUrl($model->page->slug));
-
+        $model = $this->findModel($pageId, $language);
+        return $this->redirect(AppHelper::createFrontendUrl($model->page->slug));
     }
 
     /**
@@ -59,9 +56,29 @@ class PagePostController extends BackendController
      * @param string $language
      * @return mixed
      */
-    public function actionCreate( $pageId, $language = "zh-CN" )
+    public function actionCreate($pageId, $language = "zh-CN")
     {
-        return $this->redirect( ['/cms/live-editor', 'pageId' => $pageId, 'language' => $language] );
+        $page = Page::findOne(['id' => $pageId]);
+        if (!$page->isLiveEdit) {
+            $model = new PagePost();
+            // ajax表单验证
+            if (AppHelper::isAjaxValidationRequest() && $model->load(Yii::$app->request->post())) {
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
+            }
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirectSuccess([
+                    'view',
+                    'pageId' => $model->pageId,
+                    'language' => $model->language
+                ], "添加成功");
+            }
+            return $this->render('create', [
+                'model' => $model
+            ]);
+        } else {
+            return $this->redirect(['/cms/live-editor', 'pageId' => $pageId, 'language' => $language]);
+        }
     }
 
     /**
@@ -73,10 +90,29 @@ class PagePostController extends BackendController
      * @return mixed
      * @throws NotFoundHttpException 如果模型没查询到
      */
-    public function actionUpdate( $pageId, $language )
+    public function actionUpdate($pageId, $language)
     {
-        return $this->redirect( ['/cms/live-editor', 'pageId' => $pageId, 'language' => $language] );
-
+        $page = Page::findOne(['id' => $pageId]);
+        if (!$page->isLiveEdit) {
+            $model = $this->findModel($pageId, $language);
+            // ajax表单验证
+            if (AppHelper::isAjaxValidationRequest() && $model->load(Yii::$app->request->post())) {
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
+            }
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirectSuccess([
+                    'view',
+                    'pageId' => $model->pageId,
+                    'language' => $model->language
+                ], "修改成功");
+            }
+            return $this->render('update', [
+                'model' => $model
+            ]);
+        } else {
+            return $this->redirect(['/cms/live-editor', 'pageId' => $pageId, 'language' => $language]);
+        }
     }
 
     /**
@@ -88,26 +124,24 @@ class PagePostController extends BackendController
      * @return mixed
      * @throws NotFoundHttpException 如果模型没查询到
      */
-    public function actionDelete( $pageId, $language )
+    public function actionDelete($pageId, $language)
     {
-
-        if ( is_array( $pageId, $language ) ) {
-            $modelList = PagePost::findAll( [
+        if (is_array($pageId, $language)) {
+            $modelList = PagePost::findAll([
                 'pageId'   => $pageId,
                 'language' => $language
-            ] );
-            if ( $modelList ) {
-                foreach ( $modelList as $model ) {
+            ]);
+            if ($modelList) {
+                foreach ($modelList as $model) {
                     $model->delete();
                 }
             }
         } else {
-            $this->findModel( $pageId, $language )->delete();
+            $this->findModel($pageId, $language)->delete();
         }
-        return $this->redirect( [
+        return $this->redirect([
             'index'
-        ] );
-
+        ]);
     }
 
     /**
@@ -119,25 +153,23 @@ class PagePostController extends BackendController
      * @return PagePost the loaded model
      * @throws NotFoundHttpException 如果模型没查询到
      */
-    protected function findModel( $pageId, $language )
+    protected function findModel($pageId, $language)
     {
-
-        if ( ($model = PagePost::findOne( [
-                'pageId'   => $pageId,
-                'language' => $language
-            ] )) !== null ) {
+        if (($model = PagePost::findOne([
+            'pageId'   => $pageId,
+            'language' => $language
+        ])) !== null) {
             return $model;
         }
-        throw new NotFoundHttpException( Yii::t( 'app', 'The requested page does not exist.' ) );
-
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 
-    protected function checkLiveEditMode( $pageId, $language )
+    protected function checkLiveEditMode($pageId, $language)
     {
-        if(Yii::$app->request->isGet) {
-            $page = Page::findOne( $pageId );
-            if ( $page->isLive ) {
-                return $this->redirect( ['/cms/live-editor', 'pageId' => $pageId, 'language' => $language] );
+        if (Yii::$app->request->isGet) {
+            $page = Page::findOne($pageId);
+            if ($page->isLive) {
+                return $this->redirect(['/cms/live-editor', 'pageId' => $pageId, 'language' => $language]);
             }
         }
         return false;

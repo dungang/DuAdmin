@@ -9,7 +9,7 @@ use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel Addons\Cms\Models\PageSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-$this->title = Yii::t( 'da_page', 'Pages' );
+$this->title = Yii::t( 'da_cms_page', 'Pages' );
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php
@@ -21,7 +21,7 @@ Pjax::begin( [
 <?php
 PanelGridView::begin( [
     'id' => 'page-list',
-    'intro' => Yii::t( 'da', '{0} Info Manage', Yii::t( 'da_page', 'Pages' ) ),
+    'intro' => Yii::t( 'da', '{0} Info Manage', Yii::t( 'da_cms_page', 'Pages' ) ),
     'dataProvider' => $dataProvider,
     'columns' => [
         [

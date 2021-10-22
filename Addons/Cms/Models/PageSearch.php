@@ -12,34 +12,14 @@ class PageSearch extends Page
 {
 
     /**
-     *
      * {@inheritdoc}
      */
     public function rules()
     {
-
         return [
-            [
-                [
-                    'id',
-                    'pid',
-                    'sort'
-                ],
-                'integer'
-            ],
-            [
-                [
-                    'slug',
-                    'title',
-                    'keywords',
-                    'description',
-                    'createdAt',
-                    'updatedAt'
-                ],
-                'safe'
-            ]
+            [['id', 'pid', 'isLiveEdit', 'sort'], 'integer'],
+            [['slug', 'title', 'keywords', 'description', 'showMode', 'createdAt', 'updatedAt'], 'safe'],
         ];
-
     }
 
     /**
@@ -51,7 +31,6 @@ class PageSearch extends Page
 
         // bypass scenarios() implementation in the parent class
         return parent::scenarios();
-
     }
 
     /**
@@ -61,59 +40,58 @@ class PageSearch extends Page
      *
      * @return ActiveDataProvider
      */
-    public function search( $params )
+    public function search($params)
     {
-
         $query = Page::find();
         // add conditions that should always apply here
-        $dataProvider = new ActiveDataProvider( [
+        $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort'  => [
                 'defaultOrder' => [
                     'sort' => SORT_ASC
                 ]
             ]
-        ] );
-        $this->load( $params );
-        if ( !$this->validate() ) {
+        ]);
+        $this->load($params);
+        if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
         }
         // grid filtering conditions
-        $query->andFilterWhere( [
+        $query->andFilterWhere([
             'id'     => $this->id,
             'pid'    => $this->pid,
             'sort'   => $this->sort
-        ] );
-        $query->andFilterWhere( [
+        ]);
+        $query->andFilterWhere([
             'DATE_RANGE',
             'createdAt',
             $this->createdAt
-        ] )->andFilterWhere( [
+        ])->andFilterWhere([
             'DATE_RANGE',
             'updatedAt',
             $this->updatedAt
-        ] );
-        $query->andFilterWhere( [
+        ]);
+        $query->andFilterWhere([
             'like',
             'slug',
             $this->slug
-        ] )->andFilterWhere( [
+        ])->andFilterWhere([
             'like',
             'title',
             $this->title
-        ] )->andFilterWhere( [
+        ])->andFilterWhere([
             'like',
             'keywords',
             $this->keywords
-        ] )->andFilterWhere( [
+        ])->andFilterWhere([
             'like',
             'description',
             $this->description
-        ] );
-        if ( $full_search = Yii::$app->request->get( 'full_search' ) ) {
-            $query->andFilterWhere( [
+        ]);
+        if ($full_search = Yii::$app->request->get('full_search')) {
+            $query->andFilterWhere([
                 'FULL_SEARCH',
                 [
                     'slug',
@@ -122,9 +100,8 @@ class PageSearch extends Page
                     'description'
                 ],
                 $full_search
-            ] );
+            ]);
         }
         return $dataProvider;
-
     }
 }

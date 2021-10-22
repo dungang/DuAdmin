@@ -35,6 +35,12 @@ class m210111_132217_init_cms_permissions extends Migration
         ], 'cms/page/update');
         InstallerHelper::installPermissionCRUDShortcut("友情链接", "cms/friend-link");
         InstallerHelper::installPermissionCRUDShortcut("广告位", "cms/adv-block");
+
+        InstallerHelper::InstallDict('cms_page_show_mode', '页面显示模式', [
+            ['dictLabel' => '完整显示', 'dictValue' => 'full'],
+            ['dictLabel' => '只显示内容', 'dictValue' => 'content'],
+            ['dictLabel' => '不显示头部', 'dictValue' => 'nohead'],
+        ]);
     }
 
     /**

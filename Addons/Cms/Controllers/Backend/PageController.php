@@ -14,22 +14,23 @@ use yii\web\NotFoundHttpException;
  * Page 模型的控制器
  * PageController 实现了常规的增删查改等行为
  */
-class PageController extends BackendController {
+class PageController extends BackendController
+{
 
     /**
      * 列出所有的 Page 模型.
      *
      * @return mixed
      */
-    public function actionIndex() {
-
+    public function actionIndex()
+    {
         $searchModel = new PageSearch();
-        $dataProvider = $searchModel->search( Yii::$app->request->queryParams );
-        $dataProvider->query->with( 'languages' );
-        return $this->render( 'index', [
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->with('languages');
+        return $this->render('index', [
                 'searchModel'  => $searchModel,
                 'dataProvider' => $dataProvider
-            ] );
+            ]);
     }
 
     /**
@@ -39,11 +40,11 @@ class PageController extends BackendController {
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView( $id ) {
-
-        return $this->render( 'view', [
-                'model' => $this->findModel( $id )
-            ] );
+    public function actionView($id)
+    {
+        return $this->render('view', [
+                'model' => $this->findModel($id)
+            ]);
     }
 
     /**
@@ -52,36 +53,35 @@ class PageController extends BackendController {
      *
      * @return mixed
      */
-    public function actionCreate() {
-
+    public function actionCreate()
+    {
         $model = new Page();
         // ajax表单验证
-        if ( ($error = $this->ajaxValidation( $model )) !== false ) {
+        if (($error = $this->ajaxValidation($model)) !== false) {
             return $error;
         }
-        if ( $model->load( Yii::$app->request->post() ) ) {
-            return Yii::$app->db->transaction( function ( $db ) use ( $model ) {
-                    if ( $model->save() ) {
-                        $postData = new PagePost( [
+        if ($model->load(Yii::$app->request->post())) {
+            return Yii::$app->db->transaction(function ($db) use ($model) {
+                if ($model->save()) {
+                    $postData = new PagePost([
                             'pageId'   => $model->id,
                             'title'    => $model->title,
                             'language' => Yii::$app->language,
-                            ] );
-                        if ( $postData->save( false ) ) {
-
-                            return $this->redirectSuccess( [
+                            ]);
+                    if ($postData->save(false)) {
+                        return $this->redirectSuccess([
                                     'view',
                                     'id' => $model->id
-                                    ], "添加成功" );
-                        } else {
-                            throw new BizException( "添加失败" );
-                        }
+                                    ], "添加成功");
+                    } else {
+                        throw new BizException("添加失败");
                     }
-                } );
+                }
+            });
         }
-        return $this->render( 'create', [
+        return $this->render('create', [
                 'model' => $model
-            ] );
+            ]);
     }
 
     /**
@@ -92,22 +92,22 @@ class PageController extends BackendController {
      * @return mixed
      * @throws NotFoundHttpException 如果模型没查询到
      */
-    public function actionUpdate( $id ) {
-
-        $model = $this->findModel( $id );
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
         // ajax表单验证
-        if ( ($error = $this->ajaxValidation( $model )) !== false ) {
+        if (($error = $this->ajaxValidation($model)) !== false) {
             return $error;
         }
-        if ( $model->load( Yii::$app->request->post() ) && $model->save() ) {
-            return $this->redirectSuccess( [
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirectSuccess([
                     'view',
                     'id' => $model->id
-                    ], "修改成功" );
+                    ], "修改成功");
         }
-        return $this->render( 'update', [
+        return $this->render('update', [
                 'model' => $model
-            ] );
+            ]);
     }
 
     /**
@@ -118,24 +118,23 @@ class PageController extends BackendController {
      * @return mixed
      * @throws NotFoundHttpException 如果模型没查询到
      */
-    public function actionDelete( $id ) {
-
-        if ( is_array( $id ) ) {
-            $modelList = Page::findAll( [
+    public function actionDelete($id)
+    {
+        if (is_array($id)) {
+            $modelList = Page::findAll([
                     'id' => $id
-                ] );
-            if ( $modelList ) {
-                foreach ( $modelList as $model ) {
-
+                ]);
+            if ($modelList) {
+                foreach ($modelList as $model) {
                     $model->delete();
                 }
             }
         } else {
-            $this->findModel( $id )->delete();
+            $this->findModel($id)->delete();
         }
-        return $this->redirect( [
+        return $this->redirect([
                 'index'
-            ] );
+            ]);
     }
 
     /**
@@ -146,14 +145,13 @@ class PageController extends BackendController {
      * @return Page the loaded model
      * @throws NotFoundHttpException 如果模型没查询到
      */
-    protected function findModel( $id ) {
-
-        if ( ($model = Page::findOne( [
+    protected function findModel($id)
+    {
+        if (($model = Page::findOne([
                 'id' => $id
-            ] )) !== null ) {
+            ])) !== null) {
             return $model;
         }
-        throw new NotFoundHttpException( Yii::t( 'app', 'The requested page does not exist.' ) );
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
-
 }

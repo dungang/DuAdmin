@@ -6,7 +6,7 @@ use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 /* @var $model Addons\Cms\Models\Page */
 
 $this->title = Yii::t('da','Update');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('da_page', 'Pages'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('da_cms_page', 'Pages'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = $this->title;
 echo AjaxModalOrNormalPanelContent::widget([

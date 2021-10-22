@@ -23,6 +23,8 @@ class m201123_150949_create_page_tables extends Migration
       'title' => $this->string(128)->null()->comment('标题'),
       'keywords' => $this->string('128')->null()->comment('关键字'),
       'description' => $this->string('255')->null()->comment('简介'),
+      'isLiveEdit' => $this->boolean()->defaultValue(1)->comment("在线编辑"),
+      'showMode' => $this->string(32)->defaultValue('full')->comment("在线编辑"), // full 完整显示 content 只显示内容  nohead 不显示头部
       'sort' => $this->smallInteger()->defaultValue(1)->comment('排序'),
       'createdAt' => $this->dateTime()->null()->comment('添加时间'),
       'updatedAt' => $this->dateTime()->null()->comment('更新时间')

@@ -23,6 +23,7 @@ class m201123_150938_create_cms_tables extends Migration {
     ], $tableOptions );
     $this->addCommentOnTable( '{{%cms_post_category}}', '文章分类' );
     $this->createIndex( 'idx-post_category-slug', '{{%cms_post_category}}', 'slug', true );
+    
     $this->createTable( '{{%cms_post}}', [
         'id' => $this->primaryKey(),
         'userId' => $this->integer()->comment( '编辑ID' ),

@@ -11,7 +11,8 @@ use Yii;
 /**
  * 查找slug的page的内容事件处理器
  */
-class ShowPageHandler extends Handler {
+class ShowPageHandler extends Handler
+{
 
   /**
    * SlugHook
@@ -19,23 +20,32 @@ class ShowPageHandler extends Handler {
    * @param FindSlugHook $hook
    * @return void
    */
-  public function process( $hook ) {
+  public function process($hook)
+  {
 
-    if ( $page = Page::find()->where( [
-        'slug' => $hook->slug
-    ] )->limit( 1 )->one() ) {
-      $this->detectLiveEditor();
-      $view = '@Addons/Cms/Views/Frontend/page/empty';
-      $hook->payload = Yii::$app->controller->render( $view, [
-          'model' => $page
-      ] );
+    if ($page = Page::find()->where([
+      'slug' => $hook->slug
+    ])->limit(1)->one()) {
+      if ($page->isLiveEdit) {
+        $this->detectLiveEditor();
+        $view = '@Addons/Cms/Views/Frontend/page/live';
+      } else {
+        if ($page->showMode !== 'full') {
+          Yii::$app->controller->layout = $page->showMode;
+        }
+        $view = '@Addons/Cms/Views/Frontend/page/page';
+      }
+      $hook->payload = Yii::$app->controller->render($view, [
+        'model' => $page
+      ]);
       $hook->stop = true;
     }
   }
 
-  public function detectLiveEditor(){
+  public function detectLiveEditor()
+  {
     if (Yii::$app->request->isGet && !Yii::$app->request->isAjax) {
-      if(Yii::$app->request->get('live') == 1) {
+      if (Yii::$app->request->get('live') == 1) {
         // 注册编辑器的特殊标签的样式
         LiveEditorCssAsset::register(Yii::$app->view);
         // 阻止页面的默认a标签页面挑战
