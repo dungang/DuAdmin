@@ -6,15 +6,17 @@ use yii\db\Migration;
 /**
  * Class m210111_132113_init_permissions
  */
-class m210111_132113_init_permissions extends Migration {
+class m210111_132113_init_permissions extends Migration
+{
 
     /**
      *
      * {@inheritdoc}
      */
-    public function safeUp() {
+    public function safeUp()
+    {
 
-        InstallerHelper::installPermissions( [
+        InstallerHelper::installPermissions([
             [
                 'id'       => 'administrator',
                 'name'     => '管理员管理',
@@ -91,32 +93,33 @@ class m210111_132113_init_permissions extends Migration {
                     ]
                 ]
             ]
-        ] );
-        InstallerHelper::installPermissionCRUDShortcut( "角色", "auth-role" );
-        InstallerHelper::installPermissions( [
+        ]);
+        InstallerHelper::installPermissionCRUDShortcut("角色", "auth-role");
+        InstallerHelper::installPermissions([
             [
                 'id'   => 'auth-role/sorts',
                 'name' => '更新角色排序'
             ]
-            ], 'auth-role/update' );
-        InstallerHelper::installPermissionCRUDShortcut( "权限规则", "auth-rule" );
-        InstallerHelper::installPermissionCRUDShortcut( "菜单", "menu" );
-        InstallerHelper::installPermissions( [
+        ], 'auth-role/update');
+        InstallerHelper::installPermissionCRUDShortcut("权限规则", "auth-rule");
+        InstallerHelper::installPermissionCRUDShortcut("菜单", "menu");
+        InstallerHelper::installPermissions([
             [
                 'id'   => 'menu/sorts',
                 'name' => '更新菜单排序'
             ]
-            ], 'menu/update' );
-        InstallerHelper::installPermissionCRUDShortcut( "地址美化", "pretty-url" );
-        InstallerHelper::installPermissionCRUDShortcut( "字典管理", "dict-type" );
-        InstallerHelper::installPermissionCRUDShortcut( "字典数据管理", "dict-data" );
+        ], 'menu/update');
+        InstallerHelper::installPermissionCRUDShortcut("地址美化", "pretty-url");
+        InstallerHelper::installPermissionCRUDShortcut("字典管理", "dict-type");
+        InstallerHelper::installPermissionCRUDShortcut("字典数据管理", "dict-data");
     }
 
     /**
      *
      * {@inheritdoc}
      */
-    public function safeDown() {
+    public function safeDown()
+    {
 
         echo "m210111_132113_init_permissions cannot be reverted.\n";
         return false;

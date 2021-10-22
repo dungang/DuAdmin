@@ -12,6 +12,8 @@ class m201213_020534_create_addon_table extends Migration
      */
     public function safeUp()
     {
+
+        $tableOptions = 'CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci ENGINE=MyISAM';
         $this->createTable('{{%addon}}', [
             'id' => $this->string(64),
             'name' => $this->string(64)->notNull()->comment('名称'),
@@ -23,8 +25,8 @@ class m201213_020534_create_addon_table extends Migration
             'type' => $this->string(64)->notNull()->defaultValue('component')->comment('类型'),
             'createdAt' => $this->dateTime()->null()->comment('添加时间'),
             'updatedAt' => $this->dateTime()->null()->comment('更新时间'),
-        ]);
-        $this->addCommentOnTable('{{%addon}}','插件');
+        ], $tableOptions);
+        $this->addCommentOnTable('{{%addon}}', '插件');
     }
 
     /**
