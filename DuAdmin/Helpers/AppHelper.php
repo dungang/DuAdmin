@@ -974,10 +974,13 @@ class AppHelper
 
     public static function createFullAssetsUrl($url)
     {
-        if (StringHelper::startsWith($url, 'http')) {
-            return $url;
+        if ($url) {
+            if (StringHelper::startsWith($url, 'http')) {
+                return $url;
+            }
+            return \Yii::$app->request->hostInfo . $url;
         }
-        return \Yii::$app->request->hostInfo . $url;
+        return null;
     }
 
     /**
