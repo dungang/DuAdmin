@@ -3,8 +3,6 @@
 namespace DuAdmin\Core;
 
 use DuAdmin\Filters\AccessFilter;
-use voku\helper\HtmlMin;
-
 /**
  * 前端控制器基类
  * 需要登陆
