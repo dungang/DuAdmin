@@ -204,7 +204,7 @@ if ( in_array( 'delete', $generator->actions ) ) :
     	} else {
         	$this->findModel(<?=$actionParams?>)->delete();
     	}
-        return $this->redirect(['index']);
+        return $this->redirect(Yii::$app->request->referrer);
     }
 <?php endif;
 

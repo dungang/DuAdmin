@@ -18,7 +18,7 @@ class ApiController extends Controller
      */
     public $authExceptActions = [];
 
-       /**
+    /**
      * {@inheritdoc}
      */
     public $enableCsrfValidation = false;
