@@ -4,6 +4,7 @@ namespace DuAdmin\Helpers;
 
 use Backend\Models\AuthItemChild;
 use Backend\Models\AuthPermission;
+use DuAdmin\Models\Cron;
 use DuAdmin\Models\DictData;
 use DuAdmin\Models\DictType;
 use DuAdmin\Models\Menu;
@@ -281,5 +282,22 @@ class InstallerHelper
             'weight' => $weight,
         ]);
         $prettyUrl->save(false);
+    }
+
+    public static function installCronJob($script,$name,$time,$intro=null,$param=null){
+        $cron = Cron::findOne(['jobScript'=>$script]);
+        if(!$cron) {
+            $cron = new Cron();
+            $cron->jobScript = $script;
+            $cron->task = $name;
+            $cron->mhdmd = $time;
+            $cron->intro = $intro;
+            $cron->param = $param;
+            $cron->isActive = false;
+            $cron->save(false);
+            if ($cron->hasErrors()) {
+                throw new ErrorException(Json::encode($cron->errors));
+            }
+        }
     }
 }
