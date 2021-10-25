@@ -16,38 +16,53 @@ use yii\helpers\Json;
 class InstallerHelper
 {
 
+    public static function installAddonPermission($addon, $addonName)
+    {
+        InstallerHelper::installPermissions([
+            [
+                'id'       => $addon,
+                'name'     => $addonName . '管理'
+            ]
+        ]);
+    }
+
     /**
      * 第一层的权限去重
      */
-    public static function installPermissionCRUDShortcut($name, $routePrefix)
+    public static function installPermissionCRUDShortcut($name, $routePrefix, $addon)
     {
 
         InstallerHelper::installPermissions([
             [
-                'id'       => $routePrefix,
-                'name'     => $name . '管理',
+                'id' => $addon,
                 'children' => [
                     [
-                        'id'       => $routePrefix . '/index',
-                        'name'     => $name . '列表',
+                        'id'       => $routePrefix,
+                        'name'     => $name . '管理',
                         'children' => [
                             [
-                                'id'   => $routePrefix . '/view',
-                                'name' => '查看' . $name
+                                'id'       => $routePrefix . '/index',
+                                'name'     => $name . '列表',
+                                'children' => [
+                                    [
+                                        'id'   => $routePrefix . '/view',
+                                        'name' => '查看' . $name
+                                    ]
+                                ]
+                            ],
+                            [
+                                'id'   => $routePrefix . '/create',
+                                'name' => '添加' . $name
+                            ],
+                            [
+                                'id'   => $routePrefix . '/update',
+                                'name' => '更新' . $name
+                            ],
+                            [
+                                'id'   => $routePrefix . '/delete',
+                                'name' => '删除' . $name
                             ]
                         ]
-                    ],
-                    [
-                        'id'   => $routePrefix . '/create',
-                        'name' => '添加' . $name
-                    ],
-                    [
-                        'id'   => $routePrefix . '/update',
-                        'name' => '更新' . $name
-                    ],
-                    [
-                        'id'   => $routePrefix . '/delete',
-                        'name' => '删除' . $name
                     ]
                 ]
             ]
