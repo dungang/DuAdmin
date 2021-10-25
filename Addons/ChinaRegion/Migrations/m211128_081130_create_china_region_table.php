@@ -57,7 +57,8 @@ class m211128_081130_create_china_region_table extends Migration
             throw new Exception("文件不存在: ". $dataFile ." . \n");
         }
 
-        InstallerHelper::installAddonPermission('china-region', '行政区模块管理');
+        InstallerHelper::installAddonPermission('addon-china-region', '中国行政区模块管理');
+        InstallerHelper::installPermissionCRUDShortcut('行政区管理', 'china-region/default/index','addon-china-region');
          //初始化菜单
         InstallerHelper::installMenus([
             [

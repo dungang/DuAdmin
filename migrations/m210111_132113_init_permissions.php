@@ -94,24 +94,26 @@ class m210111_132113_init_permissions extends Migration
                 ]
             ]
         ]);
-        InstallerHelper::installPermissionCRUDShortcut("角色", "auth-role");
+        InstallerHelper::installAddonPermission("system-privilege", "系统授权管理");
+        InstallerHelper::installPermissionCRUDShortcut("角色", "auth-role", "system-privilege");
         InstallerHelper::installPermissions([
             [
                 'id'   => 'auth-role/sorts',
                 'name' => '更新角色排序'
             ]
         ], 'auth-role/update');
-        InstallerHelper::installPermissionCRUDShortcut("权限规则", "auth-rule");
-        InstallerHelper::installPermissionCRUDShortcut("菜单", "menu");
+        InstallerHelper::installPermissionCRUDShortcut("权限规则", "auth-rule", "system-privilege");
+        InstallerHelper::installPermissionCRUDShortcut("菜单", "menu", "system-privilege");
         InstallerHelper::installPermissions([
             [
                 'id'   => 'menu/sorts',
                 'name' => '更新菜单排序'
             ]
         ], 'menu/update');
-        InstallerHelper::installPermissionCRUDShortcut("地址美化", "pretty-url");
-        InstallerHelper::installPermissionCRUDShortcut("字典管理", "dict-type");
-        InstallerHelper::installPermissionCRUDShortcut("字典数据管理", "dict-data");
+        InstallerHelper::installAddonPermission("system-setting", "系统设置管理");
+        InstallerHelper::installPermissionCRUDShortcut("地址美化", "pretty-url", "system-setting");
+        InstallerHelper::installPermissionCRUDShortcut("字典管理", "dict-type", "system-setting");
+        InstallerHelper::installPermissionCRUDShortcut("字典数据管理", "dict-data", "system-setting");
     }
 
     /**
