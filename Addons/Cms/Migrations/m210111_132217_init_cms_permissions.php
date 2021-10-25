@@ -31,6 +31,10 @@ class m210111_132217_init_cms_permissions extends Migration
             [
                 'id' => 'cms/live-editor/save',
                 'name' => '编辑器保存'
+            ],
+            [
+                'id' => 'cms/setting',
+                'name' => '内容管理设置'
             ]
         ], 'cms/page/update');
         InstallerHelper::installPermissionCRUDShortcut("友情链接", "cms/friend-link");
