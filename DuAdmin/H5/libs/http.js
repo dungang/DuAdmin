@@ -18,54 +18,58 @@ Axios.interceptors.request.use(function(config) {
 
 const frontendUrl = document.querySelector('meta[frontend-gate]').getAttribute('frontend-gate');
 
-function upload(resource, data, success, error) {
-    return Axios.post(resource, data, {
-            'Content-Type': 'multipart/form-data'
-        })
-        .then(res => {
-            if (res.data.status == 200) {
-                success && success(res.data.data);
-            } else {
-                error && error(res.data.message);
-            }
-            return res.data.data
-        })
-        .catch(error => {
-            console.log(error);
-            Toast.fail('失败');
-        });
+function upload(resource, data) {
+    return new Promise((resolve, reject) => {
+        Axios.post(resource, data, {
+                'Content-Type': 'multipart/form-data'
+            })
+            .then(res => {
+                if (res.data.status == 200) {
+                    resolve(res.data.data);
+                } else {
+                    reject(res.data.message);
+                }
+                return res.data.data
+            })
+            .catch(error => {
+                reject(error);
+                Toast.fail('失败');
+            });
+    });
 }
 
-function get(resource, data, success, error) {
-    return Axios.get(resource, { params: data })
-        .then(res => {
-            if (res.data.status == 200) {
-                success && success(res.data.data);
-            } else {
-                error && error(res.data.message);
-            }
-            return res.data.data;
-        })
-        .catch(error => {
-            console.log(error);
-            Toast.fail('失败');
-        });
+function get(resource, data) {
+    return new Promise((resolve, reject) => {
+        Axios.get(resource, { params: data })
+            .then(res => {
+                if (res.data.status == 200) {
+                    resolve(res.data.data);
+                } else {
+                    reject(res.data.message);
+                }
+            })
+            .catch(error => {
+                reject(error);
+                Toast.fail('失败');
+            });
+    });
 }
 
-function post(resource, data, success, error) {
-    return Axios.post(resource, data)
-        .then(res => {
-            if (res.data.status == 200) {
-                success && success(res.data.data);
-            } else {
-                error && error(res.data.message);
-            }
-            return res.data.data;
-        })
-        .catch(error => {
-            console.log(error);
-            Toast.fail('失败');
-        });
+function post(resource, data) {
+    return new Promise((resolve, reject) => {
+        Axios.post(resource, data)
+            .then(res => {
+                if (res.data.status == 200) {
+                    resolve(res.data.data);
+                } else {
+                    reject(res.data.message);
+                }
+            })
+            .catch(error => {
+                reject(error);
+                Toast.fail('失败');
+            });
+    });
 }
 
 Axios.interceptors.response.use(function(config) {
