@@ -15,17 +15,21 @@ import { NavBar } from "vant";
 Vue.use(NavBar);
 export default {
   props: {
+    home: {
+      type: String,
+      default: "home",
+    },
     title: {
       type: String,
-      default: ""
+      default: "",
     },
     leftText: {
       type: String,
-      default: "返回"
+      default: "返回",
     },
     rightText: {
       type: String,
-      default: ""
+      default: "",
     },
     fixed: {
       type: Boolean,
@@ -33,13 +37,17 @@ export default {
     },
     onClickRight: {
       type: Function,
-      default() {}
-    }
+      default() {},
+    },
   },
   methods: {
     onClickLeft() {
-      this.$router.go(-1);
-    }
-  }
+      if (window.history.length === 0) {
+        this.$router.push(this.home);
+      } else {
+        this.$router.go(-1);
+      }
+    },
+  },
 };
 </script>

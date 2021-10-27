@@ -58,7 +58,7 @@ scanAssetsConfig('./Themes');
  * your application, as well as bundling up your JS files. |
  */
 mix
-// 后台主题
+    // 后台主题
     .less('public/duadmin/src/less/DUAdmin.less', 'public/duadmin/dist/css', {
         lessOptions: {
             paths: [path.resolve(__dirname, 'node_modules')],
@@ -70,7 +70,7 @@ mix
     //前端public
     .js('public/src/js/frontend.js', 'public/js')
     .less('public/src/less/frontend.less', 'public/css')
-    .then(function() {
+    .then(function () {
         del(['public/assets/*']);
     });
 // mix.js('src/app.js', 'dist/').sass('src/app.scss', 'dist/');
