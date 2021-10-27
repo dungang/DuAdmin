@@ -80,7 +80,10 @@ class CronController extends BackendController
     ]);
     Yii::debug('Starting One Task : ' . $task->task . ': ' . $url, __METHOD__);
     // 发送异步请求
-    return  $httpClient->get($url)->send();
+    $httpClient->get($url)->send();
+    return $this->redirect([
+      'index'
+    ]);
   }
 
   /**
