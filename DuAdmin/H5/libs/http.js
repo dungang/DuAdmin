@@ -12,7 +12,7 @@ Axios.interceptors.request.use(function(config) {
         forbidClick: true,
         loadingType: 'spinner'
     });
-    config.headers['Authorization'] = 'Bearer ' + localStorage.getItem('token')
+    config.headers['Authorization'] = 'Bearer ' + localStorage.getItem('TOKEN')
     return config
 });
 
