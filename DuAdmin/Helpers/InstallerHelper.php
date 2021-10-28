@@ -393,26 +393,6 @@ class InstallerHelper
         return $history;
     }
 
-    public static function includeMigrationFile($class)
-    {
-        $class = trim($class, '\\');
-        if (strpos($class, '\\') === false) {
-            if (is_array($this->migrationPath)) {
-                foreach ($this->migrationPath as $path) {
-                    $file = $path . DIRECTORY_SEPARATOR . $class . '.php';
-                    if (is_file($file)) {
-                        require_once $file;
-                        break;
-                    }
-                }
-            } else {
-                $file = $this->migrationPath . DIRECTORY_SEPARATOR . $class . '.php';
-                require_once $file;
-            }
-        }
-    }
-
-
     public static function addMigrationHistory($version)
     {
         $command = Yii::$app->db->createCommand();
