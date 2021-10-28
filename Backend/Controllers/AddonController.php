@@ -4,9 +4,12 @@ namespace Backend\Controllers;
 
 use DuAdmin\Core\BackendController;
 use DuAdmin\Core\BizException;
+use DuAdmin\Helpers\AppHelper;
+use DuAdmin\Helpers\InstallerHelper;
 use yii\data\ArrayDataProvider;
 use DuAdmin\Helpers\LoaderHelper;
-use phpDocumentor\Reflection\DocBlock\Tags\Var_;
+use Exception;
+use Yii;
 
 /**
  * 插件管理
@@ -37,6 +40,20 @@ class AddonController extends BackendController
             $installed = LoaderHelper::loadInstalledAddonsConfig();
             $installed[] = $name;
             LoaderHelper::saveInstalledAddonsConfig($installed);
+
+            $migrations = InstallerHelper::getAddonMigrations($dirPath);
+            if ($migrations) {
+                foreach ($migrations as $migration) {
+                    try {
+                        InstallerHelper::migrateUp($migration);
+                    } catch (Exception $e) {
+                        Yii::error($e->getMessage());
+                        throw new BizException("安装数据出错");
+                    }
+                }
+                AppHelper::cleanSettingRelationCache();
+            }
+
             return $this->redirectSuccess(['index'], "安装成功");
         }
         throw new BizException("插件不存在");
@@ -61,6 +78,18 @@ class AddonController extends BackendController
                 }
             });
             LoaderHelper::saveInstalledAddonsConfig($installed);
+            $migrations = InstallerHelper::getAddonMigrations($dirPath, false);
+            if ($migrations) {
+                foreach ($migrations as $migration) {
+                    try {
+                        InstallerHelper::migrateDown($migration);
+                    } catch (Exception $e) {
+                        Yii::error($e->getMessage());
+                        throw new BizException("卸载数据出错");
+                    }
+                }
+                AppHelper::cleanSettingRelationCache();
+            }
             return $this->redirectSuccess(['index'], "卸载成功");
         }
         throw new BizException("插件不存在");

@@ -6,7 +6,7 @@ use yii\db\Migration;
 /**
  * Class m210111_132217_init_cms_permissions
  */
-class m210111_132217_init_cms_permissions extends Migration
+class m210111_132217_cms_init_permissions extends Migration
 {
     /**
      * {@inheritdoc}
@@ -54,8 +54,10 @@ class m210111_132217_init_cms_permissions extends Migration
      */
     public function safeDown()
     {
-        echo "m210111_132217_init_cms_permissions cannot be reverted.\n";
-
+        InstallerHelper::uninstallMenus("addon-cms");
+        InstallerHelper::uninstallPermissions("addon-cms");
+        InstallerHelper::uninstallSetting("addon-cms");
+        
         return false;
     }
 

@@ -5,7 +5,7 @@ use yii\db\Migration;
 /**
  * Class m210110_051149_create_cms_link_tables
  */
-class m210110_051149_create_cms_link_tables extends Migration {
+class m210110_051149_cms_create_link_tables extends Migration {
 
     const TABLE_LINK = "{{%cms_friend_link}}";
 

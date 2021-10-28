@@ -7,7 +7,7 @@ use yii\db\Migration;
 /**
  * Class m201224_134253_create_cms_settings
  */
-class m201224_134253_create_cms_settings extends Migration
+class m201224_134253_cms_create_settings extends Migration
 {
 
     /**

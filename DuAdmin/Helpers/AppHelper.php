@@ -3,6 +3,8 @@
 namespace DuAdmin\Helpers;
 
 use DuAdmin\Models\DictData;
+use DuAdmin\Models\Menu;
+use DuAdmin\Models\Navigation;
 use DuAdmin\Models\Setting;
 use Exception;
 use Yii;
@@ -1048,5 +1050,17 @@ class AppHelper
                 ], $key);
             }
         }
+    }
+
+    public static function cleanCache($keys)
+    {
+        foreach ($keys as $key) {
+            Yii::$app->cache->delete($key);
+        }
+    }
+
+    public static function cleanSettingRelationCache()
+    {
+        static::cleanCache([Setting::CACHE_KEY, Menu::CacheKeyBack, Navigation::CACHE_GUEST_KEY, Navigation::CACHE_KEY]);
     }
 }

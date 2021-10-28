@@ -5,7 +5,7 @@ use yii\db\Migration;
 /**
  * Handles the creation of table `{{%flash}}`.
  */
-class m201124_075757_create_flash_table extends Migration
+class m201124_075757_cms_create_flash_table extends Migration
 {
 
     /**

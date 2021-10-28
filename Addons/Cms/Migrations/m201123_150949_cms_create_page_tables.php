@@ -5,7 +5,7 @@ use yii\db\Migration;
 /**
  * Class m201123_150949_create_page_tables
  */
-class m201123_150949_create_page_tables extends Migration
+class m201123_150949_cms_create_page_tables extends Migration
 {
 
   /**

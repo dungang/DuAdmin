@@ -6,7 +6,7 @@ use yii\db\Migration;
 /**
  * Handles the creation of table `{{%china_region}}`.
  */
-class m211128_081130_create_china_region_table extends Migration
+class m211128_081130_china_region_create_table extends Migration
 {
     /**
      * {@inheritdoc}

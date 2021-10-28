@@ -5,7 +5,7 @@ use yii\db\Migration;
 /**
  * Class m201126_044336_create_cms_adv_tables
  */
-class m201126_044336_create_cms_adv_tables extends Migration
+class m201126_044336_cms_create_adv_tables extends Migration
 {
 
     /**
@@ -43,7 +43,7 @@ class m201126_044336_create_cms_adv_tables extends Migration
      */
     public function safeDown()
     {
-        echo "m201126_044336_create_cms_adv_tables cannot be reverted.\n";
-        return false;
+        $this->dropTable('{{%cms_adv_block}}');
+        return true;
     }
 }

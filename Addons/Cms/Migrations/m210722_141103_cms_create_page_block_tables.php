@@ -5,7 +5,7 @@ use yii\db\Migration;
 /**
  * Class m210722_141103_create_page_block_tables
  */
-class m210722_141103_create_page_block_tables extends Migration
+class m210722_141103_cms_create_page_block_tables extends Migration
 {
     const TABLE_BLOCK = "{{%cms_page_block}}";
 
