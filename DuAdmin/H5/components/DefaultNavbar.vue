@@ -42,8 +42,8 @@ export default {
   },
   methods: {
     onClickLeft() {
-      if (window.history.length === 0) {
-        this.$router.push(this.home);
+      if (window.history.length <= 2) {
+        this.$router.push({name:this.home});
       } else {
         this.$router.go(-1);
       }
