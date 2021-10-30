@@ -67,14 +67,11 @@ if ( in_array( 'index', $generator->actions ) ) :
   if ( ! empty( $generator->searchModelClass ) ) :
     ?>
         $searchModel = new <?=isset( $searchModelAlias ) ? $searchModelAlias : $searchModelClass?>();
-<?php
-    if ( $generator->onlyQueryCurrentUser ) :
-      ?>
-        $searchModel->userId = \Yii::$app->user->id;
-<?php endif;
-
-    ?>
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $queryParams = Yii::$app->request->queryParams;
+<?php if ( $generator->onlyQueryCurrentUser ) : ?>
+        $queryParams['userId'] = \Yii::$app->user->id;
+<?php endif;?>
+        $dataProvider = $searchModel->search($queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -131,6 +128,9 @@ if ( in_array( 'create', $generator->actions ) ) :
         }
 
         if ($model->load(Yii::$app->request->post())) {
+<?php if ( $generator->onlyQueryCurrentUser ) : ?>
+            $model->userId = \Yii::$app->user->id;
+<?php endif;?>
             if($model->save()) {
               return $this->redirectSuccess(['view', <?=$urlParams?>], "添加成功");
             }

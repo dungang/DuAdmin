@@ -8,20 +8,20 @@
 ## 存储提供者必须都实现如下接口
 
 ```php
-DuAdmin\storage\IDriver //存储服务的驱动协议接口
-DuAdmin\uploader\ConfigWidget //前端配置协议工厂类
+DuAdmin\Storage\IDriver //存储服务的驱动协议接口
+DuAdmin\Uploader\ConfigWidget //前端配置协议工厂类
 ```
 ## 本地存储
 系统默认实现了IDriver接口
 
 ```php
-DuAdmin\storage\LocalDriver
+DuAdmin\Storage\LocalDriver
 ```
 
 ## 表单小部件
 
 ```php
-DuAdmin\widgets\AjaxFileInput //ajax前端直传部件
+DuAdmin\Widgets\AjaxFileInput //ajax前端直传部件
 ```
 
 ## TokenAction

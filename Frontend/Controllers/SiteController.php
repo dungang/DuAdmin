@@ -2,6 +2,7 @@
 
 namespace Frontend\Controllers;
 
+use DuAdmin\Core\BaseController;
 use DuAdmin\Helpers\AppHelper;
 use DuAdmin\Hooks\FindSlugHook;
 use Frontend\Forms\ContactForm;
@@ -14,13 +15,12 @@ use yii\base\InvalidArgumentException;
 use yii\console\Exception;
 use yii\helpers\Html;
 use yii\web\BadRequestHttpException;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
 /**
  * Site controller
  */
-class SiteController extends Controller
+class SiteController extends BaseController
 {
 
     public function init()

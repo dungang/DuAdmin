@@ -31,7 +31,7 @@ use yii\widgets\ActiveForm;
 
     <?= '<div class="col-xs-6">' . $form->field($model, 'url') . '</div>' ?>
 
-    <?= '<div class="col-xs-6">' . $form->field($model, 'requireLogin')->dropDownList([ '不需要', '需要', ], ['prompt' => '']) . '</div>' ?>
+    <?= '<div class="col-xs-6">' . $form->field($model, 'requireAuth')->dropDownList([ '不需要', '需要', ], ['prompt' => '']) . '</div>' ?>
 
     <?= '<div class="col-xs-6">' . $form->field($model, 'icon') . '</div>' ?>
 
