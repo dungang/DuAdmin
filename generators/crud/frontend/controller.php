@@ -25,7 +25,6 @@ namespace <?=StringHelper::dirname( ltrim( $generator->controllerClass, '\\' ) )
 
 use Yii;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 use DuAdmin\Helpers\AppHelper;

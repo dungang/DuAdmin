@@ -182,7 +182,6 @@ class LoaderHelper
                     if (file_exists($addonVendorComposerDir . '/autoload_files.php')) {
                         $addon['files'] = require $addonVendorComposerDir . '/autoload_files.php';
                     }
-                    //if ( file_exists( $addonDir . '/installed.lock' ) ) {
                     if (in_array($addonName, $installedAddons)) {
                         $addon['active'] = true;
                     } else {

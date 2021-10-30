@@ -6,7 +6,8 @@ use DuAdmin\Core\BaseController;
 use Frontend\Forms\LoginForm;
 use Yii;
 
-class LoginController extends BaseController {
+class LoginController extends BaseController
+{
 
   public $layout = 'login';
 
@@ -15,23 +16,22 @@ class LoginController extends BaseController {
    *
    * @return string
    */
-  public function actionIndex() {
+  public function actionIndex()
+  {
 
-    if ( ! Yii::$app->user->isGuest ) {
+    if (!Yii::$app->user->isGuest) {
       return $this->goHome();
     }
     $model = new LoginForm();
-    if ( $model->load( Yii::$app->request->post() ) && $model->login() ) {
-      return $this->goBackOnSuccess();
+    if ($model->load(Yii::$app->request->post()) && $model->login()) {
+      return $this->redirectSuccess( \Yii::$app->user->getReturnUrl(), "登录成功" );
     } else {
       // 只需要添加这句话就可以了
-      Yii::$app->user->setReturnUrl( Yii::$app->request->referrer );
+      Yii::$app->user->setReturnUrl(Yii::$app->request->referrer);
       $model->password = '';
-      return $this->render( 'index', [
-          'model' => $model
-      ] );
+      return $this->render('index', [
+        'model' => $model
+      ]);
     }
-
   }
 }
-

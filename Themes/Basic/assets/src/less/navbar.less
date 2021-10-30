@@ -243,7 +243,8 @@
 .navbar-nav {
   margin: (@navbar-padding-vertical / 2) -@navbar-padding-horizontal;
 
-  >li>a {
+  >li>a,
+  >li button {
     padding-top: 10px;
     padding-bottom: 10px;
     line-height: @line-height-computed;
@@ -440,7 +441,8 @@
   }
 
   .navbar-nav {
-    >li>a {
+    >li>a,
+    >li button {
       color: @navbar-default-link-color;
 
       &:hover,

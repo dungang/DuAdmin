@@ -1,0 +1,52 @@
+/*
+ * Skin: Black
+ * -----------
+ */
+
+/* skin-black navbar */
+.skin-black {
+  //Navbar & Logo
+  .main-header {
+    .box-shadow(0px 1px 1px rgba(0, 0, 0, 0.05));
+    .navbar-toggle {
+      color: #8aa4af;
+    }
+    .navbar-brand {
+      color: #8aa4af;
+    }
+    .navbar {
+      .navbar-variant(#222D32; #8aa4af; #fff; #1A2226);
+      > .sidebar-toggle {
+        color: #8aa4af;
+      }
+    }
+    > .logo {
+      .logo-variant(#1A2226; #fff);
+      @media (max-width: @screen-header-collapse) {
+        .logo-variant(#1A2226; #fff);
+      }
+    }
+
+    li.user-header {
+      background-color: #222;
+    }
+  }
+
+  //Content Header
+  .content-header {
+    background: transparent;
+    box-shadow: none;
+  }
+  //Create the sidebar skin
+  .skin-dark-sidebar(#222D32);
+
+  .pace {
+    .pace-progress {
+      background: #222;
+    }
+    .pace-activity {
+      border-top-color: #222;
+      border-left-color: #222;
+    }
+  }
+}

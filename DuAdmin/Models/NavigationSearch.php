@@ -16,7 +16,7 @@ class NavigationSearch extends Navigation
     public function rules()
     {
         return [
-            [['id', 'pid', 'isOuter', 'requireLogin', 'sort'], 'integer'],
+            [['id', 'pid', 'isOuter', 'requireAuth', 'sort'], 'integer'],
             [['name', 'intro', 'url', 'icon', 'app'], 'safe'],
         ];
     }
@@ -68,7 +68,7 @@ class NavigationSearch extends Navigation
             'id'           => $this->id,
             'pid'          => $this->pid,
             'isOuter'      => $this->isOuter,
-            'requireLogin' => $this->requireLogin,
+            'requireAuth' => $this->requireAuth,
             'sort'         => $this->sort,
         ] );
 

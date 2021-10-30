@@ -15,7 +15,7 @@ use Yii;
  * @property string $intro 导航名
  * @property string $url 地址::可以是内部和外部地址
  * @property int $isOuter 是否外部链接::0:否|1:是
- * @property int $requireLogin 需要登录::0:不需要|1:需要
+ * @property int $requireAuth 需要登录::0:不需要|1:需要
  * @property string $icon ICON
  * @property string $app 所属APP::前台或后台或插件的Id
  * @property int $sort 排序
@@ -44,7 +44,7 @@ class Navigation extends BaseModel
     {
         return [
             [['pid', 'name'], 'required'],
-            [['pid', 'isOuter', 'requireLogin', 'sort'], 'integer'],
+            [['pid', 'isOuter', 'requireAuth', 'sort'], 'integer'],
             [['name', 'icon', 'app'], 'string', 'max' => 64],
             [['url', 'intro'], 'string', 'max' => 128],
         ];
@@ -56,16 +56,16 @@ class Navigation extends BaseModel
     public function attributeLabels()
     {
         return [
-            'id'           => Yii::t( 'app_navigation', 'ID' ),
-            'pid'          => Yii::t( 'app_navigation', 'Pid' ),
-            'name'         => Yii::t( 'app_navigation', 'Name' ),
-            'intro'        => Yii::t( 'app_navigation', 'Intro' ),
-            'url'          => Yii::t( 'app_navigation', 'Url' ),
-            'isOuter'      => Yii::t( 'app_navigation', 'Is Outer' ),
-            'requireLogin' => Yii::t( 'app_navigation', 'Require Login' ),
-            'icon'         => Yii::t( 'app_navigation', 'Icon' ),
-            'app'          => Yii::t( 'app_navigation', 'App' ),
-            'sort'         => Yii::t( 'app_navigation', 'Sort' ),
+            'id'           => Yii::t('app_navigation', 'ID'),
+            'pid'          => Yii::t('app_navigation', 'Pid'),
+            'name'         => Yii::t('app_navigation', 'Name'),
+            'intro'        => Yii::t('app_navigation', 'Intro'),
+            'url'          => Yii::t('app_navigation', 'Url'),
+            'isOuter'      => Yii::t('app_navigation', 'Is Outer'),
+            'requireAuth' => Yii::t('app_navigation', 'Require Login'),
+            'icon'         => Yii::t('app_navigation', 'Icon'),
+            'app'          => Yii::t('app_navigation', 'App'),
+            'sort'         => Yii::t('app_navigation', 'Sort'),
         ];
     }
 
@@ -77,7 +77,7 @@ class Navigation extends BaseModel
         return [
             'url'          => '可以是内部和外部地址',
             'isOuter'      => '0:否|1:是',
-            'requireLogin' => '0:不需要|1:需要',
+            'requireAuth' => '0:不需要|1:需要',
             'app'          => '前台或后台或插件的Id',
         ];
     }
@@ -88,7 +88,7 @@ class Navigation extends BaseModel
      */
     public static function find()
     {
-        return new NavigationQuery( get_called_class() );
+        return new NavigationQuery(get_called_class());
     }
 
     const CACHE_KEY = 'fontend.navigations';
@@ -97,7 +97,7 @@ class Navigation extends BaseModel
     public function behaviors()
     {
         $b = parent::behaviors();
-        $b[ 'cleanCache' ] = [
+        $b['cleanCache'] = [
             'class'      => 'DuAdmin\Behaviors\ReCacheBehavior',
             'cache_keys' => [
                 self::CACHE_KEY       => [
@@ -120,13 +120,12 @@ class Navigation extends BaseModel
      */
     public static function getNavigationData()
     {
-        $items = self::find()
-            ->indexBy( 'id' )
+        return self::find()
+            ->where('requireAuth = 1')
+            ->indexBy('id')
             ->asArray()
-            ->orderBy( 'sort asc' )
+            ->orderBy('sort asc')
             ->all();
-
-        return static::formatItem( $items );
     }
 
     /**
@@ -137,31 +136,27 @@ class Navigation extends BaseModel
     public static function getGuestNavigationData()
     {
         $items = self::find()
-            ->where( 'requireLogin = 0' )
-            ->indexBy( 'id' )
+            ->where('requireAuth = 0')
+            ->indexBy('id')
             ->asArray()
-            ->orderBy( 'sort asc' )
+            ->orderBy('sort asc')
             ->all();
-        return static::formatItem( $items );
     }
 
-    public static function formatItem( $items )
+    public static function formatBootstrapMenuItem($items)
     {
         $appItems = [];
-        foreach ( $items as $item ) {
-            if ( !isset( $appItems[ $item[ 'app' ] ] ) ) {
-                $appItems[ $item[ 'app' ] ] = [];
-            }
-            $item[ 'label' ] = Yii::t( 'app', $item[ 'name' ] );
-            $item[ 'linkOptions' ] = [
-                'title' => empty( $item[ 'intro' ] ) ? '' : $item[ 'intro' ]
+        foreach ($items as $item) {
+            $item['label'] = Yii::t('app', $item['name']);
+            $item['linkOptions'] = [
+                'title' => empty($item['intro']) ? '' : $item['intro']
             ];
-            if ( empty( $item[ 'isOuter' ] ) ) {
-                $item[ 'url' ] = AppHelper::parseDuAdminMenuUrl( $item[ 'url' ], '/' );
+            if (empty($item['isOuter'])) {
+                $item['url'] = AppHelper::parseDuAdminMenuUrl($item['url'], '/');
             } else {
-                $item[ 'linkOptions' ][ 'target' ] = '_blank';
+                $item['linkOptions']['target'] = '_blank';
             }
-            $appItems[ $item[ 'app' ] ][] = $item;
+            $appItems[] = $item;
         }
         return $appItems;
     }
@@ -173,28 +168,33 @@ class Navigation extends BaseModel
      * @param string $app
      * @return array|array[]
      */
-    public static function getNavigation( $app = 'frontend', $guest = false )
+    public static function getNavigation($app = 'frontend', $guest = false)
     {
-        if ( $guest ) {
-
-            $appItems = \Yii::$app->cache->getOrSet( self::CACHE_GUEST_KEY, function () {
+        if ($guest) {
+            $appItems = \Yii::$app->cache->getOrSet(self::CACHE_GUEST_KEY, function () {
                 return self::getGuestNavigationData();
-            } );
+            });
         } else {
-            $appItems = \Yii::$app->cache->getOrSet( self::CACHE_KEY, function () {
+            $appItems = \Yii::$app->cache->getOrSet(self::CACHE_KEY, function () {
                 return self::getNavigationData();
-            } );
+            });
         }
 
-        if ( isset( $appItems[ $app ] ) ) {
-            $items = $appItems[ $app ];
+        if ($appItems) {
+            return array_filter($appItems, function ($item) use ($app) {
+                return $item['app'] == $app;
+            });
         } else {
-            $items = [];
+            return [];
         }
-        if ( $items ) {
-            return AppHelper::listToTree( $items, 'id', 'pid', 'items' );
+    }
+
+    public static function getBootstapNavigation($app, $guest = false)
+    {
+        $items = static::getNavigation($app, $guest);
+        if ($items) {
+            return AppHelper::listToTree(static::formatBootstrapMenuItem($items), 'id', 'pid', 'items');
         }
         return [];
     }
-
 }

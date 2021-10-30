@@ -7,7 +7,7 @@ return [
     'Intro'         => '介绍',
     'Url'           => '地址',
     'Is Outer'      => '是否外部链接',
-    'Require Login' => '需要登录',
+    'Require Auth' => '需要登录',
     'Icon'          => 'ICON',
     'App'           => '所属APP',
     'Sort'          => '排序',
