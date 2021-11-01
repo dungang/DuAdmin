@@ -72,6 +72,7 @@ $siteName = Yii::t('app', AppHelper::getSetting('site.name', Yii::$app->name));
         ];
 
         $navigations = Navigation::getBootstapNavigation('frontend', true);
+        
         $menus = array_merge($menus, $navigations);
         if (Yii::$app->user->isGuest) {
             $menus[] = [

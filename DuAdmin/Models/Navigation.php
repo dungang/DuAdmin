@@ -135,7 +135,7 @@ class Navigation extends BaseModel
      */
     public static function getGuestNavigationData()
     {
-        $items = self::find()
+        return self::find()
             ->where('requireAuth = 0')
             ->indexBy('id')
             ->asArray()
