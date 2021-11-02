@@ -11,6 +11,7 @@ use Yii;
 use yii\base\Arrayable;
 use yii\db\Query;
 use yii\helpers\ArrayHelper;
+use yii\helpers\BaseMarkdown;
 use yii\helpers\FileHelper;
 use yii\helpers\Html;
 use yii\helpers\StringHelper;
@@ -1062,5 +1063,20 @@ class AppHelper
     public static function cleanSettingRelationCache()
     {
         static::cleanCache([Setting::CACHE_KEY, Menu::CacheKeyBack, Navigation::CACHE_GUEST_KEY, Navigation::CACHE_KEY]);
+    }
+
+    public static function parseMarkdownGFM($content)
+    {
+        return BaseMarkdown::process($content, 'gfm');
+    }
+
+    public static function parseMarkdownGFMComment($content)
+    {
+        return BaseMarkdown::process($content, 'gfm-comment');
+    }
+
+    public static function parseMarkdownExtra($content)
+    {
+        return BaseMarkdown::process($content, 'extra');
     }
 }

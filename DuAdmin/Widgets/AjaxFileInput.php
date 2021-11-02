@@ -1,4 +1,5 @@
 <?php
+
 namespace DuAdmin\Widgets;
 
 use DuAdmin\Assets\CropperAsset;
