@@ -16,8 +16,11 @@ use yii\widgets\PjaxAsset;
  */
 class SimpleModal extends Modal
 {
+    public $debug = false;
+
     public function run()
     {
+        $this->debug = YII_ENV_DEV;
         echo "\n" . $this->renderBodyEnd();
         echo "\n" . $this->renderFooter();
         echo "\n" . Html::endTag('div'); // modal-content
@@ -29,7 +32,7 @@ class SimpleModal extends Modal
 
     public function getJs($selector)
     {
-
+        $bool = $this->debug ? 'true' : 'false';
         return <<<JS
 (function($, modalSelector) {
     var modal = $(modalSelector);
@@ -47,6 +50,10 @@ class SimpleModal extends Modal
         var targetBtn = $(e.relatedTarget);
         if(targetBtn.attr('data-toggle') == 'modal') {
             pjaxContainer = targetBtn.parents('[data-pjax-container]');
+            if(${bool}) {
+                console.log('simple modal debug: pjax container');
+                console.log(pjaxContainer);
+            }
             var size = targetBtn.data('modal-size');
             $(e.target).find('.modal-dialog').removeClass('modal-sm modal-lg').addClass(size ? size : '');
         }
@@ -59,14 +66,22 @@ class SimpleModal extends Modal
             var type = "error";
             if(data.status == 'success'){
                 if(pjaxContainer && pjaxContainer.length>0){
-                
                     var pjaxId = pjaxContainer.attr('id');
+                    if(${bool}) {
+                        console.log('simple modal debug: pjax id');
+                        console.log(pjaxId);
+                    }
                     if(pjaxId != undefined){
                         $.pjax.reload('#'+pjaxId);
                     }
                 }
                 modal.modal('hide');
                 type = "success";
+            }
+            if(${bool}) {
+                console.log('simple modal debug: notify');
+                console.log(type);
+                console.log(data);
             }
             notif({type:type,msg:data.message,position:'center',timeout:3000});
         }});

@@ -14,69 +14,70 @@ use yii\web\BadRequestHttpException;
  * @author dungang
  *
  */
-class UploadForm extends Model {
+class UploadForm extends Model
+{
 
   public $key;
 
   public $file;
 
-  public function rules() {
+  public function rules()
+  {
 
-    $extensions = AppHelper::getSetting( 'system.storage.extensions' );
-    $extensions = empty( $extensions ) ? 'jpg,jpeg,png' : $extensions;
+    $extensions = AppHelper::getSetting('system.storage.extensions');
+    $extensions = empty($extensions) ? 'jpg,jpeg,png' : $extensions;
     return [
+      [
         [
-            [
-                'key',
-                'file'
-            ],
-            'required'
+          'key',
+          'file'
         ],
+        'required'
+      ],
+      [
         [
-            [
-                'key'
-            ],
-            'string'
+          'key'
         ],
+        'string'
+      ],
+      [
         [
-            [
-                'file'
-            ],
-            'file',
-            'skipOnEmpty' => false,
-            'checkExtensionByMimeType' => false,
-            'extensions' => $extensions
-        ]
+          'file'
+        ],
+        'file',
+        'skipOnEmpty' => false,
+        'checkExtensionByMimeType' => false,
+        'extensions' => $extensions
+      ]
     ];
-
   }
 
-  public function upload() {
+  public function upload()
+  {
 
     \Yii::$app->response->format = 'json';
-    if ( $this->validate() ) {
-      $key = trim( $this->key, '.' );
-      if ( strpos( $key, '..' ) === false ) {
-        $dist = \Yii::getAlias( "@webroot/" . $key );
-        $distDir = dirname( $dist );
-        if ( ! is_dir( $distDir ) ) {
-          FileHelper::createDirectory( $distDir );
+    if ($this->validate()) {
+      $key = trim($this->key, '.');
+      if (strpos($key, '..') === false) {
+        $dist = \Yii::getAlias("@webroot/" . $key);
+        $distDir = dirname($dist);
+        if (!is_dir($distDir)) {
+          FileHelper::createDirectory($distDir);
         }
         try {
-          $this->file->saveAs( $dist );
+          $this->file->saveAs($dist);
           return [
-              "url" => $key
+            "url" => $key
           ];
-        } catch ( \Exception $ex ) {
-          \Yii::error( $ex->getMessage() );
+        } catch (\Exception $ex) {
+          \Yii::error($ex->getMessage());
         }
         return null;
       } else {
         throw new BadRequestHttpException();
       }
     } else {
-      throw new BizException( array_values( $this->firstErrors ) [0] );
+      throw new BizException(array_values($this->firstErrors)[0]);
     }
-
   }
 }

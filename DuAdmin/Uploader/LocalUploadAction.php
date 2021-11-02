@@ -1,4 +1,5 @@
 <?php
+
 namespace DuAdmin\Uploader;
 
 use yii\base\Action;
@@ -14,7 +15,7 @@ class LocalUploadAction extends Action
     public function run()
     {
         $model = new UploadForm();
-        if (\Yii::$app->request->isPost && $model->load(\Yii::$app->request->post(),'')) {
+        if (\Yii::$app->request->isPost && $model->load(\Yii::$app->request->post(), '')) {
             $model->file = UploadedFile::getInstanceByName('file');
             if ($data = $model->upload()) {
                 return $data;
