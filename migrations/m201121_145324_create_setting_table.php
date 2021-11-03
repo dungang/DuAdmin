@@ -6,7 +6,8 @@ use yii\db\Migration;
 /**
  * Handles the creation of table `{{%setting}}`.
  */
-class m201121_145324_create_setting_table extends Migration {
+class m201121_145324_create_setting_table extends Migration
+{
 
     public $tableName = '{{%setting}}';
 
@@ -14,27 +15,28 @@ class m201121_145324_create_setting_table extends Migration {
      *
      * {@inheritdoc}
      */
-    public function safeUp() {
+    public function safeUp()
+    {
 
         $tableOptions = 'CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci ENGINE=MyISAM';
-        $this->createTable( $this->tableName, [
-            'name'        => $this->string( 64 )->notNull()->comment( '变量名' ),
-            'title'       => $this->string( 64 )->notNull()->comment( '变量标题' ),
-            'value'       => $this->text()->null()->comment( '变量值' ),
-            'valType'     => $this->string( 64 )->notNull()->comment( '值类型::IMAGE:图片|BOOL:Boolean|STR:字符串|ARRY:数组|ASSOC:关联数组|JSON:json字符串|HTML:html代码|P:段落' ),
-            'hint'        => $this->string( 255 )->null()->comment( '变量介绍' ),
-            'dictType'    => $this->string( 64 )->comment( "字典类型" ),
-            'category'    => $this->string( 64 )
+        $this->createTable($this->tableName, [
+            'name'        => $this->string(64)->notNull()->comment('变量名'),
+            'title'       => $this->string(64)->notNull()->comment('变量标题'),
+            'value'       => $this->text()->null()->comment('变量值'),
+            'valType'     => $this->string(64)->notNull()->comment('值类型::IMAGE:图片|BOOL:Boolean|STR:字符串|ARRY:数组|ASSOC:关联数组|JSON:json字符串|HTML:html代码|P:段落'),
+            'hint'        => $this->string(255)->null()->comment('变量介绍'),
+            'dictType'    => $this->string(64)->comment("字典类型"),
+            'category'    => $this->string(64)
                 ->notNull()
-                ->defaultValue( 'system' )
-                ->comment( '变量标题' ),
-            'subCategory' => $this->string( 64 )
-                ->comment( '变量子标题' ),
-            ], $tableOptions );
-        $this->addPrimaryKey( 'pk-setting-name', $this->tableName, 'name' );
-        $this->addCommentOnTable( '{{%setting}}', '系统配置' );
+                ->defaultValue('system')
+                ->comment('变量标题'),
+            'subCategory' => $this->string(64)
+                ->comment('变量子标题'),
+        ], $tableOptions);
+        $this->addPrimaryKey('pk-setting-name', $this->tableName, 'name');
+        $this->addCommentOnTable('{{%setting}}', '系统配置');
         // 初始化配置
-        $this->batchInsert( $this->tableName, [
+        $this->batchInsert($this->tableName, [
             'name',
             'title',
             'value',
@@ -42,7 +44,7 @@ class m201121_145324_create_setting_table extends Migration {
             'hint',
             'dictType',
             'subCategory'
-            ], [
+        ], [
             [
                 'site.name',
                 '网站名称',
@@ -244,18 +246,9 @@ class m201121_145324_create_setting_table extends Migration {
             [
                 'system.storage.extensions',
                 '存储文件类型',
-                'jpeg,jpg,png',
+                'jpeg,jpg,png,gif,mp3,mp4,rar,zip',
                 'STR',
                 '默认图片',
-                '',
-                'open-feature'
-            ],
-            [
-                'uploader.allowExtensions',
-                '上传文件扩展名',
-                'jpg,jpeg,png',
-                'ARRAY',
-                '允许上传的文件后缀名',
                 '',
                 'open-feature'
             ],
@@ -277,8 +270,8 @@ class m201121_145324_create_setting_table extends Migration {
                 'page_def_footer',
                 'open-feature'
             ]
-        ] );
-        Setting::updateAll( [
+        ]);
+        Setting::updateAll([
             'value' => 'var _hmt = _hmt || [];
         (function() {
           var hm = document.createElement("script");
@@ -286,18 +279,18 @@ class m201121_145324_create_setting_table extends Migration {
           var s = document.getElementsByTagName("script")[0];
           s.parentNode.insertBefore(hm, s);
         })();'
-            ], [
+        ], [
             'name' => 'site.tongji'
-        ] );
+        ]);
     }
 
     /**
      *
      * {@inheritdoc}
      */
-    public function safeDown() {
+    public function safeDown()
+    {
 
-        $this->dropTable( $this->tableName );
+        $this->dropTable($this->tableName);
     }
-
 }

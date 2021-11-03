@@ -8,9 +8,15 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\Column;
 use yii\helpers\ArrayHelper;
+use yii\helpers\StringHelper;
 
 class ActionColumn extends Column
 {
+
+    /**
+     * 跨控制器显示内容的时候，选择指定路由的前缀
+     */
+    public $baseRoute = '';
 
     /**
      * 附加参数
@@ -274,9 +280,18 @@ class ActionColumn extends Column
         };
     }
 
+    /**
+     * 构建完整的routeId
+     */
     public function getRoute($action)
     {
-        return $this->controller ? $this->controller . '/' . $action : $action;
+        if (StringHelper::startsWith($action, '/')) {
+            return $action;
+        } else if ($this->baseRoute) {
+            return $this->baseRoute . '/' . $action;
+        } else {
+            return $this->controller ? $this->controller . '/' . $action : $action;
+        }
     }
 
     /**
@@ -319,8 +334,8 @@ class ActionColumn extends Column
         $params[0] = $this->getRoute($action);
 
         //return Url::toRoute($params);
-        if(!empty($this->extParams)) {
-            $params = ArrayHelper::merge($params,$this->extParams);
+        if (!empty($this->extParams)) {
+            $params = ArrayHelper::merge($params, $this->extParams);
         }
         return $params;
     }
