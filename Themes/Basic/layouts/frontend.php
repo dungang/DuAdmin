@@ -4,7 +4,6 @@
 
 use DuAdmin\Assets\DuAdminAsset;
 use DuAdmin\Helpers\AppHelper;
-use DuAdmin\Models\Menu;
 use DuAdmin\Models\Navigation;
 use DuAdmin\Models\Setting;
 use DuAdmin\Widgets\AdminlteNavBar;
@@ -106,6 +105,7 @@ $this->registerJs(AppHelper::getSetting('site.tongji'), View::POS_HEAD);
             <section class="content-header">
                 <h1>
                     <?= Html::encode($this->title) ?>
+                    <?= !empty($this->params['subTitle']) ? Html::tag('small', $this->params['subTitle']) : '' ?>
                 </h1>
                 <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : []]) ?>
             </section>

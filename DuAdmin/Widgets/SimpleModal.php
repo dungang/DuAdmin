@@ -74,6 +74,8 @@ class SimpleModal extends Modal
                     if(pjaxId != undefined){
                         $.pjax.reload('#'+pjaxId);
                     }
+                } else {
+                    window.location.reload(true);
                 }
                 modal.modal('hide');
                 type = "success";

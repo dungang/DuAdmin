@@ -113,12 +113,13 @@ abstract class Addon extends Module {
         case 'Backend' :
           $this->initViewPath( Yii::$app->mode );
           $this->initBackend();
-          $this->registerAddonBackendHomeBreadscrumb();
+          $this->registerAddonHomeBreadscrumb();
           break;
         case 'Frontend' :
           $this->initViewPath( Yii::$app->mode );
           $this->registerFrontendTheme();
           $this->initFrontend();
+          $this->registerAddonHomeBreadscrumb();
           break;
         case 'Api' :
           $this->initApi();
@@ -156,7 +157,7 @@ abstract class Addon extends Module {
    * 注册插件模块的home面包屑
    * 仅且只能注册一次
    */
-  protected function registerAddonBackendHomeBreadscrumb() {
+  protected function registerAddonHomeBreadscrumb() {
 
     if ( self::$has_set_addon_home_breadscrumb == false ) {
       \Yii::$app->view->params ['breadcrumbs'] [] = $this->home;
