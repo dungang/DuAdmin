@@ -253,6 +253,15 @@ class m201121_145324_create_setting_table extends Migration
                 'open-feature'
             ],
             [
+                'system.sms.driver',
+                '短信服务',
+                '',
+                'STR',
+                '短信服务',
+                'system_sms_driver',
+                'open-feature'
+            ],
+            [
                 'system.editor.driver',
                 '默认编辑器',
                 'Addons\Ueditor\Widgets\Ueditor',

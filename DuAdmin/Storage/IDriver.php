@@ -1,4 +1,5 @@
 <?php
+
 namespace DuAdmin\Storage;
 
 use yii\base\BaseObject;
@@ -127,7 +128,7 @@ abstract class IDriver extends BaseObject
      * @param int $x
      * @param int $y
      */
-    public abstract function crop($filePath, $file, $suffix, $width, $height, $x, $y,$final_width=null,$final_height=null);
+    public abstract function crop($filePath, $file, $suffix, $width, $height, $x, $y, $final_width = null, $final_height = null);
 
     /**
      * 删除文件
@@ -136,13 +137,13 @@ abstract class IDriver extends BaseObject
      * @return bool
      */
     public abstract function delete(string $filename);
-    
+
     /**
      * 前端页面的配置
      * 解决第三方oss的直传
      * @return string
      */
-    public abstract function configWidget();
+    public abstract static function configWidget();
 
 
     /**
@@ -161,6 +162,5 @@ abstract class IDriver extends BaseObject
      */
     public abstract function getUploaderUrlInfo();
 
-    public abstract function saveFile($fileContent,$path);
+    public abstract function saveFile($fileContent, $path);
 }
-

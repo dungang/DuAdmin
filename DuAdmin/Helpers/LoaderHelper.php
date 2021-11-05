@@ -96,22 +96,32 @@ class LoaderHelper
 
     /**
      * 注册插件的库文件到加载器中
-     *
+     * 激活的插件才加载
      * @param array $addon
      */
     public static function loadAddonLibs(array $addon)
     {
-        if (isset($addon['classMap']) && $addon['classMap']) {
-            static::addClassMap($addon['classMap']);
+        if ($addon['active']) {
+            if (isset($addon['classMap']) && $addon['classMap']) {
+                static::addClassMap($addon['classMap']);
+            }
+            if (isset($addon['namespaces']) && $addon['namespaces']) {
+                static::addMoreNamespace($addon['namespaces']);
+            }
+            if (isset($addon['psr4']) && $addon['psr4']) {
+                static::addMorePsr4($addon['psr4']);
+            }
+            if (isset($addon['files']) && $addon['files']) {
+                static::addFiles($addon['files']);
+            }
         }
-        if (isset($addon['namespaces']) && $addon['namespaces']) {
-            static::addMoreNamespace($addon['namespaces']);
-        }
-        if (isset($addon['psr4']) && $addon['psr4']) {
-            static::addMorePsr4($addon['psr4']);
-        }
-        if (isset($addon['files']) && $addon['files']) {
-            static::addFiles($addon['files']);
+    }
+
+    public static function loadAddonVendor($addonName)
+    {
+        $autoloadFile =  \Yii::$app->basePath . '/Addons/' . $addonName . "/vendor/autoload.php";
+        if (file_exists($autoloadFile)) {
+            require_once $autoloadFile;
         }
     }
 
@@ -139,6 +149,7 @@ class LoaderHelper
 
     /**
      * 动态解析插件配置文件
+     * 包括vendor目录的类文件，解析成插件的配置项
      *
      * @param boolean $fresh
      * @return mixed|mixed[]

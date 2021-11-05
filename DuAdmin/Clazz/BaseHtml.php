@@ -2308,6 +2308,9 @@ class BaseHtml
 
     public static $viewInputIdMap = [];
 
+    /**
+     * 修改了默认的生成id的方式
+     */
     public static function getViewInputId()
     {
         $view = Yii::$app->view->viewFile;

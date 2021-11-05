@@ -129,7 +129,7 @@ class LocalDriver extends IDriver
      * {@inheritdoc}
      * @see \DuAdmin\Storage\IDriver::configWidget()
      */
-    public function configWidget()
+    public static function configWidget()
     {
         ConfigWidget::widget();
     }
@@ -146,21 +146,21 @@ class LocalDriver extends IDriver
             'key' => parent::initWritePath($fileType) . '/' . uniqid($fileType, true),
             'token' => time(),
             'uploadUrl' => $this->getUploaderUrlInfo(),
-            'baseUrl' => Url::to('/',true),
+            'baseUrl' => Url::to('/', true),
             'driver' => 'local'
         ];
     }
 
     public function getUploaderUrlInfo()
     {
-        return Url::to(['site/upload'],true);
+        return Url::to(['site/upload'], true);
     }
 
     public function saveFile($fileContent, $path)
     {
         $filePath = $this->webroot . '/' . $path;
         FileHelper::createDirectory(dirname($filePath));
-        file_put_contents($filePath,$fileContent);
+        file_put_contents($filePath, $fileContent);
         return $path;
     }
 }

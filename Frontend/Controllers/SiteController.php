@@ -57,6 +57,9 @@ class SiteController extends BaseController
                 'minLength'       => 4,
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null
             ],
+            'sms-captcha'        => [
+                'class' => '\DuAdmin\Sms\SendSmsCaptchaAction'
+            ],
             'upload'        => [
                 'class' => '\DuAdmin\Uploader\LocalUploadAction'
             ],
