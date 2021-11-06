@@ -216,9 +216,12 @@ class InstallerHelper
         if (is_array($navigations)) {
             foreach ($navigations as $index => $navigation) {
                 $children = isset($navigation['children']) ? $navigation['children'] : null;
-                $model = new Navigation();
+                $model = new Navigation(['app' => $app]);
                 $model->load($navigation, '');
                 $model->pid = $pid;
+                if (!isset($navigation['requireAuth'])) {
+                    $model->requireAuth = 1;
+                }
                 if (isset($navigation['sort'])) {
                     $model->sort = $navigation['sort'];
                 } else if ($pid === 0) {

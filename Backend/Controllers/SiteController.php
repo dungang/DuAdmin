@@ -1,4 +1,5 @@
 <?php
+
 namespace Backend\Controllers;
 
 use DuAdmin\Core\BaseController;
@@ -17,7 +18,7 @@ class SiteController extends BaseController
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
-                'layout'=> 'login'
+                'layout' => 'login'
             ],
             'captcha' => [
                 'class' => '\yii\captcha\CaptchaAction',
@@ -25,6 +26,9 @@ class SiteController extends BaseController
                 'maxLength' => 4,
                 'minLength' => 4,
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null
+            ],
+            'dict' => [
+                'class' => '\DuAdmin\Dict\DictAction',
             ],
             'upload' => [
                 'class' => '\DuAdmin\Uploader\LocalUploadAction'

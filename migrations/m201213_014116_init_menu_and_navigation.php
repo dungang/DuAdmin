@@ -106,24 +106,28 @@ class m201213_014116_init_menu_and_navigation extends Migration
                 'name'     => '下载',
                 'intro'    => 'DUAdmin下载地址',
                 'url'      => '#',
+                'requireAuth' => 0,
                 'children' => [
                     [
                         'name'    => 'Gitee',
                         'url'     => 'https://gitee.com/dungang/DuAdmin',
                         'intro'   => 'DUAdmin的源码地址-码云地址',
-                        'isOuter' => 1
+                        'isOuter' => 1,
+                        'requireAuth' => 0,
                     ],
                     [
                         'name'    => 'GitHub',
                         'url'     => 'https://github.com/dungang/DuAdmin',
                         'intro'   => 'DUAdmin的源码地址-Github',
-                        'isOuter' => 1
+                        'isOuter' => 1,
+                        'requireAuth' => 0,
                     ],
                     [
                         'name'    => 'Demo',
                         'url'     => 'http://www.duadmin.com',
                         'intro'   => 'DUAdmin的Demo地址',
-                        'isOuter' => 1
+                        'isOuter' => 1,
+                        'requireAuth' => 0,
                     ],
                 ]
             ],
@@ -131,30 +135,35 @@ class m201213_014116_init_menu_and_navigation extends Migration
                 'name'     => '开源项目',
                 'intro'    => '作者的其他开源项目',
                 'url'      => '#',
+                'requireAuth' => 0,
                 'children' => [
                     [
                         'name'    => 'GeeTask',
                         'intro'   => 'GeeTask 极简项目管理',
                         'url'     => 'https://gitee.com/dungang/gee-task',
-                        'isOuter' => 1
+                        'isOuter' => 1,
+                        'requireAuth' => 0,
                     ],
                     [
                         'name'    => 'Luck Lottery',
                         'intro'   => 'Luck Lottery 年会抽奖软件',
                         'url'     => 'https://github.com/dungang/lucky-lottery',
-                        'isOuter' => 1
+                        'isOuter' => 1,
+                        'requireAuth' => 0,
                     ],
                 ]
             ],
             [
                 'name'  => '联系我们',
                 'intro' => '了解DUAdmin的最好方式是联系我们',
-                'url'   => 'contact-us'
+                'url'   => 'contact-us',
+                'requireAuth' => 0,
             ],
             [
                 'name'  => '关于我们',
                 'intro' => 'DUAdmin官方背书-关于我们',
-                'url'   => 'about-us'
+                'url'   => 'about-us',
+                'requireAuth' => 0,
             ]
         ]);
     }

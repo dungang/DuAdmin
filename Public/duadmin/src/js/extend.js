@@ -49,7 +49,7 @@ function($) {
             return;
         $self = $(select);
         var data = $self.data();
-        $self.empty(); // 情况自己
+        $self.empty(); // 清空自己
         var param = {};
         if (data.parentId != null && data.param) {
             param[data.param] = data.parentId;
@@ -91,6 +91,7 @@ function($) {
             process(queue);
         });
     }
+    $(document).linkageSelect();
 }(jQuery);
 
 +

@@ -95,7 +95,7 @@ $this->registerJs(AppHelper::getSetting('site.tongji'), View::POS_HEAD);
         <?= AdminlteSideBarMenu::widget([
             'headerLabel' => '导航',
             'nameKey' => 'name',
-            'items' => Navigation::getNavigation('frontend')
+            'items' => Navigation::getNavigationExclude('frontend')
         ]) ?>
 
         <?php AdminlteSideBar::end(); ?>

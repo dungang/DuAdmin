@@ -161,6 +161,19 @@ class Navigation extends BaseModel
         return $appItems;
     }
 
+    public static function getAllItems($guest)
+    {
+        if ($guest) {
+            return \Yii::$app->cache->getOrSet(self::CACHE_GUEST_KEY, function () {
+                return self::getGuestNavigationData();
+            });
+        } else {
+            return  \Yii::$app->cache->getOrSet(self::CACHE_KEY, function () {
+                return self::getNavigationData();
+            });
+        }
+    }
+
     /**
      * 根据app编码获取对应的导航
      * 如果对应的app没有数据默认使用frontend
@@ -170,19 +183,29 @@ class Navigation extends BaseModel
      */
     public static function getNavigation($app = 'frontend', $guest = false)
     {
-        if ($guest) {
-            $appItems = \Yii::$app->cache->getOrSet(self::CACHE_GUEST_KEY, function () {
-                return self::getGuestNavigationData();
-            });
-        } else {
-            $appItems = \Yii::$app->cache->getOrSet(self::CACHE_KEY, function () {
-                return self::getNavigationData();
-            });
-        }
 
-        if ($appItems) {
+        if ($appItems = static::getAllItems($guest)) {
             return array_filter($appItems, function ($item) use ($app) {
                 return $item['app'] == $app;
+            });
+        } else {
+            return [];
+        }
+    }
+
+    /**
+     * 根据app编码获取对应的导航
+     * 如果对应的app没有数据默认使用frontend
+     *
+     * @param string $app
+     * @return array|array[]
+     */
+    public static function getNavigationExclude($app = 'frontend', $guest = false)
+    {
+
+        if ($appItems = static::getAllItems($guest)) {
+            return array_filter($appItems, function ($item) use ($app) {
+                return $item['app'] !== $app;
             });
         } else {
             return [];

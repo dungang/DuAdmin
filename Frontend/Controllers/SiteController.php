@@ -27,15 +27,15 @@ class SiteController extends BaseController
     {
 
         parent::init();
-        if ( !Yii::$app->request->isAjax ) {
-            $this->view->registerMetaTag( [
+        if (!Yii::$app->request->isAjax) {
+            $this->view->registerMetaTag([
                 'name'    => 'keywords',
-                'content' => AppHelper::getSetting( 'site.keywords' )
-            ], 'keywords' );
-            $this->view->registerMetaTag( [
+                'content' => AppHelper::getSetting('site.keywords')
+            ], 'keywords');
+            $this->view->registerMetaTag([
                 'name'    => 'description',
-                'content' => AppHelper::getSetting( 'site.description' )
-            ], 'description' );
+                'content' => AppHelper::getSetting('site.description')
+            ], 'description');
         }
     }
 
@@ -60,6 +60,9 @@ class SiteController extends BaseController
             'sms-captcha'        => [
                 'class' => '\DuAdmin\Sms\SendSmsCaptchaAction'
             ],
+            'dict' => [
+                'class' => '\DuAdmin\Dict\DictAction',
+            ],
             'upload'        => [
                 'class' => '\DuAdmin\Uploader\LocalUploadAction'
             ],
@@ -70,7 +73,6 @@ class SiteController extends BaseController
                 'class' => '\DuAdmin\Uploader\DeleteAction'
             ]
         ];
-
     }
 
     /**
@@ -84,12 +86,11 @@ class SiteController extends BaseController
     public function actionIndex()
     {
 
-        if ( $url = AppHelper::getSetting( "site.index-page" ) ) {
-            return $this->redirect( $url );
+        if ($url = AppHelper::getSetting("site.index-page")) {
+            return $this->redirect($url);
         } else {
-            return $this->render( "index" );
+            return $this->render("index");
         }
-
     }
 
     /**
@@ -99,30 +100,29 @@ class SiteController extends BaseController
      * @return mixed|NULL|string
      * @throws NotFoundHttpException|Exception
      */
-    public function actionPage( $slug = 'index' )
+    public function actionPage($slug = 'index')
     {
 
         // try to display action from controller
         try {
-            return $this->run( '/' . $slug );
-        } catch ( \yii\base\InvalidRouteException $ex ) {
-            \Yii::debug( $ex->getMessage() );
+            return $this->run('/' . $slug);
+        } catch (\yii\base\InvalidRouteException $ex) {
+            \Yii::debug($ex->getMessage());
         }
         // try to display action from application
         try {
-            return \Yii::$app->runAction( $slug . '/' );
-        } catch ( \yii\base\InvalidRouteException $ex ) {
+            return \Yii::$app->runAction($slug . '/');
+        } catch (\yii\base\InvalidRouteException $ex) {
         }
         // try to display static page from hook handler
-        $hook = FindSlugHook::emit( $this, [
+        $hook = FindSlugHook::emit($this, [
             'slug' => $slug
-        ] );
-        if ( $hook && $hook->payload ) {
+        ]);
+        if ($hook && $hook->payload) {
             return $hook->payload;
         }
         // if nothing suitable was found then throw 404 error
-        throw new NotFoundHttpException( 'Page not found.' );
-
+        throw new NotFoundHttpException('Page not found.');
     }
 
     /**
@@ -135,7 +135,6 @@ class SiteController extends BaseController
 
         \Yii::$app->user->logout();
         return $this->goHome();
-
     }
 
     /**
@@ -144,9 +143,11 @@ class SiteController extends BaseController
      */
     public function actionContactQr()
     {
-        return Html::tag( 'div',
-            Html::img( AppHelper::getSetting( "site.qr" ), ['width' => '100%'] ),
-            ['style' => 'padding:5px'] );
+        return Html::tag(
+            'div',
+            Html::img(AppHelper::getSetting("site.qr"), ['width' => '100%']),
+            ['style' => 'padding:5px']
+        );
     }
 
     /**
@@ -158,19 +159,18 @@ class SiteController extends BaseController
     {
 
         $model = new ContactForm();
-        if ( $model->load( Yii::$app->request->post() ) && $model->validate() ) {
-            if ( $model->sendEmail( AppHelper::getSetting( 'email.recipient' ) ) ) {
-                Yii::$app->session->setFlash( 'success', 'Thank you for contacting us. We will respond to you as soon as possible.' );
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->sendEmail(AppHelper::getSetting('email.recipient'))) {
+                Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
             } else {
-                Yii::$app->session->setFlash( 'error', 'There was an error sending your message.' );
+                Yii::$app->session->setFlash('error', 'There was an error sending your message.');
             }
             return $this->refresh();
         } else {
-            return $this->render( 'contact', [
+            return $this->render('contact', [
                 'model' => $model
-            ] );
+            ]);
         }
-
     }
 
     /**
@@ -182,18 +182,17 @@ class SiteController extends BaseController
     {
 
         $model = new PasswordResetRequestForm();
-        if ( $model->load( Yii::$app->request->post() ) && $model->validate() ) {
-            if ( $model->sendEmail() ) {
-                Yii::$app->session->setFlash( 'success', 'Check your email for further instructions.' );
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->sendEmail()) {
+                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
                 return $this->goHome();
             } else {
-                Yii::$app->session->setFlash( 'error', 'Sorry, we are unable to reset password for the provided email address.' );
+                Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');
             }
         }
-        return $this->render( 'requestPasswordResetToken', [
+        return $this->render('requestPasswordResetToken', [
             'model' => $model
-        ] );
-
+        ]);
     }
 
     /**
@@ -203,22 +202,21 @@ class SiteController extends BaseController
      * @return mixed
      * @throws BadRequestHttpException::
      */
-    public function actionResetPassword( $token )
+    public function actionResetPassword($token)
     {
 
         try {
-            $model = new ResetPasswordForm( $token );
-        } catch ( InvalidArgumentException $e ) {
-            throw new BadRequestHttpException( $e->getMessage() );
+            $model = new ResetPasswordForm($token);
+        } catch (InvalidArgumentException $e) {
+            throw new BadRequestHttpException($e->getMessage());
         }
-        if ( $model->load( Yii::$app->request->post() ) && $model->validate() && $model->resetPassword() ) {
-            Yii::$app->session->setFlash( 'success', 'New password saved.' );
+        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
+            Yii::$app->session->setFlash('success', 'New password saved.');
             return $this->goHome();
         }
-        return $this->render( 'resetPassword', [
+        return $this->render('resetPassword', [
             'model' => $model
-        ] );
-
+        ]);
     }
 
     /**
@@ -228,23 +226,22 @@ class SiteController extends BaseController
      * @return yii\web\Response
      * @throws BadRequestHttpException
      */
-    public function actionVerifyEmail( $token )
+    public function actionVerifyEmail($token)
     {
 
         try {
-            $model = new VerifyEmailForm( $token );
-        } catch ( InvalidArgumentException $e ) {
-            throw new BadRequestHttpException( $e->getMessage() );
+            $model = new VerifyEmailForm($token);
+        } catch (InvalidArgumentException $e) {
+            throw new BadRequestHttpException($e->getMessage());
         }
-        if ( $user = $model->verifyEmail() ) {
-            if ( Yii::$app->user->login( $user ) ) {
-                Yii::$app->session->setFlash( 'success', 'Your email has been confirmed!' );
+        if ($user = $model->verifyEmail()) {
+            if (Yii::$app->user->login($user)) {
+                Yii::$app->session->setFlash('success', 'Your email has been confirmed!');
                 return $this->goHome();
             }
         }
-        Yii::$app->session->setFlash( 'error', 'Sorry, we are unable to verify your account with provided token.' );
+        Yii::$app->session->setFlash('error', 'Sorry, we are unable to verify your account with provided token.');
         return $this->goHome();
-
     }
 
     /**
@@ -256,16 +253,15 @@ class SiteController extends BaseController
     {
 
         $model = new ResendVerificationEmailForm();
-        if ( $model->load( Yii::$app->request->post() ) && $model->validate() ) {
-            if ( $model->sendEmail() ) {
-                Yii::$app->session->setFlash( 'success', 'Check your email for further instructions.' );
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->sendEmail()) {
+                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
                 return $this->goHome();
             }
-            Yii::$app->session->setFlash( 'error', 'Sorry, we are unable to resend verification email for the provided email address.' );
+            Yii::$app->session->setFlash('error', 'Sorry, we are unable to resend verification email for the provided email address.');
         }
-        return $this->render( 'resendVerificationEmail', [
+        return $this->render('resendVerificationEmail', [
             'model' => $model
-        ] );
-
+        ]);
     }
 }
