@@ -8,6 +8,7 @@ use yii\helpers\Url;
 
 class LinkageSelect extends InputWidget
 {
+    public $type = 'child';
     /**
      * 子集的都写上
      * var array $subFields
@@ -23,12 +24,12 @@ class LinkageSelect extends InputWidget
     /**
      * 父的参数的值，通过标签select
      */
-    public $parentSelectId;
+    public $parentSelectName;
 
     /**
      * 父的参数名称
      */
-    public $parentName='pid';
+    public $parentName = 'pid';
 
     /**
      * 数据请求的路由
@@ -37,18 +38,22 @@ class LinkageSelect extends InputWidget
 
     public function run()
     {
+        $view_id = Html::getViewInputId();
+
         $config = [
-            'data-linkage' => true,
-            'data-queue'   => implode(',', array_map(function ($field) {
-                return '#' . $field;
+            'data-linkage' => $this->type,
+            'data-queue'   => implode(',', array_map(function ($field) use ($view_id) {
+                return '#' . $view_id . '-' . strtolower($field);
             }, $this->subFields)),
             'data-parent-id' => $this->parentValue,
+            'data-parent' => $this->parentSelectName ? '#' . $view_id . '-' . strtolower($this->parentSelectName) : null,
             'data-param'     => $this->parentName,
             'data-url'       => Url::to($this->route),
+            'class' => 'form-control'
         ];
 
         if ($this->hasModel()) {
-            $config['id'] = $this->attribute;
+            $config['id'] = Html::getInputId($this->model, $this->attribute);
             $config['value'] = $this->model[$this->attribute];
             return Html::activeDropDownList($this->model, $this->attribute, [], $config);
         } else {
