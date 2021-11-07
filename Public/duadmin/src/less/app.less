@@ -14,20 +14,20 @@ a,
 }
 
 .not-set {
-	color     : #c55;
+	color: #c55;
 	font-style: italic;
 }
 
 /* add sorting icons to gridview sort links */
 a.asc:after,
 a.desc:after {
-	position    : relative;
-	top         : 1px;
-	display     : inline-block;
-	font-family : 'Glyphicons Halflings';
-	font-style  : normal;
-	font-weight : normal;
-	line-height : 1;
+	position: relative;
+	top: 1px;
+	display: inline-block;
+	font-family: 'Glyphicons Halflings';
+	font-style: normal;
+	font-weight: normal;
+	line-height: 1;
 	padding-left: 5px;
 }
 
@@ -83,39 +83,61 @@ table,
 	tbody {
 		tr {
 			td {
-				display       : table-cell;
+				display: table-cell;
 				vertical-align: middle;
 			}
 		}
 	}
 }
 
+.form-group {
+	&.has-success {
+		label {
+			color: @gray-base;
+		}
+
+		label.control-label {
+			color: @green;
+		}
+
+		.form-control,
+		.input-group-addon {
+			border-color: @gray-base;
+			box-shadow: none;
+		}
+
+		.help-block {
+			color: @gray-base;
+		}
+	}
+}
+
 .hint-block {
-	display   : block;
+	display: block;
 	margin-top: 5px;
-	color     : #999;
+	color: #999;
 }
 
 .error-summary {
-	color      : #a94442;
-	background : #fdf7f7;
+	color: #a94442;
+	background: #fdf7f7;
 	border-left: 3px solid #eed3d7;
-	padding    : 10px 20px;
-	margin     : 0 0 15px 0;
+	padding: 10px 20px;
+	margin: 0 0 15px 0;
 }
 
 /* align the logout "link" (button in form) of the navbar */
 .nav li>form>button.logout {
 	padding: 15px;
-	border : none;
+	border: none;
 }
 
 @media (max-width :767px) {
 	.nav li>form>button.logout {
-		display   : block;
+		display: block;
 		text-align: left;
-		width     : 100%;
-		padding   : 10px 15px;
+		width: 100%;
+		padding: 10px 15px;
 	}
 }
 
@@ -130,9 +152,9 @@ table,
 
 
 .text-overflow {
-	overflow     : hidden;
+	overflow: hidden;
 	text-overflow: ellipsis;
-	white-space  : nowrap;
+	white-space: nowrap;
 }
 
 // --- #modal-dialog ---
@@ -159,26 +181,31 @@ table,
 
 div[id*="-search-modal"] {
 	border-radius: 6px;
+
 	.modal-content {
 		border-radius: @backend-border-radius;
 	}
+
 	.modal-body {
 		padding: 15px 30px;
 	}
 }
+
 .backend-radius {
 	border-radius: @backend-border-radius;
 }
+
 .panel-adminlte {
 	.box-body {
 		//padding: 30px 30px 15px;
 	}
 }
+
 // #dropdown adminlte 
 
 .dropdown-menu {
 	>li>a {
-		color      : inherit;
+		color: inherit;
 		line-height: 30px;
 	}
 }
@@ -188,15 +215,15 @@ div[id*="-search-modal"] {
 @search-green: darken(@green, 5%);
 
 .full-search-box {
-	width         : 240px;
-	margin-right  : 5px;
-	display       : inline-block;
+	width: 240px;
+	margin-right: 5px;
+	display: inline-block;
 	vertical-align: middle;
 
 	input {
-		border-top-left-radius   : 30px;
+		border-top-left-radius: 30px;
 		border-bottom-left-radius: 30px;
-		border-color             : @green;
+		border-color: @green;
 
 		&:focus,
 		&:hover {
@@ -205,15 +232,15 @@ div[id*="-search-modal"] {
 	}
 
 	.btn {
-		color       : white;
+		color: white;
 		border-color: @green;
-		background  : @green;
+		background: @green;
 	}
 }
 
 .action-column {
 	text-align: center;
-	width     : 60px;
+	width: 60px;
 
 	button {
 		width: 30px;
@@ -232,11 +259,12 @@ div[id*="-search-modal"] {
 
 .form-group {
 	margin-bottom: 5px;
+
 	.help-block {
 		font-size: 10px;
 		line-height: 10px;
 		height: 10px;
-		margin-top:3px;
+		margin-top: 3px;
 		margin-bottom: 0;
 	}
 }

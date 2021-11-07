@@ -50,6 +50,10 @@ class RegionsSelectWidget extends Widget
      */
     public $district = 'districtId';
 
+    public $showInline = true;
+
+    public $singleCssClass="col-md-6";
+
     private $dataItems = [];
 
     public function run()
@@ -76,14 +80,21 @@ class RegionsSelectWidget extends Widget
             $cellWidth = 4;
             $items[] = $this->getRegionsSubWidget($this->district, null, $this->model[$this->city], 4);
         }
-
-        return Html::tag('div', implode('', array_map(function ($item) use ($cellWidth) {
-            return Html::tag('div', $item, [
-                'class' => 'col-md-' . $cellWidth
+        if($this->showInline) {
+            return Html::tag('div', implode('', array_map(function ($item) use ($cellWidth) {
+                return Html::tag('div', $item, [
+                    'class' => 'col-md-' . $cellWidth
+                ]);
+            }, $items)), [
+                'class' => 'row china-region'
             ]);
-        }, $items)), [
-            'class' => 'row china-region'
-        ]);
+        } else {
+            return implode('', array_map(function ($item) use ($cellWidth) {
+                return Html::tag('div', $item, [
+                    'class' => $this->singleCssClass
+                ]);
+            }, $items));
+        }
     }
 
     /**
@@ -136,7 +147,7 @@ class RegionsSelectWidget extends Widget
         return <<<JS
 $('.china-region').each(function(){
     var chinaRegion = $(this);
-    chinaRegion.find('select').change(function(){
+    chinaRegion.find('select[data-region]').change(function(){
         var select = $(this);
         var data = select.data();
         chinaRegion.find('[data-region='+data.target+']').each(function(){

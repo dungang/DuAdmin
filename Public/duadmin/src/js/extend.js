@@ -75,14 +75,16 @@ function ($) {
 
     function initRoot() {
         var root = $('select[data-linkage=root]');
-        var queue = [root];
-        var subs = root.data('queue').split(',');
-        if (!!subs) {
-            for (var sub of subs) {
-                queue.push(sub);
+        if (root.length > 0) {
+            var queue = [root];
+            var subs = root.data('queue').split(',');
+            if (!!subs) {
+                for (var sub of subs) {
+                    queue.push(sub);
+                }
             }
+            process(queue);
         }
-        process(queue);
     }
 
     $.fn.linkageSelect = function () {
@@ -96,7 +98,6 @@ function ($) {
             }
         });
     }
-    $(document).linkageSelect();
 }(jQuery);
 
 +

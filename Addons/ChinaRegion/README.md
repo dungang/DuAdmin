@@ -11,10 +11,17 @@ http://www.mca.gov.cn/article/sj/xzqh/2020/2020/2020112010001.html
 
 ```php
 $form = ActiveForm::begin();
-RegionsSelectWidget::widget([
+echo RegionsSelectWidget::widget([
         'form'=>$form,
         'model' => $model,
         'district' => null,
+    ]);
+
+echo RegionsSelectWidget::widget([
+        'showInline' => false,
+        'singleCssClass' => 'col-xs-6',
+        'model' => $model,
+        'form' => $form
     ]);
 ActiveForm::end();
 ```

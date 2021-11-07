@@ -19,7 +19,7 @@ $formName = Inflector::camel2id(StringHelper::basename($generator->modelClass));
 <?php $this->beginBlock('form');?>
 <div class="<?= $formName ?>-form">
 
-    <?= "<?php " ?>$form = ActiveForm::begin(['id'=>'<?= $formName ?>-form','enableAjaxValidation' => true,'action'=>$action]); ?>
+    <?= "<?php " ?>$form = ActiveForm::begin(['id'=>'<?= $formName ?>-form','enableAjaxValidation' => false,'action'=>$action]); ?>
     <div class="row">
 <?php foreach ($generator->getColumnNames() as $attribute) {
     if (in_array($attribute, $safeAttributes)) {

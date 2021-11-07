@@ -5,6 +5,7 @@ namespace DuAdmin\Widgets;
 use yii\bootstrap\Html;
 use yii\bootstrap\InputWidget;
 use yii\helpers\Url;
+use yii\web\View;
 
 class LinkageSelect extends InputWidget
 {
@@ -38,6 +39,9 @@ class LinkageSelect extends InputWidget
 
     public function run()
     {
+
+        $this->view->registerJs("$(document).linkageSelect();",View::POS_READY,"linkageSelect");
+
         $view_id = Html::getViewInputId();
 
         $config = [
