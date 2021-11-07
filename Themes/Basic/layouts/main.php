@@ -72,7 +72,7 @@ $siteName = Yii::t('app', AppHelper::getSetting('site.name', Yii::$app->name));
         ];
 
         $navigations = Navigation::getBootstapNavigation('frontend', true);
-        
+
         $menus = array_merge($menus, $navigations);
         if (Yii::$app->user->isGuest) {
             $menus[] = [
@@ -82,11 +82,7 @@ $siteName = Yii::t('app', AppHelper::getSetting('site.name', Yii::$app->name));
                 ]
             ];
         } else {
-            $menus[] = '<li>' . Html::beginForm([
-                '/site/logout'
-            ], 'post') . Html::submitButton(Yii::t('app', 'Logout') . ' ( ' . Yii::$app->user->identity->username . ' ) ', [
-                'class' => 'btn btn-link logout'
-            ]) . Html::endForm() . '</li>';
+            $menus[] = '<li>' . Html::a('<i class="fa fa-user"></i> '.Yii::$app->user->identity->username, AppHelper::getSetting('site.usercenter-page')) . '</li>';
         }
 
         echo Nav::widget([

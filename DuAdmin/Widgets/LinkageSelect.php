@@ -39,7 +39,7 @@ class LinkageSelect extends InputWidget
 
     public function run()
     {
-
+        //pjax内容替换的时候必须每次执行一次
         $this->view->registerJs("$(document).linkageSelect();",View::POS_READY,"linkageSelect");
 
         $view_id = Html::getViewInputId();

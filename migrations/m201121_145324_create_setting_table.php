@@ -235,6 +235,15 @@ class m201121_145324_create_setting_table extends Migration
                 'open-feature'
             ],
             [
+                'site.usercenter-page',
+                '用户中心主页',
+                '/profile.html',
+                'STR',
+                '可以根据业务配置网站的默认首页',
+                '',
+                'open-feature'
+            ],
+            [
                 'system.storage.driver',
                 '存储服务',
                 '',
