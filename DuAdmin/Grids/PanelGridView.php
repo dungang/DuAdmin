@@ -1,4 +1,5 @@
 <?php
+
 namespace DuAdmin\Grids;
 
 use yii\helpers\Html;
@@ -50,7 +51,7 @@ class PanelGridView extends GridView
         parent::init();
         $this->options['class'] = $this->panelClass;
         $this->summaryOptions['class'] = 'grid-summary'; // $this->panelTitleClass;
-                                                         // $this->summaryOptions['tag'] = 'span';
+        // $this->summaryOptions['tag'] = 'span';
         ob_start();
         ob_implicit_flush(false);
     }
@@ -60,9 +61,11 @@ class PanelGridView extends GridView
         $this->tools[] = ob_get_clean() . Html::tag('div', parent::renderSummary(), [
             'class' => 'pull-right'
         ]);
-        $this->_toolBody = Html::tag('div', implode(' ', $this->tools), [
-            'class' => 'panel-tools'
-        ]);
+        if (!empty($this->tools)) {
+            $this->_toolBody = Html::tag('div', implode(' ', $this->tools), [
+                'class' => 'panel-tools clearfix'
+            ]);
+        }
         return parent::run();
     }
 
@@ -70,11 +73,11 @@ class PanelGridView extends GridView
     {
         $header = '';
         if ($this->intro) {
-            if ($this->title) {
-                $header .= Html::tag('div', $this->title, [
-                    'class' => $this->panelTitleClass
-                ]);
-            }
+            // if ($this->title) {
+            //     $header .= Html::tag('div', $this->title, [
+            //         'class' => $this->panelTitleClass
+            //     ]);
+            // }
             if (is_array($this->intro)) {
                 $header .= implode('', array_map(function ($intro) {
                     return Html::tag('p', $intro);
@@ -97,7 +100,10 @@ class PanelGridView extends GridView
 
     public function renderItems()
     {
-        return $this->renderPanelHeading() . Html::tag('div', $this->_toolBody . parent::renderItems(), [
+        //return $this->renderPanelHeading() .
+        return  Html::tag('div', $this->_toolBody . Html::tag('div', parent::renderItems(), [
+            'class' => 'table-box'
+        ]), [
             'class' => $this->panelBodyClass
         ]);
     }

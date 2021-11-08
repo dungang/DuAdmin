@@ -56,6 +56,7 @@ class AdminltePanel extends Widget
 
     protected function renderPanelHeading()
     {
+        return '';
         $header = '';
         if ($this->intro) {
             if ($this->title) {

@@ -51,7 +51,7 @@ class PanelTreeGridView extends TreeGrid
     public function run()
     {
         $this->_body_content = ob_get_clean();
-        $panelHeading = $this->renderPanelHeading();
+        $panelHeading = '';//$this->renderPanelHeading();
         $panelBody = Html::tag('div', $this->_body_content . parent::run(), [
             'class' => $this->panelBodyClass
         ]);

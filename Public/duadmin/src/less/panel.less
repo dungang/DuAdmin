@@ -4,10 +4,10 @@
  */
 
 .panel {
-    margin-bottom   : @line-height-computed;
+    margin-bottom: @line-height-computed;
     background-color: @panel-bg;
-    border          : 0;
-    border-radius   : @panel-border-radius;
+    border: 0;
+    border-radius: @panel-border-radius;
     .box-shadow(0 1px 1px rgba(0, 0, 0, .05));
 
     .small-box {
@@ -28,21 +28,25 @@
 }
 
 .panel-adminlte {
-    .border-radius(@backend-border-radius);
+    //.border-radius(@backend-border-radius);
+    background-color: transparent;
+
     &>.panel-heading {
-        padding         : 20px;
+        padding: 20px;
+        margin-bottom: 10px;
         background-color: #d8dfd8; //#e8edf0; @alert-warning-bg;//@state-warning-bg;//@state-info-bg;#d2d6de; //#d2d6de;//#c6cbd0;
-        color           : #4c6b4c; //@alert-warning-text;//@gray;
+        color: #4c6b4c; //@alert-warning-text;//@gray;
         //padding: @panel-heading-padding;
-        border          : 0;
+        border: 0;
 
         //border-bottom: 4px solid @alert-warning-text;
         p {
             font-size: 12px;
-            margin   : 0px;
+            margin: 0px;
         }
 
-        .border-top-radius(@backend-border-radius);
+        //.border-top-radius(@backend-border-radius);
+        .border-radius(@backend-border-radius);
 
         >.dropdown .dropdown-toggle {
             color: inherit;
@@ -55,9 +59,9 @@
 
     .panel-title {
         margin-bottom: 5px;
-        font-size    : 13px;
-        color        : inherit;
-        font-weight  : bold;
+        font-size: 13px;
+        color: inherit;
+        font-weight: bold;
 
         >a,
         >small,
@@ -69,31 +73,42 @@
     }
 
     .panel-tools {
+        padding: 15px 15px 10px;
+        background-color: white;
+        //background-color: #d8dfd8; //#e8edf0; @alert-warning-bg;//@state-warning-bg;//@state-info-bg;#d2d6de; //#d2d6de;//#c6cbd0;
         margin-bottom: 10px;
+        .border-radius(@backend-border-radius);
 
         &>.btn,
         &>.full-search-box {
             margin-bottom: 5px;
-            margin-right : 5px;
+            margin-right: 5px;
         }
     }
 
     .panel-body {
+        padding: 0;
+        .table-box {
+            padding: 15px;
+            background-color: white;
+            .border-radius(@backend-border-radius);
+        }
+
         .panel-body {
             padding: 0 15px;
         }
     }
 
     .panel-footer {
-        border-top      : 0;
-        padding         : 15px;
+        border-top: 0;
+        padding: 15px;
         background-color: white;
-        text-align      : center;
+        text-align: center;
         .border-bottom-radius(@backend-border-radius);
     }
 
     .grid-summary {
-        display    : inline-block;
+        display: inline-block;
         line-height: 34px;
     }
 
@@ -118,30 +133,30 @@
     /* NAV TABS */
     .nav-tabs-custom {
         margin-bottom: 5px;
-        background   : #fff;
-        box-shadow   : 0 0 0;
+        background: #fff;
+        box-shadow: 0 0 0;
         border-radius: @box-border-radius;
-        border       : 0px;
+        border: 0px;
 
         li {
-            border-top   : 0;
+            border-top: 0;
             margin-bottom: 0;
-            margin-right : 5px;
+            margin-right: 5px;
         }
 
         li.active>a,
         li.active>a:hover,
         li>a:hover {
-            background             : #eee;
-            border-top-left-radius : 5px;
+            background: #eee;
+            border-top-left-radius: 5px;
             border-top-right-radius: 5px;
         }
     }
 
 
     .pagination {
-        display         : inline-block;
-        margin          : 0px;
+        display: inline-block;
+        margin: 0px;
         background-color: white;
 
         >li {
@@ -149,7 +164,7 @@
             >a,
             >span {
                 line-height: 16px;
-                padding    : 6px 10px;
+                padding: 6px 10px;
             }
         }
     }
