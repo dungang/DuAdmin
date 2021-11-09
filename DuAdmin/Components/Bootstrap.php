@@ -57,6 +57,8 @@ class Bootstrap implements BootstrapInterface
             return isset($addon['hasBackend']) && $addon['hasBackend'];
         } else if (RUNTIME_MODE === 'Api') {
             return isset($addon['hasApi']) && $addon['hasApi'];
+        } else if (RUNTIME_MODE === 'Console') {
+            return isset($addon['hasConsole']) && $addon['hasConsole'];
         }
         return false;
     }

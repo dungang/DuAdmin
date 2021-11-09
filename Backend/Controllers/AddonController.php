@@ -59,7 +59,6 @@ class AddonController extends BackendController
             $installed = LoaderHelper::loadInstalledAddonsConfig();
             $installed[] = $name;
             LoaderHelper::saveInstalledAddonsConfig($installed);
-
             $migrations = InstallerHelper::getAddonMigrations($dirPath);
             if ($migrations) {
                 foreach ($migrations as $migration) {

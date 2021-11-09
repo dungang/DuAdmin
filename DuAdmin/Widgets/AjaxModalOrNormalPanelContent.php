@@ -1,4 +1,5 @@
 <?php
+
 namespace DuAdmin\Widgets;
 
 use yii\helpers\Html;
@@ -16,7 +17,7 @@ class AjaxModalOrNormalPanelContent extends AdminltePanel
     public function run()
     {
         $content = ob_get_clean();
-        $this->content = $content . $this->content;
+        $this->content = Html::tag('div', $content . $this->content, ['class' => 'panel-content']);
         return $this->renderHeader() . $this->renderContent();
     }
 

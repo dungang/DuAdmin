@@ -15,7 +15,6 @@ class m201124_075757_cms_create_flash_table extends Migration
     public function safeUp()
     {
 
-        $tableOptions = 'CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci ENGINE=MyISAM';
         $this->createTable( '{{%cms_flash}}', [
             'id'        => $this->primaryKey(),
             'name'      => $this->string( 64 )->notNull()->comment( '名称' ),
@@ -25,7 +24,7 @@ class m201124_075757_cms_create_flash_table extends Migration
             'sort'      => $this->smallInteger()->defaultValue( 1 )->comment( '排序' ),
             'createdAt' => $this->dateTime()->null()->comment( '添加时间' ),
             'updatedAt' => $this->dateTime()->null()->comment( '更新时间' )
-        ], $tableOptions );
+        ]);
         $this->addCommentOnTable( '{{%cms_flash}}', '轮播' );
     }
 

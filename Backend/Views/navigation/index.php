@@ -27,7 +27,7 @@ echo AdminltePanel::widget( [
                         'items' => $models,
                         'rowRender' => function ( $item ) {
                           $content = '<i class="' . $item ['icon'] . '"></i> ' . $item ['name'];
-                          if ( ($item ['requireLogin']) ) {
+                          if ( ($item ['requireAuth']) ) {
                             $content .= ' <span class="label label-danger label-xs">登录可见</span>';
                           }
                           return $content;

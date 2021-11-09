@@ -11,7 +11,6 @@ class m201121_155003_create_action_log_table extends Migration {
    */
   public function safeUp() {
 
-    $tableOptions = 'CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci ENGINE=MyISAM';
     $this->createTable( '{{%action_log}}', [
         'id' => $this->primaryKey(),
         'userId' => $this->integer()->notNull()->comment( '用户' ),
@@ -21,7 +20,7 @@ class m201121_155003_create_action_log_table extends Migration {
         'sourceType' => $this->string( 16 )->comment( '来源::Backend:后台|Frontend:前台|Api:API' ),
         'createdAt' => $this->dateTime()->null()->comment( '时间' ),
         'data' => $this->text()->comment( '数据' )
-    ], $tableOptions );
+    ]);
     $this->addCommentOnTable( '{{%action_log}}', '操作日志' );
 
   }

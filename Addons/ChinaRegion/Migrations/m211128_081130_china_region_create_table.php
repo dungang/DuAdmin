@@ -13,13 +13,12 @@ class m211128_081130_china_region_create_table extends Migration
      */
     public function safeUp()
     {
-        $tableOptions = 'CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci ENGINE=MyISAM';
         $this->createTable('{{%china_region}}', [
             'id' => $this->integer()->comment('行政编码'),
             'pid' => $this->integer()->comment('上级行政编码'),
             'level' => $this->integer()->comment('级别::1:省级|2:市级|3:县级'),
             'name' => $this->string(128)->comment("名称"),
-        ],$tableOptions);
+        ]);
         $this->addPrimaryKey('pk-china_region-id','{{%china_region}}','id');
         $this->addCommentOnTable('{{%china_region}}','中国行政编码');
         $dataFile = \Yii::$app->basePath . '/Addons/ChinaRegion/Resource/data.txt';

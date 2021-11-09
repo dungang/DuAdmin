@@ -15,7 +15,6 @@ class m210627_081912_create_generator_tables extends Migration
   public function safeUp()
   {
 
-    $tableOptions = 'CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci ENGINE=MyISAM';
     $this->createTable('{{%gen_table}}', [
       'id' => $this->primaryKey(),
       'tableName' => $this->string(128)->comment('表名'),
@@ -45,7 +44,7 @@ class m210627_081912_create_generator_tables extends Migration
       'enablePjax' => $this->boolean()->defaultValue(false)->comment('是否使用Pjax::0:否|1:是'),
       'createdAt' => $this->dateTime()->null()->comment('添加时间'),
       'updatedAt' => $this->dateTime()->null()->comment('更新时间')
-    ], $tableOptions);
+    ]);
     $this->createIndex('idx-tableName', '{{%gen_table}}', 'tableName');
     $this->addCommentOnTable('{{%gen_table}}', '生成表');
     $this->createTable('{{%gen_table_column}}', [
@@ -64,7 +63,7 @@ class m210627_081912_create_generator_tables extends Migration
       'sort' => $this->smallInteger()->defaultValue(1)->comment('排序'),
       'createdAt' => $this->dateTime()->null()->comment('添加时间'),
       'updatedAt' => $this->dateTime()->null()->comment('更新时间')
-    ], $tableOptions);
+    ]);
     $this->createIndex('idx-tableId', '{{%gen_table_column}}', 'tableId');
     $this->addCommentOnTable('{{%gen_table_column}}', '表字段');
   }

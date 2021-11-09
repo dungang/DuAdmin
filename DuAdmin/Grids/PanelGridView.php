@@ -13,6 +13,8 @@ use yii\helpers\Html;
 class PanelGridView extends GridView
 {
 
+    public $showHeading = false;
+
     /**
      * 面板标题
      *
@@ -71,24 +73,28 @@ class PanelGridView extends GridView
 
     protected function renderPanelHeading()
     {
-        $header = '';
-        if ($this->intro) {
-            // if ($this->title) {
-            //     $header .= Html::tag('div', $this->title, [
-            //         'class' => $this->panelTitleClass
-            //     ]);
-            // }
-            if (is_array($this->intro)) {
-                $header .= implode('', array_map(function ($intro) {
-                    return Html::tag('p', $intro);
-                }, $this->intro));
-            } else {
-                $header .= Html::tag('p', $this->intro);
+        if ($this->showHeader) {
+            $header = '';
+            if ($this->intro) {
+                if ($this->title) {
+                    $header .= Html::tag('div', $this->title, [
+                        'class' => $this->panelTitleClass
+                    ]);
+                }
+                if (is_array($this->intro)) {
+                    $header .= implode('', array_map(function ($intro) {
+                        return Html::tag('p', $intro);
+                    }, $this->intro));
+                } else {
+                    $header .= Html::tag('p', $this->intro);
+                }
             }
+            return $header ? Html::tag('div', $header, [
+                'class' => $this->panelHeadingClass
+            ]) : '';
+        } else {
+            return '';
         }
-        return $header ? Html::tag('div', $header, [
-            'class' => $this->panelHeadingClass
-        ]) : '';
     }
 
     public function renderEmpty()
@@ -102,7 +108,7 @@ class PanelGridView extends GridView
     {
         //return $this->renderPanelHeading() .
         return  Html::tag('div', $this->_toolBody . Html::tag('div', parent::renderItems(), [
-            'class' => 'table-box'
+            'class' => 'panel-content'
         ]), [
             'class' => $this->panelBodyClass
         ]);

@@ -12,8 +12,6 @@ class m201121_154848_create_cron_table extends Migration
      */
     public function safeUp()
     {
-
-        $tableOptions = 'CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci ENGINE=MyISAM';
         $this->createTable('{{%cron}}', [
             'id' => $this->primaryKey(),
             'task' => $this->string(64)->comment('任务'),
@@ -29,7 +27,7 @@ class m201121_154848_create_cron_table extends Migration
             'runAt' => $this->dateTime()->null()->comment('执行时间'),
             'createdAt' => $this->dateTime()->null()->comment('添加时间'),
             'updatedAt' => $this->dateTime()->null()->comment('更新时间'),
-        ], $tableOptions);
+        ]);
         $this->addCommentOnTable('{{%cron}}', '定时任务');
     }
 

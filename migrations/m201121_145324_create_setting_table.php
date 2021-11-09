@@ -17,8 +17,6 @@ class m201121_145324_create_setting_table extends Migration
      */
     public function safeUp()
     {
-
-        $tableOptions = 'CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci ENGINE=MyISAM';
         $this->createTable($this->tableName, [
             'name'        => $this->string(64)->notNull()->comment('变量名'),
             'title'       => $this->string(64)->notNull()->comment('变量标题'),
@@ -32,7 +30,7 @@ class m201121_145324_create_setting_table extends Migration
                 ->comment('变量标题'),
             'subCategory' => $this->string(64)
                 ->comment('变量子标题'),
-        ], $tableOptions);
+        ]);
         $this->addPrimaryKey('pk-setting-name', $this->tableName, 'name');
         $this->addCommentOnTable('{{%setting}}', '系统配置');
         // 初始化配置

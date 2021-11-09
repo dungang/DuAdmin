@@ -91,23 +91,12 @@ table,
 }
 
 .form-group {
-	&.has-success {
-		label {
-			color: @gray-base;
-		}
-
-		label.control-label {
-			color: @green;
-		}
-
-		.form-control,
-		.input-group-addon {
-			border-color: @gray-base;
-			box-shadow: none;
-		}
-
-		.help-block {
-			color: @gray-base;
+	&.required {
+		.control-label:before {
+			content: "*";
+			color: #ed5565;
+			font-weight: bolder;
+			margin-right: 5px;
 		}
 	}
 }
@@ -195,12 +184,6 @@ div[id*="-search-modal"] {
 	border-radius: @backend-border-radius;
 }
 
-.panel-adminlte {
-	.box-body {
-		//padding: 30px 30px 15px;
-	}
-}
-
 // #dropdown adminlte 
 
 .dropdown-menu {
@@ -266,5 +249,46 @@ div[id*="-search-modal"] {
 		height: 10px;
 		margin-top: 3px;
 		margin-bottom: 0;
+	}
+}
+
+.step-widget {
+	position: relative;
+	height: 50px;
+	margin-bottom: 15px;
+
+	.step-line {
+		position: absolute;
+		top: 24px;
+		height: 2px;
+		background-color: #eee;
+		width: 100%;
+	}
+
+	.steps {
+		align-items: center;
+		display: flex;
+		position: absolute;
+		top: 0px;
+		justify-content: space-around;
+		height: 50px;
+		line-height: 50px;
+		width: 100%;
+
+		.step {
+			flex: 1;
+			text-align: center;
+
+			.info-tag {
+				color: white;
+				background: @gray-light;
+				padding: 10px 15px;
+				border-radius: 50px;
+
+				&.passed {
+					background-color: @brand-success ;
+				}
+			}
+		}
 	}
 }

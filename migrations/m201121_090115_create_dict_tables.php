@@ -15,8 +15,6 @@ class m201121_090115_create_dict_tables extends DuAdminMigration
      */
     public function safeUp()
     {
-
-        $tableOptions = 'CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci ENGINE=MyISAM';
         $this->createTable('{{%dict_type}}', [
             'id'        => $this->primaryKey(),
             'dictName'  => $this->string(64)->notNull()->comment('字典名'),
@@ -24,7 +22,7 @@ class m201121_090115_create_dict_tables extends DuAdminMigration
             'status'    => $this->boolean()->defaultValue(true)->comment('状态::0:不可用|1:可用'),
             'createdAt' => $this->dateTime()->null()->comment('添加时间'),
             'updatedAt' => $this->dateTime()->null()->comment('更新时间')
-        ], $tableOptions);
+        ]);
         $this->createIndex('idx-dictType', '{{%dict_type}}', 'dictType');
         $this->addCommentOnTable('{{%dict_type}}', '系统字典');
         $this->createTable('{{%dict_data}}', [
@@ -39,7 +37,7 @@ class m201121_090115_create_dict_tables extends DuAdminMigration
             'status'    => $this->boolean()->defaultValue(true)->comment('状态::0:不可用|1:可用'),
             'createdAt' => $this->dateTime()->null()->comment('添加时间'),
             'updatedAt' => $this->dateTime()->null()->comment('更新时间')
-        ], $tableOptions);
+        ]);
         $this->createIndex('idx-dictType', '{{%dict_data}}', 'dictType');
         $this->addCommentOnTable('{{%dict_data}}', '系统字典数据');
 

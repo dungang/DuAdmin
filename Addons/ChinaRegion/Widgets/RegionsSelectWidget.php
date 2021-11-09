@@ -14,6 +14,10 @@ class RegionsSelectWidget extends Widget
 {
 
     /**
+     * form field class option
+     */
+    public $fieldConfig = [];
+    /**
      * 表单
      *
      * @var ActiveForm
@@ -52,7 +56,7 @@ class RegionsSelectWidget extends Widget
 
     public $showInline = true;
 
-    public $singleCssClass="col-md-6";
+    public $singleCssClass = "col-md-6";
 
     private $dataItems = [];
 
@@ -80,7 +84,7 @@ class RegionsSelectWidget extends Widget
             $cellWidth = 4;
             $items[] = $this->getRegionsSubWidget($this->district, null, $this->model[$this->city], 4);
         }
-        if($this->showInline) {
+        if ($this->showInline) {
             return Html::tag('div', implode('', array_map(function ($item) use ($cellWidth) {
                 return Html::tag('div', $item, [
                     'class' => 'col-md-' . $cellWidth
@@ -131,7 +135,7 @@ class RegionsSelectWidget extends Widget
         }
         // 存储本次请求的数据
         $this->dataItems[$field] = $options;
-        return $this->form->field($this->model, $field)->dropDownList($options, [
+        return $this->form->field($this->model, $field, $this->fieldConfig)->dropDownList($options, [
             'data-target' => $nextField,
             'data-region' => $field,
             'data-level' => $level,

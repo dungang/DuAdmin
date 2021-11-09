@@ -11,7 +11,6 @@ class m201123_150938_cms_create_tables extends Migration {
    */
   public function safeUp() {
 
-    $tableOptions = 'CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci ENGINE=MyISAM';
     $this->createTable( '{{%cms_post_category}}', [
         'id' => $this->primaryKey(),
         'pid' => $this->integer()->defaultValue( 0 )->comment( '父类' ),
@@ -20,7 +19,7 @@ class m201123_150938_cms_create_tables extends Migration {
         'template' => $this->string( 64 )->comment( '模板' ),
         'intro' => $this->string( 255 )->comment( '说明' ),
         'sort' => $this->smallInteger()->defaultValue( 1 )->comment( '排序' )
-    ], $tableOptions );
+    ]);
     $this->addCommentOnTable( '{{%cms_post_category}}', '文章分类' );
     $this->createIndex( 'idx-post_category-slug', '{{%cms_post_category}}', 'slug', true );
     
@@ -38,7 +37,7 @@ class m201123_150938_cms_create_tables extends Migration {
         'viewTimes' => $this->integer()->defaultValue( 0 )->comment( '阅读次数' ),
         'createdAt' => $this->dateTime()->null()->comment( '添加时间' ),
         'updatedAt' => $this->dateTime()->null()->comment( '更新时间' )
-    ], $tableOptions );
+    ]);
     $this->addCommentOnTable( '{{%cms_post}}', '文章' );
     $this->createIndex( 'idx-post-post_category', '{{%cms_post}}', 'cateId' );
     $this->createIndex( 'idx-post-userId', '{{%cms_post}}', 'userId' );

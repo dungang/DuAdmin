@@ -14,7 +14,6 @@ class m201126_044336_cms_create_adv_tables extends Migration
      */
     public function safeUp()
     {
-        $tableOptions = 'CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci ENGINE=MyISAM';
         $this->createTable('{{%cms_adv_block}}', [
             'id'        => $this->primaryKey(),
             'name'      => $this->string(128)->null()->comment('名称'),
@@ -29,7 +28,7 @@ class m201126_044336_cms_create_adv_tables extends Migration
             'endAt'     => $this->dateTime()->null()->comment('结束时间'),
             'createdAt' => $this->dateTime()->null()->comment('添加时间'),
             'updatedAt' => $this->dateTime()->null()->comment('更新时间')
-        ], $tableOptions);
+        ]);
         $this->createIndex('idx-adv_block-code-urlPath', '{{%cms_adv_block}}', [
             'nameCode',
             'urlPath'

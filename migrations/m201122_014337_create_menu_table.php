@@ -11,7 +11,6 @@ class m201122_014337_create_menu_table extends Migration {
    */
   public function safeUp() {
 
-    $tableOptions = 'CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci ENGINE=MyISAM';
     $this->createTable( '{{%menu}}', [
         'id' => $this->primaryKey(),
         'pid' => $this->integer()->notNull()->comment( '父菜单ID' ),
@@ -22,7 +21,7 @@ class m201122_014337_create_menu_table extends Migration {
         'icon' => $this->string( 64 )->null()->comment( 'ICON' ),
         'app' => $this->string( 64 )->notNull()->defaultValue( 'core' )->comment( '所属APP::后台或插件的Id' ),
         'sort' => $this->smallInteger()->defaultValue( 0 )->comment( '排序' )
-    ], $tableOptions );
+    ]);
     $this->addCommentOnTable( '{{%menu}}', '菜单' );
     $this->createTable( '{{%navigation}}', [
         'id' => $this->primaryKey(),
@@ -35,7 +34,7 @@ class m201122_014337_create_menu_table extends Migration {
         'icon' => $this->string( 64 )->null()->comment( 'ICON' ),
         'app' => $this->string( 64 )->notNull()->defaultValue( 'frontend' )->comment( '所属APP::前台或后台或插件的Id' ),
         'sort' => $this->smallInteger()->defaultValue( 0 )->comment( '排序' )
-    ], $tableOptions );
+    ]);
     $this->addCommentOnTable( '{{%navigation}}', '前端导航' );
 
   }

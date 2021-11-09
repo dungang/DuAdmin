@@ -1,4 +1,5 @@
 <?php
+
 namespace DuAdmin\Grids;
 
 use yii\helpers\Html;
@@ -11,6 +12,8 @@ use yii\helpers\Html;
  */
 class PanelTreeGridView extends TreeGrid
 {
+
+    public $showHeading = false;
 
     /**
      * 面板标题
@@ -51,8 +54,11 @@ class PanelTreeGridView extends TreeGrid
     public function run()
     {
         $this->_body_content = ob_get_clean();
-        $panelHeading = '';//$this->renderPanelHeading();
-        $panelBody = Html::tag('div', $this->_body_content . parent::run(), [
+        $panelHeading =  $this->renderPanelHeading();
+        $bodyContent = Html::tag('div', $this->_body_content . parent::run(), [
+            'class' => 'panel-content'
+        ]);
+        $panelBody = Html::tag('div', $bodyContent, [
             'class' => $this->panelBodyClass
         ]);
         return Html::tag('div', $panelHeading . $panelBody, [
@@ -62,23 +68,27 @@ class PanelTreeGridView extends TreeGrid
 
     protected function renderPanelHeading()
     {
-        $header = '';
-        if ($this->intro) {
-            if ($this->title) {
-                $header .= Html::tag('div', $this->title, [
-                    'class' => $this->panelTitleClass
-                ]);
+        if ($this->showHeading) {
+            $header = '';
+            if ($this->intro) {
+                if ($this->title) {
+                    $header .= Html::tag('div', $this->title, [
+                        'class' => $this->panelTitleClass
+                    ]);
+                }
+                if (is_array($this->intro)) {
+                    $header .= implode('', array_map(function ($intro) {
+                        return Html::tag('p', $intro);
+                    }, $this->intro));
+                } else {
+                    $header .= Html::tag('p', $this->intro);
+                }
             }
-            if (is_array($this->intro)) {
-                $header .= implode('', array_map(function ($intro) {
-                    return Html::tag('p', $intro);
-                }, $this->intro));
-            } else {
-                $header .= Html::tag('p', $this->intro);
-            }
+            return $header ? Html::tag('div', $header, [
+                'class' => $this->panelHeadingClass
+            ]) : '';
+        } else {
+            return '';
         }
-        return $header ? Html::tag('div', $header, [
-            'class' => $this->panelHeadingClass
-        ]) : '';
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace DuAdmin\Widgets;
 
 use Yii;
@@ -13,6 +14,8 @@ use yii\helpers\Html;
  */
 class AdminltePanel extends Widget
 {
+
+    public $showHeading = false;
 
     /**
      * 面板标题
@@ -48,30 +51,35 @@ class AdminltePanel extends Widget
     public function run()
     {
         $content = trim(ob_get_clean());
-        if($content) {
-            $this->content =  '<div class="panel-tools">' .  $content . '</div>' . $this->content;
+        if ($content) {
+            $this->content =  '<div class="panel-tools">' .  $content . '</div>' . '<div class="panel-content">' .  $this->content . '</div>';
+        } else {
+            $this->content =  '<div class="panel-content">' .  $this->content . '</div>';
         }
         return $this->renderContent();
     }
 
     protected function renderPanelHeading()
     {
-        return '';
+
         $header = '';
-        if ($this->intro) {
-            if ($this->title) {
-                $header .= Html::tag('div', Yii::t('da', $this->title), [
-                    'class' => $this->panelTitleClass
-                ]);
-            }
-            if (is_array($this->intro)) {
-                $header .= implode('', array_map(function ($intro) {
-                    return Html::tag('p', $intro);
-                }, $this->intro));
-            } else {
-                $header .= Html::tag('p', $this->intro);
+        if ($this->showHeading) {
+            if ($this->intro) {
+                if ($this->title) {
+                    $header .= Html::tag('div', Yii::t('da', $this->title), [
+                        'class' => $this->panelTitleClass
+                    ]);
+                }
+                if (is_array($this->intro)) {
+                    $header .= implode('', array_map(function ($intro) {
+                        return Html::tag('p', $intro);
+                    }, $this->intro));
+                } else {
+                    $header .= Html::tag('p', $this->intro);
+                }
             }
         }
+
         return $header ? Html::tag('div', $header, [
             'class' => $this->panelHeadingClass
         ]) : '';

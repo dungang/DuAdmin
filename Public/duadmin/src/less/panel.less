@@ -8,7 +8,8 @@
     background-color: @panel-bg;
     border: 0;
     border-radius: @panel-border-radius;
-    .box-shadow(0 1px 1px rgba(0, 0, 0, .05));
+    box-shadow: none;
+    //.box-shadow(0 1px 1px rgba(0, 0, 0, .05));
 
     .small-box {
         margin-bottom: 0px;
@@ -88,7 +89,7 @@
 
     .panel-body {
         padding: 0;
-        .table-box {
+        .panel-content {
             padding: 15px;
             background-color: white;
             .border-radius(@backend-border-radius);

@@ -14,8 +14,6 @@ class m201123_150949_cms_create_page_tables extends Migration
    */
   public function safeUp()
   {
-
-    $tableOptions = 'CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci ENGINE=MyISAM';
     $this->createTable('{{%cms_page}}', [
       'id' => $this->primaryKey(),
       'pid' => $this->integer()->defaultValue(0)->comment('父页'),
@@ -28,7 +26,7 @@ class m201123_150949_cms_create_page_tables extends Migration
       'sort' => $this->smallInteger()->defaultValue(1)->comment('排序'),
       'createdAt' => $this->dateTime()->null()->comment('添加时间'),
       'updatedAt' => $this->dateTime()->null()->comment('更新时间')
-    ], $tableOptions);
+    ]);
     $this->createIndex('idx-page-slug', '{{%cms_page}}', 'slug', true);
     $this->addCommentOnTable('{{%cms_page}}', '单页');
 
@@ -39,7 +37,7 @@ class m201123_150949_cms_create_page_tables extends Migration
       'content' => $this->text()->null()->comment('内容'),
       'createdAt' => $this->dateTime()->null()->comment('添加时间'),
       'updatedAt' => $this->dateTime()->null()->comment('更新时间')
-    ], $tableOptions);
+    ]);
     $this->addCommentOnTable('{{%cms_page_post}}', '页面内容');
     $this->addPrimaryKey('pk-page_post-pageId-language', '{{%cms_page_post}}', [
       'pageId',
