@@ -27,6 +27,7 @@ class AddonMigrateController extends BaseController
     public function actionDown()
     {
         $addonName = $this->selectOneAddonName();
+        echo '@Addons/' . $addonName . '/Migrations';
         $this->run("/migrate/down", [
             'migrationPath' => '@Addons/' . $addonName . '/Migrations'
         ]);
