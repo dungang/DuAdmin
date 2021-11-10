@@ -14,6 +14,7 @@ use DuAdmin\Models\Navigation;
 use DuAdmin\Models\PrettyUrl;
 use DuAdmin\Models\Setting;
 use DuAdmin\Mysql\Query;
+use Exception;
 use Yii;
 use yii\base\ErrorException;
 use yii\helpers\ArrayHelper;
@@ -84,12 +85,16 @@ class InstallerHelper
                 unset($filter['children']);
                 $model = AuthPermission::findOne($filter);
                 if (!$model) {
-                    $model = new AuthPermission();
-                    $model->sort = $index;
-                    $model->load($permission, '');
-                    $model->save();
-                    if ($model->hasErrors()) {
-                        throw new ErrorException(Json::encode($model->errors));
+                    try {
+                        $model = new AuthPermission();
+                        $model->sort = $index;
+                        $model->load($permission, '');
+                        $model->save();
+                        if ($model->hasErrors()) {
+                            throw new ErrorException(Json::encode($model->errors));
+                        }
+                    } catch (Exception $e) {
+                        throw new ErrorException($e->getMessage());
                     }
                 }
                 if ($parent) {
@@ -97,9 +102,13 @@ class InstallerHelper
                     $relation->parent = $parent;
                     $relation->child = $model->id;
                     $relation->sort = $index;
-                    $relation->save();
-                    if ($relation->hasErrors()) {
-                        throw new ErrorException(Json::encode($model->errors));
+                    try {
+                        $relation->save();
+                        if ($relation->hasErrors()) {
+                            throw new ErrorException(Json::encode($model->errors));
+                        }
+                    } catch (Exception $e) {
+                        throw new ErrorException($e->getMessage());
                     }
                 }
                 if (isset($permission['children']) && is_array($permission['children'])) {
