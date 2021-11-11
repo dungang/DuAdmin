@@ -2,10 +2,10 @@
 
 namespace Backend\Controllers;
 
+use Backend\Components\AddonInstaller;
 use DuAdmin\Core\BackendController;
 use DuAdmin\Core\BizException;
 use DuAdmin\Helpers\AppHelper;
-use DuAdmin\Helpers\InstallerHelper;
 use yii\data\ArrayDataProvider;
 use DuAdmin\Helpers\LoaderHelper;
 use Exception;
@@ -59,14 +59,15 @@ class AddonController extends BackendController
             $installed = LoaderHelper::loadInstalledAddonsConfig();
             $installed[] = $name;
             LoaderHelper::saveInstalledAddonsConfig($installed);
-            $migrations = InstallerHelper::getAddonMigrations($dirPath);
+            $addonInstaller = new AddonInstaller(['addonName' => $name]);
+            $migrations = $addonInstaller->getAddonMigrations();
             if ($migrations) {
                 foreach ($migrations as $migration) {
                     try {
-                        InstallerHelper::migrateUp($migration);
+                        $addonInstaller->migrateUp($migration);
                     } catch (Exception $e) {
                         Yii::error($e->getMessage());
-                        throw new BizException("安装数据出错");
+                        throw new BizException("安装数据出错:" . $e->getMessage());
                     }
                 }
                 AppHelper::cleanSettingRelationCache();
@@ -77,7 +78,7 @@ class AddonController extends BackendController
         throw new BizException("插件不存在");
     }
 
-       /**
+    /**
      * 关闭插件
      * @param $name
      * @return \yii\web\Response
@@ -119,14 +120,15 @@ class AddonController extends BackendController
                 }
             });
             LoaderHelper::saveInstalledAddonsConfig($installed);
-            $migrations = InstallerHelper::getAddonMigrations($dirPath, false);
+            $addonInstaller = new AddonInstaller(['addonName' => $name]);
+            $migrations = $addonInstaller->getAddonMigrations(false);
             if ($migrations) {
                 foreach ($migrations as $migration) {
                     try {
-                        InstallerHelper::migrateDown($migration);
+                        $addonInstaller->migrateDown($migration);
                     } catch (Exception $e) {
                         Yii::error($e->getMessage());
-                        throw new BizException("卸载数据出错");
+                        throw new BizException("卸载数据出错:" . $e->getMessage());
                     }
                 }
                 AppHelper::cleanSettingRelationCache();

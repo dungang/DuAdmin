@@ -2,7 +2,7 @@
 
 use DuAdmin\Helpers\InstallerHelper;
 use DuAdmin\Models\Setting;
-use yii\db\Migration;
+use Console\components\Migration;
 
 /**
  * Class m201224_134253_create_cms_settings

@@ -1,0 +1,27 @@
+<?php
+
+namespace Addons\{{ addonName }}\Console;
+
+use yii\console\controllers\MigrateController as ControllersMigrateController;
+
+/**
+ * {{ addonTitle }} 数据迁移
+ */
+class MigrateController extends ControllersMigrateController
+{
+
+    /**
+    * {@inheritdoc}
+    */
+    public $migrationPath = ['@Addons/{{ addonName }}/Migrations'];
+    
+    /**
+    * {@inheritdoc}
+    */
+    public $migrationTable = "migration_{{ addonId }}";
+
+    /**
+    * {@inheritdoc}
+    */
+    public $templateFile = '@Console/views/migration.php';
+}

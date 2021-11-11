@@ -1,6 +1,6 @@
 <?php
 
-use yii\db\Migration;
+use Console\components\Migration;
 
 /**
  * Class m201123_150949_create_page_tables

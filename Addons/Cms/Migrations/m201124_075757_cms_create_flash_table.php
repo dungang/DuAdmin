@@ -1,6 +1,6 @@
 <?php
 
-use yii\db\Migration;
+use Console\components\Migration;
 
 /**
  * Handles the creation of table `{{%flash}}`.

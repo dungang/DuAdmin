@@ -1,35 +1,41 @@
 <?php
+
 namespace Console;
 
 use Backend\Models\Admin;
 use yii\helpers\Console;
 use yii\helpers\Inflector;
-use yii\helpers\Json;
 
-class InitController extends BaseController {
+class InitController extends BaseController
+{
 
-
-    public function init() {
+    public function init()
+    {
         parent::init();
         $this->mustDevCanDo();
     }
-
-
 
     /**
      * 安装系统数据
      *
      * @return void
      */
-    public function actionIndex() {
+    public function actionIndex()
+    {
 
         //生成key
         $this->run('/key-generate');
         //重装数据库
-        $this->run('/dua-migrate/fresh');
+        $this->run('/migrate/fresh', [
+            'migrationPath' => [
+                '@app/migrations',
+                '@Addons/Cms/Migrations',
+                '@Addons/ChinaRegion/Migrations',
+                '@Addons/Ueditor/Migrations',
+            ]
+        ]);
         //创建管理员
         $this->runAction('admin');
-        
     }
 
     /**
@@ -37,11 +43,12 @@ class InitController extends BaseController {
      *
      * @return void
      */
-    public function actionAdmin(){
+    public function actionAdmin()
+    {
         //设置账户密码
-        $username = $this->prompt('please input admin name:',['required' => true]);
-        $password = $this->prompt('please input admin password:',['required' => true]);
-        $email = $this->prompt('please input admin email:',['required' => true]);
+        $username = $this->prompt('please input admin name:', ['required' => true]);
+        $password = $this->prompt('please input admin password:', ['required' => true]);
+        $email = $this->prompt('please input admin email:', ['required' => true]);
 
         $admin = new Admin([
             'username' => $username,
@@ -54,8 +61,8 @@ class InitController extends BaseController {
             'createdAt' => date('Y-m-d H:i:s'),
             'updatedAt' => date('Y-m-d H:i:s')
         ]);
-        if($admin->save(false)) {
-            $this->stdout('Congratulations! Install Success!',Console::FG_GREEN);
+        if ($admin->save(false)) {
+            $this->stdout('Congratulations! Install Success!', Console::FG_GREEN);
         } else {
             $this->stdout("admin create failure!\n\n\n", Console::FG_RED);
         };

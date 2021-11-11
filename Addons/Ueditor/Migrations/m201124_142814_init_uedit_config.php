@@ -1,7 +1,7 @@
 <?php
 
 use DuAdmin\Helpers\InstallerHelper;
-use yii\db\Migration;
+use Console\Components\Migration;
 
 /**
  * Class m201124_142814_init_uedit_config

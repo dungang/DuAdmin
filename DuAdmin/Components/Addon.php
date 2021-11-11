@@ -13,7 +13,8 @@ use yii\helpers\Inflector;
  *
  * @author dungang
  */
-abstract class Addon extends Module {
+abstract class Addon extends Module
+{
 
   /**
    * 避免重复赋值插件模块的面包屑
@@ -54,9 +55,8 @@ abstract class Addon extends Module {
    *
    * @throws NotSupportedException
    */
-  protected function initApi() {
-
-
+  protected function initApi()
+  {
     // 初始化API的模块配置
   }
 
@@ -65,9 +65,8 @@ abstract class Addon extends Module {
    *
    * @throws NotSupportedException
    */
-  protected function initBackend() {
-
-
+  protected function initBackend()
+  {
     // 初始化后端的模块配置
   }
 
@@ -76,20 +75,33 @@ abstract class Addon extends Module {
    *
    * @throws NotSupportedException
    */
-  protected function initFrontend() {
+  protected function initFrontend()
+  {
 
 
     // 初始化前端的模块配置
   }
 
-  public function registerFrontendTheme() {
+  /**
+   * 初始化命令终端
+   *
+   * @throws NotSupportedException
+   */
+  protected function initConsole()
+  {
 
-    if ( Yii::$app->view->theme ) {
+
+    // 初始化前端的模块配置
+  }
+
+  public function registerFrontendTheme()
+  {
+
+    if (Yii::$app->view->theme) {
       $viewKey = '@Addons/' . $this->addonName . '/Views/Frontend';
       $viewAddon = Yii::$app->view->theme->basePath . '/Addons/' . $this->addonName;
-      Yii::$app->view->theme->pathMap [$viewKey] = $viewAddon;
+      Yii::$app->view->theme->pathMap[$viewKey] = $viewAddon;
     }
-
   }
 
   /**
@@ -97,72 +109,75 @@ abstract class Addon extends Module {
    * @throws NotSupportedException
    * @throws \ReflectionException
    */
-  public function init() {
+  public function init()
+  {
 
-    $this->addonName = Inflector::id2camel( $this->id );
-    if ( empty( $this->addonNamespaceBase ) ) {
-      $reflector = new ReflectionClass( get_called_class() );
+    $this->addonName = Inflector::id2camel($this->id);
+    if (empty($this->addonNamespaceBase)) {
+      $reflector = new ReflectionClass(get_called_class());
       $this->addonNamespaceBase = $reflector->getNamespaceName();
     }
-    if ( RUNTIME_MODE === 'Console' ) {
+    if (RUNTIME_MODE === 'Console') {
       $this->configConsoleContrllerNamespace();
     } else {
       $this->configWebControllerNamespace();
       // 注意这里代码执行的顺序
       switch (RUNTIME_MODE) {
-        case 'Backend' :
-          $this->initViewPath( Yii::$app->mode );
+        case 'Backend':
+          $this->initViewPath(Yii::$app->mode);
           $this->initBackend();
           $this->registerAddonHomeBreadscrumb();
           break;
-        case 'Frontend' :
-          $this->initViewPath( Yii::$app->mode );
+        case 'Frontend':
+          $this->initViewPath(Yii::$app->mode);
           $this->registerFrontendTheme();
           $this->initFrontend();
           $this->registerAddonHomeBreadscrumb();
           break;
-        case 'Api' :
+        case 'Api':
           $this->initApi();
+          break;
+        case 'Console':
+          $this->initConsole();
           break;
       }
     }
-
   }
 
-  private function configWebControllerNamespace() {
+  private function configWebControllerNamespace()
+  {
 
     $this->controllerNamespace = $this->addonNamespaceBase . '\\Controllers' . '\\' . RUNTIME_MODE;
-
   }
 
-  private function configConsoleContrllerNamespace() {
+  private function configConsoleContrllerNamespace()
+  {
 
     $this->controllerNamespace = $this->addonNamespaceBase . '\\Console';
-
   }
 
-  private function initViewPath( $mode = null ) {
+  private function initViewPath($mode = null)
+  {
 
     $path = '@Addons/' . $this->addonName;
-    if ( $mode ) {
+    if ($mode) {
       $this->viewPath = $path . '/Views/' . $mode;
     } else {
       // 减少目录层次，方便theme管理?
       $this->viewPath = $path . '/Views';
     }
-
   }
 
   /**
    * 注册插件模块的home面包屑
    * 仅且只能注册一次
    */
-  protected function registerAddonHomeBreadscrumb() {
+  protected function registerAddonHomeBreadscrumb()
+  {
 
-    if ( self::$has_set_addon_home_breadscrumb == false ) {
-      \Yii::$app->view->params ['breadcrumbs'] [] = $this->home;
+    if (self::$has_set_addon_home_breadscrumb == false) {
+      \Yii::$app->view->params['breadcrumbs'][] = $this->home;
       self::$has_set_addon_home_breadscrumb = true;
     }
-
   }
 }

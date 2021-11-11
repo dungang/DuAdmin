@@ -101,20 +101,20 @@ class LoaderHelper
      */
     public static function loadAddonLibs(array $addon)
     {
-        if ($addon['active']) {
-            if (isset($addon['classMap']) && $addon['classMap']) {
-                static::addClassMap($addon['classMap']);
-            }
-            if (isset($addon['namespaces']) && $addon['namespaces']) {
-                static::addMoreNamespace($addon['namespaces']);
-            }
-            if (isset($addon['psr4']) && $addon['psr4']) {
-                static::addMorePsr4($addon['psr4']);
-            }
-            if (isset($addon['files']) && $addon['files']) {
-                static::addFiles($addon['files']);
-            }
+        //if ($addon['active']) {
+        if (isset($addon['classMap']) && $addon['classMap']) {
+            static::addClassMap($addon['classMap']);
         }
+        if (isset($addon['namespaces']) && $addon['namespaces']) {
+            static::addMoreNamespace($addon['namespaces']);
+        }
+        if (isset($addon['psr4']) && $addon['psr4']) {
+            static::addMorePsr4($addon['psr4']);
+        }
+        if (isset($addon['files']) && $addon['files']) {
+            static::addFiles($addon['files']);
+        }
+        //}
     }
 
     public static function loadAddonVendor($addonName)

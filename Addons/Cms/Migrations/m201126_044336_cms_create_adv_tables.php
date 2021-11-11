@@ -1,6 +1,6 @@
 <?php
 
-use yii\db\Migration;
+use Console\components\Migration;
 
 /**
  * Class m201126_044336_create_cms_adv_tables

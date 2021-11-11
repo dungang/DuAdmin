@@ -1,5 +1,5 @@
 <?php
-use yii\db\Migration;
+use Console\components\Migration;
 /**
  * Class m201123_150938_create_cms_tables
  */

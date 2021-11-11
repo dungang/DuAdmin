@@ -1,6 +1,6 @@
 <?php
 
-use yii\db\Migration;
+use Console\components\Migration;
 
 /**
  * Class m210110_051149_create_cms_link_tables

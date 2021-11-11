@@ -1,7 +1,7 @@
 <?php
 
 use DuAdmin\Helpers\InstallerHelper;
-use yii\db\Migration;
+use Console\components\Migration;
 
 /**
  * Class m210111_132217_init_cms_permissions

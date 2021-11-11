@@ -1,6 +1,6 @@
 <?php
 
-use yii\db\Migration;
+use Console\components\Migration;
 
 /**
  * Class m210722_141103_create_page_block_tables

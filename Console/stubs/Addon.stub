@@ -34,4 +34,16 @@ class Addon extends BaseAddon {
         //     ]
         // ];
     }
+
+    // protected function initFrontend(){
+    //    
+    // }
+    //
+    // protected function initApi(){
+    //    
+    // }
+    //
+    // protected function initConsole(){
+    //    
+    // }
 }
