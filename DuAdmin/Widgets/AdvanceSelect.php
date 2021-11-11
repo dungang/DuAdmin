@@ -9,6 +9,10 @@ class AdvanceSelect extends InputWidget
 {
     public $label;
 
+    public $route;
+
+    public $fields = [];
+
     public function run()
     {
         if (empty($this->label)) {
@@ -16,7 +20,8 @@ class AdvanceSelect extends InputWidget
         }
         return $this->render("advance-select", [
             'label' => $this->label,
-            'content' => $this->renderInputHtml("hidden")
+            'input' => $this->renderInputHtml("hidden"),
+            'fields' => $this->fields,
         ]);
     }
 }
