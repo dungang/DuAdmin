@@ -263,7 +263,7 @@ class ActionColumn extends Column
             $defaultOptions = [
                 'title' => $title,
                 'aria-label' => $title,
-                'data-pjax' => $this->enablePjax,
+                'data-pjax' => $this->enablePjax ? '1' : '0',
                 'class' => $btnClass
             ];
             if ($this->enableOpenModal && $name != 'delete') {
