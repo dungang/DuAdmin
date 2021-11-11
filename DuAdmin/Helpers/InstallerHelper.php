@@ -181,7 +181,7 @@ class InstallerHelper
                     if (isset($menu['sort'])) {
                         $model->sort = $menu['sort'];
                     } else if ($pid === 0) {
-                        $model->sort = $weight;
+                        $model->sort = $weight + $index;
                     } else {
                         $model->sort = $index;
                     }
@@ -232,7 +232,7 @@ class InstallerHelper
                 if (isset($navigation['sort'])) {
                     $model->sort = $navigation['sort'];
                 } else if ($pid === 0) {
-                    $model->sort = $weight;
+                    $model->sort = $weight + $index;
                 } else {
                     $model->sort = $index;
                 }
