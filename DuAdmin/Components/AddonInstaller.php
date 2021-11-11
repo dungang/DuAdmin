@@ -1,9 +1,12 @@
 <?php
 
-namespace Backend\Components;
+namespace DuAdmin\Components;
 
 use DuAdmin\Core\BizException;
+use DuAdmin\Helpers\AppHelper;
+use DuAdmin\Helpers\LoaderHelper;
 use DuAdmin\Mysql\Query;
+use Exception;
 use Yii;
 use yii\base\BaseObject;
 use yii\helpers\ArrayHelper;
@@ -193,5 +196,62 @@ class AddonInstaller extends BaseObject
         closedir($handle);
         ksort($migrations);
         return array_values($migrations);
+    }
+
+    public function install()
+    {
+        $dirPath = \Yii::$app->basePath . '/Addons/' . $this->addonName;
+        if (is_dir($dirPath)) {
+            $installed = LoaderHelper::loadInstalledAddonsConfig();
+            $installed[] = $this->addonName;
+            LoaderHelper::saveInstalledAddonsConfig($installed);
+            $addonInstaller = new AddonInstaller(['addonName' => $this->addonName]);
+            $migrations = $addonInstaller->getAddonMigrations();
+            if ($migrations) {
+                foreach ($migrations as $migration) {
+                    try {
+                        $addonInstaller->migrateUp($migration);
+                    } catch (Exception $e) {
+                        Yii::error($e->getMessage());
+                        throw new BizException("安装数据出错:" . $e->getMessage());
+                    }
+                }
+                AppHelper::cleanSettingRelationCache();
+            }
+            return true;
+        }
+        throw new BizException("插件不存在");
+    }
+
+
+    public function uninstall()
+    {
+        $dirPath = \Yii::$app->basePath . '/Addons/' . $this->addonName;
+        if (is_dir($dirPath)) {
+            $installed = LoaderHelper::loadInstalledAddonsConfig();
+            $installed = array_filter($installed, function ($el) {
+                if ($el == $this->addonName) {
+                    return false;
+                } else {
+                    return true;
+                }
+            });
+            LoaderHelper::saveInstalledAddonsConfig($installed);
+            $addonInstaller = new AddonInstaller(['addonName' => $this->addonName]);
+            $migrations = $addonInstaller->getAddonMigrations(false);
+            if ($migrations) {
+                foreach ($migrations as $migration) {
+                    try {
+                        $addonInstaller->migrateDown($migration);
+                    } catch (Exception $e) {
+                        Yii::error($e->getMessage());
+                        throw new BizException("卸载数据出错:" . $e->getMessage());
+                    }
+                }
+                AppHelper::cleanSettingRelationCache();
+            }
+            return true;
+        }
+        throw new BizException("插件不存在");
     }
 }

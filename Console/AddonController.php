@@ -2,6 +2,7 @@
 
 namespace Console;
 
+use DuAdmin\Components\AddonInstaller;
 use yii\helpers\Inflector;
 use yii\helpers\FileHelper;
 use yii\helpers\Console;
@@ -32,17 +33,19 @@ class AddonController extends BaseController
     /**
      * 安装插件
      */
-    public function actionInstall()
+    public function actionInstall($addonName)
     {
-        Console::output($this->selectOneAddonName());
+        $addonInstaller = new AddonInstaller(['addonName' => $addonName]);
+        $addonInstaller->install();
     }
 
     /**
      * 卸载插件
      */
-    public function actionUninstall()
+    public function actionUninstall($addonName)
     {
-        Console::output($this->selectOneAddonName());
+        $addonInstaller = new AddonInstaller(['addonName' => $addonName]);
+        $addonInstaller->uninstall();
     }
 
     /**
@@ -277,7 +280,7 @@ class AddonController extends BaseController
             ], [
                 $addonName,
                 $addonTitle,
-                Inflector::camel2id($addonName,"_")
+                Inflector::camel2id($addonName, "_")
             ], $stub_content);
             file_put_contents($addonClassFile, $content);
         }
