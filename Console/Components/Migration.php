@@ -10,7 +10,7 @@ class Migration extends DbMigration
 
     public function init()
     {
-        if (RUNTIME_MODE === 'Backend') {
+        if (RUNTIME_MODE !== 'Console') {
             $this->compact = true;
         }
         parent::init();
@@ -78,7 +78,12 @@ class Migration extends DbMigration
      */
     private function handleException($e)
     {
-        Yii::error('Exception: ' . $e->getMessage() . ' (' . $e->getFile() . ':' . $e->getLine());
-        Yii::error($e->getTraceAsString());
+        if (RUNTIME_MODE !== 'Console') {
+            Yii::error('Exception: ' . $e->getMessage() . ' (' . $e->getFile() . ':' . $e->getLine() . ")");
+            Yii::error($e->getTraceAsString());
+        } else {
+            echo 'Exception: ' . $e->getMessage() . ' (' . $e->getFile() . ':' . $e->getLine() . ")\n";
+            echo $e->getTraceAsString() . "\n";
+        }
     }
 }
