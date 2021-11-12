@@ -10,7 +10,7 @@
         var package = factory(root.b);
         root.notif = package.notif;
         root.notif_confirm = package.notif_confirm;
-        root.notif_prompt  = package.notif_prompt;
+        root.notif_prompt = package.notif_prompt;
     }
 }(this, function() {
 
@@ -33,29 +33,29 @@
                 });
                 div.append(p);
                 return div;
-        }
-        // We love jQuery
+            }
+            // We love jQuery
         var $ = jQuery;
         var destroy = function() {
             $("#ui_notifIt").remove();
             clearTimeout(window.notifit_timeout);
         }
-        var dismiss = function(){
+        var dismiss = function() {
             clearTimeout(window.notifit_timeout);
             if (!defaults.fade) {
                 // Set animations
-                if (defaults.animations && 
-                    defaults.animations[defaults.animation] && 
-                    defaults.animations[defaults.animation][defaults.position] && 
-                    defaults.animations[defaults.animation][defaults.position].out && 
-                    defaults.animations[defaults.animation][defaults.position].out.start && 
+                if (defaults.animations &&
+                    defaults.animations[defaults.animation] &&
+                    defaults.animations[defaults.animation][defaults.position] &&
+                    defaults.animations[defaults.animation][defaults.position].out &&
+                    defaults.animations[defaults.animation][defaults.position].out.start &&
                     defaults.animations[defaults.animation][defaults.position].out.end) {
                     animation1 = defaults.animations[defaults.animation][defaults.position].out.start
                     animation2 = defaults.animations[defaults.animation][defaults.position].out.end
-                } else if (defaults.animations[defaults.available_animations[0]] && 
-                    defaults.animations[defaults.available_animations[0]][defaults.position] && 
-                    defaults.animations[defaults.available_animations[0]][defaults.position].out && 
-                    defaults.animations[defaults.available_animations[0]][defaults.position].out.start && 
+                } else if (defaults.animations[defaults.available_animations[0]] &&
+                    defaults.animations[defaults.available_animations[0]][defaults.position] &&
+                    defaults.animations[defaults.available_animations[0]][defaults.position].out &&
+                    defaults.animations[defaults.available_animations[0]][defaults.position].out.start &&
                     defaults.animations[defaults.available_animations[0]][defaults.position].out.end) {
                     animation1 = defaults.animations[defaults.available_animations[0]][defaults.position].out.start
                     animation2 = defaults.animations[defaults.available_animations[0]][defaults.position].out.end
@@ -82,7 +82,7 @@
             }
         }
         destroy()
-        // Global timeout
+            // Global timeout
         window.notifit_timeout = null;
         // Mid position
         var mid = (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) / 2;
@@ -113,7 +113,7 @@
         // Animation config
         // ** Maybe create an external js with only animations for easier customizing? **
         defaults.animations = {}
-        // Slide animation [DEFAULT]
+            // Slide animation [DEFAULT]
         defaults.animations.slide = {
             'center': {
                 'css_start': {
@@ -347,7 +347,7 @@
     }
 
     // Confirm
-    function notif_confirm(config){
+    function notif_confirm(config) {
         var $ = jQuery
         var _config = {
             'textaccept': 'Accept',
@@ -356,12 +356,12 @@
             'fullscreen': false,
             'callback': null
         }
-        var settings = $.extend({  }, _config, config)
+        var settings = $.extend({}, _config, config)
         var $confirm = $('.notifit_confirm')[0] ? $('.notifit_confirm') : null;
         var $bg = $('.notifit_confirm_bg')[0] ? $('.notifit_confirm_bg') : null;
 
-        function _create(){
-            if($confirm !== null){
+        function _create() {
+            if ($confirm !== null) {
                 return $confirm
             }
             var $acceptButton = $('<button>', {
@@ -386,9 +386,10 @@
             $bg = $('<div>', { 'class': 'notifit_confirm_bg' })
             return $confirm
         }
-        function _show(){
-            if($confirm){
-                if(settings.fullscreen){
+
+        function _show() {
+            if ($confirm) {
+                if (settings.fullscreen) {
                     $bg.hide()
                     $confirm.hide()
                     $('body').append($bg)
@@ -397,8 +398,8 @@
                         'top': $bg.outerHeight() / 2 - ($confirm.outerHeight() / 2),
                         'left': $bg.outerWidth() / 2 - ($confirm.outerWidth() / 2)
                     })
-                    $bg.fadeIn('fast', function(){ $confirm.slideDown('fast') })
-                }else{
+                    $bg.fadeIn('fast', function() { $confirm.slideDown('fast') })
+                } else {
                     $confirm.css({
                         'top': '20px',
                         'left': 'auto',
@@ -410,32 +411,35 @@
                 }
             }
         }
-        function _hide(){
-            if($confirm){
-                $confirm.slideUp('fast', function(){
+
+        function _hide() {
+            if ($confirm) {
+                $confirm.slideUp('fast', function() {
                     $confirm.remove()
                 })
             }
-            if($bg){
-                $bg.fadeOut('fast', function(){
+            if ($bg) {
+                $bg.fadeOut('fast', function() {
                     $bg.remove()
                 })
             }
         }
-        function _callback(){
+
+        function _callback() {
             _hide()
             var response = null
-            if($(this).hasClass('notifit_confirm_accept')){
+            if ($(this).hasClass('notifit_confirm_accept')) {
                 response = true
-            }else if($(this).hasClass('notifit_confirm_cancel')){
+            } else if ($(this).hasClass('notifit_confirm_cancel')) {
                 response = false
             }
-            if(typeof settings.callback === 'function'){
+            if (typeof settings.callback === 'function') {
                 return settings.callback(response)
             }
             return response
         }
-        function _setListeners(){
+
+        function _setListeners() {
             $('html').one('click', '.notifit_confirm_accept, .notifit_confirm_cancel', _callback)
         }
 
@@ -446,7 +450,7 @@
     }
 
     // Prompt
-    function notif_prompt(config){
+    function notif_prompt(config) {
         var $ = jQuery
         var _config = {
             'message': 'Tell me something',
@@ -456,11 +460,12 @@
             'fullscreen': false,
             'callback': null
         }
-        var settings = $.extend({  }, _config, config)
+        var settings = $.extend({}, _config, config)
         var $prompt = $('.notifit_prompt')[0] ? $('.notifit_prompt') : null;
         var $bg = $('.notifit_prompt_bg')[0] ? $('.notifit_prompt_bg') : null;
-        function _create(){
-            if($prompt !== null){ return $prompt }
+
+        function _create() {
+            if ($prompt !== null) { return $prompt }
             var $acceptButton = $('<button>', {
                 'class': 'notifit_prompt_accept',
                 'text': settings.textaccept
@@ -489,9 +494,10 @@
             $bg = $('<div>', { 'class': 'notifit_prompt_bg' })
             return $prompt
         }
-        function _show(){
-            if($prompt){
-                if(settings.fullscreen){
+
+        function _show() {
+            if ($prompt) {
+                if (settings.fullscreen) {
                     $bg.hide()
                     $prompt.hide()
                     $('body').append($bg)
@@ -500,8 +506,8 @@
                         'top': $bg.outerHeight() / 2 - ($prompt.outerHeight() / 2),
                         'left': $bg.outerWidth() / 2 - ($prompt.outerWidth() / 2)
                     })
-                    $bg.fadeIn('fast', function(){ $prompt.slideDown('fast', function(){ $(this).find('.notifit_prompt_input').focus() }) })
-                }else{
+                    $bg.fadeIn('fast', function() { $prompt.slideDown('fast', function() { $(this).find('.notifit_prompt_input').focus() }) })
+                } else {
                     $prompt.css({
                         'top': '20px',
                         'left': 'auto',
@@ -509,36 +515,39 @@
                         'display': 'none'
                     })
                     $('body').append($prompt)
-                    $prompt.slideDown('fast', function(){ $(this).find('.notifit_prompt_input').focus() })
+                    $prompt.slideDown('fast', function() { $(this).find('.notifit_prompt_input').focus() })
                 }
             }
         }
-        function _hide(){
-            if($prompt){
-                $prompt.slideUp('fast', function(){
+
+        function _hide() {
+            if ($prompt) {
+                $prompt.slideUp('fast', function() {
                     $prompt.remove()
                 })
             }
-            if($bg){
-                $bg.fadeOut('fast', function(){
+            if ($bg) {
+                $bg.fadeOut('fast', function() {
                     $bg.remove()
                 })
             }
         }
-        function _callback(){
+
+        function _callback() {
             _hide()
             var response = null
-            if($(this).hasClass('notifit_prompt_accept')){
+            if ($(this).hasClass('notifit_prompt_accept')) {
                 response = $(this).parents('.notifit_prompt').find('.notifit_prompt_input').val()
-            }else if($(this).hasClass('notifit_prompt_cancel')){
+            } else if ($(this).hasClass('notifit_prompt_cancel')) {
                 response = false
             }
-            if(typeof settings.callback === 'function'){
+            if (typeof settings.callback === 'function') {
                 return settings.callback(response)
             }
             return response
         }
-        function _setListeners(){
+
+        function _setListeners() {
             $('html').one('click', '.notifit_prompt_accept, .notifit_prompt_cancel', _callback)
         }
 

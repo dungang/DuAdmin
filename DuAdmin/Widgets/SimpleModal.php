@@ -4,6 +4,7 @@ namespace DuAdmin\Widgets;
 
 use yii\bootstrap\Html;
 use yii\bootstrap\Modal;
+use yii\helpers\Json;
 use yii\widgets\PjaxAsset;
 
 /**
@@ -17,6 +18,19 @@ use yii\widgets\PjaxAsset;
 class SimpleModal extends Modal
 {
     public $debug = false;
+
+    /**
+     * string js callback(url),return request url
+     */
+    public $customHandleResult = false;
+
+    /**
+     * position
+     * 'left', 'center', 'right', 'bottom'
+     */
+    public $notifyPosition = "center"; 
+
+    public $timeout = 3000;
 
     public function run()
     {
@@ -33,62 +47,12 @@ class SimpleModal extends Modal
     public function getJs($selector)
     {
         $bool = $this->debug ? 'true' : 'false';
-        return <<<JS
-(function($, modalSelector) {
-    var modal = $(modalSelector);
-    var pjaxContainer = null;
-    // 清空对象
-    modal.on('hidden.bs.modal', function(e) {
-        modal.data('bs.modal', null);
-        modal.find('.modal-body').empty();
-        modal.find('script').remove();
-        modal.find('link').remove();
-        pjaxContainer = null;
-    });
-    // 根据属性调整modal窗口大小
-    modal.on('show.bs.modal', function(e) {
-        var targetBtn = $(e.relatedTarget);
-        if(targetBtn.attr('data-toggle') == 'modal') {
-            pjaxContainer = targetBtn.parents('[data-pjax-container]');
-            if(${bool}) {
-                console.log('simple modal debug: pjax container');
-                console.log(pjaxContainer);
-            }
-            var size = targetBtn.data('modal-size');
-            $(e.target).find('.modal-dialog').removeClass('modal-sm modal-lg').addClass(size ? size : '');
-        }
-        
-    });
-    //阻拦默认的表单提交事件，自动替换为pjax请求
-    modal.on('submit','form',function(event){
-        event.preventDefault();
-        $(event.target).ajaxSubmit({headers:{'AJAX-SUBMIT':'AJAX-SUBMIT'},success:function(data){
-            var type = "error";
-            if(data.status == 'success'){
-                if(pjaxContainer && pjaxContainer.length>0){
-                    var pjaxId = pjaxContainer.attr('id');
-                    if(${bool}) {
-                        console.log('simple modal debug: pjax id');
-                        console.log(pjaxId);
-                    }
-                    if(pjaxId != undefined){
-                        $.pjax.reload('#'+pjaxId);
-                    }
-                } else {
-                    window.location.reload(true);
-                }
-                modal.modal('hide');
-                type = "success";
-            }
-            if(${bool}) {
-                console.log('simple modal debug: notify');
-                console.log(type);
-                console.log(data);
-            }
-            notif({type:type,msg:data.message,position:'center',timeout:3000});
-        }});
-    });
-})(jQuery, '{$selector}')
-JS;
+        $options = Json::htmlEncode([
+            'debug' => $this->debug,
+            'customHandleResult' => $this->customHandleResult,
+            'notifyPosition' => $this->notifyPosition,
+            'timeout' => $this->timeout
+        ]);
+        return '$("' . $selector . '").simpleModal(' . $options . ');';
     }
 }
