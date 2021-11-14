@@ -28,16 +28,15 @@ class PostController extends BackendController
     {
 
         $searchModel = new PostSearch();
-        $dataProvider = $searchModel->search( Yii::$app->request->queryParams );
-        $dataProvider->query->with( [
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->with([
             'category',
             'admin'
-        ] );
-        return $this->render( 'index', [
+        ]);
+        return $this->render('index', [
             'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider
-        ] );
-
+        ]);
     }
 
     /**
@@ -47,13 +46,12 @@ class PostController extends BackendController
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView( $id )
+    public function actionView($id)
     {
 
-        return $this->render( 'view', [
-            'model' => $this->findModel( $id )
-        ] );
-
+        return $this->render('view', [
+            'model' => $this->findModel($id)
+        ]);
     }
 
     /**
@@ -65,30 +63,29 @@ class PostController extends BackendController
     public function actionCreate()
     {
 
-        $model = new Post( [
+        $model = new Post([
             'userId' => Yii::$app->user->id
-        ] );
+        ]);
         // ajax表单验证
-        if ( AppHelper::isAjaxValidationRequest() && $model->load( Yii::$app->request->post() ) ) {
+        if (AppHelper::isAjaxValidationRequest() && $model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ActiveForm::validate( $model );
+            return ActiveForm::validate($model);
         }
-        if ( $model->load( Yii::$app->request->post() ) ) {
+        if ($model->load(Yii::$app->request->post())) {
             $model->attachBehavior('auto-fill-seo', [
                 'class'  => AutoFillSeoBehavior::class,
                 'source' => 'content',
-            ] );
-            if ( $model->save() ) {
-                return $this->redirectSuccess( [
+            ]);
+            if ($model->save()) {
+                return $this->redirectSuccess([
                     'view',
                     'id' => $model->id
-                ], "添加成功" );
+                ], "添加成功");
             }
         }
-        return $this->render( 'create', [
+        return $this->render('create', [
             'model' => $model
-        ] );
-
+        ]);
     }
 
     /**
@@ -99,31 +96,30 @@ class PostController extends BackendController
      * @return mixed
      * @throws NotFoundHttpException 如果模型没查询到
      */
-    public function actionUpdate( $id )
+    public function actionUpdate($id)
     {
 
-        $model = $this->findModel( $id );
+        $model = $this->findModel($id);
         // ajax表单验证
-        if ( AppHelper::isAjaxValidationRequest() && $model->load( Yii::$app->request->post() ) ) {
+        if (AppHelper::isAjaxValidationRequest() && $model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ActiveForm::validate( $model );
+            return ActiveForm::validate($model);
         }
-        if ( $model->load( Yii::$app->request->post() ) ) {
+        if ($model->load(Yii::$app->request->post())) {
             $model->attachBehavior('auto-fill-seo', [
                 'class'  => AutoFillSeoBehavior::class,
                 'source' => 'content',
-            ] );
-            if ( $model->save() ) {
-                return $this->redirectSuccess( [
+            ]);
+            if ($model->save()) {
+                return $this->redirectSuccess([
                     'view',
                     'id' => $model->id
-                ], "修改成功" );
+                ], "修改成功");
             }
         }
-        return $this->render( 'update', [
+        return $this->render('update', [
             'model' => $model
-        ] );
-
+        ]);
     }
 
     /**
@@ -134,25 +130,24 @@ class PostController extends BackendController
      * @return mixed
      * @throws NotFoundHttpException 如果模型没查询到
      */
-    public function actionDelete( $id )
+    public function actionDelete()
     {
-
-        if ( is_array( $id ) ) {
-            $modelList = Post::findAll( [
+        $id = Yii::$app->request->post("id");
+        if (is_array($id)) {
+            $modelList = Post::findAll([
                 'id' => $id
-            ] );
-            if ( $modelList ) {
-                foreach ( $modelList as $model ) {
+            ]);
+            if ($modelList) {
+                foreach ($modelList as $model) {
                     $model->delete();
                 }
             }
         } else {
-            $this->findModel( $id )->delete();
+            $this->findModel($id)->delete();
         }
-        return $this->redirect( [
+        return $this->redirect([
             'index'
-        ] );
-
+        ]);
     }
 
     /**
@@ -163,15 +158,14 @@ class PostController extends BackendController
      * @return Post the loaded model
      * @throws NotFoundHttpException 如果模型没查询到
      */
-    protected function findModel( $id )
+    protected function findModel($id)
     {
 
-        if ( ($model = Post::findOne( [
-                'id' => $id
-            ] )) !== null ) {
+        if (($model = Post::findOne([
+            'id' => $id
+        ])) !== null) {
             return $model;
         }
-        throw new NotFoundHttpException( Yii::t( 'app', 'The requested page does not exist.' ) );
-
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 }

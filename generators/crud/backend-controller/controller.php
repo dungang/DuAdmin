@@ -187,12 +187,12 @@ if ( in_array( 'delete', $generator->actions ) ) :
     /**
      * 删除一条存在的 <?=$modelClass?> 模型.
      * 如果删除成果,浏览器将会跳转的到该模型的列表视图界面.
-     * <?=implode( "\n     * ", $actionParamComments ) . "\n"?>
      * @return mixed
      * @throws NotFoundHttpException 如果模型没查询到
      */
-    public function actionDelete(<?=$actionParams?>)
+    public function actionDelete()
     {
+        <?=$actionParams?> = Yii::$app->request->post('id');
     	if( is_array(<?=$actionParams?>) ) {
     		$modelList = <?=$modelClass?>::findAll(<?=$condition?>);
     		if( $modelList ) {

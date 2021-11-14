@@ -13,7 +13,7 @@ use yii\web\JsExpression;
                 $addButtonRoute,
                 [
                     'class'            => 'btn btn-success',
-                    'data-pjax-target' => $id . '-pajx-container',
+                    'data-pjax-target' => $pjaxId,
                     'data-target'      => '#' . $id . '-modal-dialog'
                 ]
             ) ?>
@@ -21,7 +21,7 @@ use yii\web\JsExpression;
         <div class="pull-left"><select class="form-control" style="width:<?= $selectWidth ?>;"></select></div>
     </div>
     <?= $input ?>
-    <div id="<?= $id ?>-pajx-container" data-pjax-container="" data-pjax-timeout="1000">
+    <div id="<?= $pjaxId ?>" data-pjax-container="" data-pjax-timeout="1000">
     </div>
     <?php
     SimpleModal::begin([

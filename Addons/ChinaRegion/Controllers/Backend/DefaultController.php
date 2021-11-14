@@ -102,8 +102,9 @@ class DefaultController extends BackendController
      * @return mixed
      * @throws NotFoundHttpException 如果模型没查询到
      */
-    public function actionDelete($id)
+    public function actionDelete()
     {
+        $id = Yii::$app->request->post("id");
     	if( is_array($id) ) {
     		$modelList = ChinaRegion::findAll(['id' => $id]);
     		if( $modelList ) {

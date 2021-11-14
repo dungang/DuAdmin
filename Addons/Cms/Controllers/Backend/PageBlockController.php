@@ -18,7 +18,7 @@ class PageBlockController extends BackendController
      * 请求action 方法设置
      * @var array
      */
-     public $verbsActions = ['delete' => ['POST']];
+    public $verbsActions = ['delete' => ['POST']];
     /**
      * 列出所有的 PageBlock 模型.
      * @return mixed
@@ -57,7 +57,7 @@ class PageBlockController extends BackendController
         $model = new PageBlock();
 
         // ajax表单验证
-        if ( ($error = $this->ajaxValidation( $model )) !== false ) {
+        if (($error = $this->ajaxValidation($model)) !== false) {
             return $error;
         }
 
@@ -82,7 +82,7 @@ class PageBlockController extends BackendController
         $model = $this->findModel($id);
 
         // ajax表单验证
-        if ( ($error = $this->ajaxValidation( $model )) !== false ) {
+        if (($error = $this->ajaxValidation($model)) !== false) {
             return $error;
         }
 
@@ -102,18 +102,19 @@ class PageBlockController extends BackendController
      * @return mixed
      * @throws NotFoundHttpException 如果模型没查询到
      */
-    public function actionDelete($id)
+    public function actionDelete()
     {
-    	if( is_array($id) ) {
-    		$modelList = PageBlock::findAll(['id' => $id]);
-    		if( $modelList ) {
-    			foreach($modelList as $model) {
-    				$model->delete();
-    			}
-    		}
-    	} else {
-        	$this->findModel($id)->delete();
-    	}
+        $id = Yii::$app->request->post("id");
+        if (is_array($id)) {
+            $modelList = PageBlock::findAll(['id' => $id]);
+            if ($modelList) {
+                foreach ($modelList as $model) {
+                    $model->delete();
+                }
+            }
+        } else {
+            $this->findModel($id)->delete();
+        }
         return $this->redirect(['index']);
     }
 

@@ -33,6 +33,8 @@ class AdvanceSelect extends InputWidget
 
     public $optionWidth = '220px';
 
+    public $pjaxId = '';
+
     public function run()
     {
         Select2Asset::register($this->view);
@@ -48,6 +50,7 @@ class AdvanceSelect extends InputWidget
             'id'             => $id,
             'addButtonRoute' => $this->addButtonRoute,
             'selectWidth'    => $this->optionWidth,
+            'pjaxId'         => $this->pjaxId,
         ]);
     }
 
@@ -57,7 +60,7 @@ class AdvanceSelect extends InputWidget
             'inputType'     => $this->inputType,
             'resultLoadUrl' => Url::to($this->resultLoadRoute),
             'optionLoadUrl' => Url::to($this->optionLoadRoute),
-            'pjaxId'        => $id . '-pajx-container',
+            'pjaxId'        => $this->pjaxId,
         ]);
         return '$("' . $selector . '").advanceSelect(' . $options . ');';
     }
