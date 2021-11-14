@@ -26,7 +26,7 @@ class AddonInstaller extends BaseObject
         if (empty($this->addonName)) {
             throw new BizException("插件标识不能为空");
         }
-        $this->migrationTable = "{{%migration_" . Inflector::camel2id($this->addonName, "_") . "}}";
+        //$this->migrationTable = "{{%migration_" . Inflector::camel2id($this->addonName, "_") . "}}";
         $this->ensureMigrationTableExisted();
     }
 
@@ -35,6 +35,7 @@ class AddonInstaller extends BaseObject
         Yii::$app->db->createCommand()->createTable($this->migrationTable, [
             'version' => 'varchar(' . static::MIGRATION_MAX_NAME_LENGTH . ') NOT NULL PRIMARY KEY',
             'apply_time' => 'integer',
+            'app' => 'varchar(' . static::MIGRATION_MAX_NAME_LENGTH . ') NOT NULL DEFAULT "system"'
         ])->execute();
         Yii::$app->db->createCommand()->insert($this->migrationTable, [
             'version' => static::BASE_MIGRATION,
@@ -54,6 +55,8 @@ class AddonInstaller extends BaseObject
         $query = (new Query())
             ->select(['version', 'apply_time'])
             ->from($this->migrationTable)
+            ->where(['app' => $this->addonName])
+            ->orWhere(['version' => static::BASE_MIGRATION])
             ->orderBy(['apply_time' => SORT_DESC, 'version' => SORT_DESC]);
 
 
@@ -106,6 +109,7 @@ class AddonInstaller extends BaseObject
         $command->insert($this->migrationTable, [
             'version' => $version,
             'apply_time' => time(),
+            'app' => $this->addonName
         ])->execute();
     }
 
@@ -114,6 +118,7 @@ class AddonInstaller extends BaseObject
         $command = Yii::$app->db->createCommand();
         $command->delete($this->migrationTable, [
             'version' => $version,
+            'app' => $this->addonName
         ])->execute();
     }
 
