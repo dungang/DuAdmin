@@ -34,12 +34,16 @@
 
     AdvanceSelect.prototype.handleSelectChange = function() {
         this.$select.on('change', (e) => {
-            var val = new String(this.$input.val());
-            var ids = val.split(',').filter((id) => { return !!id })
-            ids.push(this.$select.val());
-            this.$input.val(ids.distinct().join(','));
-            this.handleInputChange();
+            this.addOne(this.$select.val());
         })
+    }
+
+    AdvanceSelect.prototype.addOne = function(val) {
+        var val = this.$input.val();
+        var ids = val.split(',').filter((id) => { return !!id })
+        ids.push(val);
+        this.$input.val(ids.distinct().join(','));
+        this.handleInputChange();
     }
 
     /**
@@ -47,7 +51,6 @@
      */
     AdvanceSelect.prototype.handleRemove = function() {
         var that = this;
-        console.log(this.$element)
         this.$element.on('click', 'a', function(e) {
             e.preventDefault();
             var removeButton = $(this);

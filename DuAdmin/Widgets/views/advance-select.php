@@ -26,14 +26,8 @@ use yii\widgets\Pjax;
     SimpleModal::begin([
         'header' => '对话框',
         'customHandleResult' => new JsExpression("function(data){
-            var input = $('#${id}');
-            var val = input.val();
-            var ids = val.trim().split(',').filter((id) => { return !!id });
-            ids.push(data.redirectUrl.id);
-            input.val(ids.join(','));
-            input.parent('[role=advance-select]')
-                .advanceSelect('handleInputChange')
-                //.advanceSelect('handleLoadSelectOptions');
+            $('#${id}').parent('[role=advance-select]')
+                .advanceSelect('addOne',data.redirectUrl.id);
         }"),
         'options' => [
             'id' => $id . '-modal-dialog',
