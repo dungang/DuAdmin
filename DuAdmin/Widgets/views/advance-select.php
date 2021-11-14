@@ -3,6 +3,7 @@
 use DuAdmin\Helpers\AppHelper;
 use DuAdmin\Widgets\SimpleModal;
 use yii\web\JsExpression;
+use yii\widgets\Pjax;
 
 ?>
 <div role="advance-select">
@@ -20,21 +21,19 @@ use yii\web\JsExpression;
         </div>
         <div class="pull-left"><select class="form-control" style="width:<?= $selectWidth ?>;"></select></div>
     </div>
-    <?= $input ?>
-    <div id="<?= $pjaxId ?>" data-pjax-container="" data-pjax-timeout="1000">
-    </div>
-    <?php
+    <?php echo  $input;
+    echo Pjax::widget(['id' => $pjaxId, 'enablePushState' => false]);
     SimpleModal::begin([
         'header' => '对话框',
         'customHandleResult' => new JsExpression("function(data){
             var input = $('#${id}');
             var val = input.val();
-            var ids = val.trim().split(',').filter((id) => {!!id });
+            var ids = val.trim().split(',').filter((id) => { return !!id });
             ids.push(data.redirectUrl.id);
             input.val(ids.join(','));
             input.parent('[role=advance-select]')
                 .advanceSelect('handleInputChange')
-                .advanceSelect('handleLoadSelectOptions');
+                //.advanceSelect('handleLoadSelectOptions');
         }"),
         'options' => [
             'id' => $id . '-modal-dialog',

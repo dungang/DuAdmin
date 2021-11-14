@@ -60,7 +60,7 @@
                             if (this.$pjaxContainer && this.$pjaxContainer.length > 0) {
                                 this.handleResult(data);
                             } else {
-                                window.location.reload(true);
+                                window.location.reload();
                             }
                         }
                         this.$modal.modal('hide');

@@ -11,6 +11,7 @@
         this.init();
         this.handleSelectChange();
         this.handleInputChange();
+        this.handleRemove();
     }
 
     AdvanceSelect.prototype.init = function() {
@@ -45,23 +46,21 @@
      * 删除选择的结果
      */
     AdvanceSelect.prototype.handleRemove = function() {
-        this.$element.on('click', 'a[remove]', function(e) {
+        var that = this;
+        console.log(this.$element)
+        this.$element.on('click', 'a', function(e) {
             e.preventDefault();
-            var that = $(this);
+            console.log(e)
+            var removeButton = $(this);
             if (confirm("确定移除？")) {
-                var val = this.$input.val();
+                var val = that.$input.val();
                 ids = val.trim().split(',').filter((id) => {
-                    return !!id && id != that.data('val');
+                    return !!id && id != removeButton.data('val');
                 });
-                this.$input.val(ids.join(','));
-                this.handleInputChange();
-                this.handleLoadSelectOptions();
+                that.$input.val(ids.join(','));
+                that.handleInputChange();
             }
         })
-    }
-
-    AdvanceSelect.prototype.handleLoadSelectOptions = function() {
-        this.$element.select2();
     }
 
     AdvanceSelect.DEFAULTS = {
