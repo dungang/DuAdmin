@@ -50,7 +50,6 @@
         console.log(this.$element)
         this.$element.on('click', 'a', function(e) {
             e.preventDefault();
-            console.log(e)
             var removeButton = $(this);
             if (confirm("确定移除？")) {
                 var val = that.$input.val();
