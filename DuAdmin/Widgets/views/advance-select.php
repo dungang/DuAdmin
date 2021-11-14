@@ -2,7 +2,6 @@
 
 use DuAdmin\Helpers\AppHelper;
 use DuAdmin\Widgets\SimpleModal;
-use yii\bootstrap\Html;
 use yii\web\JsExpression;
 
 ?>
@@ -10,19 +9,19 @@ use yii\web\JsExpression;
     <div class="clearfix">
         <div class="pull-left" style="margin-right:15px;">
             <?= AppHelper::linkButtonWithSimpleModal(
-                "<i class='fa fa-plus'></i> 添加",
-                ['/copyright/cr-owner/create'],
+                "<i class='fa fa-plus'></i> " . $addButtonLabel,
+                $addButtonRoute,
                 [
-                    'class' => 'btn btn-success',
-                    'data-pjax-target' => 'test-pajx-container',
-                    'data-target' => '#advance-select-modal-dialog'
+                    'class'            => 'btn btn-success',
+                    'data-pjax-target' => $id . '-pajx-container',
+                    'data-target'      => '#' . $id . '-modal-dialog'
                 ]
             ) ?>
         </div>
-        <div class="pull-left"><?= Html::dropDownList('name', null, ['是', '否'], ['class' => 'form-control']) ?></div>
+        <div class="pull-left"><select class="form-control" style="width:<?= $selectWidth ?>;"></select></div>
     </div>
     <?= $input ?>
-    <div id="test-pajx-container" data-pjax-container="" data-pjax-timeout="1000">
+    <div id="<?= $id ?>-pajx-container" data-pjax-container="" data-pjax-timeout="1000">
     </div>
     <?php
     SimpleModal::begin([
@@ -30,13 +29,15 @@ use yii\web\JsExpression;
         'customHandleResult' => new JsExpression("function(data){
             var input = $('#${id}');
             var val = input.val();
-            ids = val.split(',');
+            var ids = val.trim().split(',').filter((id) => {!!id });
             ids.push(data.redirectUrl.id);
             input.val(ids.join(','));
-            input.parent('[role=advance-select]').advanceSelect('handleInputChange')
+            input.parent('[role=advance-select]')
+                .advanceSelect('handleInputChange')
+                .advanceSelect('handleLoadSelectOptions');
         }"),
         'options' => [
-            'id' => 'advance-select-modal-dialog',
+            'id' => $id . '-modal-dialog',
             'data-backdrop' => 'static',
             'data-keyboard' => 'false',
         ]

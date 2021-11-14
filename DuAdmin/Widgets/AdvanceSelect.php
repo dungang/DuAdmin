@@ -2,6 +2,7 @@
 
 namespace DuAdmin\Widgets;
 
+use DuAdmin\Assets\Select2Asset;
 use Yii;
 use yii\bootstrap\InputWidget;
 use yii\helpers\Json;
@@ -9,28 +10,54 @@ use yii\helpers\Url;
 
 class AdvanceSelect extends InputWidget
 {
-    public $label;
+    public $inputType = 'hidden';
+    /**
+     * 添加按钮名称
+     */
+    public $addButtonLabel;
 
-    public $route;
+    /**
+     * 添加的路由地址
+     */
+    public $addButtonRoute;
+
+    /**
+     * 选择结果列表数据加载的base路由
+     */
+    public $resultLoadRoute;
+
+    /**
+     * 下拉框选项的结果数据
+     */
+    public $optionLoadRoute;
+
+    public $optionWidth = '220px';
 
     public function run()
     {
-        if (empty($this->label)) {
-            $this->label = Yii::t('da', "Add");
+        Select2Asset::register($this->view);
+        if (empty($this->addButtonLabel)) {
+            $this->addButtonLabel = Yii::t('da', "Add");
         }
-        $this->view->registerJs($this->getJs("[role=advance-select]"));
+        $input = $this->renderInputHtml($this->inputType);
+        $id = $this->options['id'];
+        $this->view->registerJs($this->getJs("[role=advance-select]", $id));
         return $this->render("advance-select", [
-            'label' => $this->label,
-            'input' => $this->renderInputHtml("hidden"),
-            'id' => $this->options['id']
+            'addButtonLabel' => $this->addButtonLabel,
+            'input'          => $input,
+            'id'             => $id,
+            'addButtonRoute' => $this->addButtonRoute,
+            'selectWidth'    => $this->optionWidth,
         ]);
     }
 
-    public function getJs($selector)
+    public function getJs($selector, $id)
     {
         $options = Json::htmlEncode([
-            'url' => Url::to($this->route),
-            'pjaxId' => 'test-pajx-container',
+            'inputType'     => $this->inputType,
+            'resultLoadUrl' => Url::to($this->resultLoadRoute),
+            'optionLoadUrl' => Url::to($this->optionLoadRoute),
+            'pjaxId'        => $id . '-pajx-container',
         ]);
         return '$("' . $selector . '").advanceSelect(' . $options . ');';
     }

@@ -60,9 +60,16 @@ class PanelGridView extends GridView
 
     public function run()
     {
-        $this->tools[] = ob_get_clean() . Html::tag('div', parent::renderSummary(), [
-            'class' => 'pull-right'
-        ]);
+        $toolsContent = trim(ob_get_clean());
+        $summary = parent::renderSummary();
+        if ($summary) {
+            Html::tag('div', $summary, [
+                'class' => 'pull-right'
+            ]);
+        }
+        if ($toolsContent) {
+            $this->tools[] = $toolsContent;
+        }
         if (!empty($this->tools)) {
             $this->_toolBody = Html::tag('div', implode(' ', $this->tools), [
                 'class' => 'panel-tools clearfix'
