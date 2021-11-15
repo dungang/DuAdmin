@@ -6,9 +6,11 @@ use Backend\Models\AuthAssignment;
 use Backend\Models\AuthItem;
 use Backend\Models\AuthItemChild;
 use Backend\Models\AuthPermission;
+use DuAdmin\Core\BizException;
 use DuAdmin\Models\Cron;
 use DuAdmin\Models\DictData;
 use DuAdmin\Models\DictType;
+use DuAdmin\Models\MailTemplate;
 use DuAdmin\Models\Menu;
 use DuAdmin\Models\Navigation;
 use DuAdmin\Models\PrettyUrl;
@@ -330,5 +332,24 @@ class InstallerHelper
     public static function uninstallCronJob($scripts)
     {
         Cron::deleteAll(['jobScript' => $scripts]);
+    }
+
+    public static function installMailTemplate($unicode, $content, $varsInfo = '')
+    {
+        $template = MailTemplate::findOne(['code' => $unicode]);
+        if ($template) {
+            throw new BizException("邮件模板已经存在:" . $unicode);
+        }
+        $template = new MailTemplate([
+            'code' => $unicode,
+            'content' => $content,
+            'varsInfo' => $varsInfo,
+        ]);
+        $template->save();
+    }
+
+    public static function uninstallMailTemplate($unicode)
+    {
+        MailTemplate::deleteAll(['code' => $unicode]);
     }
 }

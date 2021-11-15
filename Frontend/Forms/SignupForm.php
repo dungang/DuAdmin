@@ -2,6 +2,9 @@
 
 namespace Frontend\Forms;
 
+use DuAdmin\Core\BizException;
+use DuAdmin\Helpers\AppHelper;
+use DuAdmin\Helpers\MailHelper;
 use Frontend\Models\User;
 use Yii;
 use yii\base\Model;
@@ -68,7 +71,12 @@ class SignupForm extends Model
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
 
-        return $user->save() && $this->sendEmail($user);
+        $rst = $user->save() && $this->sendEmail($user);
+        if ($user->hasErrors()) {
+            Yii::error($user->errors);
+            throw new BizException("保存失败");
+        }
+        return $rst;
     }
 
     /**
@@ -78,15 +86,17 @@ class SignupForm extends Model
      */
     protected function sendEmail($user)
     {
-        return Yii::$app
-            ->mailer
-            ->compose(
-                ['html' => 'emailVerify-html', 'text' => 'emailVerify-text'],
-                ['user' => $user]
-            )
-            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
-            ->setTo($this->email)
-            ->setSubject('Account registration at ' . Yii::$app->name)
-            ->send();
+        $template = MailHelper::getMailContent('sys_register_verify_mail', [
+            '{username}' => $user->username,
+            'verifyLink' => Yii::$app->urlManager->createAbsoluteUrl([
+                'site/verify-email', 'token' => $user->verificationToken
+            ])
+        ]);
+        return MailHelper::sendEmail(
+            [AppHelper::getSetting('email.username') => AppHelper::getSetting('email.userAlias')],
+            $user->email,
+            $template['title'],
+            $template['content']
+        );
     }
 }

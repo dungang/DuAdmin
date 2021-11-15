@@ -32,15 +32,15 @@ class m201124_063347_create_user_table extends Migration
             'createdAt' => $this->dateTime()->null()->comment('添加时间'),
             'updatedAt' => $this->dateTime()->null()->comment('更新时间'),
         ]);
-        $this->addCommentOnTable('{{%user}}','用户');
-        
-        $this->insert('{{%user}}',[
+        $this->addCommentOnTable('{{%user}}', '用户');
+
+        $this->insert('{{%user}}', [
             'username' => 'da',
             'nickname' => 'DuJiaoPai',
             'authKey' => \Yii::$app->security->generateRandomString(),
             'passwordHash' => \Yii::$app->security->generatePasswordHash('da'),
             'email' => 'dungang@126.com',
-            'isSuper' =>1,
+            'isSuper' => 1,
             'status' => 10,
             'createdAt' => date('Y-m-d H:i:s'),
             'updatedAt' => date('Y-m-d H:i:s')

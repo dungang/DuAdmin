@@ -4,9 +4,9 @@ use DuAdmin\Helpers\InstallerHelper;
 use yii\db\Migration;
 
 /**
- * Class m210111_132113_init_permissions
+ * Class m201211_132113_init_permissions
  */
-class m210111_132113_init_permissions extends Migration
+class m201211_132113_init_permissions extends Migration
 {
 
     /**
@@ -112,6 +112,7 @@ class m210111_132113_init_permissions extends Migration
         ], 'menu/update');
         InstallerHelper::installAddonPermission("system-setting", "系统设置管理");
         InstallerHelper::installPermissionCRUDShortcut("地址美化", "pretty-url", "system-setting");
+        InstallerHelper::installPermissionCRUDShortcut("邮件模板", "mail-template", "system-setting");
         InstallerHelper::installPermissionCRUDShortcut("字典管理", "dict-type", "system-setting");
         InstallerHelper::installPermissionCRUDShortcut("字典数据管理", "dict-data", "system-setting");
     }

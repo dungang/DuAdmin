@@ -113,13 +113,7 @@ class User extends BaseModel implements IdentityInterface, Authable
     {
         return [
             [
-                [
-                    'username',
-                    'nickname',
-                    'email',
-                    'mobile'
-                ],
-                'required'
+                ['username' ],'required'
             ],
             [
                 [

@@ -4,9 +4,9 @@ use DuAdmin\Helpers\InstallerHelper;
 use yii\db\Migration;
 
 /**
- * Class m201225_014116_init_backend_menus
+ * Class m201225_014116_init_data
  */
-class m201213_014116_init_menu_and_navigation extends Migration
+class m201213_014116_init_data extends Migration
 {
 
     /**
@@ -88,6 +88,11 @@ class m201213_014116_init_menu_and_navigation extends Migration
                         'icon' => 'fa fa-plug'
                     ],
                     [
+                        'name' => '邮件模板',
+                        'url'  => 'mail-template/index',
+                        'icon' => 'fa fa-envelope'
+                    ],
+                    [
                         'name' => '插件',
                         'url'  => 'addon/index',
                         'icon' => 'fa fa-plug'
@@ -166,6 +171,15 @@ class m201213_014116_init_menu_and_navigation extends Migration
                 'requireAuth' => 0,
             ]
         ]);
+
+        InstallerHelper::installMailTemplate(
+            'sys_register_verify_mail',
+            '账户邮箱验证通知',
+            '<p>Hello {username},</p>
+            <p>Follow the link below to verify your email:</p>
+            <p>{verifyLink}</p>',
+            '{username} 账户，{verifyLink} 验证链接',
+        );
     }
 
     /**
