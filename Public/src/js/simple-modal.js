@@ -53,7 +53,6 @@
                     var type = "error";
                     if (data.status == 'success') {
                         //自定义处理结果
-                        console.log(typeof this.options.customHandleResult);
                         if (typeof this.options.customHandleResult == 'function') {
                             this.options.customHandleResult.call(this, data);
                         } else {

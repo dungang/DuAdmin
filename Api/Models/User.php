@@ -16,6 +16,7 @@ use Yii;
  * @property string $authKey 验证密钥
  * @property string $passwordHash 密码hash
  * @property string $passwordRestToken 密码重置token
+ * @property string $verificationToken 邮件验证token
  * @property string $email 邮箱
  * @property string $mobile 手机
  * @property int $status 状态
@@ -38,6 +39,7 @@ class User extends JWTUser
     'password',
     'passwordHash',
     'passwordResetToken',
+    'verificationToken',
     'authKey'
   ];
 
@@ -77,6 +79,7 @@ class User extends JWTUser
       'password' => Yii::t('da', 'Password'),
       'passwordHash' => Yii::t('da', 'Password Hash'),
       'passwordRestToken' => Yii::t('da', 'Password Reset Token'),
+      'verificationToken' => Yii::t('da', 'Verification Token'),
       'email' => Yii::t('da', 'Email'),
       'mobile' => Yii::t('da', 'Mobile'),
       'status' => Yii::t('da', 'Status'),
@@ -294,6 +297,14 @@ class User extends JWTUser
   {
 
     $this->passwordRestToken = Yii::$app->security->generateRandomString() . '_' . time();
+  }
+
+  /**
+   * Generates new token for email verification
+   */
+  public function generateEmailVerificationToken()
+  {
+    $this->verificationToken = Yii::$app->security->generateRandomString() . '_' . time();
   }
 
   /**

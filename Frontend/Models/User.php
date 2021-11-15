@@ -20,6 +20,7 @@ use DuAdmin\Hooks\UserCreatedHook;
  * @property string $authKey 授权KEY
  * @property string $passwordHash 密码hash
  * @property string $passwordResetToken 密码重置token
+ * @property string $verificationToken 邮件验证token
  * @property string $email 邮箱
  * @property string $mobile 手机
  * @property int $status 状态
@@ -41,8 +42,11 @@ class User extends BaseModel implements IdentityInterface, Authable
     public $password;
 
     public $jsonHideFields = [
-        'authKey', 'passwordHash',
-        'passwordResetToken'
+        'password',
+        'authKey',
+        'passwordHash',
+        'passwordResetToken',
+        'verificationToken',
     ];
 
     /**
@@ -87,6 +91,7 @@ class User extends BaseModel implements IdentityInterface, Authable
             'authKey' => Yii::t('app_user', 'Auth Key'),
             'passwordHash' => Yii::t('app_user', 'Password Hash'),
             'passwordResetToken' => Yii::t('app_user', 'Password Reset Token'),
+            'verificationToken' => Yii::t('da', 'Verification Token'),
             'email' => Yii::t('app_user', 'Email'),
             'mobile' => Yii::t('app_user', 'Mobile'),
             'status' => Yii::t('app_user', 'Status'),
@@ -303,6 +308,14 @@ class User extends BaseModel implements IdentityInterface, Authable
     }
 
     /**
+     * Generates new token for email verification
+     */
+    public function generateEmailVerificationToken()
+    {
+        $this->verificationToken = Yii::$app->security->generateRandomString() . '_' . time();
+    }
+
+    /**
      * Removes password reset token
      */
     public function removePasswordResetToken()
@@ -333,7 +346,8 @@ class User extends BaseModel implements IdentityInterface, Authable
         return $this->status == static::STATUS_ACTIVE;
     }
 
-    public function generateRandomUserName($prefix=''){
+    public function generateRandomUserName($prefix = '')
+    {
         $this->username = $prefix . date('YmdHis') . str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT);
     }
 }

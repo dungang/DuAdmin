@@ -1,4 +1,5 @@
 import { WOW } from "wowjs";
+import "./loading";
 import "./affix-navbar";
 import "./fix-col-height";
 import "./video-background";

@@ -21,6 +21,7 @@ class m201124_063347_create_user_table extends Migration
             'authKey' => $this->string(128)->null()->comment('授权KEY'),
             'passwordHash' => $this->string(128)->null()->comment('密码hash'),
             'passwordResetToken' => $this->string(128)->null()->comment('密码重置token'),
+            'verificationToken' => $this->string(128)->null()->comment('密码重置token'),
             'email' => $this->string(64)->null()->unique()->comment('邮箱'),
             'mobile' => $this->string(16)->null()->unique()->comment('手机'),
             'status' => $this->tinyInteger()->defaultValue(10)->comment('状态'),

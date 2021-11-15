@@ -29,7 +29,7 @@
 
     AdvanceSelect.prototype.handleInputChange = function() {
         var url = this.options.resultLoadUrl + "?" + this.$input.attr("name") + '=' + this.$input.val();
-        $.pjax({ url: url, container: '#' + this.options.pjaxId, push: false, scrollTo: false })
+        $.pjax({ url: url, container: '#' + this.options.pjaxId, push: false, scrollTo: false, async: false })
     }
 
     AdvanceSelect.prototype.handleSelectChange = function() {
@@ -39,8 +39,8 @@
     }
 
     AdvanceSelect.prototype.addOne = function(val) {
-        var val = this.$input.val();
-        var ids = val.split(',').filter((id) => { return !!id })
+        var vals = this.$input.val();
+        var ids = vals.split(',').filter((id) => { return !!id })
         ids.push(val);
         this.$input.val(ids.distinct().join(','));
         this.handleInputChange();
@@ -51,7 +51,7 @@
      */
     AdvanceSelect.prototype.handleRemove = function() {
         var that = this;
-        this.$element.on('click', 'a', function(e) {
+        this.$element.on('click', 'a[remove]', function(e) {
             e.preventDefault();
             var removeButton = $(this);
             if (confirm("确定移除？")) {
@@ -66,13 +66,13 @@
     }
 
     AdvanceSelect.DEFAULTS = {
-        inputType: 'text',
+        inputType: 'hidden',
         resultLoadUrl: '', //选择的结果数据加载地址
         optionLoadUrl: '', //下拉框选择项数据加载地址
         pjaxId: '', //数据预览容器id
     }
 
-    function Plugin(option) {
+    function Plugin(option, param) {
         return this.each(function() {
             var $this = $(this)
             var data = $this.data('bs.advanceSelect')
@@ -80,7 +80,7 @@
                 var options = $.extend({}, AdvanceSelect.DEFAULTS, $this.data(), typeof option == 'object' && option);
                 $this.data('bs.advanceSelect', (data = new AdvanceSelect(this, options)))
             }
-            if (typeof option == 'string') data[option].call(data)
+            if (typeof option == 'string') data[option].call(data, param)
         })
     }
     var old = $.fn.advanceSelect

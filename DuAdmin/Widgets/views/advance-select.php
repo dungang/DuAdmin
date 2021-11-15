@@ -6,14 +6,14 @@ use yii\web\JsExpression;
 use yii\widgets\Pjax;
 
 ?>
-<div role="advance-select">
+<div id="<?=$id?>-advance-select" role="advance-select">
     <div class="clearfix">
         <div class="pull-left" style="margin-right:15px;">
             <?= AppHelper::linkButtonWithSimpleModal(
                 "<i class='fa fa-plus'></i> " . $addButtonLabel,
                 $addButtonRoute,
                 [
-                    'class'            => 'btn btn-success',
+                    'class'            => 'btn btn-success btn-sm',
                     'data-pjax-target' => $pjaxId,
                     'data-target'      => '#' . $id . '-modal-dialog'
                 ]

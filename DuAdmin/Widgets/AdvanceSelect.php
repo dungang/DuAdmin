@@ -5,6 +5,7 @@ namespace DuAdmin\Widgets;
 use DuAdmin\Assets\Select2Asset;
 use Yii;
 use yii\bootstrap\InputWidget;
+use yii\grid\GridViewAsset;
 use yii\helpers\Json;
 use yii\helpers\Url;
 
@@ -37,13 +38,15 @@ class AdvanceSelect extends InputWidget
 
     public function run()
     {
+        //提前注册
+        GridViewAsset::register($this->view);
         Select2Asset::register($this->view);
         if (empty($this->addButtonLabel)) {
             $this->addButtonLabel = Yii::t('da', "Add");
         }
         $input = $this->renderInputHtml($this->inputType);
         $id = $this->options['id'];
-        $this->view->registerJs($this->getJs("[role=advance-select]", $id));
+        $this->view->registerJs($this->getJs("#" . $id . "-advance-select", $id));
         return $this->render("advance-select", [
             'addButtonLabel' => $this->addButtonLabel,
             'input'          => $input,

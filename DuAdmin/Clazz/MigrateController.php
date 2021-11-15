@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -84,6 +85,9 @@ class MigrateController extends BaseMigrateController
      * @var string the name of the table for keeping applied migration information.
      */
     public $migrationTable = '{{%migration}}';
+
+    public $migrationPath = ['@app/Migrations'];
+
     /**
      * {@inheritdoc}
      */
@@ -288,7 +292,7 @@ class MigrateController extends BaseMigrateController
         $command->insert($this->migrationTable, [
             'version' => $version,
             'apply_time' => time(),
-            'app'=>'System'
+            'app' => 'System'
         ])->execute();
     }
 
@@ -354,7 +358,7 @@ class MigrateController extends BaseMigrateController
         $command = $this->db->createCommand();
         $command->delete($this->migrationTable, [
             'version' => $version,
-            'app'=>'System'
+            'app' => 'System'
         ])->execute();
     }
 
