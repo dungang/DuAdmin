@@ -3,6 +3,7 @@
 namespace Frontend\Controllers;
 
 use DuAdmin\Core\BaseController;
+use DuAdmin\Helpers\AppHelper;
 use Frontend\Forms\SignupForm;
 use Yii;
 
@@ -18,7 +19,8 @@ class SignupController extends BaseController
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
             Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
-            return $this->goHome();
+            $encodeEmail = AppHelper::hideStar($model->email);
+            return $this->render('success', ['encodeEmail' => $encodeEmail]);
         }
 
         return $this->render('index', [

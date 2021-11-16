@@ -443,18 +443,7 @@ class AppHelper
     public static function createOderNo3()
     {
 
-        $yCode = [
-            'A',
-            'B',
-            'C',
-            'D',
-            'E',
-            'F',
-            'G',
-            'H',
-            'I',
-            'J'
-        ];
+        $yCode = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
         return $yCode[intval(date('Y')) - 2011] . strtoupper(dechex(date('m'))) . date('d') . substr(time(), -5) . substr(microtime(), 2, 5) . sprintf('%02d', rand(0, 99));
     }
 
@@ -764,7 +753,7 @@ class AppHelper
         return $command->execute();
     }
 
-    public static function translation_link($category, $message)
+    public static function translationLink($category, $message)
     {
 
         return Html::a('<i class="fa fa-language"></i> ' . Yii::t('da', 'Translation'), [
@@ -1066,5 +1055,30 @@ class AppHelper
     public static function parseMarkdownExtra($content)
     {
         return BaseMarkdown::process($content, 'extra');
+    }
+
+    /**
+     * 用户名、邮箱、手机账号中间字符串以*隐藏 
+     *
+     * @param string $str
+     * @return string
+     */
+    public static function hideStar($str)
+    {
+        if (strpos($str, '@')) {
+            $email_array = explode("@", $str);
+            $prevfix = (strlen($email_array[0]) < 4) ? "" : substr($str, 0, 3); //邮箱前缀 
+            $count = 0;
+            $str = preg_replace('/([\d\w+_-]{0,100})@/', '***@', $str, -1, $count);
+            $rs = $prevfix . $str;
+        } else {
+            $pattern = '/(1[34578]{1}[0-9])[0-9]{4}([0-9]{4})/i';
+            if (preg_match($pattern, $str)) {
+                $rs = preg_replace($pattern, '$1****$2', $str); // substr_replace($name,'****',3,4); 
+            } else {
+                $rs = substr($str, 0, 3) . "***" . substr($str, -1);
+            }
+        }
+        return $rs;
     }
 }
