@@ -88,12 +88,12 @@ class SignupForm extends Model
     {
         $template = MailHelper::getMailContent('sys_register_verify_mail', [
             '{username}' => $user->username,
-            'verifyLink' => Yii::$app->urlManager->createAbsoluteUrl([
+            '{verifyLink}' => Yii::$app->urlManager->createAbsoluteUrl([
                 'site/verify-email', 'token' => $user->verificationToken
             ])
         ]);
         return MailHelper::sendEmail(
-            [AppHelper::getSetting('email.username') => getenv('MAIL_ALIAS')],
+            [getenv('MAIL_USERNAME') => getenv('MAIL_ALIAS')],
             $user->email,
             $template['title'],
             $template['content']
