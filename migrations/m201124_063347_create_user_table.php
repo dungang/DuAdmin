@@ -24,7 +24,7 @@ class m201124_063347_create_user_table extends Migration
             'verificationToken' => $this->string(128)->null()->comment('密码重置token'),
             'email' => $this->string(64)->null()->unique()->comment('邮箱'),
             'mobile' => $this->string(16)->null()->unique()->comment('手机'),
-            'status' => $this->tinyInteger()->defaultValue(10)->comment('状态'),
+            'status' => $this->tinyInteger()->defaultValue(0)->comment('状态'),
             'isSuper' => $this->tinyInteger()->defaultValue(0)->comment('是否创始用户'),
             'loginAt' => $this->dateTime()->null()->comment('上次登陆时间'),
             'loginFailure' => $this->string(255)->null()->comment('登陆失败消息'),
