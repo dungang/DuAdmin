@@ -334,7 +334,7 @@ class InstallerHelper
         Cron::deleteAll(['jobScript' => $scripts]);
     }
 
-    public static function installMailTemplate($unicode, $content, $varsInfo = '')
+    public static function installMailTemplate($unicode, $title, $content, $varsInfo = '')
     {
         $template = MailTemplate::findOne(['code' => $unicode]);
         if ($template) {
@@ -342,6 +342,7 @@ class InstallerHelper
         }
         $template = new MailTemplate([
             'code' => $unicode,
+            'title' => $title,
             'content' => $content,
             'varsInfo' => $varsInfo,
         ]);

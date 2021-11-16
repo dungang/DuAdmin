@@ -161,69 +161,6 @@ class m201121_145324_create_setting_table extends Migration
                 'base'
             ],
             [
-                'email.host',
-                '邮件服务器',
-                'smtp.aliyun.com',
-                'STR',
-                '可以是域名或者是IP地址',
-                '',
-                'email'
-            ],
-            [
-                'email.username',
-                '邮件账号',
-                'dungang2018@aliyun.com',
-                'STR',
-                '',
-                '',
-                'email'
-            ],
-            [
-                'email.password',
-                '邮件密码',
-                '',
-                'STR',
-                '密码',
-                '',
-                'email'
-            ],
-            [
-                'email.port',
-                '邮件端口',
-                '25',
-                'STR',
-                '邮件服务器端口',
-                '',
-                'email'
-            ],
-            [
-                'email.userAlias',
-                '邮件账号别名',
-                'DUAdmin Tech',
-                'STR',
-                '邮件账号名称',
-                '',
-                'email'
-            ],
-            [
-                'email.recipient',
-                '收件账号',
-                'dungang@126.com',
-                'STR',
-                '邮件账号',
-                '',
-                'email'
-            ],
-            [
-                'email.recipientAlias',
-                '收件账号别名',
-                'DUAdmin Tech',
-                'STR',
-                '收件账号',
-                '',
-                'email'
-            ],
-            [
                 'site.index-page',
                 '网站首页地址',
                 '/index.html',

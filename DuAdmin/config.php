@@ -45,7 +45,8 @@ return [
             ]
         ],
         'mailer'       => [
-            'class' => 'DuAdmin\Components\AppMailer'
+            'class'    => 'DuAdmin\Components\AppMailer',
+            'viewPath' => '@app/Config/mail'
         ],
         'formatter'    => [
             'datetimeFormat' => 'yyyy-MM-dd HH:mm:ss',

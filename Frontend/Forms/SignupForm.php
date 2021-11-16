@@ -93,7 +93,7 @@ class SignupForm extends Model
             ])
         ]);
         return MailHelper::sendEmail(
-            [AppHelper::getSetting('email.username') => AppHelper::getSetting('email.userAlias')],
+            [AppHelper::getSetting('email.username') => getenv('MAIL_ALIAS')],
             $user->email,
             $template['title'],
             $template['content']

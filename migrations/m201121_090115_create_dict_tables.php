@@ -55,7 +55,6 @@ class m201121_090115_create_dict_tables extends DuAdminMigration
         ]);
         InstallerHelper::InstallDict('setting_category', '系统配置分类', [
             ['dictLabel' => '基本设置', 'dictValue' => 'base'],
-            ['dictLabel' => '邮件服务', 'dictValue' => 'email'],
             ['dictLabel' => '开放功能', 'dictValue' => 'open-feature'],
             ['dictLabel' => '邮件服务', 'dictValue' => 'email'],
         ]);

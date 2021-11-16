@@ -28,7 +28,7 @@ class MailHelper
     {
         return Yii::$app
             ->mailer
-            ->compose('mail', ['subject' => $subject, 'content' => $content])
+            ->compose('content', ['subject' => $subject, 'content' => $content])
             ->setFrom($from)
             ->setTo($to)
             ->setSubject($subject)

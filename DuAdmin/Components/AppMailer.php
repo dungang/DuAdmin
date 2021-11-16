@@ -1,4 +1,5 @@
 <?php
+
 namespace DuAdmin\Components;
 
 use yii\swiftmailer\Mailer;
@@ -22,11 +23,10 @@ class AppMailer extends Mailer
         $this->useFileTransport = false;
         $this->transport = [
             'class' => 'Swift_SmtpTransport',
-            'host' => Setting::getSettings('email.host'),
-            'username' => Setting::getSettings('email.username'),
-            'password' => Setting::getSettings('email.password'),
-            'port' => Setting::getSettings('email.port')
+            'host' => getenv('MAIL_HOST'),
+            'username' => getenv('MAIL_USERNAME'),
+            'password' => getenv('MAIL_PASSWORD'),
+            'port' => getenv('MAIL_PORT')
         ];
     }
 }
-
