@@ -8,7 +8,7 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use DuAdmin\Models\Setting;
 
-$this->title = '登录';
+$this->title = Yii::t('theme', 'Login');
 $this->params['breadcrumbs'][] = $this->title;
 $this->registerMetaTag([
 	'name' => 'keywords',
@@ -26,7 +26,7 @@ $this->registerMetaTag([
 	</div>
 	<!-- /.login-logo -->
 	<div class="login-box-body">
-		<p class="login-box-msg">欢迎回来，请登录！</p>
+		<p class="login-box-msg"><?= Yii::t('theme', 'Welcome to back,Please Login') ?></p>
 
 		<?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
 		<?= $form->field($model, 'username')->textInput() ?>
@@ -38,15 +38,15 @@ $this->registerMetaTag([
 			</div>
 			<!-- /.col -->
 			<div class="col-xs-4">
-				<?= Html::submitButton('登录', ['class' => 'btn btn-primary btn-block btn-flat', 'name' => 'login-button']) ?>
+				<?= Html::submitButton(Yii::t('theme', 'Login'), ['class' => 'btn btn-primary btn-block btn-flat', 'name' => 'login-button']) ?>
 
 			</div>
 			<!-- /.col -->
 		</div>
 		<div style="color: #999; margin: 1em 0">
-			忘记密码，请 <?= Html::a('重置密码', ['/site/request-password-reset']) ?>.
+			<?= Yii::t('theme', 'When forget password, Please ') . Html::a(Yii::t('theme', 'reset password'), ['/site/request-password-reset']) ?>.
 			<br>
-			没有账户，请 <?= Html::a('注册', ['/signup']) ?>
+			<?= Yii::t('theme', 'When have no a account, Please ') . Html::a(Yii::t('theme', 'signup'), ['/signup']) ?>
 		</div>
 		<?php ActiveForm::end(); ?>
 		<!-- /.login-box-body -->

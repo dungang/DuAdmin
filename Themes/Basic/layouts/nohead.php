@@ -42,13 +42,13 @@ $siteName = Yii::t('app', AppHelper::getSetting('site.name', Yii::$app->name));
     </div>
     <?php
     SimpleModal::begin([
-        'header'  => '对话框',
+        'header'  => Yii::t('theme', 'Dialog'),
         'options' => [
             'data-keyboard' => 'false',
             'id'            => 'modal-dialog'
         ]
     ]);
-    echo "加载中 ... ";
+    echo Yii::t('theme', 'Loading ...');
     SimpleModal::end();
     ?>
     <?= CmsPageFooter::widget() ?>

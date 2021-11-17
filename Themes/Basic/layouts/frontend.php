@@ -68,10 +68,10 @@ $this->registerJs(AppHelper::getSetting('site.tongji'), View::POS_HEAD);
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <?= Html::a('个人信息', ['/profile'], ['data-toggle' => 'modal', 'data-target' => '#modal-dialog', 'class' => 'btn btn-default btn-flat']) ?>
+                                <?= Html::a(Yii::t('theme', 'Profile'), ['/profile'], ['data-toggle' => 'modal', 'data-target' => '#modal-dialog', 'class' => 'btn btn-default btn-flat']) ?>
                             </div>
                             <div class="pull-right">
-                                <?= Html::a('退出', ['/logout'], ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']) ?>
+                                <?= Html::a(Yii::t('theme', 'Logout'), ['/logout'], ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']) ?>
                             </div>
                         </li>
                     </ul>
@@ -89,11 +89,11 @@ $this->registerJs(AppHelper::getSetting('site.tongji'), View::POS_HEAD);
             <div class="pull-left info">
                 <p><?= Yii::$app->user->identity->nickname ?></p>
                 <!-- Status -->
-                <i class="fa fa-circle text-success"></i> 在线
+                <i class="fa fa-circle text-success"></i> <?= Yii::t('theme', 'Online') ?>
             </div>
         </div>
         <?= AdminlteSideBarMenu::widget([
-            'headerLabel' => '导航',
+            'headerLabel' => Yii::t('theme', 'Navigation'),
             'nameKey' => 'name',
             'items' => Navigation::getNavigationExclude('frontend')
         ]) ?>
@@ -137,14 +137,14 @@ $this->registerJs(AppHelper::getSetting('site.tongji'), View::POS_HEAD);
     </div>
     <?php
     SimpleModal::begin([
-        'header' => '对话框',
+        'header' => Yii::t('theme', 'Dialog'),
         'options' => [
             'data-backdrop' => 'static',
             'data-keyboard' => 'false',
             'id' => 'modal-dialog'
         ]
     ]);
-    echo "加载中 ... ";
+    echo Yii::t('theme', 'Loading ...');
     SimpleModal::end();
     ?>
     <?= Notify::widget() ?>

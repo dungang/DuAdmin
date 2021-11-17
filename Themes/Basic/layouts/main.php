@@ -82,7 +82,7 @@ $siteName = Yii::t('app', AppHelper::getSetting('site.name', Yii::$app->name));
                 ]
             ];
         } else {
-            $menus[] = '<li>' . Html::a('<i class="fa fa-user"></i> '.Yii::$app->user->identity->username, AppHelper::getSetting('site.usercenter-page')) . '</li>';
+            $menus[] = '<li>' . Html::a('<i class="fa fa-user"></i> ' . Yii::$app->user->identity->username, AppHelper::getSetting('site.usercenter-page')) . '</li>';
         }
 
         echo Nav::widget([
@@ -107,13 +107,13 @@ $siteName = Yii::t('app', AppHelper::getSetting('site.name', Yii::$app->name));
 
     <?php
     SimpleModal::begin([
-        'header'  => '对话框',
+        'header'  =>  Yii::t('theme', 'Dialog'),
         'options' => [
             'data-keyboard' => 'false',
             'id'            => 'modal-dialog'
         ]
     ]);
-    echo "加载中 ... ";
+    echo Yii::t('theme', 'Loading ...');
     SimpleModal::end();
     ?>
     <?= CmsPageFooter::widget() ?>

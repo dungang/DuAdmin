@@ -29,7 +29,7 @@ $siteName = Yii::t('app', AppHelper::getSetting('site.name', Yii::$app->name));
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title . '-' . $siteName . '-' . $company) ?></title>
-    <?php $this->head();?>
+    <?php $this->head(); ?>
 </head>
 
 <body>
@@ -39,13 +39,13 @@ $siteName = Yii::t('app', AppHelper::getSetting('site.name', Yii::$app->name));
     </div>
     <?php
     SimpleModal::begin([
-        'header'  => '对话框',
+        'header'  =>  Yii::t('theme', 'Dialog'),
         'options' => [
             'data-keyboard' => 'false',
             'id'            => 'modal-dialog'
         ]
     ]);
-    echo "加载中 ... ";
+    echo Yii::t('theme', 'Loading ...');
     SimpleModal::end();
     ?>
     <?php $this->endBody() ?>
