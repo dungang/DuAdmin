@@ -4,4 +4,5 @@ import "../../../src/js/loading";
 import "./extend";
 import "./ajax-upload";
 import "../../../src/js/simple-modal";
-import "./advance-select";
+import "../../../src/js/layer-form-page";
+import "../../../src/js/advance-select";

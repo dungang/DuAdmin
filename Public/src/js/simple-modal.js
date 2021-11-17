@@ -44,7 +44,7 @@
     }
 
     SimpleModal.prototype.handleSubmit = function() {
-        //阻拦默认的表单提交事件，自动替换为pjax请求
+        //阻拦默认的表单提交事件，自动替换为ajax请求
         this.$modal.on('submit', 'form', (event) => {
             event.preventDefault();
             $(event.target).ajaxSubmit({

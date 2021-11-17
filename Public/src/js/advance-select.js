@@ -9,12 +9,14 @@
         this.options = options;
         this.$element = $(el);
         this.init();
+        this.handleCreateForm();
         this.handleSelectChange();
         this.handleInputChange();
         this.handleRemove();
     }
 
     AdvanceSelect.prototype.init = function() {
+        this.$formButton = this.$element.find('a[create-form]');
         this.$input = this.$element.find('input[type=' + this.options.inputType + ']');
         this.$pjaxContainer = this.$element.find('div[role=data-pjax-container]');
         this.$select = this.$element.find('select');
@@ -24,6 +26,22 @@
                 url: this.options.optionLoadUrl,
                 dataType: 'json'
             }
+        });
+    }
+
+    AdvanceSelect.prototype.handleCreateForm = function() {
+        var options = this.options;
+        this.$formButton.on('click', function(e) {
+            var that = $(this);
+            e.preventDefault();
+            layer.open({
+                type: 2,
+                title: options.formTitle,
+                maxmin: false,
+                shadeClose: true, //点击遮罩关闭层
+                area: options.formArea,
+                content: that.attr("href"),
+            });
         });
     }
 
@@ -44,6 +62,14 @@
         ids.push(val);
         this.$input.val(ids.distinct().join(','));
         this.handleInputChange();
+    }
+
+    AdvanceSelect.prototype.handleSubmit = function(data) {
+        var val = this.options.onSubmitSuccess.call(this, data);
+        if (!!val) {
+            this.addOne(val);
+            layer.closeAll();
+        }
     }
 
     /**
@@ -70,6 +96,9 @@
         resultLoadUrl: '', //选择的结果数据加载地址
         optionLoadUrl: '', //下拉框选择项数据加载地址
         pjaxId: '', //数据预览容器id
+        formTitle: "添加",
+        formArea: ['800px', '600px'], //layer 宽度 高度 
+        onSubmitSuccess: function(data) { console.log(data) }
     }
 
     function Plugin(option, param) {

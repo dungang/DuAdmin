@@ -6,12 +6,22 @@ use DuAdmin\Assets\Select2Asset;
 use Yii;
 use yii\bootstrap\InputWidget;
 use yii\grid\GridViewAsset;
+use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
+use yii\web\JsExpression;
 
 class AdvanceSelect extends InputWidget
 {
+
+    /**
+     * 必须手动自定
+     */
+    public $elementId = "advance-select";
+
     public $inputType = 'hidden';
+
+    public $formArea = ['800px', '600px'];
     /**
      * 添加按钮名称
      */
@@ -45,25 +55,30 @@ class AdvanceSelect extends InputWidget
             $this->addButtonLabel = Yii::t('da', "Add");
         }
         $input = $this->renderInputHtml($this->inputType);
-        $id = $this->options['id'];
-        $this->view->registerJs($this->getJs("#" . $id . "-advance-select", $id));
-        return $this->render("advance-select", [
+        //id input id;
+        $this->view->registerJs($this->getJs("#" . $this->elementId, $this->id));
+        return Html::tag('div', $this->render("advance-select", [
             'addButtonLabel' => $this->addButtonLabel,
             'input'          => $input,
-            'id'             => $id,
+            'id'             => $this->id, //input id
             'addButtonRoute' => $this->addButtonRoute,
             'selectWidth'    => $this->optionWidth,
             'pjaxId'         => $this->pjaxId,
-        ]);
+        ]), ['id' => $this->elementId, 'role' => 'advance-select']);
     }
 
     public function getJs($selector, $id)
     {
         $options = Json::htmlEncode([
+            'formTitle' => $this->addButtonLabel,
+            'formArea' => $this->formArea,
             'inputType'     => $this->inputType,
             'resultLoadUrl' => Url::to($this->resultLoadRoute),
             'optionLoadUrl' => Url::to($this->optionLoadRoute),
             'pjaxId'        => $this->pjaxId,
+            'onSubmitSuccess' => new JsExpression("function(data){
+                return data.redirectUrl.id;
+            }"),
         ]);
         return '$("' . $selector . '").advanceSelect(' . $options . ');';
     }

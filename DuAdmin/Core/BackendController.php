@@ -11,8 +11,10 @@ use DuAdmin\Filters\AccessFilter;
  * @author Lenovo
  *
  */
-abstract class BackendController extends BaseController {
+abstract class BackendController extends BaseController
+{
 
+    public $layout = 'main';
     /**
      * 游客可以访问的action清单
      *
@@ -27,20 +29,19 @@ abstract class BackendController extends BaseController {
      */
     public $userActions = [];
 
-    public function init() {
-
+    public function init()
+    {
         parent::init();
-        $this->layout = 'main';
         $this->module->layoutPath = '@Backend/Views/layouts';
     }
 
-    public function behaviors() {
+    public function behaviors()
+    {
 
         $behaviors = parent::behaviors();
         // 注册访问控制行为
         // 必须把行为放在第一个位置
-        array_unshift( $behaviors, AccessFilter::class );
+        array_unshift($behaviors, AccessFilter::class);
         return $behaviors;
     }
-
 }

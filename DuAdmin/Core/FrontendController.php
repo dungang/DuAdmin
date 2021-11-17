@@ -14,6 +14,8 @@ use DuAdmin\Filters\AccessFilter;
 abstract class FrontendController extends BaseController
 {
 
+  public $layout = "frontend";
+
   /**
    * 游客可以访问的action清单
    *
@@ -29,9 +31,7 @@ abstract class FrontendController extends BaseController
   public $userActions = [];
 
   public function init() {
-
     parent::init();
-    $this->layout = 'frontend';
     $this->module->layoutPath = '@Frontend/Views/layouts';
 }
 

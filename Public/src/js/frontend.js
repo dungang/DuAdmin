@@ -5,6 +5,8 @@ import "./fix-col-height";
 import "./video-background";
 import "./load-more";
 import "./simple-modal";
+import "./advance-select";
+import "./layer-form-page";
 
 $(function() {
     // css3
