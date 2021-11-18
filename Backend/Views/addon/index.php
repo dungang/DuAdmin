@@ -24,9 +24,25 @@ echo PanelGridView::widget([
             'format' => 'raw',
             'value' => function ($model) {
                 if ($model['active']) {
-                    return AppHelper::linkButton('<i class="fa fa-check-circle"></i> 开放', ['close', 'name' => $model['name']], ['class' => 'text-success']);
+                    return AppHelper::linkButton(
+                        '<i class="fa fa-check-circle"></i> 开放',
+                        ['close', 'name' => $model['name']],
+                        [
+                            'class' => 'text-success',
+                            'data-confirm' => Yii::t('app', 'Are you sure you want to open this addon?'),
+                            'data-method' => 'post',
+                        ]
+                    );
                 } else {
-                    return AppHelper::linkButton('<i class="fa fa-window-close"></i> 关闭', ['open', 'name' => $model['name']], ['class' => 'text-danger']);
+                    return AppHelper::linkButton(
+                        '<i class="fa fa-window-close"></i> 关闭',
+                        ['open', 'name' => $model['name']],
+                        [
+                            'class' => 'text-danger',
+                            'data-confirm' => Yii::t('app', 'Are you sure you want to close this addon?'),
+                            'data-method' => 'post',
+                        ]
+                    );
                 }
             }
         ],
@@ -53,10 +69,15 @@ echo PanelGridView::widget([
                 $textClass = "text-danger";
                 $textAction = "Install";
                 $action = 'install';
+                $options = [
+                    'data-confirm' => Yii::t('app', 'Are you sure you want to install this addon?'),
+                    'data-method' => 'post',
+                ];
                 if ($model['active']) {
                     $textAction = 'Uninstall';
                     $textClass = 'text-success';
                     $action = 'uninstall';
+                    $options['data-confirm'] = Yii::t('app', 'Are you sure you want to uninstall this addon?');
                 }
                 return Html::a('<i class="fa fa-cogs"></i> ' . Yii::t('da', $textAction), [
                     $action, 'name' => $model['addon']

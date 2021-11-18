@@ -2,69 +2,48 @@
 
 namespace DuAdmin\Widgets;
 
-use DuAdmin\Assets\NotifyAsset;
+use DuAdmin\Assets\LayerAsset;
 use yii\base\Widget;
 use yii\helpers\Json;
 
-class Notify extends Widget {
-  /**
-   * center left right
-   *
-   * @var string
-   */
-  public $position = 'center';
-  // public $width;
-  // public $height;
-  public $autohide = true;
-  public $opacity = 1;
-  public $multiline = true;
-  public $clickable = false;
+class Notify extends Widget
+{
   public $timeout = 5000;
   // success, error, warning, info
   public $alertTypes = [
-      'error' => 'error',
-      'danger' => 'error',
-      'exception' => 'error',
-      'fail' => 'error',
-      'success' => 'success',
-      'info' => 'info',
-      'warning' => 'warning'
+    'error' => 2,
+    'danger' => 2,
+    'exception' => 5,
+    'fail' => 5,
+    'success' => 1,
+    'info' => 3,
+    'warning' => 4
   ];
 
-  public function run() {
+  public function run()
+  {
 
-    NotifyAsset::register( $this->view );
+    LayerAsset::register($this->view);
     $session = \Yii::$app->session;
     $flashes = $session->getAllFlashes();
-    // print_r( $flashes );
-    // die();
-    foreach ( $flashes as $type => $flash ) {
-      if (isset( $this->alertTypes [$type] ) && $type = $this->alertTypes [$type]) {
-        foreach ( array_values( ( array ) $flash ) as $message ) {
-          $this->renderNotify( $type, $message );
+    foreach ($flashes as $type => $flash) {
+      if (isset($this->alertTypes[$type]) && $type = $this->alertTypes[$type]) {
+        foreach (array_values((array) $flash) as $message) {
+          $this->renderNotify($type, $message);
         }
       }
-      $session->removeFlash( $type );
+      $session->removeFlash($type);
     }
-
   }
 
-  public function renderNotify($type, $msg) {
+  public function renderNotify($type, $msg)
+  {
 
     $options = [
-        'msg' => $msg,
-        'type' => $type,
-        'position' => $this->position,
-        // 'width'=>$this->width,
-        // 'height'=>$this->height,
-        'autohide' => $this->autohide,
-        'opacity' => $this->opacity,
-        'multiline' => $this->multiline,
-        'clickable' => $this->clickable,
-        'timeout' => $this->timeout
+      'icon' => $type,
+      'time' => $this->timeout
     ];
-    $js = "notif(" . Json::htmlEncode( $options ) . ")";
-    $this->view->registerJs( $js );
-
+    $js = "layer.msg('" . $msg . "', " . Json::htmlEncode($options) . ");";
+    $this->view->registerJs($js);
   }
 }

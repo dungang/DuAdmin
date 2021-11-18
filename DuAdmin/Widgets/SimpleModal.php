@@ -2,6 +2,7 @@
 
 namespace DuAdmin\Widgets;
 
+use DuAdmin\Assets\LayerAsset;
 use yii\bootstrap\Html;
 use yii\bootstrap\Modal;
 use yii\helpers\Json;
@@ -40,6 +41,7 @@ class SimpleModal extends Modal
         echo "\n" . Html::endTag('div'); // modal-content
         echo "\n" . Html::endTag('div'); // modal-dialog
         echo "\n" . Html::endTag('div');
+        LayerAsset::register($this->view);
         PjaxAsset::register($this->view);
         $this->view->registerjs($this->getJs('#' . $this->options['id']));
     }
