@@ -3,6 +3,7 @@ return [
     'Operation'            => '操作',
     'Reset'                => '重置',
     'Search'               => '搜索',
+    'Prev'                 => '上一步',
     'Next'                 => '下一步',
     'Create'               => '添加',
     'Delete'               => '删除',

@@ -6,3 +6,5 @@ import "./ajax-upload";
 import "../../../src/js/simple-modal";
 import "../../../src/js/layer-form-page";
 import "../../../src/js/advance-select";
+import "../../../src/js/checkbox-selection";
+import "../../../src/js/radio-card";

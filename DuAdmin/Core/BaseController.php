@@ -163,7 +163,6 @@ class BaseController extends Controller
      */
     public function redirectSuccess($redirectUrl, $message = "成功")
     {
-
         $status = "success";
         $this->setFlash($status, $message);
         return compact('status', 'redirectUrl', 'message');
@@ -172,13 +171,12 @@ class BaseController extends Controller
     /**
      * 设置错误跳转
      *
-     * @param string $url
+     * @param string $redirectUrl
      * @param string $message
      * @return Response
      */
-    public function redirectError($url, $message = "失败")
+    public function redirectError($redirectUrl, $message = "失败")
     {
-
         $status = "error";
         $this->setFlash($status, $message);
         return compact('status', 'redirectUrl', 'message');

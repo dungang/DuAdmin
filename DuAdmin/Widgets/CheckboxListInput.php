@@ -23,9 +23,7 @@ class CheckboxListInput extends InputWidget
 
     public function run()
     {
-
-        $hidden = $this->renderInputHtml("hidden");
-        return $hidden . $this->renderCheckboxList();
+        return $this->renderCheckboxList();
     }
 
     public function renderCheckboxList()
@@ -40,9 +38,23 @@ class CheckboxListInput extends InputWidget
         } else {
             $selection = [];
         }
+
         if ($this->hasAllItem) {
             $this->items = ArrayHelper::merge(['all' => '全选'], $this->items);
         }
-        return Html::checkboxList('', $selection, $this->items);
+
+        $lines = [];
+        foreach ($this->items as $value => $label) {
+            $checked = ArrayHelper::isTraversable($selection) && ArrayHelper::isIn((string)$value, $selection, false);
+            $lines[] = Html::checkbox(null, $checked, [
+                'value' => $value,
+                'label' => Html::encode($label),
+            ]);
+        }
+
+        $hidden = $this->renderInputHtml("hidden");
+        $selectionId = $this->getId() . '-checkbox-selection';
+        $this->view->registerJs("$('#" . $selectionId . "').checkboxSelection();");
+        return Html::tag('div', $hidden . implode("\n", $lines), ['role' => 'checkbox-selection', 'id' => $selectionId]);
     }
 }

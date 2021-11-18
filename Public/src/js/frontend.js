@@ -7,6 +7,8 @@ import "./load-more";
 import "./simple-modal";
 import "./advance-select";
 import "./layer-form-page";
+import "./checkbox-selection";
+import "./radio-card";
 
 $(function() {
     // css3
