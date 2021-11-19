@@ -13,7 +13,7 @@ if (!empty($namespace)) {
 }
 ?>
 
-use Cosnole\components\Migration;
+use Console\Components\Migration;
 
 /**
  * Class <?= $className . "\n" ?>
@@ -21,12 +21,6 @@ use Cosnole\components\Migration;
 class <?= $className ?> extends Migration
 {
   
-    public function init(){
-        if(RUNTIME_MODE === 'Backend') {
-            $this->compact = true;
-        }
-        parent::init();
-    }
 
     /**
      * {@inheritdoc}

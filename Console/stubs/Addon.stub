@@ -13,7 +13,7 @@ class Addon extends BaseAddon {
 	 */
     protected function initBackend()
     {
-        $this->name = '{{ addonTitle }}';
+        $this->name = Yii::t('da_{{ addonMessage }}','{{ addonTitle }}');
         $this->home = [
             'label' => $this->name,
             'url' => [
