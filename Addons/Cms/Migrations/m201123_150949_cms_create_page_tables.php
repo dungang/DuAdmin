@@ -52,8 +52,8 @@ class m201123_150949_cms_create_page_tables extends Migration
   public function safeDown()
   {
 
-    $this->dropTable('{{%page}}');
-    $this->dropTable('{{%page_post}}');
+    $this->dropTable('{{%cms_page}}');
+    $this->dropTable('{{%cms_page_post}}');
   }
   /*
    * // Use up()/down() to run migration code without a transaction.

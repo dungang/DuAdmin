@@ -29,7 +29,7 @@ echo PanelGridView::widget([
                         ['close', 'name' => $model['name']],
                         [
                             'class' => 'text-success',
-                            'data-confirm' => Yii::t('app', 'Are you sure you want to open this addon?'),
+                            'data-confirm' => Yii::t('app', 'Are you sure you want to close this addon?'),
                             'data-method' => 'post',
                         ]
                     );
@@ -39,7 +39,7 @@ echo PanelGridView::widget([
                         ['open', 'name' => $model['name']],
                         [
                             'class' => 'text-danger',
-                            'data-confirm' => Yii::t('app', 'Are you sure you want to close this addon?'),
+                            'data-confirm' => Yii::t('app', 'Are you sure you want to open this addon?'),
                             'data-method' => 'post',
                         ]
                     );
@@ -55,7 +55,7 @@ echo PanelGridView::widget([
             'format'    => 'raw',
             'value'     => function ($model, $key, $index) {
                 if (isset($model['hasSetting']) && $model['hasSetting']) {
-                    return Html::a('<i class="fa fa-cogs"></i> ' . Yii::t('da', 'Setting'), [
+                    return AppHelper::linkButton('<i class="fa fa-cogs"></i> ' . Yii::t('da', 'Setting'), [
                         '/' . $model['id'] . '/setting'
                     ]);
                 }
@@ -79,7 +79,7 @@ echo PanelGridView::widget([
                     $action = 'uninstall';
                     $options['data-confirm'] = Yii::t('app', 'Are you sure you want to uninstall this addon?');
                 }
-                return Html::a('<i class="fa fa-cogs"></i> ' . Yii::t('da', $textAction), [
+                return AppHelper::linkButton('<i class="fa fa-cogs"></i> ' . Yii::t('da', $textAction), [
                     $action, 'name' => $model['addon']
                 ], ['class' => $textClass]);
             }

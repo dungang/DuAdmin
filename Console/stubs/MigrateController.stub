@@ -18,7 +18,7 @@ class MigrateController extends ControllersMigrateController
     /**
     * {@inheritdoc}
     */
-    public $migrationTable = "migration_{{ addonId }}";
+    public $app = "{{ addonName }}";
 
     /**
     * {@inheritdoc}

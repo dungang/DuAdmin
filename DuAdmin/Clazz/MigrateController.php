@@ -145,6 +145,12 @@ class MigrateController extends BaseMigrateController
 
 
     /**
+     * 应用的app
+     */
+    public $app = 'System';
+
+
+    /**
      * {@inheritdoc}
      */
     public function options($actionID)
@@ -218,6 +224,7 @@ class MigrateController extends BaseMigrateController
         $query = (new Query())
             ->select(['version', 'apply_time'])
             ->from($this->migrationTable)
+            ->where(['app' => $this->app])
             ->orderBy(['apply_time' => SORT_DESC, 'version' => SORT_DESC]);
 
         if (empty($this->migrationNamespaces)) {
@@ -292,7 +299,7 @@ class MigrateController extends BaseMigrateController
         $command->insert($this->migrationTable, [
             'version' => $version,
             'apply_time' => time(),
-            'app' => 'System'
+            'app' => $this->app
         ])->execute();
     }
 
@@ -358,7 +365,7 @@ class MigrateController extends BaseMigrateController
         $command = $this->db->createCommand();
         $command->delete($this->migrationTable, [
             'version' => $version,
-            'app' => 'System'
+            'app' => $this->app,
         ])->execute();
     }
 

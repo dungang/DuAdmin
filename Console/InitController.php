@@ -28,10 +28,7 @@ class InitController extends BaseController
         //重装数据库
         $this->run('/migrate/fresh', [
             'migrationPath' => [
-                '@app/migrations',
-                '@Addons/Cms/Migrations',
-                '@Addons/ChinaRegion/Migrations',
-                '@Addons/Ueditor/Migrations',
+                '@app/Migrations',
             ]
         ]);
         //创建管理员
