@@ -48,7 +48,7 @@ class SiteController extends BaseController
 
         return [
             'error'         => [
-                'class' => 'yii\web\ErrorAction'
+                'class' => 'DuAdmin\core\CustomErrorAction',
             ],
             'captcha'       => [
                 'class'           => '\yii\captcha\CaptchaAction',

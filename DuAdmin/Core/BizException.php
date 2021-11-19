@@ -2,9 +2,9 @@
 
 namespace DuAdmin\Core;
 
-use yii\base\Exception;
+use yii\base\UserException;
 
-class BizException extends Exception
+class BizException extends UserException
 {
 
     /**

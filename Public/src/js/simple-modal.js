@@ -1,5 +1,5 @@
-+ function ($) {
-    var SimpleModal = function (el, options) {
++ function($) {
+    var SimpleModal = function(el, options) {
         this.options = options;
         this.$modal = $(el);
         this.$pjaxContainer = null;
@@ -9,7 +9,7 @@
         this.handleSubmit();
     }
 
-    SimpleModal.prototype.handleHidden = function () {
+    SimpleModal.prototype.handleHidden = function() {
         // 清空对象
         this.$modal.on('hidden.bs.modal', (e) => {
             this.$modal.data('bs.modal', null);
@@ -21,7 +21,7 @@
         });
     }
 
-    SimpleModal.prototype.handleShow = function () {
+    SimpleModal.prototype.handleShow = function() {
         // 根据属性调整modal窗口大小
         this.$modal.on('show.bs.modal', (e) => {
             var targetBtn = $(e.relatedTarget);
@@ -43,7 +43,15 @@
         });
     }
 
-    SimpleModal.prototype.handleSubmit = function () {
+    SimpleModal.prototype.showMsg = function(message, icon) {
+        layer.msg(message, {
+            skin: 'layui-layer-molv',
+            icon: icon,
+            time: this.options.timeout
+        });
+    }
+
+    SimpleModal.prototype.handleSubmit = function() {
         //阻拦默认的表单提交事件，自动替换为ajax请求
         this.$modal.on('submit', 'form', (event) => {
             event.preventDefault();
@@ -72,19 +80,17 @@
                         console.log(type);
                         console.log(data);
                     }
-                    
-                    layer.msg(data.message, {
-                        skin: 'layui-layer-molv',
-                        icon: type == "success" ? 1 : 2,
-                        time: this.options.timeout
-                    });
-                    //notif({ type: type, msg: data.message, position: this.options.notifyPosition, timeout: this.options.timeout });
+
+                    this.showMsg(data.message, type == "success" ? 1 : 2);
+                },
+                error: (xhr, status, error) => {
+                    this.showMsg(xhr.responseJSON.message, 2);
                 }
             });
         });
     }
 
-    SimpleModal.prototype.handleResult = function (response) {
+    SimpleModal.prototype.handleResult = function(response) {
         if (this.options.debug) {
             var pjaxId = this.$pjaxContainer.attr('id');
             console.log('simple modal debug: pjax id');
@@ -113,7 +119,7 @@
     }
 
     function Plugin(option) {
-        return this.each(function () {
+        return this.each(function() {
             var $this = $(this)
             var data = $this.data('bs.simpleModal')
             if (!data) {
@@ -132,7 +138,7 @@
     // NO CONFLICT
     // =================
 
-    $.fn.simpleModal.noConflict = function () {
+    $.fn.simpleModal.noConflict = function() {
         $.fn.simpleModal = old
         return this
     }

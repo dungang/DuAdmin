@@ -34,7 +34,6 @@ class LayerFormPage extends Widget
         if ($this->layerRequires()) {
             echo Html::endTag('div');
             LayerAsset::register($this->view);
-            NotifyAsset::register($this->view);
             $this->view->registerJs("$('#" . $this->getId() . "').layerFormPage();");
         }
     }

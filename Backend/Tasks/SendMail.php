@@ -3,7 +3,6 @@
 namespace Backend\Tasks;
 
 use Backend\Models\MailQueue;
-use DuAdmin\Helpers\AppHelper;
 use yii\base\BaseObject;
 
 class SendMail extends BaseObject
@@ -61,11 +60,12 @@ class SendMail extends BaseObject
 
     protected function enableSendEmailer()
     {
+
         if (
-            AppHelper::getSetting('email.host') &&
-            AppHelper::getSetting('email.username') &&
-            AppHelper::getSetting('email.password') &&
-            AppHelper::getSetting('email.port')
+            getenv('MAIL_HOST') &&
+            getenv('MAIL_USERNAME') &&
+            getenv('MAIL_PASSWORD') &&
+            getenv('MAIL_PORT')
         ) {
             return true;
         } else {

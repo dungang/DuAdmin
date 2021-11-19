@@ -10,7 +10,8 @@ use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 
-class BaseModel extends ActiveRecord implements JsonSerializable {
+class BaseModel extends ActiveRecord implements JsonSerializable
+{
 
     /**
      * 对象json序列化的时候设置不显示的字段
@@ -32,7 +33,8 @@ class BaseModel extends ActiveRecord implements JsonSerializable {
      * {@inheritdoc}
      * @see \yii\base\Model::formName()
      */
-    public function formName() {
+    public function formName()
+    {
 
         return '';
     }
@@ -43,24 +45,25 @@ class BaseModel extends ActiveRecord implements JsonSerializable {
      * {@inheritdoc}
      * @see JsonSerializable::jsonSerialize()
      */
-    public function jsonSerialize() {
+    public function jsonSerialize()
+    {
 
         $ary = null;
-        if ( empty( $this->jsonHideFields ) ) {
-            $ary = $this->toArray( [], $this->extraFields() );
+        if (empty($this->jsonHideFields)) {
+            $ary = $this->toArray([], $this->extraFields());
         } else {
-            $ary = array_filter( $this->toArray( [], $this->extraFields() ), function ( $key ) {
-                return in_array( $key, $this->jsonHideFields ) == false;
-            }, ARRAY_FILTER_USE_KEY );
+            $ary = array_filter($this->toArray([], $this->extraFields()), function ($key) {
+                return in_array($key, $this->jsonHideFields) == false;
+            }, ARRAY_FILTER_USE_KEY);
         }
-        if ( $this->jsonFields ) {
-            foreach ( $this->jsonFields as $field ) {
-                if ( isset( $ary [ $field ] ) ) {
+        if ($this->jsonFields) {
+            foreach ($this->jsonFields as $field) {
+                if (isset($ary[$field])) {
                     try {
-                        $ary [ $field ] = Json::decode( $ary [ $field ] );
-                    } catch ( Exception $ex ) {
-                        Yii::error( 'field:' . $field . ' json decode exception.' . $ex->getMessage() );
-                        $ary [ $field ] = null;
+                        $ary[$field] = Json::decode($ary[$field]);
+                    } catch (Exception $ex) {
+                        Yii::error('field:' . $field . ' json decode exception.' . $ex->getMessage());
+                        $ary[$field] = null;
                     }
                 }
             }
@@ -68,16 +71,18 @@ class BaseModel extends ActiveRecord implements JsonSerializable {
         return $ary;
     }
 
-    public function init() {
+    public function init()
+    {
 
         parent::init();
         // 是否有软删除字段, 如果有则初始化为0
-        if ( $this->hasDeleteProperty() ) {
+        if ($this->hasDeleteProperty()) {
             $this->isDel = 0;
         }
     }
 
-    public function behaviors() {
+    public function behaviors()
+    {
 
         return [
             PropertyBehavior::class
@@ -95,29 +100,32 @@ class BaseModel extends ActiveRecord implements JsonSerializable {
      * @see safeAttributes()
      * @see attributes()
      */
-    public function setAttributes( $values, $safeOnly = true ) {
+    public function setAttributes($values, $safeOnly = true)
+    {
 
-        if ( is_array( $values ) ) {
-            $attributes = array_flip( $safeOnly ? $this->safeAttributes() : $this->attributes() );
-            foreach ( $values as $name => $value ) {
-                if ( isset( $attributes [ $name ] ) ) {
+        if (is_array($values)) {
+            $attributes = array_flip($safeOnly ? $this->safeAttributes() : $this->attributes());
+            foreach ($values as $name => $value) {
+                if (isset($attributes[$name])) {
                     $this->$name = $value;
-                } elseif ( $safeOnly ) {
-                    $this->onUnsafeAttribute( $name, $value );
+                } elseif ($safeOnly) {
+                    $this->onUnsafeAttribute($name, $value);
                 }
             }
         }
     }
 
-//    /**
-//     * 默认开启所有操作的事务
-//     */
-//    public function transactions() {
-//
-//        return [
-//            static::SCENARIO_DEFAULT => static::OP_ALL
-//        ];
-//    }
+    /**
+     * 默认开启所有操作的事务
+     * 测试测试
+     */
+    public function transactions()
+    {
+
+        return [
+            static::SCENARIO_DEFAULT => static::OP_ALL
+        ];
+    }
 
     /**
      * 不是物理删除，而是状态删除
@@ -125,9 +133,10 @@ class BaseModel extends ActiveRecord implements JsonSerializable {
      *
      * @return boolean
      */
-    protected function hasDeleteProperty() {
+    protected function hasDeleteProperty()
+    {
 
-        return $this->hasProperty( "isDel" );
+        return $this->hasProperty("isDel");
     }
 
     /**
@@ -135,11 +144,12 @@ class BaseModel extends ActiveRecord implements JsonSerializable {
      * {@inheritdoc}
      * @see \yii\db\ActiveRecord::delete()
      */
-    public function delete() {
+    public function delete()
+    {
 
-        if ( $this->hasDeleteProperty() ) {
+        if ($this->hasDeleteProperty()) {
             $this->isDel = 1;
-            $result = $this->update( false );
+            $result = $this->update(false);
             return $result;
         }
         return parent::delete();
@@ -150,9 +160,10 @@ class BaseModel extends ActiveRecord implements JsonSerializable {
      *
      * @return mixed
      */
-    public static function getClassShortName() {
+    public static function getClassShortName()
+    {
 
-        return array_pop( explode( "\\", get_called_class() ) );
+        return array_pop(explode("\\", get_called_class()));
     }
 
     /**
@@ -164,13 +175,13 @@ class BaseModel extends ActiveRecord implements JsonSerializable {
      * @param array $orderBy
      * @return array|mixed|array|\yii\db\ActiveRecord[]
      */
-    public static function allIdToName( $key = 'id', $val = 'name', $where = null, $orderBy = null ) {
+    public static function allIdToName($key = 'id', $val = 'name', $where = null, $orderBy = null)
+    {
 
-        $models = self::find()->select( "$key,$val" )->where( $where )->orderBy( $orderBy )->asArray()->all();
-        if ( is_array( $models ) ) {
-            return ArrayHelper::map( $models, $key, $val );
+        $models = self::find()->select("$key,$val")->where($where)->orderBy($orderBy)->asArray()->all();
+        if (is_array($models)) {
+            return ArrayHelper::map($models, $key, $val);
         }
         return $models;
     }
-
 }

@@ -22,10 +22,21 @@
                             parentElement.advanceSelect('handleSubmit', data);
                             type = "success";
                         }
-                        notif({ type: type, msg: data.message, position: "center", timeout: 3000 });
+                        showMsg(data.message, type == "success" ? 1 : 2, 3000);
+                    },
+                    error: (xhr, status, error) => {
+                        showMsg(xhr.responseJSON.message, 2, 3000);
                     }
                 });
             });
+        });
+    }
+
+    function showMsg(message, icon, timeout) {
+        layer.msg(message, {
+            skin: 'layui-layer-molv',
+            icon: icon,
+            time: timeout
         });
     }
 }(jQuery)
