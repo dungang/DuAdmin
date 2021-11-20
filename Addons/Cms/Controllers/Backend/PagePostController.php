@@ -126,19 +126,9 @@ class PagePostController extends BackendController
      */
     public function actionDelete($pageId, $language)
     {
-        if (is_array($pageId, $language)) {
-            $modelList = PagePost::findAll([
-                'pageId'   => $pageId,
-                'language' => $language
-            ]);
-            if ($modelList) {
-                foreach ($modelList as $model) {
-                    $model->delete();
-                }
-            }
-        } else {
-            $this->findModel($pageId, $language)->delete();
-        }
+        
+        $this->findModel($pageId, $language)->delete();
+        
         return $this->redirect([
             'index'
         ]);

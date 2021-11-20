@@ -195,7 +195,11 @@ if ( in_array( 'delete', $generator->actions ) ) :
      */
     public function actionDelete()
     {
-        <?=$actionParams?> = Yii::$app->request->post('id');
+      //如果这里不正确，请给表添加一个主键Id
+      <?=$actionParams?> = Yii::$app->request->post('id');
+      if(!<?=$actionParams?>) {
+        <?=$actionParams?> = Yii::$app->request->get('id');
+      }
     	if( is_array(<?=$actionParams?>) ) {
     		$modelList = <?=$modelClass?>::findAll(<?=$condition?>);
     		if( $modelList ) {

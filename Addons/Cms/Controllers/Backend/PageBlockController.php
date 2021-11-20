@@ -104,7 +104,10 @@ class PageBlockController extends BackendController
      */
     public function actionDelete()
     {
-        $id = Yii::$app->request->post("id");
+        $id = Yii::$app->request->post('id');
+        if (!$id) {
+            $id = Yii::$app->request->get('id');
+        }
         if (is_array($id)) {
             $modelList = PageBlock::findAll(['id' => $id]);
             if ($modelList) {
