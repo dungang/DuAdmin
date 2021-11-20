@@ -52,7 +52,7 @@ if ( in_array( 'delete', $generator->actions ) ) :
      * 请求action 方法设置
      * @var array
      */
-     public $verbsActions = ['delete' => ['POST']];
+    public $verbsActions = ['delete' => ['POST']];
 <?php endif;
 
 if ( in_array( 'index', $generator->actions ) ) :
@@ -194,25 +194,25 @@ if ( in_array( 'delete', $generator->actions ) ) :
      */
     public function actionDelete()
     {
-      //如果这里不正确，请给表添加一个主键Id
-      <?=$actionParams?> = Yii::$app->request->post('id');
-      if(!<?=$actionParams?>) {
-        <?=$actionParams?> = Yii::$app->request->get('id');
-      }
-    	if( is_array(<?=$actionParams?>) ) {
-    		$modelList = <?=$modelClass?>::findAll(<?=$condition?>);
-    		if( $modelList ) {
-    			foreach($modelList as $model) {
-            Yii::$app->db->transaction(function ($db) use ($model) {
-    				  $model->delete();
-            });
-    			}
-    		}
-    	} else {
-        Yii::$app->db->transaction(function ($db) use (<?=$actionParams?>) {
-        	$this->findModel(<?=$actionParams?>)->delete();
-        });
-    	}
+        //如果这里不正确，请给表添加一个单一主键Id
+        <?=$actionParams?> = Yii::$app->request->post('<?=$pks[0] ?>');
+        if(!<?=$actionParams?>) {
+          <?=$actionParams?> = Yii::$app->request->get('<?=$pks[0] ?>');
+        }
+        if( is_array(<?=$actionParams?>) ) {
+          $modelList = <?=$modelClass?>::findAll(<?=$condition?>);
+          if( $modelList ) {
+            foreach($modelList as $model) {
+              Yii::$app->db->transaction(function ($db) use ($model) {
+                $model->delete();
+              });
+            }
+          }
+        } else {
+          Yii::$app->db->transaction(function ($db) use (<?=$actionParams?>) {
+            $this->findModel(<?=$actionParams?>)->delete();
+          });
+        }
         return $this->redirect(Yii::$app->request->referrer);
     }
 <?php endif;

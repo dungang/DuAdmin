@@ -56,7 +56,7 @@ if ( in_array( 'delete', $generator->actions ) ) :
      * 请求action 方法设置
      * @var array
      */
-     public $verbsActions = ['delete' => ['POST']];
+    public $verbsActions = ['delete' => ['POST']];
 <?php endif;
 
 if ( in_array( 'index', $generator->actions ) ) :
@@ -191,12 +191,16 @@ if ( in_array( 'delete', $generator->actions ) ) :
     /**
      * 删除一条存在的 <?=$modelClass?> 模型.
      * 如果删除成果,浏览器将会跳转的到该模型的列表视图界面.
-     * <?=implode( "\n     * ", $actionParamComments ) . "\n"?>
      * @return mixed
      * @throws NotFoundHttpException 如果模型没查询到
      */
     public function actionDelete(<?=$actionParams?>)
     {
+      //如果这里不正确，请给表添加一个单一主键Id
+      <?=$actionParams?> = Yii::$app->request->post('<?=$pks[0] ?>');
+      if(!<?=$actionParams?>) {
+        <?=$actionParams?> = Yii::$app->request->get('<?=$pks[0] ?>');
+      }
     	if( is_array(<?=$actionParams?>) ) {
     		$modelList = <?=$modelClass?>::findAll(<?=$condition?>);
     		if( $modelList ) {

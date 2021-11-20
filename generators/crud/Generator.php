@@ -911,7 +911,8 @@ class Generator extends \app\generators\Generator
         $class = $this->modelClass;
         $pks = $class::primaryKey();
         if ( count( $pks ) === 1 ) {
-            return '$id';
+            $pk = $pks[0];
+            return '$' . $pk;
         }
         return '$' . implode( ', $', $pks );
 
