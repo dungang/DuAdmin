@@ -130,9 +130,12 @@ if ( in_array( 'create', $generator->actions ) ) :
         }
 
         if ($model->load(Yii::$app->request->post())) {
-            if($model->save()) {
+          
+            Yii::$app->db->transaction(function ($db) use ($model) {
+              $model->save();
               return $this->redirect(['view', <?=$urlParams?>]);
-            }
+            });
+
         }
 
         return $this->render('create', [
@@ -162,9 +165,10 @@ if ( in_array( 'update', $generator->actions ) ) :
         }
 
         if ($model->load(Yii::$app->request->post())) {
-            if($model->save()) {
+          Yii::$app->db->transaction(function ($db) use ($model) {
+              $model->save()) {
               return $this->redirect(['view', <?=$urlParams?>]);
-            }
+          });
         }
 
         return $this->render('update', [
@@ -197,11 +201,15 @@ if ( in_array( 'delete', $generator->actions ) ) :
     		$modelList = <?=$modelClass?>::findAll(<?=$condition?>);
     		if( $modelList ) {
     			foreach($modelList as $model) {
-    				$model->delete();
+    				Yii::$app->db->transaction(function ($db) use ($model) {
+    				  $model->delete();
+            });
     			}
     		}
     	} else {
-        	$this->findModel(<?=$actionParams?>)->delete();
+        Yii::$app->db->transaction(function ($db) use (<?=$actionParams?>) {
+          $this->findModel(<?=$actionParams?>)->delete();
+        });
     	}
         return $this->redirect(Yii::$app->request->referrer);
     }

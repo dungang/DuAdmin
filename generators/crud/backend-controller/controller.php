@@ -131,9 +131,11 @@ if ( in_array( 'create', $generator->actions ) ) :
 <?php if ( $generator->onlyQueryCurrentUser ) : ?>
             $model->userId = \Yii::$app->user->id;
 <?php endif;?>
-            if($model->save()) {
+
+            Yii::$app->db->transaction(function ($db) use ($model) {
+              $model->save();
               return $this->redirectSuccess(['view', <?=$urlParams?>], "添加成功");
-            }
+            });
         }
 
         return $this->render('create', [
@@ -162,9 +164,10 @@ if ( in_array( 'update', $generator->actions ) ) :
         }
 
         if ($model->load(Yii::$app->request->post())) {
-            if($model->save()) {
+          Yii::$app->db->transaction(function ($db) use ($model) {
+              $model->save();
               return $this->redirectSuccess(['view', <?=$urlParams?>], "修改成功");
-            }
+          });
         }
 
         return $this->render('update', [
@@ -197,11 +200,15 @@ if ( in_array( 'delete', $generator->actions ) ) :
     		$modelList = <?=$modelClass?>::findAll(<?=$condition?>);
     		if( $modelList ) {
     			foreach($modelList as $model) {
-    				$model->delete();
+            Yii::$app->db->transaction(function ($db) use ($model) {
+    				  $model->delete();
+            });
     			}
     		}
     	} else {
+        Yii::$app->db->transaction(function ($db) use (<?=$actionParams?>) {
         	$this->findModel(<?=$actionParams?>)->delete();
+        });
     	}
         return $this->redirect(Yii::$app->request->referrer);
     }
