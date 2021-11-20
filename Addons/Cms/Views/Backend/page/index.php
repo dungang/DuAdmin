@@ -35,6 +35,7 @@ PanelGridView::begin( [
             }
         ],
         'slug',
+        'isLiveEdit:boolean',
         [
             'class' => MultilingualAction::class,
             'openNewTab' => true,
