@@ -131,7 +131,7 @@ if ( in_array( 'create', $generator->actions ) ) :
 
         if ($model->load(Yii::$app->request->post())) {
           
-            Yii::$app->db->transaction(function ($db) use ($model) {
+            return Yii::$app->db->transaction(function ($db) use ($model) {
               $model->save();
               return $this->redirect(['view', <?=$urlParams?>]);
             });
@@ -165,7 +165,7 @@ if ( in_array( 'update', $generator->actions ) ) :
         }
 
         if ($model->load(Yii::$app->request->post())) {
-          Yii::$app->db->transaction(function ($db) use ($model) {
+          return Yii::$app->db->transaction(function ($db) use ($model) {
               $model->save()) {
               return $this->redirect(['view', <?=$urlParams?>]);
           });

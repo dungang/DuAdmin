@@ -131,8 +131,7 @@ if ( in_array( 'create', $generator->actions ) ) :
 <?php if ( $generator->onlyQueryCurrentUser ) : ?>
             $model->userId = \Yii::$app->user->id;
 <?php endif;?>
-
-            Yii::$app->db->transaction(function ($db) use ($model) {
+            return Yii::$app->db->transaction(function ($db) use ($model) {
               $model->save();
               return $this->redirectSuccess(['view', <?=$urlParams?>], "添加成功");
             });
@@ -164,7 +163,7 @@ if ( in_array( 'update', $generator->actions ) ) :
         }
 
         if ($model->load(Yii::$app->request->post())) {
-          Yii::$app->db->transaction(function ($db) use ($model) {
+          return Yii::$app->db->transaction(function ($db) use ($model) {
               $model->save();
               return $this->redirectSuccess(['view', <?=$urlParams?>], "修改成功");
           });
