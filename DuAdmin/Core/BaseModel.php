@@ -116,18 +116,6 @@ class BaseModel extends ActiveRecord implements JsonSerializable
     }
 
     /**
-     * 默认开启所有操作的事务
-     * 测试测试
-     */
-    public function transactions()
-    {
-
-        return [
-            static::SCENARIO_DEFAULT => static::OP_ALL
-        ];
-    }
-
-    /**
      * 不是物理删除，而是状态删除
      * 通知isDel字段来标记
      *

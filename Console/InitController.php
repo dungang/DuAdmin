@@ -3,6 +3,7 @@
 namespace Console;
 
 use Backend\Models\Admin;
+use DuAdmin\Helpers\LoaderHelper;
 use yii\helpers\Console;
 use yii\helpers\Inflector;
 
@@ -33,6 +34,7 @@ class InitController extends BaseController
         ]);
         //创建管理员
         $this->runAction('admin');
+        LoaderHelper::saveInstalledAddonsConfig([]);
     }
 
     /**

@@ -3,11 +3,11 @@
 
 /* @var $content string */
 
-use Addons\Cms\Widgets\CmsPageFooter;
 use app\Themes\Basic\widgets\ThemeAsset;
 use DuAdmin\Helpers\AppHelper;
 use DuAdmin\Models\Navigation;
 use DuAdmin\Widgets\AutoFixBootstrapColumn;
+use DuAdmin\Widgets\DefaultPageFooter;
 use DuAdmin\Widgets\LazyLoad;
 use DuAdmin\Widgets\Nav;
 use DuAdmin\Widgets\Notify;
@@ -116,7 +116,7 @@ $siteName = Yii::t('app', AppHelper::getSetting('site.name', Yii::$app->name));
     echo Yii::t('theme', 'Loading ...');
     SimpleModal::end();
     ?>
-    <?= CmsPageFooter::widget() ?>
+    <?= DefaultPageFooter::widget() ?>
     <?php $this->endBody() ?>
 </body>
 

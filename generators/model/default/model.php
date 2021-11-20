@@ -125,4 +125,23 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
         return new <?= $queryClassFullName ?>(get_called_class());
     }
 <?php endif; ?>
+
+    ///**
+    // * 默认开启所有操作的事务
+    // * ```php
+    // * return [
+    // *     'admin' => self::OP_INSERT,
+    // *     'api' => self::OP_INSERT | self::OP_UPDATE | self::OP_DELETE,
+    // *     // the above is equivalent to the following:
+    // *     // 'api' => self::OP_ALL,
+    // *
+    // * ];
+    // * ```
+    // */
+    //public function transactions()
+    //{
+    //    return [
+    //        self::SCENARIO_DEFAULT => self::OP_ALL
+    //    ];
+    //}
 }

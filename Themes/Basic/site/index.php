@@ -1,20 +1,21 @@
 <?php
 
-use Addons\Cms\Models\Flash;
-use Addons\Cms\Widgets\AdvBlockWidget;
 use DuAdmin\Widgets\SlickCarousel;
 use Frontend\Forms\ContactForm;
 use yii\helpers\FileHelper;
 
 /* @var yii\web\View  $this */
-$this->title = Yii::t( 'theme', 'Home' );
-$files = FileHelper::findFiles( Yii::getAlias( '@app/Public/images/screen/' ), [
-        'recursive' => false ] );
-if ( $files ) {
-    $files = array_map( function ( $file ) {
-        return new Flash( [
-        'pic' => 'images/screen/' . basename( $file ) ] );
-    }, $files );
+
+$this->title = Yii::t('theme', 'Home');
+$files = FileHelper::findFiles(Yii::getAlias('@app/Public/images/screen/'), [
+    'recursive' => false
+]);
+if ($files) {
+    $files = array_map(function ($file) {
+        return  [
+            'pic' => 'images/screen/' . basename($file)
+        ];
+    }, $files);
 } else {
     $files = [];
 }
@@ -28,23 +29,19 @@ if ( $files ) {
         <div class="demo-swiper">
             <div class="show-swiper">
                 <?php
-                echo SlickCarousel::widget( [
+                echo SlickCarousel::widget([
                     'className'      => 'demo-screen',
                     'slideClassName' => 'demo-slide',
                     'viewName'       => $this->theme->basePath . '/site/slick-carousel',
-                    'items'          => $files ] )
+                    'items'          => $files
+                ])
                 ?>
             </div>
         </div>
     </div>
 </div>
-<?=
-AdvBlockWidget::widget( [
-    'nameCode' => 'index'
-] );
-?>
 <div class="block-bar">
-    <h1 class="text-center"><?= Yii::t( 'app', 'Features' ) ?></h1>
+    <h1 class="text-center"><?= Yii::t('app', 'Features') ?></h1>
     <div class="container">
         <div class="row fix-col-height">
             <div class="col-sm-3 col-md-3">
@@ -139,5 +136,5 @@ AdvBlockWidget::widget( [
     </div>
 </div>
 <div class="block-bar-gray">
-    <?= $this->render( '@Frontend/Views/site/contactForm', [ 'model' => new ContactForm() ] ); ?>
+    <?= $this->render('@Frontend/Views/site/contactForm', ['model' => new ContactForm()]); ?>
 </div>

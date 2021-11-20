@@ -1,6 +1,6 @@
 <?php
 return [
-    'Cms',
-    'Ueditor',
-    'ChinaRegion'
+    // 'Cms',
+    // 'Ueditor',
+    // 'ChinaRegion'
 ];

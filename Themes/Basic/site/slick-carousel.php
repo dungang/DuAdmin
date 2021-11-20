@@ -8,7 +8,7 @@ use yii\helpers\Html;
   <?php
   foreach ($models as $model) :
   ?>
-    <div class="<?= $widget->slideClassName ?>"><?= Html::img($model->pic) ?></div>
+    <div class="<?= $widget->slideClassName ?>"><?= Html::img($model['pic']) ?></div>
   <?php
   endforeach;
   ?>
