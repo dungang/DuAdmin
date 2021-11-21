@@ -2,6 +2,7 @@
 
 namespace DuAdmin\Components;
 
+use Exception;
 use ReflectionClass;
 use Yii;
 use yii\base\Module;
@@ -117,6 +118,8 @@ abstract class Addon extends Module
       $reflector = new ReflectionClass(get_called_class());
       $this->addonNamespaceBase = $reflector->getNamespaceName();
     }
+    //注册插件的命令行命名空间
+    //yii2\console\controllers\HelpController.php 会扫描
     if (RUNTIME_MODE === 'Console') {
       $this->configConsoleContrllerNamespace();
     } else {

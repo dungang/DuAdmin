@@ -70,7 +70,7 @@ class Bootstrap implements BootstrapInterface
         if (is_array($addons)) {
             foreach ($addons as $addon) {
                 // 如果插件没有激活，则不能使用
-                if (RUNTIME_MODE !== 'Console' && $addon['active'] == false) {
+                if ($addon['active'] == false) {
                     continue;
                 }
                 // 注册加载的类库
