@@ -474,4 +474,9 @@ class ActionColumn extends Column
 </div>
 DD;
     }
+
+    protected function renderHeaderCellContent()
+    {
+        return Yii::t('da','Operation');
+    }
 }
