@@ -1,5 +1,4 @@
 <?php
-
 use yii\helpers\Html;
 ?>
 <div class="small-box bg-aqua">

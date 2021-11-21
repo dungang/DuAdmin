@@ -1,8 +1,10 @@
 <?php
 
+use Backend\Dashboard\AddonCounterWidget;
 use Backend\Dashboard\AdminCounterWidget;
 use Backend\Dashboard\GiteeProjectCommitsWidget;
 use Backend\Dashboard\SystemInfoWidget;
+use Backend\Dashboard\UserCounterWidget;
 use DuAdmin\Helpers\InstallerHelper;
 use yii\db\Migration;
 
@@ -190,7 +192,9 @@ class m201213_014116_init_data extends Migration
         );
 
         InstallerHelper::installDashboardWidget(AdminCounterWidget::class, "管理员统计");
-        InstallerHelper::installDashboardWidget(GiteeProjectCommitsWidget::class, "Gitee代码Commits", "charts");
+        InstallerHelper::installDashboardWidget(UserCounterWidget::class, "会员员统计");
+        InstallerHelper::installDashboardWidget(AddonCounterWidget::class, "插件统计");
+        //InstallerHelper::installDashboardWidget(GiteeProjectCommitsWidget::class, "Gitee代码Commits", "charts");
         InstallerHelper::installDashboardWidget(SystemInfoWidget::class, "系统运行信息", "charts");
     }
 
