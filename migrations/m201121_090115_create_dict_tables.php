@@ -49,18 +49,21 @@ class m201121_090115_create_dict_tables extends DuAdminMigration
             ['dictLabel' => '下线', 'dictValue' => 0],
             ['dictLabel' => '上线', 'dictValue' => 1],
         ]);
-        InstallerHelper::InstallDict('online_status', '激活状态', [
+        InstallerHelper::InstallDict('active_status', '激活状态', [
             ['dictLabel' => '未激活', 'dictValue' => 0],
             ['dictLabel' => '以激活', 'dictValue' => 1],
         ]);
         InstallerHelper::InstallDict('setting_category', '系统配置分类', [
             ['dictLabel' => '基本设置', 'dictValue' => 'base'],
-            ['dictLabel' => '开放功能', 'dictValue' => 'open-feature'],
-            ['dictLabel' => '邮件服务', 'dictValue' => 'email'],
+            ['dictLabel' => '开放功能', 'dictValue' => 'open-feature']
         ]);
         InstallerHelper::InstallDict('system_languages', '系统语言', [
             ['dictLabel' => '中文', 'dictValue' => 'zh-CN'],
             ['dictLabel' => '英文', 'dictValue' => 'en-US'],
+        ]);
+        InstallerHelper::InstallDict('dashboard_widget_type', '看板小部件类型', [
+            ['dictLabel' => '计数', 'dictValue' => 'counter'],
+            ['dictLabel' => '图表', 'dictValue' => 'charts'],
         ]);
         InstallerHelper::InstallDict('system_storage', '系统存储驱动', [
             ['dictLabel' => '本地存储', 'dictValue' => '\DuAdmin\Storage\LocalDriver']

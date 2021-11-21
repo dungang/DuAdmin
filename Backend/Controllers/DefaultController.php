@@ -42,8 +42,8 @@ class DefaultController extends BackendController
         }
 
         //counter widgets
-        $counters = DashboardWidget::find()->select("id")->where("type='counter'")->column();
-        $charts = DashboardWidget::find()->select("id")->where("type='charts'")->column();
+        $counters = DashboardWidget::find()->select("id")->where("type = 'counter' and status = 1")->column();
+        $charts = DashboardWidget::find()->select("id")->where("type = 'charts' and status = 1")->column();
 
         return $this->render('index', [
             'counters' => $counters,

@@ -16,9 +16,10 @@ use DuAdmin\Widgets\DefaultEditor;
 
     <?= '<div class="col-xs-6">' . $form->field($model, 'title')->textInput(['maxlength' => true]) . '</div>' ?>
 
-    <?= '<div class="col-xs-6">' . $form->field($model, 'content')->widget(DefaultEditor::getEditorClass(),['mode' => DefaultEditor::MODE_RICH]) . '</div>' ?>
+    <?= '<div class="col-xs-12">' . $form->field($model, 'varsInfo')->textarea(['maxlength' => true]) . '</div>' ?>
 
-    <?= '<div class="col-xs-6">' . $form->field($model, 'varsInfo')->textInput(['maxlength' => true]) . '</div>' ?>
+    <?= '<div class="col-xs-12">' . $form->field($model, 'content')->widget(DefaultEditor::getEditorClass(),['mode' => DefaultEditor::MODE_RICH]) . '</div>' ?>
+
 
     </div>
     <div class="form-group">
