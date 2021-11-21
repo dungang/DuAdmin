@@ -115,6 +115,7 @@ class m201211_132113_init_permissions extends Migration
         InstallerHelper::installPermissionCRUDShortcut("邮件模板", "mail-template", "system-setting");
         InstallerHelper::installPermissionCRUDShortcut("字典管理", "dict-type", "system-setting");
         InstallerHelper::installPermissionCRUDShortcut("字典数据管理", "dict-data", "system-setting");
+        InstallerHelper::installPermissionCRUDShortcut("看板小部件", "dashboard-widget", "system-setting");
     }
 
     /**

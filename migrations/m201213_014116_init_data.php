@@ -1,5 +1,8 @@
 <?php
 
+use Backend\Dashboard\AdminCounterWidget;
+use Backend\Dashboard\GiteeProjectCommitsWidget;
+use Backend\Dashboard\SystemInfoWidget;
 use DuAdmin\Helpers\InstallerHelper;
 use yii\db\Migration;
 
@@ -81,6 +84,11 @@ class m201213_014116_init_data extends Migration
                         'name' => '字典',
                         'url'  => 'dict-type/index',
                         'icon' => 'fa fa-book'
+                    ],
+                    [
+                        'name' => '看板小部件',
+                        'url'  => 'dashboard-widget/index',
+                        'icon' => 'fa fa-cubes'
                     ],
                     [
                         'name' => 'URL美化',
@@ -180,6 +188,10 @@ class m201213_014116_init_data extends Migration
             <p>{verifyLink}</p>',
             '{username} 账户，{verifyLink} 验证链接',
         );
+
+        InstallerHelper::installDashboardWidget(AdminCounterWidget::class, "管理员统计");
+        InstallerHelper::installDashboardWidget(GiteeProjectCommitsWidget::class, "Gitee代码Commits", "charts");
+        InstallerHelper::installDashboardWidget(SystemInfoWidget::class, "系统运行信息", "charts");
     }
 
     /**

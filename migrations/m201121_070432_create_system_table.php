@@ -190,6 +190,19 @@ class m201121_070432_create_system_table extends Migration
             'sort' => $this->smallInteger()->defaultValue(0)->comment('排序')
         ]);
         $this->addCommentOnTable('{{%navigation}}', '前端导航');
+
+        $this->createTable('{{%dashboard_widget}}', [
+            'id' => $this->primaryKey(),
+            'name' => $this->string(64)->notNull()->comment("名称"),
+            'widget' => $this->string(128)->notNull()->comment("小部件"),
+            'args' => $this->string(128)->comment("参数"),
+            'argsInfo' => $this->string(255)->comment("参数说明"),
+            'status' => $this->boolean()->defaultValue(true)->comment("状态"),
+            'sort' => $this->tinyInteger()->defaultValue(1)->comment("排序"),
+            'type' => $this->string(8)->defaultValue("counter")->comment("类型"), //counter数量，charts 图表
+        ]);
+        $this->addCommentOnTable("{{%dashboard_widget}}", "看板数据小部件");
+
         $this->createTable('{{%addon}}', [
             'id' => $this->string(64),
             'name' => $this->string(64)->notNull()->comment('名称'),
@@ -231,6 +244,7 @@ class m201121_070432_create_system_table extends Migration
         $this->dropTable('{{%action_log}}');
         $this->dropTable('{{%menu}}');
         $this->dropTable('{{%navigation}}');
+        $this->dropTable('{{%dashboard_widget}}');
         $this->dropTable('{{%addon}}');
         $this->dropTable('{{%gen_table}}');
         $this->dropTable('{{%gen_table_column}}');

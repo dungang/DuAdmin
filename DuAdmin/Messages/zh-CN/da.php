@@ -1,5 +1,6 @@
 <?php
 return [
+    'Dashboard'            => '看板',
     'Operation'            => '操作',
     'Reset'                => '重置',
     'Search'               => '搜索',

@@ -1,11 +1,11 @@
 <?php
 
-namespace Addons\Cms\Portals;
+namespace Addons\Cms\Dashboard;
 
 use yii\base\Widget;
 use Addons\Cms\Models\Post;
 
-class PostCounterPortal extends Widget
+class PostCounterWidget extends Widget
 {
     public function run()
     {

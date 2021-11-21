@@ -1,10 +1,11 @@
 <?php
-namespace Addons\Cms\Portals;
+
+namespace Addons\Cms\Dashboard;
 
 use yii\base\Widget;
 use Addons\Cms\Models\Page;
 
-class PageCounterPortal extends Widget
+class PageCounterWidget extends Widget
 {
 
     public function run()

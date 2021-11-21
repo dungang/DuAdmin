@@ -1,18 +1,22 @@
 <?php
-use Addons\Cms\Portals\PageCounterPortal;
-use Addons\Cms\Portals\PostCounterPortal;
-use Backend\Portals\AdminCounterPortal;
-use Backend\Portals\SystemInfoPortal;
-/* @var $this \yii\web\View */
-$this->title = '看板';
-$this->params['breadcrumbs'][] = '看板';
+/* @var \yii\web\View $this  */
+
+use yii\helpers\Url;
+
+$this->title = Yii::t('da', 'Dashboard');
+$this->params['breadcrumbs'][] = $this->title;
+$this->registerJs("$('div[data-dashboard-widget]').dashboardWidget('" . Url::to(['/dashboard-widget/render']) . "')");
 ?>
 
 <div class="row">
-<?=AdminCounterPortal::widget()?>
-<?=PageCounterPortal::widget()?>
-<?=PostCounterPortal::widget()?>
+    <?php foreach ($counters as $id) : ?>
+        <div class="col-lg-3 col-xs-6">
+            <div data-dashboard-widget="<?= $id ?>"></div>
+        </div>
+    <?php endforeach; ?>
 </div>
 <div class="row">
-<?=SystemInfoPortal::widget()?>
+    <?php foreach ($charts as $id) : ?>
+        <div data-dashboard-widget="<?= $id ?>"></div>
+    <?php endforeach; ?>
 </div>

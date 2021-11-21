@@ -8,6 +8,7 @@ use Backend\Models\AuthItemChild;
 use Backend\Models\AuthPermission;
 use DuAdmin\Core\BizException;
 use DuAdmin\Models\Cron;
+use DuAdmin\Models\DashboardWidget;
 use DuAdmin\Models\DictData;
 use DuAdmin\Models\DictType;
 use DuAdmin\Models\MailTemplate;
@@ -16,6 +17,7 @@ use DuAdmin\Models\Navigation;
 use DuAdmin\Models\PrettyUrl;
 use DuAdmin\Models\Setting;
 use Exception;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use Yii;
 use yii\base\ErrorException;
 use yii\helpers\Json;
@@ -23,6 +25,9 @@ use yii\helpers\Json;
 class InstallerHelper
 {
 
+    /**
+     * 安装一个权限
+     */
     public static function installAddonPermission($addon, $addonName)
     {
         InstallerHelper::installPermissions([
@@ -76,6 +81,9 @@ class InstallerHelper
         ]);
     }
 
+    /**
+     * 安装权限
+     */
     public static function installPermissions($permissions, $parent = null)
     {
 
@@ -118,6 +126,9 @@ class InstallerHelper
         }
     }
 
+    /**
+     * 卸载权限
+     */
     public static function uninstallPermissions($permissionId)
     {
         $childiren = AuthItemChild::find()->select('child')->where(['parent' => $permissionId])->column();
@@ -132,6 +143,9 @@ class InstallerHelper
         AppHelper::cleanCache(['rbac']);
     }
 
+    /**
+     * 安装数据字典
+     */
     public static function InstallDict($dictType, $dictName, $dictData)
     {
         $dict = DictType::findOne(['dictType' => $dictType]);
@@ -148,19 +162,25 @@ class InstallerHelper
         }
     }
 
+    /**
+     * 卸载数据字典类型
+     */
     public static function UninstallDict($dictType)
     {
         DictData::deleteAll(['dictType' => $dictType]);
         DictType::deleteAll(['dictType' => $dictType]);
     }
 
+    /**
+     * 卸载数据字典数据
+     */
     public static function UninstallDictData($dictType, $value)
     {
         DictData::deleteAll(['dictType' => $dictType, 'dictValue' => $value]);
     }
 
     /**
-     * 安装菜单
+     * 安装后台菜单
      *
      * @param array $menus
      * @param number $pid
@@ -204,6 +224,9 @@ class InstallerHelper
         }
     }
 
+    /**
+     * 卸载后台菜单
+     */
     public static function uninstallMenus($app)
     {
 
@@ -213,7 +236,7 @@ class InstallerHelper
     }
 
     /**
-     * 安装导航
+     * 安装前端导航
      *
      * @param array $navigations
      * @param number $pid
@@ -249,6 +272,9 @@ class InstallerHelper
         }
     }
 
+    /**
+     * 卸载前端导航数据
+     */
     public static function uninstallNavigations($app)
     {
 
@@ -288,6 +314,9 @@ class InstallerHelper
         }
     }
 
+    /**
+     * 卸载参数设置
+     */
     public static function uninstallSetting($category)
     {
 
@@ -311,6 +340,9 @@ class InstallerHelper
         $prettyUrl->save(false);
     }
 
+    /**
+     * 安装定时任务
+     */
     public static function installCronJob($script, $name, $time, $intro = null, $param = null)
     {
         $cron = Cron::findOne(['jobScript' => $script]);
@@ -329,11 +361,17 @@ class InstallerHelper
         }
     }
 
+    /**
+     * 卸载定时任务
+     */
     public static function uninstallCronJob($scripts)
     {
         Cron::deleteAll(['jobScript' => $scripts]);
     }
 
+    /**
+     * 安装邮件模板
+     */
     public static function installMailTemplate($unicode, $title, $content, $varsInfo = '')
     {
         $template = MailTemplate::findOne(['code' => $unicode]);
@@ -349,8 +387,34 @@ class InstallerHelper
         $template->save();
     }
 
+    /**
+     * 卸载邮件模板
+     */
     public static function uninstallMailTemplate($unicode)
     {
         MailTemplate::deleteAll(['code' => $unicode]);
+    }
+
+    /**
+     * 安装看板小部件
+     */
+    public static function installDashboardWidget($widgetClass, $name, $type = "counter", $args = "", $argsInfo = "")
+    {
+        $widget = new DashboardWidget([
+            'name' => $name,
+            'widget' => $widgetClass,
+            'type' => $type,
+            'args' => $args,
+            'argsInfo' => $argsInfo
+        ]);
+        $widget->save(false);
+    }
+
+    /**
+     * 卸载看板小部件
+     */
+    public static function uninstallDashboardWidget($widgetClass)
+    {
+        DashboardWidget::deleteAll(['widget' => $widgetClass]);
     }
 }

@@ -1,7 +1,9 @@
 <?php
+
 namespace Backend\Controllers;
 
 use DuAdmin\Core\BackendController;
+use DuAdmin\Models\DashboardWidget;
 use DuAdmin\Models\Setting;
 
 class DefaultController extends BackendController
@@ -27,7 +29,7 @@ class DefaultController extends BackendController
             'sorts' => [
                 'class' => 'DuAdmin\Core\SortableAction'
             ]
-            
+
         ];
     }
 
@@ -35,10 +37,17 @@ class DefaultController extends BackendController
     {
         if ($index = Setting::getSettings('backend.index')) {
             return $this->redirect([
-                '/'.ltrim($index)
+                '/' . ltrim($index)
             ]);
         }
-        return $this->render('index');
+
+        //counter widgets
+        $counters = DashboardWidget::find()->select("id")->where("type='counter'")->column();
+        $charts = DashboardWidget::find()->select("id")->where("type='charts'")->column();
+
+        return $this->render('index', [
+            'counters' => $counters,
+            'charts' => $charts,
+        ]);
     }
 }
-

@@ -1,12 +1,14 @@
 <?php
 
+use Addons\Cms\Dashboard\PageCounterWidget;
+use Addons\Cms\Dashboard\PostCounterWidget;
 use DuAdmin\Helpers\InstallerHelper;
 use Console\components\Migration;
 
 /**
- * Class m210111_132217_init_cms_permissions
+ * Class m210111_132217_init_cms_data
  */
-class m210111_132217_cms_init_permissions extends Migration
+class m210111_132217_cms_init_data extends Migration
 {
     /**
      * {@inheritdoc}
@@ -47,6 +49,9 @@ class m210111_132217_cms_init_permissions extends Migration
             ['dictLabel' => '只显示内容', 'dictValue' => 'content'],
             ['dictLabel' => '不显示头部', 'dictValue' => 'nohead'],
         ]);
+
+        InstallerHelper::installDashboardWidget(PostCounterWidget::class, "文章统计");
+        InstallerHelper::installDashboardWidget(PageCounterWidget::class, "单页统计");
     }
 
     /**
@@ -57,7 +62,9 @@ class m210111_132217_cms_init_permissions extends Migration
         InstallerHelper::uninstallMenus("addon-cms");
         InstallerHelper::uninstallPermissions("addon-cms");
         InstallerHelper::uninstallSetting("addon-cms");
-        
+        InstallerHelper::uninstallDashboardWidget(PostCounterWidget::class);
+        InstallerHelper::uninstallDashboardWidget(PageCounterWidget::class);
+
         return false;
     }
 

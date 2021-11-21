@@ -1,11 +1,11 @@
 <?php
 
-namespace Backend\Portals;
+namespace Backend\Dashboard;
 
 use Backend\Models\Admin;
 use yii\base\Widget;
 
-class AdminCounterPortal extends Widget {
+class AdminCounterWidget extends Widget {
 
   public function run() {
 
