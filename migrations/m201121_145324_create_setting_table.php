@@ -1,5 +1,6 @@
 <?php
 
+use DuAdmin\Helpers\InstallerHelper;
 use DuAdmin\Models\Setting;
 use yii\db\Migration;
 
@@ -160,6 +161,7 @@ class m201121_145324_create_setting_table extends Migration
                 '',
                 'base'
             ],
+
             [
                 'site.index-page',
                 '网站首页地址',
@@ -224,6 +226,37 @@ class m201121_145324_create_setting_table extends Migration
                 'open-feature'
             ]
         ]);
+
+        InstallerHelper::installSettings([
+            [
+                'name'    => 'user.avatar.compress',
+                'title'   => '用户头像是否压缩',
+                'value'   => 'false',
+                'valType' => Setting::TYPE_STR,
+                'subCategory' => 'open-feature'
+            ],
+            [
+                'name'    => 'user.avatar.clip',
+                'title'   => '用户头像是否裁剪',
+                'value'   => 'true',
+                'valType' => Setting::TYPE_STR,
+                'subCategory' => 'open-feature'
+            ],
+            [
+                'name'    => 'user.avatar.clipHeight',
+                'title'   => '用户头像高度',
+                'value'   => '200',
+                'valType' => Setting::TYPE_STR,
+                'subCategory' => 'open-feature'
+            ],
+            [
+                'name'    => 'user.avatar.clipWidth',
+                'title'   => '用户头像的宽度',
+                'value'   => '200',
+                'valType' => Setting::TYPE_STR,
+                'subCategory' => 'open-feature'
+            ],
+        ], 'system');
         Setting::updateAll([
             'value' => 'var _hmt = _hmt || [];
         (function() {

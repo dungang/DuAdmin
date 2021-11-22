@@ -64,7 +64,7 @@ class AdvanceSelect extends InputWidget
             'addButtonRoute' => $this->addButtonRoute,
             'selectWidth'    => $this->optionWidth,
             'pjaxId'         => $this->pjaxId,
-        ]), ['id' => $this->elementId, 'role' => 'advance-select']);
+        ]), ['id' => $this->elementId, 'class' => 'advance-select']);
     }
 
     public function getJs($selector, $id)

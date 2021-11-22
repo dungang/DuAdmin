@@ -31,7 +31,6 @@
         this.$element.on('click', dismiss, closeCallback);
         var changeCallback = function(e) {
             that.file = e.currentTarget.files[0];
-
             that.extension = getExtension(that.file.name);
             //是图片如不设置了裁剪的高和宽度，则显示裁剪工具框，否则直接上传
             if (isImage(that.file.type)) {

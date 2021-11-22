@@ -41,6 +41,26 @@ class AppHelper
     }
 
     /**
+     * 包装的事务处理     
+     * @param callable $callback a valid PHP callback that performs the job. Accepts connection instance as parameter.
+     * @param string|null $isolationLevel The isolation level to use for this transaction.
+     * @return mixed result of callback function
+     */
+    public static function wrapperTransation($callback, $isolationLevel = null)
+    {
+        if (Yii::$app->request->isAjax) {
+            return Yii::$app->db->transaction($callback, $isolationLevel);
+        } else {
+            try {
+                return Yii::$app->db->transaction($callback, $isolationLevel);
+            } catch (Exception $e) {
+                Yii::$app->session->setFlash("error", $e->getMessage());
+                return false;
+            }
+        }
+    }
+
+    /**
      * 判断是否是ajax请求，主要是区分表单的ajax验证
      *
      * @return boolean

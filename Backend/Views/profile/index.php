@@ -5,6 +5,7 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use DuAdmin\Widgets\AjaxModalOrNormalPanelContent;
 use Backend\Models\Admin;
+use DuAdmin\Helpers\AppHelper;
 
 /* @var $this yii\web\View */
 /* @var $model Admin */
@@ -19,13 +20,18 @@ AjaxModalOrNormalPanelContent::begin([
 <?= Html::activeHiddenInput($model, 'username') ?>
 <div class="row">
     <div class="col-md-6">
-        <?php echo $form->field($model, 'avatar')->widget(AjaxFileInput::className()) ?>
+        <?= $form->field($model, 'avatar')->widget(AjaxFileInput::class, [
+            'clip' => AppHelper::getSetting('user.avatar.clip', 'true'),
+            'compress' => AppHelper::getSetting('user.avatar.compress', 'true'),
+            'clipWidth' => AppHelper::getSetting('user.avatar.clipWidth', 200),
+            'clipHeight' => AppHelper::getSetting('user.avatar.clipHeight', 200)
+        ]) ?>
         <?= $form->field($model, 'nickname')->textInput(['maxlength' => true]) ?>
     </div>
-    <div class="col-md-6"> 
+    <div class="col-md-6">
 
         <?= $form->field($model, 'password')->textInput(['maxlength' => true]) ?>
-    
+
         <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
         <?= $form->field($model, 'mobile')->textInput(['maxlength' => true]) ?>

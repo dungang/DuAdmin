@@ -2,7 +2,6 @@
 /**
  * This is the template for generating a CRUD controller class file.
  */
-use yii\db\ActiveRecordInterface;
 use yii\helpers\StringHelper;
 /** @var yii\web\View $this */
 /** @var app\generators\crud\Generator $generator */
@@ -131,10 +130,11 @@ if ( in_array( 'create', $generator->actions ) ) :
 
         if ($model->load(Yii::$app->request->post())) {
           
-            return Yii::$app->db->transaction(function ($db) use ($model) {
+            if( AppHelper::wrapperTransation(function ($db) use ($model) {
               $model->save();
+            }) ) {
               return $this->redirect(['view', <?=$urlParams?>]);
-            });
+            }
 
         }
 
@@ -165,10 +165,11 @@ if ( in_array( 'update', $generator->actions ) ) :
         }
 
         if ($model->load(Yii::$app->request->post())) {
-          return Yii::$app->db->transaction(function ($db) use ($model) {
-              $model->save()) {
-              return $this->redirect(['view', <?=$urlParams?>]);
-          });
+          if( AppHelper::wrapperTransation(function ($db) use ($model) {
+              return $model->save()) {
+          }) ) {
+            return $this->redirect(['view', <?=$urlParams?>]);
+          }
         }
 
         return $this->render('update', [
@@ -205,13 +206,13 @@ if ( in_array( 'delete', $generator->actions ) ) :
     		$modelList = <?=$modelClass?>::findAll(<?=$condition?>);
     		if( $modelList ) {
     			foreach($modelList as $model) {
-    				Yii::$app->db->transaction(function ($db) use ($model) {
+    				AppHelper::wrapperTransation(function ($db) use ($model) {
     				  $model->delete();
             });
     			}
     		}
     	} else {
-        Yii::$app->db->transaction(function ($db) use (<?=$actionParams?>) {
+        AppHelper::wrapperTransation(function ($db) use (<?=$actionParams?>) {
           $this->findModel(<?=$actionParams?>)->delete();
         });
     	}

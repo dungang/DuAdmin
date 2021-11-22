@@ -66,6 +66,7 @@
 
     AdvanceSelect.prototype.handleSubmit = function(data) {
         var val = this.options.onSubmitSuccess.call(this, data);
+        console.log("AdvanceSelect Handle Submit receiver val: " + val)
         if (!!val) {
             this.addOne(val);
             layer.closeAll();

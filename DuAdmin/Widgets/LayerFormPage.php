@@ -3,7 +3,6 @@
 namespace DuAdmin\Widgets;
 
 use DuAdmin\Assets\LayerAsset;
-use DuAdmin\Assets\NotifyAsset;
 use Yii;
 use yii\base\Widget;
 use yii\bootstrap\Html;
@@ -23,7 +22,7 @@ class LayerFormPage extends Widget
         if ($this->layerRequires()) {
             echo Html::beginTag('div', [
                 'data-target-html-id' => $this->parentWindowTargetHtmlId,
-                'role' => 'layer-form-page',
+                'class' => 'layer-form-page',
                 'id' => $this->getId(),
             ]);
         }

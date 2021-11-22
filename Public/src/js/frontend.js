@@ -1,4 +1,5 @@
 import { WOW } from "wowjs";
+import "./extend";
 import "./loading";
 import "./affix-navbar";
 import "./fix-col-height";
@@ -6,6 +7,7 @@ import "./video-background";
 import "./load-more";
 import "./simple-modal";
 import "./advance-select";
+import "./linkage-select";
 import "./layer-form-page";
 import "./checkbox-selection";
 import "./radio-card";

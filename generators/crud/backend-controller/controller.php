@@ -25,6 +25,7 @@ namespace <?=StringHelper::dirname( ltrim( $generator->controllerClass, '\\' ) )
 
 use Yii;
 use yii\web\NotFoundHttpException;
+use DuAdmin\Helpers\AppHelper;
 use <?=ltrim( $generator->modelClass, '\\' )?>;
 <?php
 if ( ! empty( $generator->searchModelClass ) ) :
@@ -131,10 +132,11 @@ if ( in_array( 'create', $generator->actions ) ) :
 <?php if ( $generator->onlyQueryCurrentUser ) : ?>
             $model->userId = \Yii::$app->user->id;
 <?php endif;?>
-            return Yii::$app->db->transaction(function ($db) use ($model) {
-              $model->save();
+            if( AppHelper::wrapperTransation(function ($db) use ($model) {
+              return $model->save();
+            })) {
               return $this->redirectSuccess(['view', <?=$urlParams?>], "添加成功");
-            });
+            }
         }
 
         return $this->render('create', [
@@ -163,10 +165,11 @@ if ( in_array( 'update', $generator->actions ) ) :
         }
 
         if ($model->load(Yii::$app->request->post())) {
-          return Yii::$app->db->transaction(function ($db) use ($model) {
-              $model->save();
-              return $this->redirectSuccess(['view', <?=$urlParams?>], "修改成功");
-          });
+          if( AppHelper::wrapperTransation(function ($db) use ($model) {
+              return $model->save();
+          })) {
+            return $this->redirectSuccess(['view', <?=$urlParams?>], "修改成功");
+          }
         }
 
         return $this->render('update', [
@@ -203,13 +206,13 @@ if ( in_array( 'delete', $generator->actions ) ) :
           $modelList = <?=$modelClass?>::findAll(<?=$condition?>);
           if( $modelList ) {
             foreach($modelList as $model) {
-              Yii::$app->db->transaction(function ($db) use ($model) {
+              AppHelper::wrapperTransation(function ($db) use ($model) {
                 $model->delete();
               });
             }
           }
         } else {
-          Yii::$app->db->transaction(function ($db) use (<?=$actionParams?>) {
+          AppHelper::wrapperTransation(function ($db) use (<?=$actionParams?>) {
             $this->findModel(<?=$actionParams?>)->delete();
           });
         }

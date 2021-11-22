@@ -1,9 +1,11 @@
 <?php
+
 namespace DuAdmin\Widgets;
 
 use yii\base\Widget;
 use yii\helpers\Html;
 use DuAdmin\Helpers\AppHelper;
+use Yii;
 
 /**
  * 导航选项卡
@@ -13,6 +15,9 @@ use DuAdmin\Helpers\AppHelper;
 class PanelNavTabs extends Widget
 {
 
+    /**
+     * 是否包装tabs样式
+     */
     public $wrapper = false;
 
     public $wrapperTag = 'div';
@@ -20,17 +25,33 @@ class PanelNavTabs extends Widget
     public $wrapperClass = 'nav-tabs-custom  tab-default';
 
     /**
+     * 是否有全部tab
+     */
+    public $hasAllTab = false;
+
+    /**
      * 选项卡项目
      * @var array
      */
     public $tabs;
-    
+
     public $tabClass = 'nav nav-tabs';
 
     public function run()
     {
-        if (! is_array($this->tabs))
+        if (!is_array($this->tabs)) {
             return '';
+        }
+
+        if ($this->hasAllTab) {
+            array_unshift($this->tabs, [
+                'name' => Yii::t("da", "All"),
+                'url'  => [
+                    '/' . Yii::$app->controller->uniqueId,
+                ]
+            ]);
+        }
+        
         $this->tabs = AppHelper::reActiveItem($this->tabs);
         if ($this->wrapper) {
             return Html::tag($this->wrapperTag, $this->renderTabs(), [
@@ -54,4 +75,3 @@ class PanelNavTabs extends Widget
         ]);
     }
 }
-
