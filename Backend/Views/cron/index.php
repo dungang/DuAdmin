@@ -38,7 +38,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>最后执行时间：<?= \Yii::$app->formatter->asDatetime($cronTracedAt) ?></p>
 </div>
 <?php
-
 PanelGridView::begin(
     [
         'intro' => '定时任务信息管理',
