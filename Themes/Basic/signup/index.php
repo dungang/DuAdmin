@@ -5,6 +5,7 @@
 /* @var $model \frontend\models\SignupForm */
 
 use DuAdmin\Models\Setting;
+use DuAdmin\Widgets\AgreementWidget;
 use yii\bootstrap\Html;
 use yii\bootstrap\ActiveForm;
 
@@ -34,6 +35,11 @@ $this->registerMetaTag([
         <?= $form->field($model, 'email') ?>
 
         <?= $form->field($model, 'password')->passwordInput() ?>
+
+        <?= $form->field($model, 'agreement')->label(false)->widget(AgreementWidget::class,[
+            'title' => '《平台注册协议》',
+            'href' => 'https://www.baidu.com'
+        ]) ?>
 
         <div class="form-group">
             <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>

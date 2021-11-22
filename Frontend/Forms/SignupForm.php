@@ -3,7 +3,6 @@
 namespace Frontend\Forms;
 
 use DuAdmin\Core\BizException;
-use DuAdmin\Helpers\AppHelper;
 use DuAdmin\Helpers\MailHelper;
 use Frontend\Models\User;
 use Yii;
@@ -19,6 +18,8 @@ class SignupForm extends Model
     public $email;
 
     public $password;
+
+    public $agreement;
 
 
     /**
@@ -40,6 +41,8 @@ class SignupForm extends Model
 
             ['password', 'required'],
             ['password', 'string', 'min' => 8],
+
+            ['agreement', 'required'],
         ];
     }
 
@@ -50,6 +53,7 @@ class SignupForm extends Model
             'username' => '账号',
             'password' => '密码',
             'email' => 'E-mail',
+            'agreement' => '已阅读并同意',
         ];
     }
 
