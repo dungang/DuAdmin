@@ -74,15 +74,17 @@ $siteName = Yii::t('app', AppHelper::getSetting('site.name', Yii::$app->name));
         $navigations = Navigation::getBootstapNavigation('frontend', true);
 
         $menus = array_merge($menus, $navigations);
-        if (Yii::$app->user->isGuest) {
-            $menus[] = [
-                'label' => Yii::t('app', 'Login'),
-                'url'   => [
-                    '/login'
-                ]
-            ];
-        } else {
-            $menus[] = '<li>' . Html::a('<i class="fa fa-user"></i> ' . Yii::$app->user->identity->username, AppHelper::getSetting('site.usercenter-page')) . '</li>';
+        if (!!AppHelper::getSetting("site.open-login")) {
+            if (Yii::$app->user->isGuest) {
+                $menus[] = [
+                    'label' => Yii::t('app', 'Login'),
+                    'url'   => [
+                        '/login'
+                    ]
+                ];
+            } else {
+                $menus[] = '<li>' . Html::a('<i class="fa fa-user"></i> ' . Yii::$app->user->identity->username, AppHelper::getSetting('site.usercenter-page')) . '</li>';
+            }
         }
 
         echo Nav::widget([

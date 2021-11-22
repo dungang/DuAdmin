@@ -3,6 +3,7 @@
 namespace Frontend\Controllers;
 
 use DuAdmin\Core\BaseController;
+use DuAdmin\Helpers\AppHelper;
 use Frontend\Forms\LoginForm;
 use Yii;
 
@@ -18,7 +19,7 @@ class LoginController extends BaseController
   public function actionIndex()
   {
 
-    if (!Yii::$app->user->isGuest) {
+    if (!Yii::$app->user->isGuest || !AppHelper::getSetting('site.open-login')) {
       return $this->goHome();
     }
     $model = new LoginForm();

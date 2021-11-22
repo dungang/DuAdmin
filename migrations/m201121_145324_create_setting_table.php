@@ -181,6 +181,42 @@ class m201121_145324_create_setting_table extends Migration
                 'open-feature'
             ],
             [
+                'site.open-login',
+                '是否开发登录',
+                '0',
+                Setting::TYPE_BOOL,
+                '1:表示开放，0:表示关闭',
+                '',
+                'open-feature'
+            ],
+            [
+                'site.open-signup',
+                '是否开放注册',
+                '0',
+                Setting::TYPE_BOOL,
+                '1:表示开放，0:表示关闭',
+                '',
+                'open-feature'
+            ],
+            [
+                'site.agreement-page',
+                '用户注册协议',
+                '/agreement.html',
+                'STR',
+                '用户注册本网站的用户协议',
+                '',
+                'open-feature'
+            ],
+            [
+                'site.agreement-title',
+                '用户注册协议标题',
+                '《网站会员注册协议》',
+                'STR',
+                '用户注册本网站的用户协议标题',
+                '',
+                'open-feature'
+            ],
+            [
                 'system.storage.driver',
                 '存储服务',
                 '',
@@ -229,28 +265,28 @@ class m201121_145324_create_setting_table extends Migration
 
         InstallerHelper::installSettings([
             [
-                'name'    => 'user.avatar.compress',
+                'name'    => 'site.avatar.compress',
                 'title'   => '用户头像是否压缩',
                 'value'   => 'false',
                 'valType' => Setting::TYPE_STR,
                 'subCategory' => 'open-feature'
             ],
             [
-                'name'    => 'user.avatar.clip',
+                'name'    => 'site.avatar.clip',
                 'title'   => '用户头像是否裁剪',
                 'value'   => 'true',
                 'valType' => Setting::TYPE_STR,
                 'subCategory' => 'open-feature'
             ],
             [
-                'name'    => 'user.avatar.clipHeight',
+                'name'    => 'site.avatar.clipHeight',
                 'title'   => '用户头像高度',
                 'value'   => '200',
                 'valType' => Setting::TYPE_STR,
                 'subCategory' => 'open-feature'
             ],
             [
-                'name'    => 'user.avatar.clipWidth',
+                'name'    => 'site.avatar.clipWidth',
                 'title'   => '用户头像的宽度',
                 'value'   => '200',
                 'valType' => Setting::TYPE_STR,

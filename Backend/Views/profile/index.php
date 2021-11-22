@@ -21,10 +21,10 @@ AjaxModalOrNormalPanelContent::begin([
 <div class="row">
     <div class="col-md-6">
         <?= $form->field($model, 'avatar')->widget(AjaxFileInput::class, [
-            'clip' => AppHelper::getSetting('user.avatar.clip', 'true'),
-            'compress' => AppHelper::getSetting('user.avatar.compress', 'true'),
-            'clipWidth' => AppHelper::getSetting('user.avatar.clipWidth', 200),
-            'clipHeight' => AppHelper::getSetting('user.avatar.clipHeight', 200)
+            'clip' => AppHelper::getSetting('site.avatar.clip', 'true'),
+            'compress' => AppHelper::getSetting('site.avatar.compress', 'true'),
+            'clipWidth' => AppHelper::getSetting('site.avatar.clipWidth', 200),
+            'clipHeight' => AppHelper::getSetting('site.avatar.clipHeight', 200)
         ]) ?>
         <?= $form->field($model, 'nickname')->textInput(['maxlength' => true]) ?>
     </div>
