@@ -20,22 +20,33 @@ if ($files) {
     $files = [];
 }
 ?>
-<div class="dua bg-primary dua-banner">
-    <div class="container">
-        <div class="jumbotron text-center">
-            <h1>Hello DUAdmin!</h1>
-            <p>For My Best Friends.</p>
-        </div>
-        <div class="demo-swiper">
-            <div class="show-swiper">
-                <?php
-                echo SlickCarousel::widget([
-                    'className'      => 'demo-screen',
-                    'slideClassName' => 'demo-slide',
-                    'viewName'       => $this->theme->basePath . '/site/slick-carousel',
-                    'items'          => $files
-                ])
-                ?>
+<div class="hero-area">
+    <div class="hero-bg">
+        <div class="dua dua-banner hero-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="jumbotron text-center">
+                            <h1>Hello DUAdmin!</h1>
+                            <p>For My Best Friends.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="demo-swiper">
+                            <div class="show-swiper">
+                                <?php
+                                echo SlickCarousel::widget([
+                                    'className'      => 'demo-screen',
+                                    'slideClassName' => 'demo-slide',
+                                    'viewName'       => $this->theme->basePath . '/site/slick-carousel',
+                                    'items'          => $files
+                                ])
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

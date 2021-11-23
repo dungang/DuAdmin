@@ -16,7 +16,6 @@
   margin-bottom: @navbar-margin-bottom;
   //border: 1px solid transparent;
   border: 0;
-
   // Prevent floats from breaking the navbar
   &:extend(.clearfix all);
 
@@ -28,6 +27,7 @@
     width: 100%;
     position: fixed;
     z-index: 999;
+    margin-top: 60px;
   }
 }
 
@@ -423,9 +423,9 @@
 
 // Default navbar
 .navbar-default {
-  background-color: @navbar-default-bg;
+  background: @navbar-default-bg;
   border-color: @navbar-default-border;
-
+  z-index: 99;
   .navbar-brand {
     color: @navbar-default-brand-color;
 
@@ -584,7 +584,7 @@
 // Inverse navbar
 
 .navbar-inverse {
-  background-color: @navbar-inverse-bg;
+  background: @theme-bg;
   border-color: @navbar-inverse-border;
 
   .navbar-brand {

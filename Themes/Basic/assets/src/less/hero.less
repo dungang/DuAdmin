@@ -1,0 +1,23 @@
+.hero-area {
+    margin-top: -60px;
+    .hero-bg {
+        position: relative;
+        padding: 160px 0 100px 0;
+        color: white;
+        background-color: white;
+        &::after {
+            position: absolute;
+            content: "";
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: @theme-bg;
+            border-bottom-right-radius: 40% 100%;
+        }
+
+        .hero-content {
+            z-index: 1;
+        }
+    }
+}
