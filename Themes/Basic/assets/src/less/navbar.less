@@ -27,10 +27,14 @@
     width: 100%;
     position: fixed;
     z-index: 999;
-    margin-top: 60px;
   }
 }
 
+.navbar-hero-affix {
+  &.affix {
+    margin-top: 60px;
+  }
+}
 
 // Navbar heading
 //
@@ -421,37 +425,37 @@
   }
 }
 
-// Default navbar
-.navbar-default {
+// Hero navbar
+.navbar-hero {
   background: @navbar-default-bg;
   border-color: @navbar-default-border;
   z-index: 99;
   .navbar-brand {
-    color: @navbar-default-brand-color;
+    color: white;// @navbar-default-brand-color;
 
     &:hover,
     &:focus {
-      color: @navbar-default-brand-hover-color;
+      color: white;//@navbar-default-brand-hover-color;
       background-color: @navbar-default-brand-hover-bg;
     }
   }
 
   .navbar-text {
-    color: @navbar-default-color;
+    color: white;// @navbar-default-color;
   }
 
   .navbar-nav {
     >li>a,
     >li button {
-      color: @navbar-default-link-color;
+      color: white;// @navbar-default-link-color;
 
       &:hover,
       &:focus {
-        color: @navbar-default-link-hover-color;
-        background-color: @navbar-default-link-hover-bg;
+        color: white;//@navbar-default-link-hover-color;
+        background-color: transparent;// @navbar-default-link-hover-bg;
 
         &::before {
-          background: @navbar-default-link-active-color;
+          background: white;//@navbar-default-link-active-color;
           width: 100%;
         }
       }
@@ -462,11 +466,11 @@
       &,
       &:hover,
       &:focus {
-        color: @navbar-default-link-active-color;
-        background-color: @navbar-default-link-active-bg;
+        color: white;//@navbar-default-link-active-color;
+        background-color: transparent;// @navbar-default-link-active-bg;
 
         &::before {
-          background: @navbar-default-link-active-color;
+          background: white;// @navbar-default-link-active-color;
           width: 100%;
         }
       }
@@ -582,7 +586,7 @@
 }
 
 // Inverse navbar
-
+.navbar-default,
 .navbar-inverse {
   background: @theme-bg;
   border-color: @navbar-inverse-border;

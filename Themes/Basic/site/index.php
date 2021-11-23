@@ -19,6 +19,8 @@ if ($files) {
 } else {
     $files = [];
 }
+$this->params['navDefaultClass'] = 'navbar-hero';
+$this->params['indexAffixClass'] = 'navbar-hero-affix';
 ?>
 <div class="hero-area">
     <div class="hero-bg">

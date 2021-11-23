@@ -49,7 +49,17 @@ $siteName = Yii::t('app', AppHelper::getSetting('site.name', Yii::$app->name));
 
     <div class="wrap">
         <?php
+        if (isset($this->params['navDefaultClass'])) {
+            $navDefClass = $this->params['navDefaultClass'];
+        } else {
+            $navDefClass = 'navbar-default';
+        }
+        $this->registerJs("$('#main-navbar').navbarAffix('" . $navDefClass . "','navbar-inverse')");
+        if (isset($this->params['indexAffixClass'])) {
+            $navDefClass .= " " . $this->params['indexAffixClass'];
+        }
         NavBar::begin([
+            'id' => 'main-navbar',
             'brandLabel'   => Yii::t('app', '<i class="fa fa-rocket"></i> ' . $siteName),
             // 'brandImage' => $this->params['logo'],
             'brandUrl'     => [
@@ -59,7 +69,7 @@ $siteName = Yii::t('app', AppHelper::getSetting('site.name', Yii::$app->name));
                 'title' => $siteName . '-' . $company
             ],
             'options'      => [
-                'class' => 'navbar-default nav-affix'
+                'class' => $navDefClass . ' nav-affix'
             ]
         ]);
         $menus = [
@@ -97,14 +107,16 @@ $siteName = Yii::t('app', AppHelper::getSetting('site.name', Yii::$app->name));
         NavBar::end();
         AutoFixBootstrapColumn::widget();
         ?>
-        <?php
-        if (isset($this->params['breadcrumbs'])) :
-        ?>
-            <div class="container">
-                <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : []]) ?>
-            </div>
-        <?php endif; ?>
-        <?= $content ?>
+        <div class="wrap-content">
+            <?php
+            if (isset($this->params['breadcrumbs'])) :
+            ?>
+                <div class="container">
+                    <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : []]) ?>
+                </div>
+            <?php endif; ?>
+            <?= $content ?>
+        </div>
     </div>
 
     <?php
