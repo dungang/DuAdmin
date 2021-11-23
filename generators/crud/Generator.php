@@ -8,7 +8,6 @@
 
 namespace app\generators\crud;
 
-use DuAdmin\Mysql\ActiveRecord;
 use app\generators\CodeFile;
 use Yii;
 use yii\db\Schema;
@@ -90,7 +89,7 @@ class Generator extends \app\generators\Generator
 
     public $templates = [
         'backend-controller' => '@app/generators/crud/backend-controller',
-        'backend-actions'    => '@app/generators/crud/backend-actions',
+        //'backend-actions'    => '@app/generators/crud/backend-actions',
         'frontend'           => '@app/generators/crud/frontend'
     ];
 

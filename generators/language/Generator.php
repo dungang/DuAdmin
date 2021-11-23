@@ -143,9 +143,11 @@ class Generator extends BaseGenerator {
       // '@Backend/Messages',
       // '@Frontend/Messages'
     ];
-    $dirs = FileHelper::findDirectories( \Yii::$app->basePath . '/Addons', [
-        'recursive' => false
-    ] );
+    // $dirs = FileHelper::findDirectories( \Yii::$app->basePath . '/Addons', [
+    //     'recursive' => false
+    // ] );
+    
+    $dirs = require \Yii::$app->basePath . '/Config/generator.php';
     foreach ( $dirs as $dir ) {
       $path = '@Addons/' . basename( $dir ) . '/Messages';
       $messagesPaths[] = $path;

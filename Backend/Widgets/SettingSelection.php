@@ -20,7 +20,9 @@ class SettingSelection extends InputWidget {
     public function run() {
         if ( $items = $this->discoverItems() ) {
             return $this->showDiscoverDropDownList( $items );
-        } else if ( $this->model->valType === 'IMAGE' ) {
+        } else if ( $this->model->valType === Setting::TYPE_BOOL ) {
+            return $this->showDiscoverDropDownList( DictData::getDataLabels("yes_or_no"));
+        } else if ( $this->model->valType === Setting::TYPE_IMAGE ) {
             return AjaxFileInput::widget( [
                     'model'     => $this->model,
                     'attribute' => $this->attribute,

@@ -33,14 +33,15 @@ use yii\web\View;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-abstract class Generator extends Model {
+abstract class Generator extends Model
+{
 
   /**
    *
    * @var array a list of available code templates. The array keys are the template names,
    *      and the array values are the corresponding template paths or path aliases.
    */
-  public $templates = [ ];
+  public $templates = [];
 
   /**
    *
@@ -84,29 +85,29 @@ abstract class Generator extends Model {
    *
    * {@inheritdoc}
    */
-  public function init() {
+  public function init()
+  {
 
     parent::init();
-    if ( ! isset( $this->templates ['default'] ) ) {
-      $this->templates ['default'] = $this->defaultTemplate();
+    if (!isset($this->templates['default'])) {
+      $this->templates['default'] = $this->defaultTemplate();
     }
-    foreach ( $this->templates as $i => $template ) {
-      $this->templates [$i] = Yii::getAlias( $template );
+    foreach ($this->templates as $i => $template) {
+      $this->templates[$i] = Yii::getAlias($template);
     }
-
   }
 
   /**
    *
    * {@inheritdoc}
    */
-  public function attributeLabels() {
+  public function attributeLabels()
+  {
 
     return [
-        'enableI18N' => 'Enable I18N',
-        'messageCategory' => 'Message Category'
+      'enableI18N' => 'Enable I18N',
+      'messageCategory' => 'Message Category'
     ];
-
   }
 
   /**
@@ -117,10 +118,10 @@ abstract class Generator extends Model {
    * @return array list of code template files that are required. They should be file paths
    *         relative to [[templatePath]].
    */
-  public function requiredTemplates() {
+  public function requiredTemplates()
+  {
 
-    return [ ];
-
+    return [];
   }
 
   /**
@@ -130,14 +131,14 @@ abstract class Generator extends Model {
    *
    * @return array list of sticky attributes
    */
-  public function stickyAttributes() {
+  public function stickyAttributes()
+  {
 
     return [
-        'template',
-        'enableI18N',
-        'messageCategory'
+      'template',
+      'enableI18N',
+      'messageCategory'
     ];
-
   }
 
   /**
@@ -147,14 +148,14 @@ abstract class Generator extends Model {
    *
    * @return array the list of hint messages
    */
-  public function hints() {
+  public function hints()
+  {
 
     return [
-        'enableI18N' => 'This indicates whether the generator should generate strings using <code>Yii::t()</code> method.
+      'enableI18N' => 'This indicates whether the generator should generate strings using <code>Yii::t()</code> method.
                 Set this to <code>true</code> if you are planning to make your application translatable.',
-        'messageCategory' => 'This is the category used by <code>Yii::t()</code> in case you enable I18N.'
+      'messageCategory' => 'This is the category used by <code>Yii::t()</code> in case you enable I18N.'
     ];
-
   }
 
   /**
@@ -164,10 +165,10 @@ abstract class Generator extends Model {
    *
    * @return array the list of auto complete values
    */
-  public function autoCompleteData() {
+  public function autoCompleteData()
+  {
 
-    return [ ];
-
+    return [];
   }
 
   /**
@@ -176,10 +177,10 @@ abstract class Generator extends Model {
    *
    * @return string the message to be displayed when the newly generated code is saved successfully.
    */
-  public function successMessage() {
+  public function successMessage()
+  {
 
     return 'The code has been generated successfully.';
-
   }
 
   /**
@@ -189,11 +190,11 @@ abstract class Generator extends Model {
    *
    * @return string the view file for the input form of the generator.
    */
-  public function formView() {
+  public function formView()
+  {
 
-    $class = new ReflectionClass( $this );
-    return dirname( $class->getFileName() ) . '/form.php';
-
+    $class = new ReflectionClass($this);
+    return dirname($class->getFileName()) . '/form.php';
   }
 
   /**
@@ -203,21 +204,21 @@ abstract class Generator extends Model {
    *
    * @return string the root path to the default code template files.
    */
-  public function defaultTemplate() {
+  public function defaultTemplate()
+  {
 
-    $class = new ReflectionClass( $this );
-    return dirname( $class->getFileName() ) . '/default';
-
+    $class = new ReflectionClass($this);
+    return dirname($class->getFileName()) . '/default';
   }
 
   /**
    *
    * @return string the detailed description of the generator.
    */
-  public function getDescription() {
+  public function getDescription()
+  {
 
     return '';
-
   }
 
   /**
@@ -231,24 +232,24 @@ abstract class Generator extends Model {
    *               ]);
    *               ~~~
    */
-  public function rules() {
+  public function rules()
+  {
 
     return [
+      [
         [
-            [
-                'template'
-            ],
-            'required',
-            'message' => 'A code template must be selected.'
+          'template'
         ],
+        'required',
+        'message' => 'A code template must be selected.'
+      ],
+      [
         [
-            [
-                'template'
-            ],
-            'validateTemplate'
-        ]
+          'template'
+        ],
+        'validateTemplate'
+      ]
     ];
-
   }
 
   /**
@@ -256,21 +257,21 @@ abstract class Generator extends Model {
    *
    * @internal
    */
-  public function loadStickyAttributes() {
+  public function loadStickyAttributes()
+  {
 
     $stickyAttributes = $this->stickyAttributes();
     $path = $this->getStickyDataFile();
-    if ( is_file( $path ) ) {
-      $result = json_decode( file_get_contents( $path ), true );
-      if ( is_array( $result ) ) {
-        foreach ( $stickyAttributes as $name ) {
-          if ( isset( $result [$name] ) ) {
-            $this->$name = $result [$name];
+    if (is_file($path)) {
+      $result = json_decode(file_get_contents($path), true);
+      if (is_array($result)) {
+        foreach ($stickyAttributes as $name) {
+          if (isset($result[$name])) {
+            $this->$name = $result[$name];
           }
         }
       }
     }
-
   }
 
   /**
@@ -278,18 +279,18 @@ abstract class Generator extends Model {
    *
    * @internal
    */
-  public function saveStickyAttributes() {
+  public function saveStickyAttributes()
+  {
 
     $stickyAttributes = $this->stickyAttributes();
-    $stickyAttributes [] = 'template';
-    $values = [ ];
-    foreach ( $stickyAttributes as $name ) {
-      $values [$name] = $this->$name;
+    $stickyAttributes[] = 'template';
+    $values = [];
+    foreach ($stickyAttributes as $name) {
+      $values[$name] = $this->$name;
     }
     $path = $this->getStickyDataFile();
-    @mkdir( dirname( $path ), 0755, true );
-    file_put_contents( $path, json_encode( $values ) );
-
+    @mkdir(dirname($path), 0755, true);
+    file_put_contents($path, json_encode($values));
   }
 
   /**
@@ -297,10 +298,10 @@ abstract class Generator extends Model {
    * @return string the file path that stores the sticky attribute values.
    * @internal
    */
-  public function getStickyDataFile() {
+  public function getStickyDataFile()
+  {
 
-    return Yii::$app->getRuntimePath() . '/gii-' . Yii::getVersion() . '/' . str_replace( '\\', '-', get_class( $this ) ) . '.json';
-
+    return Yii::$app->getRuntimePath() . '/gii-' . Yii::getVersion() . '/' . str_replace('\\', '-', get_class($this)) . '.json';
   }
 
   /**
@@ -314,31 +315,31 @@ abstract class Generator extends Model {
    *          generated while saving the code files.
    * @return bool whether files are successfully saved without any error.
    */
-  public function save( $files, $answers, &$results ) {
+  public function save($files, $answers, &$results)
+  {
 
     $lines = [
-        'Generating code using template "' . $this->getTemplatePath() . '"...'
+      'Generating code using template "' . $this->getTemplatePath() . '"...'
     ];
     $hasError = false;
-    foreach ( $files as $file ) {
+    foreach ($files as $file) {
       $relativePath = $file->getRelativePath();
-      if ( isset( $answers [$file->id] ) && ! empty( $answers [$file->id] ) && $file->operation !== CodeFile::OP_SKIP ) {
+      if (isset($answers[$file->id]) && !empty($answers[$file->id]) && $file->operation !== CodeFile::OP_SKIP) {
         $error = $file->save();
-        if ( is_string( $error ) ) {
+        if (is_string($error)) {
           $hasError = true;
-          $lines [] = "generating $relativePath\n<span class=\"error\">$error</span>";
+          $lines[] = "generating $relativePath\n<span class=\"error\">$error</span>";
         } else {
-          $lines [] = $file->operation === CodeFile::OP_CREATE ? " generated $relativePath" : " overwrote $relativePath";
+          $lines[] = $file->operation === CodeFile::OP_CREATE ? " generated $relativePath" : " overwrote $relativePath";
         }
       } else {
-        $lines [] = "   skipped $relativePath";
+        $lines[] = "   skipped $relativePath";
       }
     }
-    $lines [] = "done!\n";
-    $results = implode( "\n", $lines );
-    $this->trigger( static::AFTER_SAVE_SUCCESS );
-    return ! $hasError;
-
+    $lines[] = "done!\n";
+    $results = implode("\n", $lines);
+    $this->trigger(static::AFTER_SAVE_SUCCESS);
+    return !$hasError;
   }
 
   /**
@@ -346,13 +347,13 @@ abstract class Generator extends Model {
    * @return string the root path of the template files that are currently being used.
    * @throws InvalidConfigException if [[template]] is invalid
    */
-  public function getTemplatePath() {
+  public function getTemplatePath()
+  {
 
-    if ( isset( $this->templates [$this->template] ) ) {
-      return $this->templates [$this->template];
+    if (isset($this->templates[$this->template])) {
+      return $this->templates[$this->template];
     }
-    throw new InvalidConfigException( "Unknown template: {$this->template}" );
-
+    throw new InvalidConfigException("Unknown template: {$this->template}");
   }
 
   /**
@@ -366,12 +367,12 @@ abstract class Generator extends Model {
    *          list of parameters to be passed to the template file.
    * @return string the generated code
    */
-  public function render( $template, $params = [ ] ) {
+  public function render($template, $params = [])
+  {
 
     $view = new View();
-    $params ['generator'] = $this;
-    return $view->renderFile( $this->getTemplatePath() . '/' . $template, $params, $this );
-
+    $params['generator'] = $this;
+    return $view->renderFile($this->getTemplatePath() . '/' . $template, $params, $this);
   }
 
   /**
@@ -379,20 +380,20 @@ abstract class Generator extends Model {
    * This method validates whether the user selects an existing template
    * and the template contains all required template files as specified in [[requiredTemplates()]].
    */
-  public function validateTemplate() {
+  public function validateTemplate()
+  {
 
     $templates = $this->templates;
-    if ( ! isset( $templates [$this->template] ) ) {
-      $this->addError( 'template', 'Invalid template selection.' );
+    if (!isset($templates[$this->template])) {
+      $this->addError('template', 'Invalid template selection.');
     } else {
-      $templatePath = $this->templates [$this->template];
-      foreach ( $this->requiredTemplates() as $template ) {
-        if ( ! is_file( Yii::getAlias( $templatePath . '/' . $template ) ) ) {
-          $this->addError( 'template', "Unable to find the required code template file '$template'." );
+      $templatePath = $this->templates[$this->template];
+      foreach ($this->requiredTemplates() as $template) {
+        if (!is_file(Yii::getAlias($templatePath . '/' . $template))) {
+          $this->addError('template', "Unable to find the required code template file '$template'.");
         }
       }
     }
-
   }
 
   /**
@@ -405,23 +406,23 @@ abstract class Generator extends Model {
    * @param array $params
    *          the validation options
    */
-  public function validateClass( $attribute, $params ) {
+  public function validateClass($attribute, $params)
+  {
 
     $class = $this->$attribute;
     try {
-      if ( class_exists( $class ) ) {
-        if ( isset( $params ['extends'] ) ) {
-          if ( ltrim( $class, '\\' ) !== ltrim( $params ['extends'], '\\' ) && ! is_subclass_of( $class, $params ['extends'] ) ) {
-            $this->addError( $attribute, "'$class' must extend from {$params['extends']} or its child class." );
+      if (class_exists($class)) {
+        if (isset($params['extends'])) {
+          if (ltrim($class, '\\') !== ltrim($params['extends'], '\\') && !is_subclass_of($class, $params['extends'])) {
+            $this->addError($attribute, "'$class' must extend from {$params['extends']} or its child class.");
           }
         }
       } else {
-        $this->addError( $attribute, "Class '$class' does not exist or has syntax error." );
+        $this->addError($attribute, "Class '$class' does not exist or has syntax error.");
       }
-    } catch ( \Exception $e ) {
-      $this->addError( $attribute, "Class '$class' does not exist or has syntax error." );
+    } catch (\Exception $e) {
+      $this->addError($attribute, "Class '$class' does not exist or has syntax error.");
     }
-
   }
 
   /**
@@ -433,32 +434,32 @@ abstract class Generator extends Model {
    * @param array $params
    *          the validation options
    */
-  public function validateNewClass( $attribute, $params ) {
+  public function validateNewClass($attribute, $params)
+  {
 
-    $class = ltrim( $this->$attribute, '\\' );
-    if ( ($pos = strrpos( $class, '\\' )) === false ) {
-      $this->addError( $attribute, "The class name must contain fully qualified namespace name." );
+    $class = ltrim($this->$attribute, '\\');
+    if (($pos = strrpos($class, '\\')) === false) {
+      $this->addError($attribute, "The class name must contain fully qualified namespace name.");
     } else {
-      $ns = substr( $class, 0, $pos );
-      $path = Yii::getAlias( '@' . str_replace( '\\', '/', $ns ), false );
-      if ( $path === false ) {
-        $this->addError( $attribute, "The class namespace is invalid: $ns" );
-      } elseif ( ! is_dir( $path ) ) {
-        $this->addError( $attribute, "Please make sure the directory containing this class exists: $path" );
+      $ns = substr($class, 0, $pos);
+      $path = Yii::getAlias('@' . str_replace('\\', '/', $ns), false);
+      if ($path === false) {
+        $this->addError($attribute, "The class namespace is invalid: $ns");
+      } elseif (!is_dir($path)) {
+        $this->addError($attribute, "Please make sure the directory containing this class exists: $path");
       }
     }
-
   }
 
   /**
    * Checks if message category is not empty when I18N is enabled.
    */
-  public function validateMessageCategory() {
+  public function validateMessageCategory()
+  {
 
-    if ( $this->enableI18N && empty( $this->messageCategory ) ) {
-      $this->addError( 'messageCategory', "Message Category cannot be blank." );
+    if ($this->enableI18N && empty($this->messageCategory)) {
+      $this->addError('messageCategory', "Message Category cannot be blank.");
     }
-
   }
 
   /**
@@ -467,91 +468,91 @@ abstract class Generator extends Model {
    *          the attribute to be validated
    * @return bool whether the value is a reserved PHP keyword.
    */
-  public function isReservedKeyword( $value ) {
+  public function isReservedKeyword($value)
+  {
 
     static $keywords = [
-        '__class__',
-        '__dir__',
-        '__file__',
-        '__function__',
-        '__line__',
-        '__method__',
-        '__namespace__',
-        '__trait__',
-        'abstract',
-        'and',
-        'array',
-        'as',
-        'break',
-        'case',
-        'catch',
-        'callable',
-        'cfunction',
-        'class',
-        'clone',
-        'const',
-        'continue',
-        'declare',
-        'default',
-        'die',
-        'do',
-        'echo',
-        'else',
-        'elseif',
-        'empty',
-        'enddeclare',
-        'endfor',
-        'endforeach',
-        'endif',
-        'endswitch',
-        'endwhile',
-        'eval',
-        'exception',
-        'exit',
-        'extends',
-        'final',
-        'finally',
-        'for',
-        'foreach',
-        'function',
-        'global',
-        'goto',
-        'if',
-        'implements',
-        'include',
-        'include_once',
-        'instanceof',
-        'insteadof',
-        'interface',
-        'isset',
-        'list',
-        'namespace',
-        'new',
-        'old_function',
-        'or',
-        'parent',
-        'php_user_filter',
-        'print',
-        'private',
-        'protected',
-        'public',
-        'require',
-        'require_once',
-        'return',
-        'static',
-        'switch',
-        'this',
-        'throw',
-        'trait',
-        'try',
-        'unset',
-        'use',
-        'var',
-        'while',
-        'xor'
+      '__class__',
+      '__dir__',
+      '__file__',
+      '__function__',
+      '__line__',
+      '__method__',
+      '__namespace__',
+      '__trait__',
+      'abstract',
+      'and',
+      'array',
+      'as',
+      'break',
+      'case',
+      'catch',
+      'callable',
+      'cfunction',
+      'class',
+      'clone',
+      'const',
+      'continue',
+      'declare',
+      'default',
+      'die',
+      'do',
+      'echo',
+      'else',
+      'elseif',
+      'empty',
+      'enddeclare',
+      'endfor',
+      'endforeach',
+      'endif',
+      'endswitch',
+      'endwhile',
+      'eval',
+      'exception',
+      'exit',
+      'extends',
+      'final',
+      'finally',
+      'for',
+      'foreach',
+      'function',
+      'global',
+      'goto',
+      'if',
+      'implements',
+      'include',
+      'include_once',
+      'instanceof',
+      'insteadof',
+      'interface',
+      'isset',
+      'list',
+      'namespace',
+      'new',
+      'old_function',
+      'or',
+      'parent',
+      'php_user_filter',
+      'print',
+      'private',
+      'protected',
+      'public',
+      'require',
+      'require_once',
+      'return',
+      'static',
+      'switch',
+      'this',
+      'throw',
+      'trait',
+      'try',
+      'unset',
+      'use',
+      'var',
+      'while',
+      'xor'
     ];
-    return in_array( strtolower( $value ), $keywords, true );
-
+    return in_array(strtolower($value), $keywords, true);
   }
 
   /**
@@ -565,35 +566,35 @@ abstract class Generator extends Model {
    *          the name be generated
    * @return string
    */
-  public function generateString( $string = '', $placeholders = [ ], $messageCategory = null ) {
+  public function generateString($string = '', $placeholders = [], $messageCategory = null)
+  {
 
-    if ( empty( $messageCategory ) ) {
+    if (empty($messageCategory)) {
       $messageCategory = $this->messageCategory;
     }
-    $string = addslashes( $string );
-    if ( $this->enableI18N ) {
+    $string = addslashes($string);
+    if ($this->enableI18N) {
       // If there are placeholders, use them
-      if ( ! empty( $placeholders ) ) {
-        $ph = ', ' . VarDumper::export( $placeholders );
+      if (!empty($placeholders)) {
+        $ph = ', ' . VarDumper::export($placeholders);
       } else {
         $ph = '';
       }
       $str = "Yii::t('" . $messageCategory . "', '" . $string . "'" . $ph . ")";
     } else {
       // No I18N, replace placeholders by real words, if any
-      if ( ! empty( $placeholders ) ) {
-        $phKeys = array_map( function ( $word ) {
+      if (!empty($placeholders)) {
+        $phKeys = array_map(function ($word) {
           return '{' . $word . '}';
-        }, array_keys( $placeholders ) );
-        $phValues = array_values( $placeholders );
-        $str = "'" . str_replace( $phKeys, $phValues, $string ) . "'";
+        }, array_keys($placeholders));
+        $phValues = array_values($placeholders);
+        $str = "'" . str_replace($phKeys, $phValues, $string) . "'";
       } else {
         // No placeholders, just the given string
         $str = "'" . $string . "'";
       }
     }
     return $str;
-
   }
 
   /**
@@ -601,23 +602,24 @@ abstract class Generator extends Model {
    *
    * @return string[]
    */
-  public function getMessageCatetories() {
+  public function getMessageCatetories()
+  {
 
     $categories = [
-        'app',
-        'backend',
-        'frontend',
-        'api'
+      'app',
+      'backend',
+      'frontend',
+      'api'
     ];
-    $dirs = FileHelper::findDirectories( \Yii::$app->basePath . '/Addons', [
-        'recursive' => false
-    ] );
-    foreach ( $dirs as $dir ) {
-      $addonName = basename( $dir );
-      $categories [] = 'addon_' . Inflector::camel2id( $addonName, '_' );
+    // $dirs = FileHelper::findDirectories( \Yii::$app->basePath . '/Addons', [
+    //     'recursive' => false
+    // ] );
+    $dirs = require \Yii::$app->basePath . '/Config/generator.php';
+    foreach ($dirs as $dir) {
+      $addonName = basename($dir);
+      $categories[] = 'addon_' . Inflector::camel2id($addonName, '_');
     }
     return $categories;
-
   }
 
   /**
@@ -625,23 +627,25 @@ abstract class Generator extends Model {
    *
    * @return string[]
    */
-  public function getMessageCatetoryPrefixs() {
+  public function getMessageCatetoryPrefixs()
+  {
 
     $prefixs = [
-        'app',
-        'backend',
-        'frontend',
-        'api'
+      'app',
+      'backend',
+      'frontend',
+      'api'
     ];
-    $dirs = FileHelper::findDirectories( \Yii::$app->basePath . '/Addons', [
-        'recursive' => false
-    ] );
-    foreach ( $dirs as $dir ) {
-      $addonName = basename( $dir );
-      $prefixs [] = 'addon' . $addonName;
+    // $dirs = FileHelper::findDirectories( \Yii::$app->basePath . '/Addons', [
+    //     'recursive' => false
+    // ] );
+
+    $dirs = require \Yii::$app->basePath . '/Config/generator.php';
+    foreach ($dirs as $dir) {
+      $addonName = basename($dir);
+      $prefixs[] = 'addon' . $addonName;
     }
     return $prefixs;
-
   }
 
   /**
@@ -649,92 +653,103 @@ abstract class Generator extends Model {
    *
    * @return array
    */
-  public function getAddonNames() {
+  public function getAddonNames()
+  {
 
-    $dirs = FileHelper::findDirectories( \Yii::$app->basePath . '/Addons/', [
-        'recursive' => false
-    ] );
-    return array_map( function ( $dir ) {
-      return basename( $dir );
-    }, $dirs );
+    // $dirs = FileHelper::findDirectories( \Yii::$app->basePath . '/Addons/', [
+    //     'recursive' => false
+    // ] );
+    // return array_map( function ( $dir ) {
+    //   return basename( $dir );
+    // }, $dirs );
 
+    return require \Yii::$app->basePath . '/Config/generator.php';
   }
 
-  public function getMessageCategoryPrefix( $namespace ) {
+  public function getMessageCategoryPrefix($namespace)
+  {
 
-    if ( substr( trim( $namespace, '\\' ), 0, 6 ) == 'Addons' ) {
+    if (substr(trim($namespace, '\\'), 0, 6) == 'Addons') {
       return 'da_';
     } else {
       return 'app_';
     }
-
   }
 
-  public function getModelNamespaces() {
+  public function getModelNamespaces()
+  {
 
     $ns = [
-        'Backend\\Models',
-        'Frontend\\Models',
-        'DuAdmin\\Models'
+      'Backend\\Models',
+      'Frontend\\Models',
+      'DuAdmin\\Models'
     ];
-    $dirs = FileHelper::findDirectories( \Yii::$app->basePath . '/Addons', [
-        'recursive' => false
-    ] );
-    foreach ( $dirs as $dir ) {
-      $addonName = basename( $dir );
-      $ns [] = 'Addons\\' . $addonName . '\\Models';
+    // $dirs = FileHelper::findDirectories(\Yii::$app->basePath . '/Addons', [
+    //   'recursive' => false
+    // ]);
+
+    $dirs = require \Yii::$app->basePath . '/Config/generator.php';
+    foreach ($dirs as $dir) {
+      $addonName = basename($dir);
+      $ns[] = 'Addons\\' . $addonName . '\\Models';
     }
     return $ns;
-
   }
 
-  public function getWebControllerNamespaces() {
+  public function getWebControllerNamespaces()
+  {
 
     $ns = [
-        'Backend\\Controllers',
-        'Frontend\\Controllers'
+      'Backend\\Controllers',
+      'Frontend\\Controllers'
     ];
-    $dirs = FileHelper::findDirectories( \Yii::$app->basePath . '/Addons', [
-        'recursive' => false
-    ] );
-    foreach ( $dirs as $dir ) {
-      $addonName = basename( $dir );
-      $ns [] = 'Addons\\' . $addonName . '\\Controllers\\Backend';
-      $ns [] = 'Addons\\' . $addonName . '\\Controllers\\Frontend';
+    // $dirs = FileHelper::findDirectories(\Yii::$app->basePath . '/Addons', [
+    //   'recursive' => false
+    // ]);
+
+    $dirs = require \Yii::$app->basePath . '/Config/generator.php';
+    foreach ($dirs as $dir) {
+      $addonName = basename($dir);
+      $ns[] = 'Addons\\' . $addonName . '\\Controllers\\Backend';
+      $ns[] = 'Addons\\' . $addonName . '\\Controllers\\Frontend';
     }
     return $ns;
-
   }
 
-  public function getApiControllerNamespaces() {
+  public function getApiControllerNamespaces()
+  {
 
-    $ns = [ ];
-    $dirs = FileHelper::findDirectories( \Yii::$app->basePath . '/Addons', [
-        'recursive' => false
-    ] );
-    foreach ( $dirs as $dir ) {
-      $addonName = basename( $dir );
-      $ns [] = 'Addons\\' . $addonName . '\\Controllers\\Api';
+    $ns = [];
+    // $dirs = FileHelper::findDirectories(\Yii::$app->basePath . '/Addons', [
+    //   'recursive' => false
+    // ]);
+
+    $dirs = require \Yii::$app->basePath . '/Config/generator.php';
+    foreach ($dirs as $dir) {
+      $addonName = basename($dir);
+      $ns[] = 'Addons\\' . $addonName . '\\Controllers\\Api';
     }
     return $ns;
-
   }
 
-  public function getWebViewPathBases() {
+  public function getWebViewPathBases()
+  {
 
     $ns = [
-        '@Backend/Views',
-        '@Frontend/Views'
+      '@Backend/Views',
+      '@Frontend/Views'
     ];
-    $dirs = FileHelper::findDirectories( \Yii::$app->basePath . '/Addons', [
-        'recursive' => false
-    ] );
-    foreach ( $dirs as $dir ) {
-      $addonName = basename( $dir );
-      $ns [] = '@Addons/' . $addonName . '/Views/Backend';
-      $ns [] = '@Addons/' . $addonName . '/Views/Frontend';
+    
+    // $dirs = FileHelper::findDirectories(\Yii::$app->basePath . '/Addons', [
+    //   'recursive' => false
+    // ]);
+
+    $dirs = require \Yii::$app->basePath . '/Config/generator.php';
+    foreach ($dirs as $dir) {
+      $addonName = basename($dir);
+      $ns[] = '@Addons/' . $addonName . '/Views/Backend';
+      $ns[] = '@Addons/' . $addonName . '/Views/Frontend';
     }
     return $ns;
-
   }
 }
