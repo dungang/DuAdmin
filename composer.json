@@ -58,9 +58,12 @@
     "scripts": {
         "post-install-cmd": [
             "DuAdmin\\Scripts\\ComposerInstaller::createPublicAssets",
+            "DuAdmin\\Scripts\\ComposerInstaller::createGeneratorConfig",
             "yii\\composer\\Installer::postInstall"
         ],
         "post-create-project-cmd": [
+            "DuAdmin\\Scripts\\ComposerInstaller::createPublicAssets",
+            "DuAdmin\\Scripts\\ComposerInstaller::createGeneratorConfig",
             "yii\\composer\\Installer::postCreateProject",
             "yii\\composer\\Installer::postInstall"
         ]
@@ -70,14 +73,14 @@
             "setPermission": [
                 {
                     "runtime": "0777",
-                    "public/assets": "0777",
+                    "Public/assets": "0777",
                     "yii": "0755"
                 }
             ]
         },
         "yii\\composer\\Installer::postInstall": {
             "generateCookieValidationKey": [
-                "config/common.php"
+                "Config/common.php"
             ]
         }
     },

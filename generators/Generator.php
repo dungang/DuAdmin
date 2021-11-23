@@ -614,7 +614,7 @@ abstract class Generator extends Model
     // $dirs = FileHelper::findDirectories( \Yii::$app->basePath . '/Addons', [
     //     'recursive' => false
     // ] );
-    $dirs = require \Yii::$app->basePath . '/Config/generator.php';
+    $dirs = $this->getDevModeAddonNames();
     foreach ($dirs as $dir) {
       $addonName = basename($dir);
       $categories[] = 'addon_' . Inflector::camel2id($addonName, '_');
@@ -640,7 +640,7 @@ abstract class Generator extends Model
     //     'recursive' => false
     // ] );
 
-    $dirs = require \Yii::$app->basePath . '/Config/generator.php';
+    $dirs = $this->getDevModeAddonNames();
     foreach ($dirs as $dir) {
       $addonName = basename($dir);
       $prefixs[] = 'addon' . $addonName;
@@ -663,7 +663,7 @@ abstract class Generator extends Model
     //   return basename( $dir );
     // }, $dirs );
 
-    return require \Yii::$app->basePath . '/Config/generator.php';
+    return $this->getDevModeAddonNames();
   }
 
   public function getMessageCategoryPrefix($namespace)
@@ -688,7 +688,7 @@ abstract class Generator extends Model
     //   'recursive' => false
     // ]);
 
-    $dirs = require \Yii::$app->basePath . '/Config/generator.php';
+    $dirs = $this->getDevModeAddonNames();
     foreach ($dirs as $dir) {
       $addonName = basename($dir);
       $ns[] = 'Addons\\' . $addonName . '\\Models';
@@ -707,7 +707,7 @@ abstract class Generator extends Model
     //   'recursive' => false
     // ]);
 
-    $dirs = require \Yii::$app->basePath . '/Config/generator.php';
+    $dirs = $this->getDevModeAddonNames();
     foreach ($dirs as $dir) {
       $addonName = basename($dir);
       $ns[] = 'Addons\\' . $addonName . '\\Controllers\\Backend';
@@ -724,7 +724,7 @@ abstract class Generator extends Model
     //   'recursive' => false
     // ]);
 
-    $dirs = require \Yii::$app->basePath . '/Config/generator.php';
+    $dirs = $this->getDevModeAddonNames();
     foreach ($dirs as $dir) {
       $addonName = basename($dir);
       $ns[] = 'Addons\\' . $addonName . '\\Controllers\\Api';
@@ -739,17 +739,26 @@ abstract class Generator extends Model
       '@Backend/Views',
       '@Frontend/Views'
     ];
-    
+
     // $dirs = FileHelper::findDirectories(\Yii::$app->basePath . '/Addons', [
     //   'recursive' => false
     // ]);
 
-    $dirs = require \Yii::$app->basePath . '/Config/generator.php';
+    $dirs = $this->getDevModeAddonNames();
     foreach ($dirs as $dir) {
       $addonName = basename($dir);
       $ns[] = '@Addons/' . $addonName . '/Views/Backend';
       $ns[] = '@Addons/' . $addonName . '/Views/Frontend';
     }
     return $ns;
+  }
+
+  public function getDevModeAddonNames()
+  {
+    $configFile = \Yii::$app->basePath . '/Config/generator.php';
+    if (file_exists($configFile)) {
+      return require $configFile;
+    }
+    return [];
   }
 }
