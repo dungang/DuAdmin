@@ -179,8 +179,10 @@ abstract class Addon extends Module
   {
 
     if (self::$has_set_addon_home_breadscrumb == false) {
-      \Yii::$app->view->params['breadcrumbs'][] = $this->home;
-      self::$has_set_addon_home_breadscrumb = true;
+      if (!empty($this->home)) {
+        \Yii::$app->view->params['breadcrumbs'][] = $this->home;
+        self::$has_set_addon_home_breadscrumb = true;
+      }
     }
   }
 }
