@@ -19,21 +19,20 @@ if ($files) {
 } else {
     $files = [];
 }
-$this->params['navDefaultClass'] = 'navbar-hero';
-$this->params['indexAffixClass'] = 'navbar-hero-affix';
+$this->params['isIndexPage'] = true;
 ?>
 <div class="hero-area">
     <div class="hero-bg">
         <div class="dua dua-banner hero-content">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                         <div class="jumbotron text-center">
                             <h1>Hello DUAdmin!</h1>
-                            <p>For My Best Friends.</p>
+                            <p>让开发更高效，更简单！</p>
                         </div>
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-7">
                         <div class="demo-swiper">
                             <div class="show-swiper">
                                 <?php

@@ -69,9 +69,18 @@
   &:extend(.clearfix all);
   -webkit-overflow-scrolling: touch;
 
+  li>a {
+    &::before {
+      display: none;
+    }
+  }
+
   &.in {
     overflow-y: auto;
+    margin-bottom: 60px;
+
   }
+
 
   @media (min-width: @grid-float-breakpoint) {
     width: auto;
@@ -212,8 +221,8 @@
   .navbar-vertical-align(34px);
   background-color: transparent;
   background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
-  border: 1px solid transparent;
-  border-radius: @border-radius-base;
+  // border: 1px solid transparent;
+  // border-radius: @border-radius-base;
 
   // We remove the `outline` here, but later compensate by attaching `:hover`
   // styles to `:focus`.
@@ -430,32 +439,34 @@
   background: transparent;
   border-color: @navbar-default-border;
   z-index: 99;
+
   .navbar-brand {
-    color: white;// @navbar-default-brand-color;
+    color: white; // @navbar-default-brand-color;
 
     &:hover,
     &:focus {
-      color: white;//@navbar-default-brand-hover-color;
+      color: white; //@navbar-default-brand-hover-color;
       background-color: @navbar-default-brand-hover-bg;
     }
   }
 
   .navbar-text {
-    color: white;// @navbar-default-color;
+    color: white; // @navbar-default-color;
   }
 
   .navbar-nav {
+
     >li>a,
     >li button {
-      color: white;// @navbar-default-link-color;
+      color: white; // @navbar-default-link-color;
 
       &:hover,
       &:focus {
-        color: white;//@navbar-default-link-hover-color;
-        background-color: transparent;// @navbar-default-link-hover-bg;
+        color: white; //@navbar-default-link-hover-color;
+        background-color: transparent; // @navbar-default-link-hover-bg;
 
         &::before {
-          background: white;//@navbar-default-link-active-color;
+          background: white; //@navbar-default-link-active-color;
           width: 100%;
         }
       }
@@ -466,11 +477,11 @@
       &,
       &:hover,
       &:focus {
-        color: white;//@navbar-default-link-active-color;
-        background-color: transparent;// @navbar-default-link-active-bg;
+        color: white; //@navbar-default-link-active-color;
+        background-color: transparent; // @navbar-default-link-active-bg;
 
         &::before {
-          background: white;// @navbar-default-link-active-color;
+          background: white; // @navbar-default-link-active-color;
           width: 100%;
         }
       }
@@ -536,13 +547,6 @@
   }
 
   .navbar-toggle {
-    border-color: @navbar-default-toggle-border-color;
-
-    &:hover,
-    &:focus {
-      background-color: @navbar-default-toggle-hover-bg;
-    }
-
     .icon-bar {
       background-color: @navbar-default-toggle-icon-bar-bg;
     }
@@ -590,6 +594,7 @@
   background: @navbar-default-bg;
   border-color: @navbar-default-border;
   z-index: 99;
+
   .navbar-brand {
     color: @navbar-default-brand-color;
 
@@ -605,6 +610,7 @@
   }
 
   .navbar-nav {
+
     >li>a,
     >li button {
       color: @navbar-default-link-color;
@@ -696,13 +702,6 @@
   }
 
   .navbar-toggle {
-    border-color: @navbar-default-toggle-border-color;
-
-    &:hover,
-    &:focus {
-      background-color: @navbar-default-toggle-hover-bg;
-    }
-
     .icon-bar {
       background-color: @navbar-default-toggle-icon-bar-bg;
     }
@@ -772,6 +771,7 @@
       &:focus {
         color: @navbar-inverse-link-hover-color;
         background-color: @navbar-inverse-link-hover-bg;
+
         &::before {
           background: @navbar-inverse-link-active-color;
           width: 100%;
@@ -786,6 +786,7 @@
       &:focus {
         color: @navbar-inverse-link-active-color;
         background-color: @navbar-inverse-link-active-bg;
+
         &::before {
           background: @navbar-inverse-link-active-color;
           width: 100%;

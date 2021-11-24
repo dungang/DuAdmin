@@ -49,15 +49,14 @@ $siteName = Yii::t('app', AppHelper::getSetting('site.name', Yii::$app->name));
 
     <div class="wrap">
         <?php
-        if (isset($this->params['navDefaultClass'])) {
-            $navDefClass = $this->params['navDefaultClass'];
+        //首页的样式特殊，导致必须做如下判断
+        if (isset($this->params['isIndexPage'])) {
+            $navDefClass = 'navbar-hero-affix navbar-hero';
+            $affixDefClass = 'navbar-hero';
         } else {
-            $navDefClass = 'navbar-default';
+            $affixDefClass = $navDefClass = 'navbar-default';
         }
-        $this->registerJs("$('#main-navbar').navbarAffix('" . $navDefClass . "','navbar-inverse')");
-        if (isset($this->params['indexAffixClass'])) {
-            $navDefClass .= " " . $this->params['indexAffixClass'];
-        }
+        $this->registerJs("$('#main-navbar').navbarAffix('" . $affixDefClass . "','navbar-inverse')");
         NavBar::begin([
             'id' => 'main-navbar',
             'brandLabel'   => Yii::t('app', '<i class="fa fa-rocket"></i> ' . $siteName),
