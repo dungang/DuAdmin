@@ -35,7 +35,7 @@ class AddonController extends BaseController
      */
     public function actionInstall($addonName)
     {
-        $addonInstaller = new AddonInstaller(['addonName' => $addonName]);
+        $addonInstaller = new AddonInstaller(['addonName' => ucfirst($addonName)]);
         $addonInstaller->install();
     }
 
@@ -44,7 +44,7 @@ class AddonController extends BaseController
      */
     public function actionUninstall($addonName)
     {
-        $addonInstaller = new AddonInstaller(['addonName' => $addonName]);
+        $addonInstaller = new AddonInstaller(['addonName' => ucfirst($addonName)]);
         $addonInstaller->uninstall();
     }
 
