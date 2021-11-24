@@ -19,7 +19,7 @@ class BaseController extends Controller
         parent::init();
         //如果layer.layerUI的iframe对话框，必须在url添加_layer=true
         if (Yii::$app->request->get('_layer')) {
-            $this->layout = 'content';
+            $this->layout = 'layer';
         }
     }
 

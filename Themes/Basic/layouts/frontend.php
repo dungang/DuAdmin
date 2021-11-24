@@ -29,10 +29,7 @@ $this->registerJs(AppHelper::getSetting('site.tongji'), View::POS_HEAD);
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode('管理后台-' . $this->title) ?></title>
-    <?php
-    $this->head();
-    echo AppHelper::getSetting('site.googleAdv');
-    ?>
+    <?php $this->head();?>
 </head>
 
 <body class="skin-red-light fixed sidebar-mini">

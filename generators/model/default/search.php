@@ -71,6 +71,7 @@ if ( $generator->enableDefaultOrder ) :
 		    'sort' => [
                'defaultOrder' => [
                    '<?=$generator->defaultOrderField?>' => <?=$generator->defaultOrder?>
+                   
                ]
             ]
 <?php endif;

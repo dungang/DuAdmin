@@ -39,6 +39,7 @@
                 title: options.formTitle,
                 maxmin: false,
                 shadeClose: true, //点击遮罩关闭层
+                scrollbar: false, //屏蔽滚动条
                 area: options.formArea,
                 content: that.attr("href"),
             });
