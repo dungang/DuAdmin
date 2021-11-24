@@ -4,7 +4,6 @@ namespace Frontend\Forms;
 
 use Yii;
 use yii\base\Model;
-use DuAdmin\Helpers\AppHelper;
 
 /**
  * ContactForm is the model behind the contact form.
@@ -39,11 +38,11 @@ class ContactForm extends Model
     public function attributeLabels()
     {
         return [
-            'verifyCode' => \Yii::t('app','Verification Code'),
-            'fullName' => \Yii::t('app','Full Name'),
-            'subject' => \Yii::t('app','Subject'),
-            'email' => \Yii::t('app','Email'),
-            'body' => \Yii::t('app','Body'),    
+            'verifyCode' => \Yii::t('app', 'Verification Code'),
+            'fullName' => \Yii::t('app', 'Full Name'),
+            'subject' => \Yii::t('app', 'Subject'),
+            'email' => \Yii::t('app', 'Email'),
+            'body' => \Yii::t('app', 'Body'),
         ];
     }
 
@@ -57,7 +56,7 @@ class ContactForm extends Model
     {
         return Yii::$app->mailer->compose()
             ->setTo($email)
-            ->setFrom([AppHelper::getSetting('email.username') => AppHelper::getSetting('email.useralias')])
+            ->setFrom([getenv('MAIL_USERNAME') => getenv('MAIL_ALIAS')])
             ->setReplyTo([$this->email => $this->fullName])
             ->setSubject($this->subject)
             ->setTextBody($this->body)

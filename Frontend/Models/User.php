@@ -113,7 +113,7 @@ class User extends BaseModel implements IdentityInterface, Authable
     {
         return [
             [
-                ['username' ],'required'
+                ['username'], 'required'
             ],
             [
                 [
@@ -224,6 +224,20 @@ class User extends BaseModel implements IdentityInterface, Authable
         $timestamp = (int)substr($token, strrpos($token, '_') + 1);
         $expire = Yii::$app->params['user.passwordResetTokenExpire'];
         return $timestamp + $expire >= time();
+    }
+
+    /**
+     * Finds user by verification email token
+     *
+     * @param string $token verify email token
+     * @return static|null
+     */
+    public static function findByVerificationToken($token)
+    {
+        return static::findOne([
+            'verification_token' => $token,
+            'status' => self::STATUS_INACTIVE
+        ]);
     }
 
     /**
