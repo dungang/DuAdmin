@@ -19,7 +19,7 @@ class GiiDevController extends Controller
         $installedAddonsFile = \Yii::$app->basePath . '/Config/generator.php';
         if ($addonName) {
             file_put_contents($installedAddonsFile, "<?php\nreturn " . VarDumper::export([
-                $addonName
+                ucfirst($addonName)
             ]) . ";\n");
         } else {
             file_put_contents($installedAddonsFile, "<?php\nreturn " . VarDumper::export([]) . ";\n");
