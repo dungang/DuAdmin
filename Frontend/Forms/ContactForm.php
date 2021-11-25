@@ -59,7 +59,7 @@ class ContactForm extends Model
             ->setFrom([getenv('MAIL_USERNAME') => getenv('MAIL_ALIAS')])
             ->setReplyTo([$this->email => $this->fullName])
             ->setSubject($this->subject)
-            ->setTextBody($this->body)
+            ->setTextBody($this->body . "\n\n\nfrom:" . $this->fullName . "<" . $this->email . ">")
             ->send();
     }
 }
