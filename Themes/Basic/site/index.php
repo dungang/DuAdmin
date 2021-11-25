@@ -105,7 +105,7 @@ $this->params['isIndexPage'] = true;
                 <div class="feature">
                     <i class="glyphicon glyphicon-gift"></i>
                     <h3>模块化插件</h3>
-                    <p>插件是在module的基础上开发，解决插件前后端的控制器不被交叉范围的问题。插件可以有自己的vendor，只需要简单的配置即可完成插件的配置功能。</p>
+                    <p>插件是在module的基础上开发，解决插件前后端的控制器相互隔离，解决前后台交叉访问的问题。插件可以有自己的vendor，只需要简单的配置即可完成插件的配置功能。</p>
                 </div>
             </div>
             <div class="col-sm-3 col-md-3">
