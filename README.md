@@ -65,34 +65,34 @@ php yii dua-serve
 ## 部分截图
 
 #### 前端登录
-![前端登录](public/images/screen/frontend-login.png)
+![前端登录](Public/images/screen/frontend-login.png)
 
 #### 前端首页
-![前端首页](public/images/screen/frontend-index.png)
+![前端首页](Public/images/screen/frontend-index.png)
 
 #### 前端功能
-![前端功能](public/images/screen/frontend-futures.png)
+![前端功能](Public/images/screen/frontend-futures.png)
  
 #### 前端联系 
-![前端联系](public/images/screen/frontend-contact.png)
+![前端联系](Public/images/screen/frontend-contact.png)
 
 #### 前端首页
-![前端首页](public/images/screen/frontend-index.png)
+![前端首页](Public/images/screen/frontend-index.png)
 
 #### 后端设置管理
-![后端设置管理](public/images/screen/backend-setting.png)
+![后端设置管理](Public/images/screen/backend-setting.png)
 
 #### 后端菜单管理
-![后端菜单管理](public/images/screen/backend-menu.png)
+![后端菜单管理](Public/images/screen/backend-menu.png)
 
 #### 后端内容管理
-![后端内容管理](public/images/screen/backend-page.png)
+![后端内容管理](Public/images/screen/backend-page.png)
 
 #### 后端首页管理
-![后端首页管理](public/images/screen/backend-page-index.png)
+![后端首页管理](Public/images/screen/backend-page-index.png)
 
 #### 代码生成器
-![后端首页管理](public/images/screen/generator.png)
+![后端首页管理](Public/images/screen/generator.png)
 
 ## 特别鸣谢
 感谢以下的项目,排名不分先后
