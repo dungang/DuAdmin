@@ -1,9 +1,11 @@
 <?php
+
 namespace DuAdmin\Widgets;
 
 use yii\widgets\InputWidget;
 use yii\helpers\Html;
 use DuAdmin\Helpers\AppHelper;
+use Yii;
 
 class DefaultEditor extends InputWidget
 {
@@ -25,14 +27,9 @@ class DefaultEditor extends InputWidget
     public function run()
     {
         if ($this->hasModel()) {
-            return Html::activeTextarea($this->model, $this->attribute, [
-                'id' => $this->id,
-                'class' => 'form-control'
-            ]);
+            return Html::activeTextarea($this->model, $this->attribute, $this->options);
         } else {
-            return Html::textarea($this->name, $this->value, [
-                'id' => $this->id
-            ]);
+            return Html::textarea($this->name, $this->value, $this->options);
         }
     }
 
@@ -41,6 +38,8 @@ class DefaultEditor extends InputWidget
         if ($class = AppHelper::getSetting('system.editor.driver')) {
             if (class_exists($class)) {
                 return $class;
+            } else {
+                Yii::debug("system editor widget not found : " . $class);
             }
         }
         return static::class;

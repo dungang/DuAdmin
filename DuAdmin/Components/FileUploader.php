@@ -220,6 +220,9 @@ class FileUploader extends BaseObject {
 
   }
 
+  /**
+   * 捕获上传的文件
+   */
   public function fetchFile() {
 
     if ( $this->model ) {
@@ -242,6 +245,9 @@ class FileUploader extends BaseObject {
 
   }
 
+  /**
+   * 创建动态表单验证
+   */
   public function validate( $rule ) {
 
     \array_unshift( $rule, $this->field, 'file' );

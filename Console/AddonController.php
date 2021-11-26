@@ -150,7 +150,9 @@ class AddonController extends BaseController
                 'version'      => '1.0.0',
                 'intro'        => Inflector::camel2words($addonName) . ' ' . $addonTitle,
                 'require'      => [],
-                'i18n'         => [],
+                'i18n'         => [
+                    'da_' . Inflector::camel2id($addonName, '_')
+                ],
                 'hasApi'       => false,
                 'hasFrontend'  => false,
                 'hasBackend'   => true,
