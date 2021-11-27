@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -271,14 +272,19 @@ class Nav extends Widget
         }
         if (isset($item['url']) && is_array($item['url']) && isset($item['url'][0])) {
             $route = $item['url'][0];
-            
+
             if ($route[0] !== '/' && Yii::$app->controller) {
                 $route = Yii::$app->controller->module->getUniqueId() . '/' . $route;
             }
             $routeId = ltrim($route, '/');
             if ($routeId !== $this->route) {
                 //fix page slug
-                if($routeId !== Yii::$app->request->pathInfo){
+                //fix urlManager->suffix
+                $pathInfo = Yii::$app->request->pathInfo;
+                if ($length = strlen(Yii::$app->urlManager->suffix)) {
+                    $pathInfo = substr($pathInfo, 0, (-1) * $length);
+                }
+                if ($routeId !== $pathInfo) {
                     return false;
                 }
             }

@@ -69,18 +69,16 @@
   &:extend(.clearfix all);
   -webkit-overflow-scrolling: touch;
 
-  li>a {
-    &::before {
-      display: none;
-    }
-  }
-
   &.in {
     overflow-y: auto;
     margin-bottom: 60px;
 
+    li>a {
+      &::before {
+        display: none;
+      }
+    }
   }
-
 
   @media (min-width: @grid-float-breakpoint) {
     width: auto;
@@ -253,6 +251,7 @@
 // Builds on top of the `.nav` components with its own modifier class to make
 // the nav the full height of the horizontal nav (above 768px).
 
+
 .navbar-nav {
   margin: (@navbar-padding-vertical / 2) -@navbar-padding-horizontal;
 
@@ -265,7 +264,7 @@
 
     &::before {
       position: absolute;
-      content: "";
+      content: " ";
       width: 0;
       height: 2px;
       left: 50%;
@@ -274,6 +273,8 @@
       transition: ease .5s;
     }
   }
+
+
 
   @media (max-width: @grid-float-breakpoint-max) {
 
@@ -318,6 +319,7 @@
     }
   }
 }
+
 
 
 // Navbar form
