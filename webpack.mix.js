@@ -1,54 +1,63 @@
 let mix = require('laravel-mix');
 let del = require('del');
 let fs = require('fs');
-
-function scanAssetsConfig(assetScanDir) {
-    let dirs = fs.readdirSync(assetScanDir);
-    dirs.filter(dir => {
-        return fs.existsSync(assetScanDir + '/' + dir);
-    }).forEach(name => {
-        let configDir = assetScanDir + '/' + name;
+function scanAssetsDevApps(assetBasePath, apps, srcBasePath) {
+    apps.forEach(name => {
+        let configDir = assetBasePath + '/' + name;
+        srcBasePath = !!srcBasePath ? srcBasePath : configDir;
         let file = configDir + '/assets.config.js';
         if (fs.existsSync(file)) {
             let config = require(file);
             let assets = config.assets;
-            if (assets.dev) {
-                if (assets.less) {
-                    assets.less.forEach(less => {
-                        let lessFile = configDir + '/' + assets.src + '/' + less.src;
-                        let lessDist = configDir + '/' + assets.dist + '/' + less.dist;
-                        if (fs.existsSync(lessFile)) {
-                            console.log('load addon less file: ' + lessFile)
-                            mix.less(lessFile, lessDist);
-                        }
-                    });
-                }
-                if (assets.js) {
-                    assets.js.forEach(js => {
-                        let jsFile = configDir + '/' + assets.src + '/' + js.src;
-                        let jsDist = configDir + '/' + assets.dist + '/' + js.dist;
-                        if (fs.existsSync(jsFile)) {
-                            console.log('load addon js file: ' + jsFile)
-                            mix.js(jsFile, jsDist);
-                        }
-                    });
-                }
-                if (assets.imageDir) {
-                    let srcDir = configDir + '/' + assets.src + '/' + assets.imageDir;
-                    let distDir = configDir + '/' + assets.dist + '/' + assets.imageDir;
-                    if (fs.existsSync(srcDir)) {
-                        console.log('copy image dir: ' + srcDir)
-                        mix.copyDirectory(srcDir, distDir);
+
+            if (assets.less) {
+                assets.less.forEach(less => {
+                    let lessFile = srcBasePath + '/' + assets.src + '/' + less.src;
+                    let lessDist = srcBasePath + '/' + assets.dist + '/' + less.dist;
+                    if (fs.existsSync(lessFile)) {
+                        console.log('load addon less file: ' + lessFile)
+                        mix.less(lessFile, lessDist);
                     }
+                });
+            }
+            if (assets.js) {
+                assets.js.forEach(js => {
+                    let jsFile = srcBasePath + '/' + assets.src + '/' + js.src;
+                    let jsDist = srcBasePath + '/' + assets.dist + '/' + js.dist;
+                    if (fs.existsSync(jsFile)) {
+                        console.log('load addon js file: ' + jsFile)
+                        mix.js(jsFile, jsDist);
+                    }
+                });
+            }
+            if (assets.imageDir) {
+                let srcDir = srcBasePath + '/' + assets.src + '/' + assets.imageDir;
+                let distDir = srcBasePath + '/' + assets.dist + '/' + assets.imageDir;
+                if (fs.existsSync(srcDir)) {
+                    console.log('copy image dir: ' + srcDir)
+                    mix.copyDirectory(srcDir, distDir);
                 }
             }
         }
     });
 }
-
-scanAssetsConfig('./Addons');
-scanAssetsConfig('./Themes');
-
+mix
+    .options({
+        processCssUrls: false
+    });
+if (fs.existsSync("./dev.js")) {
+    let config = require("./dev.js");
+    console.log(config);
+    if (config.apps.admin.length > 0) {
+        scanAssetsDevApps(".", config.apps.admin, ".");
+    }
+    if (config.apps.addons.length > 0) {
+        scanAssetsDevApps("./Addons", config.apps.addons);
+    }
+    if (config.apps.themes.length > 0) {
+        scanAssetsDevApps("./Themes", config.apps.themes);
+    }
+}
 /*
  * |-------------------------------------------------------------------------- |
  * Mix Asset Management
@@ -58,20 +67,8 @@ scanAssetsConfig('./Themes');
  * your application, as well as bundling up your JS files. |
  */
 mix
-    // 后台主题
-    .less('public/duadmin/src/less/DUAdmin.less', 'public/duadmin/dist/css', {
-        lessOptions: {
-            paths: [path.resolve(__dirname, 'node_modules')],
-        },
-    }).options({
-        processCssUrls: false
-    })
-    .js('public/duadmin/src/js/DUAdmin.js', 'public/duadmin/dist/js')
-    //前端public
-    .js('public/src/js/frontend.js', 'public/js')
-    .less('public/src/less/frontend.less', 'public/css')
     .then(function () {
-        del(['public/assets/*']);
+        del(['Public/assets/*']);
     });
 // mix.js('src/app.js', 'dist/').sass('src/app.scss', 'dist/');
 
@@ -100,7 +97,7 @@ mix
 // mix.sourceMaps(); // Enable sourcemaps
 // mix.version(); // Enable versioning.
 // mix.disableNotifications();
-// mix.setPublicPath('path/to/public');
+// mix.setPublicPath('path/to/Public');
 // mix.setResourceRoot('prefix/for/resource/locators');
 // mix.autoload({}); <-- Will be passed to Webpack's ProvidePlugin.
 // mix.webpackConfig({}); <-- Override webpack.config.js, without editing the
