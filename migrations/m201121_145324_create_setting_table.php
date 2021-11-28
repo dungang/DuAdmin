@@ -54,11 +54,11 @@ class m201121_145324_create_setting_table extends Migration
                 'base'
             ],
             [
-                'site.longName',
-                '网站长名称',
+                'site.slugan',
+                '网站口号',
                 '基于YII2框架+Bootstrap开发的高效的后台管理框架',
                 'STR',
-                '前台首页的网站长名称',
+                '一句话描述网站',
                 '',
                 'base'
             ],
