@@ -24,8 +24,8 @@ Notify::widget();
 LazyLoad::widget();
 $this->registerJs(AppHelper::getSetting('site.tongji'), View::POS_HEAD);
 $this->params['logo'] = AppHelper::getSetting('site.logo');
-$company = AppHelper::getSetting('site.company');
-$siteName = Yii::t('app', AppHelper::getSetting('site.name', Yii::$app->name));
+$siteName = AppHelper::getSetting('site.name', Yii::$app->name);
+$slogan = AppHelper::getSetting('site.slogan');
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -37,7 +37,7 @@ $siteName = Yii::t('app', AppHelper::getSetting('site.name', Yii::$app->name));
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title . '-' . $siteName . '-' . $company) ?></title>
+    <title><?= Html::encode($this->title . '-' . $siteName  . '-' . $slogan) ?></title>
     <?php
     $this->head();
     echo AppHelper::getSetting('site.googleAdv');
@@ -65,7 +65,7 @@ $siteName = Yii::t('app', AppHelper::getSetting('site.name', Yii::$app->name));
                 '/site/index'
             ],
             'brandOptions' => [
-                'title' => $siteName . '-' . $company
+                'title' => $siteName . '-' . $slogan
             ],
             'options'      => [
                 'class' => $navDefClass . ' nav-affix'

@@ -54,6 +54,15 @@ class m201121_145324_create_setting_table extends Migration
                 'base'
             ],
             [
+                'site.longName',
+                '网站长名称',
+                '基于YII2框架+Bootstrap开发的高效的后台管理框架',
+                'STR',
+                '前台首页的网站长名称',
+                '',
+                'base'
+            ],
+            [
                 'site.logo',
                 '网站Logo',
                 'DUAdmin',
@@ -119,7 +128,7 @@ class m201121_145324_create_setting_table extends Migration
             [
                 'site.description',
                 '网站介绍',
-                'DUAdmin极速后台开发框架',
+                'DUAdmin基于YII2框架+Bootstrap开发的高效后台管理框架',
                 'STR',
                 '搜索优化的简介',
                 '',
