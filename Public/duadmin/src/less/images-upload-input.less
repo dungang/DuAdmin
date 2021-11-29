@@ -1,0 +1,71 @@
+.images-upload-input {
+    .images-upload-input__upload {}
+
+    .images-upload-input__select {}
+
+    .images-upload-input__image-list {
+        padding: 15px 0;
+        position: relative;
+    }
+
+    .images-upload-input__image {
+        text-align: center;
+        display: inline-block;
+        border: 1px solid #eee;
+        border-radius: 3px;
+        position: relative;
+
+        .images-upload-input__icon {
+            height: 100px;
+            width: 100px;
+
+            img {
+                height: 100%;
+                width: 100%;
+                display: block;
+            }
+        }
+
+        &:hover {
+            .images-upload-input__remove {
+                display: block;
+                cursor: pointer;
+            }
+            .images-upload-input__status {
+                display: none !important;
+            }
+        }
+        &.error,
+        &.uploading {
+            .images-upload-input__status {
+                display: block;
+            }
+        }
+        &.error {
+            .images-upload-input__status {
+                color: red;
+            }
+        }
+
+        .images-upload-input__remove,
+        .images-upload-input__status {
+            display: none;
+            position: absolute;
+            font-size: 30px;
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            left: 0px;
+            color: rgb(255, 255, 255);
+            background-color: rgba(66, 66, 66, 0.2);
+            line-height: 100px;
+            i::before {
+                border-radius: 50px;
+            }
+            .fa-spinner {
+                animation: spinner 3s linear infinite;
+                animation-play-state: running;
+            }
+        }
+    }
+}

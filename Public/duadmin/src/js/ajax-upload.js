@@ -1,4 +1,4 @@
-+ function($) {
+(function($) {
     'use strict';
 
     function isImage(type) {
@@ -190,4 +190,4 @@
         Plugin.call(parent, 'selectFile', $(this))
     }
     $(document).on('click.bs.duajaxupload.data-api', toggleElm, clickHandler)
-}(jQuery)
+})(jQuery);
