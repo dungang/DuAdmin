@@ -43,7 +43,9 @@
                 param[data.param] = parent2.val();
             }
         } else {
-            alert('连级下拉框参数配置不正确:' + $self.attr('name'));
+            //alert('连级下拉框参数配置不正确:' + $self.attr('name'));
+            $.showLayerMsg('连级下拉框参数配置不正确:' + $self.attr('name'),2,3000)
+            return;
         }
         if (isNotEmptyObject(param)) {
             $.getJSON(data.url, param, function(res) {

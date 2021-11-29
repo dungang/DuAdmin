@@ -1,4 +1,4 @@
-+ function($) {
++ function ($) {
     'use strict';
 
     function isImage(type) {
@@ -12,7 +12,7 @@
     var dismiss = '[data-dismiss="duajaxupload"]'
     var ok = '[data-upload="duajaxupload"]'
     var toggleElm = '[data-toggle="duajaxupload"]';
-    var DuAjaxUpload = function(el, options, toggleButton) {
+    var DuAjaxUpload = function (el, options, toggleButton) {
         var that = this;
         this.options = options;
         this.$element = $(el);
@@ -25,11 +25,11 @@
 
         this.$realUploadBtn = toggleButton ? toggleButton : this.$element.find(toggleElm);
 
-        var closeCallback = function() {
+        var closeCallback = function () {
             that.close();
         }
         this.$element.on('click', dismiss, closeCallback);
-        var changeCallback = function(e) {
+        var changeCallback = function (e) {
             that.file = e.currentTarget.files[0];
             that.extension = getExtension(that.file.name);
             //是图片如不设置了裁剪的高和宽度，则显示裁剪工具框，否则直接上传
@@ -45,7 +45,7 @@
             }
         }
         this.$fileInput.on('change', changeCallback);
-        var okCallback = function(e) {
+        var okCallback = function (e) {
             that.$realUploadBtn = $(this);
             if (that.$cropper) {
                 var targetImage = that.$cropper.cropper('getCroppedCanvas');
@@ -53,7 +53,7 @@
                 if (that.options.compress) {
                     targetImage = that.compress(targetImage)
                 }
-                targetImage.toBlob(function(blob) {
+                targetImage.toBlob(function (blob) {
                     that.formData.set('file', blob, that.file.name);
                     that.uploadFile();
                 });
@@ -72,12 +72,17 @@
         imageWidth: 300, //目标图片宽度，如不compress=true 表示像素，否则表示宽度度占比单位大小
         compress: true, //是否压缩,
         accept: 'image/*',
+        onBeforeUpload: function () {},
+        onUploadProgress: function () {},
+        onUploadSuccess: function () {},
+        onUploadError: function () {},
+        onComplete: function () {},
     }
 
-    DuAjaxUpload.prototype.compress = function(img) {
+    DuAjaxUpload.prototype.compress = function (img) {
         var canvas = document.createElement('canvas')
         var context = canvas.getContext('2d')
-            // 设置宽高度为等同于要压缩图片的尺寸
+        // 设置宽高度为等同于要压缩图片的尺寸
         canvas.width = this.options.imageWidth;
         canvas.height = this.options.imageHeight;
         context.clearRect(0, 0, canvas.width, canvas.height);
@@ -86,7 +91,31 @@
         return canvas;
     }
 
-    DuAjaxUpload.prototype.uploadFile = function() {
+    DuAjaxUpload.prototype.proccessor = function (xhrObj) {
+        var that = this;
+        console.log(xhrObj.upload)
+        if (xhrObj.upload) {
+            xhrObj.upload.onloadstart = function(e) {
+                console.log(e);
+            }
+            xhrObj.upload.onloadend = function(e) {
+                console.log(e);
+            }
+            xhrObj.upload.onprogress = function (event) {
+                console.log(event);
+                var percent = 0;
+                var position = event.loaded || event.position;
+                var total = event.total || event.totalSize;
+                if (event.lengthComputable) {
+                    percent = Math.ceil(position / total * 100);
+                }
+                console.log(percent);
+                that.options.onUploadProgress.call(that, percent);
+            };
+        }
+    }
+
+    DuAjaxUpload.prototype.uploadFile = function () {
         var that = this;
         if (that.$realUploadBtn) {
             $(that.$realUploadBtn).button('上传中...');
@@ -95,43 +124,55 @@
         }
         var fileType = this.$textInput.attr('data-type');
         var tokenUrl = this.$textInput.attr('data-token-url');
-        $.get(tokenUrl, { fileType: fileType }, function(data) {
-            var key = data.key + "." + that.extension;
-            that.formData.set(DUA.uploader.keyName, key);
-            that.formData.set(DUA.uploader.tokenName, data.token);
-            $.ajax({
-                url: DUA.uploader.uploadUrl,
-                dataType: 'json',
-                type: 'POST',
-                async: false,
-                data: that.formData,
-                processData: false, // 使数据不做处理
-                contentType: false, // 不要设置Content-Type请求头
-                success: function(data) {
-                    console.log(data);
-                    alert('上传成功！');
-                    var imgUrl = DUA.uploader.baseUrl + key;
-                    that.$textInput.val(imgUrl);
-                    that.$fileInput.val("");
-                    that.$previewImage.attr('src', imgUrl);
-                    if (that.$realUploadBtn) {
-                        that.$realUploadBtn.button('reset');
+        var canProccess = this.options.onBeforeUpload.call(this.element, this.file);
+        if (canProccess !== false) {
+            $.get(tokenUrl, {
+                fileType: fileType
+            }, function (data) {
+                var key = data.key + "." + that.extension;
+                that.formData.set(DUA.uploader.keyName, key);
+                that.formData.set(DUA.uploader.tokenName, data.token);
+                $.ajax({
+                    url: DUA.uploader.uploadUrl,
+                    dataType: 'json',
+                    type: 'POST',
+                    async: false,
+                    data: that.formData,
+                    processData: false, // 使数据不做处理
+                    contentType: false, // 不要设置Content-Type请求头
+                    xhr: function () {
+                        var xhr = $.ajaxSetup().xhr();
+                        that.proccessor(xhr);
+                        return xhr;
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        that.options.onUploadSuccess.call(that, data);
+                        $.showLayerMsg('上传成功！', 1, 3000);
+                        var imgUrl = DUA.uploader.baseUrl + key;
+                        that.$textInput.val(imgUrl);
+                        that.$fileInput.val("");
+                        that.$previewImage.attr('src', imgUrl);
+                        if (that.$realUploadBtn) {
+                            that.$realUploadBtn.button('reset');
+                        }
+                    },
+                    error: function (jqXHR) {
+                        that.options.onUploadError.call(that, data);
+                        $.showLayerMsg(jqXHR.responseJSON.message, 2, 3000);
+                        if (that.$realUploadBtn) {
+                            that.$realUploadBtn.button('reset');
+                        }
                     }
-                },
-                error: function(jqXHR) {
-                    alert(jqXHR.responseJSON.message);
-                    if (that.$realUploadBtn) {
-                        that.$realUploadBtn.button('reset');
-                    }
-                }
+                });
             });
-        });
+        }
     }
 
-    DuAjaxUpload.prototype.showCropper = function() {
+    DuAjaxUpload.prototype.showCropper = function () {
         var that = this;
         var reader = new FileReader();
-        reader.addEventListener('load', function() {
+        reader.addEventListener('load', function () {
             that.img = new Image();
             that.img.src = this.result;
             that.$imageBox.html(that.img);
@@ -145,11 +186,11 @@
         reader.readAsDataURL(this.file);
     }
 
-    DuAjaxUpload.prototype.selectFile = function() {
+    DuAjaxUpload.prototype.selectFile = function () {
         this.$fileInput.trigger('click');
     }
 
-    DuAjaxUpload.prototype.close = function() {
+    DuAjaxUpload.prototype.close = function () {
         if (this.$dialog) {
             this.$fileInput.val("");
             this.$dialog.hide();
@@ -157,7 +198,7 @@
     }
 
     function Plugin(option) {
-        return this.each(function() {
+        return this.each(function () {
             var $this = $(this)
             var data = $this.data('bs.duAjaxUpload')
             if (!data) {
@@ -176,7 +217,7 @@
     // NO CONFLICT
     // =================
 
-    $.fn.duAjaxUpload.noConflict = function() {
+    $.fn.duAjaxUpload.noConflict = function () {
         $.fn.duAjaxUpload = old
         return this
     }
@@ -184,7 +225,7 @@
 
     // DATA-API
     // ==============
-    var clickHandler = function(e) {
+    var clickHandler = function (e) {
         e.preventDefault()
         var parent = $(this).parents('[data-role="duajaxupload"]');
         Plugin.call(parent, 'selectFile', $(this))
