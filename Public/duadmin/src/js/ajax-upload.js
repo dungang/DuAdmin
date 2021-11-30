@@ -72,6 +72,11 @@
         imageWidth: 300, //目标图片宽度，如不compress=true 表示像素，否则表示宽度度占比单位大小
         compress: true, //是否压缩,
         accept: 'image/*',
+        onBeforeUpload: function() {},
+        onUploadProgress: function() {},
+        onUploadSuccess: function() {},
+        onUploadError: function() {},
+        onComplete: function() {},
     }
 
     DuAjaxUpload.prototype.compress = function(img) {
@@ -86,6 +91,30 @@
         return canvas;
     }
 
+    DuAjaxUpload.prototype.proccessor = function(xhrObj) {
+        var that = this;
+        console.log(xhrObj.upload)
+        if (xhrObj.upload) {
+            xhrObj.upload.onloadstart = function(e) {
+                console.log(e);
+            }
+            xhrObj.upload.onloadend = function(e) {
+                console.log(e);
+            }
+            xhrObj.upload.onprogress = function(event) {
+                console.log(event);
+                var percent = 0;
+                var position = event.loaded || event.position;
+                var total = event.total || event.totalSize;
+                if (event.lengthComputable) {
+                    percent = Math.ceil(position / total * 100);
+                }
+                console.log(percent);
+                that.options.onUploadProgress.call(that, percent);
+            };
+        }
+    }
+
     DuAjaxUpload.prototype.uploadFile = function() {
         var that = this;
         if (that.$realUploadBtn) {
@@ -95,37 +124,49 @@
         }
         var fileType = this.$textInput.attr('data-type');
         var tokenUrl = this.$textInput.attr('data-token-url');
-        $.get(tokenUrl, { fileType: fileType }, function(data) {
-            var key = data.key + "." + that.extension;
-            that.formData.set(DUA.uploader.keyName, key);
-            that.formData.set(DUA.uploader.tokenName, data.token);
-            $.ajax({
-                url: DUA.uploader.uploadUrl,
-                dataType: 'json',
-                type: 'POST',
-                async: false,
-                data: that.formData,
-                processData: false, // 使数据不做处理
-                contentType: false, // 不要设置Content-Type请求头
-                success: function(data) {
-                    console.log(data);
-                    alert('上传成功！');
-                    var imgUrl = DUA.uploader.baseUrl + key;
-                    that.$textInput.val(imgUrl);
-                    that.$fileInput.val("");
-                    that.$previewImage.attr('src', imgUrl);
-                    if (that.$realUploadBtn) {
-                        that.$realUploadBtn.button('reset');
+        var canProccess = this.options.onBeforeUpload.call(this.element, this.file);
+        if (canProccess !== false) {
+            $.get(tokenUrl, {
+                fileType: fileType
+            }, function(data) {
+                var key = data.key + "." + that.extension;
+                that.formData.set(DUA.uploader.keyName, key);
+                that.formData.set(DUA.uploader.tokenName, data.token);
+                $.ajax({
+                    url: DUA.uploader.uploadUrl,
+                    dataType: 'json',
+                    type: 'POST',
+                    async: false,
+                    data: that.formData,
+                    processData: false, // 使数据不做处理
+                    contentType: false, // 不要设置Content-Type请求头
+                    xhr: function() {
+                        var xhr = $.ajaxSetup().xhr();
+                        that.proccessor(xhr);
+                        return xhr;
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        that.options.onUploadSuccess.call(that, data);
+                        $.showLayerMsg('上传成功！', 1, 3000);
+                        var imgUrl = DUA.uploader.baseUrl + key;
+                        that.$textInput.val(imgUrl);
+                        that.$fileInput.val("");
+                        that.$previewImage.attr('src', imgUrl);
+                        if (that.$realUploadBtn) {
+                            that.$realUploadBtn.button('reset');
+                        }
+                    },
+                    error: function(jqXHR) {
+                        that.options.onUploadError.call(that, data);
+                        $.showLayerMsg(jqXHR.responseJSON.message, 2, 3000);
+                        if (that.$realUploadBtn) {
+                            that.$realUploadBtn.button('reset');
+                        }
                     }
-                },
-                error: function(jqXHR) {
-                    alert(jqXHR.responseJSON.message);
-                    if (that.$realUploadBtn) {
-                        that.$realUploadBtn.button('reset');
-                    }
-                }
+                });
             });
-        });
+        }
     }
 
     DuAjaxUpload.prototype.showCropper = function() {
