@@ -12,9 +12,9 @@ use yii\db\ActiveRecord;
 class CountersBehavior extends Behavior
 {
 
-    public $counter_field = 'view_count';
+    public $counterField = 'viewCount';
 
-    public $counter_gap = 1;
+    public $counterGap = 1;
 
     public function events()
     {
@@ -27,9 +27,9 @@ class CountersBehavior extends Behavior
     {
         /* @var $model ActiveRecord */
         $model = $this->owner;
-        if ($model->hasProperty($this->counter_field)) {
+        if ($model->hasProperty($this->counterField)) {
             $model->updateCounters([
-                $this->counter_field => $this->counter_gap
+                $this->counterField => $this->counterGap
             ]);
         }
     }

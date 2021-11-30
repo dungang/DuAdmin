@@ -166,7 +166,7 @@ if ( in_array( 'update', $generator->actions ) ) :
 
         if ($model->load(Yii::$app->request->post())) {
           if( AppHelper::wrapperTransation(function ($db) use ($model) {
-              return $model->save()) {
+              return $model->save();
           }) ) {
             return $this->redirect(['view', <?=$urlParams?>]);
           }

@@ -86,4 +86,44 @@ class Migration extends DbMigration
             echo $e->getTraceAsString() . "\n";
         }
     }
+
+    /**
+     * Builds and executes a SQL statement for dropping a DB table.
+     * @param string $table the table to be dropped. The name will be properly quoted by the method.
+     */
+    public function dropTable($table)
+    {
+        $time = $this->beginCommand("drop table $table");
+        if ($this->tableExisted($table)) {
+            $this->db->createCommand()->dropTable($table)->execute();
+        } else {
+            if (RUNTIME_MODE !== 'Console') {
+                Yii::warning('table <' . $table . '> not existed!');
+            } else {
+                echo "table <" . $table . "> not existed!\n";
+            }
+        }
+        $this->endCommand($time);
+    }
+
+    public function tableExisted($table)
+    {
+        $command =  $this->db->createCommand("SELECT count(*) FROM INFORMATION_SCHEMA.TABLES WHERE table_schema=:tableSchema AND TABLE_NAME = :tableName")
+            ->bindValues([
+                ':tableSchema' => getenv('DB_DATABASE'),
+                ':tableName' => $this->formatTableName($table)
+            ]);
+        return $command->queryScalar();
+    }
+
+    public function formatTableName($tableName)
+    {
+        return preg_replace_callback(
+            '/(\\{\\{(%?[\w\-\. ]+%?)\\}\\})/',
+            function ($matches) {
+                return str_replace('%', $this->db->tablePrefix, $matches[2]);
+            },
+            $tableName
+        );
+    }
 }

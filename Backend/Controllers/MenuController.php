@@ -14,17 +14,18 @@ use yii\widgets\ActiveForm;
  * Menu 模型的控制器
  * MenuController 实现了常规的增删查改等行为
  */
-class MenuController extends BackendController {
+class MenuController extends BackendController
+{
 
-  public function actions() {
+  public function actions()
+  {
 
     return [
-        'sorts' => [
-            'class' => '\DuAdmin\Core\SortableAction',
-            'modelClass' => 'DuAdmin\Models\Menu'
-        ]
+      'sorts' => [
+        'class' => '\DuAdmin\Core\SortableAction',
+        'modelClass' => 'DuAdmin\Models\Menu'
+      ]
     ];
-
   }
 
   /**
@@ -32,13 +33,13 @@ class MenuController extends BackendController {
    *
    * @return mixed
    */
-  public function actionIndex() {
+  public function actionIndex()
+  {
 
-    $models = Menu::find()->asArray()->orderBy( 'sort' )->all();
-    return $this->render( 'index', [
-        'models' => $models
-    ] );
-
+    $models = Menu::find()->asArray()->orderBy('sort')->all();
+    return $this->render('index', [
+      'models' => $models
+    ]);
   }
 
   /**
@@ -48,12 +49,12 @@ class MenuController extends BackendController {
    * @return mixed
    * @throws NotFoundHttpException if the model cannot be found
    */
-  public function actionView( $id ) {
+  public function actionView($id)
+  {
 
-    return $this->render( 'view', [
-        'model' => $this->findModel( $id )
-    ] );
-
+    return $this->render('view', [
+      'model' => $this->findModel($id)
+    ]);
   }
 
   /**
@@ -62,24 +63,21 @@ class MenuController extends BackendController {
    *
    * @return mixed
    */
-  public function actionCreate() {
+  public function actionCreate()
+  {
 
     $model = new Menu();
     // ajax表单验证
-    if ( AppHelper::isAjaxValidationRequest() && $model->load( Yii::$app->request->post() ) ) {
+    if (AppHelper::isAjaxValidationRequest() && $model->load(Yii::$app->request->post())) {
       Yii::$app->response->format = Response::FORMAT_JSON;
-      return ActiveForm::validate( $model );
+      return ActiveForm::validate($model);
     }
-    if ( $model->load( Yii::$app->request->post() ) && $model->save() ) {
-      return $this->redirectSuccess( [
-          'view',
-          'id' => $model->id
-      ], "添加成功" );
+    if ($model->load(Yii::$app->request->post()) && $model->save()) {
+      return $this->redirectSuccess(Yii::$app->request->referrer, "添加成功");
     }
-    return $this->render( 'create', [
-        'model' => $model
-    ] );
-
+    return $this->render('create', [
+      'model' => $model
+    ]);
   }
 
   /**
@@ -90,24 +88,24 @@ class MenuController extends BackendController {
    * @return mixed
    * @throws NotFoundHttpException 如果模型没查询到
    */
-  public function actionUpdate( $id ) {
+  public function actionUpdate($id)
+  {
 
-    $model = $this->findModel( $id );
+    $model = $this->findModel($id);
     // ajax表单验证
-    if ( AppHelper::isAjaxValidationRequest() && $model->load( Yii::$app->request->post() ) ) {
+    if (AppHelper::isAjaxValidationRequest() && $model->load(Yii::$app->request->post())) {
       Yii::$app->response->format = Response::FORMAT_JSON;
-      return ActiveForm::validate( $model );
+      return ActiveForm::validate($model);
     }
-    if ( $model->load( Yii::$app->request->post() ) && $model->save() ) {
-      return $this->redirectSuccess( [
-          'view',
-          'id' => $model->id
-      ], "修改成功" );
+    if ($model->load(Yii::$app->request->post()) && $model->save()) {
+      return $this->redirectSuccess([
+        'view',
+        'id' => $model->id
+      ], "修改成功");
     }
-    return $this->render( 'update', [
-        'model' => $model
-    ] );
-
+    return $this->render('update', [
+      'model' => $model
+    ]);
   }
 
   /**
@@ -118,24 +116,24 @@ class MenuController extends BackendController {
    * @return mixed
    * @throws NotFoundHttpException 如果模型没查询到
    */
-  public function actionDelete( $id ) {
+  public function actionDelete($id)
+  {
 
-    if ( is_array( $id ) ) {
-      $modelList = Menu::findAll( [
-          'id' => $id
-      ] );
-      if ( $modelList ) {
-        foreach ( $modelList as $model ) {
+    if (is_array($id)) {
+      $modelList = Menu::findAll([
+        'id' => $id
+      ]);
+      if ($modelList) {
+        foreach ($modelList as $model) {
           $model->delete();
         }
       }
     } else {
-      $this->findModel( $id )->delete();
+      $this->findModel($id)->delete();
     }
-    return $this->redirect( [
-        'index'
-    ] );
-
+    return $this->redirect([
+      'index'
+    ]);
   }
 
   /**
@@ -146,14 +144,14 @@ class MenuController extends BackendController {
    * @return Menu the loaded model
    * @throws NotFoundHttpException 如果模型没查询到
    */
-  protected function findModel( $id ) {
+  protected function findModel($id)
+  {
 
-    if ( ($model = Menu::findOne( [
-        'id' => $id
-    ] )) !== null ) {
+    if (($model = Menu::findOne([
+      'id' => $id
+    ])) !== null) {
       return $model;
     }
-    throw new NotFoundHttpException( Yii::t( 'app', 'The requested page does not exist.' ) );
-
+    throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
   }
 }
