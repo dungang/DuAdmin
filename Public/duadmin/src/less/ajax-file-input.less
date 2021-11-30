@@ -1,39 +1,69 @@
 .ajax-file-input {
     position: relative;
 
-    .image-preview {
-        height: 120px;
-        padding: 10px 0;
-        img {
-            max-height: 100%;
-            max-width: 100%;
-            border-radius: 10px;
-        }
+
+}
+
+.ajax-file-input__image-preview {
+    height: 120px;
+    padding: 10px 0;
+    position: relative;
+    display: inline-block;
+    img {
+        max-height: 100%;
+        max-width: 100%;
+        border-radius: 10px;
     }
 
-    .cropper-dialog {
-        top: 40px;
-        display: none;
-        position: absolute;
-        background-color: white;
-        padding: 15px;
-        border: 5px solid #eee;
-        margin: auto;
-        z-index: 1080;
-
-        .cropper {
-            position: relative;
-            margin-bottom: 15px;
-
-            .cropper-image-box {
-                img {
-                    max-width: 100%;
-                }
-            }
-        }
-
-        .cropper-buttons {
-            text-align: center;
+    &:hover {
+        .ajax-file-input__remove {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
         }
     }
+}
+
+.ajax-file-input__cropper-dialog {
+    top: 40px;
+    display: none;
+    position: absolute;
+    background-color: white;
+    padding: 15px;
+    border: 5px solid #eee;
+    margin: auto;
+    z-index: 1080;
+
+
+}
+
+.ajax-file-input__cropper {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.ajax-file-input__cropper-image-box {
+    img {
+        max-width: 100%;
+    }
+}
+
+.ajax-file-input__cropper-buttons {
+    text-align: center;
+}
+
+.ajax-file-input__remove {
+   display: none;
+    position: absolute;
+    font-size: 30px;
+    width: 100%;
+    top: 10px;
+    left: 0px;
+    bottom: 10px;
+    border-radius: 10px;
+    color: rgb(255, 255, 255);
+    background-color: rgba(66, 66, 66, 0.2);
+    text-align: center;
+
 }

@@ -9,7 +9,6 @@ import "../../../src/js/checkbox-selection";
 import "../../../src/js/radio-card";
 import "../../../src/js/linkage-select";
 import "./ajax-upload";
-import "./simple-uploader";
 import "./batch-load";
 import "./dynamic-line";
 import "./list-row-cd";

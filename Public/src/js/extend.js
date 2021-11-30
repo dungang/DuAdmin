@@ -1,7 +1,7 @@
 /**
  * js lib extend 扩展
  */
-Date.prototype.format = function (fmt) {
+Date.prototype.format = function(fmt) {
     var o = {
         "M+": this.getMonth() + 1, //月份
         "d+": this.getDate(), //日
@@ -17,7 +17,7 @@ Date.prototype.format = function (fmt) {
     return fmt;
 };
 //数组Array进行原型prototype扩展后带来的for in遍历问题
-Array.prototype.distinct = function () {
+Array.prototype.distinct = function() {
     var arr = this;
     var result = [];
     for (var val of arr) {
@@ -28,8 +28,14 @@ Array.prototype.distinct = function () {
     return result;
 };
 
+Array.prototype.remove = function(val) {
+    var index = this.indexOf(val);
+    if (index > -1) {
+        this.splice(index, 1);
+    }
+};
 $.extend({
-    showLayerMsg: function (message, icon, timeout) {
+    showLayerMsg: function(message, icon, timeout) {
         layer.msg(message, {
             skin: 'layui-layer-molv',
             icon: icon,

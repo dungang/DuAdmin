@@ -48,6 +48,10 @@ class AjaxFileInput extends InputWidget
 
     public $accept = "image/*";
 
+    /**
+     * 是否支持多图片上传
+     */
+    public $isMulti = false;
 
     /**
      * 是否只读
@@ -76,11 +80,15 @@ class AjaxFileInput extends InputWidget
             $src = $this->value;
             $input = Html::textInput($this->name, $this->value, $this->options);
         }
+        if ($src) {
+            $src = explode(",", $src);
+        }
         return $this->render('ajax-file-input', [
             'isImage' => $this->type === 'image',
             'src' => $src,
             'input' => $input,
             'options' => [
+                'data-multi' => $this->isMulti ? 'true' : 'false',
                 'data-compress' => $this->compress,
                 'data-clip' => $this->clip,
                 'data-image-height' => $this->clipHeight,

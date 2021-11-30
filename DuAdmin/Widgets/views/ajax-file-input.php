@@ -17,17 +17,23 @@ $options['data-role'] = 'duajaxupload';
         <input type="file" style="display: none" />
     </span>
 </div>
-<?php if ($isImage && $src) : ?>
-    <div class="image-preview">
-        <?= Html::img($src) ?>
-    </div>
-<?php endif; ?>
-<div class="cropper-dialog">
-    <div class="cropper">
-        <div class="cropper-image-box">
+<div class="ajax-file-input__preview-list">
+    <?php if ($isImage && $src) :
+        foreach ($src as $one) :
+    ?>
+            <div class="ajax-file-input__image-preview">
+                <?= Html::img($one) ?>
+                <div class="ajax-file-input__remove"><i class="fa fa-trash"></i></div>
+            </div>
+    <?php endforeach;
+    endif; ?>
+</div>
+<div class="ajax-file-input__cropper-dialog">
+    <div class="ajax-file-input__cropper">
+        <div class="ajax-file-input__cropper-image-box">
         </div>
     </div>
-    <div class="cropper-buttons">
+    <div class="ajax-file-input__cropper-buttons">
         <button type="button" class="btn btn-default" data-dismiss="duajaxupload" autocomplete="off"><?= Yii::t('da', 'Cancel') ?></button>
         <button type="button" class="btn btn-primary" data-upload="duajaxupload" autocomplete="off"><?= Yii::t('da', 'Ok') ?></button>
     </div>
