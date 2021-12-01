@@ -91,7 +91,7 @@ $this->beginPage() ?>
         ?>
 
         <!-- Sidebar user panel (optional) -->
-        <?= AdminlteSideBarMenu::widget(['headerLabel' => '导航', 'enableHeader' => false, 'items' => Menu::getBackMenus()]) ?>
+        <?= AdminlteSideBarMenu::widget(['headerLabel' => '主导航', 'enableHeader' => true, 'items' => Menu::getBackMenus()]) ?>
         <?php
         AdminlteSideBar::end();
         ?>

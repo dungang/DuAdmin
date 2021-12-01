@@ -6,9 +6,7 @@ use yii\base\Widget;
 use DuAdmin\Helpers\AppHelper;
 use Yii;
 use yii\helpers\Html;
-use DuAdmin\Core\Authable;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Url;
 
 /**
  * 指支持2层菜单
@@ -59,21 +57,39 @@ class AdminlteSideBarMenu extends Widget
             });
         }
         $this->items = AppHelper::listToTree($this->items, $this->idKey, $this->pidKey);
-        $html = $this->enableHeader ? Html::tag('li', $this->headerLabel, [
-            'class' => 'header'
-        ]) : '';
+
+
+        return $this->renderItems($this->items);
+    }
+
+    public function renderItems($items, $isFirst = true)
+    {
         // url 为空 或者 是 '#' 的菜单没有子菜单 不显示
-        foreach ($this->items as $item) {
+        if ($isFirst) {
+            $html = '<ul class="sidebar-menu" data-widget="tree">';
+            if ($this->enableHeader) {
+                $html = $html .  Html::tag('li', $this->headerLabel, [
+                    'class' => 'header'
+                ]);
+            }
+        } else {
+            $html = '<ul class="treeview-menu">';
+        }
+        foreach ($items as $item) {
+            if (empty($item['url']) || $item['url'] == '#') {
+                if (empty($item['children'])) {
+                    continue;
+                }
+            }
+            $active = $item[$this->activeKey] ? 'active' : '';
             if (isset($item['children']) && is_array($item['children'])) {
-                $html .= $this->renderTreeItem($item);
-            } else if (!(empty($item['url']) || $item['url'] == '#')) {
-                $html .= $this->renderItem($item);
+                $marker = '<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>';
+                $html = $html . '<li class="treeview ' . $active . '">' . $this->renderLink($item, $marker) . $this->renderItems($item['children'], false) . '</li>';
+            } else {
+                $html = $html . '<li class="'  . $active . '">'  . $this->renderLink($item) . '</li>';
             }
         }
-        return Html::tag('div', $html, [
-            'class'       => 'sidebar-menu',
-            'data-widget' => 'tree'
-        ]);
+        return $html . '</ul>';
     }
 
     /**
@@ -122,7 +138,7 @@ class AdminlteSideBarMenu extends Widget
                             array_unshift($queryParams, $urlInfo['path']);
                         }
                         $queryParams[0] = '/' . $queryParams[0];
-                        $item[$this->urlKey] = ArrayHelper::merge($queryParams,$this->extendParams);
+                        $item[$this->urlKey] = ArrayHelper::merge($queryParams, $this->extendParams);
 
                         $item['route'] = $route;
                         unset($queryParams[0]);
@@ -143,45 +159,23 @@ class AdminlteSideBarMenu extends Widget
                 $idx = $i;
             }
         }
-        $activeItem = $this->items[$idx];
-        $this->items[$idx][$this->activeKey] = true;
+        $this->activeTreeBack($idx);
+    }
 
-        // 找最高分的一层上节点
-        foreach ($this->items as &$item) {
-            if ($item[$this->idKey] == $activeItem['pid']) {
-                $item[$this->activeKey] = true;
-            }
+    public function activeTreeBack($idx)
+    {
+        $this->items[$idx][$this->activeKey] = true;
+        $pid = $this->items[$idx]['pid'];
+        if ($pid != 0 && isset($this->items[$pid])) {
+            $this->activeTreeBack($pid);
         }
     }
 
-    protected function renderLink($item)
+    protected function renderLink($item, $marker = '')
     {
         $icon = empty($item['icon']) ? '' : '<i class="' . $item['icon'] . '"></i> ';
-        return Html::a($icon . '<span>' . $item[$this->nameKey] . '</span>', $item[$this->urlKey], [
+        return Html::a($icon . '<span>' . $item[$this->nameKey] . '</span>' . $marker, $item[$this->urlKey], [
             'target' => $item['target']
-        ]);
-    }
-
-    protected function renderItem($item)
-    {
-        $active = $item[$this->activeKey] ? [
-            'class' => 'active'
-        ] : [];
-        return Html::tag('li', $this->renderLink($item), $active);
-    }
-
-    protected function renderTreeItem($item)
-    {
-        $active = $item[$this->activeKey] ? 'active' : '';
-        $html = '';
-        foreach ($item['children'] as $child) {
-            $html .= $this->renderItem($child);
-        }
-        $content = $this->renderLink($item) . Html::tag('ul', $html, [
-            'class' => 'treeview-menu'
-        ]);
-        return Html::tag('li', $content, [
-            'class' => 'treeview ' . $active
         ]);
     }
 }
