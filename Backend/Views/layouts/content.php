@@ -24,21 +24,14 @@ $this->beginPage() ?>
     $this->head() ?>
 </head>
 
-<body class="skin-green fixed sidebar-mini">
+<body>
     <?php
     $this->beginBody();
     ?>
-    <div class="wrapper">
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <!-- Main content -->
-            <section class="content container-fluid">
-                <?= $content; ?>
-            </section>
-            <!-- /.content -->
-        </div>
-        <!-- /.content-wrapper -->
-    </div>
+    <!-- Main content -->
+    <section class="content container-fluid">
+        <?= $content; ?>
+    </section>
     <?php
     SimpleModal::begin([
         'header' => '对话框',
