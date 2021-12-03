@@ -29,13 +29,15 @@ $options['data-role'] = 'duajaxupload';
     endif; ?>
 </div>
 <div class="ajax-file-input__cropper-dialog">
-    <div class="ajax-file-input__cropper">
-        <div class="ajax-file-input__cropper-image-box">
+    <div class="ajax-file-input_cropper-content">
+        <div class="ajax-file-input__cropper">
+            <div class="ajax-file-input__cropper-image-box">
+            </div>
         </div>
-    </div>
-    <div class="ajax-file-input__cropper-buttons">
-        <button type="button" class="btn btn-default" data-dismiss="duajaxupload" autocomplete="off"><?= Yii::t('da', 'Cancel') ?></button>
-        <button type="button" class="btn btn-primary" data-upload="duajaxupload" autocomplete="off"><?= Yii::t('da', 'Ok') ?></button>
+        <div class="ajax-file-input__cropper-buttons">
+            <button type="button" class="btn btn-default" data-dismiss="duajaxupload" autocomplete="off"><?= Yii::t('da', 'Cancel') ?></button>
+            <button type="button" class="btn btn-primary" data-upload="duajaxupload" autocomplete="off"><?= Yii::t('da', 'Ok') ?></button>
+        </div>
     </div>
 </div>
 <?= Html::endTag('div') ?>
