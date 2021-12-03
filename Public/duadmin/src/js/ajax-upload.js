@@ -132,10 +132,14 @@
                             var oldUrls = that.$textInput.val().split(",").filter((url) => { return !!url });
                             oldUrls.push(imgUrl);
                             that.$textInput.val(oldUrls.join(","));
-                            that.$previewList.append(that.createImagePrivewBox(imgUrl));
+                            if (fileType == 'image') {
+                                that.$previewList.append(that.createImagePrivewBox(imgUrl));
+                            }
                         } else {
                             that.$textInput.val(imgUrl);
-                            that.$previewList.html(that.createImagePrivewBox(imgUrl));
+                            if (fileType == 'image') {
+                                that.$previewList.html(that.createImagePrivewBox(imgUrl));
+                            }
                         }
                         that.$fileInput.val("");
                         if (that.$realUploadBtn) {
