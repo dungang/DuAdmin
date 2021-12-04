@@ -59,7 +59,7 @@ $slogan = AppHelper::getSetting('site.slogan');
         $this->registerJs("$('#main-navbar').navbarAffix('" . $affixDefClass . "','navbar-inverse')");
         NavBar::begin([
             'id' => 'main-navbar',
-            'brandLabel'   => Yii::t('app', '<img src="/logo.png" height="25"/> ' . $siteName),
+            'brandLabel'   => Yii::t('app', '<img src="' . $this->params['logo'] . '" height="25"/> ' . $siteName),
             'brandUrl'     => [
                 '/site/index'
             ],
