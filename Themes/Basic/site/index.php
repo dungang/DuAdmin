@@ -28,7 +28,7 @@ $this->params['isIndexPage'] = true;
                 <div class="row">
                     <div class="col-md-5">
                         <div class="jumbotron text-center">
-                            <h1>Hello DUAdmin!</h1>
+                            <h1>Hello DuAdmin!</h1>
                             <p>让开发更高效，更简单！</p>
                         </div>
                     </div>

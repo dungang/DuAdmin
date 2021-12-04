@@ -65,7 +65,7 @@ class m201121_145324_create_setting_table extends Migration
             [
                 'site.logo',
                 '网站Logo',
-                'DUAdmin',
+                '/logo.png',
                 'IMAGE',
                 '前台首页的网站Logo',
                 '',
