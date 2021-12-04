@@ -2,7 +2,6 @@
 
 use Backend\Dashboard\AddonCounterWidget;
 use Backend\Dashboard\AdminCounterWidget;
-use Backend\Dashboard\GiteeProjectCommitsWidget;
 use Backend\Dashboard\SystemInfoWidget;
 use Backend\Dashboard\UserCounterWidget;
 use DuAdmin\Helpers\InstallerHelper;
