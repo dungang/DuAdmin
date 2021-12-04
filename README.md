@@ -1,5 +1,5 @@
 # DUAdmin 达柚管理后台
-<div style="align:center">
+<div style="text-align:center">
 <img src="Public/logo.png" />
 </div>
 
