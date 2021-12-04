@@ -19,7 +19,7 @@ $config = [
             ]
         ],
         'view'       => [
-            'as frontend-show' => 'DuAdmin\Behaviors\FrontendShowBehavior',
+            'as frontend-view' => 'DuAdmin\Behaviors\FrontendViewBehavior',
             'theme' => [
                 'class'   => 'DuAdmin\Components\DUATheme',
                 'name'    => $theme_name,
