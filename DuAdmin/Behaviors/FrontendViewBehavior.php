@@ -11,6 +11,11 @@ class FrontendViewBehavior extends Behavior
 {
 
     /**
+     * @var View $owner
+     */
+    public $owner;
+
+    /**
      * 最小化前端视图的文档
      * @var HtmlMin
      */
@@ -27,7 +32,8 @@ class FrontendViewBehavior extends Behavior
     {
 
         return [
-            View::EVENT_AFTER_RENDER => 'process'
+            View::EVENT_BEGIN_PAGE => 'registerMeta',
+            View::EVENT_AFTER_RENDER => 'miniHtml'
         ];
     }
 
@@ -35,7 +41,7 @@ class FrontendViewBehavior extends Behavior
      *
      * @param ViewEvent $event
      */
-    public function process($event)
+    public function registerMeta($event)
     {
         //注册基础的meta
         $this->owner->registerMetaTag([
@@ -54,7 +60,6 @@ class FrontendViewBehavior extends Behavior
             'name'    => 'force-rendering',
             'content' => 'webkit'
         ], 'force-rendering');
-        $this->miniHtml($event);
     }
 
     public function miniHtml($event)
