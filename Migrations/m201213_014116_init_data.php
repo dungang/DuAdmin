@@ -118,28 +118,28 @@ class m201213_014116_init_data extends Migration
         InstallerHelper::installNavigations([
             [
                 'name'     => '下载',
-                'intro'    => 'DUAdmin下载地址',
+                'intro'    => 'DuAdmin下载地址',
                 'url'      => '#',
                 'requireAuth' => 0,
                 'children' => [
                     [
                         'name'    => 'Gitee',
                         'url'     => 'https://gitee.com/dungang/DuAdmin',
-                        'intro'   => 'DUAdmin的源码地址-码云地址',
+                        'intro'   => 'DuAdmin的源码地址-码云地址',
                         'isOuter' => 1,
                         'requireAuth' => 0,
                     ],
                     [
                         'name'    => 'GitHub',
                         'url'     => 'https://github.com/dungang/DuAdmin',
-                        'intro'   => 'DUAdmin的源码地址-Github',
+                        'intro'   => 'DuAdmin的源码地址-Github',
                         'isOuter' => 1,
                         'requireAuth' => 0,
                     ],
                     [
                         'name'    => 'Demo',
                         'url'     => 'http://www.duadmin.com',
-                        'intro'   => 'DUAdmin的Demo地址',
+                        'intro'   => 'DuAdmin的Demo地址',
                         'isOuter' => 1,
                         'requireAuth' => 0,
                     ],
@@ -169,13 +169,13 @@ class m201213_014116_init_data extends Migration
             ],
             [
                 'name'  => '联系我们',
-                'intro' => '了解DUAdmin的最好方式是联系我们',
+                'intro' => '了解DuAdmin的最好方式是联系我们',
                 'url'   => 'contact-us',
                 'requireAuth' => 0,
             ],
             [
                 'name'  => '关于我们',
-                'intro' => 'DUAdmin官方背书-关于我们',
+                'intro' => 'DuAdmin官方背书-关于我们',
                 'url'   => 'about-us',
                 'requireAuth' => 0,
             ]
