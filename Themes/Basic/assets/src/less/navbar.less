@@ -186,6 +186,8 @@
   padding: @navbar-padding-vertical @navbar-padding-horizontal;
   font-size: @font-size-large;
   line-height: @line-height-computed;
+  display: flex;
+  align-items: center;
 
   &:hover,
   &:focus {
@@ -194,6 +196,7 @@
 
   >img {
     display: block;
+    margin-right: 5px;
   }
 
   @media (min-width: @grid-float-breakpoint) {
