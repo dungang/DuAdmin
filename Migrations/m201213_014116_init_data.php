@@ -190,6 +190,13 @@ class m201213_014116_init_data extends Migration
             '{username} 账户，{verifyLink} 验证链接',
         );
 
+        InstallerHelper::installMailTemplate(
+            'sys_mail_captcha',
+            '邮箱验证码',
+            '<p>Hi,</p><p>Please copy this code : <strong>{cpatcha}</strong></p>',
+            '{captcha} 验证码',
+        );
+
         InstallerHelper::installDashboardWidget(AdminCounterWidget::class, "管理员统计");
         InstallerHelper::installDashboardWidget(UserCounterWidget::class, "会员员统计");
         InstallerHelper::installDashboardWidget(AddonCounterWidget::class, "插件统计");

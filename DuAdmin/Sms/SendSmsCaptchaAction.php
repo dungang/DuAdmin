@@ -12,7 +12,7 @@ class SendSmsCaptchaAction extends Action
 
     public function run()
     {
-        $number = Yii::$app->request->post("reciever");
+        $number = Yii::$app->request->post("receiver");
         if ($number) {
             $smsDriverClass = AppHelper::getSetting("system.sms.driver");
             if ($smsDriverClass) {

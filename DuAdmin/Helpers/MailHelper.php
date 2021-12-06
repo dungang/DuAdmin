@@ -9,6 +9,13 @@ use Yii;
 class MailHelper
 {
 
+    /**
+     * 获取邮件的内容模板，并替换成邮件有内容
+     *
+     * @param string $unicode
+     * @param array $vars
+     * @return string|array
+     */
     public static function getMailContent($unicode, $vars)
     {
         $template = MailTemplate::find()
