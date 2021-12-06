@@ -73,6 +73,7 @@
         compress: true, //是否压缩,
         accept: 'image/*',
         multi: false,
+        multiFormat: 'string', //多文件的格式
         onBeforeUpload: function() {},
         onUploadProgress: function() {},
         onUploadSuccess: function() {},
@@ -80,8 +81,18 @@
         onComplete: function() {},
     }
 
-    DuAjaxUpload.prototype.createImagePrivewBox = function(src) {
-        return $('<div class="ajax-file-input__image-preview"><img src="' + src + '" /><div class="ajax-file-input__remove"><i class="fa fa-trash"></i></div></div>')
+    DuAjaxUpload.prototype.createImagePrivewBox = function(icon, url, name) {
+        var boxHtml = '<div class="ajax-file-input__image-preview"><img src="' + icon + '" />';
+        if (name) {
+            boxHtml += '<div class="ajax-file-input__name" title="' + name + '">' + name + '</div>';
+        }
+        boxHtml += '<div class="ajax-file-input__remove"><i class="fa fa-trash"></i></div></div>';
+
+        var $previewBox = $(boxHtml);
+        console.log($previewBox)
+        if (url) $previewBox.data('url', url);
+        if (name) $previewBox.data('name', name);
+        return $previewBox;
     }
 
     DuAjaxUpload.prototype.compress = function(img) {
@@ -125,15 +136,36 @@
                     forceSync: false,
                     success: function(data) {
                         console.log(data);
+                        //针对DuAdmin的定制的回调,不同存储平台前端直传放回的结果是不一样的。
+                        if (window.DUA &&
+                            window.DUA.loader &&
+                            window.DUA.loader.formatterResultCallback) {
+                            data = window.DUA.loader.formatterResultCallback(data);
+                        }
                         that.options.onUploadSuccess.call(that, data);
                         $.showLayerMsg('上传成功！', 1, 3000);
                         var imgUrl = DUA.uploader.baseUrl + key;
                         if (that.options.multi) {
-                            var oldUrls = that.$textInput.val().split(",").filter((url) => { return !!url });
-                            oldUrls.push(imgUrl);
-                            that.$textInput.val(oldUrls.join(","));
+
+                            if (that.options.multiFormat == 'json') {
+                                var oldUrls = JSON.parse("[" + that.$textInput.val() + "]").filter((urlData) => { return !!urlData });
+                                oldUrls.push({
+                                    'url': imgUrl,
+                                    'name': that.file.name,
+                                });
+                                that.$textInput.val(oldUrls.map(data => {
+                                    return JSON.stringify(data);
+                                }).join(","));
+
+                            } else {
+                                var oldUrls = that.$textInput.val().split(",").filter((urlData) => { return !!urlData });
+                                oldUrls.push(imgUrl);
+                                that.$textInput.val(oldUrls.join(","));
+                            }
                             if (fileType == 'image') {
-                                that.$previewList.append(that.createImagePrivewBox(imgUrl));
+                                that.$previewList.append(that.createImagePrivewBox(imgUrl, imgUrl, that.file.name));
+                            } else {
+                                that.$previewList.append(that.createImagePrivewBox('/images/file-icon.png', imgUrl, that.file.name));
                             }
                         } else {
                             that.$textInput.val(imgUrl);
@@ -190,8 +222,43 @@
     }
 
     DuAjaxUpload.prototype.remove = function($removeBtn) {
-        var that = this;
+
         var $previewbox = $($removeBtn).closest('.ajax-file-input__image-preview');
+        if (this.options.multiFormat == 'json') {
+            this.removeWhenJson($previewbox);
+        } else {
+            this.removeWhenString($previewbox);
+        }
+
+    }
+
+    DuAjaxUpload.prototype.removeWhenJson = function($previewbox) {
+        var that = this;
+        var url = $previewbox.data('url');
+
+        var inputVals = JSON.parse("[" + this.$textInput.val() + "]");
+        //确认
+        layer.confirm('确定移除?', { icon: 3, title: '提示' },
+            //yes
+            function(index) {
+                var val = inputVals.filter(json => {
+                    if (json == false) {
+                        return false;
+                    }
+                    return (json.url != url);
+                }).map(data => {
+                    return JSON.stringify(data);
+                }).join(",");
+
+                that.$textInput.val(val);
+                $previewbox.remove();
+                layer.close(index);
+            }
+        );
+    }
+
+    DuAjaxUpload.prototype.removeWhenString = function($previewbox) {
+        var that = this;
         var src = $previewbox.find('img').attr('src');
         var inputVals = this.$textInput.val().split(",");
         //确认

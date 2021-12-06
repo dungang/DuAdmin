@@ -1,10 +1,12 @@
 <?php
+
 namespace DuAdmin\Uploader;
 
 use DuAdmin\Helpers\AppHelper;
 use Yii;
 use yii\base\Widget;
 use yii\helpers\Json;
+use yii\web\JsExpression;
 use yii\web\View;
 
 /**
@@ -52,9 +54,9 @@ class ConfigWidget extends Widget
 
     public function run()
     {
-//         if (empty($this->baseUrl)) {
-//             $this->baseUrl = Yii::$app->request->baseUrl . '/uploads';
-//         }
+        //         if (empty($this->baseUrl)) {
+        //             $this->baseUrl = Yii::$app->request->baseUrl . '/uploads';
+        //         }
         if (empty($this->uploadUrl)) {
             $this->uploadUrl = Yii::$app->urlManager->createUrl('site/upload');
         }
@@ -69,7 +71,8 @@ class ConfigWidget extends Widget
                 'tokenName' => $this->tokenName,
                 'uploadUrl' => $this->uploadUrl,
                 'deleteUrl' => $this->deleteUrl,
-                'baseUrl' => $this->baseUrl . '/'
+                'baseUrl' => $this->baseUrl . '/',
+                'formatterResultCallback' => new JsExpression("function(rst){return rst;}")
             ]
         ]);
     }

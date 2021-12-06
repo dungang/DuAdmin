@@ -7,6 +7,7 @@ use yii\bootstrap\Html;
 use yii\bootstrap\InputWidget;
 use yii\helpers\Url;
 use DuAdmin\Uploader\ConfigWidget;
+use yii\helpers\Json;
 
 class AjaxFileInput extends InputWidget
 {
@@ -54,6 +55,13 @@ class AjaxFileInput extends InputWidget
     public $isMulti = false;
 
     /**
+     * 多文件上传的时候，存储的格式
+     * 默认是string，只存储 url
+     * 设置为json,则存储{url:url,name:'文件的原始名称'}
+     */
+    public $multiFormat = 'string';
+
+    /**
      * 是否只读
      *
      * @var boolean
@@ -81,7 +89,11 @@ class AjaxFileInput extends InputWidget
             $input = Html::textInput($this->name, $this->value, $this->options);
         }
         if ($src) {
-            $src = explode(",", $src);
+            if ($this->multiFormat == 'json') {
+                $src = Json::decode("[" . $src . "]");
+            } else {
+                $src = explode(",", $src);
+            }
         }
         return $this->render('ajax-file-input', [
             'isImage' => $this->type === 'image',
@@ -89,6 +101,7 @@ class AjaxFileInput extends InputWidget
             'input' => $input,
             'options' => [
                 'data-multi' => $this->isMulti ? 'true' : 'false',
+                'data-multi-format' => $this->multiFormat,
                 'data-compress' => $this->compress,
                 'data-clip' => $this->clip,
                 'data-image-height' => $this->clipHeight,

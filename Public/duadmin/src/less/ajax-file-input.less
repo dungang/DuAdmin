@@ -6,9 +6,11 @@
 
 .ajax-file-input__image-preview {
     height: 120px;
+    width: 100px;
     padding: 10px 0;
     position: relative;
     display: inline-block;
+
     img {
         max-height: 100%;
         max-width: 100%;
@@ -25,12 +27,18 @@
     }
 }
 
+.ajax-file-input__name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .ajax-file-input__cropper-dialog {
     display: none;
     position: fixed;
-    top:0;
-    left:15%;
-    right:15%;
+    top: 0;
+    left: 15%;
+    right: 15%;
     z-index: 1080;
     background-color: white;
     padding: 15px;
@@ -49,9 +57,10 @@
 .ajax-file-input__cropper-image-box {
     height: 400px;
     background-color: #eee;
+
     img {
         max-height: 100%;
-        margin:auto;
+        margin: auto;
         display: block;
     }
 }
@@ -61,7 +70,7 @@
 }
 
 .ajax-file-input__remove {
-   display: none;
+    display: none;
     position: absolute;
     font-size: 30px;
     width: 100%;

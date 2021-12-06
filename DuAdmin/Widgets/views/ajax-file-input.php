@@ -18,15 +18,15 @@ $options['data-role'] = 'duajaxupload';
     </span>
 </div>
 <div class="ajax-file-input__preview-list">
-    <?php if ($isImage && $src) :
-        foreach ($src as $one) :
-    ?>
-            <div class="ajax-file-input__image-preview">
-                <?= Html::img($one) ?>
-                <div class="ajax-file-input__remove"><i class="fa fa-trash"></i></div>
-            </div>
-    <?php endforeach;
-    endif; ?>
+    <?php if ($isImage && $src) {
+        foreach ($src as $one) {
+            if (is_array($one)) {
+                echo Html::tag('div', '<img src="/images/file-icon.png" /><div class="ajax-file-input__remove"><i class="fa fa-trash"></i></div>', ['class' => 'ajax-file-input__image-preview', 'data-url' => $one['url'], 'data-name' => $one['name']]);
+            } else {
+                echo Html::tag('div', Html::img($one) . '<div class="ajax-file-input__remove"><i class="fa fa-trash"></i></div>', ['class' => 'ajax-file-input__image-preview']);
+            }
+        }
+    } ?>
 </div>
 <div class="ajax-file-input__cropper-dialog">
     <div class="ajax-file-input_cropper-content">

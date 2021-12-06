@@ -43,7 +43,7 @@ class Notify extends Widget
       'icon' => $type,
       'time' => $this->timeout
     ];
-    $js = "layer.msg('" . $msg . "', " . Json::htmlEncode($options) . ");";
+    $js = "layer.msg('" . str_replace("\n","<br/>",addslashes($msg)) . "', " . Json::htmlEncode($options) . ");";
     $this->view->registerJs($js);
   }
 }

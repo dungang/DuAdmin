@@ -19,6 +19,9 @@ class UploadForm extends Model
 
   public $key;
 
+  /**
+   * @var \yii\web\UploadedFile|string $file
+   */
   public $file;
 
   public function rules()
@@ -67,6 +70,7 @@ class UploadForm extends Model
         try {
           $this->file->saveAs($dist);
           return [
+            'name' => $this->file->name,
             "url" => $key
           ];
         } catch (\Exception $ex) {
