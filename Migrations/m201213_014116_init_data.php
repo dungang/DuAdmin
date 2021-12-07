@@ -193,7 +193,7 @@ class m201213_014116_init_data extends Migration
         InstallerHelper::installMailTemplate(
             'sys_mail_captcha',
             '邮箱验证码',
-            '<p>Hi,</p><p>Please copy this code : <strong>{cpatcha}</strong></p>',
+            '<p>Hi,</p><p>Please copy this code : <strong>{cpatcha}</strong> in 5 mins</p>',
             '{captcha} 验证码',
         );
 

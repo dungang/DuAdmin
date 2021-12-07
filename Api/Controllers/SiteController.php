@@ -9,7 +9,7 @@ use DuAdmin\Core\ApiController;
  */
 class SiteController extends ApiController
 {
-    public $authExceptActions = ['error','index'];
+    public $authExceptActions = ['error', 'index'];
 
     /**
      *
@@ -20,6 +20,12 @@ class SiteController extends ApiController
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction'
+            ],
+            'sms-captcha'        => [
+                'class' => '\DuAdmin\Sms\SendSmsCaptchaAction'
+            ],
+            'mail-captcha'        => [
+                'class' => '\DuAdmin\Mail\SendMailCaptchaAction'
             ],
             'upload' => [
                 'class' => 'DuAdmin\Uploader\LocalUploadAction'
@@ -33,7 +39,8 @@ class SiteController extends ApiController
         ];
     }
 
-    public function actionIndex(){
+    public function actionIndex()
+    {
         return 1;
     }
 }

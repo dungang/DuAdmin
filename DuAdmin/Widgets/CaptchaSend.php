@@ -26,6 +26,7 @@ class CaptchaSend extends InputWidget
 
     public function renderSendInput()
     {
+
         $this->view->registerJs($this->bindJs(), View::POS_READY, 'captcha-send-btn');
         $input = $this->renderInputHtml("text");
         $idInfo = explode('-', $this->options['id']);
@@ -48,24 +49,32 @@ INPUT;
         return <<<JS
         $('.captcha-send-btn').click(function(){
             var btn = $(this);
-            var data = btn.data();
-            btn.attr('disabled', 'disabled');
-            var val = $(data.target).val();
+            var btnData = btn.data();
+            var val = $(btnData.target).val();
             if(val != "" || val.length > 0) {
-                $.post(data.url,{
-                    receiver: $(data.target).val()
+                btn.attr('disabled', 'disabled');
+                $.post(btnData.url,{
+                    receiver: $(btnData.target).val()
                 })
-                var second = $this->counterDownSeconds;
-                var timer = setInterval(() => {
-                    if(second == -1) {
-                        btn.text(data.text);
-                        btn.removeAttr("disabled");
-                        clearInterval(timer);
-                        return ;
-                    }
-                    btn.text(second+"S");
-                    second -=1;
-                }, 1000);
+                .done(function(data){
+                    var second = $this->counterDownSeconds;
+                    var timer = setInterval(() => {
+                        if(second == -1) {
+                            btn.text(btnData.text);
+                            btn.removeAttr("disabled");
+                            clearInterval(timer);
+                            return ;
+                        }
+                        btn.text(second+"s");
+                        second -=1;
+                    }, 1000);
+                })
+                .fail(function(xhr,textStatus,error){
+                    $.showLayerMsg(xhr.responseJSON.message,2,3000);
+                    btn.removeAttr('disabled')
+                })
+            } else {
+                $.showLayerMsg("$this->targetField 不能为空",2,3000);
             }
             
         })

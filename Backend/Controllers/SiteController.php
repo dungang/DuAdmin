@@ -27,6 +27,12 @@ class SiteController extends BaseController
                 'minLength' => 4,
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null
             ],
+            'sms-captcha'        => [
+                'class' => '\DuAdmin\Sms\SendSmsCaptchaAction'
+            ],
+            'mail-captcha'        => [
+                'class' => '\DuAdmin\Mail\SendMailCaptchaAction'
+            ],
             'dict' => [
                 'class' => '\DuAdmin\Dict\DictAction',
             ],

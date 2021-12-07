@@ -3,7 +3,6 @@
 namespace DuAdmin\Mail;
 
 use DuAdmin\Core\BizException;
-use DuAdmin\Helpers\AppHelper;
 use DuAdmin\Helpers\MailHelper;
 use Yii;
 use yii\base\Action;
@@ -20,11 +19,11 @@ class SendMailCaptchaAction extends Action
         $receiver = Yii::$app->request->post("receiver");
         if ($receiver) {
             $captcha = Yii::$app->security->generateRandomKey(6);
-            Yii::$app->cache->set('sys-mail-captch:'.$receiver,$captcha,3000);
+            Yii::$app->cache->set('sys-mail-captcha:' . $receiver, $captcha, 3000);
             $data = MailHelper::getMailContent('sys_mail_captcha', [
-                '{captcha}' => Yii::$app->security->generateRandomKey(6)
+                '{captcha}' => mt_rand(100000,999999)
             ]);
-            MailHelper::sendEmail(
+            return MailHelper::sendEmail(
                 getenv('MAIL_USERNAME'),
                 $receiver,
                 $data['title'],

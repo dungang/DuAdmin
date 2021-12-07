@@ -61,6 +61,9 @@ class SiteController extends BaseController
             'sms-captcha'        => [
                 'class' => '\DuAdmin\Sms\SendSmsCaptchaAction'
             ],
+            'mail-captcha'        => [
+                'class' => '\DuAdmin\Mail\SendMailCaptchaAction'
+            ],
             'dict' => [
                 'class' => '\DuAdmin\Dict\DictAction',
             ],

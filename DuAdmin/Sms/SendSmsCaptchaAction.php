@@ -12,13 +12,14 @@ class SendSmsCaptchaAction extends Action
 
     public function run()
     {
-        $number = Yii::$app->request->post("receiver");
-        if ($number) {
+        $receiver = Yii::$app->request->post("receiver");
+        if ($receiver) {
             $smsDriverClass = AppHelper::getSetting("system.sms.driver");
             if ($smsDriverClass) {
                 $driver = new $smsDriverClass();
-                $captcha = Yii::$app->security->generateRandomKey(6);
-                call_user_func([$driver, 'send'], $number, $captcha);
+                $captcha = mt_rand(100000,999999);
+                Yii::$app->cache->set('sys-sms-captcha:' . $receiver, $captcha, 3000);
+                call_user_func([$driver, 'send'], $receiver, $captcha);
                 return [];
             } else {
                 throw new BizException("短信服务异常");
